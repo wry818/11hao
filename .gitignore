@@ -34,10 +34,6 @@ config/environments/*.local.yml
 # Ignore local environment file
 .env
 
-# Ignore local database file
-config/database.yml
-
 #ignore the ssl folder
 /ssl
 
-db/schema.rb

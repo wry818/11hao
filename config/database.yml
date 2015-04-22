@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: 11hao_dev
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: 11hao_test
+  host: localhost
