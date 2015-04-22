@@ -1,0 +1,50 @@
+<div id="users" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Users</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Full Name</th>
+                                <th>Display Name</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Is Admin?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @users.real.each do |user| %>
+                            <tr>
+                                <td><%= user.created_at.strftime('%b %-d, %Y') %></td>
+                                <td><%= link_to user.profile.fullname, edit_admin_user_path(user) %></td>
+                                <td><%= user.profile.display_name %></td>
+                                <td><%= user.profile.title %></td>
+                                <td>
+                                    <%= cl_image_tag user.profile.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if user.profile.picture.present? %>
+                                </td>
+                                <td>
+                                    <% if user.admin? %>
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    <% end %>
+                                </td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%= link_to 'Create new user', new_admin_user_path, class: 'btn btn-primary' %>
+
+    </div>
+</div>

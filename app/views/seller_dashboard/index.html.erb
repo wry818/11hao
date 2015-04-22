@@ -1,0 +1,46 @@
+<div id="seller_dashboard">
+
+    <div class="container container-background">
+        <div class="container-box">
+
+            <div class="dashboard-header">
+                <h2 style="margin: 0 0 25px; font-weight: bold"><%=current_user.profile.try(:first_name)%>'s Dashboard</h2>
+            </div>
+
+            <% if current_user.account_type == 3 %>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="list-group">
+                            <% @child_profiles.each do |profile| %>
+                                <a href="<%= seller_dashboard_referral_code_path(profile.sellers.first.referral_code) %>" class="list-group-item <%= 'active' if @seller.user_profile == profile %>"><%= profile.fullname %></a>
+                            <% end %>
+                        </div>
+                        <a href="<%= search_path(register: true) %>" style="display:block; margin-bottom:15px;"><span>+ Add a new team member</span></a>
+
+                    </div>
+                    <div class="col-md-9">
+                        <%= render 'seller_dashboard/seller_campaign_interface' %>
+                    </div>
+                </div>
+
+            <% else %>
+
+                <% if @seller.present? %>
+
+                    <%= render 'seller_dashboard/seller_campaign_interface' %>
+
+                <% else %>
+
+                    <p>No campaigns!</p>
+
+                <% end %>
+
+            <% end %>
+
+        </div>
+
+        </div> <!--/.container-box -->
+    </div> <!--/.container-background -->
+
+</div> <!-- /#seller_dashboard -->

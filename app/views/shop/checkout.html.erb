@@ -1,0 +1,316 @@
+<div id="campaign-show">
+  <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+  <div class="container container-background">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="container-box checkout">
+
+          <%= render 'shop/campaign_header' %>
+
+          <div class="checkout-container">
+            <div class="clearfix">
+              <h2 class="pull-left">Checkout</h2>
+              <%= image_tag 'cards.png', class: "pull-right hidden-xs hidden-sm" %>
+            </div>
+            <div class="row">
+              <div class="col-sm-5 col-sm-push-7">
+                <div class="well well-default sidebar" style="position: relative">
+                  <div class="clearfix">
+                    <h3 class="order-summary pull-left">
+                      Order Summary
+                      <span class="loader alt-loader" style="display: none"></span>
+                    </h3>
+
+                    <div class="pull-right">
+                      <% unless @order.donation_only? %>
+                          <!-- <%= link_to "Edit", shop_path(@campaign) %> -->
+                          <a href="#checkout-modal" data-toggle="modal" style="margin: 0">Edit</a>
+                      <% end %>
+                    </div>
+                  </div>
+				  <div id="order_summary_container">
+                  	<%= render 'shop/order_summary' %>
+				  </div>
+                </div>
+
+                <div>
+                  <div class="stripe-box">
+                    <%= image_tag 'stripe.png', class: 'img-thumbnail-no', style: 'display: inline-block; margin-right:10px; width: 110px' %>
+
+                    <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=B0wXAOOppIfnjjzTsRjHZkIdFlwjDTQTpXg1Gy0QAK7CHobsPE1fNHDEaH0Q"></script></span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-sm-7 col-sm-pull-5">
+
+                <div class="main">
+                  <%= form_tag(checkout_confirmation_path(@campaign), method: "post", id: "payment_form") %>
+                  <div id="stripe" style="display:none;">
+                    <%= hidden_field_tag :stripe_token, "0" %>
+                  </div>
+
+                  <input type="hidden" id="order_id" name="order_id" value="<%= @order.id %>"/>
+
+                  <h3>
+                    Supporter Detail
+                  </h3>
+
+                  <fieldset>
+
+                    <div class="form-group">
+                      <label for="fullname">Full Name</label>
+                      <input id="fullname" name="order[fullname]" type="text" class="form-control" maxlength="50">
+                    </div>
+
+                    <div class="form-group">
+                      <label for="email">Email Address (for receipt &amp; updates)</label>
+                      <input id="email" name="order[email]" type="text" class="form-control" maxlength="200">
+                    </div>
+
+                    <% @campaign.checkout_option_groups.everybody.each do |cog| %>
+                        <%= render 'shop/checkout_option', cog: cog %>
+                    <% end %>
+
+                    <div class="form-group" style="margin-top: 25px;">
+                      <div class="checkbox">
+                        <label for="order_make_anonymous">
+                          <input type="checkbox" value="true" name="order[make_anonymous]" id="order_make_anonymous">
+                          Make my name anonymous in the supporters list
+                        </label>
+                      </div>
+                    </div>
+
+                  </fieldset>
+
+                  <% @has_seller=false %>
+                  <% @campaign.sellers.each do |s| %>
+                      <% if s.id == session[:seller_id]
+                           @has_seller=true %>
+                          <h3>Member Details
+                          </h3>
+
+                          <div class="form-group">
+											<span style="display:inline-block; margin-left:20px;">
+												Thanks for supporting <%= "#{s.user_profile.fullname} (#{s.referral_code})" %></span>
+                          </div>
+
+                          <input type="hidden" id="order_seller_id" name="order[seller_id]" value="<%= s.id %>"/>
+                      <% end %>
+                  <% end %>
+
+                  <% if !@has_seller && @campaign.sellers.count > 0 %>
+                      <h3>
+                        Member Details
+                      </h3>
+
+                      <fieldset>
+                        <div class="form-group">
+                          <label for="order_seller_id">Please select which member you are supporting</label>
+                          <select id="order_seller_id" name="order[seller_id]" class="form-control">
+                            <option value="">-- Please Select --</option>
+                            <% @campaign.sellers.each do |s| %>
+                                <option value="<%= s.id %>" <%= raw 'selected' if s.id == session[:seller_id] %>>
+                                  <%= "#{s.user_profile.fullname} (#{s.referral_code})" %>
+                                </option>
+                            <% end %>
+                          </select>
+                        </div>
+                      </fieldset>
+                  <% end %>
+
+                  <% unless @order.donation_only? %>
+									
+	                  <h3>
+	                    Delivery Method
+	                  </h3>
+										
+										<p class="dm-instruction-2" style="display: <%= @order.needs_shipping ? 'block' : 'none' %>">Book orders will be shipped to the address you provide in 14-20 days, excluding weekends and holidays.</p>
+										
+										<p class="dm-instruction-3" style="display: <%= @order.needs_bulkshipping ? 'block' : 'none' %>">Cookie Dough orders will be delivered by the seller 4-6 weeks after the sale end date. As these are not shipping via mail please check with your seller prior to placing your order that they are able to deliver to you. Also contact your seller regarding the exact delivery date.</p>
+										
+										<p class="dm-instruction-1" style="display: <%= @order.needs_email ? 'block' : 'none' %>">Digital Memberships will be delivered via email. You will recieve an email containing your access code within 24 hours after your purchase.</p>
+										
+                    <div class="shipping-inputs dm-instruction-2" style="margin-top:20px; display: <%= @order.needs_shipping ? 'block' : 'none' %>">
+                      <div class="form-group">
+                        <label for="order_address_fullname">Recipient's Full Name</label>
+                        <input id="order_address_fullname" name="order[address_fullname]" type="text" class="form-control" maxlength="50">
+                      </div>
+                      <div class="form-group">
+                        <label for="order_address_line_one">Address Line 1</label>
+                        <input id="order_address_line_one" name="order[address_line_one]" type="text" class="form-control" maxlength="50">
+                      </div>
+                      <div class="form-group">
+                        <label for="order_address_line_two">Address Line 2 (optional)</label>
+                        <input id="order_address_line_two" name="order[address_line_two]" type="text" class="form-control" maxlength="50">
+                      </div>
+                      <div class="form-group">
+                        <label for="order_phone_number">Phone Number</label>
+                        <input id="order_phone_number" name="order[phone_number]" type="text" class="form-control" maxlength="15">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="order_address_city">City</label>
+                            <input id="order_address_city" name="order[address_city]" type="text" class="form-control" maxlength="35">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="order_address_state">State/Province</label>
+                            <input id="order_address_state" name="order[address_state]" type="text" class="form-control" maxlength="2">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="order_address_postal_code">Zip/Postal Code</label>
+                            <input id="order_address_postal_code" name="order[address_postal_code]" type="text" class="form-control" maxlength="25">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="order_address_country">Country</label>
+                            <select id="order_address_country" name="order[address_country]" class="form-control" maxlength="25">
+                              <option value="" selected>-- Please Select --</option>
+                              <option value="US">United States</option>
+                              <option value="CA">Canada</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <% @campaign.checkout_option_groups.shipping.each do |cog| %>
+                          <%= render 'shop/checkout_option', cog: cog %>
+                      <% end %>
+                    </div>
+										
+                  <% end %>
+
+                  <!-- end of donation_only -->
+
+                  <h3 class="payment-header">
+                    Payment Method
+                    <span class="glyphicon glyphicon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></span>
+                  </h3>
+
+                  <fieldset>
+                    <div id="stripe_error" style="display:none;">
+                      <div class="alert alert-warning">
+                        <div id="stripe_message" style="text-align: center;">
+                        </div>
+                      </div>
+                      <div>&nbsp;</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="card_number">Card Number</label>
+                          <input id="card_number" name="card_number" type="text" class="form-control stripe-data" autocomplete="off" data-encrypted-name="number">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Expiration</label>
+
+                          <div class="expiration">
+                            <select id="expiration_month" class="form-control stripe-data" name="expiration_month" data-encrypted-name="expiration_month">
+                              <option value="01" <%= "selected" if Time.now.month==1 %>>01</option>
+                              <option value="02" <%= "selected" if Time.now.month==2 %>>02</option>
+                              <option value="03" <%= "selected" if Time.now.month==3 %>>03</option>
+                              <option value="04" <%= "selected" if Time.now.month==4 %>>04</option>
+                              <option value="05" <%= "selected" if Time.now.month==5 %>>05</option>
+                              <option value="06" <%= "selected" if Time.now.month==6 %>>06</option>
+                              <option value="07" <%= "selected" if Time.now.month==7 %>>07</option>
+                              <option value="08" <%= "selected" if Time.now.month==8 %>>08</option>
+                              <option value="09" <%= "selected" if Time.now.month==9 %>>09</option>
+                              <option value="10" <%= "selected" if Time.now.month==10 %>>10</option>
+                              <option value="11" <%= "selected" if Time.now.month==11 %>>11</option>
+                              <option value="12" <%= "selected" if Time.now.month==12 %>>12</option>
+                            </select>
+                            <select id="expiration_year" class="form-control pull-right stripe-data" name="expiration_year" data-encrypted-name="expiration_year">
+                              <option value="2015" selected>2015</option>
+                              <option value="2016">2016</option>
+                              <option value="2017">2017</option>
+                              <option value="2018">2018</option>
+                              <option value="2019">2019</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="cvv">
+                            Security Code
+                            <span class="glyphicon glyphicon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></span>
+                          </label>
+                          <input id="cvv" name="cvv" type="text" class="form-control stripe-data" autocomplete="off" data-encrypted-name="cvv">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="billing_zip_code">Billing Zip/Postal Code</label>
+                          <input id="billing_zip_code" name="order[billing_zip_code]" type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                  </fieldset>
+
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="payment-submit">
+                        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
+                                                        <span class="text" data-text="<%= @order.donation_only? ? "Submit" : "Place your order" %>">
+                                                            <%= @order.donation_only? ? "Submit" : "Place your order" %>
+                                                        </span>
+                          <span class="loader" style="display:none"></span>
+                        </button>
+                      </div>
+                      <p style="margin-top: 10px;">
+                        Your card will be charged
+                        <span id="button_total">$<%= long_price(@order.grandtotal/100.0) %></span>
+                      </p>
+                    </div>
+                  </div>
+
+                  </form>
+                  <div id="errors" style="display: none;"></div>
+
+                </div>
+                <!-- /.main -->
+              </div>
+              <!-- /.col-sm-7 -->
+
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.checkout-container -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+  <%= render 'shop/cart_modal', parent_page: :checkout %>
+</div><!-- /.modal -->
+
+<%= javascript_include_tag "https://js.stripe.com/v2/" %>
+<%= javascript_tag do %>
+    Stripe.setPublishableKey("<%= Rails.configuration.stripe_public_key %>");
+<% end %>

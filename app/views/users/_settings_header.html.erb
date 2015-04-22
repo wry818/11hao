@@ -1,0 +1,21 @@
+<div class="settings-header">
+    <div class="container">
+        <div class="settings-header-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h3>
+                        My Profile
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="<%= 'active' if active == :profile %>">
+                <a href="<%= settings_profile_path %>">Profile</a>
+            </li>
+            <li class="<%= 'active' if active == :account %>">
+                <a href="<%= settings_account_path %>">Account</a>
+            </li>
+        </ul>
+    </div>
+</div>

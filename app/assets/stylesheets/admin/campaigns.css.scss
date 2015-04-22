@@ -1,0 +1,153 @@
+#poop {
+    color: black;
+}
+.upload-button
+{
+	cursor:pointer;
+}
+.upload-button-hover
+{
+	background-color: #eee;
+}
+
+#campaigns {
+	
+	.upload-tooltip {
+		@include fontSize11px;
+		font-weight: normal; 
+	}
+	
+	.default-campaign-image
+	{
+		text-align:center; 
+		cursor:pointer; 
+		border:1px solid #ccc;
+	}
+	.default-campaign-image-hover
+	{
+		background:#eee;
+	}
+
+	.campaign-image-uploader {
+		
+		.uploader-box {
+			width: 628px;
+			margin: 0px auto;
+		}
+	
+		.uploader-preview-box {
+			width: 626px;
+			height: 200px;
+		
+			.default-upload-logo {
+				 display:inline-block; 
+				 margin: 0px auto; 
+				 margin-top: 50px;
+			}
+		
+		}
+	
+	}
+	
+	.campaign-upload-button-box {
+		padding-left: 36px;
+	}
+	
+	.allow-direct-donation-box {
+	
+		width: 100%;
+	
+		.checkbox-label {
+			//width: 197px;
+			width: 16.66%; 
+			text-align: right; 
+			padding-right: 20px;
+		}
+	
+		.checkbox-input {
+			width: 83.37%;
+			padding-left: 15px;
+		}
+	
+	}
+	
+	@media all and (max-width: 992px) {
+	
+		.campaign-upload-button-box {
+			margin-top: 10px;
+			padding-left: 10px;
+		}
+		
+		.campaign-photo-upload-button-box {
+			margin-top: 10px;
+			padding-left: 10px;
+		}
+		
+		.allow-direct-donation-box {
+
+			width: auto;
+
+			.checkbox-label {
+
+				width: auto;
+				text-align: left;
+				padding-left: 15px;
+				padding-right: 0px;
+			}
+
+			.checkbox-input {
+				width: 10px;
+				padding-left: 10px;
+			}
+
+		}
+			
+	}
+	
+	@media all and (max-width: 768px) {
+		
+		.campaign-image-uploader {
+		
+			.uploader-box {
+			
+				width: 402px;
+			
+				.use-button {
+					margin-top: 3px;
+				}
+			}
+		
+			.uploader-preview-box {
+				width: 400px;
+				height: 128px;
+			
+				.default-upload-logo {
+					margin-top: 30px;
+					max-width: 70px;
+				}
+			}
+
+		}
+	}
+	
+	@media all and (max-width: 468px){
+	
+		.campaign-image-uploader {
+		
+			.uploader-box {
+				width: 282px;
+			}
+		
+			.uploader-preview-box {
+				width: 280px;
+				height: 90px;
+			
+				.default-upload-logo {
+					margin-top: 20px;
+					max-width: 50px;
+				}
+			}
+		}
+	}
+	
+}

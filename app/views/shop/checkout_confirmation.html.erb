@@ -1,0 +1,117 @@
+<div id="campaign-show">
+    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+    <div class="container container-background">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="container-box checkout">
+
+                    <%= render 'shop/campaign_header' %>
+
+                    <div class="checkout-confirmation-container">
+
+                        <div class="row checkout-confirmation-box">
+                            <div class="col-sm-7">
+                                <h2>Confirmation</h2>
+                                <p>Thank you for supporting <%= @campaign.title %>.</p>
+
+                                <p>
+                                    Your credit card will be charged immediately. If you have any questions, please contact the organizer,
+                                    <%= @campaign.organizer.profile.display_name || @campaign.organizer.profile.fullname %>
+                                    at <a href="mailto:<%= @campaign.organizer.email %>"><%= @campaign.organizer.email %></a>.
+                                </p>
+																
+																<% if @order.needs_shipping %>
+																<p>Book orders will be shipped to the address you provide in 14-20 days, excluding weekends and holidays.</p>
+																<% end%>
+										
+																<% if @order.needs_email %>
+																<p>Digital Memberships will be delivered via email. You will recieve an email containing your access code within 24 hours after your purchase.</p>
+																<% end %>
+
+																<% if @order.needs_bulkshipping %>
+																<p>Cookie Dough orders will be delivered by the seller 4-6 weeks after the sale end date. As these are not shipping via mail please check with your seller prior to placing your order that they are able to deliver to you. Also contact your seller regarding the exact delivery date.</p>
+																<% end %>
+
+                                <p style="margin-top:30px;">
+                                    <%= link_to "Return to fundraiser page", short_campaign_path(@campaign), class: 'btn btn-primary' %>
+                                </p>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <div class="well well-default confirmation_sidebar">
+
+                                    <h3 style="margin-top: 0px">Payment Summary</h3>
+                                    <% unless @order.donation_only? %>
+                                    <table style="width: 100%">
+                                        <tbody style="vertical-align: top">
+											<tr class="summary-header">
+	                                            <th style="min-width:32px;">
+	                                              <p>Qty</p>
+	                                            </th>
+	                                            <th>
+	                                              <p>Item</p>
+	                                            </th>
+	  										  <th>
+	  											  <p>Delivery</p>
+	  										  </th>
+											</tr>
+											
+                                            <% @order.items.each do |item| %>
+										        <tr style="vertical-align: top;">
+										          <td>
+										            <p style="margin: 10px 0 0 0;"><%= item.quantity %></p>
+										          </td>
+										          <td>
+										            <p style="margin: 10px 0 0 0;"><%= item.product.name %></p>
+										            <% item.options.each do |option| %>
+													<% if option.value.present? %>
+										                <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+													<% end %>
+										            <% end %>
+										          </td>
+										          <td>
+															  <% delivery_method_text='<div style="text-align:left">' + item.delivery_method_text + '</div>'
+															  if item.delivery_method==1
+																  delivery_method_text+='<div style="text-align:left">Access code to be emailed.</div>'
+															  end
+															  if item.delivery_method==2
+																  delivery_method_text+='<div style="text-align:left">To be shipped directly to your address.</div>'
+															  end
+															  if item.delivery_method==3
+																  delivery_method_text+='<div style="text-align:left">To be delivered by seller.</div>'
+															  end
+															   %>
+													  <%= image_tag item.delivery_method_icon, width:24, class:"show_tooltip_html", title: delivery_method_text, style:"display:inline-block; margin-top:10px;" %>
+										          </td>
+										        </tr>
+                                            <% end %>
+                                        </tbody>
+                                    </table>
+                                    <br/>
+                                    <% end %>
+
+	                                  <p>
+	                                      <strong>Amount:</strong><br/>
+	                                      $<%= long_price(@order.grandtotal/100.0) %><br/><br/>
+	                                      <strong>Card:</strong><br/> <%= @order.card_type %> ************<%= @order.card_last_four %>
+	                                      (<%= @order.card_expiration_month.to_s + "/" + @order.card_expiration_year.to_s %>) <br/><br/>
+	                                      <% if @order.seller %>
+	                                      <strong>Seller:</strong><br/> <%= @order.seller.user_profile.fullname %><br/><br/>
+	                                      <% end %>
+	                                      <strong>Order ID:</strong><br/> <%= @order.id.to_s.rjust(8,'0') %><br/><br/>
+	                                      <strong>Charge will appear on your statement as:</strong><br/><%= 'RAISY' %><br/><br/>
+	                                </p>
+                                    <p class="text-center">An email confirmation was sent to <%= @order.email %></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.checkout-confirmation-container -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+Hi <%= @campaign.organizer.profile.first_name %>,
+
+Thanks for starting the fundraiser <%= @campaign.title %> for <%= @campaign.organization.name %>!
+
+YOUR FUNDRAISER CLOSED ON <%= @campaign.end_date.strftime("%m/%d/%Y") %>.
+
+<% if @campaign.goal.nil? %>
+You’ve raised $<%= short_price(@campaign.raised) %>.
+<% else %>
+You’ve raised $<%= short_price(@campaign.raised) %>, <%= @campaign.progress_percent %>% of your goal has been achieved.
+<% end%>
+
+Your fundraiser has <%= @campaign.supporters %> supporters, <%= @campaign.sellers.count %> members, and <%= @campaign.completed %> orders.
+
+TRACK YOUR ONLINE SALES
+
+Click the link below to log in to the Chairperson Toolbox and view a more detailed summary of your online sales.
+
+<%= dashboard_campaign_url(@campaign) %>
+
+<% if @campaign.any_bulkshipping_product? %>
+SUBMIT YOUR BULK ORDER
+
+Click the link below to log in to the Chairperson Toolbox and submit your bulk order. Combine your online orders with your paper orders.
+
+<%= dashboard_campaign_bulkshippinginfo_url(@campaign) %>
+<% end %>
+
+Thank you!
+
+The Entertainment Fundraising® Team
+
+------------------------------------------------------------------------
+
+This email has been sent to <%= @campaign.organizer.email %> because our records indicate that you have opted to receive emails from Entertainment®. If you no longer want to receive emails from Entertainment®, please go to https://www.entertainment.com/coupon/optout.cmd?email=<%= @campaign.organizer.email %> to update your email preferences.
+
+Entertainment®, Entertainment.com®, Entertainment Fundraising®, and Raisy™ are trademarks of HSP EPI Acquisition, LLC
+
+©2014 HSP EPI Acquisition, LLC dba Entertainment®
+
+1401 Crooks Road, Suite 150, Troy, MI 48084

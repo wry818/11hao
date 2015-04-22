@@ -1,0 +1,48 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">Collections & Categories</h4>
+</div>
+<div class="modal-body">
+	<% if @product 
+		prod_collections=@product.collections.all
+		prod_categories=@product.categories.all
+	end %>
+	<ul id="product_collections" style="list-style-type:none; padding:0 15px;">
+	<% @collections.each do |collection| %>
+		<li style="list-style-type:none; margin-bottom:20px;">
+			<input id="collection-<%= collection.id %>" type="checkbox" class="prod-collection" data-value="<%= collection.id %>" <%= "checked" if prod_collections && prod_collections.include?(collection) %> />
+			<label for="collection-<%= collection.id %>" style="display:inline;"><%= collection.name %></label>
+			
+			<ul style="list-style-type:none; padding-left:30px;">
+				<% @categories.each do |category| %>
+					<% if category.collection_id==collection.id%>
+					<li style="list-style-type:none;">
+						<input id="category-<%= category.id %>" type="checkbox" class="prod-category" data-value="<%= category.id %>" <%= "checked" if prod_categories && prod_categories.include?(category) %> />
+						<label for="category-<%= category.id %>" style="font-weight:normal; display:inline;"><%= category.name %></label>
+					</li>
+					<% end %>
+				<% end %>
+			</ul>
+		</li>
+	<% end %>
+	</ul>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+</div>
+
+<script>
+	$(".prod-collection").change(function(){
+		if (this.checked) {
+			$(this).closest("li").find(".prod-category").prop("disabled", false);
+		}
+		else
+		{
+			$(this).closest("li").find(".prod-category").prop("checked", false).prop("disabled", true);
+		}
+	}).each(function(){
+		if (!this.checked) {
+			$(this).closest("li").find(".prod-category").prop("checked", false).prop("disabled", true);
+		}
+	});
+</script>

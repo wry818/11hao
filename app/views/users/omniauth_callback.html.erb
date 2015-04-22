@@ -1,0 +1,21 @@
+<script>
+ var auth = JSON.parse('<%=raw @auth%>');
+ 
+ if (window.opener && window.opener.Raisy)
+ {
+	 if (window.opener.Raisy.is_social_process_seller) {
+		 if ("<%= @provider %>"=="facebook")
+		 	window.opener.Raisy.fb_seller_callback(auth);
+		 else
+			window.opener.Raisy.tw_seller_callback(auth);
+	 }
+	 else {
+		 if ("<%= @provider %>"=="facebook")
+		 	window.opener.Raisy.fb_callback(auth);
+		 else
+			window.opener.Raisy.tw_callback(auth);
+	}
+ }
+ 
+ window.close();
+</script>

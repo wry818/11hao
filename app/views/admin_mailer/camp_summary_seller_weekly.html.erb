@@ -1,0 +1,74 @@
+<body bgcolor="#dddddd" style="background-color:#dddddd;">
+	<style type="text/css">
+		.font-bold-big {
+			font-size:1.5em;
+			font-weight:600;
+		}
+	</style>
+	<div style="background-color:#dddddd; padding:10px 0px; width:100%;">
+	<table width="660" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#ffffff" style="background-color:#ffffff;">
+		<tr>
+			<td style="width:20px;"></td>
+			<td>
+				<div style="width:620px; font-family: Arial, Helvetica, sans-serif;background-color:white;">
+					<div style="margin-top:20px; text-align:center; font-size:12px;">
+						<a href="https://www.entertainment.com/coupon/affiliate_entry.cmd?linkName=CB14FREMAIL&amp;groupId=<%= @seller.campaign.organization.name %>&amp;sellerId=<%= @seller.id %>" reportname="SIDEBTB" frontuid="764367" urlId="355834">Support <%= @seller.user_profile.user.email %></a>
+					</div>
+		
+					<div style="margin-top:10px; text-align:center;">
+						<%= image_tag "raisyLOGO.png", alt: "Entertainment\(R\) Fundraising" %>
+					</div>
+	
+					<div style="margin-top:20px;">
+	
+						<p>Hi <%= @seller.user_profile.first_name %>,</p>
+
+						<p>Thanks for joining the fundraising team for <%= @seller.campaign.title %>!</p>
+		
+						<div style="margin-bottom:40px; text-align:center;">
+							<%= cl_image_tag @seller.campaign.campaign_logo.image_id, 
+								transformation: [
+									{
+										width: @seller.campaign.campaign_logo.crop_width, 
+										height: @seller.campaign.campaign_logo.crop_height,
+										x: @seller.campaign.campaign_logo.crop_x,
+										y: @seller.campaign.campaign_logo.crop_y,
+										crop: :crop
+									}
+								], style: "width:600px", width: "600" if @seller.campaign.campaign_logo %>
+						</div>
+			
+						<p>You have <span class="font-bold-big"><%= @seller.total_orders %></span> orders and have helped raising <span class="font-bold-big">$<%= short_price(@seller.total_raised) %></span>.</p>
+
+						<div style="color:rgb(108,44,120); font-size:1.5em; margin:40px 0 10px 0;">TRACK YOUR ONLINE SALES</div>
+
+						<p>Click the link below to log in to My Dashboard and view an up-to-date summary of your online sales.</p>
+
+						<p><%= link_to image_tag("link-image-3.png"), seller_dashboard_referral_code_url(@seller.referral_code) %></p>
+			
+						<p style="margin-top:40px;">Thank you!</p>
+
+						<p>The Entertainment Fundraising<sup style="font-size:40%;">®</sup> Team</p>
+					</div>
+
+					<div style="margin:40px auto 20px auto; text-align:center; width:80%; font-family:Arial, Helvetica, sans-serif;color:#3f3f3f;font-size:11px;">
+						<hr />
+	
+						<p>This email has been sent to <span style="color:#14467c;text-decoration:none;"><%= @seller.user_profile.user.email %></span> because our records indicate that<br />you have opted to receive emails from Entertainment&reg;. If you no longer want to <br />receive emails from Entertainment&reg;, please <a href="https://www.entertainment.com/coupon/optout.cmd?email=<%= @seller.user_profile.user.email %>" target="_blank" style="color:#14467c;text-decoration:none;">click here</a> to update your email preferences.</p>
+
+						<p>Entertainment&reg;, Entertainment.com&reg;, Entertainment Fundraising&reg;, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTcrown2015.png" border="0"   alt="Entertainment Crown Logo" height="12" />, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTscript2015.png" alt="Entertainment Script Logo" border="0" height="12" />, and Raisy&trade;<br />
+are trademarks of HSP EPI Acquisition, LLC.
+<br /><br />
+<a href="http://Entertainment.us3.list-manage.com/track/click?u=ee601451868d9de2ceac09b7e&id=112b776e40&e=7f121cfe63" target="_blank">Need help?</a> | <a href="http://Entertainment.us3.list-manage2.com/track/click?u=ee601451868d9de2ceac09b7e&id=9b7fadab6c&e=7f121cfe63" target="_blank">Privacy</a>
+<br /><br />
+&copy;2015 HSP EPI Acquisition, LLC dba Entertainment&reg;
+<br /><br />
+1401 Crooks Road, Suite 150, Troy, MI 48084</p>
+					</div>
+				</div>
+			</td>
+			<td style="width:20px;"></td>
+		</tr>
+	</table>
+	</div>
+</body>

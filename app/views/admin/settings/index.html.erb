@@ -1,0 +1,40 @@
+<div id="settings" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row"> 
+        	<h3>Settings</h3> 
+        </div>
+		
+		<div class="row">&nbsp;
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-3" style="margin-bottom:20px;">
+				<%= link_to 'Default stories', "/admin/campaign_stories", class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+			<div class="col-md-3" style="margin-bottom:20px;">
+				<%= link_to 'Default images', "/admin/campaign_images", class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+			<div class="col-md-3" style="margin-bottom:20px;">
+				<%= link_to 'Default Seller Email', "/admin/default_email_message", class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-4" style="margin-bottom:20px;">
+				<%= link_to 'Default Chairperson Email', "/admin/default_chairperson_email_message", class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+		</div>
+		
+		<div class="row">&nbsp;
+		</div>
+		
+		<div>
+			<%= link_to 'Back', admin_root_path, class: 'btn btn-primary btn-lg' %>
+		</div>
+	</div>
+</div>

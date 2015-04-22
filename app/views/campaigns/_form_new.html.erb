@@ -1,0 +1,988 @@
+<%= form_for(@campaign, html: {id: "campaign_form", class: 'campaign-form form-horizontal'}) do |f| %>
+    <%= hidden_field_tag :campaign_logo %>
+    <%= hidden_field_tag :logo_crop_x, "0" %>
+    <%= hidden_field_tag :logo_crop_y, "0" %>
+    <%= hidden_field_tag :logo_crop_w, "622" %>
+    <%= hidden_field_tag :logo_crop_h, "200" %>
+    <%= hidden_field_tag :auth_provider, "raisy" %>
+    <%= hidden_field_tag :auth_uid, "" %>
+    <%= hidden_field_tag :campaign_new_user, "1" %>
+    <%= hidden_field_tag :campaign_photo_ids, "" %>
+		<%= hidden_field_tag :campaign_id, @campaign.id.nil? ? 0 : @campaign.id %>
+		
+    <div id="social_result" style="display:none;"></div>
+
+    <% if @collection %>
+        <input class="form-control campaign-collection-id" id="campaign_collection_id" name="campaign[collection_id]" type="hidden" value="<%= @collection.id %>">
+    <% else %>
+        <input class="form-control campaign-collection-id" id="campaign_collection_id" name="campaign[collection_id]" type="hidden" value="">
+    <% end %>
+
+    <div class="step-nav-bar">
+      <div id="step_nav_icon_1" class="step-nav-icon"></div>
+      <div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+      <div id="step_nav_icon_3" class="step-nav-icon"></div>
+      <div id="step_nav_icon_4" class="step-nav-icon"></div>
+      <% if !@collection %>
+          <div id="step_nav_icon_5" class="step-nav-icon"></div>
+      <% end %>
+      <div id="step_nav_icon_6" class="step-nav-icon"></div>
+      <div id="step_nav_icon_7" class="step-nav-icon"></div>
+      <div id="step_nav_icon_8" class="step-nav-icon"></div>
+      <div id="step_nav_icon_9" class="step-nav-icon"></div>
+    </div>
+    <div class="clearfix" style="margin-top:20px;">
+      <div id="step_container_1" class="camp-step-container">
+        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>Fundraiser Details&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        </h3></div>
+        <fieldset>
+          <div class="form-group">
+            <label for="organization_name" class="col-sm-2 control-label">Organization<span class='req'>*</span></label>
+
+            <div class="col-sm-10">
+              <!-- organization_name actually saves organization id -->
+              <input class="form-control" id="organization_name" name="organization_name" type="text">
+              <!-- organization-name is the real field that stores organization name -->
+              <input id="organization-name" name="organization[name]" style="display:none;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="campaign_title" class="col-sm-2 control-label">Title<span class='req'>*</span></label>
+
+            <div class="col-sm-10">
+              <%= f.text_field :title, class: 'form-control', placeholder: 'e.g. New Gym Equipment for Troy Elementary (Note: this will show up in all emails)' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="campaign_title" class="col-sm-2 control-label">Tagline</label>
+
+            <div class="col-sm-10">
+              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: 'e.g. Help raise funds to purchase new gym equipment for Troy Elementary' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="campaign_goal" class="col-sm-2 control-label">Goal</label>
+
+            <div class="col-sm-8">
+              <div style="width:200px;">
+                <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <%= f.text_field :goal, class: 'form-control', placeholder: "i.e. 1,000" %>
+                </div>
+                <label for="campaign_goal" class="error" style="display: none"></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="campaign_end_date" class="col-sm-2 control-label">Sale End Date</label>
+
+            <div class="col-sm-8">
+              <div style="width:200px;">
+                <%= f.text_field :end_date, placeholder: "Select date", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
+                <label for="campaign_end_date" class="error" style="display: none"></label>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
+                <span class="text">Cancel</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
+                <span class="text">Cancel</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="step_container_2" class="camp-step-container" style="display:none;">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header"><span class="number">3</span>Tell Your
+            Story&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+        </div>
+        <fieldset>
+          <div style="display:none;">
+            <div id="example_story_1">
+              <%= raw @example_story_1.story %>
+            </div>
+            <div id="example_story_2">
+              <%= raw @example_story_2.story %>
+            </div>
+            <div id="example_story_3">
+              <%= raw @example_story_3.story %>
+            </div>
+            <div id="example_story_4">
+              <%= raw @example_story_4.story %>
+            </div>
+          </div>
+          <div class="form-group descrption-box">
+            <div>
+              <%= f.text_area :description, class: "tinymce", style: 'width: 200px;height:200px;' %>
+              <div style="width:100%;margin-top:5px;">
+                <div class="example-story example-story-selected" data-story="example_story_1">
+                  <span><%= @example_story_1.title %></span>
+                </div>
+                <div class="example-story-blank">&nbsp;</div>
+                <div class="example-story" data-story="example_story_2">
+                  <span><%= @example_story_2.title %></span>
+                </div>
+                <div class="example-story-blank">&nbsp;</div>
+                <div class="example-story" data-story="example_story_3">
+                  <span><%= @example_story_3.title %></span>
+                </div>
+                <div class="example-story-blank">&nbsp;</div>
+                <div class="example-story" data-story="example_story_4">
+                  <span><%= @example_story_4.title %></span>
+                </div>
+                <div class="example-story-blank">&nbsp;</div>
+                <div class="example-story custom-story">Create Your Own</div>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="2">
+                <span class="text">Back</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="2">
+                <span class="text">Back</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="more-photo-template col-md-4" style="display:none;">
+        <div style="width:210px; border:1px solid #ccc; margin: auto;">
+          <div style="width:100%; height:210px; padding:5px;">
+            <img style="display:block; margin: 0px auto;">
+          </div>
+          <div style="width:100%; height:30px; text-align:center; margin:10px 0px 10px 0px;">
+            <button class="btn btn-primary" type="button"><span class="text">Delete</span></button>
+          </div>
+        </div>
+        <div style="height:20px; text-align:center;">&nbsp;
+        </div>
+      </div>
+
+      <div id="step_container_3_1" class="camp-step-container" style="display:none;">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header">
+            <span class="number">4</span>Upload More Fundraiser
+            Photos&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+
+            <div class="upload-tooltip">
+              (Best size: 280px * 280px)
+            </div>
+          </h3>
+        </div>
+
+        <fieldset>
+          <div class="row">
+            <div class="col-md-12 more-photo-file">
+              <div style="width:0px; height:0px;">
+                <input id="more_photo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/campaign_photo" style="width:0px; height:0px; visibility:hidden;"/>
+              </div>
+              <div id="more_photo_result" style="display:none;"></div>
+              <label for="more_photo_upload" class="well add-campaign-photo" style="border-width:2px; border-style:dotted; width:210px; height:262px; text-align:center; margin: auto; cursor:pointer; display:block;">
+                <span class="fa fa-plus fa-2x" style="color: #aaa; margin-top:75px;"></span>
+                <br/>
+                <span style="color: #888;">Add a photo</span>
+                <br/>
+                <br/>
+                <span class="fa fa-spinner fa-spin fa-2x" style="color:#aaa; display:none;"></span>
+              </label>
+            </div>
+          </div>
+
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-5 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
+                <span class="text">Back</span>
+              </button>
+            </div>
+            <div class="col-sm-3 continuebutton-box">
+	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
+	              <span class="text">Skip this step</span> <span class="loader" style="display:none">
+	            </button>
+            </div>
+            <div class="col-sm-3 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-5 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+              </button>
+            </div>
+            <div class="col-sm-3 continuebutton-box">
+	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
+	              <span class="text">Skip this step</span> <span class="loader" style="display:none">
+	            </button>
+            </div>
+            <div class="col-sm-3 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
+                <span class="text">Back</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="step_container_3" class="camp-step-container" style="display:none;">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header">
+            <span class="number">4</span>Upload A Fundraiser Cover
+            Photo&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+
+            <div class="upload-tooltip">
+              (Best size: 970px * 310px)
+            </div>
+          </h3>
+        </div>
+        <fieldset>
+          <div class="form-group">
+            <div class="campaign-image-uploader clearfix">
+              <div id="drop-zone" class="drop-zone uploader-box" style="border:1px solid #ccc; background: #eee">
+                <div class="preview uploader-preview-box" style="text-align:center; vertical-align: middle">
+                  <%= image_tag 'default_upload_logo.gif', class: "default-upload-logo" %>
+                </div>
+              </div>
+              <div class="uploader-box">
+                <div class="progress progress-striped active" style="display: none; height:18px;">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                    <span>0%</span>
+                  </div>
+                </div>
+                <div style="text-align:center;">
+                  <span class="status"></span>
+                </div>
+              </div>
+              <div id='crop_result' style="display:none;"></div>
+              <div style="width:0px; height:0px;">
+                <%= cl_image_upload_tag(:campaign_logo, tags: "custom-campaign-image", html: {accept: "image/*", style: "width:0px; height:0px; visibility:hidden;", id: "campaign_logo_file"}) %>
+              </div>
+              <div class="uploader-box" style="margin-top: 3px">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label for="campaign_logo_file" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											Upload</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+                      <a href="#" class="remove-image" style="display: none">Remove picture</a>
+                    </label>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											Use</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+                    </div>
+                    <a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">Use
+                      one of ours</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="3">
+                <span class="text">Back</span></button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+							</button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
+                <span class="text">Continue</span> <span class="loader" style="display:none">
+							</button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="3">
+                <span class="text">Back</span></button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="step_container_4" class="camp-step-container" style="display:none;">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header"><span class="number">4</span>Who Are You Raising Funds
+            For?&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+        </div>
+        <fieldset>
+          <!-- <div class="form-group">
+			        <label for="campaign_call_to_action" class="col-sm-3 control-label">Call to Action Text<span class='req'>*</span></label>
+			        <div class="col-sm-9">
+			            <%= f.text_field :call_to_action, class: 'form-control', placeholder: 'Shop Now' %>
+			        </div>
+			    </div> -->
+
+          <div class="form-group" style="margin-bottom: 10px;display:none;">
+            <table class="allow-direct-donation-box">
+              <tr>
+                <td class="checkbox-label">
+                  <label>Allow Direct Donation<span class='req'></span></label>
+                </td>
+                <td class="checkbox-input">
+                  <%= f.check_box :allow_direct_donation, checked: false %>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="4">
+                <span class="text">Back</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <% if @collection && current_user %>
+                  <button id="campaign_form_submit" class="btn btn-primary btn-lg camp-finish-btn" type="submit" data-currentstep="4">
+                    <span class="text">Continue</span> <span class="loader" style="display:none"></span>
+                  </button>
+              <% else %>
+                  <% if @collection %>
+                      <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="6">
+                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                      </button>
+                  <% else %>
+                      <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="5">
+                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                      </button>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <% if @collection && current_user %>
+                  <button id="campaign_form_submit" class="btn btn-primary btn-lg camp-finish-btn" type="submit" data-currentstep="4">
+                    <span class="text">Continue</span> <span class="loader" style="display:none"></span>
+                  </button>
+              <% else %>
+                  <% if @collection %>
+                      <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="6">
+                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                      </button>
+                  <% else %>
+                      <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="5">
+                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                      </button>
+                  <% end %>
+              <% end %>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="4">
+                <span class="text">Back</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <% if !@collection %>
+          <div id="step_container_5" class="camp-step-container" style="display:none;">
+            <div style="text-align:center;">
+              <h3 class="fieldset-header"><span class="number">5</span>Choose
+                Product&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+            </div>
+            <fieldset>
+              <div class="form-group" style="margin-bottom: -4px">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-10">
+                    <div id="collections_row" class="row">
+                      <% @collections.each do |collection| %>
+                          <div class="col-md-5">
+                            <div class="well collection-container" data-collection-id="<%= collection.id %>">
+                              <div class="collection-image-container" style="height:200px;">
+                                <%= cl_image_tag collection.picture, width: 200, height: 200, crop: :limit, class: 'img-responsive' %>
+                              </div>
+                              <div style="height:50px; text-align:center; margin-top:10px;">
+                                <h4><%= collection.name %></h4>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-4">
+                    <div class="clearfix">
+                      <label class="error no-collection-label" style="display:none;">Please choose a product</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+
+              <div class="row web-box">
+                <div class="col-sm-6 backbutton-box">
+                  <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
+                    <span class="text">Back</span>
+                  </button>
+                </div>
+                <div class="col-sm-6 continuebutton-box">
+                  <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
+                    <span class="text">Continue</span> <span class="loader" style="display:none">
+                  </button>
+                </div>
+              </div>
+              <div class="row mobile-box">
+                <div class="col-sm-6 backbutton-box">
+                  <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
+                    <span class="text">Continue</span> <span class="loader" style="display:none">
+                  </button>
+                </div>
+                <div class="col-sm-6 continuebutton-box">
+                  <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
+                    <span class="text">Back</span>
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+      <% end %>
+
+      <% if !current_user %>
+          <a id="campaign_use_modal_link" data-toggle="modal" data-target="#campaign_user_modal" style="display:none;"></a>
+
+          <div id="campaign_user_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="campaign_user_modal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+
+                <div class="modal-header modal-header-purple">
+                  <button id="close_campaign_user" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Create An Account</h4>
+                </div>
+                <!-- /.modal-header -->
+
+                <div class="modal-body">
+
+                  <div id="campaign_signup_user">
+                    <p class="welcome-back" style="margin-bottom: 20px; display:none;">
+                      Welcome back!
+                    </p>
+
+                    <div class="row">
+                      <div class="col-sm-6" style="border-right: 2px solid #eee;">
+                        <div class="form-group">
+                          <div class="col-sm-11">
+                            <label for="user_email" class="control-label">Email<span class='req'>*</span></label>
+                            <input class="form-control" id="user_email" name="user[email]" placeholder="Enter email">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-11">
+                            <label for="user_pwd" class="control-label">Password<span class='req'>*</span></label><span id="campaign_user_forget_pwd" style="display:none; font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
+                            <input class="form-control" id="user_password" name="user[password]" type="password" placeholder="Enter password">
+                          </div>
+                        </div>
+
+                        <div class="form-group campaign_user_alt_row">
+                          <div class="col-sm-11">
+                            <label for="user_confirm_pwd" class="control-label">Confirm
+                              Password<span class='req'>*</span></label>
+                            <input class="form-control" id="user_confirm_password" name="user[confirm_password]" type="password" placeholder="Confirm password">
+                          </div>
+                        </div>
+
+                        <div class="form-group campaign_user_alt_row">
+                          <div class="col-sm-11">
+                            <label for="user_pwd" class="control-label">First Name<span class='req'>*</span></label>
+                            <input class="form-control" id="user_first_name" name="user[first_name]" placeholder="Enter first name">
+                          </div>
+                        </div>
+
+                        <div class="form-group campaign_user_alt_row">
+                          <div class="col-sm-11">
+                            <label for="user_pwd" class="control-label">Last Name<span class='req'>*</span></label>
+                            <input class="form-control" id="user_last_name" name="user[last_name]" placeholder="Enter last name">
+                          </div>
+                        </div>
+
+                        <div class="form-group campaign_user_alt_row">
+                          <div class="col-sm-11">
+                            <label for="phone_num" class="control-label">Phone Number</label>
+                            <input class="form-control" id="user_phone_number" name="user[phone_number]" placeholder="Phone number">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-11">
+                            <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
+                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">By
+                              checking the box, you agree to
+                              our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-11" style="text-align:center;">
+                            <button id="campaign_form_submit" class="btn btn-primary camp-finish-btn" type="submit" style="height:40px; font-size:16px;">
+                              <span class="text">Create my account</span> <span class="loader" style="display:none"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div id="campaign_social_links" class="form-group">
+                          <div class="col-sm-10 col-sm-offset-1">
+                            <a class="btn btn-block btn-social btn-facebook" onclick="Raisy.fb_login(true);">
+                              <i class="fa fa-facebook"></i>
+                              <span>Login with Facebook</span>
+                            </a>
+                            <br/>
+                            <a class="btn btn-block btn-social btn-twitter" onclick="Raisy.tw_login(true);">
+                              <i class="fa fa-twitter"></i>
+                              <span>Login with Twitter</span>
+                            </a>
+                          </div>
+                        </div>
+
+                        <br/>
+
+                        <div id="campaign_social_error" style="display:none;">
+                          <div class="alert alert-warning">
+                            <div id="campaign_social_message" style="text-align: center;">
+                            </div>
+                          </div>
+                          <div>&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- end of modal body -->
+
+                <div class="modal-footer" style="background:#eee;">
+                  <div id="campaign_login_account_link" style="text-align:center;">
+                    <span>Already have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_login_account();"><strong>Sign
+                      In</strong></a></span>
+                  </div>
+                  <div id="campaign_signup_account_link" style="text-align:center; display:none;">
+                    <span>Don't have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_signup_account();"><strong>Sign
+                      Up</strong></a></span>
+                  </div>
+                </div>
+                <!-- /.modal-footer -->
+
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+      <% end %>
+    </div>
+
+    <div id="direct_donation_collection" class="col-md-4" style="display:none;">
+      <div class="well collection-container" data-collection-id="0">
+        <div class="collection-image-container" style="height:200px;">
+          <%= image_tag 'example-donation.jpg', class: "img-responsive" %>
+        </div>
+        <div style="height:50px; text-align:center; margin-top:10px;">
+          <h4>Direct Donation</h4>
+        </div>
+      </div>
+    </div>
+
+    <div id="default_images_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="default_images_modal" aria-hidden="true" data-img-loaded="no">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Choose one of our photos</h4>
+          </div>
+          <!-- /.modal-header -->
+
+          <div class="modal-body">
+
+            <div id="default_campaign_images">
+
+              <% @campaign_images.each_with_index do |image, index| %>
+
+                  <% if index % 2 == 0 %>
+                      <div class="row">
+                  <% end %>
+
+                  <div class="col-sm-6">
+                    <% if image.is_cropped %>
+                        <div class="default-campaign-image" data-image-id="<%= image.image_identifier %>" data-public-id="<%= image.public_id %>" data-crop-x="<%= image.crop_x %>" data-crop-y="<%= image.crop_y %>" data-crop-w="<%= image.crop_width %>" data-crop-h="<%= image.crop_height %>" data-cropped="true">
+
+                          <img src="" alt="" class="dynamic-image" data-src="<%= image.public_id %>" data-width="<%= image.crop_width %>" data-height="<%= image.crop_height %>" data-x="<%= image.crop_x %>" data-y="<%= image.crop_y %>" data-crop="crop" style="width:100%;"/>
+
+                        </div>
+                    <% else %>
+                        <div class="default-campaign-image" data-image-id="<%= image.image_identifier %>" data-public-id="<%= image.public_id %>">
+                          <img src="" alt="" class="dynamic-image" data-src="<%= image.public_id %>" style="max-width:100%; max-height:100px;"/>
+
+                        </div>
+                    <% end %>
+                    <div style="height:5px"></div>
+                  </div>
+
+                  <% if index % 2 > 0 || index == @campaign_images.count - 1 %>
+                      </div>
+                  <% end %>
+
+              <% end %>
+
+            </div>
+
+          </div>
+          <!-- end of modal body -->
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div id="camp_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="camp_step_tips_modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-body">
+          </div>
+          <!-- end of modal body -->
+
+          <div class="modal-footer">
+            <div style="position:relative; text-align:center;">
+              <button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+              <div style="position:absolute; bottom:1px; left:0px;">
+                <a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; font-size:12px; font-weight:600;"><span>Preview</span></a>
+              </div>
+              <div class="hide_camp_step_tips_container">
+                <a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
+                  <span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-footer -->
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+
+    <div id="camp_step_tips_1" style="display:none;">
+      <div style="text-align:center;">
+        <p>
+          <label style="font-size:16px;">
+            <% if current_user %>
+                Welcome <%= current_user.profile.try(:first_name) %>, let's get started on your next fundraiser
+            <% else %>
+                Welcome and Get Started
+            <% end %>
+          </label>
+        </p>
+      </div>
+      <p>Search for your school or group by name or Group ID.</p>
+
+      <p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
+
+      <p>Enter the basic information about your Fundraiser. This information will be displayed on your Fundraising Page
+        and in seller emails.</p>
+      <span>Tips:</span>
+      <ul>
+        <li><span>If you don’t find your group, please contact your sales rep.</span></li>
+        <li><span>Be clear and concise about why you are raising funds, so viewers can easily understand your need for their support.</span>
+        </li>
+        <li><span>Use these fields as a summary. In the next step you will be able to describe your fundraiser in more detail.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="camp_step_tips_2" style="display:none;">
+      <p>Tell your supporters the details of your fundraiser. Create your own, or select and edit one of the 4 examples
+        we have provided.</p>
+      <span>Suggestions:</span>
+      <ul>
+        <li><span>Reiterate what you are raising funds for.</span></li>
+        <li><span>What is your fundraising goal?</span></li>
+        <li><span>Why is this important?</span></li>
+        <li><span>What is the current situation, and how will these funds help?</span></li>
+        <li><span>What is the end result or benefit? (for example, not just a class trip, but an immersive educational experience)</span>
+        </li>
+        <li><span>Any other information you want supporters to know.</span></li>
+      </ul>
+      <span>Tips:</span>
+      <ul>
+        <li><span>Keep to 3-4 sentences.</span></li>
+        <li><span>Remind supporters that every purchase helps.</span></li>
+        <li><span>Show your appreciation: always close with a “thank you” to your supporters!</span></li>
+      </ul>
+    </div>
+
+    <div id="camp_step_tips_3_1" style="display:none;">
+      <p>This is the main image that will be displayed at the very top of your Fundraising Page. We recommend uploading
+        your own photo of your school or group in order to make a personal connection with your supporters.</p>
+      <span>Tips:</span>
+      <ul>
+        <li><span>You can change this image at any time after your Fundraising Page is created.</span></li>
+        <li><span>The next page will allow you to upload even more photos, if you wish.</span></li>
+      </ul>
+    </div>
+
+    <div id="camp_step_tips_3_2" style="display:none;">
+      <p>If you have additional photos you want displayed on your Fundraising Page, upload them here.
+        Photos of your group will engage your supporters and help make your fundraiser more successful. We recommend
+        uploading at least one additional photo for your Fundraising Page.</p>
+
+      <p>You may skip this step.</p>
+      <span>Tips:</span>
+      <ul>
+        <li><span>Have fun! Use photos showing your group in action.</span></li>
+        <li><span>You can change your photos or upload additional photos at any time after your Fundraising Page is created.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div id="camp_step_tips_4" style="display:none;">
+      <p>Search for your school or group by name or Group ID.</p>
+
+      <p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
+      <span>Tips:</span>
+      <ul>
+        <li><span>If you don’t find your group, please contact your sales rep.</span></li>
+      </ul>
+    </div>
+
+    <div id="camp_step_tips_5" style="display:none;">
+      <p>Select the product that your group is selling.</p>
+    </div>
+
+<% end %>
+
+<script>
+    var isuploadCampaignPhoto = false;
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+
+        window.addEventListener("orientationchange", function () {
+
+            reCropCampaingImage();
+            Raisy.campaigns.draw_preview_border();
+
+        }, false);
+
+    } else {
+
+        window.addEventListener("resize", function () {
+
+            reCropCampaingImage();
+            Raisy.campaigns.draw_preview_border();
+
+        });
+
+    }
+
+    $(document).ready(function () {
+        $(".user-modal-launch").hide();
+
+        window.setTimeout(function () {
+            $("#hide_camp_step_tips").off("click").on("click", function () {
+                Raisy.campaigns.step_tips_show_status.step1 = false;
+                Raisy.campaigns.donot_show_step_tips();
+            });
+
+            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
+
+            <% if @step_popup=="yes" %>
+            $("#camp_step_tips_modal").modal("show");
+            <% else %>
+            Raisy.campaigns.step_tips_show_status.step1 = false;
+            Raisy.campaigns.step_tips_show_status.step2 = false;
+            Raisy.campaigns.step_tips_show_status.step3_1 = false;
+            Raisy.campaigns.step_tips_show_status.step3_2 = false;
+            Raisy.campaigns.step_tips_show_status.step4 = false;
+            Raisy.campaigns.step_tips_show_status.step5 = false;
+            <% end %>
+        }, 200);
+    });
+
+    window.onload = function () {
+        if (typeof history.pushState === "function") {
+
+            history.pushState("jibberish", null, null);
+            window.onpopstate = function (event) {
+                history.pushState('newjibberish', null, null);
+
+                if (window.Raisy.IsSafari()) {
+                    if (event.state) {
+			                	var campaign_id = $("#campaign_id").val();
+			                	if (campaign_id == "0") {
+                            if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                                if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
+                                    <% if @previous_url != nil && @previous_url != "" %>
+                                    window.location.href = "<%=@previous_url%>";
+                                    <% else %>
+                                    window.location.href = "/";
+                                    <% end %>
+                                } else {
+                                    window.location.href = "/campaigns/new";
+                                }
+                            }
+                        } else {
+                            <% if @previous_url != nil && @previous_url != "" %>
+                            window.location.href = "<%=@previous_url%>";
+                            <% else %>
+                            window.location.href = "/";
+                            <% end %>
+                        }
+                    }
+                } else {
+	                	var campaign_id = $("#campaign_id").val();
+	                	if (campaign_id == "0") {
+                        if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                            if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
+                                <% if @previous_url != nil && @previous_url != "" %>
+                                window.location.href = "<%=@previous_url%>";
+                                <% else %>
+                                window.location.href = "/";
+                                <% end %>
+                            } else {
+                                window.location.href = "/campaigns/new";
+                            }
+                        }
+                    } else {
+                        <% if @previous_url != nil && @previous_url != "" %>
+                        window.location.href = "<%=@previous_url%>";
+                        <% else %>
+                        window.location.href = "/";
+                        <% end %>
+                    }
+                }
+            };
+
+        } else {
+
+            window.onbeforeunload = function (e) {
+
+                var campaign_id = $("#campaign_id").val();
+                if (campaign_id == "0") {
+                    if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                        if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
+                            <% if @previous_url != nil && @previous_url != "" %>
+                            window.location.href = "<%=@previous_url%>";
+                            <% else %>
+                            window.location.href = "/";
+                            <% end %>
+                        } else {
+                            window.location.href = "/campaigns/new";
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    <% if @previous_url != nil && @previous_url != "" %>
+                    window.location.href = "<%=@previous_url%>";
+                    <% else %>
+                    window.location.href = "/";
+                    <% end %>
+                }
+
+            }
+
+        }
+
+    }
+
+    function reCropCampaingImage() {
+
+        if (isuploadCampaignPhoto) {
+
+            var documentWidth = $(document.body).width();
+            var cropWidth;
+            var cropHeight;
+
+            if (documentWidth > 768) {
+
+                cropWidth = 622;
+                cropHeight = 200;
+
+            } else if (documentWidth > 468) {
+
+                cropWidth = 400;
+                cropHeight = 128;
+
+            } else {
+
+                cropWidth = 280;
+                cropHeight = 90;
+
+            }
+
+            $('#campaign-edit .preview img').cropbox({
+                width: cropWidth,
+                height: cropHeight
+            });
+
+        }
+
+    }
+
+</script>
+
+ 

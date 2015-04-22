@@ -1,0 +1,18 @@
+<div class="campaign-header">
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="<%= 'active' if active == :details %>">
+                <a href="<%= edit_admin_campaign_path(@campaign) %>">
+                    Edit Fundraiser Details
+                </a>
+            </li>
+			<% if @campaign.any_bulkshipping_product? %>
+	            <li class="<%= 'active' if active == :bulkshippinginfo %>">
+	                <a href="<%= admin_campaign_bulkshippinginfo_path(@campaign) %>">
+	                    Edit Bulk Shipping Info
+	                </a>
+	            </li>
+			<% end %>
+        </ul>
+    </div>
+</div>

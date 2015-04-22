@@ -1,0 +1,41 @@
+<%= form_for(@campaign, html: { id: "campaign_form", class: 'campaign-form form-horizontal' }) do |f| %>
+
+    <h3 class="fieldset-header"><span class="number">1</span> Campaign Details</h3>
+
+    <%= render 'form_basic_details', f: f %>
+
+    <h3 class="fieldset-header"><span class="number">2</span> Organization Details</h3>
+
+    <fieldset>
+        <div class="form-group">
+            <label for="organization_name" class="col-sm-2 control-label">Organization Name <span class='req'>*</span></label>
+            <div class="col-sm-10">
+                <input class="form-control" id="organization_name" name="organization[name]" type="text">
+            </div>
+        </div>
+    </fieldset>
+
+    <!--
+    <h3 class="fieldset-header"><span class="number">3</span> Choose what to sell</h3>
+    <fieldset>
+        <div class="well">
+            <div class="row">
+                <div class="col-md-3">
+                    <%#= cl_image_tag @collection.picture, width: 202, height: 150, crop: :limit, class: 'img-responsive' %>
+                </div>
+                <div class="col-md-6">
+                    <h3 style="margin: 0 0 5px; font-size: 20px;"><%#= @collection.name %></h3>
+                    <p><%#= @collection.description %></p>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    -->
+
+    <input type="hidden" name="campaign[collection_id]" id="campaign_collection_id" value="<%= @collection.id %>" >
+
+    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+        <span class="text">Save &amp; Preview</span> <span class="loader" style="display:none"></span>
+    </button>
+
+<% end %>

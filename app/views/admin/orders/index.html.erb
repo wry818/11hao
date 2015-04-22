@@ -1,0 +1,55 @@
+<div id="orders" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Orders for <%=@campaign.title %></h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+								<th>Order ID</th>
+                                <th>Order Date</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Quantity-Products</th>
+                                <th>Total Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @orders.completed.order(:id).each do |order| %>
+                            <tr>
+								<td><%= order.id %></td>
+                                <td><%= order.created_at.strftime('%b %-d, %Y') %></td>
+                                <td><%= order.fullname %></td>
+                                <td><%= order.email %></td>
+                                <td>
+                                    <ul style="list-style-type:none;padding:0px;margin:0px;">
+                                    <% order.items.each do |item| %>
+                                    <li style="margin-bottom:5px;">
+										<%= item.quantity %>-<%= item.product.name if item.product %>
+							            <% item.options.each do |option| %>
+										<% if option.value.present? %>
+							                <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+										<% end %>
+							            <% end %>
+									</li>
+                                    <% end %>
+                                    </ul>
+                                </td>
+                                <td>$<%= long_price(order.grandtotal.to_f/100) %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

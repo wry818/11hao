@@ -1,0 +1,148 @@
+<%= form_for([:admin, @campaign_bulkshippinginfo], html: { id: "campaign_bulkshippinginfo_form", class: 'campaign-form form-horizontal campaign_bulkshippinginfo_form' }) do |f| %>
+
+<h4 class="fieldset-header">Fundraiser Bulk Shipping Info</h4>
+
+<script>
+		var state_provinces=[];
+		var country_id=<%= @campaign_bulkshippinginfo.country_id.blank? ? 1 : @campaign_bulkshippinginfo.country_id%>;
+		var state_province_id=<%= @campaign_bulkshippinginfo.state_province_id.blank? ? 0 : @campaign_bulkshippinginfo.state_province_id%>;
+
+		<% @state_provinces.each do |state_province| %>
+			state_provinces.push({id:<%=state_province.id%>, name: "<%=state_province.name%>", country_id: <%=state_province.country_id%>});
+		<% end %>
+</script>
+			
+<fieldset>
+    <div class="form-group">
+        <label for="ship_to_name" class="col-sm-2 control-label">Ship to Name</label>
+        <div class="col-sm-10">
+            <%= f.text_field :ship_to_name, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="ship_to_attn" class="col-sm-2 control-label">Ship to Attn</label>
+        <div class="col-sm-10">
+            <%= f.text_field :ship_to_attn, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="address_line_1" class="col-sm-2 control-label">Address Line 1</label>
+        <div class="col-sm-10">
+            <%= f.text_field :address_line_1, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="address_line_2" class="col-sm-2 control-label">Address Line 2</label>
+        <div class="col-sm-10">
+            <%= f.text_field :address_line_2, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="city" class="col-sm-2 control-label">City</label>
+        <div class="col-sm-10">
+            <%= f.text_field :city, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="country" class="col-sm-2 control-label">Country</label>
+        <div class="col-sm-10">
+            <select class="form-control input-small" id="country_id" name="campaign_bulkshippinginfo[country_id]" style="width: 200px">
+                <% @countries.each do |country| %>
+                	<option value="<%= country.id %>" <%= f.object.country_id == country.id ? 'selected' : '' %> >
+                    	<%= country.name %>
+                	</option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="state_province" class="col-sm-2 control-label">State/Province</label>
+        <div class="col-sm-10">
+            <select class="form-control input-small" id="state_province_id" name="campaign_bulkshippinginfo[state_province_id]">
+            </select>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="zip_code" class="col-sm-2 control-label">Zip/Postal Code</label>
+        <div class="col-sm-10">
+            <%= f.text_field :zip_code, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="phone_number" class="col-sm-2 control-label">Phone Number</label>
+        <div class="col-sm-10">
+            <%= f.text_field :phone_number, class: 'form-control' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="email_address" class="col-sm-2 control-label">Email Address</label>
+        <div class="col-sm-10">
+            <%= f.text_field :email_address, class: 'form-control' %>
+        </div>
+    </div>
+	
+	<div class="form-group">
+        <label for="delivery_date" class="col-sm-2 control-label">Delivery Date</label>
+        <div class="col-sm-10">
+             <%= f.text_field :delivery_date, placeholder: "Select date", value: (@campaign_bulkshippinginfo.delivery_datetime.blank? ? '' : @campaign_bulkshippinginfo.delivery_datetime.strftime('%m/%d/%Y %H:%M')), class: 'datepicker bulk-delivery-date form-control' %>
+						 <label id="lb_delivery_date_error" for="campaign_bulkshippinginfo_delivery_date" class="error" style="display: none;"></label>
+        </div>
+	</div>
+	
+	<div class="form-group">
+        <label for="delivery_time" class="col-sm-2 control-label">Delivery Time</label>
+        <div class="col-sm-10">
+             <%= f.text_field :delivery_time, placeholder: "Select time", value: (@campaign_bulkshippinginfo.delivery_datetime.blank? ? '' : @campaign_bulkshippinginfo.delivery_datetime.strftime('%I:%M %p')), class: 'bulkshippinginfo-timepicker timepicker form-control' %>
+						 <label id="lb_delivery_time_error" for="campaign_bulkshippinginfo_delivery_time" class="error" style="display: none;"></label>
+        </div>
+	</div>
+		
+</fieldset>
+
+<button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+	<span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+</button>
+
+
+	
+	<% if !@campaign.is_bulk_submitted && @campaign.expired? %>
+		&nbsp;&nbsp;&nbsp;
+        <button id="campaign_form_order" class="btn btn-primary btn-lg" type="button" onclick="window.Raisy_admin_campaigns.submit_bulk_order(this);">
+            <span class="text">Submit Order</span>
+        </button>
+	<% end %>
+	
+	<input id="bulk_submit_order" name="bulk_submit_order" type="hidden" value="0">
+	
+<% end %>
+
+<script>
+var deliveryDates=[true];
+var minDeliveryDate=new Date();
+var maxDeliveryDate=new Date();
+
+<% PVTransmissionCalendar.deliverable.order(:delivery_date=>:desc).each do |tc| %>
+	deliveryDates.push([<%=tc.delivery_date.year%>,<%=tc.delivery_date.month%>-1,<%=tc.delivery_date.day%>]);
+	minDeliveryDate=new Date(<%=tc.delivery_date.year%>,<%=tc.delivery_date.month%>-1,<%=tc.delivery_date.day%>);
+	
+	if (maxDeliveryDate<minDeliveryDate) maxDeliveryDate=minDeliveryDate;
+<% end %>
+
+$(document).ready(function(){
+  $('.bulk-delivery-date').pickadate({
+      min: minDeliveryDate,
+			max: maxDeliveryDate,
+      format: 'ddd, mmm d, yyyy',
+			disable: deliveryDates
+  });
+});
+</script>

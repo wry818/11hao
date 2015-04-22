@@ -1,0 +1,140 @@
+<div id="settings" style="padding-bottom:60px;">
+
+    <%= render 'users/settings_header', active: :profile %>
+
+    <div class="settings-content">
+        <div class="container">
+            <%= form_for(@user_profile, url: update_profile_path, method: :patch, html: { id: "profile_form", class: "form-horizontal" }) do |f| %>
+			
+	            <div class="form-group">
+	                <label for="user_profile_first_name" class="col-sm-3 control-label">First Name</label>
+	                <div class="col-sm-4">
+	                    <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+	                </div>
+	            </div>
+				
+	            <div class="form-group">
+	                <label for="user_profile_last_name" class="col-sm-3 control-label">Last Name</label>
+	                <div class="col-sm-4">
+	                    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+	                </div>
+	            </div>
+
+                <div class="form-group">
+                    <label for="user_profile_display_name" class="col-sm-3 control-label">Display Name</label>
+                    <div class="col-sm-4">
+                        <%= f.text_field :display_name, class: 'form-control', placeholder: 'Display Name' %>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_profile_title" class="col-sm-3 control-label">Title</label>
+                    <div class="col-sm-4">
+                        <%= f.text_field :title, class: 'form-control', placeholder: 'Title' %>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_picture" class="col-sm-3 control-label">
+						Update Your Selfie
+						<br />
+						<span class="upload-tooltip">
+							(Best size: 200px * 200px)
+						</span>
+					</label>
+                    <div class="col-sm-9">
+                        <div class="image-uploader" style="margin-top: 5px;">
+                            <div class="preview" style="width:102px;">
+                                <% if f.object.picture.present? %>
+                                    <%= cl_image_tag f.object.picture, width: 100, height: 100, crop: :limit, class: 'img-responsive' %>
+                                <% else %>
+                                    <%= image_tag 'crown.png', width: 72 %>
+                                <% end %>
+                            </div>
+                            <div style="width:0px; height:0px;">
+								<%= hidden_field_tag :use_photo, "" %>
+                                <%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { accept:"image/*", style: "width:0px; height:0px; visibility:hidden;", id: "user_picture_file" }) %>
+                                <a href="#" class="remove-image" style="display: none">Remove picture</a>
+                            </div>
+                        </div>
+                        <div class="progress progress-striped active" style="display:none; margin-top:5px; width:102px;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                                <span>0%</span>
+                            </div>
+                        </div>
+                        <span class="status"></span>
+						<div class="clearfix" style="margin-top:20px;">
+							<div class="upload-button" style="float:left;" onclick="$('#user_picture_file').click();">
+								<span style="color:#428bca;font-size:1.1em;display:block;">
+									Upload</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+							</div>
+							<div class="use-button" style="float:left; margin-left:20px;" onclick="$('#default_photos_modal').modal('show');">
+								<span style="color:#428bca;font-size:1.1em;display:block;">
+									Use</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+							</div>
+						</div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:30px;">
+                    <div class="col-sm-offset-3 col-sm-2">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="text">Save</span> <span class="loader" style="display:none"></span>
+                        </button>
+                    </div>
+                </div>
+
+            <% end %>
+        </div>
+    </div>
+
+</div>
+
+<div id="default_photos_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="default_photos_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Choose one of our photos</h4>
+        </div> <!-- /.modal-header -->
+
+            <div class="modal-body">
+		 		<div style="padding:10px; position:relative;">
+					<% 45.times do |i| %>
+						<div data-photo='<%=image_url("avatars/Avatar_#{(i+1).to_s}.jpg")%>' class="default-photo-div" style="float:left; margin-bottom:5px; text-align:center; width:20%;"><%= image_tag "avatars/Avatar_#{(i+1).to_s}.jpg", class: "img-responsive", style: "max-width:50px; margin:0 auto; border:1px solid white; border-radius:3px; cursor:pointer;" %></div>
+					<% end %>
+					<div class="clearfix"></div>
+				</div>
+            </div> <!-- end of modal body -->
+			
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<script>
+$("#default_photos_modal .default-photo-div img").mouseenter(function(){
+	$(this).css("border", "1px solid #ccc");
+}).mouseleave(function(){
+	$(this).css("border", "1px solid white")
+}).click(function(){
+	$(".preview img").attr("src", $(this).attr("src")).addClass("img-responsive").removeAttr("width").removeAttr("height").css({"margin":"0 auto","max-height":"100px","display":"block"});
+	$("input[name=user_picture]").val("");
+	$("input[name=use_photo]").val($(this).closest("div").data("photo"));
+	$("#default_photos_modal").modal("hide");
+});
+
+$(".upload-button").mouseenter(function(){
+	$(this).css("background-color", "#eee");
+}).mouseleave(function(){
+	$(this).css("background-color", "white");
+});
+
+$(".use-button").mouseenter(function(){
+	$(this).css("background-color", "#eee");
+}).mouseleave(function(){
+	$(this).css("background-color", "white");
+});
+</script>

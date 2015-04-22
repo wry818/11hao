@@ -1,0 +1,28 @@
+<div id="forgot_password" class="auth-page">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-push-2">
+                <div class="well">
+                    <h3>Forgot your password?</h3>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                                <%= devise_error_messages! %>
+
+                                <div class="form-group">
+                                    <label for="user_email">Email address</label>
+                                    <%= f.email_field :email, class: "form-control", autofocus: true %>
+                                </div>
+
+                                <%= f.submit "Send reset password email", class: "btn btn-large btn-primary" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

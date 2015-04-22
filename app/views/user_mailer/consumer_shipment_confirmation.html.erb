@@ -1,0 +1,80 @@
+<p style="font-size: 14px; line-height: 18px; color: #6b6b6b">
+Thank you!
+<br/><br/>
+Your Entertainment&reg; edition order has been shipped. Your Entertainment&reg; edition(s) were sent via Standard Shipping and will arrive in 10-14 business days, excluding weekends and holidays.
+<br/><br/>
+Below is a summary of your order. Note, your order may include other products aside from the Entertainment&reg; edition(s). Please see product delivery information at the bottom of this email for information on deliveries of non-book product orders.
+<br/><br/>
+This email is a confirmation of your <%= @order.donation_only? ? "donation to" : "order for" %> the <%= @campaign.title %> fundraiser. If you have any questions, please contact the organizer, <%= @campaign.organizer.profile.fullname %> at <%= @campaign.organizer.email %>.
+<br/><br/>
+<strong>Payment Details:</strong><br/>
+Date: <%= @order.created_at.strftime("%-m/%-d/%Y") %> <br/>
+Amount: $<%= long_price(@order.grandtotal/100.0) %> <br/>
+Card: <%= @order.card_type %> ************<%= @order.card_last_four %><br/>
+Charge will appear as: <%= 'RAISY' %><br/><br/>
+
+<% unless @order.donation_only? %>
+	<strong>Items:</strong><br/>
+    <% @order.items.each do |item| %>
+	<%= "#{item.quantity}" %> <%= item.product.name %> - <%= item.delivery_method_text %>
+	    <% item.options.each do |option| %>
+		<% if option.value.present? %>
+	        <br/>&nbsp;&nbsp;&nbsp;&nbsp;<i><%= "#{option.option_group.name}: #{option.value}" %></i>
+		<% end %>
+	    <% end %>
+		<br/>
+    <% end %>
+	<br/>
+<% end %>
+
+<% if @order.seller %>
+<strong>Fundraising Team Member:</strong><br/>
+<%= @order.seller.user_profile.shortname %><br/>
+<br/>
+<% end %>
+
+<% unless @order.donation_only? || !@order.needs_shipping %>
+    <strong>Recipient:</strong><br/>
+    <%= @order.address_fullname %> <br/>
+    <%= @order.address_line_one %><br/>
+    <%= @order.address_line_two %><%= raw('<br/>') if @order.address_line_two.present? %>
+    <%= "#{@order.address_city}, #{@order.address_state}, #{@order.address_postal_code} #{@order.address_country}" %><br/><br/>
+<% end %>
+
+<strong>Order ID:</strong><br/>
+<%= @order.id.to_s.rjust(8,'0') %><br/>
+<br/>
+
+<% if @campaign.tax_deductible_receipt %>
+    Thank you for your donation to the <%= @campaign.title %>.
+    <% if @campaign.organization %>
+    <%= "The #{@campaign.organization.name}"  %> is a 501(c)(3) non-profit organization <%= "(EIN ##{@campaign.organization.legal_tax_id})" if @campaign.organization.legal_tax_id %>.
+    Your donation makes a positive difference in our children’s education and our collective future.
+    <% end %>
+<% else %>
+    Please keep this email as your receipt.
+<% end %>
+
+<br/><br/>
+Product delivery information (applicable only to the product(s) you have ordered):
+<ul style="font-size: 14px; line-height: 18px; color: #6b6b6b">
+	<li>Book orders will be shipped to the address you provided. Delivery estimate is 14-20 days after the order has been placed, excluding weekends and holidays.</li>
+	<li>Cookie Dough orders will be delivered by the seller (Fundraising Team Member) 4-6 weeks after the sale end date. Contact your seller regarding the exact delivery date.</li>
+	<li>Digital Memberships will be delivered via email. You will receive an email containing your access code within 24 hours after your purchase.</li>
+</ul>
+</p>
+
+<div style="margin:40px auto 20px auto; text-align:center; width:80%; font-family:Arial, Helvetica, sans-serif;color:#3f3f3f;font-size:11px;">
+	<hr />
+	
+	<p>This email has been sent to <span style="color:#14467c;text-decoration:none;"><%= @order.email %></span> because our records indicate that<br />you have opted to receive emails from Entertainment&reg;. If you no longer want to <br />receive emails from Entertainment&reg;, please <a href="https://www.entertainment.com/coupon/optout.cmd?email=<%= @order.email %>" target="_blank" style="color:#14467c;text-decoration:none;">click here</a> to update your email preferences.</p>
+
+	<p>Entertainment&reg;, Entertainment.com&reg;, Entertainment Fundraising&reg;, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTcrown2015.png" border="0"   alt="Entertainment Crown Logo" height="12" />, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTscript2015.png" alt="Entertainment Script Logo" border="0" height="12" />, and Raisy&trade;<br />
+are trademarks of HSP EPI Acquisition, LLC.
+<br /><br />
+<a href="http://Entertainment.us3.list-manage.com/track/click?u=ee601451868d9de2ceac09b7e&id=112b776e40&e=7f121cfe63" target="_blank">Need help?</a> | <a href="http://Entertainment.us3.list-manage2.com/track/click?u=ee601451868d9de2ceac09b7e&id=9b7fadab6c&e=7f121cfe63" target="_blank">Privacy</a>
+<br /><br />
+&copy;2015 HSP EPI Acquisition, LLC dba Entertainment&reg;
+<br /><br />
+1401 Crooks Road, Suite 150, Troy, MI 48084</p>
+</div>

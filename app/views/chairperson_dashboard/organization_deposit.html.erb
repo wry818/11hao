@@ -1,0 +1,178 @@
+<div id="chairperson_dashboard">
+
+    <%= render 'chairperson_dashboard/organization_dashboard_header', active: :deposit %>
+
+    <div class="dashboard-content">
+        <div class="container">
+
+            <%= form_for(@organization, url: organization_update_deposit_path, html: { id: "organization_form", class: '' }) do |f| %>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">Organization Details</h3>
+                    <p>The official name, tax id, and address of the organization.</p>
+                </div>
+                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label for="organization_legal_name" class="control-label">Legal Organization Name</label>
+                        <%= f.text_field :legal_name, class: 'form-control', placeholder: 'Legal Name' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_legal_tax_id" class="control-label">EIN (tax id)</label>
+                        <%= f.text_field :legal_tax_id, class: 'form-control help-text-input', placeholder: '12-3456789' %>
+                        <span class="help-text">Your <a href="#">EIN</a> is a 9 digit number assigned by the IRS.</span>
+                        <label for="organization_legal_tax_id" class="error" style="display: none"></label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_legal_address_line_one" class="control-label">Address Line 1</label>
+                        <%= f.text_field :legal_address_line_one, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_legal_address_line_two" class="control-label">Address Line 2</label>
+                        <%= f.text_field :legal_address_line_two, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organization_legal_address_city" class="control-label">City</label>
+                                <%= f.text_field :legal_address_city, class: 'form-control', placeholder: '' %>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organization_legal_address_state" class="control-label">State</label>
+                                <%= f.text_field :legal_address_state, class: 'form-control', placeholder: '' %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="organization_legal_address_postal_code" class="control-label">Postal Code</label>
+                                <%= f.text_field :legal_address_postal_code, class: 'form-control', placeholder: '' %>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">Authorized Representative</h3>
+                    <p>We are required to verify the identity of an authorized representative of the organization.</p>
+                </div>
+                <div class="col-md-8">
+
+                    <% if @organization.has_rep? %>
+
+                    <p><%= @organization.legal_rep_first_name %> <%= @organization.legal_rep_last_name %></p>
+                    <p><%= @organization.legal_rep_phone %></p>
+                    <p><%= @organization.legal_rep_email %></p>
+
+                    <% else %>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organization_legal_rep_first_name" class="control-label">First Name</label>
+                                <%= f.text_field :legal_rep_first_name, class: 'form-control', placeholder: 'First Name' %>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="organization_legal_rep_last_name" class="control-label">Last Name</label>
+                                <%= f.text_field :legal_rep_last_name, class: 'form-control', placeholder: 'Last Name' %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="organization_legal_rep_phone" class="control-label">Phone</label>
+                                <%= f.text_field :legal_rep_phone, class: 'form-control', placeholder: '555-555-5555' %>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="organization_legal_rep_email" class="control-label">Email</label>
+                                <%= f.text_field :legal_rep_email, class: 'form-control', placeholder: 'example@raisy.entertainment.com' %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="organization_legal_rep_phone" class="control-label">Date of Birth (YYYY-MM-DD)</label>
+                                <%= f.text_field :legal_rep_dob, class: 'form-control', placeholder: '1980-04-02' %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% end %>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">Banking Information</h3>
+                    <p>The checking account your funds will be transferred to.</p>
+                </div>
+                <div class="col-md-8">
+
+                    <% if @organization.has_bank? %>
+
+                    <p>Routing Number: ****<%= @organization.routing_number[-4..-1] %></p>
+                    <p>Account Number: ****<%= @organization.account_number[-4..-1] %></p>
+
+                    <% else %>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="routing_number" class="control-label">Routing Number</label>
+                                <!--<input id="routing_number" name="routing_number" type="text" class="form-control">-->
+                                <%= f.text_field :routing_number, class: 'form-control'%>
+                            </div>
+                            <div class="form-group">
+                                <label for="account_number" class="control-label">Account Number</label>
+                                <!--<input id="account_number" name="account_number" type="text" class="form-control">-->
+                                <%= f.text_field :account_number, class: 'form-control'%>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <%= image_tag 'check.png' %>
+                        </div>
+                    </div>
+
+                    <% end %>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <button id="organization_deposit_form_submit" class="btn btn-primary btn-lg" type="submit">
+                    <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+                </button>
+            </div>
+
+            <% end %>
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

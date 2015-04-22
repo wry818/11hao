@@ -1,0 +1,58 @@
+<div id="collections" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Collections</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Active?</th>
+                                <th>Sort Order</th>
+                                <th>Image</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @collections.order(:id).each do |collection| %>
+                            <tr>
+                                <td>
+									<% if collection.id>0 %>
+                                    	<%= link_to collection.name, admin_collection_path(collection) %>
+									<% else %>
+										<%= collection.name %>
+									<% end %>
+								</td>
+                                <td>
+                                    <% if collection.active %>
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <% end %>
+                                </td>
+                                <td><%= collection.sort_order %></td>
+                                <td>
+                                    <%= cl_image_tag collection.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if collection.picture.present? %>
+                                </td>
+                                <td>
+									<% if collection.id>0 %>
+	                                    <%= link_to 'Destroy', admin_collection_path(collection), method: :delete, data: { confirm: 'Are you sure that you want to destroy this collection?' } %>
+									<% end %>
+                                </td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <%= link_to 'Create new collection', new_admin_collection_path, class: 'btn btn-primary' %>
+
+    </div>
+</div>

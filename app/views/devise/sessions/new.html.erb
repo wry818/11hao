@@ -1,0 +1,120 @@
+<div id="log_in" class="auth-page">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-push-2">
+                <div class="well">
+                    <p style="margin-bottom: 20px;">
+						Welcome back!
+                    </p>
+					
+					<div id="login_error" style="display:none;">
+				        <div class="alert alert-warning">
+				            <div id="login_error_message" style="text-align: center;">
+								Sorry, your email or password is incorrect
+				            </div>
+				        </div>
+						<div>&nbsp;</div>
+					</div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                                <div class="form-group">
+                                    <label for="session_email">Email Address</label>
+                                    <%= f.email_field :email, class: "form-control", autofocus: true, placeholder: "Enter email" %>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="session_password">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", new_password_path(resource_name), style: "font-size:12px;" %><br />
+                                    <%= f.password_field :password, class: "form-control", autocomplete: "off", placeholder: "Enter password" %>
+                                </div>
+
+                                <% if devise_mapping.rememberable? -%>
+                                    <div class="form-group">
+                                        <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+                                    </div>
+                                <% end -%>
+
+								<div class="form-group" style="text-align:center;">
+                                	<%= f.submit "Sign In", class: "btn btn-lg btn-primary", style: "font-size:16px; height:40px; width:160px;" %>
+								</div>
+                            <% end %>
+                        </div>
+						
+						<div class="col-md-6">
+							<div style="margin-top:33px;">
+								<div class="form-group">   
+									<a class="btn btn-block btn-social btn-facebook">
+										<i class="fa fa-facebook"></i>
+									 	<span>Login with Facebook</span>
+									</a> 
+								</div>
+								<div class="form-group">   
+									<a class="btn btn-block btn-social btn-twitter">
+										<i class="fa fa-twitter"></i>
+									 	<span>Login with Twitter</span>
+									</a> 
+								</div>
+								<!-- Place two social login error sections here for seller signup or normal login -->
+								<div id="seller-social-error" class="form-group" style="display:none;"> 
+									 <div class="alert alert-warning">
+							            <div id="seller-social-message" style="text-align: center;"> 
+							            </div>
+							        </div> 
+								</div>
+								<div class="form-group login-social-error" style="display:none;"> 
+									 <div class="alert alert-warning">
+							            <div class="login-social-message" style="text-align: center;"> 
+							            </div>
+							        </div> 
+								</div>
+							</div>
+						</div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+$(".user-modal-launch").hide();
+
+if (document.referrer && document.referrer.indexOf("/seller/signup/")>0) {
+	$(".btn-facebook").click(function(){ Raisy.fb_seller_login(false); });
+	$(".btn-twitter").click(function(){ Raisy.tw_seller_login(false); });
+}
+else {
+	$(".btn-facebook").click(function(){ Raisy.fb_login(false); });
+	$(".btn-twitter").click(function(){ Raisy.tw_login(false); });
+}
+
+function login_user(form) {
+	var email=encodeURIComponent($("#user_email").val());
+	var pwd=encodeURIComponent($("#user_password").val());
+	
+	$("#login_error").hide();
+	
+	$.ajax({
+		method: "get",
+		url: "/user/verify?email=" + email + "&password=" + pwd,
+		dataType: "json",
+		cache: false,
+		success: function(d){
+			if (d && !d.verified) {
+				$("#login_error").show();
+			}
+			else {
+				form.submit();
+			}
+		},
+		error: function() {
+			$("#login_error").show();
+		}
+	});
+}
+</script>

@@ -1,0 +1,50 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :details %>
+
+    <div class="dashboard-content">
+        <div class="container">
+            <%= form_for(@campaign, html: { id: "campaign_form", class: 'campaign-form form-horizontal' }) do |f| %>
+
+            <%= render 'campaigns/form_basic_details', f: f %>
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-push-2">
+                    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+                        <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+                    </button>
+                </div>
+            </div>
+
+            <% end %>
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>
+
+<div id="congratulate_chairpeson_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="congratulate_chairpeson_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+				<p>Congratulations! You’ve successfully created your Fundraising Page.</p>
+				<p>Remember: You can edit this page at any time by clicking on “Edit This Fundraiser” at the top of this page.</p>
+				<p>NEXT STEP: You’ve invited your group members to join the online fundraiser, now SELL some products yourself! Simply click on the “Share” link!</p>
+			</div>	<!-- end of modal body -->
+            <div class="modal-footer">
+				<div style="text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+				</div>
+            </div> <!-- /.modal-footer -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<% if @show_congratulation %>
+<script>
+$(document).ready(function(){ 
+	window.setTimeout(function(){
+		$("#congratulate_chairpeson_modal").modal("show");
+	}, 200); 
+});
+</script>
+<% end %>

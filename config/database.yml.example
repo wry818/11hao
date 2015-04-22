@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  database: raisy_dev
+  host: localhost
+
+test:
+  adapter: postgresql
+  database: raisy_test
+  host: localhost

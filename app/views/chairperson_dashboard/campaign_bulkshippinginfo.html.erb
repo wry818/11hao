@@ -1,0 +1,32 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :bulkshippinginfo %>
+
+    <div class="dashboard-content">
+        <div class="container">
+            <%= form_for(@campaign_bulkshippinginfo, html: { id: "campaign_bulkshippinginfo_form", class: 'campaign-form form-horizontal campaign_bulkshippinginfo_form' }) do |f| %>
+
+            <%= render 'campaigns/form_bulkshippinginfo', f: f %>
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-push-2">
+                    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+                        <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+                    </button>
+					
+					<% if !@campaign.is_bulk_submitted && @campaign.expired? %>
+						&nbsp;&nbsp;&nbsp;
+	                    <button id="campaign_form_order" class="btn btn-primary btn-lg" type="button" onclick="Raisy.chairperson_dashboard.submit_bulk_order(this);">
+	                        <span class="text">Submit Order</span>
+	                    </button>
+					<% end %>
+					
+					<input id="bulk_submit_order" name="bulk_submit_order" type="hidden" value="0">
+                </div>
+            </div>
+
+            <% end %>
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

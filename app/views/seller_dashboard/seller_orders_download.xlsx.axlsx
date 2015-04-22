@@ -1,0 +1,61 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "My Orders") do |sheet|
+	header_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true
+										
+	wrap_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :alignment => {
+										:horizontal => :left,
+										:vertical => :top, 
+										:wrap_text => true }
+										
+	sheet.add_row ["Raisy Online Sales Details"], :style => header_text
+	
+	if @seller
+		sheet.add_row [@seller.campaign.title], :style => header_text
+		sheet.add_row ["Total Sales: " + "$" + long_price(@seller.total_sales)], :style => header_text
+	end
+	
+	sheet.add_row ["Sales Summary as of: " + Time.now.strftime('%-m/%d/%y')], :style => header_text
+	sheet.add_row [""]	# blank row	
+	sheet.add_row ["Order ID", "Order Date", "Name", "Email", "Quantity-Products", "Total Paid"], :style => header_text
+	
+	if @seller
+		@seller.orders.completed.order(:id=>:desc).each do |order|
+			rt = Axlsx::RichText.new
+			items = order.items.all
+			item_index = 0
+	
+			items.each do |item|
+				item_index += 1
+				opts = ""
+				
+				item.options.each do |option|
+					if option.value.present?
+						opts += option.option_group.name + ": " + option.value + " "
+					end
+				end
+				
+				rt.add_run(item.quantity.to_s + "-" + (item.product ? item.product.name : ""))
+				
+				if opts != ""
+					rt.add_run(" ")
+					rt.add_run(opts[0..-2], :i=>true)
+				end
+				
+				if item_index != items.count
+					rt.add_run(", ")
+				end
+			end
+
+			sheet.add_row [
+				order.id,
+				order.created_at.strftime('%b %-d, %Y'),
+				order.fullname,
+				order.email,
+				rt,
+				"$" + long_price(order.grandtotal.to_f/100)
+			], :style => wrap_text
+		end
+	end
+	
+	sheet.column_widths 10, 15, 25, 25, 45, 15
+end

@@ -1,0 +1,122 @@
+<body bgcolor="#dddddd" style="background-color:#dddddd;">
+	<style type="text/css">
+  	.font-bold-big {
+			font-size:1.5em;
+			font-weight:600;
+		}
+	</style>
+	<div style="background-color:#dddddd; padding:10px 0px; width:100%;">
+	<table width="660" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#ffffff" style="background-color:#ffffff;">
+		<tr>
+			<td style="width:20px;"></td>
+			<td>
+				<div style="width:620px; font-family: Arial, Helvetica, sans-serif;background-color:white;">
+					<div style="margin-top:20px; text-align:center; font-size:12px;">
+						<a href="https://www.entertainment.com/coupon/affiliate_entry.cmd?linkName=CB14FREMAIL&amp;groupId=<%= @campaign.organization.name %>&amp;sellerId=<%= @campaign.organizer.id %>" reportname="SIDEBTB" frontuid="764367" urlId="355834">Support <%= @campaign.organizer.email %></a>
+					</div>
+		
+					<div style="margin-top:10px; text-align:center;">
+						<%= image_tag "raisyLOGO.png", alt: "Entertainment\(R\) Fundraising" %>
+					</div>
+	
+					<div style="margin-top:20px;">
+	
+						<p>Hi <%= @campaign.organizer.profile.first_name %>,</p>
+
+						<p>Thanks for starting the fundraiser <%= @campaign.title %> for <%= @campaign.organization.name %>!</p>
+		
+						<div style="margin-bottom:40px; text-align:center;">
+							<%= cl_image_tag @campaign.campaign_logo.image_id, 
+								transformation: [
+									{
+										width: @campaign.campaign_logo.crop_width, 
+										height: @campaign.campaign_logo.crop_height,
+										x: @campaign.campaign_logo.crop_x,
+										y: @campaign.campaign_logo.crop_y,
+										crop: :crop
+									}
+								], style: "width:600px", width: "600" if @campaign.campaign_logo %>
+						</div>
+
+						<p>This email is a confirmation of your order shipment. All cookie dough orders in your fundraiser have been shipped. Please note, this email contains shipping information only on your group’s cookie dough product orders. Any Book Membership orders that your supporters have placed online are shipping directly to the supporters.</p>
+						<p style="margin-top:20px;"><b>Shipment Info:</b></p>
+						
+				        <% ship_info = @campaign.campaign_bulkshippinginfos.first %>
+        
+				        <% if ship_info %>
+						<p>
+							Ship to Name: <%= ship_info.ship_to_name %><br/>
+							Ship to Attn: <%= ship_info.ship_to_attn %><br/>
+							Address Line 1: <%= ship_info.address_line_1 %><br/>
+							Address Line 2: <%= ship_info.address_line_2 %><br/>
+							City: <%= ship_info.city %><br/>
+							State/Province: <%= ship_info.state_province.name if ship_info.state_province %><br/>
+							Country: <%= ship_info.country.name if ship_info.country %><br/>
+							Zip/Postal Code: <%= ship_info.zip_code %><br/>
+							Phone Number: <%= ship_info.phone_number %><br/>
+							Email Address: <%= ship_info.email_address %><br/>
+						</p>
+						<% end %>
+						
+						<p><b>Items:</b></p>
+						
+						<% products=Product.all
+							item_names=[]
+							html_entities=HTMLEntities.new
+						
+							@campaign.orders.completed.each do |order|
+		                      order.items.where(:delivery_method=>3, :delivery_status=>2).each do |item|
+								  item_name=""
+							  
+		                          products.each do |p|
+		                            if p.id==item.product_id
+		                              item_name=p.name
+		                            end
+		                          end
+							  
+								  option=item.options.first
+          
+		                          if option && option.value.present?
+		                          	item_name+= " <i>" + html_entities.encode(option.option_group.name + ": " + option.value) + "</i>"
+								  end
+							  
+								  item_names<<item_name
+		                      end
+		                    end 
+						
+							name_hash=Hash.new {|h, k| h[k]=0}
+							item_names.each {|n| name_hash[n]+=1} 
+						%>
+						<p>
+							<% name_hash.each do |h, k| %>
+								<%= k %>&nbsp;<%= raw h %><br/>
+							<% end %> 
+						</p>
+						
+						<p style="margin-top:40px;">Thank you!</p>
+
+						<p>The Entertainment Fundraising&reg; Team</p>
+	
+					</div>
+					
+					<div style="margin:40px auto 20px auto; text-align:center; width:80%; font-family:Arial, Helvetica, sans-serif;color:#3f3f3f;font-size:11px;">
+						<hr />
+						
+						<p>This email has been sent to <span style="color:#14467c;text-decoration:none;"><%= @campaign.organizer.email %></span> because our records indicate that<br />you have opted to receive emails from Entertainment&reg;. If you no longer want to <br />receive emails from Entertainment&reg;, please <a href="https://www.entertainment.com/coupon/optout.cmd?email=<%= @campaign.organizer.email %>" target="_blank" style="color:#14467c;text-decoration:none;">click here</a> to update your email preferences.</p>
+
+						<p>Entertainment&reg;, Entertainment.com&reg;, Entertainment Fundraising&reg;, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTcrown2015.png" border="0"   alt="Entertainment Crown Logo" height="12" />, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTscript2015.png" alt="Entertainment Script Logo" border="0" height="12" />, and Raisy&trade;<br />
+are trademarks of HSP EPI Acquisition, LLC.
+<br /><br />
+<a href="http://Entertainment.us3.list-manage.com/track/click?u=ee601451868d9de2ceac09b7e&id=112b776e40&e=7f121cfe63" target="_blank">Need help?</a> | <a href="http://Entertainment.us3.list-manage2.com/track/click?u=ee601451868d9de2ceac09b7e&id=9b7fadab6c&e=7f121cfe63" target="_blank">Privacy</a>
+<br /><br />
+&copy;2015 HSP EPI Acquisition, LLC dba Entertainment&reg;
+<br /><br />
+1401 Crooks Road, Suite 150, Troy, MI 48084</p>
+					</div>
+				</div>
+			</td>
+			<td style="width:20px;"></td>
+		</tr>
+	</table>
+	</div>
+</body>

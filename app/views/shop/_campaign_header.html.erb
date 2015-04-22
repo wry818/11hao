@@ -1,0 +1,52 @@
+<div class="header-box">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="position:relative">
+				<% if @campaign.campaign_logo %>
+				<div style="text-align:center;">
+                    <%= cl_image_tag @campaign.campaign_logo.image_id, 
+					transformation: [
+						{
+							width: @campaign.campaign_logo.crop_width, 
+							height: @campaign.campaign_logo.crop_height,
+							x: @campaign.campaign_logo.crop_x,
+							y: @campaign.campaign_logo.crop_y,
+							crop: :crop
+						}
+					], style: "width: 100%; max-height: 301px"%>
+				</div>
+				<% else %>
+					<div class="campaign-default-logo-box">
+						<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+					</div>
+				<% end %>
+				<% if @seller %>
+					<div class="seller-header-title-box">
+						<table><tr>
+							<% if @seller.user_profile.user.profile.picture.present? %>
+							<td style="padding:5px 0px 0px 5px;"><%= cl_image_tag @seller.user_profile.user.profile.picture, width: 50, height: 50, crop: :limit %></td>
+							<% end %>
+							<td>
+								<div class="campaign-header-logo-title">
+									<span style="color: white">Help <%= @seller.user_profile.first_name %> fundraise for <%= @campaign.title %></span>
+								</div>
+								<div class="campaign-header-organizer-quote">
+									<span style="color: white"><%= @campaign.organizer_quote %></span>
+								</div>
+							</td>
+						</tr></table>
+					</div>
+				<% else %>
+					<div class="campaign-header-title-box"> 
+						<div class="campaign-header-logo-title">
+							<span style="color: white"><%= @campaign.title %></span>
+						</div>
+						<div class="campaign-header-organizer-quote">
+							<span style="color: white"><%= @campaign.organizer_quote %></span>
+						</div>
+					</div>
+				<% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<meta property='og:title' content="<%= @fb[:title] %>" />
+<meta property='og:description' content="<%= @fb[:description] %>" />
+<meta property='og:type' content="website" />
+<meta property='og:site_name' content="Raisy" />
+<meta property='og:locale' content="en_US"/>
+<meta property='og:image' content="<%= Cloudinary::Utils.cloudinary_url(@fb[:image]) %>" />
+<meta property='og:url' content="<%= @fb[:url] %>" />
+<meta property='fb:app_id' content="<%= Rails.configuration.facebook_app_id %>" />

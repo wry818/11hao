@@ -1,0 +1,36 @@
+<div id="campaign_stories" style="padding: 30px 0">
+    <div class="container">
+		 <div class="row">
+			 <div class="col-md-8 col-md-offset-1">
+			 	<h3><%= @story.title if @story%></h3>
+			</div>
+		 </div>
+		 
+		 <div class="row">&nbsp;</div>
+		 
+		 <form id="campaign_story_form" action="/admin/campaign_save_story" method="post" class="campaign-story-form form-horizontal">
+			 <div class="row">
+				 <div class="col-md-8 col-md-offset-2">
+					 <label>Title</label>
+					 <input name="title" type="text" class="form-control" maxlength="50" value="<%= @story.title %>" />
+				 </div>
+			 </div>
+			 <div class="row" style="margin-top:20px;">
+				 <div class="col-md-8 col-md-offset-2">
+				 	<textarea name="story" class="tinymce"><%=raw @story.story %></textarea>
+					<input name="story_id" type="hidden" value="<%= @story.id %>" />
+					<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+				 </div>
+			 </div>
+			 
+			 <div class="row">&nbsp;</div>
+		 
+			 <div class="row">
+				 <div class="col-md-8 col-md-offset-2" style="text-align:center;">
+					 <input type="submit" class="btn btn-primary btn-lg" value="Save" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 <%= link_to 'Back', "/admin/campaign_stories", class: 'btn btn-primary btn-lg' %>
+				 </div>
+			 </div>
+		 </form>
+	</div>
+</div>

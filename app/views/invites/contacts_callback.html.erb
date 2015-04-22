@@ -1,0 +1,29 @@
+<!-- 
+    The purpose of the following is to provide a callback to the parent window 
+    so we can transfer the data retrieved from Gmail omnicontacts 
+-->
+<!-- <h2>Getting contact, please wait...</h2>  -->
+<%= hidden_field_tag 'contacts_callback', @contacts.to_json, id: "contacts_callback" %>
+
+ 
+<script>
+
+	//	Set a Global variable to be accessed by the parent window
+	var contacts_list;
+	
+	$(document).ready(function() {
+
+		//	Pass the Rails hidden tag to our variable
+		contacts_list = $("#contacts_callback").val();
+		//alert(contacts_list);
+		//	Reference to the parent window if needed
+		if	( self.opener != null ) {	
+		   	var	parentWindow = self.opener;
+			parentWindow.contacts_list = contacts_list;
+		}	
+
+		//	Close this popup, will allow our listening (on close) plugin to initiate the callback
+		window.close()
+	});
+	
+</script>

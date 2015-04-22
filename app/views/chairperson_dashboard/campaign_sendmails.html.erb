@@ -1,0 +1,163 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :sendmails %>
+
+    <div class="dashboard-content">
+        <div class="container">
+			<%= hidden_field_tag 'hidcampaignid', @campaign.id, id: "hidcampaignid" %>
+			
+			<div class="container-box" style="border:0px solid white; padding:0 30px; margin:0;">
+				<div>
+					<span>Send emails to your friends and family to tell them about your fundraiser and invite them to shop online at your personalized fundraising page to help reach the fundraising goal.</span>
+					<br/><br/>
+					<span>Custom Email Text:</span>
+				</div>
+				
+				<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
+					<div>
+						<%=raw @default_email_msg %>
+					</div>
+					
+			    	<div style="margin-top: 10px;">
+						<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+					</div>
+					
+					<div style="margin-top: 10px;">
+						<%=raw @default_email_msg_two %>
+					</div>
+				</div>
+				
+				<div style="margin-top:20px;"> 
+					<button id="btnSaveEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
+						<span class="text">Save Changes</span>
+						<span class="loader" style="display:none"></span>
+					</button>&nbsp;&nbsp;&nbsp;
+					<button id="btnPreviewEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
+						<span class="text">Preview Email</span>
+						<span class="loader" style="display:none"></span>
+					</button>&nbsp;&nbsp;&nbsp;
+					<button id="btnSendEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
+						<span class="text">Send Email</span>
+						<span class="loader" style="display:none"></span>
+					</button>
+				</div>
+			</div>
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>
+
+<div id="contacts_modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="contacts_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div id="preview_contact_email_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="preview_contact_email_modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Preview Email</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$("#btnSaveEmail").click(function(){
+		SaveEmail(this, false);
+	});
+
+	$("#btnSendEmail").click(function(){
+		SaveEmail(this, true);
+	});
+	
+	$("#btnPreviewEmail").click(function(){
+		Raisy.users.previewContactEmail(this);
+	});
+});
+
+function SaveEmail(btn, is_send_email){
+	var ed=tinymce.get("txtEmailBody");
+	var $container=$(ed.getContainer());
+
+	if (!$container.hasClass("mce-tinymce")) {
+		$container=$container.parents(".mce-tinymce").first();
+	}
+	
+	var content=$.trim(ed.getContent({format: "text"}));
+	var maxLength=parseInt(ed.getParam("maxlength"));
+	var count=maxLength-content.length;
+	
+	if (count<0) {
+		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+		
+		window.Raisy.alert("Custom Email Text can only have a maximum of " + maxLength + " characters");
+		
+		return;
+	}
+	
+	var $button = $(btn);
+	var campaignid = $("#hidcampaignid").val();
+	
+	if (is_send_email)
+	{
+        $button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+            $.ajax('<%= seller_email_contacts_path(0) %>', {
+                type: 'GET',
+                beforeSend: function(jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function(data) {
+					$("#contacts_modal .modal-content").html(data);
+					$("#contacts_modal").modal("show");
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while sending email, please try again.");
+                },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+				}
+            });
+        });
+	}
+	else {
+		$container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
+		
+		content=$.trim(ed.getContent());
+	
+        $button.prop('disabled', true).find('span.text').text("Saving Changes").siblings('span.loader').show(200, function() {
+            $.ajax('/ajax/emailcontacts', {
+                type: 'POST',
+				data: { is_send_email: is_send_email, campaign_id: campaignid, email_text: content },
+                beforeSend: function(jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function(data) {
+					if (data == "failed") {
+						window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+					} else {
+						ed.setContent(data, {format : 'raw'});
+						
+						window.Raisy.alert("Changes have been successfully saved");
+					}
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+                },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();
+				}
+            });
+        });
+	}
+}
+</script>

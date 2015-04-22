@@ -1,0 +1,285 @@
+<%= form_for([:admin, @product], html: { class: "product_form" }) do |f| %>
+    <fieldset>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="product_name">Name</label>
+                            <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Description</label>
+                            <%= f.text_area :description, class: 'tinymce', placeholder: 'Description' %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Image (optional)<span style="font-weight: normal">(Best size: 280px * 280px)</span></label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="image-uploader">
+                                        <div id="drop-zone" class="drop-zone">
+                                            <div class="row"><div class="col-md-6">
+                                                <div class="upload-button-holder" style="position: relative">
+                                                    <a class="btn btn-default btn-block upload-button">Choose File</a>
+                                                    <%= cl_image_upload_tag(:product_image, tags: Rails.env, html: { accept:"image/*"}) %>
+													<a href="#" class="remove-image" style="display:none">Remove picture</a>
+                                                </div>
+                                            </div><div class="col-md-6">
+                                                <p class="drop-text">...or drop image here</p>
+                                            </div></div>
+                                        </div>
+                                        <div class="progress progress-striped active" style="display: none;">
+                                            <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                                            <span>0%</span>
+                                            </div>
+                                        </div>
+                                        <span class="status"></span>
+                                        <div class="preview">
+                                            <% if f.object.picture.present? %>
+                                                <%= cl_image_tag f.object.picture, width: 97, height: 94, crop: :limit, class: 'img-responsive' %>
+                                            <% else %>
+                                                <%= image_tag 'default_upload_logo.gif' %>
+                                            <% end %>
+                                        </div>
+										<div class="remove-preview" style="margin-top:10px; display:<%= f.object.picture.present? ? 'block' : 'none' %>;" data-default-url="<%=asset_path 'default_upload_logo.gif'%>">
+											<%= hidden_field_tag :remove_item_image, "no" %>
+											
+											<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">Remove</span></button>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Base Price</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <%= f.text_field :base_price, value: long_price(f.object.base_price), class: 'form-control', placeholder: "Base Price", maxlength: 10 %>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="product_base_price" class="error" style="display: none"></label>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Default Donation Amount</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <%= f.text_field :default_donation_amount, value: long_price(f.object.default_donation_amount), class: 'form-control', placeholder: "Donation Amount", maxlength: 10 %>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="product_base_price" class="error" style="display: none"></label>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Quantity</label>
+                            <div class="checkbox" style="margin-top: 5px;">
+                                <label for="product_show_quantity">
+                                  <%= f.check_box :show_quantity %>Show Quantity Dropdown
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Delivery Method</label>
+                            <div class="checkbox" style="margin-top: 5px;">
+                                <label for="product_fulfillment_method_1">
+                                  <%= f.radio_button :fulfillment_method, "1" %> Email
+                                </label>
+                            </div>
+                            <div class="checkbox" style="margin-top: 5px;">
+                                <label for="product_fulfillment_method_2">
+                                  <%= f.radio_button :fulfillment_method, "2" %> Shipping Immediately
+                                </label>
+                            </div>
+                            <div class="checkbox" style="margin-top: 5px;">
+                                <label for="product_fulfillment_method_3">
+                                  <%= f.radio_button :fulfillment_method, "3" %> Bulk Shipping At Fundraiser Closing
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="product_vendor">Vendor</label>
+                            <select class="form-control input-small" id="product_vendor" name="product[vendor]">
+								<option value="">-- Please Select --</option>
+								<option value="Budco" <%= f.object.vendor == 'Budco' ? 'selected' : '' %>>Budco</option>
+								<option value="PV" <%= f.object.vendor == 'PV' ? 'selected' : '' %>>Pine Valley</option>
+							</select>
+                        </div>
+                    </div>
+					
+                    <div class="row">
+                        <div class="col-md-12">
+							&nbsp;
+                        </div>
+                    </div>
+					
+					<% if f.object.need_check_inventory %>					
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Available Quantity</label>
+                        </div>
+						<div class="col-xs-4">
+							<span><%= f.object.qty_available if f.object.inventory_last_update_time %></span>
+						</div>
+                    </div>
+					
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Inventory Last Update Date</label>
+                        </div>
+						<div class="col-xs-4">
+							<span><%= f.object.inventory_last_update_time.strftime('%b %-d, %Y') if f.object.inventory_last_update_time %></span>
+						</div>
+                    </div>					
+					<% end %>
+					
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="product_sku">SKU</label>
+                            <%= f.text_field :sku, class: 'form-control', maxlength: 20, placeholder: "SKU" %>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="well">
+					<input id="product_collection_id" name="product_collection_id" type="hidden" />
+                    <input id="product_category_id" name="product_category_id" type="hidden" />
+					
+                    <div class="row" style="margin-bottom:10px;">
+                        <div class="col-sm-4">
+						  <label>Collection</label>
+					  	</div>
+                        <div class="col-sm-2">
+						  <label>Categories</label>
+					  	</div>
+                        <div class="col-sm-1">
+						  <a data-toggle="modal" href="<%= admin_product_collections_path(f.object.id.nil? ? 0 : f.object.id) %>" data-target="#collection_modal">Edit</a>
+					  	</div>
+				  	</div>
+					
+					<% categories=f.object.categories.all %>
+                    <% f.object.collections.each do |collection| %>
+	                    <div class="row" style="margin-bottom:10px;">
+	                        <div class="col-sm-4">
+							  <span class="init-prod-collection" data-value="<%= collection.id %>"><%= collection.name %></span>
+						  	</div>
+							<div class="col-sm-6">
+								<span class="init-prod-category" data-value="<%= categories.select{|c| c.collection_id==collection.id}.map{|c| c.id.to_s}.join(",") %>"><%= categories.select{|c| c.collection_id==collection.id}.map{|c| c.name}.join(", ") %></span>
+							</div>
+					  	</div>
+					<% end %>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="product_is_featured">
+                              <%= f.check_box :is_featured %>&nbsp;Featured Product
+                            </label>
+                        </div>
+                    </div>
+                </div>
+				
+				<% if !@product.id.nil?%>
+                <div class="well">
+                    <div class="row">
+                       <div class="col-md-12">
+                           <label>Option Group</label>
+						   
+						   <% option_group = @product.option_groups.active.first %>
+						   
+						   <% if option_group %>
+						   <div class="table-responsive">
+							   	<table class="table">
+									<thead> 
+										<th>Name</th>
+										<th>Instructions</th>
+										<th>Required?</th>
+										<th></th>
+										<th></th>
+									</thead>
+									<tbody>
+										<tr>
+											<td><%= option_group.name %></td>
+											<td><%= option_group.instructions %></td>
+											<td>
+												<% if option_group.required %>
+													<span class="glyphicon glyphicon-ok"></span>
+												<% end %>
+											</td>
+											<td>
+												<%= link_to "Edit", admin_product_edit_option_group_path(@product) %>
+											</td>
+											<td>
+												<%= link_to "Destroy", admin_product_delete_option_group_path(@product), method: :delete, data: { confirm: "Are you sure that you want to destroy this option group?" } %>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+						 	</div>
+						   	<% else %>
+						   	<div style="margin-top:10px;">
+								<%= link_to "Create Option Group", admin_product_edit_option_group_path(@product), class: "btn btn-primary" %>
+						   	</div>
+						   	<% end %>
+                       </div>
+                    </div>
+                </div>
+				<% end %>
+				
+            </div>
+        </div>
+
+        <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
+            <span class="text">Save </span> <span class="loader" style="display:none"></span>
+        </button>
+
+    </fieldset>
+	
+	<div id="collection_modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="collection_modal" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	    </div>
+	  </div>
+	</div>
+<% end %>

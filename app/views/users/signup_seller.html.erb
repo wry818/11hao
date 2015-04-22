@@ -1,0 +1,493 @@
+<div id="signup" class="signup">
+
+	<div class="container container-background">
+		<div class="container-box">
+
+			<div class="campaign-callout" style="margin-bottom: 30px;">
+				<div class="row">
+					<div class="col-md-4">
+                        <%= cl_image_tag @campaign.campaign_logo.image_id,
+							transformation: [{ 
+									width: @campaign.campaign_logo.crop_width,
+									height: @campaign.campaign_logo.crop_height,
+									x: @campaign.campaign_logo.crop_x,
+									y: @campaign.campaign_logo.crop_y,
+									crop: :crop
+								}, { 
+									width: 650,
+									height: 350,
+									crop: :limit
+								}],
+							class: 'img-responsive' if @campaign.campaign_logo %>
+					</div>
+
+					<div class="col-md-8"><h3>Join the fundraising team for <br/> <br/> <strong><%=
+					@campaign.title%></strong></h3>
+					</div>
+				</div>
+                                    </div>
+
+			<div class="row">
+
+				<div class="col-md-7">
+					<div class="well">
+
+						<% if !user_signed_in? %>
+
+						<%= form_tag(signup_seller_create_path, method: :post, id: "signup_form" ) %>
+
+						<div id="seller_signup_selector" class="form-group">
+							<div class="form-group">
+								<label>I am a…</label>
+							    <input type="hidden" id="user_account_type" name="user[account_type]">
+							</div>
+
+							<div class="form-group">
+								<button id="seller_signup_button13" type="button" class="btn btn-default btn-block" onclick="Raisy.users.showSignupForm13();">
+									<span class="text">Parent of a 13 or younger seller</span>
+								</button>
+							</div>
+
+							<div class="form-group">
+								<button type="button" id="seller_signup_button14" class="btn btn-default btn-block" onclick="Raisy.users.showSignupForm14();">
+									<span class="text">14-17 year old seller</span>
+								</button>
+							</div>
+
+							<div class="form-group">
+								<button id="seller_signup_button18" type="button" class="btn btn-default btn-block" onclick="Raisy.users.showSignupForm18();">
+									<span class="text">18+ year old seller</span>
+								</button>
+							</div>
+						</div>
+
+						<div id="seller_signup_form13" style="display:none;">
+							<div class="form-group">
+								<label>Parent / Guardian Signup</label>
+								&nbsp;&nbsp;<a href="#" onclick="Raisy.users.showSignupSelector();">Change</a>
+							</div>
+
+							<div><hr style="border-top:1px solid #ccc;"/></div>
+							
+							<div id="seller13_error" class="seller_signup_error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div id="seller13_message" style="text-align: center;"> 
+						            </div>
+						        </div>
+							</div>
+
+							<div class="form-group">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_grade" class="control-label">Parent's First Name</label>
+											<input type="text" name="user_profile[first_name]" class="form-control" placeholder="First Name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_homeroom" class="control-label">Parent's Last Name</label>
+											<input type="text" name="user_profile[last_name]" class="form-control" placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+							</div>
+	 						<div class="form-group">
+	 							<label for="user_email" class="control-label">E-Mail</label>
+								<input type="email" id="seller13_email" name="user[email]" class="form-control" placeholder="E-Mail">
+	 						</div>
+
+	 						<div class="form-group">
+	 							<label for="user_password" class="control-label">Password</label>
+                                                                                                <input type="password" name="user[password]" class="form-control" placeholder="Password">
+	 						</div>
+
+							<div>
+								<label class="checkbox-inline"><input type="checkbox" name="guardian_agree"/>I am the parent or legal guardian of the child/children I am registering.  I agree to the <%= link_to "Privacy Policy", privacy_path, target: "_blank" %> for children under the age of 13.</label>
+							</div>
+
+							<div><hr style="border-top:1px solid #ccc;"/></div>
+
+							<div class="form-group" >
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_grade" class="control-label">Seller's First Name</label>
+												<input type="text" name="seller13[first_name]" class="form-control" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_homeroom" class="control-label">Seller's Last Name</label>
+												<input type="text" name="seller13[last_name]" class="form-control" placeholder="Last Name">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_grade" class="control-label">Grade</label>
+												<input type="text" name="seller13[grade]" class="form-control" placeholder="Grade">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+												<input type="text" name="seller13[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div>Have more sellers to add?  You can do that from your dashboard once your account is created.</div>
+
+   							   <hr style="border-top:1px solid #ccc;"/>
+
+   							  <button type="submit" class="btn btn-primary">
+   									<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+   							 </button>
+							 <br/>
+						     <br/>
+   							 <div>
+   								Already have an account?&nbsp;<%= link_to "Sign In", new_user_session_path %>
+   							 </div>
+
+
+						</div></div>
+
+						<div id="seller_signup_form14" style="display:none;">
+
+							<div class="form-group">
+								<label>14-17 Year Old Seller Sign Up</label>
+								&nbsp;&nbsp;<a href="#" onclick="Raisy.users.showSignupSelector();">Change</a>
+							</div>
+
+							<div><hr style="border-top:1px solid #ccc;"/></div>
+							
+							<div id="seller14_error" class="seller_signup_error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div id="seller14_message" style="text-align: center;"> 
+						            </div>
+						        </div>
+							</div>
+
+                            <div class="form-group" style="margin-top:15px;">
+                                <div class="row">
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+                                			<label for="seller_grade" class="control-label">Seller's First Name</label>
+                                			<input type="text" name="seller14[first_name]" class="form-control" placeholder="First Name">
+                                		</div>
+                                	</div>
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+                                			<label for="seller_homeroom" class="control-label">Seller's Last Name</label>
+                                			<input type="text" name="seller14[last_name]" class="form-control" placeholder="Last Name">
+                                		</div>
+                                	</div>
+                                </div>
+                            </div>
+
+	 						<div class="form-group">
+	 							<label class="control-label">Seller's E-Mail</label>
+	 							<input type="email" id="seller14_email" name="seller14[email]" class="form-control" placeholder="E-Mail">
+	 						</div>
+
+	 						<div class="form-group">
+	 							<label class="control-label">Password</label>
+	 							<input type="password" name="seller14[password]" class="form-control" placeholder="Password">
+	 						</div>
+
+							<div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_grade" class="control-label">Grade</label>
+												<input type="text" name="seller14[grade]" class="form-control" placeholder="Grade">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+												<input type="text" name="seller14[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+											</div>
+										</div>
+									</div>
+								</div>
+
+							<div><hr style="border-top:1px solid #ccc;"/></div>
+
+							<div>Please provide a parent or guardian's name and email address:</div>
+
+							<div class="form-group" style="margin-top:15px;">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_grade" class="control-label">Parent's First Name</label>
+											<input type="text" name="parent[first_name]" class="form-control" placeholder="First Name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_homeroom" class="control-label">Parent's Last Name</label>
+											<input type="text" name="parent[last_name]" class="form-control" placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+							</div>
+
+	 						<div class="form-group">
+	 							<label class="control-label">Parent's E-Mail</label>
+	 							<input type="email" name="parent[email]" class="form-control" placeholder="E-Mail">
+	 						</div>
+
+						   <hr style="border-top:1px solid #ccc;"/>
+
+						  <button type="submit" class="btn btn-primary">
+								<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+						 </button>
+						  <br/> <br/>
+
+						 <div>
+							Already have an account?&nbsp;<%= link_to "Sign In", new_user_session_path %>
+						 </div>
+
+						</div>
+
+						<div id="seller_signup_form18" style="display:none;">
+
+							<div class="form-group">
+								<label>18+ Year Old Seller Sign Up</label>
+								&nbsp;&nbsp;<a href="#" onclick="Raisy.users.showSignupSelector();">Change</a>
+							</div>
+							
+							<div><hr style="border-top:1px solid #ccc;"/></div>
+							
+							<div id="seller18_error" class="seller_signup_error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div id="seller18_message" style="text-align: center;"> 
+						            </div>
+						        </div>
+							</div>
+
+							<div class="form-group" style="margin-top:15px;">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_grade" class="control-label">Seller's First Name</label>
+											<input type="text" name="seller[first_name]" class="form-control" placeholder="First Name">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="seller_homeroom" class="control-label">Seller's Last Name</label>
+											<input type="text" name="seller[last_name]" class="form-control" placeholder="Last Name">
+										</div>
+									</div>
+								</div>
+							</div>
+
+	 						<div class="form-group">
+	 							<label for="user_email" class="control-label">Seller's E-Mail</label>
+	 							<input type="email" id="seller18_email" name="seller[email]" class="form-control" placeholder="E-Mail">
+	 						</div>
+
+	 						<div class="form-group">
+	 							<label for="user_password" class="control-label">Password</label>
+	 							<input type="password" name="seller[password]" class="form-control" placeholder="Password">
+	 						</div>
+							
+<div style="display:none;">
+							<div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_grade" class="control-label">Grade</label>
+												<input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+												<input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+											</div>
+										</div>
+									</div>
+							 </div>
+</div>
+
+							   <hr style="border-top:1px solid #ccc;"/>
+
+							  <button type="submit" class="btn btn-primary">
+									<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+							 </button>
+							  <br/> <br/>
+
+							 <div>
+								Already have an account?&nbsp;<%= link_to "Sign In", new_user_session_path %>
+							 </div>
+						</div>
+
+						<% else %>
+                                                                        <!-- logged in -->
+
+                                                                            <% if current_user.account_type == 3 %>
+                                                                            <!--Account Type 3-->
+                                                                                <label>Logged in as <%=current_user.profile.fullname%>.</label>
+                                                                                <br/>
+                                                                                <br/>
+                                                                                <div>
+                                                                                    To join this fundraiser, please choose an existing seller from your account, or create a new one.
+                                                                                </div>
+                                                                                <br/>
+                                                                                <%= form_tag(signup_seller_add_path, method: :post, id: "signup_form" ) %>
+                                                                                <input type="radio" name="post_seller_type" onclick="Raisy.users.showExistingSeller('1');" checked="checked"  value="1" /> Join with an existing seller <br/>
+
+                                                                                <div class="form-group">
+                                                                                    <div><br/>
+                                                                                    <%= select("existing_seller_profile", "id", @existing_seller_profiles.collect{|t| [t.fullname, t.id]}, { :include_blank => false },{:class => "form-control" }) %>
+
+                                                                                    </div><br/>
+                                                                                    <div id="seller_signup_parent1">
+                                                                                    <div>
+                                                                                    Please provide this seller's current grade and homeroom teacher:
+                                                                                    </div>
+                                                                                    <br/>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_grade" class="control-label">Grade</label>
+                                                                                                <input type="text" name="sellerexist[grade]" class="form-control" placeholder="Grade">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+                                                                                                <input type="text" name="sellerexist[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                </div>
+
+                                                                                        <input type="radio" name="post_seller_type"  onclick="Raisy.users.showExistingSeller('2');" value="2" /> Join with a new seller <br/>
+
+                                                                                <div class="form-group" id="seller_signup_parent2" style="display: none;">
+                                                                                    <br/><br/>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_firstname" class="control-label">Seller's First Name</label>
+                                                                                                <input type="text" name="seller[first_name]" class="form-control" placeholder="First Name">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_lastname" class="control-label">Seller's Last Name</label>
+                                                                                                <input type="text" name="seller[last_name]" class="form-control" placeholder="Last Name">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_grade" class="control-label">Grade</label>
+                                                                                                <input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+                                                                                                <input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <br/><br/>
+
+                                                                                <div>Have more sellers to add?  You can do that from your dashboard.</div>
+                                                                                <br/><br/>
+                                                                                <button type="submit" class="btn btn-primary btn-block">
+                                                                                    <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+                                                                                </button>
+                                                                                <br/><br/>
+                                                                                <div>
+                                                                                    Not <%=current_user.profile.fullname%>?
+                                                                                    <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+
+                                                                                </div>
+
+                                                                            <!-- END Account type 3 -->
+                                                                            <% else %>
+                                                                            <!-- Account type 1 or 2 -->
+                                                                                <label>Logged in as <%=current_user.profile.fullname%></label>
+                                                                                <br/><br/>
+<% if current_user.admin? || current_user.account_type == 1 %>
+<% else %>
+                                                                                <div>
+                                                                                    To join this fundraiser, please provide your current grade and homeroom teacher.
+                                                                                </div>
+                                                                                <br/>
+<% end %>
+                                                                                <%= form_tag(signup_seller_add_path, method: :post, id: "signup_form" ) %>
+																				
+<% if current_user.admin? || current_user.account_type == 1 %>
+	<div style="display:none;">
+<% else %>
+	<div>
+<% end %>
+																				<div class="form-group">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_grade" class="control-label">Grade</label>
+                                                                                                <input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <div class="form-group">
+                                                                                                <label for="seller_homeroom" class="control-label">Homeroom Teacher</label>
+                                                                                                <input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+</div>
+
+                                                                                <button type="submit" class="btn btn-primary btn-block">
+                                                                                    <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+																					
+                                                                                </button>
+                                                                                <br/>
+
+                                                                                <div>
+                                                                                    Not <%=current_user.profile.fullname%>?
+                                                                                    <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+                                                                                </div>
+                                                                            <!-- END: Account type 1 or 2 -->
+                                                                            <% end %>
+
+                                                                        <!-- END: logged in -->
+						<% end %>
+
+					</div>
+			             </div>
+
+
+				<div class="col-md-5">
+					<h4>Please note!</h4>
+					<p>
+						Participants under the age of 13 must have a parent or guardian create an account on their behalf.
+					</p>
+				</div>
+			</div>
+
+		</div> <!--/.container-box top-section -->
+
+	</div> <!--/.container-background -->
+
+</div> <!-- /#signup_seller -->

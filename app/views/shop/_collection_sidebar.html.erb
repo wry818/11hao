@@ -1,0 +1,17 @@
+<div class="collection-description">
+	<% if @campaign.collection%>
+    <h3><%= @campaign.collection.name %></h3>
+    <div class="image-container">
+        <%= cl_image_tag @campaign.collection.picture, width: 232, height: 232, crop: :limit, class: 'img-responsive' %>
+    </div>
+    <% if @campaign.collection.description %>
+        <p>
+            <%= sanitize @campaign.collection.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target)  %>
+        </p>
+    <% end %>
+    <hr/>
+    <p style="text-align: center">
+        Every purchase benefits<br/><%= @campaign.organization.name %>
+    </p>
+	<% end %>
+</div>

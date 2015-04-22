@@ -1,0 +1,7 @@
+production:
+  secure: true
+  cdn_subdomain: true
+
+development:
+  secure: false
+  cdn_subdomain: true

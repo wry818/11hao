@@ -1,0 +1,415 @@
+<%= form_for([:admin, @campaign], html: { id: "campaign_form", class: 'campaign-form form-horizontal' }) do |f| %>
+
+<h4 class="fieldset-header">Fundraiser Details</h4>
+
+<%= hidden_field_tag :campaign_logo %>
+<%= hidden_field_tag :logo_crop_x, "0" %>
+<%= hidden_field_tag :logo_crop_y, "0" %>
+<%= hidden_field_tag :logo_crop_w, "622" %>
+<%= hidden_field_tag :logo_crop_h, "200" %>
+<%= hidden_field_tag :campaign_photo_ids, "" %>
+<%= hidden_field_tag :upload_camp_photo_crop, "" %>
+
+<fieldset>
+    <div class="form-group">
+        <label for="campaign_title" class="col-sm-2 control-label">Title<span class='req'>*</span></label>
+        <div class="col-sm-10">
+            <%= f.text_field :title, class: 'form-control', placeholder: 'i.e. Troy Elementary New Gym Equipment; This will show up in all emails' %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="campaign_title" class="col-sm-2 control-label">Tagline</label>
+        <div class="col-sm-10">
+            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: 'i.e. Help raise fund for Troy Elementary New Gym Equipment' %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="organization_picture" class="col-sm-2 control-label">
+			Fundraiser Cover Photo 
+			<br />
+			<span class="upload-tooltip">
+				(Best size: 970px * 310px)
+			</span>
+		</label>
+        <div class="col-sm-10">
+            <div class="campaign-image-uploader clearfix" style="margin-top: 5px;">
+				<div class="row">
+					<div class="col-md-9">
+						<div id="drop-zone" class="drop-zone uploader-box" style="border:1px solid #ccc; background: #eee;">
+			                <div class="preview uploader-preview-box" style="text-align:center">
+			                    <% if f.object.campaign_logo %>
+		                            <%= cl_image_tag f.object.campaign_logo.image_id,
+										transformation: [{ 
+												width: f.object.campaign_logo.crop_width,
+												height: f.object.campaign_logo.crop_height,
+												x: f.object.campaign_logo.crop_x,
+												y: f.object.campaign_logo.crop_y,
+												crop: :crop
+											}], class: "uploader-preview-box" %>
+			                    <% else %>
+			                        <%= image_tag 'default_upload_logo.gif', class: "default-upload-logo" %>
+			                    <% end %>
+			                </div>
+						</div>
+						<div class="uploader-box">
+				            <div class="progress progress-striped active" style="display: none; height:18px;">
+				                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+				                    <span>0%</span>
+				                </div>
+				            </div>
+							<div style="text-align:center;">
+								<span class="status"></span>
+							</div>
+						</div>
+						<div id='crop_result' style="display:none;"></div>
+						<div style="width:0px; height:0px;">
+		                    <%= cl_image_upload_tag(:campaign_logo, tags: "custom-campaign-image", html: { accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
+						</div>
+					</div>
+					<div class="col-md-2 campaign-upload-button-box">
+						<div class="clearfix">
+							<div class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; margin-bottom:10px; width:120px; float:left;">
+								<span style="color:#428bca;font-size:1.1em;display:block;">
+									Upload
+								</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+							</div>
+							<div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; width:120px; float:left;">
+								<span style="color:#428bca;font-size:1.1em;display:block;">
+									Use</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+							</div>
+							<a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">Use one of ours</a>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label">
+			More Photos 
+			<br />
+			<span class="upload-tooltip">
+				(Best size: 280px * 280px)
+			</span>
+		</label>
+		<div class="col-sm-10">
+			<div class="row">
+				<div class="col-md-2" style="width:202px;">
+					<div id="upload_camp_photo_container" style="border:1px solid #ccc; width:202px; height:202px; background:#eee;">
+						<%= image_tag 'default_upload_logo.gif', style: "display:block; margin: 0px auto; margin-top:50px;" %>
+					</div>
+					<div style="width:202px;">
+			            <div class="camp-photo-progress progress progress-striped active" style="display: none; height:18px;">
+			                <div class="camp-photo-progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+			                    <span>0%</span>
+			                </div>
+			            </div>
+						<div style="text-align:center;">
+							<span class="camp-photo-status"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 campaign-photo-upload-button-box">
+					<div id="upload_camp_photo_button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; width:100px;" data-uploaded="no">
+						<span style="color:#428bca;font-size:1.1em;display:block;">
+							Upload
+						</span>
+					</div>
+				</div>
+				<div style="width:0px; height:0px;">
+					<input id="add_camp_photo_upload" name="photo_upload" type="file" data-url="/upload/campaign_photo" accept="image/*" style="width:0px; height:0px; visibility:hidden;" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="campaign-photo-template" style="display:none; float:left; margin-right:10px;">
+		<div style="width:102px; height:102px; position:relative; border:1px solid #eee;">
+			<div class="campaign-photo-remove" style="position:absolute; top:1px; right:1px; cursor:pointer;">
+				<span class="glyphicon glyphicon-remove"></span></div>
+		
+			<img style="width:100px; height:100px;">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label"></label>
+		<div class="col-sm-10 add-camp-photo-container">
+			<div>
+				<% @campaign.campaign_photos.each do |photo| %>
+				<div class="campaign-photo-instance" style="float:left; margin-right:10px;" data-public-id="<%=photo.image_id%>">
+					<div style="width:102px; height:102px; position:relative; border:1px solid #eee;">
+						<div class="campaign-photo-remove" style="position:absolute; top:1px; right:1px; cursor:pointer;">
+							<span class="glyphicon glyphicon-remove"></span></div>
+                        <%= cl_image_tag photo.image_id,
+							transformation: [{ 
+									width: photo.crop_width,
+									height: photo.crop_height,
+									x: photo.crop_x,
+									y: photo.crop_y,
+									crop: :crop
+								}],
+							style: 'width:100px; height:100px;' %>
+					</div>
+				</div>
+				<% end %>
+				<div class="add-camp-photo-li" style="float:left; display: <%= @campaign.campaign_photos.length>=9 ? 'none' : 'none' %> ">
+					<div class="add-camp-photo-file">
+						<div class="add-campaign-photo" style="border-width:2px; border-style:dotted; border-color: #ccc; width:102px; height:102px;  text-align:center; cursor:pointer; background-color: rgb(245,245,245);" onclick="$('#add_camp_photo_upload').click();">
+							<span class="fa fa-plus fa-2x" style="color: #aaa; display:block; margin-top:20px;"></span>
+							<span style="color: #888; font-size: 12px; display:block;">Add a photo</span>
+							<span class="fa fa-spinner fa-spin" style="color:#aaa; display:none; margin-top:10px;"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+    <div class="form-group">
+        <label for="campaign_goal" class="col-sm-2 control-label">Goal<span class='req'>*</span></label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <%= f.text_field :goal, class: 'form-control', placeholder: "i.e. 1,000" %>
+            </div>
+            <label for="campaign_goal" class="error" style="display: none"></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="campaign_end_date" class="col-sm-2 control-label">Sale End Date</label>
+        <div class="col-sm-3">
+            <%= f.text_field :end_date, placeholder: "Select date", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="campaign_description" class="col-sm-2 control-label">Tell Your Story</label>
+        <div class="col-sm-10">
+            <%= f.text_area :description, class: "tinymce", style: 'width: 200px' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+		<table class="allow-direct-donation-box">
+			<tr>
+				<td class="checkbox-label">
+					<label>Allow Direct Donation<span class='req'></span></label>
+				</td>
+				<td class="checkbox-input">
+					<%= f.check_box :allow_direct_donation %> 
+				</td>
+			</tr>
+		</table>
+    </div>
+
+    <div class="form-group">
+        <label for="campaign_call_to_action" class="col-sm-2 control-label">Call to Action Text<span class='req'>*</span></label>
+        <div class="col-sm-10">
+            <%= f.text_field :call_to_action, class: 'form-control', placeholder: 'Shop Now' %>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="campaign_discount" class="col-sm-2 control-label">Discount</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <%= f.text_field :discount, class: 'form-control', placeholder: "i.e. 20" %>
+				<span class="input-group-addon">% off</span>
+            </div>
+			<label for="campaign_discount" class="error" style="display: none;"></label>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="campaign_purchase_limit" class="col-sm-2 control-label">Max # of Purchases Limit</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <%= f.text_field :purchase_limit, class: 'form-control', placeholder: "i.e. 30" %>
+            </div>
+			<label for="campaign_purchase_limit" class="error" style="display: none;"></label>
+        </div>
+    </div>
+</fieldset>
+
+	<% if f.object.ent_campaign? && f.object.organization %>
+		<fieldset>
+			<h4 class="fieldset-header">Organization&nbsp;&nbsp;&nbsp;<span><%= f.object.organization.name %></span></h4>
+			<!-- Make organization an input by add class .input-organization -->
+			<input class="input-organization" id="organization_name" name="organization_name" type="hidden" value="<%= f.object.organization_id %>">
+		</fieldset>
+	<% else %>
+	    <h4 class="fieldset-header">Organization<span class='req'>*</span></h4>
+
+	    <fieldset>
+	        <div class="form-group">
+	            <div class="col-sm-9"> 
+					<input class="form-control" id="organization_name" name="organization_name" type="text" value="<%= f.object.organization_id %>">
+					<!-- organization-name is the real field that stores organization name -->
+					<input id="organization-name" name="organization[name]" style="display:none;">
+	            </div>
+	        </div>
+	    </fieldset>
+	<% end %>
+
+    <h4 class="fieldset-header">Collection</h4>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12">
+            <select class="form-control input-small" name="campaign[collection_id]">
+							<option value="">-- Please Select --</option>
+                <% @collections.each do |collection| %>
+                <option value="<%= collection.id %>" <%= f.object.collection_id == collection.id ? 'selected' : '' %> >
+                    <%= collection.name %>
+                </option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+
+    <h4 class="fieldset-header">Chairperson</h4>
+
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12">
+            <select class="form-control input-small" name="campaign[organizer_id]">
+                <% @users.each do |user| %>
+                <option value="<%= user.id %>" <%= f.object.organizer_id == user.id ? 'selected' : '' %> >
+                    <%= user.profile.fullname if user.profile%>
+                </option>
+                <% end %>
+            </select>
+        </div>
+    </div>
+		
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-1">
+           <h4 class="fieldset-header">Active?</h4>
+        </div>
+				<div class="col-md-1">
+          <div style="margin-top: 5px;">
+              <%= f.check_box :active %>
+          </div>
+				</div>
+    </div>
+
+	<div>
+	    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+	        <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+	    </button>
+		<% if @target_organization %>
+			&nbsp;&nbsp;&nbsp;<%= link_to 'Back', edit_admin_organization_path(@target_organization), class: "btn btn-primary btn-lg" %>
+		<% end %>
+	</div>
+<% end %>
+
+<div id="default_images_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="default_images_modal" aria-hidden="true" data-img-loaded="no">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Choose one of our photos</h4>
+        </div> <!-- /.modal-header -->
+
+            <div class="modal-body">
+				
+		 		<div id="default_campaign_images">
+					
+	 		        <% @campaign_images.each_with_index do |image, index| %>
+					
+						<% if index % 2 == 0 %>
+							<div class="row">
+						<% end %>
+					
+	 	        		<div class="col-sm-6">
+							<% if image.is_cropped %>
+	 						<div class="default-campaign-image" data-image-id="<%=image.image_identifier%>" data-public-id="<%=image.public_id%>" data-crop-x="<%=image.crop_x%>" data-crop-y="<%=image.crop_y%>" data-crop-w="<%=image.crop_width%>" data-crop-h="<%=image.crop_height%>" data-cropped="true">
+								
+								<img src="" alt="" class="dynamic-image" data-src="<%=image.public_id%>" data-width="<%=image.crop_width%>" data-height="<%=image.crop_height%>" data-x="<%=image.crop_x%>" data-y="<%=image.crop_y%>" data-crop="crop" style="width:100%;" />
+								
+							</div>	
+							<% else %>
+							<div class="default-campaign-image" data-image-id="<%=image.image_identifier%>" data-public-id="<%=image.public_id%>">
+								<img src="" alt="" class="dynamic-image" data-src="<%=image.public_id%>" style="max-width:100%; max-height:100px;" />
+								
+							</div>
+							<% end %>
+	 						<div style="height:5px"></div>
+	 					</div>
+						
+						<% if index % 2 > 0 || index == @campaign_images.count - 1 %>
+							</div>
+						<% end %>
+						
+	 		        <% end %>
+					
+		 		</div>
+
+            </div> <!-- end of modal body -->
+			
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+ <script>
+	var isuploadCampaignPhoto = false;
+
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+	 	window.addEventListener("orientationchange", function() {
+
+			reCropCampaingImage();
+
+	 	}, false);
+
+	} else {
+
+		window.addEventListener("resize", function() {
+
+			reCropCampaingImage();
+
+		});
+
+	}
+
+	function reCropCampaingImage() {
+
+		if (isuploadCampaignPhoto) {
+
+			var documentWidth = $(document.body).width();
+			var cropWidth;
+			var cropHeight;
+
+			if (documentWidth > 768) {
+
+				cropWidth = 622;
+				cropHeight = 200;
+
+			} else if (documentWidth > 468) {
+
+				cropWidth = 400;
+				cropHeight = 128;
+
+			} else {
+
+				cropWidth = 280;
+				cropHeight = 90;
+
+			}
+
+			$('#campaigns .preview img').cropbox({
+				width: cropWidth,
+		        height: cropHeight
+		    });
+
+		}
+
+	}
+
+</script>

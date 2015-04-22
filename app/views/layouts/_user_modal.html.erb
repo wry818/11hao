@@ -1,0 +1,173 @@
+<div id="user_modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header modal-header-purple">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Create An Account</h4>
+            </div>
+			
+			<div id="social_result" style="display:none;"></div>
+			
+            <div id="user_modal_signup">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 2px solid #eee;">
+                            <%= form_for(User.new, url: signup_create_path, html: { id: "new_user_form" }) do |f| %>
+
+								<div class="col-md-12">
+	                                <div class="form-group">
+	                                    <%= f.label :email %>
+	                                    <%= f.email_field :email, class: "form-control new-user-email", placeholder: "Enter email", autocomplete: "off" %>
+	                                </div>
+								</div>
+							
+								<div class="col-md-12">
+	                                <div class="form-group">
+	                                    <%= f.label :password %>
+	                                    <%= f.password_field :password, class: "form-control new-user-password", placeholder: "Enter password", autocomplete: "off" %>
+	                                </div>
+								</div>
+							
+								<div class="col-md-12">
+									<div class="form-group"> 
+											<label for="user_first_name">First Name</label>
+							                <input id="user_first_name" name="first_name" type="text" class="form-control" placeholder="Enter first name">
+									</div>
+								</div>
+							
+								<div class="col-md-12">
+									<div class="form-group"> 
+											<label for="user_last_name">Last Name</label>
+							                <input id="user_last_name" name="last_name" type="text" class="form-control" placeholder="Enter last name">
+									</div>
+								</div>
+
+ 								<div class="col-md-12">
+ 									<div class="form-group"> 
+											<input id="user_terms_conditions" type="checkbox" name="user[terms_conditions]" />
+											<label for="user_terms_conditions" style="font-weight:normal; display:inline;">By checking the box, you agree to our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+ 									</div>
+ 								</div>
+								
+                                <p class="error-message" style="display: none">Hmm, there was a problem with your entries, please try again!</p>
+                                <input type="hidden" id="landing" name="landing" value="">
+							
+								<div class="col-md-12" style="text-align:center;">
+	                                <button type="submit" class="btn btn-primary" style="width:180px; height:40px; font-size:16px;" onclick="return Raisy.verify_user(false, $('.new-user-email').val(), $('.new-user-password').val());">
+	                                    <span class="text">Create my account</span> <span class="loader" style="display:none"></span>
+	                                </button>
+								</div>
+                            <% end %>
+                        </div>
+						
+						<div class="col-md-6">
+							<div class="col-md-12">
+					            <div class="form-group">
+									<label class="control-label">&nbsp;</label>
+					            </div>
+							</div>
+							
+							<div class="col-md-12 login-media-box">
+					            <div class="form-group">
+									<label class="control-label">&nbsp;</label>
+									<a class="btn btn-block btn-social btn-facebook" onclick="Raisy.fb_login(false);">
+										<i class="fa fa-facebook"></i>
+									 	<span>Login with Facebook</span>
+									</a>
+									</br>
+									<a class="btn btn-block btn-social btn-twitter" onclick="Raisy.tw_login(false);">
+										<i class="fa fa-twitter"></i>
+									 	<span>Login with Twitter</span>
+									</a>
+					            </div>
+							</div>
+							
+							<br/>
+							
+							<div class="col-md-12 login-social-error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div class="login-social-message" style="text-align: center;"> 
+						            </div>
+						        </div>
+								<div>&nbsp;</div>
+							</div>
+						</div>
+                    </div>
+                </div> <!-- end of .modal-body -->
+				
+	            <div class="modal-footer" style="background:#eee;">
+					<div style="text-align:center;">
+						<span>Already have an account?&nbsp;<a class="user-modal-signin" style="text-decoration:none; cursor:pointer;"><strong>Sign In</strong></a></span>
+					</div>
+	            </div> <!-- /.modal-footer -->
+            </div>  <!-- end of #user_modal_signup -->
+
+            <div id="user_modal_signin">
+                <div class="modal-body">
+                    <p style="margin-bottom: 20px;">
+                        Welcome back!
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 2px solid #eee;"> 
+                            <%= form_for(User.new, url: user_session_path, html: { id: "exist_user_form" } ) do |f| %>
+							<div class="col-md-12">
+                                <div class="form-group"> 
+                                    <%= f.label :email %>
+                                    <%= f.email_field :email, autofocus: true, class: "form-control old-user-email", placeholder: "Enter email", autocomplete: "off" %> 
+                                </div>
+
+                                <div class="form-group"> 
+                                    <%= f.label :password %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:12px;"><%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
+                                    <%= f.password_field :password, class: "form-control old-user-password", placeholder: "Enter password", autocomplete: "off" %> 
+                                </div>
+							
+								<div class="form-group" style="text-align:center; margin-top:30px;">
+									 <%= f.submit "Sign In", class: "btn btn-primary", style: "width:180px; height:40px; font-size:16px;", onclick: "return Raisy.verify_user(true, $('.old-user-email').val(), $('.old-user-password').val());" %><span class="loader" style="display:none"></span>
+								</div> 
+							</div>
+                            <% end %>
+                        </div>
+						
+						<div class="col-md-6">
+							<div class="col-md-12">
+					            <div class="form-group">
+									<div style="margin-top:35px;">
+										<a class="btn btn-block btn-social btn-facebook" onclick="Raisy.fb_login(false);">
+											<i class="fa fa-facebook"></i>
+										 	<span>Login with Facebook</span>
+										</a>
+									</div>
+									<br/>
+   									<div>
+   										<a class="btn btn-block btn-social btn-twitter" onclick="Raisy.tw_login(false);">
+   											<i class="fa fa-twitter"></i>
+   										 	<span>Login with Twitter</span>
+   										</a>
+   									</div>
+					            </div>
+							</div>
+							
+							<br />
+							
+							<div class="col-md-12 login-social-error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div class="login-social-message" style="text-align: center;"> 
+						            </div>
+						        </div>
+								<div>&nbsp;</div>
+							</div>
+						</div>
+                    </div>
+                </div> <!-- end of .modal-body -->
+				
+	            <div class="modal-footer" style="background:#eee;">
+					<!-- <div style="text-align:center;">
+						<span>Don't have an account?&nbsp;<a class="user-modal-signup" style="text-decoration:none; cursor:pointer;"><strong>Sign Up</strong></a></span>
+					</div> -->
+	            </div> <!-- /.modal-footer -->
+            </div>  <!-- end of #user_modal_signin -->
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,925 @@
+<div id="signup" class="signup" style="background: whitesmoke;">
+	<div class="container container-background">
+		<div style="margin-bottom: 30px;"></div>
+		<div><h3>Join the fundraising team for <strong><%= @campaign.title %></strong></h3>
+		</div>
+		<div class="container-box">
+			<% if @campaign.expired? || !@campaign.active %>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-8 col-sm-offset-2" style="text-align:center;">
+							<label>Sorry, this fundraiser has ended.</label>
+						</div>
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4" style="text-align:center;">
+							<% if current_user && current_user.profile.seller(@campaign) %>
+					      <div><%= link_to "Go to my dashboard", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
+					      </div>
+							<% else %>
+								<% if current_user && current_user.any_seller? %>
+						      <div><%= link_to "Go to my dashboard", seller_dashboard_path, class: "btn btn-primary btn-block" %>
+						      </div>
+								<% else %>
+						      <div><%= link_to "View fundraiser page", short_campaign_path(@campaign), class: "btn btn-primary btn-block" %>
+						      </div>
+								<% end %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			<% else %>	<!-- Campaign not expired -->
+				<% if current_user && !current_user.account_type.nil? %>
+				
+					<% if current_user.account_type==1 || current_user.account_type==2 %>
+						<!-- Logged in as 14 or 18+ -->
+					
+						<div class="no-well">
+							<% if current_user.profile.seller(@campaign) %>	<!-- Check if user is a seller of the campaign -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-8 col-sm-offset-2" style="text-align:center;">
+											<label>You have already joined this fundraiser!</label>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-4" style="text-align:center;">
+								      <div><%= link_to "Go to your dashboard", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
+								      </div>
+										</div>
+									</div>
+								</div>
+							<% else %>	<!-- Not a seller of the campaign -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
+											<label>Logged in as <%=current_user.profile.fullname%>.</label>
+										</div>
+									</div>
+								</div>
+			
+								<%= form_tag(signup_seller_add_path, method: :post, id: "signup_form" ) %>
+									<% if current_user.account_type==2 %>	<!-- Logged in as 14 -->
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-8 col-sm-offset-3">
+		                      <div class="form-group">
+		                          To join this fundraiser, please provide your current grade and group leader.
+		                      </div>
+												</div>
+											</div>
+										</div>
+									
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-3 col-sm-offset-1 control-div">
+													<label class="control-label">Grade</label>
+												</div>
+												<div class="col-sm-5">
+													<input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+												</div>
+											</div>
+										</div>
+								
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-3 col-sm-offset-1 control-div">
+													<label class="control-label">Group Leader</label>
+												</div>
+												<div class="col-sm-5">
+													<input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+												</div>
+											</div>
+										</div>
+									<% else %>
+										<input type="hidden" name="seller[grade]">
+										<input type="hidden" name="seller[homeroom]">
+									<% end %>
+								
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-5 col-sm-offset-4">
+										      <button type="submit" class="btn btn-primary btn-block">
+										          <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+										      </button>
+											</div>
+										</div>
+									</div>
+								</form>
+				
+								<div class="form-group">
+									<div class="row">&nbsp;</div>
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-3">
+								      	  <div>Not <%=current_user.profile.fullname%>? <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+										  </div>
+								  		</div>
+									</div>
+								</div>
+							<% end%>	<!-- Check if user is a seller of the campaign -->
+						</div>
+					
+					<% end %>	<!-- Logged in as 14 or 18+ -->
+				
+					<% if current_user.account_type==3%>	<!-- Logged in as 13-->
+						
+						<div class="no-well">
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-6 col-sm-offset-2">
+										<label>Logged in as <%=current_user.profile.fullname%>.</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm-7 col-sm-offset-2"> 
+	                      To join this fundraiser, please choose an existing member from your account, or create a new one. 
+									</div>
+								</div>
+							</div>
+							
+							<%= form_tag(signup_seller_add_path, method: :post, id: "signup_form" ) %>
+							 
+								<div class="row">
+									<div class="col-sm-6 col-sm-offset-2">
+										<label><input type="radio" name="post_seller_type" onclick="Raisy.users.showExistingSeller('1');" checked="checked" value="1" />&nbsp;&nbsp;Join with an existing member</label>
+									</div>
+								</div>
+								
+								<div id="seller_signup_parent1">
+							 	 	<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-2">
+												<div><%= select("existing_seller_profile", "id", @existing_seller_profiles.collect{|t| [t.fullname, t.id]}, { :include_blank => false },{:class => "form-control" }) %></div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group">
+	                  <div class="row">
+	                  	<div class="col-sm-8 col-sm-offset-2">
+												Please provide this member's current grade and group leader:
+											</div>
+	                  </div>
+									</div>
+									
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-2">
+											<div class="form-group">
+											 <label class="control-label">Grade</label>
+											 <input type="text" name="sellerexist[grade]" class="form-control" placeholder="Grade">
+										 	</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+											 <label class="control-label">Group Leader</label>
+											 <input type="text" name="sellerexist[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">&nbsp;</div>
+									<div class="row">
+										<div class="col-sm-6 col-sm-offset-2">
+											<label><input type="radio" name="post_seller_type"  onclick="Raisy.users.showExistingSeller('2');" value="2" />&nbsp;&nbsp;Join with a new member</label>
+										</div>
+									</div>
+								</div>
+								
+								<div id="seller_signup_parent2" style="display: none;">
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-2">
+											<div class="form-group">
+											 <label class="control-label">Student First Name</label>
+											 <input type="text" name="seller[first_name]" class="form-control" placeholder="First Name">
+										 	</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+											 <label class="control-label">Student Last Name</label>
+											 <input type="text" name="seller[last_name]" class="form-control" placeholder="Last Name">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-2">
+											<div class="form-group">
+											 <label class="control-label">Grade</label>
+											 <input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+										 	</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+											 <label class="control-label">Group Leader</label>
+											 <input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">&nbsp;</div>
+									<div class="row">
+										<div class="col-sm-4 col-sm-offset-4">
+								      <button type="submit" class="btn btn-primary btn-block">
+								          <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+								      </button>
+										</div>
+									</div>
+								</div>
+								
+							</form>
+						</div>
+						
+					<% end %>	<!-- Logged in as 13-->
+					
+				<% else %>	<!-- Not logged in or account_type is null -->
+					
+					<%= form_tag(signup_seller_create_path, method: :post, id: "signup_form" ) %>
+					
+					<%= hidden_field_tag :auth_provider, "raisy" %>
+					<%= hidden_field_tag :auth_uid, "" %>
+					<%= hidden_field_tag :auth_uimage, "" %>
+						
+					<div id="seller_signup_selector" class="seller_signup_section" style="display:block;">
+						<div class="form-group">
+							<div class="step-nav-bar">
+								<div id="step_nav_icon_1" class="step-nav-icon step-nav-icon-gray"></div>
+								<div id="step_nav_icon_2" class="step-nav-icon"></div>
+								<div id="step_nav_icon_3" class="step-nav-icon"></div>
+								<div id="step_nav_icon_4" class="step-nav-icon"></div>
+								<div id="step_nav_icon_5" class="step-nav-icon"></div>
+								<div id="step_nav_icon_6" class="step-nav-icon"></div>
+								<div id="step_nav_icon_7" class="step-nav-icon"></div>
+								<div id="step_nav_icon_8" class="step-nav-icon"></div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="step-title-container">
+								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-8 col-sm-offset-2"> 
+										<div style="font-size:18px;">
+											<label>I am a…</label>
+											<input type="hidden" id="user_account_type" name="user[account_type]">
+										</div> 
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-8 col-sm-offset-2">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<button id="seller_signup_button13" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 3);">
+													<span class="text">Parent of a 13 or younger member</span>
+												</button>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<button id="seller_signup_button14" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 2);">
+													<span class="text">14-17 year old member</span>
+												</button>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<button id="seller_signup_button18" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 1);">
+													<span class="text">18+ year old member</span>
+												</button>
+											</div>
+										</div>
+										<% if !current_user %>
+										<div class="col-md-6">
+											<div class="form-group">
+												<button id="seller_signup_has_account" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 4);">
+													<span class="text">Already have an account?</span>
+												</button>
+											</div>
+										</div>
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">&nbsp;</div>
+							<div class="row">
+								<div class="col-sm-4 col-sm-offset-4">
+									<div class="form-group">
+									    <button id="seller_signup_selector_continue" class="btn btn-primary btn-lg" type="button" style="height:60px; width:100%;">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	<!-- seller_signup_selector -->
+			
+					<div id="seller_child_section" class="seller_signup_section" style="display:none;">
+						<div class="form-group">
+							<div class="step-nav-bar">
+								<div id="step_nav_icon_1" class="step-nav-icon"></div>
+								<div id="step_nav_icon_2" class="step-nav-icon"></div>
+								<div id="step_nav_icon_3" class="step-nav-icon step-nav-icon-gray"></div>
+								<div id="step_nav_icon_4" class="step-nav-icon"></div>
+								<div id="step_nav_icon_5" class="step-nav-icon"></div>
+								<div id="step_nav_icon_6" class="step-nav-icon"></div>
+								<div id="step_nav_icon_7" class="step-nav-icon"></div>
+								<div id="step_nav_icon_8" class="step-nav-icon"></div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="step-title-container">
+								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+							</div>
+						</div>
+						
+						<div style="height:5px;"></div>
+						
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Student First Name</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="seller1314[first_name]" class="form-control" placeholder="First Name">
+								</div>
+							</div>
+						</div>
+			
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Student Last Name</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="seller1314[last_name]" class="form-control" placeholder="Last Name">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Grade</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="seller1314[grade]" class="form-control" placeholder="Grade">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Group Leader</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="seller1314[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">&nbsp;</div>
+							<div class="web-box row">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="3-13-14">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="3-13-14">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+							<div class="mobile-box row">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="3-13-14">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="3-13-14">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	<!-- seller_child_section -->
+			
+					<div id="seller_parent_info_section" class="seller_signup_section" style="display:none;">
+						<div class="form-group">
+							<div class="step-nav-bar">
+								<div id="step_nav_icon_1" class="step-nav-icon"></div>
+								<div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+								<div id="step_nav_icon_3" class="step-nav-icon"></div>
+								<div id="step_nav_icon_4" class="step-nav-icon"></div>
+								<div id="step_nav_icon_5" class="step-nav-icon"></div>
+								<div id="step_nav_icon_6" class="step-nav-icon"></div>
+								<div id="step_nav_icon_7" class="step-nav-icon"></div>
+								<div id="step_nav_icon_8" class="step-nav-icon"></div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="step-title-container">
+								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+							</div>
+						</div>
+						
+						<div style="height:5px;"></div>
+						
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Parent's First Name</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="parent[first_name]" class="form-control" placeholder="First Name">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div">
+									<label class="control-label">Parent's Last Name</label>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="parent[last_name]" class="form-control" placeholder="Last Name">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group parent-info-13">
+							<div class="row">
+								<div class="col-sm-7 col-sm-offset-3">
+									<div class="form-group">
+										<label class="checkbox-inline"><input type="checkbox" name="guardian_agree"/>I am the parent or legal guardian of the child I am registering. I agree to the collection of information requested herein. I agree that I have read the Fundraising <%= link_to "Privacy Policy", "https://answers.entertainment.com/customer/portal/articles/1731240-privacy-policy", target: "_blank" %>.</label>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group parent-info-14">
+							<div class="row">
+								<div class="col-sm-3 col-sm-offset-2 control-div"> 
+									<label class="control-label">Parent's Email</label>
+								</div>
+								<div class="col-sm-4"> 
+									<input type="text" name="parent[email]" class="form-control" placeholder="Email"> 
+								</div>
+							</div>
+							<div style="height:15px;"></div>
+						</div>
+				
+						<div class="form-group">
+							<div class="web-box row">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-13-14">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-13-14">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+							<div class="mobile-box row">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-13-14">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-13-14">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	<!-- seller_parent_info_section -->
+			
+					<div id="seller_account_section" class="seller_signup_section" style="display:none;">
+						<div class="form-group">
+							<div class="step-nav-bar">
+								<div id="step_nav_icon_1" class="step-nav-icon"></div>
+								<div id="step_nav_icon_2" class="step-nav-icon"></div>
+								<div id="step_nav_icon_3" class="step-nav-icon"></div>
+								<div id="step_nav_icon_4" class="step-nav-icon step-nav-icon-gray"></div>
+								<div id="step_nav_icon_5" class="step-nav-icon"></div>
+								<div id="step_nav_icon_6" class="step-nav-icon"></div>
+								<div id="step_nav_icon_7" class="step-nav-icon"></div>
+								<div id="step_nav_icon_8" class="step-nav-icon"></div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="step-title-container">
+								<label>Set Up Your Seller Profile</label>
+							</div>
+						</div>
+						
+						<div style="height:5px;"></div>
+				
+						<% if current_user %>
+							<!-- Logged in with an account -->
+							
+							<div class="form-group"> 
+								<div style="text-align:center;">
+									<label style="font-size:16px;">You have logged in as <%=current_user.profile.fullname%>.</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="row">&nbsp;</div>
+								<div class="web-box row">
+									<div class="col-sm-6">
+										<div class="backbutton-box">
+										    <button class="btn btn-success seller-back-btn btn-lg" type="button" data-currentstep="4" style="height:60px; width:200px;">
+										        <span class="text">Back</span>
+										    </button>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="continuebutton-box">
+										    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
+														<span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+										    </button>
+										</div>
+									</div>
+								</div>
+								<div class="mobile-box row" style="margin-bottom:33px;">
+									<div class="col-sm-6">
+										<div class="backbutton-box">
+										    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
+														<span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+										    </button>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="continuebutton-box">
+										    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="4" style="height:60px; width:200px;">
+										        <span class="text">Back</span>
+										    </button>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						<% else %>	<!-- Not logged in -->
+						
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-5 control-div">
+											<label class="control-label">Email</label>
+										</div>
+										<div class="col-sm-7">
+											<input id="user_email" type="text" name="user[email]" class="form-control" placeholder="Email">
+										</div>
+									</div>
+								</div>
+			
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-5 control-div">
+											<label class="control-label">Password</label>
+										</div>
+										<div class="col-sm-7">
+											<input id="user_password" type="password" name="user[password]" class="form-control" placeholder="Password">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-5 control-div">
+											<label class="control-label">Confirm Password</label>
+										</div>
+										<div class="col-sm-7">
+											<input id="user_confirm_password" type="password" name="user[confirm_password]" class="form-control" placeholder="Confirm password">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-sm-5 control-div">
+										</div>
+										<div class="col-sm-7">
+											<input id="seller_terms_conditions" type="checkbox" name="user[terms_conditions]" />
+											<label for="seller_terms_conditions" style="font-weight:normal; display:inline;">By checking the box, you agree to our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">&nbsp;</div>
+									<div class="web-box row">
+										<div class="col-sm-7">
+											<div class="backbutton-box">
+											    <button class="btn btn-success seller-back-btn" type="button" data-currentstep="4" style="height:50px; width:160px;">
+											        <span class="text">Back</span>
+											    </button>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="continuebutton-box">
+											    <button id="seller_signup_submit" class="btn btn-primary" type="submit" data-currentstep="4" style="height:50px; width:160px;">
+															<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+											    </button>
+											</div>
+										</div>
+									</div>
+									<div class="mobile-box row" style="margin-bottom:33px;">
+										<div class="col-sm-6">
+											<div class="backbutton-box">
+											    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
+															<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+											    </button>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="continuebutton-box">
+											    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="4" style="height:60px; width:200px;">
+											        <span class="text">Back</span>
+											    </button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="has-account-div">
+									<span>If you have an account with us, please <a href="javascript:void(0);" onclick="Raisy.users.sellerTypeSelectorClick(this, 4);">click here</a> to login.</span>
+								</div>
+							</div>	<!-- Create my account -->
+							
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="row">
+							            <div class="col-sm-10">
+											<a class="btn btn-block btn-social btn-facebook" onclick="Raisy.fb_seller_login(true);">
+												<i class="fa fa-facebook"></i>
+											 	<span>Connect with Facebook</span>
+											</a>
+							            </div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+							            <div class="col-sm-10">
+	   										<a class="btn btn-block btn-social btn-twitter" onclick="Raisy.tw_seller_login(true);">
+	   											<i class="fa fa-twitter"></i>
+	   										 	<span>Connect with Twitter</span>
+	   										</a>
+							            </div>
+									</div>
+								</div>
+								
+								<div id="seller-social-error" class="form-group" style="display:none;">
+									<div class="row">
+										<div class="col-sm-11">
+											<div class="form-group">
+										        <div class="alert alert-warning">
+										            <div id="seller-social-message" style="text-align: center;"> 
+										            </div>
+										        </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	<!-- Connect with fb or tw -->
+						</div>
+						
+						<% end %>	<!-- Not logged in, create new account -->
+						
+					</div>	<!-- seller_account_section -->
+			
+					<div id="seller_name_section" class="seller_signup_section" style="display:none;">
+						<div class="form-group">
+							<div class="step-nav-bar">
+								<div id="step_nav_icon_1" class="step-nav-icon"></div>
+								<div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+								<div id="step_nav_icon_3" class="step-nav-icon"></div>
+								<div id="step_nav_icon_4" class="step-nav-icon"></div>
+								<div id="step_nav_icon_5" class="step-nav-icon"></div>
+								<div id="step_nav_icon_6" class="step-nav-icon"></div>
+								<div id="step_nav_icon_7" class="step-nav-icon"></div>
+								<div id="step_nav_icon_8" class="step-nav-icon"></div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="step-title-container">
+								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+							</div>
+						</div>
+						
+						<div style="height:5px;"></div>
+						
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-2 col-sm-offset-2 control-div">
+									<label class="control-label">First Name</label>
+								</div>
+								<div class="col-sm-5">
+									<input type="text" name="seller18[first_name]" class="form-control" placeholder="First Name">
+								</div>
+							</div>
+						</div>
+			
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-2 col-sm-offset-2 control-div">
+									<label class="control-label">Last Name</label>
+								</div>
+								<div class="col-sm-5">
+									<input type="text" name="seller18[last_name]" class="form-control" placeholder="Last Name">
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-group">
+							<div class="row">&nbsp;</div>
+							
+							<div class="row web-box">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-18">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-18">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row mobile-box">
+								<div class="col-sm-6">
+									<div class="backbutton-box">
+									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-18">
+									        <span class="text">Continue</span>
+									    </button>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="continuebutton-box">
+									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-18">
+									        <span class="text">Back</span>
+									    </button>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>	<!-- seller_account_section -->			
+					</form>
+					
+				<% end %>	<!-- Seller creation, logged in or not -->
+			<% end %>	<!-- Check campaign expiration -->
+		</div>
+	</div>
+	
+	<div id="seller_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="seller_step_tips_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-body">
+				<p>For legal reasons, please let us know your age.</p>
+	        </div> <!-- end of modal body -->
+
+	        <div class="modal-footer">
+				<div style="position:relative; text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<div class="hide_seller_step_tips_container">
+						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
+							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+						</a>
+					</div>
+				</div>
+	        </div> <!-- /.modal-footer -->
+			
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>	<!-- seller_step_tips_modal -->
+	
+	<div id="seller_welcome_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="seller_welcome_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-body">
+				<p>Welcome! In just a few clicks you’ll be ready to help support <%= @campaign.title %>! Joining is quick and easy. When you’re done, you’ll have a personalized fundraising page that you can share with supporters to start raising funds immediately!</p>
+	        </div> <!-- end of modal body -->
+
+	        <div class="modal-footer">
+				<div style="position:relative; text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+				</div>
+	        </div> <!-- /.modal-footer -->
+			
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>	<!-- seller_step_tips_modal -->
+	
+	<div id="seller_step_tips_selector" style="display:none;">
+		<p>For legal reasons, please let us know your age.</p>
+	</div>
+	
+	<div id="seller_step_tips_13_1" style="display:none;">
+		<p>Please provide your name and permission for the child you are registering.</p>
+	</div>
+	
+	<div id="seller_step_tips_14_1" style="display:none;">
+		<p>Since you are under 18, please provide your parent’s information. We will send them a quick email to alert them you have signed up for this site.</p>
+	</div>
+	
+	<div id="seller_step_tips_18_1" style="display:none;">
+		<p>Let us know who you are! Your first name will be displayed on your personal fundraising page.</p>
+	</div>
+	
+	<div id="seller_step_tips_13_2" style="display:none;">
+		<p>Let us know who the seller is. Only their first name will be displayed on their personal fundraising page. Their grade and group leader are information that will help your fundraising organizer(s) keep track of their online sales.</p>
+	</div>
+	
+	<div id="seller_step_tips_14_2" style="display:none;">
+		<p>Let us know who you are! Your first name will be displayed on your personal fundraising page. Your grade and group leader are information that will help your fundraising organizer(s) keep track of your online sales.</p>
+	</div>
+	
+</div>
+
+<script>
+$(document).ready(function(){
+	$(".user-modal-launch").hide();
+	
+	<% if !current_user || current_user.account_type.nil? %>
+		<% if !@campaign.expired? && @campaign.active %>
+			window.setTimeout(function(){
+				<% if @step_popup=="yes" %>
+					$("#seller_welcome_modal").on('hidden.bs.modal', function (e) {
+						window.setTimeout(function(){
+							$("#seller_step_tips_modal").modal("show");
+						}, 200);
+					});
+				<% else %>
+					Raisy.users.show_seller_step_tips = false;
+				<% end %>
+				
+				$("#seller_welcome_modal").modal("show");
+			}, 200);
+		<% else %>
+			Raisy.users.show_seller_step_tips = false;
+		<% end %>
+	<% end %>
+});
+
+if ($(".join-fundraising-link").length>0) {
+	$(".join-fundraising-link").hide();
+	$(".join-other-fundraising-link").show();
+}
+</script>
+	

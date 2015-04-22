@@ -1,0 +1,384 @@
+#seller_dashboard {
+    background-color: #ffffff;
+
+    .container-box {
+        border: 1px solid gainsboro;
+        border-radius: 3px;
+        background: white;
+        margin: 10px 0px 20px 0px;
+        padding: 15px 30px 80px 30px;
+    }
+
+    .list-group {
+        .list-group-item {
+            border-radius: 0;
+            padding: 20px;
+            &.active {
+                background: gray;
+                border: gray;
+            }
+        }
+    }
+	
+	.campaign-manage-box {
+		padding-left: 30px;
+	}
+	
+	.campaign-people-box {
+		
+		width: 100%;
+		
+		.campaign-people-col {
+			width: 33.33%; 
+			padding-left: 0px; 
+			padding-right: 0px;
+		}
+		
+		.first-col {
+			padding-left: 15px; 
+		}
+		
+		.middle-col {
+			text-align: center;
+		}
+		
+	}
+	
+	.empty-goal-box {
+		height: 50px;
+	}
+	
+    .image-container {
+        background: transparent;
+        border-radius: 3px;
+        padding: 3px;
+        border: 0px solid gainsboro;
+        width: 100%;
+        img {
+			display: inline-block;
+			width: 100%;
+        }
+    }
+	
+    .raised-count {
+        margin: 0 0 10px;
+        line-height: 1;
+		padding-top: 0px;
+		
+		label {
+			font-size: 30px;
+			font-weight: bold;
+		}
+		
+        span {
+            font-size: 16px;
+            font-weight: normal;
+        }
+    }
+    .progress {
+		margin-bottom: 10px;
+        border-radius: 4px;
+        height: 16px;
+    }
+    .goal {
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .days-left {
+        border: 1px solid gainsboro;
+		background: #fefefe;
+        width: 100%;
+        padding: 15px 0;
+        border-radius: 3px;
+        text-align: center;
+        p {
+            line-height: 1;
+            margin: 0;
+            &.days-value {
+                font-size: 30px;
+                font-weight: bold;
+            }
+            &.days-title {
+                font-size: 12px;
+				margin-top: 2px;
+            }
+        }
+    }
+	
+	#navigations {
+		margin-bottom: 50px;
+		
+		.nav-content {
+			display: none; 
+			margin: 10px;
+			
+			a.oauth {
+				display: inline-block;
+				margin: 5px 10px;
+			}
+			
+			.contacts-list-box {
+				.contact-update-input {
+					display: none;
+					min-width: 100px;
+					max-width: 150px;
+				}
+		
+				.contact-edit-cell, .contact-delete-cell {
+					span {
+						color: white;
+						cursor: pointer;
+						width:24px;
+						height:24px;
+						background:#00467F;
+						padding:5px 5px; 
+						border-radius:2px;
+					}
+				}
+	
+				.contact-update-cell, .contact-cancel-cell {
+					display: none;
+					vertical-align: middle;
+			
+					span {
+						color: white;
+						cursor: pointer;
+						width:24px;
+						height:24px;
+						background:#00467F;
+						padding:5px 5px; 
+						border-radius:2px;
+					}
+				}
+				
+				.contact-edit-cell, .contact-update-cell {
+					width: 44px;
+				}
+				
+				.contact-delete-cell, .contact-cancel-cell {
+					width: 40px;
+				}
+		
+				.contact-loader-cell {
+					vertical-align: middle;
+					width: 20px;
+				}
+			}
+			
+			.search-contacts-box {
+				border: 1px solid gainsboro;
+				border-radius: 3px;
+				padding-left: 15px;
+				padding-right: 15px;
+			
+				.header {
+					border-bottom: 1px solid gainsboro;
+				
+					.left-col {
+						width: 60%;
+					}
+				
+					.right-col {
+						float: right;
+					}
+				
+					.sub-header {
+						position: relative;
+					
+						.select-all-box {
+							position: absolute;
+							right: 0px;
+							top: 0px;
+						}
+					
+					}
+				
+				}
+			
+				.item {
+					//padding-top: 15px;
+					padding-bottom: 10px;
+					border-bottom: 1px solid gainsboro;
+				}
+						
+				.contacts-icon {
+					display: inline-block;
+					width: 48px;
+				}
+							
+			}
+			
+			.contacts-result-box, .manual-contacts-box {
+
+				border: 1px solid gainsboro;
+				border-radius: 3px;
+	
+				.header {
+				
+					padding-top: 10px;
+					padding-left: 15px;
+					padding-right: 15px;
+		
+					.left-col {
+						width: 60%;
+					}
+		
+					.right-col {
+						float: right;
+					}
+		
+					.sub-header {
+						position: relative;
+			
+						.select-all-box {
+							position: absolute;
+							right: 0px;
+							top: 0px;
+						}
+			
+					}
+		
+				}
+			
+				.contacts-item-box {
+				
+					height: 560px; 
+					overflow-y: scroll;
+				
+				}
+			
+				.item {
+
+					padding-left: 15px;
+					padding-right: 15px;
+					padding-top: 15px;
+					padding-bottom: 15px;
+					border-top: 1px solid gainsboro;
+					position: relative;
+			
+					.select-box {
+						position: absolute;
+						right: 15px;
+						top: 15px;
+					}
+			
+					.send-email-box {
+						position: absolute;
+						right: 15px;
+						bottom: 10px;
+					}
+				}
+			
+				.manualemail-textbox {
+					width: 60%;
+				
+					@media all and (max-width: 992px){
+						width: 100%;	
+					}
+				
+				}
+			
+				.footer {
+
+					padding-left: 15px;
+					padding-right: 15px;
+					padding-top: 25px;
+					padding-bottom: 15px;
+					position: relative;
+				
+					.send-email-box {
+						position: absolute;
+						right: 15px;
+						bottom: 10px;
+					}
+				}
+				
+				.contacts-icon {
+					width: 24px;
+				}
+	
+			}
+		}
+	}
+	
+	.seller-step-qa-icon {
+		background:#00467f; 
+		cursor:pointer; 
+		font-size:14px; 
+		font-weight:600; 
+		display:inline-block; 
+		color:white; 
+		width:16px; 
+		height:16px; 
+		line-height:16px; 
+		border-radius:8px; 
+		vertical-align:middle;
+		text-align:center;
+	}
+	
+	@media all and (max-width: 992px) {
+		
+		.campaign-manage-box {
+			padding-left: 3px;
+			padding-right: 3px;
+		}
+		
+		.campaign-info-box {
+			padding-left: 3px;
+			padding-right: 3px;
+		}
+		
+		.raised-count {
+			padding-top: 10px;
+		}
+		
+		.campaign-people-box {
+			
+			margin-top: 10px;
+			margin-left: 15px;
+			
+			.campaign-people-col {
+				padding-left: 0px; 
+				padding-right: 0px;
+			}
+			
+			.first-col {
+				padding-left: 0px;
+			}
+			
+			.middle-col {
+				text-align: left;
+			}
+		
+		}
+		
+		.empty-goal-box {
+			height: 10px;
+		}
+		
+	}
+	
+	@media all and (max-width: 400px) { 
+		
+		.campaign-people-box {
+		
+			@include fontSize12px;
+		
+			.middle-col {
+				width: 25%;
+				text-align: left;
+			}
+	
+		}	 
+		
+	}
+	
+	@media all and (max-width: 768px) {
+		
+	    .container-box {
+	        padding: 10px 10px 80px 10px;
+	    }
+		
+	}
+	
+}

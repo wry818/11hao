@@ -1,0 +1,107 @@
+#collections {
+    .collection-image-container {
+        background: white;
+        @media (min-width: 992px) {
+            width: 250px;
+            height: 250px;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        img {
+            margin: auto;
+        }
+    }
+
+    .collection-overview {
+        padding-top:50px;
+        padding-bottom:20px;
+        border-bottom: 1px solid #e5e5e5;
+        background:whitesmoke;
+        .hero-content {
+            padding: 30px;
+            .online-orders {
+                img {
+                    width:60px;
+                    margin-top:8px;
+                    margin-left:0px;
+                }
+                h2{
+                    font-size: 24px;
+                }
+                text-align:center;
+            }
+        }
+    }
+
+
+
+    .landing-page-fundraiser-button {
+        p {
+            margin-top:0px;
+            text-align:center;
+        }
+        a {
+            font-size:30px;
+            background-color:#681e57;
+            border-color:#681e57;
+            border-bottom:#681e57;
+        }
+    }
+
+    .collection-details {
+
+        padding-top:40px;
+        background:whitesmoke;
+
+        .start-today {
+            text-align: center;
+            background: whitesmoke;
+            padding-top:5px;
+            padding-bottom:10px;
+        }
+
+        .btn-small {
+            color: black;
+            margin-top: 16px;
+            font-size: 26px;
+            background-color: #ffd27f;
+            border-color: #ffd27f;
+            border-bottom: #ffd27f
+        }
+    }
+
+    .more-information {
+
+        form {
+            text-align:center;
+            background:whitesmoke;
+            padding: 10px;
+        }
+
+        h4{
+            font-size:20px;
+        }
+
+        button {
+            color: black;
+            margin-top: 12px;
+            font-size: 20px;
+            background-color: #ffd27f;
+            border-color: #ffd27f;
+            border-bottom: #ffd27f
+        }
+
+        .success-message {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 0px;
+            margin: auto;
+            width: 80%;
+        }
+    }
+
+}

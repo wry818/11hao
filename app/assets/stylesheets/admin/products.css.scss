@@ -1,0 +1,73 @@
+// Place all the styles related to the admin/products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#option_group_edit {
+	#og_property_table {
+		th, td {
+			padding:8px 4px;
+		}
+		
+		.input-group .input-group-addon {
+			padding: 6px;
+		}
+	
+		.og-property-name-cell {
+			min-width:120px;
+		}
+	
+		.og-property-price-cell {
+			width:140px;
+		}
+	
+		.og-property-donation-cell {
+			width:140px;
+		}
+	
+		.og-property-order-cell {
+			width:100px;
+		}
+	
+		.og-property-sku-cell {
+			width:120px;
+		}
+	
+		.og-property-arrow-cell {
+			color:#428bca;
+			vertical-align:middle;
+			padding:8px;
+			width:20px;
+			display:none;
+		}
+		
+		.og-property-arrow {
+			cursor:pointer;
+		}
+		
+		.og-property-hidden-arrow {
+			display:none;
+		}
+		
+		.og-property-opr-cell {
+			vertical-align:middle;
+			padding:8px;
+			width:40px;
+		}
+	
+		.og-property-opr {
+			cursor: pointer;
+		}
+	
+		.og-property-input {
+			display: none;
+		}
+	
+		.og-property-oprs1 {
+		
+		}
+	
+		.og-property-oprs2 {
+			display: none;
+		}
+	}
+}

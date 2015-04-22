@@ -1,0 +1,27 @@
+<div class="admin-bar" style="display: none">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-7">
+                <p class="admin-text">
+                    <% if @campaign.status == 0 %>
+                    This campaign is in preview mode
+                    <% end %>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <a href="<%= dashboard_campaign_path(@campaign) %>" class="btn btn-info btn-block">
+                    <span class="glyphicon glyphicon-th"></span>
+                    VIEW DASHBOARD
+                </a>
+            </div>
+            <div class="col-md-2">
+                <a href="<%= dashboard_campaign_details_path(@campaign) %>" class="btn btn-info btn-block">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    EDIT DETAILS
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

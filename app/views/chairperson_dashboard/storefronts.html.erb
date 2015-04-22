@@ -1,0 +1,111 @@
+<div id="chairperson_dashboard" class="dashboard-index">
+    <div class="container">
+        <h3>Group Storefronts</h3>
+		
+		<% if current_user.is_sales? || current_user.is_crs? || current_user.admin? %>
+			<div class="row" >
+				<div class="col-sm-5" style="margin-bottom:10px;">
+					<select id="storefronts_organization_selector" style="width:100%;">
+						<option value="">All Organizations</option>
+						<% @organizations.each do |org| %>
+						<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
+							<%= org.name %>
+						</option>
+						<% end %>
+					</select>
+				</div>
+				<div class="col-sm-7">
+					<p style="font-size:16px; text-align:right;">Total Orders: <%= @total_orders %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total Sales: $<%= long_price(@total_sales) %></p>
+				</div>
+			</div>
+		<% end %>
+		
+        <div class="campaigns-list">
+            <% @campaigns.each do |campaign| %>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-3" style="padding-left:3px; padding-right:3px;">
+						<a href="<%= short_campaign_path(campaign) %>">
+                            <div class="image-container">
+	                            <%= cl_image_tag campaign.campaign_logo.image_id,
+									transformation: [{ 
+											width: campaign.campaign_logo.crop_width,
+											height: campaign.campaign_logo.crop_height,
+											x: campaign.campaign_logo.crop_x,
+											y: campaign.campaign_logo.crop_y,
+											crop: :crop
+										}],
+									style: 'width: 100%' if campaign.campaign_logo %>
+										
+		                        <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !campaign.campaign_logo %>
+                            </div>
+							</a>
+                        </div>
+                        <div class="col-md-4 campaign-manage-box">
+                            <h4 style="word-wrap:break-word;"><%= campaign.title %></h4>
+                            <a href="<%= dashboard_campaign_details_path(campaign) %>" class="btn btn-info">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Edit Details
+                            </a>
+                            <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-info">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Manage
+                            </a>
+                        </div>
+						<div class="col-md-5 campaign-info-box">
+							<div style="border:0px solid #999;">
+								<div class="row">
+				                    <div class="col-md-8 raised-count-box">
+										<div class="raised-count">
+											<label>$<%= short_price(campaign.raised) %>
+											</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+										</div>
+										
+										<% if campaign.goal.nil? %>
+											<div class="empty-goal-box">&nbsp;</div>
+										<% else %>
+					                    <div class="progress">
+					                        <div class="progress-bar" style="width: <%= campaign.progress_percent > 100 ? 100 : campaign.progress_percent  %>%;">
+					                        </div>
+					                    </div>
+					                    <p class="goal">
+					                        GOAL: $<%= short_price( campaign.goal.nil? ? 0 : campaign.goal) %>
+					                    </p>
+										<% end %>
+									</div>
+									<div class="col-md-4">
+										<% if campaign.end_date.present? %>
+					                    <div class="days-left">
+					                        <p class="days-value">
+					                            <%= campaign.days_remaining %>
+					                        </p>
+					                        <p class="days-title">
+					                            days left
+					                        </p>
+					                    </div>
+										<% end %>
+									</div>
+								</div>
+								<div class="row">
+									<table class="campaign-people-box">
+										<tr>
+											<td class="campaign-people-col first-col">
+												Supporters&nbsp;<span class="badge"><%= campaign.supporters %></span>
+											</td>
+											<td class="campaign-people-col middle-col">
+												Team&nbsp;<span class="badge"><%= campaign.sellers.count %></span>
+											</td>
+											<td class="campaign-people-col">
+												Orders&nbsp;<span class="badge"><%= campaign.completed %></span>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

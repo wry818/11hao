@@ -1,0 +1,87 @@
+<body bgcolor="#dddddd">
+<table width="640" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#ffffff">
+  <tr>
+    <td colspan="6" style="padding:5px 0; background-color:#FFF; color:#004690;font-size:10px;text-align:center;font-family:Arial, Helvetica, sans-serif;">
+<a href="https://www.entertainment.com/coupon/affiliate_entry.cmd?linkName=CB14FREMAIL&amp;groupId=<%= @campaign.organization.name %>&amp;sellerId=<%= @seller.id %>" reportname="SIDEBTB" frontuid="764367" urlId="355834">Support <%= @seller.user_profile.fullname %> team</a></td>
+  </tr>
+  <tr>
+    <td width="20"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_01.jpg" width="20" height="31" border="0" style="display:block;" /></td>
+    <td width="29"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_02.jpg" width="29" height="31" border="0" style="display:block;" /></td>
+    <td width="271"><a href="http://www.entertainment.com/fundraising"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_03.jpg" width="271" height="31" border="0" style="display:block;" /></a></td>
+    <td width="273"><a href="http://www.entertainment.com/fundraising"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_04.jpg" width="272" height="31" border="0" style="display:block;" /></a></td>
+    <td width="28"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_05.jpg" width="28" height="31" border="0" style="display:block;" /></td>
+    <td width="20"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_06.jpg" width="20" height="31" border="0" style="display:block;" /></td>
+  </tr>
+ <tr>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+    <td colspan="4" rowspan="2" style="border-left:1px solid #6c2c78;border-right:1px solid #6c2c78;border-bottom:1px solid #6c2c78;"><table width="598" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td colspan="3"><a href="http://www.entertainment.com/fundraising"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDwelcome_09.jpg" alt="Entertainment(R) Fundraising" border="0" style="display:block;" /></a></td>
+    </tr>
+
+  <tr>
+    <td colspan="3"><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="530" height="31" border="0" style="display:block;" /></td>
+    </tr>
+  <tr>
+    <td width="28" rowspan="5"><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="28" height="31" border="0" style="display:block;" /></td>
+    <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px;color:#3f3f3f;">
+<span style="color:#6c2c78;text-transform:uppercase;font-size:16px;">Seller Information</span><br />
+<strong>Seller Name:</strong> <%= @seller.user_profile.fullname %><br />
+<strong>Group/Account Number:</strong> <%= @campaign.organization.name %><br />
+<strong>Seller Number:</strong> <%= @seller.id %><br /><br />
+<span style="color:#6c2c78;text-transform:uppercase;font-size:16px;">SAVE THIS EMAIL</span><br />
+It contains key information that will help you have an easy and successful fundraiser.	
+<br /><br />
+<span style="color:#6c2c78;text-transform:uppercase;font-size:16px;">WANT TO HELP RAISE MORE MONEY?</span><br />
+Click on the link below and log in to your fundraising website! You can enter the email addresses of friends and family and send messages asking them to support your fundraiser. You can also get a link to share your sale via social media!
+</td>
+    <td width="28" rowspan="5"><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="28" height="8" border="0" style="display:block;" /></td>
+  </tr>
+  <tr>
+    <td><a href="<%= seller_dashboard_referral_code_url(@seller.referral_code) + '?emails' %>" reportname="BODY - send more emails" frontuid="478445" urlId="355694"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/BUTTONsendemail.jpg" alt="Start Sending Emails Now" border="0" style="display:block;" /></a></td>
+    </tr>
+  <tr>
+    <td style="font-family:Arial, Helvetica, sans-serif; font-size:14px;color:#3f3f3f;"><span style="color:#6c2c78;text-transform:uppercase;font-size:16px;"><br />TRACK YOUR ONLINE SALES</span><br />Click the link below and log in to your seller dashboard to view an up-to-date summary of your online sales.</td>
+    </tr>
+  <tr>
+    <td><a href="<%= seller_dashboard_referral_code_url(@seller.referral_code) %>" reportname="BODY - track your sales" frontuid="478446" urlId="355695"><%= image_tag "link-image-4.png", alt: "Log into Seller Section", style: "height:50px; display:block; border:0px solid white;" %></a></td>
+    </tr>
+      <tr>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="500" height="30" border="0" style="display:block;" /></td>
+  </tr>
+  <tr>
+    <td colspan="3"><img src="http://media.entertainment.com/media/fundraising/2014Emails/triggers/FUNDparentnotify.jpg" width="599" height="300" border="0" style="display:block;" /></td>
+    </tr>
+    </table>
+</td>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+  </tr>
+  <tr>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+  </tr>
+  <tr>
+    <td colspan="6"><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="640" height="31" border="0" style="display:block;" /></td>
+  </tr>
+  <tr>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+    <td colspan="4"valign="top" style="font-family:Arial, Helvetica, sans-serif;color:#3f3f3f;font-size:11px;text-align:center;">This email has been sent to <span style="color:#14467c;text-decoration:none;"><%= @seller.user_profile.user.email %></span> because our records indicate that<br />you have opted to receive emails from Entertainment&reg;. If you no longer want to <br />receive emails from Entertainment&reg;, please <a href="https://www.entertainment.com/coupon/optout.cmd?email=<%= @seller.user_profile.user.email %>" target="_blank" style="color:#14467c;text-decoration:none;">click here</a> to update your email preferences.
+<br /><br />
+The Entertainment&reg; book is part of the Entertainment&reg; membership program.<br /><br />
+<img src="http://media.entertainment.com/media/entertainment/email/images/TClineSOLID.png" border="0" />
+<br /><br />
+Entertainment&reg;, Entertainment.com&reg;, Entertainment Fundraising&reg;, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTcrown2015.png" border="0"   alt="Entertainment Crown Logo" height="12" />, <img src="http://media.entertainment.com/media/entertainment/email/images/ENTscript2015.png" alt="Entertainment Script Logo" border="0" height="12" />, and Raisy&trade;<br />
+are trademarks of HSP EPI Acquisition, LLC.
+<br /><br />
+<a href="http://Entertainment.us3.list-manage.com/track/click?u=ee601451868d9de2ceac09b7e&id=112b776e40&e=7f121cfe63" target="_blank">Need help?</a> | <a href="http://Entertainment.us3.list-manage2.com/track/click?u=ee601451868d9de2ceac09b7e&id=9b7fadab6c&e=7f121cfe63" target="_blank">Privacy</a>
+<br /><br />
+&copy;2015 HSP EPI Acquisition, LLC dba Entertainment&reg;
+<br /><br />
+1401 Crooks Road, Suite 150, Troy, MI 48084</td>
+    <td><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="20" height="31" border="0" style="display:block;" /></td>
+  </tr>
+   <tr>
+    <td colspan="6"><img src="http://media.entertainment.com/media/entertainment/email/images/pixel.gif" width="640" height="31" border="0" style="display:block;" /></td>
+  </tr>
+</table>
+</body>

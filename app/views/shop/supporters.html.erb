@@ -1,0 +1,33 @@
+<div id="campaign-show">
+    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+    <div class="container container-background">
+        <div class="container-box top-section">
+
+            <%= render 'shop/campaign_header' %>
+            <%= render 'shop/campaign_nav' %>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="left-column">
+                        <h3 style="margin: 0">Thank you to our supporters!</h3>
+                        <hr/>
+                        <% @campaign.orders.completed.online.each do |order| %>
+                        <%= order.make_anonymous ? 'Anonymous' : (order.is_offline ? "Anonymous" : order.fullname) %>
+                        <hr/>
+                        <% end %>
+                    </div> <!-- /.left-column -->
+                </div>
+                <div class="col-md-4">
+                    <%= render 'shop/campaign_sidebar' %>
+                </div>
+            </div> <!-- /.row -->
+
+        </div> <!--/.top-section -->
+    </div> <!--/.container-background -->
+
+</div> <!-- /#campaign-show -->
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+    <%= render 'shop/cart_modal', parent_page: :supporters %>
+</div><!-- /.modal -->

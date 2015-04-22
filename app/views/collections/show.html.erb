@@ -1,0 +1,165 @@
+<div id="collections" style="background-image: linear-gradient(#681e57, #c9d5da);">
+
+    <div class="collection-overview">
+        <div class="container">
+            <div class="well well-white hero-content">
+                <div class="row">
+                    <div class="col-md-7">
+                        <%= cl_image_tag @collection.picture, class: 'img-responsive' %>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="headline">
+                            <h2 style="margin-top:5px;"><%= @collection.name %></h2>
+                            <%= raw(@collection.description) %>
+                            <%= raw(@collection.landing_page_html) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="row more-information">
+                    <div class="col-md-7">
+                        <!-- form role="form" class="invite-form">
+                            <div>
+                                <h4>Want more information?  No problem!</h4>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="emailInput" placeholder="Enter your email address ..." name="invite[email]">
+                            </div>
+                            <input type="hidden" name="invite[collection_id]" value="<%#= @collection.id %>">
+                            <input type="hidden" name="invite[source]" value="<%#= @collection.name %> Landing Page Lead">
+                            <button type="submit" class="btn btn-default">
+                                <span class="text">Get Your Free Information Packet</span> <span class="loader loader-black" style="display:none"></span>
+                            </button>
+                        </form>
+                        <h3 class="success-message" style="display: none">Thanks, we'll get back to you within 24 hours!</h3>
+                        <h3 class="error-message" style="display: none">Hmm, there was a problem with your entries, please try again!</h3 -->
+                        <div class="col-md-3">
+                            <!--<%= image_tag "anne.jpg", class: 'img-responsive img-circle', style: 'height:100px' %>-->
+                        </div>
+                        <div class="col-md-9">
+                             <!--<h4>"Raisy helped us to raise more money in less time without all of the usual hassles.  We can't wait to do another fundraiser with Raisy!"</h4>-->
+                        </div>
+                         <!--<div style="font-style:italic;color:gray;margin-left:50px;margin-top:120px;">Anne Dizon, Teacher at Saint Clement in Hayward, California</div>-->
+                    </div>
+                    <div class="col-md-5 landing-page-fundraiser-button" style="margin-top:20px;">
+                        <div class="online-orders">
+                            <p>
+                                <%= link_to 'Start Your Fundraiser', new_campaign_path(collection: @collection.slug), class: 'btn btn-primary btn-block' %>
+                            </p>
+                            <%= image_tag "comp.png", class: 'pull-left' %>
+                            <h2>Collect Orders Online!</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collection-details">
+        <div class="container">
+            <div class="well well-white">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 style="margin-top:5px;margin-bottom:20px;">Products in the <%= @collection.name %> Collection</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                <% @collection.products.order(:id).each do |product| %>
+
+                    <div class="col-md-4">
+                        <a href="#" data-toggle="modal" data-target="<%= "#product-modal-#{product.id}" %>" class="product-tile">
+                            <div class="well well-white" style="text-align: center">
+                                <div class="image-container">
+                                    <%= cl_image_tag product.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive', style: 'margin:auto;' %>
+                                </div>
+                                <h4><%= truncate(product.name, length: 25) %><br/>$<%= short_price(product.total_price) %></h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="<%= "product-modal-#{product.id}" %>" class="modal fade product-modal" tabindex="-1" role="dialog" aria-labelledby="<%= "product-modal-#{product.id}" %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="border-bottom:none;">
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div> <!-- /.modal-header -->
+
+                                <div class="modal-body product-form">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <div class="image-container" style="width: 100%; padding: 20px; border: 1px solid gainsboro; border-radius: 3px">
+                                                <%= cl_image_tag product.picture, class: 'img-responsive', style: "margin: auto; max-height: 250px;" %>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h4 class="visible-md visible-lg"><%= product.name %></h4>
+                                            <p style="margin-bottom: 15px;"><%= product.description.html_safe %></p>
+                                            <h2 style="margin: 15px 0px">$<%= short_price(product.total_price) %></h2>
+                                        </div>
+                                    </div>
+                                </div> <!-- end of modal body -->
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!--/#modal -->
+
+                <% end %> <!-- end collections iterator -->
+                </div>
+
+            </div>
+
+            <div class="well well-white">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="start-today">
+                            <h2>Start your online fundraiser today!</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div style="text-align:center;">
+                            <%= link_to 'Get Started Now!', new_campaign_path(collection: @collection.slug), class: 'btn btn-primary btn-small' %>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-us" style="background:#681e57; padding:50px 0px; color:white;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="margin-top:0px; color:white;">Want help getting started?</h2>
+                    <p>Just get in touch and we'll get back with you in 24 hours!<br/></p>
+                </div>
+                <div class="col-md-6">
+                    <form role="form" class="invite-form">
+                      <div class="form-group">
+                        <label for="nameInput" class="control-label">Name</label>
+                        <input type="name" class="form-control" id="nameInput" placeholder="Name" name="invite[name]">
+                      </div>
+                      <div class="form-group">
+                        <label for="emailInput" class="control-label">E-Mail</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="E-Mail" name="invite[email]">
+                      </div>
+                      <div class="form-group">
+                        <label for="orgInput" class="control-label">Organization</label>
+                        <input type="organization" class="form-control" id="orgInput" placeholder="School, Organization, Team" name="invite[organization]">
+                      </div>
+                        <input type="hidden" name="invite[collection_id]" value="<%= @collection.id %>">
+                        <input type="hidden" name="invite[source]" value="<%= @collection.name %> Landing Page Footer">
+                        <button type="submit" class="btn btn-default">
+                            <span class="text">Submit</span> <span class="loader loader-black" style="display:none"></span>
+                        </button>
+                    </form>
+                    <p class="success-message" style="display: none">Thanks, we'll get back to you within 1 day!</p>
+                    <p class="error-message" style="display: none">Hmm, there was a problem with your entries, please try again!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,49 @@
+<div id="dashboard" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 style="margin-bottom: 40px;">Dashboard</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Products', admin_products_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Collections', admin_collections_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Settings', admin_settings_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Organizations', admin_organizations_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Users', admin_users_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Fundraisers', admin_campaigns_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well">
+                    <%= link_to 'Reports', sales_report_path, class: 'btn btn-primary btn-block btn-lg' %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

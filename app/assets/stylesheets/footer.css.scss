@@ -1,0 +1,52 @@
+#footer {
+	
+	position: fixed;
+	bottom: -1px;
+	width: 100%;
+	z-index: 1000;
+	zoom: 1;
+	display: none;
+	
+    p {
+        font-size: 14px;
+    }
+	
+    .copyright {
+        text-align: right;
+    }
+	
+	.bottom-box {
+		
+		background-color: $entertainment-blue;
+		color: white;
+		padding-top: 15px; 
+		padding-bottom: 15px; 
+		
+		.bottom-right {
+			text-align: right;
+		}
+		
+	}
+	
+    @media (max-width: 992px) {
+		
+        text-align: center;
+		
+        .copyright {
+            text-align: center;
+        }
+		
+		.bottom-box {
+			
+			.bottom-right {
+				margin-top: 10px;
+				text-align: center;
+			}
+		
+		}
+		
+    }
+    a {
+        color: white;
+    }
+}

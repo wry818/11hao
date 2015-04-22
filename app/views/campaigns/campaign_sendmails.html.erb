@@ -1,0 +1,308 @@
+<div id="campaign-edit">
+    <div class="container">
+		<%= hidden_field_tag 'hidcampaignid', @campaign.id, id: "hidcampaignid" %>
+		
+        <div class="campaign-edit-header">
+			<h3>Your fundraiser <strong><%= @campaign.title %></strong></h3>
+        </div>
+        <div class="container-box top-section">
+			<div class="step-nav-bar">
+				<div id="step_nav_icon_1" class="step-nav-icon"></div>
+				<div id="step_nav_icon_2" class="step-nav-icon"></div>
+				<div id="step_nav_icon_3" class="step-nav-icon"></div>
+				<div id="step_nav_icon_4" class="step-nav-icon"></div>
+				<div id="step_nav_icon_5" class="step-nav-icon"></div>
+				<div id="step_nav_icon_6" class="step-nav-icon"></div>
+				<div id="step_nav_icon_7" class="step-nav-icon"></div>
+				<div id="step_nav_icon_8" class="step-nav-icon step-nav-icon-gray"></div>
+				<div id="step_nav_icon_9" class="step-nav-icon"></div>
+			</div>
+			
+			<div class="form-group">
+				<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">8</span>Invite Your Sellers to Join!&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+			</div>
+			
+			<div>
+				<span>Send emails to your sellers/group members inviting them to join your online fundraiser. They will create their own personalized fundraising pages so they can sell online to help you reach your goal!</span>
+				<br/><br/>
+				<span>Custom Email Text:</span>
+			</div>
+			
+			<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
+				<div>
+					<%=raw @default_email_msg %>
+				</div>
+				
+		    	<div style="margin-top: 10px">
+					<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+				</div>
+				
+				<div style="margin-top: 10px;">
+					<%=raw @default_email_msg_two %>
+				</div>
+			</div>
+			
+	    	<div style="margin-top: 10px">
+				<table>
+					<tr><td style="width:100px;">
+						<button id="btnPreviewEmail" class="btn btn-primary" type="button">
+							<span class="text">Preview Email</span>
+							<span class="loader" style="display:none"></span>
+						</button></td>
+						<td style="width:20px;">&nbsp;</td>
+					<td><span>Note: you will be able to review & select which contacts receive this email before it is sent.</span></td></tr>
+				</table>
+			</div>
+			
+			<div style="height:20px;">&nbsp;</div>
+			
+			<div class="row web-box">
+				<div class="col-sm-5 backbutton-box">
+					<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_contacts_path(@campaign) %>';">
+						<span class="text">Back</span>
+					</button>
+				</div>
+				<div class="col-sm-3 continuebutton-box">
+					<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_share_path(@campaign) %>';">
+						<span class="text">Skip this step</span>
+					</button>
+				</div>
+				<div class="col-sm-3 continuebutton-box">
+					<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="ClickSendEmail(this, true);">
+						<span class="text">Send Email</span>
+						<span class="loader" style="display:none"></span>
+					</button>
+				</div>
+			</div>	<!-- web-box -->
+			
+			<div class="row mobile-box">
+				<div class="col-sm-5 backbutton-box">
+					<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="ClickSendEmail(this, true);">
+						<span class="text">Send Email</span>
+						<span class="loader" style="display:none"></span>
+					</button>
+				</div>
+				<div class="col-sm-3 continuebutton-box">
+					<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_share_path(@campaign) %>';">
+						<span class="text">Skip this step</span>
+					</button>
+				</div>
+				<div class="col-sm-3 continuebutton-box">
+					<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_contacts_path(@campaign) %>';">
+						<span class="text">Back</span>
+					</button>
+				</div>
+			</div>	<!-- mobile-box -->
+        </div>	<!-- container-box -->
+    </div>	<!-- container -->
+	
+	<div id="camp_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="camp_step_tips_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-body">
+				<p>Customize the email that will be sent to your group members.</p>
+				<span>Tips:</span>
+				<ul>
+					<li><span>Encourage everyone to join today! The more sellers you have as part of your online fundraiser, the more money you can raise.</span></li>
+				</ul>
+	        </div> <!-- end of modal body -->
+
+	        <div class="modal-footer">
+				<div style="position:relative; text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<div class="hide_camp_step_tips_container">
+						<a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
+							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+						</a>
+					</div>
+				</div>
+	        </div> <!-- /.modal-footer -->
+			
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+</div>	<!-- campaign-edit -->
+
+<div id="contacts_modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="contacts_modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+<div id="preview_contact_email_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="preview_contact_email_modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Preview Email</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<script>
+$(document).ready(function() {
+	window.setTimeout(function(){
+		<% if @step_popup=="yes" %>
+			$("#camp_step_tips_modal").modal("show");
+		<% end %>
+	}, 200);
+
+	$("#hide_camp_step_tips").off("click").on("click", function() {
+		$.ajax('/ajax/campsteppopup', {
+			type: 'GET',
+			cache: false,
+			data: { popup: "disable" },
+	        beforeSend: function(jqXHR, settings) {
+	            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+	        },
+	        success: function(data) {
+	        },
+	        error: function(XMLHttpRequest, textStatus, errorThrown) {
+	        },
+			complete: function () {
+				$("#camp_step_tips_modal").modal("hide");
+			}
+		});
+	});
+	
+	$("#btnPreviewEmail").click(function(){
+		Raisy.users.previewContactEmail(this);
+	});
+	
+	$('#contacts_modal').on('hide.bs.modal', function (e) {
+		email_sent=$(this).data("email-sent") || "";
+		
+		if (email_sent=="yes") continue_next_step();
+	});
+});
+
+function ClickSendEmail(btn, is_send_email){
+	var ed=tinymce.get("txtEmailBody");
+	var $container=$(ed.getContainer());
+
+	if (!$container.hasClass("mce-tinymce")) {
+		$container=$container.parents(".mce-tinymce").first();
+	}
+	
+	var content=$.trim(ed.getContent({format: "text"}));
+	var maxLength=parseInt(ed.getParam("maxlength"));
+	var count=maxLength-content.length;
+	
+	if (count<0) {
+		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+		
+		window.Raisy.alert("Custom Email Text can only have a maximum of " + maxLength + " characters");
+		
+		return;
+	}
+	
+	var $button = $(btn);
+	var campaignid = $("#hidcampaignid").val();
+	
+	$container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
+	
+	content=$.trim(ed.getContent());
+	
+	if (is_send_email) {
+        $button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+            $.ajax('<%= seller_email_contacts_path(0) %>', {
+                type: 'GET',
+                beforeSend: function(jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function(data) {
+					$("#contacts_modal .modal-content").html(data);
+					$("#contacts_modal").modal("show");
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while sending email, please try again.");
+                },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+				}
+            });
+        });
+	}
+	else {
+        $button.prop('disabled', true).find('span.text').text("Saving Changes").siblings('span.loader').show(200, function() {
+            $.ajax('/ajax/emailcontacts', {
+                type: 'POST',
+				data: { is_send_email: false, campaign_id: campaignid, email_text: content },
+                beforeSend: function(jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function(data) {
+					if (data == "failed") {
+						window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+					} else {
+						ed.setContent(data, {format : 'raw'});
+						
+						window.Raisy.alert("Changes have been successfully saved");
+					}
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+                },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();
+				}
+            });
+        });
+	}
+}
+
+function continue_next_step(btn) {
+	var ed=tinymce.get("txtEmailBody");
+	var $container=$(ed.getContainer());
+
+	if (!$container.hasClass("mce-tinymce")) {
+		$container=$container.parents(".mce-tinymce").first();
+	}
+	
+	var content=$.trim(ed.getContent({format: "text"}));
+	var maxLength=parseInt(ed.getParam("maxlength"));
+	var count=maxLength-content.length;
+	
+	if (count<0) {
+		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+		
+		window.Raisy.alert("Custom Email Text can only have a maximum of " + maxLength + " characters");
+		
+		return;
+	}
+	
+	$container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
+	
+	content=$.trim(ed.getContent());
+	
+	var campaignid = $("#hidcampaignid").val();
+	
+	$.ajax('/ajax/emailcontacts', {
+		type: 'POST',
+		data: { is_send_email: false, campaign_id: campaignid, email_text: content },
+        beforeSend: function(jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(data) {
+			if (data == "failed") {
+				window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+			} else {
+				window.location.href='<%= campaign_share_path(@campaign) %>';
+			}
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+			window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+        },
+		complete: function () {
+		}
+	});
+}
+</script>

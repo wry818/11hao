@@ -1,0 +1,42 @@
+<div id="invites" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Invites</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Organization</th>
+                                <th>Collection</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @invites.order(:id).each do |invite| %>
+                            <tr>
+                                <td><%= invite.created_at.strftime('%b %-d, %Y') %></td>
+                                <td><%= invite.name %></td>
+                                <td><%= invite.email %></td>
+                                <td><%= invite.organization %></td>
+                                <td><%= invite.collection_id %></td>
+                                <td><%= invite.source %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

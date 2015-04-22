@@ -1,0 +1,17 @@
+// Place all the styles related to the admin/users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.user_form {
+	.sales-organizations {
+		height: 200px;
+		width: 100%;
+	}
+	
+	.upload-button, .use-button {
+		border:1px solid #ccc; 
+		cursor:pointer; 
+		text-align:center;
+		padding:8px 0px; 
+		width:150px;
+	}
+}

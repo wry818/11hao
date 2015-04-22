@@ -1,0 +1,384 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :contacts %>
+
+    <div class="dashboard-content">
+        <div class="container">
+			<div id="contacts-show" style="border:0px solid white; background-color:white; padding:0; margin:0;">
+	        	<div class="container-box" style="border:0px solid white; padding:0 30px; margin:0;">
+		            <div class="row">
+						<div class="col-xs-12">
+							<div id="search-contacts-box" class="search-contacts-box">
+								<div class="row header">
+									<div class="col-md-12">
+										<h4>Import Your Contacts</h4>
+									</div>
+								</div>
+					        	<div>
+									<h5>Search your address book for friends</h5>
+								</div>
+								<div class="row item">
+									<div class="col-md-9">
+										<div>
+											<a href="/contacts/gmail" class="oauth show_tooltip" data-title="Gmail" disabled="disabled">
+												<%= image_tag "gmail-icon.png", class: "contacts-icon" %>
+											</a>									
+											<a href="/contacts/hotmail" class="oauth show_tooltip" data-title="Windows Live/Hotmail/Outlook" disabled="disabled">
+												<%= image_tag "outlook-icon.png", class: "contacts-icon" %>
+											</a>
+											<a href="/contacts/yahoo" class="oauth show_tooltip" data-title="Yahoo" disabled="disabled">
+												<%= image_tag "yahoo-icon.png", class: "contacts-icon" %>
+											</a>
+											<!-- <a href="/contacts/facebook" class="oauth show_tooltip" data-title="Facebook" disabled="disabled">
+												<%= image_tag "facebook-icon.png", class: "contacts-icon" %>
+											</a> -->
+											<!-- <a href="javascript:void(0);" id="btnManualEnterEmail" class="show_tooltip" data-title="Manually Enter Emails" style="display:inline-block; margin:5px 10px;">
+												<%= image_tag "edit-icon.png", class: "contacts-icon" %>
+											</a> -->
+										</div>
+									</div>
+									<div class="col-md-3" style="display:none;">
+										<button id="btnMyContacts" class="btn btn-primary" type="button" style="margin-top:10px; width:100%;">
+											<span class="text">My Contacts</span>
+										</button>
+									</div>
+								</div>
+					        	<div>
+									<p style="padding-top: 10px; font-size: 12px">
+										Choosing a service will open a window for you to log in securely and import your contacts to Raisy. You'll only find users who have allowed their accounts to be found by email address. We won't email anyone without your consent.</p>
+								</div>
+							</div>	<!-- search-contacts-box -->
+				
+							<div id="contacts-result-box" class="contacts-result-box" style="display: none">
+								<div class="row header">
+									<div class="col-md-12">
+										<div>
+											<%= image_tag "gmail-icon.png", class: "contacts-icon contacts-icon-gmail", style: "display:none;" %>
+											<%= image_tag "yahoo-icon.png", class: "contacts-icon contacts-icon-yahoo", style: "display:none;" %>
+											<%= image_tag "outlook-icon.png", class: "contacts-icon contacts-icon-outlook", style: "display:none;" %>
+											<%= image_tag "facebook-icon.png", class: "contacts-icon contacts-icon-facebook", style: "display:none;" %>
+											&nbsp;<b id="provider_contacts_label" style="font-size:16px;">Contacts</b>&nbsp;&nbsp;&nbsp;
+											<a id="btnTryAnotherService" href="javascript:void(0);">
+												Back
+											</a>
+										</div>
+										<div class="sub-header">
+											<div class="left-col">
+												<p>
+													Here are <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
+												</p>
+											</div>
+											<div class="select-all-box">
+												<span>Select all</span>
+												<input id="cbxSelectAll" type="checkbox" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="contacts-item-box">
+								</div>
+								<div class="footer">
+									<div class="send-email-box">
+										<a id="btnImportContact" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
+											<span class="text">Import Contacts</span>
+											<span class="loader" style="display:none"></span>
+										</a>
+									</div>
+								</div>
+							</div> <!-- contacts-result-box -->
+	        
+							<div id="contacts-list-box">
+								<div style="margin-top:15px;">
+									<label style="font-size:18px;">Or Enter Contacts Individually</label>
+									&nbsp;&nbsp;&nbsp;
+									<!-- <label class="glyphicon glyphicon-plus-sign show_tooltip" data-title="Add Contact" style="cursor:pointer; font-size:22px; vertical-align:top;" onclick="Raisy.users.addNewContactClick();"></label> -->
+								</div>
+			
+								<div style="margin-top:10px; max-height:560px; overflow:auto;">
+									<table class="table table-hover contact-table" style="<%= 'display:none;' if @contacts.count==0 %>">
+										<thead>
+											<tr>
+												<th>First Name</th>
+												<th>Last Name</th>
+												<th><span class="show_tooltip" data-title="What you will call this person in the email (e.g. Grandma)">Greeting&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
+												<th>Email</th>
+												<th></th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody class="contact-table-body">
+											<% @contacts.order(:id).each do |contact| %>
+											<tr class="contact-row">
+												<td style="width:160px;">
+													<input type="hidden" class="contact-id" value="<%= contact.id %>" />
+													<input type="hidden" class="contact-media-id" value="<%= contact.media_id %>" />
+								
+													<span class="contact-item-text contact-firstname-text"><%= contact.first_name %></span>
+													<input type="text" class="form-control contact-update-input contact-firstname-input" value="<%= contact.first_name %>" maxlength="50" placeholder="e.g. John" />
+												</td>
+												<td style="width:160px;">
+													<span class="contact-item-text contact-lastname-text"><%= contact.last_name %></span>
+													<input type="text" class="form-control contact-update-input contact-lastname-input" value="<%= contact.last_name %>" maxlength="50" placeholder="e.g. Smith" />
+												</td>
+												<td style="width:160px;">
+													<span class="contact-item-text contact-greetings-text"><%= contact.greetings %></span>
+													<input type="text" class="form-control contact-update-input contact-greetings-input" value="<%= contact.greetings %>" maxlength="50" placeholder="e.g. Grandma" />
+												</td>
+												<td>
+													<span class="contact-item-text contact-email-text"><%= contact.email_address %></span>
+													<input type="text" class="form-control contact-update-input contact-email-input" value="<%= contact.email_address %>" maxlength="100" style="max-width:100%;" />
+												</td>
+												<td class="contact-edit-cell contact-ops1-cell"><span class="glyphicon glyphicon-pencil show_tooltip contact-edit-btn" data-title="Edit"></span></td>
+												<td class="contact-delete-cell contact-ops1-cell"><span class="glyphicon glyphicon-trash show_tooltip contact-del-btn" data-title="Delete"></span></td>
+												<td class="contact-update-cell contact-ops2-cell"><span class="glyphicon glyphicon-ok show_tooltip contact-save-btn" data-title="Save"></span></td>
+												<td class="contact-cancel-cell contact-ops2-cell"><span class="glyphicon glyphicon-remove show_tooltip contact-cancel-btn" data-title="Cancel"></span></td>
+												<td class="contact-loader-cell"><span class="loader loader-black contact-update-loader" style="visibility:hidden;"></span></td>
+											</tr>
+											<% end %>
+										</tbody>
+									</table>
+								</div>
+							</div>	<!-- contacts-list-box -->
+						</div>
+		            </div>
+				</div>
+			</div>
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>
+
+<script>
+var contacts_list;
+var media_id;	// 1-gmail, 2-yahoo, 3-hotmail, 4-facebook, 5-manual
+
+$(document).ready(function() {
+	window.setTimeout(function(){
+		Raisy.users.addNewContactClick();
+	}, 200);
+	
+	$("#hide_camp_step_tips").off("click").on("click", function() {
+		$.ajax('/ajax/campsteppopup', {
+			type: 'GET',
+			cache: false,
+			data: { popup: "disable" },
+            beforeSend: function(jqXHR, settings) {
+                jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data) {
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            },
+			complete: function () {
+				$("#camp_step_tips_modal").modal("hide");
+			}
+		});
+	});
+	
+	$(".oauth").click(function(event){
+	
+		contacts_list = null;
+	
+		event.preventDefault();
+
+		var path = $(this).attr("href");
+		var title = $(this).data("title");
+	
+		$(".contacts-icon-gmail").hide();
+		$(".contacts-icon-yahoo").hide();
+		$(".contacts-icon-outlook").hide();
+		$(".contacts-icon-facebook").hide();
+		$("#provider_contacts_label").text(title + " contacts");
+	
+		if (title == "Gmail") {
+			media_id = 1;
+		
+			$(".contacts-icon-gmail").show();
+		}
+	
+		if (title == "Yahoo") {
+			media_id = 2;
+		
+			$(".contacts-icon-yahoo").show();
+		}
+	
+		if (title == "Hotmail") {
+			media_id = 3;
+		
+			$(".contacts-icon-outlook").show();
+		}
+	
+		if (title == "Facebook") {
+			media_id = 4;
+		
+			$(".contacts-icon-facebook").show();
+		}
+
+		//create new oauthh popup window and monitor it
+	
+		var width = 520;
+		var height = 568;
+		var left = ($(window).width()  - width)  / 2;
+		var top  = ($(window).height() - height) / 2;
+	
+		$.oauthpopup({
+			path: path,
+			windowOptions: 'width=' + width + ',height=' + height + ',left=' + left + 'top=' + top,
+			callback: function() {
+			
+				if (contacts_list != undefined && contacts_list != null) {
+				
+					var contacts = $.parseJSON(contacts_list);
+
+					if (contacts.length > 0) {
+						var contactsHTML = "";
+						var contactsCount = 0;
+
+						for (var i = 0; i < contacts.length; i++) {
+						
+							if (contacts[i].email == null) continue;
+						
+							contactsCount++;
+
+							var firstName = "";
+							var lastName = "";
+
+							if (contacts[i].first_name != null) {
+								firstName = contacts[i].first_name;
+							}
+
+							if (contacts[i].last_name != null) {
+								lastName = contacts[i].last_name;
+							}
+
+							contactsHTML += "<div class=\"item\">";
+							contactsHTML += 	"<label style=\"width: 30%\">" + contacts[i].name  + "</label>";
+							contactsHTML += 	"<span style=\"width: 60%\">" + contacts[i].email  + "</span>";
+							contactsHTML += 	"<div class=\"select-box\">";
+							contactsHTML += 		"<input type=\"checkbox\" class=\"cbxSelectContact\" email=\"" + contacts[i].email + "\" first_name=\"" + firstName + "\" last_name=\"" + lastName + "\" />";
+							contactsHTML += 	"</div>";
+							contactsHTML += "</div>";
+						}
+					
+						if (contactsCount==0) {
+							window.Raisy.alert("No contact emails found");
+						}
+						else {
+							$("#search-contacts-box").hide();
+							$("#contacts-list-box").hide();
+							$("#contacts-result-box").show();
+
+							if (contactsCount > 1) {
+								$("#txtContactCount").text(contactsCount + " peoples");
+							} else {
+								$("#txtContactCount").text(contactsCount + " people");
+							}
+
+							if (contactsCount >= 10) {
+								$("#contacts-item-box").addClass("contacts-item-box");
+							}
+						
+							$("#cbxSelectAll").prop("checked", false);
+							$("#contacts-item-box").empty().html(contactsHTML);
+						}
+						
+					} else {
+
+						window.Raisy.alert("No contacts found");
+
+					}
+
+				}
+
+			}
+		});
+
+	});
+	
+	$("#cbxSelectAll").click(function(){
+
+		if ($(this).prop("checked")) {
+			$(".cbxSelectContact").prop("checked", true);
+		} else {
+			$(".cbxSelectContact").prop("checked", false);
+		}
+
+	});
+	
+	$("#btnTryAnotherService").click(function(){
+
+		$("#search-contacts-box").show();
+		$("#contacts-list-box").show();
+		$("#contacts-result-box").hide();
+
+	});
+	
+	$("#btnImportContact").click(function(){
+
+		var $button = $(this);
+		var contacts = new Array();
+		
+		$("input.cbxSelectContact:checked").each(function(index, element){
+
+			var contact = new Object();
+			contact.id = "0";
+			contact.email_address = $(this).attr("email");
+			contact.first_name = $(this).attr("first_name");
+			contact.last_name = $(this).attr("last_name");
+			contact.media_id = media_id;
+			
+			contacts.push(contact);
+
+		});
+
+		var error = "";
+		if (contacts.length == 0) {
+			if (error) error += "<br/>";
+			error += "Please select one or more contacts";
+		}
+
+		if (error!="") {
+			window.Raisy.alert(error);
+			return;
+		}
+
+      $button.prop('disabled', true).find('span.text').text('Importing Contacts...').siblings('span.loader').show(200, function() {
+          $.ajax('/ajax/importcontacts', {
+              type: 'POST',
+			  data: { contacts: contacts, seller_id: "" },
+              beforeSend: function(jqXHR, settings) {
+                  jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+              },
+              success: function(data) {
+				if (data != "failed") {
+					window.Raisy.alert("Contacts have been successfully imported");
+					
+					var ids=data.split(",");
+					
+					for (var i = 0; i < ids.length; i++) {
+						contacts[i].id = ids[i];
+					}
+			
+					Raisy.users.addImportedContactRow(contacts);
+			
+					$("#search-contacts-box").show();
+					$("#contacts-list-box").show();
+					$("#contacts-result-box").hide();
+				} else {
+					window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+				}
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+				window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+              },
+			  complete: function () {
+				$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();
+			}
+          });
+      });
+
+	});
+});
+</script>

@@ -1,0 +1,162 @@
+<div id="sales_report_container" style="padding-bottom:80px;">
+    <div style="width:90%; max-width:1280px; margin:auto;">
+        <h3>Reports</h3>
+		
+		<div>
+			<select id="all_report_org_selector" style="width:400px; margin:20px 0 0 0;">
+				<option value="">All Organizations</option>
+				<% @organizations.each do |org| %>
+				<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
+					<%= org.name %>
+				</option>
+				<% end %>
+			</select>
+		</div>
+		
+		<ul id="sales_report_tabs" class="nav nav-tabs" role="tablist" style="margin-top:20px;">
+		    <li role="presentation" class="active" data-report="activity"><a href="#activity_report" role="tab" aria-controls="activity_report" data-toggle="tab" data-report="activity">Seller Activity Report</a></li>
+		    <li role="presentation" data-report="sales"><a href="#sales_report" role="tab" aria-controls="sales_report" data-toggle="tab" data-report="sales">Sales Report</a></li>
+		</ul>
+		
+	    <div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="activity_report">
+				<div style="margin-top:15px;">
+					<% if @organizations %>
+						<!-- <select id="activity_report_organization_selector" style="width:400px;">
+							<option value="">All Organizations</option>
+							<% @organizations.each do |org| %>
+							<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
+								<%= org.name %>
+							</option>
+							<% end %>
+						</select> -->
+					<% end %>
+				</div>
+				<div class="sales_report_loader" style="display:none; margin-top:40px; text-align:center;">
+					<h4>Loading report ...</h4><span class="loader loader-black"></span>
+				</div>
+				<div id="activity_report_download" style="display:none; text-align:right; margin-top:15px;">
+					<a id="activity_report_download_link" target="_blank" href="">Download</a>
+				</div>
+				<div id="activity_report_conent" style="margin-top:10px; overflow:auto;">
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="sales_report">
+				<div style="margin-top:15px;">
+					<% if @organizations %>
+						<!-- <select id="sales_report_organization_selector" style="width:400px;">
+							<option value="">All Organizations</option>
+							<% @organizations.each do |org| %>
+							<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
+								<%= org.name %>
+							</option>
+							<% end %>
+						</select> -->
+					<% end %>
+				</div>
+				<div class="sales_report_loader" style="display:none; margin-top:40px; text-align:center;">
+					<h4>Loading report ...</h4><span class="loader loader-black"></span>
+				</div>
+				<div id="sales_report_download" style="display:none; text-align:right; margin-top:15px;">
+					<a id="sales_report_download_link" target="_blank" href="">Download</a>
+				</div>
+				<div id="sales_report_content" style="margin-top:10px; overflow:auto;">
+				</div>
+			</div>
+	   </div>
+    </div>
+</div>
+
+<div id="order_detail_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Order Detail</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="resend_code_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resend_code_modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Resend Access Code</h4>
+			</div>
+			<div class="modal-body">
+				<div id="send_accesscode_container" style="margin:10px 0px; text-align:center;">
+					<strong>Email</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="resend_email" type="text" class="form-control" style="display:inline; width:250px;" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div style="text-align:center;">
+					<button id="send_accesscode" type="button" class="btn btn-primary">
+						<span class="text">Send Access Code</span> <span class="loader" style="display:none"></span>
+					</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" data-dismiss="modal" style="width:100px;"><span>Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	
+	$("#send_accesscode").click(function(){
+		var email=$("#resend_email").val().trim();
+		var item_id=$("#send_accesscode").data("item-id") || "";
+		
+		if (email=="") {
+			$("#send_accesscode_container").addClass("has-error");
+			return;
+		}
+		
+		if (item_id=="") {
+			$("#resend_code_modal").modal("hide");
+			return;
+		}
+		
+		var $button=$(this);
+		
+		$button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+      $.ajax('/ajax/resendaccesscode', {
+				method: 'POST',
+				data: { item_id: item_id, email: email },
+				beforeSend: function(jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+				success: function(data) {
+					if (data!="fail") {
+						$("#item_" + item_id + "_accesscode").text(data);
+						
+						if (data!="") $("#item_" + item_id + "_deliverystatustext").text("Delivered");
+					}
+					
+					$("#resend_code_modal").modal("hide");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while resending access code, please try again.");
+			  },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+				}
+			});
+		});
+	});
+	
+	window.setTimeout(function(){
+		Raisy.chairperson_dashboard.load_sales_report_content("activity", "");
+		$("#sales_report_tabs li.active a").data("loaded", "loaded");
+	}, 200);
+	
+});
+</script>

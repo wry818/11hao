@@ -1,0 +1,39 @@
+<div class="dashboard-header">
+    <div class="container">
+        <div class="dashboard-header-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h3>
+                        <strong>Manage Organization: </strong>
+                        <%= @organization.name %>
+                    </h3>
+                </div>
+                <!--
+                <div class="col-sm-4">
+                    <a href="<%#= short_campaign_path(@campaign) %>" class="btn btn-info pull-right">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        View Page
+                    </a>
+                </div>
+                -->
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <!--
+            <li class="<%#= 'active' if active == :home %>">
+                <a href="<%#= dashboard_campaign_path %>"><span class="glyphicon glyphicon-home"></span> Dashboard</a>
+            </li>
+            -->
+            <li class="<%= 'active' if active == :details %>">
+                <a href="<%= dashboard_organization_details_path(@organization) %>">
+                    Profile
+                </a>
+            </li>
+            <li class="<%= 'active' if active == :deposit %>">
+                <a href="<%= dashboard_organization_deposit_path(@organization) %>">
+                    Direct Deposit
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

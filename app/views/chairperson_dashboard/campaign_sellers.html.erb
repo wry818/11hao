@@ -1,0 +1,67 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :sellers %>
+
+    <div class="dashboard-content">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+					<% if @sellers && @sellers.count>0 %>
+						<p><strong>Activities Report</strong></p>
+	                    <div style="width:100%; max-height:560px; overflow:auto;">
+	                        <table class="table table-hover">
+	                            <thead>
+	                                <tr>
+										<th></th>
+	                                    <th>Name</th>
+	                                    <th>Parent</th>
+	                                    <th>Email</th>
+	                                    <th>Member ID</th>
+	                                    <th>Total Sales</th>
+	                                    <th>Total Raised</th>
+										<th># of orders</th>
+										<th># of logins</th>
+							            <th># of emails sent</th>
+							            <th># of share</th>
+							            <th># of tweets</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <% @sellers.each do |seller| %>
+									<% social_histories=seller.social_share_histories.select("id, media_id").all %>
+	                                <tr>
+										<td>
+										    <% if seller.user_profile.user.profile.picture.present? %>
+										        <%= cl_image_tag seller.user_profile.user.profile.picture, width: 48, height: 48, crop: :limit %>
+										    <% else %>
+										        <%= image_tag 'crown.png', width: 48 %>
+										    <% end %>
+										</td>
+	                                    <td><%= seller.user_profile.fullname %></td>
+	                                    <td><%= seller.user_profile.parent_fullname %></td>
+	                                    <td><%= seller.user_profile.user.is_fake ? "" : seller.user_profile.user.email %></td>
+	                                    <td><%= seller.referral_code %></td>
+	                                    <td>$<%= long_price(seller.total_sales) %></td>
+	                                    <td>$<%= long_price(seller.total_raised) %></td>
+										<td><%= seller.total_orders %></td>
+										<td><%= seller.user_profile.user.sign_in_count %></td>
+										<td><%= seller.email_share_histories.count %></td>
+							            <td><%= social_histories.select{|h| h.media_id==1}.count %></td>
+							            <td><%= social_histories.select{|h| h.media_id==2}.count %></td>
+	                                </tr>
+	                                <% end %>
+	                            </tbody>
+	                        </table>
+	                    </div>
+					<% else %>
+						<div style="width:100%; text-align: center;">
+							You don't have any sellers! Once your sellers join - you'll see them appear here.
+						</div>
+					<% end %>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

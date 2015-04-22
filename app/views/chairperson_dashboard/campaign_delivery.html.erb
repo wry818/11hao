@@ -1,0 +1,71 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :delivery %>
+
+    <div class="dashboard-content">
+        <div class="container">
+            <%= form_for(@campaign, url: campaign_update_delivery_path, html: { id: "campaign_delivery_form", class: "campaign-form" }) do |f| %>
+
+            <fieldset>
+                <h4>Pick up instructions</h4>
+                <p style="display: none">
+                    This is where you can set whether your supporters pick up items from a central location, or can get items shipped directly to their homes.
+                </p>
+
+                <div class="">
+                    <div class="checkbox" style="display: none">
+                        <label for="campaign_has_pickup">
+                            <%= f.check_box :has_pickup, class: "expander", data: {panel: "pickup"}, checked: 'checked' %> Give pick-up option
+                        </label>
+                    </div>
+
+                    <div class="panel panel-default pickup" style="<%#= 'display:none' if !@campaign.has_pickup %>">
+                        <div class="panel-body">
+                            <label>When and where will supporters be able to pick-up their items?</label>
+                            <%= f.text_area :pickup_instructions, class: 'form-control' %>
+                            <span class="help-block"><em>Supporters will see these instructions when they check out</em></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well"  style="display: none">
+
+                    <div class="checkbox">
+                        <label for="campaign_has_shipping">
+                            <%= f.check_box :has_shipping, class: "expander", data: {panel: "shipping"}, checked: 'checked' %> Give shipping option
+                        </label>
+                    </div>
+
+                    <div class="panel panel-default shipping" style="<%#= 'display:none' if !@campaign.has_shipping %>">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>When and how can supporters expect their items to arrive?</label>
+                                <%= f.text_area :shipping_instructions, class: 'form-control', value: "Items will be shipped approximately within 2 weeks when the fundraiser is closed."%>
+                                <span class="help-block"><em>Supporters will see these instructions when they check out</em></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Shipping charge</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <%= f.text_field :shipping_flat_rate, class: 'form-control', value: '7.95' %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
+                        <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+                    </button>
+                </div>
+
+            </fieldset>
+
+            <% end %>
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

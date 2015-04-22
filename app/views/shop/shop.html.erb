@@ -1,0 +1,91 @@
+<div id="campaign-show">
+    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+    <div class="container container-background">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="container-box shop">
+
+                    <%= render 'shop/campaign_header' %>
+                    <%= render 'shop/campaign_nav' %>
+
+                    <div class="products-container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <%= render 'shop/collection_sidebar' %>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="products">
+                                    <div class="row">
+																			<% if @campaign.collection %>
+
+                                        <% if @campaign.collection.categories.count > 0 %>
+
+                                            <% @campaign.collection.categories.order(:id).each do |category| %>
+                                                <div class="col-md-4">
+                                                    <a href="<%= shop_category_path(@campaign, category) %>" class="product-tile">
+                                                        <div class="image-container">
+                                                            <%= cl_image_tag category.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive' %>
+                                                        </div>
+                                                        <p style="text-align: center">
+                                                            <%= truncate(category.name, length: 50) %>
+                                                        </p>
+                                                    </a>
+                                                </div>
+                                            <% end %>
+
+                                        <% else %>
+
+                                            <% @campaign.collection.products.order(:id).each do |product| %>
+                                            <div class="col-md-4">
+                                                <a href="<%= shop_product_path(@campaign, product) %>" class="product-tile">
+                                                    <div class="image-container">
+                                                        <%= cl_image_tag product.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive' %>
+                                                    </div>
+                                                    <p style="text-align: center">
+                                                        <%= truncate(product.name, length: 50) %><br/>
+														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
+														<% if price_range[:is_discount] %>
+															<% if price_range[:same_discount_price] %>
+																$<%= long_price(price_range[:discount_min]) %>
+															<% else %>
+																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+															<% end %> / 
+															<span style="color:gray; display:inline-block; text-decoration:line-through;">
+																<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %></span>
+														<% else %>
+															<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %>
+														<% end %>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <% end %> <!-- end do -->
+
+                                        <% end %>
+																				
+																			<% end %>
+
+                                    </div> <!-- /.row -->
+                                </div><!-- /.products -->
+                            </div>
+                        </div>
+                    </div> <!--/.product-container -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+    <%= render 'shop/cart_modal', parent_page: :shop %>
+</div><!-- /.modal -->

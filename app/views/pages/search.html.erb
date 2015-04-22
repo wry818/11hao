@@ -1,0 +1,188 @@
+<div id="search">
+    <div class="container">
+        <div class="container-box">
+
+            <div class="row">
+                <% unless @register && @search.blank? %>
+                <div class="col-md-5">
+                    <h4 style="margin: 0 0 30px">Find your group's fundraising page:</h4>
+                </div>
+                <div class="col-md-7">
+                        <%= form_tag(search_path, method: "get", id: "search_form")%>
+                            <div class="input-group">
+                                <input name="register" type="hidden" value="<%= @register %>">
+                                <input name="search" type="text" class="form-control" placeholder="Group ID, fundraiser name or group name" value="<%= @search %>">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </form>
+                </div>
+                <% end %>
+            </div>
+
+            <% if @register && @search.blank? %>
+            <div class="register-block" style="margin: 40px 0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="text-align: center">To register as a seller, please find your fundraising group by name or Group ID</p>
+                        <%= form_tag(search_path, method: "get", id: "search_form")%>
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="input-group">
+                                    <input name="register" type="hidden" value="<%= @register %>">
+                                    <input name="search" type="text" class="form-control" placeholder="Group ID, fundraiser name or group name">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">Search</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <% else %>
+            <div class="row">
+							<div class="col-md-12">
+								<% if @is_recent && @campaigns && @campaigns.count>0 %>
+									<h4><b>Recent Fundraisers</b></h4>
+								<% end %>
+								<% if @campaigns && @campaigns.count>0 %>
+									<% for i in 0..3 %>
+									<% camps = @campaigns[i*3..(i+1)*3-1] %>
+									<% if camps %>
+										<div class="row" style="margin-top:10px;">
+											<% camps.each do |campaign| %>
+												<% if campaign.expired? %>
+													<div class="col-md-4" onclick="window.location.href='<%= short_campaign_path(campaign) %>';">
+												<% else %>
+													<% if @register %>
+														<div class="col-md-4" onclick="window.location.href='<%= signup_seller_path(campaign) %>';">
+													<% else %>
+														<div class="col-md-4" onclick="window.location.href='<%= short_campaign_path(campaign) %>';">
+													<% end %>
+												<% end %>
+													<div class="search-result-block" style="border:1px solid #c8c8c8; border-radius: 2px; cursor:pointer; margin-bottom:10px;">
+														<div style="padding:10px; position:relative;">
+															<div style="text-align:center; height:80px;">
+						                    <%= cl_image_tag campaign.campaign_logo.image_id,
+																	transformation: [{ 
+																			width: campaign.campaign_logo.crop_width,
+																			height: campaign.campaign_logo.crop_height,
+																			x: campaign.campaign_logo.crop_x,
+																			y: campaign.campaign_logo.crop_y,
+																			crop: :crop
+																		}], style: 'max-width:100%; max-height:100%;' if campaign.campaign_logo %>
+			
+																<%= image_tag 'crown.png', style: "display:inline-block; margin-top:20px; width:72px;" if !campaign.campaign_logo %>
+															</div>
+															<div style="height:52px; margin-top:10px; overflow:hidden;">
+																<span style="font-size:18px; font-weight:600;"><%= campaign.title %></span>
+															</div>
+															<div style="color:#888; font-size:12px; margin-top:10px;">
+																<div>
+																	<span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+																	<span><%= (campaign.organization.address_city.nil? ? "" : campaign.organization.address_city.strip + ", ") + (campaign.organization.address_state || "").strip %></span>
+																</div>
+																<div style="height:38px; margin-top:2px; overflow:hidden;">
+																	<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;
+																	<span><%= campaign.organization.name %></span>
+																</div>
+															</div>
+															<% if campaign.expired? || !campaign.active %>
+																<div style="position:absolute; bottom:0; right:0;">
+																	<span style="color:red; font-size:12px; font-weight:600;">CLOSED</span>
+																</div>
+															<% end %>
+														</div>
+														<div style="background:#f6f6f6;border-top:1px solid #e6e6e6; padding:10px;">
+															<div style="width:100%;">
+																<div style="display:inline-block; width:50px; height:50px; vertical-align:top;">
+				                          <% if campaign.organizer.profile.picture.present? %>
+				                              <%= cl_image_tag campaign.organizer.profile.picture, width: 48, height: 48, crop: :fill, class: "img-circle", style: "vertical-align:top;" %>
+				                          <% else %>
+				                              <%= image_tag 'crown.png', style: "display:inline-block; margin-top:4px; width:48px;" %>
+				                          <% end %>
+																</div>
+																<div style="display:inline-block; margin-left:20px; width:70%;">
+																	<span style="font-size:16px; font-weight:600; display:inline-block; width:100%; height:22px; overflow:hidden;"><%= campaign.organizer.profile.fullname %></span>
+																	<br/>
+																	<span style="color:#888; font-size:13px;">fundraiser owner</span> 
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											<% end %>
+										</div>
+										<% end %>
+									<% end %>
+				
+									<div style="text-align:center;"><%= paginate @campaigns if @campaigns && !@is_recent %></div>
+								<% else %>
+									<% if @campaigns && !@is_recent %>
+										<div style="text-align:center; margin-top:20px;">
+											<span><strong>No matched results were found.</strong></span>
+										</div>
+									<% end %>
+								<% end %>
+							</div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+	
+	<div id="search_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="search_tips_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-body">
+				<p>Search for your school or group by name or Group ID.</p>
+				<p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
+				<p>If you don’t find your group, please contact your chairperson or group leader.</p>
+	        </div> <!-- end of modal body -->
+
+	        <div class="modal-footer">
+				<div style="position:relative; text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<div class="hide_search_camp_tips_container">
+						<a id="hide_search_camp_tips" style="cursor:pointer; text-decoration: none;">
+							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+						</a>
+					</div>
+				</div>
+	        </div> <!-- /.modal-footer -->
+			
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	<% if @show_popup=="yes" %>
+		window.setTimeout(function(){
+			$("#search_tips_modal").modal("show");
+		}, 200);
+	<% end %>
+});
+
+$("#hide_search_camp_tips").off("click").on("click", function(){
+	$.ajax('/ajax/searchcamppopup', {
+		type: 'GET',
+		cache: false,
+		data: { popup: "disable" },
+	    beforeSend: function(jqXHR, settings) {
+	        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+	    },
+	    success: function(data) {
+	    },
+	    error: function(XMLHttpRequest, textStatus, errorThrown) {
+	    },
+		complete: function () {
+			$("#search_tips_modal").modal("hide");
+		}
+	});
+});
+</script>

@@ -1,0 +1,295 @@
+#chairperson_dashboard {
+	
+	padding-bottom: 80px;
+	
+    .dashboard-header {
+        background: white;
+        border-bottom: 1px solid #dddddd;
+        .dashboard-header-box {
+            padding: 0 0 10px;
+            h3 {
+                margin: 0;
+                padding: 4px;
+            }
+        }
+        .campaign-status {
+            margin: 20px;
+            text-align: center;
+            h4 {
+                margin: 0;
+                padding: 20px;
+                color: #8a6d3b;
+                background-color: #fcf8e3;
+                border: 1px solid #faebcc;
+            }
+        }
+        .nav {
+            margin-bottom: -1px;
+        }
+    }
+    .dashboard-content {
+		
+        padding: 30px 0;
+		
+		.upload-tooltip {
+			@include fontSize11px;
+			font-weight: normal; 
+		}
+		
+		.compaign-box {
+			padding: 0px 0;
+			
+			.campaign-photo-box {
+				padding-left:3px; 
+				padding-right:3px;
+			}
+		}
+		
+		.campaign-upload-button-box {
+			padding-left: 36px;
+		}
+		
+		.allow-direct-donation-box {
+		
+			width: 100%;
+		
+			.checkbox-label {
+				//width: 197px;
+				width: 16.66%; 
+				text-align: right; 
+				padding-right: 20px;
+			}
+		
+			.checkbox-input {
+				width: 83.37%;
+				padding-left: 15px;
+			}
+		
+		}
+		
+    }
+    &.dashboard-index {
+		
+        .campaigns-list {
+			
+			.campaign-manage-box {
+				padding-left: 30px;
+			}
+			
+			.raised-count {
+				padding-top: 0px;
+			}
+			
+			.campaign-people-box {
+				
+				width: 100%;
+				
+				.campaign-people-col {
+					width: 33.33%; 
+					padding-left: 0px; 
+					padding-right: 0px;
+				}
+				
+				.first-col {
+					padding-left: 15px; 
+				}
+				
+				.middle-col {
+					text-align: center;
+				}
+				
+			}
+			
+			.empty-goal-box {
+				height: 50px;
+			}
+			
+            .image-container {
+                background: transparent;
+                border-radius: 3px;
+                padding: 3px;
+                border: 0px solid gainsboro;
+                width: 100%;
+                img {
+					display: inline-block;
+					margin-top: 10px;
+					width: 100%;
+                }
+            }
+        }
+    }
+    &.dashboard-campaign {
+        .welcome-message {
+            padding: 20px;
+            margin: 50px 0px;
+            p {
+                line-height: 1.7;
+                font-size: 18px;
+
+            }
+        }
+        .campaign-form {
+
+        }
+    }
+    .raised-count {
+        margin: 0 0 10px;
+        line-height: 1;
+		
+		label {
+			font-size: 30px;
+			font-weight: bold;
+		}
+		
+        span {
+            font-size: 16px;
+            font-weight: normal;
+        }
+    }
+    .progress {
+		margin-bottom: 10px;
+        border-radius: 4px;
+        height: 16px;
+    }
+    .goal {
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .days-left {
+        border: 1px solid gainsboro;
+		background: #fefefe;
+        width: 100%;
+        padding: 15px 0;
+        border-radius: 3px;
+        text-align: center;
+        p {
+            line-height: 1;
+            margin: 0;
+            &.days-value {
+                font-size: 30px;
+                font-weight: bold;
+            }
+            &.days-title {
+                font-size: 12px;
+				margin-top: 2px;
+            }
+        }
+    }
+	
+	@media all and (max-width: 992px) {
+	
+	    .dashboard-content {
+		
+			.compaign-box {
+				padding: 0px 0;
+				
+				.campaign-photo-box {
+					padding-left: 15px; 
+					padding-right: 15px;
+				}
+				
+			}
+			
+			.campaign-upload-button-box {
+				margin-top: 10px;
+				padding-left: 10px;
+			}
+
+			
+			.campaign-photo-upload-button-box {
+				margin-top: 10px;
+				padding-left: 10px;
+			}
+			
+			.allow-direct-donation-box {
+
+				width: auto;
+
+				.checkbox-label {
+
+					width: auto;
+					text-align: left;
+					padding-left: 15px;
+					padding-right: 0px;
+				}
+
+				.checkbox-input {
+					width: 10px;
+					padding-left: 10px;
+				}
+
+			}
+			
+	    }
+		
+	    &.dashboard-index {
+	        .campaigns-list {
+			
+				.campaign-manage-box {
+					padding-left: 3px;
+					padding-right: 3px;
+				}
+				
+				.campaign-info-box {
+					padding-left: 3px;
+					padding-right: 3px;
+				}
+				
+				.raised-count {
+					padding-top: 10px;
+				}
+				
+				.campaign-people-box {
+					
+					margin-top: 10px;
+					margin-left: 15px;
+					
+					.campaign-people-col {
+						padding-left: 0px; 
+						padding-right: 0px;
+					}
+					
+					.first-col {
+						padding-left: 0px;
+					}
+					
+					.middle-col {
+						text-align: left;
+					}
+				
+				}
+				
+				.empty-goal-box {
+					height: 10px;
+				}
+				
+	        }
+			
+	    }
+			
+	}
+	
+	@media all and (max-width: 400px) {
+		
+	    &.dashboard-index {
+			
+	        .campaigns-list {
+				
+				.campaign-people-box {
+					
+					@include fontSize12px;
+					
+					.middle-col {
+						width: 25%;
+						text-align: left;
+					}
+				
+				}
+				
+	        }
+			
+	    }
+		
+	}
+	
+}

@@ -1,0 +1,270 @@
+<div id="homepage">
+    <div id="startfund" class="top-row">
+		<div class="row" style="margin-left:0px; margin-right: 0px">
+			<div class="fund-section">
+				<div class="fund-txt">
+					<div class="div1">
+						<span class="txt1">Bring Your</span></div>
+					<div class="div2">
+						<span class="txt2">Fundraiser</span></div>
+					<div class="div3">
+						<span class="txt1">to Life!</span></div>
+				</div>
+				<div class="fund-btn">
+					<div class="item1">
+						<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn btn-block btn-lightgreen" style="padding-top: 15px; padding-bottom: 15px">
+							<span>Chairperson -> Start a Fundraiser</span>
+						</a>
+					</div>
+					<div class="item2">
+						<a href="/search" class="btn btn-block btn-orange">
+							<span>Seller -> Join a Fundraiser</span>
+						</a>
+					</div>
+					<div class="item2">
+						<a href="/search" class="btn btn-block btn-orange">
+							<span>Supporters -> Purchase from a Fundraiser</span>
+						</a>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+	<div id="howitworks">
+	    <div class="container">
+			<h1>
+				How It Works
+			</h1>
+			<h2>
+				Getting started is easy with these 3 steps:
+			</h2>
+	        <div id="how-it-works" class="row">
+	            <div class="col-md-4">
+					<div class="how-it-works-col">
+						<div class="img1">
+							<%= image_tag "how_it_works1.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<div class="circle">
+							<h1>1</h1>
+						</div>
+						<h3>
+							Start A Fundraising Page
+						</h3>
+						<p>
+							We make it so easy to create a fundraising page for your group. Tell your story and upload pictures. Select the products you want your supporters to purchase to support your group.
+						</p>
+					</div>
+				</div>
+	            <div class="col-md-4">
+					<div class="how-it-works-col">
+						<div class="img2">
+							<%= image_tag "how_it_works2.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<div class="circle">
+							<h1>2</h1>
+						</div>
+						<h3>
+							Get The Word Out
+						</h3>
+						<p>
+							Share a link to your fundraising page to all your friends, family, co-workers through Facebook, Twitter and Email. Tell them it is for a good cause. Be relentless. It's ok to ask two or even three times. Better yet, invite them to join your fundraising team and share it with their friends, family, co-workers.
+						</p>
+					</div>
+				</div>
+	            <div class="col-md-4">
+					<div class="how-it-works-col">
+						<div class="img3">
+							<%= image_tag "how_it_works3.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<div class="circle">
+							<h1>3</h1>
+						</div>
+						<h3>
+							Enjoy The Results
+						</h3>
+						<p>
+							Up to 40% of the sales proceeds will go towards your group. You will be receiving weekly progress summary of how your fundraiser is doing. Or you can log in the Dashboard area to check out the progress. At closing of the fundraising campaign, you will receive the final result.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 20px">
+				<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn btn-lightgreen">
+					<span>Start a New Fundraiser ></span>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="raised">
+		<div class="container">
+			<h1>
+				Success is at your fingertips!
+			</h1>
+			<h2>
+				Start your fundraiser today, and let Entertainment<sup>®</sup> help meet your goal
+			</h2>
+	        <div id="raised-box" class="row">
+	            <div class="col-md-3 column">
+					<div class="raised-col">
+						<h3>
+							ROCKWOOD SOUTH MIDDLE SCHOOL
+						</h3>
+						<h4>
+							RAISED
+						</h4>
+						<h1>
+							$12,000
+						</h1>
+						<div class="square" style="height: 120px">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+	            <div class="col-md-2 column">
+					<div class="raised-col">
+						<h3>
+							ROYAL OAK MIDDLE SCHOOL
+						</h3>
+						<h4>
+							RAISED
+						</h4>
+						<h1>
+							$8,750
+						</h1>
+						<div class="square" style="height: 70px">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+	            <div class="col-md-2 column">
+					<div class="raised-col">
+						<h3>
+							SLINGER HIGH SCHOOL FOOTBALL TEAM
+						</h3>
+						<h4>
+							RAISED
+						</h4>
+						<h1>
+							$17,280
+						</h1>
+						<div class="square" style="height: 180px">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+	            <div class="col-md-2 column">
+					<div class="raised-col">
+						<h3>
+							GREENFROEST CHRISTIAN ACADEMY
+						</h3>
+						<h4>
+							RAISED
+						</h4>
+						<h1>
+							$7,280
+						</h1>
+						<div class="square" style="height: 50px">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+	            <div class="col-md-3 column">
+					<div class="raised-col">
+						<h3>
+							PALMETTO ELEMENTARY SCHOOL
+						</h3>
+						<h4>
+							RAISED
+						</h4>
+						<h1>
+							$10,020
+						</h1>
+						<div class="square" style="height: 100px">
+							&nbsp;
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <%= image_tag "raised_bg.jpg", class: "img-responsive", style: "margin:auto;" %> -->
+	</div>
+	<div id="why">
+	    <div class="container">
+			<h1>
+				Why Entertainment<sup>®</sup>?
+			</h1>
+			<h2>
+				Because great things happen when you use Entertainment<sup>®</sup> coupons
+			</h2>
+	        <div id="why-box" class="row">
+	            <div class="col-md-4">
+					<div class="why-col">
+						<div class="img1">
+							<%= image_tag "why1.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<h3>
+							OVER 50 YEARS OF SAVINGS
+						</h3>
+						<p>
+							For <span class="emphasize">OVER 50 YEARS</span>, Entertainment<sup>®</sup> has been a leader in providing coupon products in communities through North America. Consumers just like you have saved over <span class="emphasize">$22 Billion</span> since <span class="emphasize">1962</span>.
+						</p>
+					</div>
+				</div>
+	            <div class="col-md-4">
+					<div class="why-col">
+						<div class="img2">
+							<%= image_tag "why2.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<h3>
+							NATIONWIDE COVERAGE
+						</h3>
+						<p>
+							Our Digital Subscription members have instant access to new and great local savings in over <span class="emphasize">118 U.S. MARKETS</span>. You'll save on everyday purchases such as dining, apparel, electronics, auto services and more.
+						</p>
+					</div>
+				</div>
+	            <div class="col-md-4">
+					<div class="why-col">
+						<div class="img3">
+							<%= image_tag "why3.png", class: "img-responsive", style: "margin:auto;" %>
+						</div>
+						<h3>
+							$3 BILLION RAISED
+						</h3>
+						<p>
+							Our Fundraising program has helped our schools and community groups raise over <span class="emphasize">$3 Billion</span>. While saving Consumers money on the things they do every day, and helping local merchants grow.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 20px">
+				<a href="https://www.entertainment.com/fundraising/?form_state=default_state" class="btn btn-orange">
+					<span>Learn More ></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		
+		$(".navbar-default").removeClass("navbar-static-top").addClass("navbar-fixed-top");
+		
+		$(".home-menu").show();
+		
+		$("a.homemenu").click(function () {
+            
+			var target = $(this.hash);
+			$("a.homemenu").removeClass("selected");
+			$(this).addClass("selected");
+			
+            $('html,body').animate({
+                scrollTop: target.offset().top - 90
+            }, 1000);
+            return false;
+		});
+							
+	});
+</script>

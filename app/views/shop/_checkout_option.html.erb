@@ -1,0 +1,21 @@
+<div class="form-group">
+    <label class="control-label">
+        <%= cog.name.capitalize %>
+        <% if cog.instructions.present? %>
+        <br/><span style="font-style: italic; font-weight: normal"><%= cog.instructions %></span>
+        <% end %>
+    </label>
+    <input type="hidden" name="order[checkout_options][][checkout_option_group_id]" value="<%= cog.id %>" />
+    <% if cog.is_dropdown? %>
+        <select class="checkout-option form-control" name="order[checkout_options][][value]" <%= raw('data-rule-required="true"') if cog.required %>>
+            <option value="">-- Select --</option>
+            <% cog.checkout_option_group_properties.order(:sort_order).each do |property| %>
+                <option value="<%= property.id %>">
+                    <%= property.value %>
+                </option>
+            <% end %>
+        </select>
+    <% else %>
+        <input class="checkout-option form-control <%= 'required' if cog.required %>" name="order[checkout_options][][value]" type="text" />
+    <% end %>
+</div>

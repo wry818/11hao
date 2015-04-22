@@ -1,0 +1,286 @@
+<div id="campaign-show">
+    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+	
+    <div class="container container-background">
+        <div class="container-box top-section">
+
+            <%= render 'shop/campaign_header' %>
+
+            <%= render 'shop/campaign_nav' %>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="left-column">
+						<div class="row">
+						<% if @campaign.campaign_photos.length>0 %> 
+						<div class="col-md-7 image-wrapper">
+	                        <div class="image-section">
+								<% if @campaign.campaign_photos.length>1 %> 
+							    	<div id="slides" class="slides" style="margin-top:3px;">
+								        <div class="slides_container">
+											<% @campaign.campaign_photos.each do |photo| %>
+							                    <%= cl_image_tag photo.image_id, 
+												transformation: [{
+													width: photo.crop_width, 
+													height: photo.crop_height,
+													x: photo.crop_x,
+													y: photo.crop_y,
+													crop: :crop
+												},{
+													width: 280,
+													height: 280,
+													crop: :fill
+												}], class: "img-responsive"%>
+											<% end %>
+								        </div>
+							    	</div>
+								<% else %>
+									<% @campaign.campaign_photos.each do |photo| %>
+					                    <%= cl_image_tag photo.image_id, 
+										transformation: [{
+											width: photo.crop_width, 
+											height: photo.crop_height,
+											x: photo.crop_x,
+											y: photo.crop_y,
+											crop: :crop
+										},{
+											width: 280,
+											height: 280,
+											crop: :fill
+										}], class: "img-responsive"%>
+									<% end %>
+								<% end %>
+	                        </div>
+						</div>
+						<% end %>
+						<% if @campaign.campaign_photos.length==0 %> 
+							<div class="col-md-12" style="word-wrap:break-word;overflow:hidden;">
+						<% else %>
+							<div class="col-md-5 description-wrapper" style="word-wrap:break-word;overflow:hidden;">
+						<% end %>
+                        <% if @campaign.description %> 
+                                <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target)  %> 
+                        <% end %>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-md-12 product-wrapper">
+                        <div class="main-content">
+                            <% if !@campaign.hide_featured_items %>
+								<% if @campaign.collection_id != 0 %>
+	                            <hr/>
+
+	                            <div class="featured-items">
+	                                <div class="featured-items-header clearfix">
+	                                    <h4 class="pull-left">
+	                                        Featured Items
+	                                    </h4>
+	                                    <h4 class="pull-right">
+	                                        <a href="<%= shop_path(@campaign) %>" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %>>
+	                                            View all items
+	                                        </a>
+	                                    </h4>
+	                                </div>
+	                                <div class="row">
+										<% if @campaign.collection!=nil and @campaign.collection.products!=nil %>
+										
+											<% if @campaign.collection.products.where(:is_featured=>true).count==0 %>
+		                                    <% @campaign.collection.products.limit(6).order(:id=>:asc).each do |product| %>
+		                                    <div class="col-md-4">
+		                                        <a href="<%= shop_product_path(@campaign, product) %>" class="product-tile">
+		                                            <div class="image-container">
+		                                                <%= cl_image_tag product.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive' %>
+		                                            </div>
+		                                            <p style="text-align: center">
+		                                                <%= truncate(product.name, length: 50) %><br/>
+														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
+														<% if price_range[:is_discount] %>
+															<% if price_range[:same_discount_price] %>
+																$<%= long_price(price_range[:discount_min]) %>
+															<% else %>
+																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+															<% end %> / 
+															<span style="color:gray; display:inline-block; text-decoration:line-through;">
+																<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %></span>
+														<% else %>
+															<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %>
+														<% end %>
+		                                            </p>
+		                                        </a>
+		                                    </div>
+		                                    <% end %>
+											<% else %>
+		                                    <% @campaign.collection.products.where(:is_featured=>true).limit(6).order(:id=>:asc).each do |product| %>
+		                                    <div class="col-md-4">
+		                                        <a href="<%= shop_product_path(@campaign, product) %>" class="product-tile">
+		                                            <div class="image-container">
+		                                                <%= cl_image_tag product.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive' %>
+		                                            </div>
+		                                            <p style="text-align: center">
+		                                                <%= truncate(product.name, length: 50) %><br/>
+														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
+														<% if price_range[:is_discount] %>
+															<% if price_range[:same_discount_price] %>
+																$<%= long_price(price_range[:discount_min]) %>
+															<% else %>
+																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+															<% end %> / 
+															<span style="color:gray; display:inline-block; text-decoration:line-through;">
+																<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %></span>
+														<% else %>
+															<% if price_range[:same_price] %>
+																$<%= long_price(price_range[:min]) %>
+															<% else %>
+																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+															<% end %>
+														<% end %>
+		                                            </p>
+		                                        </a>
+		                                    </div>
+		                                    <% end %>
+											
+											<% end %>
+									  <% end %>
+	                                </div>
+	                            </div>
+								<% end %>
+                            <% end %>
+
+                        </div><!-- /.main-content -->
+						</div>
+						</div>
+                    </div> <!-- /.left-column -->
+                </div>
+                <div class="col-md-4">
+                    <%= render 'shop/campaign_sidebar' %>
+                </div>
+            </div> <!-- /.row -->
+
+        </div> <!--/.top-section -->
+    </div> <!--/.container-background -->
+
+</div> <!-- /#campaign-show -->
+
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+    <%= render 'shop/cart_modal', parent_page: :show %>
+</div><!-- /.modal -->
+
+<div id="join_campaign_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="join_campaign_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+				<div style="text-align:center;"><h4>Do you want to join the fundraising team?</h4></div>
+				
+				<div style="text-align:center; margin-top: 30px;">
+					<button type="button" class="btn btn-default" style="width:80px;" data-dismiss="modal" aria-hidden="true">No</button>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-primary" style="width:80px;" onclick="window.location.href='<%= signup_seller_path(@campaign) %>';">Yes</button>
+				</div>
+				
+				<div style="text-align:center; margin:30px auto 0 auto; width:80%;"><p>If you click “Yes”, the next steps will help you set up your personal fundraising page and share it with supporters!</p></div>
+            </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="help_text_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="help_text_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+				<% if @seller %>
+				<p style="text-align:center;">Support <%= @seller ? @seller.user_profile.first_name : "" %></p>
+				<% end %>
+				<p style="text-align:center;">Help <%= @campaign.title %> by making a purchase today!</p>
+			</div>	<!-- end of modal body -->
+            <div class="modal-footer">
+				<div style="text-align:right;">
+					<button type="button" class="btn btn-primary" data-dismiss="modal"><span>OK</span></button>
+				</div>
+            </div> <!-- /.modal-footer -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div id="campaign_expire_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="campaign_expire_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+				<p>This fundraiser has ended. Please click continue button below to visit the group’s page to show your support.</p>
+
+				<div style="text-align:center; margin-top: 30px;">
+					<button type="button" class="btn btn-default" style="width:80px;" data-dismiss="modal" aria-hidden="true">Close</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			        <a href="<%= @organization_campaign ? short_campaign_path(@organization_campaign) : "#" %>" role="button" class="btn btn-primary">
+			            Continue
+			        </a>
+				</div>
+			</div>	<!-- end of modal body -->
+			
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!-- Pop up to prompt user to join the campaign -->
+<% if current_user %>
+	<% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_seller?(@campaign) && !current_user.admin? && !current_user.is_sales? && !@campaign.expired? && @campaign.active %>
+		<script>
+		$(document).ready(function(){
+			if (document.referrer.indexOf("/search?")>=0) {
+				window.setTimeout(function(){
+					$("#join_campaign_modal").modal("show");
+				}, 200);
+			}
+		});
+		</script>
+	<% end %>
+	
+	<% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active && @seller %>
+		<script>
+		$(document).ready(function(){
+			window.setTimeout(function(){
+				$("#help_text_modal").modal("show");
+			}, 200);
+		});
+		</script>
+	<% end %>
+<% else %>
+	<% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
+		<script>
+		$(document).ready(function(){
+			if (document.referrer.indexOf("/search?")>=0) {
+				window.setTimeout(function(){
+					$("#join_campaign_modal").modal("show");
+				}, 200);
+			}
+			
+			<% if @seller %>
+				window.setTimeout(function(){
+					$("#help_text_modal").modal("show");
+				}, 200);
+			<% end %>
+		});
+		</script>
+	<% end %>
+<% end %>	<!-- Pop up to prompt -->
+
+<% if @campaign && @campaign.expired? && @organization_campaign %>
+<script>
+$(document).ready(function(){
+	window.setTimeout(function(){
+		$("#campaign_expire_modal").modal("show");
+	}, 200);
+});
+</script>
+<% end %>

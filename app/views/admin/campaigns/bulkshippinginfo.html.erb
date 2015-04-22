@@ -1,0 +1,22 @@
+<div id="campaigns">
+    <div class="container">
+ 
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Edit Campaign: <%= @campaign.title %></h3>
+            </div>
+        </div>
+		
+		<div style="margin-top: 20px; margin-bottom: 20px">
+			<%= render 'campaign_header', active: :bulkshippinginfo %>
+		</div>
+ 	   
+	   
+        <div class="row">
+            <div class="col-md-12">
+                <%= render 'bulkshippinginfo_form' %>
+            </div>
+        </div>
+
+    </div>
+</div>

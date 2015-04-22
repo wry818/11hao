@@ -1,0 +1,118 @@
+html, body {
+    height: 100%;
+}
+
+@mixin fontSize11px {
+	font-size: 11px;
+}
+
+$entertainment-blue: rgb(0, 70, 127);
+$entertainment-blue-hover: rgb(0, 80, 145);
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
+
+/* Loader */
+.loader {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: image-url('loading.gif');
+}
+
+.radio-inline, .checkbox-inline {
+    margin-left: 0px;
+    margin-right: 10px;
+    &+.radio-inline, &+.checkbox-inline {
+        margin-left: 0px;
+    }
+}
+
+//.btn-primary {
+//  color: #fff;
+//  background-color: $entertainment-blue;
+//  border-color: $entertainment-blue;
+//
+//  &:hover {
+//	  background-color: $entertainment-blue-hover;
+//	  border-color: $entertainment-blue-hover;
+//  }
+//}
+
+.well {
+    &.well-white {
+        background: white;
+    }
+}
+
+//alerts
+.alert {
+    margin-bottom: 0px;
+}
+
+label.error {
+    color: #b94a48;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+// Fix for tinymce
+.mce-path > .mce-path-item, .mce-path > .mce-divider {display: none !important;}
+
+// Image upload drop zones
+.image-uploader {
+    .drop-zone {
+        border: 4px dashed #ccc;
+        padding: 30px;
+        .upload-button-holder {
+            height: 34px;
+            .upload-button {
+                margin: 0;
+                cursor: default;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 34px;
+                width: 100%;
+                &.upload-button-hover {
+                    color: #333333;
+                    background-color: #ebebeb;
+                    border-color: #adadad;
+                }
+            }
+            .cloudinary-fileupload {
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 34px;
+                width: 100%;
+            }
+        }
+        .drop-text {
+            margin: 5px 0px 0px;
+            text-align: center;
+        }
+    }
+    .preview {
+        margin-top: 20px;
+        .thumbnail {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+// FIxes for date picker
+.picker__nav--next:hover, .picker__nav--prev:hover {
+  cursor: pointer;
+  color: #000000;
+  background: none;
+}
+
+.datepicker.form-control[readonly], .timepicker.form-control[readonly] {
+  cursor: pointer;
+  background-color: #ffffff;
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raisy</title>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= csrf_meta_tags %>
+
+    <%= favicon_link_tag 'favicon.ico?v=3' %>
+    <meta name="apple-mobile-web-app-title" content="Raisy">
+    <link rel="apple-touch-icon" href="<%= image_url 'apple-touch-icon.png?v=3' %>" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <%= javascript_include_tag "application" %>
+</head>
+<body>
+	
+	<div id="my-contacts">
+
+	    <% flash.each do |key, value| %>
+	        <% if !value.blank? %>
+	        <div class="alert alert-<%= key.to_s %>">
+	            <div class="container" style="text-align: center">
+	                <%= value %>
+	            </div>
+	        </div>
+	        <% end %>
+	    <% end %>
+		
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="5">
+						<h4>My Contacts</h4>
+					</td>
+				</tr>
+				<% if @contacts && @contacts.count > 0 %>
+	                <% @contacts.each do |contact| %>
+	                <tr>
+	                    <td>
+							<span><%= contact.fullname %></span>
+						</td>
+	                    <td>
+							<span><%= contact.email_address %></span>
+						</td>
+	                    <td>
+							<!-- media_id: 1-gmail, 2-yahoo, 3-hotmail, 4-facebook, 5-manual -->
+							
+							<% if contact.media_id == 1 %>
+								<%= image_tag "gmail-icon.png", class: "contacts-icon" %>
+							<% end %>
+							
+							<% if contact.media_id == 2 %>
+								<%= image_tag "yahoo-icon.png", class: "contacts-icon" %>
+							<% end %>
+							
+							<% if contact.media_id == 3 %>
+								<%= image_tag "outlook-icon.png", class: "contacts-icon" %>
+							<% end %>
+							
+							<% if contact.media_id == 4 %>
+								<%= image_tag "facebook-icon.png", class: "contacts-icon" %>
+							<% end %>
+							
+							<% if contact.media_id == 5 %>
+								<%= image_tag "edit-icon.png", class: "contacts-icon" %>
+							<% end %>
+							
+						</td>
+	                    <td>
+							<span><%= contact.created_at.strftime('%b %-d, %Y') %></span>
+						</td>
+	                    <td>
+	                        <%= link_to 'Delete', seller_delete_contacts_path(contact), method: :delete, data: { confirm: 'Are you sure that you want to delete this contact?' } %>
+	                    </td>
+	                </tr>
+	                <% end %>
+				<% else %>
+	                <tr>
+	                    <td colspan="5" style="text-align: center">
+							<span>No contacts</span>
+						</td>
+					</tr>
+				<% end %>
+            </tbody>
+        </table>
+		
+		<div style="text-align: center">
+			<button id="btnClose" class="btn btn-success" type="button" style="width: 150px">
+				<span class="text">Close</span>
+			</button>
+		</div>
+		
+	</div>
+
+<script>
+
+	$(document).ready(function() {
+		
+		$("#btnClose").click(function(){
+
+            window.close();
+
+		});
+
+	});
+	
+</script>
+	
+</body>
+</html>

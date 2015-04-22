@@ -1,0 +1,87 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Seller Activity Report") do |sheet|
+	header_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true
+	
+	footer_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true, :alignment => {
+										:horizontal => :left,
+										:vertical => :top, 
+										:wrap_text => true }
+
+	wrap_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :alignment => {
+										:horizontal => :left,
+										:vertical => :top, 
+										:wrap_text => true }
+										
+	total_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true, :alignment => {
+										:horizontal => :right,
+										:vertical => :top, 
+										:wrap_text => true }
+										
+	sheet.add_row ["Seller Name", "Parent", "Email", "Fundraiser", "Member ID", "Total Sales", "Total Raised", 
+		"# of orders", "# of logins", "# of emails sent", "# of share", "# of tweets"], :style => header_text
+		
+	if @sellers
+		total_rows=0
+		total_sales=0
+		total_raised=0
+		total_orders=0
+		total_signin=0
+		total_emails=0
+		total_fbs=0
+		total_tws=0
+		users=[]
+
+		@sellers.each do |seller|
+			total_rows+=1
+			social_histories=seller.social_share_histories.select("id, media_id").all
+			sales=seller.total_sales
+			raised=seller.total_raised
+			orders=seller.total_orders
+			emails=seller.email_share_histories.count
+			fbs=social_histories.select{|h| h.media_id==1}.count
+			tws=social_histories.select{|h| h.media_id==2}.count
+			total_sales+=sales
+			total_raised+=raised
+			total_orders+=orders
+			total_emails+=emails
+			total_fbs+=fbs
+			total_tws+=tws
+			users << seller.user_profile.user if !users.include?(seller.user_profile.user)
+
+			sheet.add_row [
+				seller.user_profile.fullname,
+				seller.user_profile.parent_fullname,
+				seller.user_profile.user.email,
+				seller.campaign.title,
+				seller.referral_code,
+				"$" + long_price(sales),
+				"$" + long_price(raised),
+				orders,
+				seller.user_profile.user.sign_in_count,
+				emails, fbs, tws 
+			], :style => wrap_text
+		end
+
+		users.each do |user|
+			total_signin+= user.sign_in_count
+		end
+
+		sheet.add_row [
+			"",
+			"",
+			"",
+			"",
+			"Total",
+			"$" + long_price(total_sales),
+			"$" + long_price(total_raised),
+			total_orders,
+			total_signin,
+			total_emails,
+			total_fbs,
+			total_tws 
+		], :style => [footer_text, footer_text, footer_text, footer_text, total_text, 
+			footer_text, footer_text, footer_text, footer_text, footer_text, footer_text, footer_text ]
+	end
+	
+	sheet.column_widths 15, 15, 15, 15, 15
+end

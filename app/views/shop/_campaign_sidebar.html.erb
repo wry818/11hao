@@ -1,0 +1,152 @@
+<div class="right-column">
+	<% if @seller %>
+		<%= hidden_field_tag 'hidsellerid', @seller.id, id: "hidsellerid" %>
+	<% end %>
+	
+    <div class="call-to-action">
+
+        <div class="stats">
+            <div class="row">
+				<div class="col-xs-8" style="padding:0px;">
+					<div class="raised-count">
+						<label>$<%= short_price(@campaign.raised) %>
+						</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+					</div>
+	                <% if @campaign.goal.present? %> 
+	                    <div class="progress">
+	                        <div class="progress-bar" style="width: <%= @campaign.progress_percent > 100 ? 100 : @campaign.progress_percent  %>%;">
+	                        </div>
+	                    </div>
+	                    <p class="goal" style="margin-top:10px;">
+	                        OVERALL GOAL: $<%= short_price(@campaign.goal) %>
+	                    </p> 
+	                <% end %>
+				</div>
+				
+                <% if @campaign.end_date.present? %>
+                <div class="col-xs-<%= @campaign.goal.present? ? 4 : 4 %>" style="padding-right:0px">
+                    <div class="days-left">
+                        <p class="days-value">
+                            <%= @campaign.days_remaining %>
+                        </p>
+                        <p class="days-title">
+                            days left
+                        </p>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+        </div> <!-- /.stats -->
+
+		<% if @campaign.collection_id == 0 %>
+			<a href="#" class="btn btn-block btn-lg btn-primary cta-btn" data-toggle="modal" data-target="#donate_modal" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
+				<%= @campaign.call_to_action %></a>
+		<% else %>
+	        <a href="<%= shop_path(@campaign) %>" role="button" class="btn btn-block btn-lg btn-primary cta-btn" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
+	            <%= @campaign.call_to_action %>
+	            <p>to support this fundraiser</p>
+	        </a>
+			
+	        <p class="donation-percentage">
+	            Every purchase benefits
+				<br/>
+				<% if @organization_campaign %>
+					<%= link_to @campaign.organization.name, short_campaign_path(@organization_campaign) %>
+				<% else %>
+					<%= @campaign.organization.name %>
+				<% end %>
+	        </p>
+		<% end %>
+
+	        <hr/>
+	        <p>Free Shipping!</p>
+			
+		<% unless @campaign.ent_campaign? || @campaign.collection_id == 0 || !@campaign.allow_direct_donation? %> 
+	        <hr/>
+	        <p>Rather just donate directly?</p>
+	        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#donate_modal" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >Make a Donation</a> 
+		<% end%>
+
+    </div> <!-- end of .call-to-action -->
+
+    <% if @campaign.organizer %>
+    <div class="organizer">
+        <div class="clearfix">
+            <h3 class="pull-left">Organizer</h3>
+            <% if @campaign.organizer == current_user %>
+            <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span> edit</a>
+            <% end %>
+        </div>
+        <div class="row">
+            <div class="col-xs-4">
+				<% if @campaign.organizer.profile.picture.present? %>
+                	<%= cl_image_tag @campaign.organizer.profile.picture, width: 100, height: 100, crop: :limit, class: 'img-thumbnail' %>
+				<% else %>
+					<%= image_tag 'default_avatar.png', width: 100, height: 100, class: 'img-thumbnail' %>
+				<% end %>
+            </div>
+            <div class="col-xs-8">
+                <p>
+                    <%= @campaign.organizer.profile.display_name || @campaign.organizer.profile.fullname %><br/>
+                    <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
+                </p>
+                <a href="mailto:<%= @campaign.organizer.email %>" class="contact"><span class="glyphicon glyphicon-envelope"></span> Contact me</a>
+            </div>
+        </div>
+    </div>
+    <% end %>
+
+    <div class="share-buttons">
+        <p style="text-align: center">
+            Please help us by sharing!
+        </p>
+        <div class="clearfix" style="width: 168px; margin: auto">
+            <div class="share-button facebook">
+                <div class="fb-share-button" data-href="<%= @seller ? short_campaign_url(@campaign, seller: @seller.referral_code) : short_campaign_url(@campaign) %>" data-type="button_count"></div>
+            </div>
+            <div class="share-button twitter">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="none" data-url="<%= @seller ? short_campaign_url(@campaign, seller: @seller.referral_code) : short_campaign_url(@campaign) %>" data-text="<%= @seller ? "Help #{@seller.user_profile.first_name} fundraise for #{@campaign.title}" : "Help fundraise for #{@campaign.title}" %>">
+                    Tweet
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.right-column -->
+
+<div id="donate_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="donate_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Make a direct donation</h4>
+        </div> <!-- /.modal-header -->
+
+        <%= form_tag(checkout_path(@campaign), method: "get", id: "donate_form") %>
+            <div class="modal-body">
+                <p class="donate-instructions">Please enter the amount you'd like to donate:</p>
+
+                <div class="form-group donate-input">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" id="direct_donation" name="direct_donation">
+                    </div>
+					
+					<div style="width:200px !important;">
+						<label for="direct_donation" class="error" style="display: none;"></label>
+					</div>
+                </div>
+
+            </div> <!-- end of modal body -->
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    <span class="text">Continue</span> <span class="loader" style="display:none"></span>
+                </button>
+            </div> <!-- /.modal-footer -->
+        </form>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

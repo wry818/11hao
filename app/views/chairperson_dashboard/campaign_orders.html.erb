@@ -1,0 +1,636 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :orders %>
+
+    <div class="dashboard-content">
+        <div class="container">
+            <div class="row" style="margin-top:10px;">
+                <div class="col-md-12">
+					<% if @campaign.orders.completed.count > 0 %>
+						<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>Add Offline Order</span></button>
+					
+						<div style="text-align:right;">
+							<a href="<%= dashboard_campaign_orders_download_path(@campaign) %>" target="_blank">Download</a>
+						</div>
+	                    <div style="width:100%; max-height:560px; overflow:auto;">
+	                        <%= render 'chairperson_dashboard/orders_list' %>
+	                    </div>
+					
+					<% else %>
+						<div style="text-align: center;">
+							You don't have any orders! Once your supporters make purchases - you'll see them appear here.
+						</div>
+						
+						<div style="text-align: center; margin-top:20px;">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>Add Offline Order</span></button>
+						</div>
+					<% end %>
+                </div>
+            </div>
+
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>
+
+<div id="order_detail_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Order Detail</h4>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="offline_order_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="offline_order_modal" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Add Offline Order</h4>
+			</div>
+			<div class="modal-body">
+				<div style="margin:5px 10px;">
+					<table>
+						<tr>
+							<td style="width:100px;">
+								<div class="form-group"><label class="control-label">Member</label></div>
+							</td>
+							<td>
+								<div class="form-group">
+									<select id="offline_seller" class="form-control" style="width:300px;">
+										<option value="">-- Please Select --</option>
+										<% @campaign.sellers.each do |seller| %>
+											<option value="<%= seller.id %>"><%= "#{seller.user_profile.fullname} (#{seller.referral_code})" %></option>
+										<% end %>
+									</select>
+									<button id="add_new_member" type="button" class="btn btn-default btn-sm"><span>New</span></button>
+								</div>
+							</td>
+						</tr>
+						<tr class="offline-new-member" style="display:none;">
+							<td><div class="form-group"><label class="control-label">First Name</label></div></td>
+							<td>
+								<div class="form-group">
+									<input id="offline_first_name" type="text" class="form-control" placeholder="First Name" style="width:300px;">
+								</div>
+							</td>
+						</tr>
+						<tr class="offline-new-member" style="display:none;">
+							<td><div class="form-group"><label class="control-label">Last Name</label></div></td>
+							<td>
+								<div class="form-group">
+									<input id="offline_last_name" type="text" class="form-control" placeholder="Last Name" style="width:300px;">
+								</div>
+							</td>
+						</tr>
+						<tr class="offline-new-member" style="display:none;">
+							<td><div class="form-group"><label class="control-label">Grade</label></div></td>
+							<td>
+								<div class="form-group">
+									<input id="offline_grade" type="text" class="form-control" placeholder="Grade" style="width:300px;">
+								</div>
+							</td>
+						</tr>
+						<tr class="offline-new-member" style="display:none;">
+							<td><div class="form-group"><label class="control-label">Group Leader</label></div></td>
+							<td>
+								<div class="form-group">
+									<input id="offline_leader" type="text" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc." style="width:300px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div style="overflow:auto;">
+						<script>
+						var products=[];
+						</script>
+						<% products=nil
+						option_group=nil
+						if @campaign.collection!=nil 
+							products=@campaign.collection.products.order(:is_featured=>:desc, :id=>:asc).all
+						end %>
+						<% if products
+							products.each do |product| %>
+								<script>
+								var p={};
+								p.id=<%= product.id %>;
+								p.amount="<%= long_price((product.total_price*100).ceil/100.0) %>";
+								p.option="";
+								p.optiongroup="";
+								p.required=false;
+								p.properties=[];
+								</script>
+								<% option_group=product.option_groups.active.first 
+								if option_group %>
+									<script>
+									p.option="<%= j option_group.name %>";
+									p.optiongroup="<%= option_group.id %>";
+									p.required=<%= option_group.required %>;
+									</script> 
+								<% properties=option_group.option_group_properties.active.order(:sort_order).all
+									properties.each do |property| %>
+										<script>
+										p.properties.push({
+											id: <%= property.id %>,
+											value: "<%= j property.value %>",
+											amount: "<%= long_price((property.total_price*100).ceil/100.0) %>"
+										})
+										</script>
+									<% end
+								end %>
+								<script>
+								products.push(p);
+								</script>
+							<% end 
+						end %>
+						<table id="offline_order_table" class="table" style="width:100px;">
+							<thead>
+								<th>Product</th>
+								<th>Option</th>
+								<th></th>
+								<th>Quantity</th>
+								<th>Amount</th>
+								<th></th>
+							</thead>
+							<tbody id="offline_order_body">
+								<tr id="offline_order_input">
+									<td style="width:200px;">
+										<select id="offline_product" name="offline_product" style="width:200px;">
+											<% if products 
+											products.each do |product| %>
+												<option value="<%= product.id %>" data-amount="<%= long_price((product.total_price*100).ceil/100.0) %>"><%= product.name %></option>
+											<% end 
+											end %>
+										</select>
+									</td>
+									<td>
+										<% if products && products.count>0 
+											option_group=products[0].option_groups.active.first
+											is_dropdown=false
+											if option_group
+												properties=option_group.option_group_properties.active.order(:sort_order).all
+												if properties.count>0
+													is_dropdown=true
+												end
+											end 
+										end %>
+										<% if option_group %>
+											<i><span id="offline_optionspan" style="display:block;"><%= option_group.name %></span></i><% end %>
+									</td>
+									<td style="width:200px;">
+										<% if option_group %>
+											<% if option_group.required %>
+												<input id="offline_requireoption" type="hidden" value="1">
+											<% else %>
+												<input id="offline_requireoption" type="hidden" value="0">
+											<% end %>
+											
+											<input id="offline_optiongroup" type="hidden" value="<%= option_group.id %>">
+										
+											<% if is_dropdown %>
+												<select id="offline_optionitem" name="offline_optionitem" class="form-control" style="width:200px;">
+												<% if !option_group.required %>
+													<option value="" data-amount="<%= long_price((products[0].total_price*100).ceil/100.0) %>">-- Please Select --</option>
+												<% end %>
+												<% properties.each do |property| %>
+													<option value="<%= property.id %>" data-amount="<%= long_price((property.total_price*100).ceil/100.0) %>"><%= property.value %><%= " ( $#{long_price((property.total_price*100).ceil/100.0)} )" if property.total_price >= 0 %></option>
+												<% end %>
+												</select>
+												
+												<input id="offline_optiontext" name="offline_optiontext" type="text" class="form-control" style="width:200px; display:none;">
+												
+												<input id="offline_dropdownoption" type="hidden" value="1">
+											<% else %>
+												<input id="offline_optiontext" name="offline_optiontext" type="text" class="form-control" style="width:250px;">
+												<select id="offline_optionitem" name="offline_optionitem" class="form-control" style="width:250px; display:none;" />
+												<input id="offline_dropdownoption" type="hidden" value="0">
+											<% end %>
+										<% else %>
+											<select id="offline_optionitem" name="offline_optionitem" class="form-control" style="width:250px; display:none;" />
+											<input id="offline_optiontext" name="offline_optiontext" type="text" class="form-control" style="width:200px; display:none;">
+											<input id="offline_requireoption" type="hidden" value="0">
+											<input id="offline_dropdownoption" type="hidden" value="0">
+											<input id="offline_optiongroup" type="hidden" value="">
+										<% end %>
+										<div style="visibility:hidden; width:200px;"></div>
+									</td>
+									<td style="width:100px;"><input id="offline_qty" name="offline_qty" type="text" class="form-control" style="width:100px;"></td>
+									<td style="width:100px;"><span id="offline_amount" style="display:inline-block; width:100px;"></span></td>
+									<td style="padding:8px 0px;">
+										<button id="offline_add_order" class="btn btn-primary"><span>Add</span></button>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot id="offline_order_table_foot" style="display:none;">
+								<th></th>
+								<th></th>
+								<th style="text-align:right;">Grand Total</th>
+								<th id="offline_grand_qty">0</th>
+								<th id="offline_grand_amount">0</th>
+								<th></th>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div style="text-align:center;">
+					<button id="save_offline_order" type="button" class="btn btn-primary" style="width:100px;"><span class="text">Save</span><span class="loader" style="display:none"></span></button>
+					&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" data-dismiss="modal" style="width:100px;"><span>Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="resend_code_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resend_code_modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Resend Access Code</h4>
+			</div>
+			<div class="modal-body">
+				<div id="send_accesscode_container" style="margin:10px 0px; text-align:center;">
+					<strong>Email</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="resend_email" type="text" class="form-control" style="display:inline; width:250px;" />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div style="text-align:center;">
+					<button id="send_accesscode" type="button" class="btn btn-primary">
+						<span class="text">Send Access Code</span> <span class="loader" style="display:none"></span>
+					</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" class="btn btn-default" data-dismiss="modal" style="width:100px;"><span>Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+function calcOfflineGrandTotal() {
+	var grand_qty=0;
+	var grand_amount=0.0;
+		
+	$(".offline_order_item").removeClass("offline_order_new_item").each(function(){
+		var $this=$(this);
+		var qty=parseInt($this.data("qty"));
+		var price=parseFloat($this.data("price"));
+		
+		grand_qty+=qty;
+		grand_amount+=qty*price;
+	});
+	
+	$("#offline_grand_qty").text(grand_qty);
+	$("#offline_grand_amount").text("$" + grand_amount.toFixed(2));
+}
+
+$(document).ready(function(){
+	$("#send_accesscode").click(function(){
+		var email=$("#resend_email").val().trim();
+		var item_id=$("#send_accesscode").data("item-id") || "";
+		
+		if (email=="") {
+			$("#send_accesscode_container").addClass("has-error");
+			return;
+		}
+		
+		if (item_id=="") {
+			$("#resend_code_modal").modal("hide");
+			return;
+		}
+		
+		var $button=$(this);
+		
+		$button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+      $.ajax('/ajax/resendaccesscode', {
+				method: 'POST',
+				data: { item_id: item_id, email: email },
+				beforeSend: function(jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+				success: function(data) {
+					if (data!="fail") {
+						$("#item_" + item_id + "_accesscode").text(data);
+						
+						if (data!="") $("#item_" + item_id + "_deliverystatustext").text("Delivered");
+					}
+					
+					$("#resend_code_modal").modal("hide");
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					window.Raisy.alert("Hmm, there was a problem while resending access code, please try again.");
+			  },
+				complete: function () {
+					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+				}
+			});
+		});
+	});
+	
+	$("#offline_order_modal #offline_seller").select2().on("change", function(e) {
+		$(".offline-new-member").hide().removeClass("has-error");
+		$("#offline_seller").closest("td").removeClass("has-error");
+	});
+	
+	$("#add_new_member").click(function(){
+		$(".offline-new-member").show();
+		$("#offline_seller").select2("val", "");
+		$("#offline_seller").closest("td").removeClass("has-error");
+	});
+	
+	$("#offline_order_modal #offline_product").select2().on("change", function(e) {
+		$("#offline_optionspan").text("").hide();
+		$("#offline_optiontext").val("").hide();
+		$("#offline_optionitem").select2("destroy").hide();
+		$("#offline_optionitem option").remove();
+		$("#offline_requireoption").val("0");
+		$("#offline_dropdownoption").val("0");
+		$("#offline_amount").text("");
+		$("#offline_qty").val("");
+		$("#offline_optiongroup").val("");
+		
+		$(products).each(function(){
+			if (this.id==e.val) {
+				$("#offline_optionspan").text(this.option);
+				$("#offline_optiongroup").val(this.optiongroup);
+				
+				if (this.properties.length>0 && !this.required) {
+					$("#offline_optionitem").append($("<option/>", {
+					    value: "",
+					    text: "-- Please Select --",
+						data: {amount: this.amount}
+					}));
+				}
+				
+				$(this.properties).each(function(){
+					$("#offline_optionitem").append($("<option/>", {
+					    value: this.id,
+					    text: this.value + (this.amount>=0 ? " ( $" + this.amount + " )" : ""),
+						data: {amount: this.amount}
+					}));
+					
+					$("#offline_dropdownoption").val("1");
+				});
+				
+				if (this.option!="") {
+					$("#offline_optionspan").show();
+					
+					if (this.properties.length==0) {
+						$("#offline_optiontext").show();
+					}
+					else {
+						$("#offline_optionitem").show().select2();
+					}
+				}
+				
+				$("#offline_requireoption").val(this.required?"1":"0");
+			}
+		});
+		
+		$("#offline_order_input td").removeClass("has-error");
+	});
+	
+	$("#offline_order_modal #offline_optionitem").select2().on("change", function(e) {
+		$("#offline_qty").trigger("change");
+	});
+	
+	$("#offline_order_modal #offline_qty").change(function(){
+		var $this=$(this);
+		var $td=$this.closest("td");
+		
+		$td.removeClass("has-error");
+		
+		$("#offline_amount").text("");
+		
+		if ($this.val()!="") {
+			if ($.isNumeric($this.val())) {
+				var qty=parseInt($this.val());
+				
+				if (qty<=0) {
+					$td.addClass("has-error");
+					
+					return;
+				}
+			
+				$this.val(qty);
+				
+				var data=$("#offline_optionitem").select2("data");
+				
+				if (data==null || data.id==undefined) {
+					data=$("#offline_product").select2("data");
+				}
+				
+				if (data.id==undefined) return;
+				
+				var price=$(data.element).data("amount");
+				
+				$("#offline_amount").text("$" + parseFloat(qty*price).toFixed(2));
+			}
+			else {
+				$td.addClass("has-error");
+			}
+		}
+	});
+	
+	$("#offline_order_modal #offline_add_order").click(function(){
+		$("#offline_order_input td").removeClass("has-error");
+		
+		var can_add=true;
+		
+		qty=$("#offline_qty").val();
+		
+		if (!$.isNumeric(qty)) {
+			$("#offline_qty").closest("td").addClass("has-error");
+			
+			can_add=false;
+		}
+		
+		qty=parseInt(qty);
+		
+		if (qty<=0) {
+			$("#offline_qty").closest("td").addClass("has-error");
+			
+			can_add=false;
+		}
+		
+		var data=$("#offline_product").select2("data");
+		var require=$("#offline_requireoption").val();
+		var dropdown=$("#offline_dropdownoption").val();
+		var price="";
+		var prod_id="";
+		var prod_text="";
+		var option_text="";
+		var option_id="";
+		var option_value="";
+		
+		if (data==null || (data.id || "")=="") {
+			$("#offline_product").closest("td").addClass("has-error");
+			
+			can_add=false;
+		}
+		else {
+			prod_id=data.id.toString();
+			prod_text=data.text;
+			price=$(data.element).data("amount");
+		}
+		
+		data=$("#offline_optionitem").select2("data");
+		
+		if (dropdown=="1") {
+			option_id=data.id.toString();
+			option_text=(data.id=="")? "" : data.text;
+			option_value=option_id;
+			price=$(data.element).data("amount");
+		}
+		else {
+			option_text=$("#offline_optiontext").val();
+			option_value=option_text;
+		}
+		
+		if (require=="1") {
+			if (dropdown=="1") {
+				if (option_id=="") {
+					$("#offline_optionitem").closest("td").addClass("has-error");
+					
+					can_add=false;
+				}
+			}
+			else{
+				if (option_text=="") {
+					$("#offline_optiontext").closest("td").addClass("has-error");
+					
+					can_add=false;
+				}
+			}
+		}
+		
+		if (!can_add) return;
+		
+		prod_text=$("<div/>").text(prod_text).html();
+		option_text=$("<div/>").text(option_text).html();
+		
+		var span_text=$("<div/>").text($("#offline_optionspan").text()).html();
+		
+		html="<tr class=\"offline_order_new_item offline_order_item\"><td>" + prod_text 
+			+ "</td><td><i>" + (option_text=="" ? "" : span_text) + "</i></td><td>"
+			+ option_text + "</td><td>" + qty + "</td><td>" + ("$" + parseFloat(qty*price).toFixed(2))
+			+ "</td><td style=\"padding:8px 0px;\"><button class=\"btn btn-primary "
+			+ "delete-offline-order\"><span>Delete</span></button></td></tr>";
+		
+		$(html).appendTo($("#offline_order_body"));
+		
+		$(".delete-offline-order").off("click").on("click", function(){
+			$(this).closest("tr").remove();
+			
+			calcOfflineGrandTotal();
+			
+			if ($(".offline_order_item").length==0)
+				$("#offline_order_table_foot").hide();
+			else
+				$("#offline_order_table_foot").show();
+		});
+		 
+		$("#offline_optiontext").val("");
+		$("#offline_amount").text("");
+		$("#offline_qty").val("");
+		
+		var option_group=$("#offline_optiongroup").val();
+		
+		$(".offline_order_new_item").data("prod-id", prod_id)
+			.data("option-value", option_value)
+			.data("qty", qty).data("price", price)
+			.data("option-group", option_group);
+			
+		calcOfflineGrandTotal();
+		
+		$("#offline_order_table_foot").show();
+	});
+	
+	$("#offline_order_modal #save_offline_order").click(function(){
+		var order_item=$(".offline_order_item");
+		
+		if (order_item.length==0) return;
+		
+		var camp_id="<%=@campaign.id%>";
+		var data=$("#offline_seller").select2("data");
+		var seller_id="";
+		var grade=$("#offline_grade").val();
+		var leader=$("#offline_leader").val();
+		var first_name=$("#offline_first_name").val();
+		var last_name=$("#offline_last_name").val();
+		
+		if (data) seller_id=data.id.toString();
+		
+		if (seller_id=="") {
+			if (first_name=="" && last_name=="") {
+				if ($(".offline-new-member:visible").length==0) {
+					$("#offline_seller").closest("td").addClass("has-error");
+				}
+				else {
+					$("#offline_first_name").closest("td").addClass("has-error");
+					$("#offline_last_name").closest("td").addClass("has-error");
+				}
+				
+				return;
+			}
+		}
+		
+		var items=[];
+		
+		order_item.each(function(){
+			var $this=$(this);
+			var prod_id=$this.data("prod-id");
+			var option_group=$this.data("option-group");
+			var option_value=$this.data("option-value");
+			var qty=$this.data("qty");
+			
+			items.push({prod_id:prod_id, option_group:option_group, option_value:option_value, qty:qty});
+		});
+		
+		var $button = $(this);
+		
+		$button.prop('disabled', true).find('span.text').text("Saving").siblings('span.loader').show(200, function() {
+			$.ajax("<%= ajax_add_offline_order_path %>", {
+			  	type: 'POST',
+				data: { camp_id:camp_id, seller_id:seller_id, 
+					first_name:first_name, last_name:last_name,
+					grade:grade, leader:leader, items:items
+				},
+				beforeSend: function(jqXHR, settings) {
+				  jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+				},
+				success: function(data) {
+					if (data=="success") {
+						window.location.href="<%= dashboard_campaign_orders_path(@campaign) %>";
+					}
+					else {
+						$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
+						
+						window.Raisy.alert("Hmm, there was a problem while adding offline order, please try again.");
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
+					
+					window.Raisy.alert("Hmm, there was a problem while adding offline order, please try again.");
+				},
+				complete: function () {
+					
+				}
+			});
+		});
+	});
+});
+</script>

@@ -1,0 +1,74 @@
+<div style="display:none;">order_detail</div>
+<% if @items.count==0 %>
+	<div style="text-align:center;"><span>No records found</span></div>
+<% else %>
+<div style="width:100%; overflow: auto;">
+	<table class="table table-hover table-bordered">
+	    <thead>
+	        <tr>
+	            <th>Quantity-Products</th>
+				<th>Paid</th>
+	            <th>Delivery Method</th>
+	            <th>Delivery Status</th>
+							<th>Tracking # / Access Code</th>
+							<% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
+							<th></th>
+							<% end %>
+	        </tr>
+	    </thead>
+	    <tbody>
+			<% @show_address=false %>
+			<% @items.each do |item| %>
+				<% 
+					if item.delivery_method==2 
+						@show_address=true 
+					end 
+				%>
+				<tr>
+					<td>
+		            	<%= item.quantity %>-<%= item.product.name if item.product %>
+			            <% item.options.each do |option| %>
+						<% if option.value.present? %>
+			                <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+						<% end %>
+			            <% end %>
+					</td>
+					<td>$<%= long_price(item.total_price.to_f/100) %></td>
+					<td><%= item.delivery_method_text %></td>
+					<td id="item_<%= item.id %>_deliverystatustext"><%= item.delivery_status_text %></td>
+					<td id="item_<%= item.id %>_accesscode">
+						<% if item.delivery_method == 1 %>
+							<%= item.registration_codes.select(:reg_code).collect(&:reg_code).join(", ") %>
+						<% else %>
+							<%= item.tracking_number %>
+						<% end %>
+					</td>
+					<% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
+					<td>
+						<% if item.delivery_method == 1 %>
+							<button type="button" class="btn btn-default open-resend-button" data-email="<%= @order.email %>" data-item-id="<%= item.id %>"><span>Resend Code</span></button>
+						<% end %>
+					</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<% if @show_address %> 
+		<span>
+			<strong>Recipient:&nbsp;&nbsp;</strong><%= @order.address_fullname if @order %><br/>
+			<strong>Delivery Address:&nbsp;&nbsp;</strong><%= @order.delivery_single_line_address if @order %><br/>
+		</span>
+	<% end %>
+</div>
+
+<script>
+$(".open-resend-button").click(function(){
+	$("#resend_email").val($(this).data("email") || "");
+	$("#send_accesscode").data("item-id", $(this).data("item-id") || "");
+	$("#send_accesscode_container").removeClass("has-error");
+	$("#resend_code_modal").modal("show");
+});
+</script>
+
+<% end %>

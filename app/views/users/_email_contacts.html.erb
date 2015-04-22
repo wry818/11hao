@@ -1,0 +1,48 @@
+<div id="my-contacts" style="max-height:560px; overflow:auto;">
+	<% if @contacts && @contacts.count > 0 %>
+	<div style="text-align:right; margin-top:10px;">
+		<button class="btn btn-primary" type="button" onclick="Raisy.users.sendContactEmails(this);">
+			<span class="text">Send Email</span>
+			<span class="loader" style="display:none"></span>
+		</button>
+	</div>
+	<table class="table" style="margin-top:10px;">
+	    <tbody>
+	        <tr>
+	            <td colspan="2">
+					<h4>Select contacts</h4>
+				</td>
+				<td><input id="select_all_contacts" type="checkbox" checked /></td>
+			</tr>
+            <% @contacts.order(:id).each do |contact| %>
+            <tr>
+                <td>
+					<span><%= contact.fullname %></span>
+				</td>
+                <td>
+					<span><%= contact.email_address %></span>
+				</td>
+                <td>
+                    <input type="checkbox" class="contact-id" value="<%= contact.id %>" checked />
+                </td>
+            </tr>
+            <% end %>
+	    </tbody>
+	</table>
+	<% else %>
+	<div style="margin-top:20px; text-align:center;">
+		<span>No contacts imported or entered individually</span>
+	</div>
+	<% end%>
+	
+	<div style="margin:20px 0; text-align:center;">
+		<button type="button" class="btn btn-default" data-dismiss="modal" style="width:98px;"><span>Close</span></button>
+	</div>
+</div>
+
+<script>
+$("#select_all_contacts").click(function(){
+	var check=this.checked;
+	$("#my-contacts .contact-id").each(function(){ this.checked = check; });
+});
+</script>

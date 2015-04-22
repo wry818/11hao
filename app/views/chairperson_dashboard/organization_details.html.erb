@@ -1,0 +1,125 @@
+<div id="chairperson_dashboard">
+
+    <%= render 'chairperson_dashboard/organization_dashboard_header', active: :details %>
+
+    <div class="dashboard-content">
+        <div class="container">
+
+            <%= form_for(@organization, url: organization_update_details_path, html: { id: "organization_form", class: '' }) do |f| %>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">The Basics</h3>
+                    <p>Make sure everyone knows who you are.</p>
+                </div>
+                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label for="organization_name" class="control-label">Organization Name</label>
+                        <%= f.text_field :name, class: 'form-control', placeholder: 'Organization Name' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_logo" class="control-label">Logo</label>
+                        <div class="image-uploader clearfix" style="margin-top: 5px;">
+                            <div class="preview" style="width: 100px; height: 100px; float: left">
+                                <% if f.object.logo.present? %>
+                                    <%= cl_image_tag f.object.logo, width: 97, height: 94, crop: :limit, class: 'img-responsive' %>
+                                <% else %>
+                                    <%= image_tag 'default_upload_logo.gif' %>
+                                <% end %>
+                            </div>
+                            <div class="upload-button" style="margin-left: 10px; float: left">
+                                <%= cl_image_upload_tag(:organization_logo, tags: Rails.env, html: { accept:"image/*" }) %>
+                                <a href="#" class="remove-image" style="display: none">Remove picture</a>
+                            </div>
+                        </div>
+                        <div class="progress progress-striped active" style="display: none;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                                <span>0%</span>
+                            </div>
+                        </div>
+                        <span class="status"></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">Contact Info</h3>
+                    <p>How would someone with a question reach your organization?</p>
+                </div>
+                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label for="organization_email" class="control-label">Email</label>
+                        <%= f.text_field :email, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_website" class="control-label">Website</label>
+                        <%= f.text_field :website, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_phone" class="control-label">Phone</label>
+                        <%= f.text_field :phone, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 style="margin-top: 0">Address</h3>
+                    <p>Your primary physical address.</p>
+                </div>
+                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label for="organization_address_line_one" class="control-label">Address Line 1</label>
+                        <%= f.text_field :address_line_one, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_address_line_two" class="control-label">Address Line 2</label>
+                        <%= f.text_field :address_line_two, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_address_city" class="control-label">City</label>
+                        <%= f.text_field :address_city, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_address_state" class="control-label">State</label>
+                        <%= f.text_field :address_state, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization_address_postal_code" class="control-label">Postal Code</label>
+                        <%= f.text_field :address_postal_code, class: 'form-control', placeholder: '' %>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="form-group">
+                <button id="organization_details_form_submit" class="btn btn-primary btn-lg" type="submit">
+                    <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+                </button>
+            </div>
+
+            <% end %>
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

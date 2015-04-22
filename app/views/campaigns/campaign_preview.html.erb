@@ -1,0 +1,97 @@
+<div id="campaign-edit">
+    <div class="container">
+        <div class="campaign-edit-header">
+			<h3>Your fundraiser <strong><%= @campaign.title %></strong></h3>
+        </div>
+        <div class="container-box top-section">
+			<div class="step-nav-bar">
+				<div id="step_nav_icon_1" class="step-nav-icon"></div>
+				<div id="step_nav_icon_2" class="step-nav-icon"></div>
+				<div id="step_nav_icon_3" class="step-nav-icon"></div>
+				<div id="step_nav_icon_4" class="step-nav-icon"></div>
+				<div id="step_nav_icon_5" class="step-nav-icon"></div>
+				<div id="step_nav_icon_6" class="step-nav-icon step-nav-icon-gray"></div>
+				<div id="step_nav_icon_7" class="step-nav-icon"></div>
+				<div id="step_nav_icon_8" class="step-nav-icon"></div>
+				<div id="step_nav_icon_9" class="step-nav-icon"></div>
+			</div>
+			
+			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">6</span>Preview Your Fundraiser Page&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+			
+			<div style="text-align:center; margin-top:30px;">
+				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=short_campaign_path(@campaign)%>');">
+					<span class="text">Preview</span>
+				</button>
+			</div>
+			
+			<div style="text-align:center; margin-top:30px;">
+				<button class="btn btn-primary btn-lg camp-next-btn" type="button" onclick="window.location.href='<%=campaign_contacts_path(@campaign)%>';">
+					<span class="text">Continue</span>
+				</button>
+			</div>
+        </div>
+    </div>
+	
+	<div id="camp_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="camp_step_tips_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-body">
+					<p>Congratulations! You’ve successfully created your group’s fundraising page. You may view your page right now by clicking the “Preview“ button. Remember, once you complete these next steps, you will be able to edit your fundraising page at any time by clicking “Edit This Fundraiser“.</p>
+					<p>These next steps will assist you in inviting your group members to join your online fundraiser. Once they set up their own pages they can begin reaching out to supporters and selling products online!</p>
+				</div>	<!-- end of modal body -->
+			
+		        <div class="modal-footer">
+					<div style="position:relative; text-align:center;">
+						<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+						<div class="hide_camp_step_tips_container">
+							<a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
+								<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							</a>
+						</div>
+					</div>
+		        </div> <!-- /.modal-footer -->
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+</div>
+
+<script>
+function campaign_preview(path) {
+	var width = 1024;
+	var height = 768;
+    var left = ($(window).width()  - width)  / 2;
+    var top  = ($(window).height() - height) / 2;
+	
+	var option = 'scrollbars=1,width=' + width + ',height=' + height + ',left=' + left + 'top=' + top;
+	
+	window.open(path, "Preview", option);
+}
+</script>
+
+<script>
+$(document).ready(function(){
+	window.setTimeout(function(){
+		<% if @step_popup=="yes" %>
+			$("#camp_step_tips_modal").modal("show");
+		<% end %>
+	}, 200);
+	
+	$("#hide_camp_step_tips").off("click").on("click", function() {
+		$.ajax('/ajax/campsteppopup', {
+			type: 'GET',
+			cache: false,
+			data: { popup: "disable" },
+            beforeSend: function(jqXHR, settings) {
+                jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data) {
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            },
+			complete: function () {
+				$("#camp_step_tips_modal").modal("hide");
+			}
+		});
+	});
+});
+</script>

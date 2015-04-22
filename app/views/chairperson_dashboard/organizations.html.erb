@@ -1,0 +1,31 @@
+<div id="chairperson_dashboard" class="dashboard-index">
+    <div class="container">
+        <h3>Your organizations</h3>
+        <div class="campaigns-list">
+            <% @organizations.each do |organization| %>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="image-container">
+                                <%= cl_image_tag organization.logo , width: 112, height: 112, crop: :limit, class: 'img-responsive' if organization.logo.present? %>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <h4><%= organization.name %></h4>
+                            <!--
+                            <a href="<%#= organization_path(organization) %>" class="btn btn-info">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                View Page
+                            </a>
+                            -->
+                            <a href="<%= dashboard_organization_details_path(organization) %>" class="btn btn-info">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                Manage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

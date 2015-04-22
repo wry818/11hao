@@ -1,0 +1,64 @@
+Thank you!
+
+This email is a confirmation of your <%= @order.donation_only? ? "donation to" : "order for" %> the <%= @campaign.title %>. If you have any questions, please contact the organizer, <%= @campaign.organizer.profile.fullname %> at <%= @campaign.organizer.email %>.
+
+Payment Details:
+Date: <%= @order.created_at.strftime("%-m/%-d/%Y") %>
+Amount: $<%= long_price(@order.grandtotal/100.0) %>
+Card: <%= @order.card_type %> ************<%= @order.card_last_four %>
+Charge will appear as: <%= 'RAISY' %>
+
+<% unless @order.donation_only? %>
+    Items:
+    <% @order.items.each do |item| %>
+        <%= "#{item.quantity}" %> <%= item.product.name %> - <%= item.delivery_method_text %>
+        <% item.options.each do |option| %>
+		<% if option.value.present? %>
+            <%= "#{option.option_group.name}: #{option.value}" %>
+		<% end %>
+        <% end %>
+		
+    <% end %>
+<% end %>
+
+<% if @order.seller %>
+Fundraising Team Member:
+<%= @order.seller.user_profile.shortname %>
+<% end %>
+
+<% unless @order.donation_only? || !@order.needs_shipping %>
+    Recipient:
+    <%= @order.address_fullname %>
+    <%= @order.address_line_one %>
+    <%= @order.address_line_two  %>
+    <%= "#{@order.address_city}, #{@order.address_state}, #{@order.address_postal_code} #{@order.address_country}" %>
+<% end %>
+
+Order ID:
+<%= @order.id.to_s.rjust(8,'0') %>
+
+<% if @campaign.tax_deductible_receipt %>
+    Thank you for your donation to the <%= @campaign.title %>.
+    <% if @campaign.organization %>
+    <%= "The #{@campaign.organization.name}"  %> is a 501(c)(3) non-profit organization <%= "(EIN ##{@campaign.organization.legal_tax_id})" if @campaign.organization.legal_tax_id %>.
+    Your donation makes a positive difference in our children’s education and our collective future.
+    <% end %>
+<% else %>
+    Please keep this email as your receipt.
+<% end %>
+
+Product delivery information (applicable only to the product(s) you have ordered):
+
+1. Book orders will be shipped to the address you provided. Delivery estimate is 14-20 days after the order has been placed, excluding weekends and holidays.
+2. Cookie Dough orders will be delivered by the seller (Fundraising Team Member) 4-6 weeks after the sale end date. Contact your seller regarding the exact delivery date.
+3. Digital Memberships will be delivered via email. You will receive an email containing your access code within 24 hours after your purchase.
+
+------------------------------------------------------------------------
+
+This email has been sent to <%= @order.email %> because you have opted to receive emails from Entertainment®. If you no longer want to receive emails from Entertainment®, please go to https://www.entertainment.com/coupon/optout.cmd?email=<%= @order.email %> to update your email preferences.
+
+Entertainment®, Entertainment.com®, Entertainment Fundraising®, and Raisy™ are trademarks of HSP EPI Acquisition, LLC
+
+©2014 HSP EPI Acquisition, LLC dba Entertainment®
+
+1401 Crooks Road, Suite 150, Troy, MI 48084

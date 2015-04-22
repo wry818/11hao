@@ -1,0 +1,37 @@
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+
+    <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :home %>
+
+    <div class="dashboard-content">
+        <div class="container">
+
+            <div class="row compaign-box">
+                <div class="col-md-3 campaign-photo-box">
+                    <%= cl_image_tag @campaign.campaign_logo.image_id,
+						transformation: [{ 
+								width: @campaign.campaign_logo.crop_width,
+								height: @campaign.campaign_logo.crop_height,
+								x: @campaign.campaign_logo.crop_x,
+								y: @campaign.campaign_logo.crop_y,
+								crop: :crop
+							}],
+						style: 'width: 100%' if @campaign.campaign_logo %>
+						
+					<%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !@campaign.campaign_logo %>
+                </div>
+
+                <div class="col-md-9">
+                    <p>Share this link with your members and supporters!</p>
+                    <input class="form-control" value="<%= signup_seller_url(@campaign) %>" readonly>
+                    <div class="share-links" style="margin-top: 20px;">
+                        <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@campaign) %>"><%= image_tag 'fb.png' %> Share</a>
+                        <a href="https://twitter.com/intent/tweet?url=<%= signup_seller_url(@campaign) %>&text=<%= url_encode("Help fundraise for #{@campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>
+                        <a href="mailto:?subject=<%= url_encode("Please support our fundraiser!") %>&body=<%= url_encode("You can see our fundraiser by clicking the link below:\n\n#{@campaign.title}\n#{signup_seller_url(@campaign)}\n\nPlease consider making a purchase to help us reach our goal!\n\n#{@campaign.organizer.profile.fullname}") %>" class="btn btn-info"><span class="glyphicon glyphicon-envelope" style="color: white"></span> Email</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- /.campaign-interface -->
+
+</div>

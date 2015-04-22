@@ -1,0 +1,48 @@
+<table style="width:100%">
+	<tr><td>
+		<table class="table table-hover table-bordered">
+		    <thead>
+		        <tr>
+					<th>Order ID</th>
+		            <th>Order Date</th>
+		            <th>Name</th>
+		            <th>Email</th>
+		            <th>Quantity-Products</th>
+		            <th>Total Paid</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <% @seller.orders.completed.order(:id=>:desc).each do |order| %>
+		        <tr>
+					<td>
+						<% if order.donation_only? %>
+							<%= order.id %>
+						<% else %>
+							<a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(order.campaign,order.id) %>" style="cursor:pointer;">
+								<%= order.id %></a>
+						<% end %>
+					</td>
+		            <td style="white-space:nowrap;"><%= order.created_at.strftime('%b %-d, %Y') %></td>
+		            <td><%= order.fullname %></td>
+		            <td><%= order.email %></td>
+		            <td>
+		                <ul style="list-style-type:none;padding:0px;margin:0px;">
+		                <% order.items.each do |item| %>
+		                <li style="margin-bottom:5px;">
+							<%= item.quantity %>-<%= item.product.name if item.product %>
+				            <% item.options.each do |option| %>
+							<% if option.value.present? %>
+				                <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+							<% end %>
+				            <% end %>
+						</li>
+		                <% end %>
+		                </ul>
+		            </td>
+		            <td>$<%= long_price(order.grandtotal.to_f/100) %></td>
+		        </tr>
+		        <% end %>
+		    </tbody>
+		</table>
+	</td></tr>
+</table>

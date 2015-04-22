@@ -1,0 +1,2 @@
+module ChairpersonDashboardHelper
+end

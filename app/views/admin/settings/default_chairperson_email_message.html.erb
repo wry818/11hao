@@ -1,0 +1,77 @@
+<div id="default_email_message" style="padding: 30px 0">
+    <div class="container">
+		 <div class="row">
+			 <div class="col-md-8">
+			 	<h3>Default Chairperson Email</h3>
+			</div>
+		 </div>
+		 
+		 <div class="row">&nbsp;</div>
+		 
+		 <form id="default_email_message_form" action="/admin/save_default_chairperson_email_message" method="post" class="default_email_message_form form-horizontal">
+			 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+			 
+			 <div class="row">
+				 <div class="col-md-8">
+					<div style="margin-bottom:10px;">
+					 	<textarea id="default_cp_email_message" name="default_cp_email_message" class="tinymce">
+						 	<%= @admin_setting.default_cp_email_message || "" if @admin_setting %>
+					 	</textarea>
+					</div>
+					
+					<div style="border:1px solid #ccc; font-size:16px; margin-bottom:10px; padding:10px 0px; text-align:center;">
+						User can add personalized text here
+					</div>
+					
+					<div style="margin-bottom:10px;">
+					 	<textarea id="default_cp_email_message_two" name="default_cp_email_message_two" class="tinymce">
+						 	<%= @admin_setting.default_cp_email_message_two || "" if @admin_setting %>
+					 	</textarea>
+					</div>
+				 </div>
+				 <div class="col-md-4">
+				 	<p>Available predefined variables:</p>
+					
+					<table>
+						<tr>
+							<td><label>{{fundraiser.chairperson}}</label> - Chairperson fullname</td>
+						</tr>
+						<tr>
+							<td><label>{{fundraiser.url}}</label> - Url of fundraiser</td>
+						</tr>
+						<tr>
+							<td><label>{{fundraiser.signup.url}}</label> - Url of seller signup</td>
+						</tr>
+						<tr>
+							<td><label>{{fundraiser.title}}</label> - Title of fundraiser</td>
+						</tr>
+						<tr>
+							<td><label>{{fundraiser.tagline}}</label> - Tagline of fundraiser</td>
+						</tr>
+						<tr>
+							<td><label>{{fundraiser.goal}}</label> - Goal of fundraiser</td>
+						</tr>
+						<tr>
+							<td><label>{{organization.name}}</label> - Organization name</td>
+						</tr>
+						<tr>
+							<td><label>{{collection.name}}</label> - Collection name</td>
+						</tr>
+						<tr>
+							<td><label>{{contact.greeting}}</label> - Contact greeting</td>
+						</tr>
+					</table>
+				 </div>
+			 </div>
+			 
+			 <div class="row">&nbsp;</div>
+		 
+			 <div class="row">
+				 <div class="col-md-8" style="text-align:center;">
+					 <input type="submit" class="btn btn-primary btn-lg" value="Save" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 <%= link_to 'Back', admin_settings_path, class: 'btn btn-primary btn-lg' %>
+				 </div>
+			 </div>
+		 </form>
+	</div>
+</div>

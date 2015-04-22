@@ -1,0 +1,257 @@
+@mixin fontSize3em {
+	font-size: 3em;
+}
+
+@mixin fontSize2_8em {
+	font-size: 2.8em;
+}
+
+@mixin fontSize1_5em {
+	font-size: 1.5em;
+}
+
+@mixin fontSize1_2em {
+	font-size: 1.2em;
+}
+
+@mixin fontSize1em {
+	font-size: 1em;
+}
+
+@mixin fontSize0_5em {
+	font-size: 0.5em;
+}
+
+@mixin fontSize13px {
+	font-size: 13px;
+}
+
+@mixin fontSize12px {
+	font-size: 12px;
+}
+
+@mixin fontSize11px {
+	font-size: 11px;
+}
+
+$entertainment-blue: rgb(0, 70, 127);
+$entertainment-blue-hover: rgb(0, 80, 145);
+$entertainment-orange: rgb(245, 117, 12);
+$entertainment-orange-hover: rgb(241, 141, 55);
+$entertainment-lightgreen: rgb(168, 193, 51);
+$entertainment-lightgreen-hover: rgb(190, 211, 88);
+$light-grey: rgb(142, 148, 153);
+$grey: rgb(114, 113, 113);
+
+html, body {
+    //height: 100%;
+	//color: rgb(142, 148, 153);
+}
+
+span, p, h1, h2, h3, h4, h5 {
+    font-family: "Open Sans", sans-serif;
+}
+
+p {
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5 {
+    //color: #30263a;
+}
+
+/* Loader */
+.loader {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: image-url('loading.gif');
+  &.loader-black {
+    background: image-url('loader-black.gif');
+  }
+  &.alt-loader {
+    background: image-url('alt-loader.gif');
+  }
+}
+
+.radio-inline, .checkbox-inline {
+    margin-left: 0px;
+    margin-right: 10px;
+    &+.radio-inline, &+.checkbox-inline {
+        margin-left: 0px;
+    }
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: $entertainment-blue;
+  border-color: $entertainment-blue;
+  
+  &:hover {
+	  background-color: $entertainment-blue-hover !important;
+	  border-color: $entertainment-blue-hover !important;
+  }
+}
+
+.btn-orange {
+  color: #fff;
+  background-color: $entertainment-orange;
+  border-color: $entertainment-orange;
+  border-radius: 0px;
+  
+  &:hover {
+	  color: #fff;
+	  background-color: $entertainment-orange-hover !important;
+	  border-color: $entertainment-orange-hover !important;
+  }
+  
+  &:active {
+	  color: #fff;
+  }
+  
+  &:focus {
+	  color: #fff;
+  }
+  
+}
+
+.btn-lightgreen {
+  color: #fff;
+  background-color: $entertainment-lightgreen;
+  border-color: $entertainment-lightgreen;
+  border-radius: 0px;
+  
+  &:hover {
+	  color: #fff;
+	  background-color: $entertainment-lightgreen-hover !important;
+	  border-color: $entertainment-lightgreen-hover !important;
+  }
+  
+  &:active {
+	  color: #fff;
+  }
+  
+  &:focus {
+	  color: #fff;
+  }
+  
+}
+
+.well {
+    &.well-white {
+        background: white;
+    }
+}
+
+//readonly
+.form-control[readonly] {
+    cursor: auto;
+}
+
+//alerts
+.alert {
+    margin-bottom: 0px;
+}
+
+label.error {
+    color: #b94a48;
+    margin-top: 5px;
+    font-weight: normal;
+    display: block;
+}
+
+// Fix for tinymce
+.mce-path > .mce-path-item, .mce-path > .mce-divider {display: none !important;}
+
+// FIxes for date picker
+.picker__nav--next:hover, .picker__nav--prev:hover {
+  cursor: pointer;
+  color: #000000;
+  background: none;
+}
+
+.datepicker.form-control[readonly], .timepicker.form-control[readonly] {
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.modal {
+    .modal-header {
+        &.modal-header-purple {
+            background: $entertainment-blue;
+            .modal-title, .close {
+                color: white;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.panel {
+    .panel-purple {
+        .panel-heading {
+            background: $entertainment-blue;
+            .panel-title {
+                color: white;
+            }
+        }
+    }
+}
+
+.number {
+    display: inline-block;
+    height: 33px;
+    width: 33px;
+    padding: 3px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    margin-right: 8px;
+    background-color: $entertainment-blue;
+    color: white;
+    text-align: center;
+}
+
+.req {
+    color: red;
+    font-size: 10px;
+}
+
+.help-text-input {
+    border-radius: 4px 4px 0 0;
+}
+
+.help-text {
+    background: whitesmoke;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    padding: 12px;
+    margin-top: -1px;
+}
+
+.login-media-box {
+	margin-top: 40px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 970px;
+    }
+}
+
+//Override bootbox.js style
+.bootbox {
+	.bootbox-body {
+		padding: 10px 0;
+		text-align: center;
+	}
+	
+	.bootbox-close-button {
+		display: none;
+	}
+}
+
+.join-fundraising-link {
+	font-weight: bold;
+}

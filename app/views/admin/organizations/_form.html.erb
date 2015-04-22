@@ -1,0 +1,100 @@
+<script>
+		var state_provinces=[];
+		var country_id=<%= @organization.country_id.blank? ? 0 : @organization.country_id%>;
+		var state_province_id=<%= @organization.state_province_id.blank? ? 0 : @organization.state_province_id%>;
+
+		<% @state_provinces.each do |state_province| %>
+			state_provinces.push({id:<%=state_province.id%>, name: "<%=state_province.name%>", country_id: <%=state_province.country_id%>});
+		<% end %>
+</script>
+
+<%= form_for([:admin, @organization], html: { id: "organization_form", class: "organization_form" }) do |f| %>
+	<fieldset>
+		<div class="row">
+			<div class="col-md-12">
+                <div class="well">
+					<% if f.object.id.present? %>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="product_name">Group Code</label>
+                            <%= f.object.entertainment_customer_id %>
+                        </div>
+                    </div>
+					<% end %>
+					
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_name">Name</label>
+							<!-- Make organization an input by add class .input-organization -->
+                            <%= f.text_field :name, class: 'form-control input-organization' %>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_line_one">Address Line 1</label>
+                            <%= f.text_field :address_line_one, class: 'form-control' %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_line_two">Address Line 2</label>
+                            <%= f.text_field :address_line_two, class: 'form-control' %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_city">City</label>
+                            <%= f.text_field :address_city, class: 'form-control' %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_postal_code">Zip/Postal Code</label>
+                            <%= f.text_field :address_postal_code, class: 'form-control' %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_country">Country</label>
+				            <select id="organization_address_country" name="organization[country_id]" class="form-control input-small" style="width:200px">
+								<option value="">-- Please Select --</option>
+				                <% @countries.each do |country| %>
+				                	<option value="<%= country.id %>" <%= f.object.country_id == country.id ? 'selected' : '' %> >
+				                    	<%= country.name %>
+				                	</option>
+				                <% end %>
+				            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="organization_address_state">State/Province</label>
+				            <select id="organization_address_state" name="organization[state_province_id]" class="form-control input-small">
+				            </select>
+                        </div>
+                    </div>
+                </div>
+				
+				<% if f.object.id.present? %>
+				<div class="well">
+					<% if @campaign %>
+						<%= link_to 'Edit Store Front', edit_admin_campaign_path(@campaign) + "?organization=" + f.object.id.to_s %>
+					<% else %>
+						<%= link_to 'Edit Store Front', new_admin_campaign_path + "?organization=" + f.object.id.to_s %>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		
+		<div>
+	        <button class="btn btn-primary btn-lg" type="submit">
+	            <span class="text">Save</span>
+	        </button>&nbsp;&nbsp;&nbsp;
+	        <%= link_to "Back", admin_organizations_path, class: "btn btn-primary btn-lg" %>
+		</div>
+    </fieldset>
+<% end %>

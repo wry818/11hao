@@ -1,0 +1,152 @@
+<div id="option_group_edit">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>
+					<% if !@option_group.id.nil? %>
+						<%= @option_group.name %>
+					<% else %>
+					New Option Group
+					<% end %> | 
+					<%= @product.name %>
+				</h3>
+            </div>
+        </div>
+		
+		<%= form_for(@option_group, url: admin_product_save_option_group_path(@product), html: { id: "option_group_form" }) do |f| %>
+			<div class="well">
+		        <div class="row">
+		            <div class="col-md-12">
+		                <label>Name</label>
+		                <%= f.text_field :name, class: 'form-control', maxlength: 50, placeholder:  "Option Group Name" %>
+		            </div>
+		        </div>
+			</div>
+			
+			<div class="well">
+		        <div class="row">
+		            <div class="col-md-12">
+		                <label>Instructions</label>
+		                <%= f.text_field :instructions, class: 'form-control', maxlength: 100, placeholder: "Instructions" %>
+		            </div>
+		        </div>
+			</div>
+			
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="option_group_required">
+                          <%= f.check_box :required %>&nbsp;Required?
+                        </label>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="well">
+		        <div class="row">
+		            <div class="col-md-12">
+		                <label>Properties</label>
+						 
+						<% properties = @option_group.option_group_properties.active.all %>
+						
+						<div class="table-responsive">
+							<table id="og_property_table" class="table">
+								<thead> 
+									<th>Name</th>
+									<th>Base Price</th>
+									<th>Donation Amount</th>
+									<th>Sort Order</th>
+									<% if @product.need_sku %>
+									<th class="th-sku ">SKU</th>
+									<% end %>
+									<% if @product.need_check_inventory %>
+									<th class="th-qty og-property-qty-cell">Available Quantity</th>
+									<th class="og-property-qty-cell">Inventory Last Update Date</th>
+									<% end %>
+									<th class="og-property-arrow-cell"></th>
+									<th class="og-property-arrow-cell"></th>
+									<th></th>
+									<th></th>
+								</thead>
+								<tbody>
+									<% row_index = 0 %>
+									<% properties.each do |property| %>
+									<% row_index+=1 %>
+									<tr class="og-property-row">
+										<td class="og-property-cell og-property-name-cell">
+											<input name="properties[][id]" type="hidden" class="og-property-id" value="<%=property.id%>">
+											<span class="og-property-text og-property-value-text"><%= property.value %></span>
+											<input name="properties[][value]" type="text" class="form-control og-property-input og-property-value-input" value="<%= property.value %>" maxlength="100">
+										</td>
+										<td class="og-property-cell og-property-price-cell">
+											<span class="og-property-text">$</span><span class="og-property-text og-property-price-text"><%= long_price(property.price) %></span>
+											<div class="og-property-input">
+									            <div class="input-group">
+									                <span class="input-group-addon">$</span>
+									                <input name="properties[][price]" type="text" class="form-control og-property-price-input" value="<%= property.price %>" maxlength="10">
+									            </div>
+											</div>
+										</td>
+										<td class="og-property-cell og-property-donation-cell">
+											<span class="og-property-text">$</span><span class="og-property-text og-property-donation-text"><%= long_price(property.donation_amount) %></span>
+											<div class="og-property-input">
+									            <div class="input-group">
+									                <span class="input-group-addon">$</span>
+									               	<input name="properties[][donation]" type="text" class="form-control og-property-donation-input" value="<%= property.donation_amount %>" maxlength="10">
+									            </div>
+											</div>
+										</td>
+										<td class="og-property-cell og-property-order-cell">
+											<span class="og-property-text og-property-order-text"><%= property.sort_order %></span>
+											<input name="properties[][order]" type="text" class="form-control og-property-input og-property-order-input" value="<%= property.sort_order %>" maxlength="10">
+										</td>
+										<% if @product.need_sku %>
+										<td class="og-property-cell og-property-sku-cell">
+											<span class="og-property-text og-property-sku-text"><%= property.sku %></span>
+											<input name="properties[][sku]" type="text" class="form-control og-property-input og-property-sku-input" value="<%= property.sku %>" maxlength="50">
+										</td>
+										<% end %>
+										<% if @product.need_check_inventory %>
+										<td class="og-property-qty-cell">
+											<span class="og-property-qty-text"><%= property.qty_available if property.inventory_last_update_time %></span></td>
+										<td class="og-property-qty-cell">
+											<span class="og-property-inv-text"><%= property.inventory_last_update_time.strftime('%b %-d, %Y') if property.inventory_last_update_time %></span></td>
+										<% end %>
+										<td class="og-property-arrow-cell">
+											<span class="glyphicon glyphicon-arrow-up og-property-arrow og-property-arrow-up <%= "og-property-hidden-arrow" if row_index==1 %>"></span>
+										</td>
+										<td class="og-property-arrow-cell">
+											<span class="glyphicon glyphicon-arrow-down og-property-arrow og-property-arrow-down <%= "og-property-hidden-arrow" if row_index==properties.count %>"></span>
+										</td>
+										<td class="og-property-opr-cell">
+											<a class="og-property-opr og-property-oprs1 og-property-edit">Edit</a>
+											<a class="og-property-opr og-property-oprs2 og-property-save">Save</a>
+										</td>
+										<td class="og-property-opr-cell">
+											<a class="og-property-opr og-property-oprs1 og-property-delete">Delete</a>
+											<a class="og-property-opr og-property-oprs2 og-property-cancel">Cancel</a>
+										</td>
+									</tr>
+									<% end%>
+								</tbody>
+							</table>
+						</div>
+						
+					   	<div style="margin-top:10px;">
+				           <button class="btn btn-primary" type="button" onclick="window.Raisy_admin_products.add_option_group_property();">
+				               <span class="text">Add new property</span>
+				           </button>
+					   	</div>
+		            </div>
+		        </div>
+			</div>
+			
+			<div class="form-group">
+		        <button class="btn btn-primary" type="submit">
+		            <span class="text">Save</span><span class="loader" style="display:none"></span>
+		        </button>&nbsp;&nbsp;&nbsp;
+		        <%= link_to "Back", edit_admin_product_path(@product), class: "btn btn-primary" %>
+			</div>
+		<% end %>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div style="display:none;">report_content</div>
+<table class="table">
+	<thead>
+          <th>Seller Name</th>
+          <th>Parent</th>
+          <th>Email</th>
+		<th>Fundraiser</th>
+          <th>Member ID</th>
+          <th>Total Sales</th>
+          <th>Total Raised</th>
+		<th># of orders</th>
+		<th># of logins</th>
+          <th># of emails sent</th>
+          <th># of share</th>
+          <th># of tweets</th>
+	</thead>
+	<tbody>
+		<% if @sellers 
+			total_rows=0 
+			total_sales=0 
+			total_raised=0 
+			total_orders=0 
+			total_signin=0 
+			total_emails=0 
+			total_fbs=0 
+			total_tws=0 
+			users=[]
+			
+			@sellers.each do |seller| 
+				total_rows+=1 
+				social_histories=seller.social_share_histories.select("id, media_id").all 
+				sales=seller.total_sales 
+				raised=seller.total_raised 
+				orders=seller.total_orders 
+				emails=seller.email_share_histories.count 
+				fbs=social_histories.select{|h| h.media_id==1}.count 
+				tws=social_histories.select{|h| h.media_id==2}.count 
+				total_sales+=sales 
+				total_raised+=raised 
+				total_orders+=orders 
+				total_emails+=emails 
+				total_fbs+=fbs 
+				total_tws+=tws 
+				users << seller.user_profile.user if !users.include?(seller.user_profile.user) %>
+                <tr>
+                    <td><%= seller.user_profile.fullname %></td>
+                    <td><%= seller.user_profile.parent_fullname %></td>
+                    <td><%= seller.user_profile.user.email %></td>
+					<td><%= seller.campaign.title %></td>
+                    <td><%= seller.referral_code %></td>
+                    <td>$<%= long_price(sales) %></td>
+                    <td>$<%= long_price(raised) %></td>
+					<td><%= orders %></td>
+					<td><%= seller.user_profile.user.sign_in_count %></td>
+					<td><%= emails %></td>
+		            <td><%= fbs %></td>
+		            <td><%= tws %></td>
+                </tr>
+              <% end %>
+			<% users.each do |user|  total_signin+= user.sign_in_count end %>
+			<tr>
+				<td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+				<td></td>
+                <th style="text-align:right;">Total</th>
+                <th>$<%= long_price(total_sales) %></th>
+                <th>$<%= long_price(total_raised) %></th>
+				<th><%= total_orders %></th>
+				<th><%= total_signin %></th>
+	            <th><%= total_emails %></th>
+	            <th><%= total_fbs %></th>
+	            <th><%= total_tws %></th>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
