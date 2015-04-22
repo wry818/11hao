@@ -60,6 +60,9 @@ module Raisy
         config.mslive_client_secret = ENV['MSLIVE_CLIENT_SECRET']
         config.mslive_callback_url = ENV['MSLIVE_CALLBACK_URL']
         
-        config.facebook_callback_url = ENV['FACEBOOK_CALLBACK_URL']        
+        config.facebook_callback_url = ENV['FACEBOOK_CALLBACK_URL']
+        
+        ENV['CLOUDINARY_URL']= 'cloudinary://195568989381351:wTcmdQ4UvTIjJy-2cVRykf-HiSo@jli'
+                
     end
 end
