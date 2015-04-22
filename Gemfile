@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://mirrors.aliyun.com/rubygems/'
 #ruby "2.0.0"
 
 gem 'rails', '4.0.2'
