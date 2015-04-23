@@ -1,7 +1,7 @@
 <div id="campaign-edit">
   <div class="container">
     <div class="campaign-edit-header">
-      <h3>Start a new fundraiser</h3>
+      <h3>创建一个新的筹款团队</h3>
     </div>
     <div class="container-box top-section">
       <div class="step-nav-bar">
@@ -17,7 +17,7 @@
       </div>
 
       <div style="text-align:center; margin-top:20px;">
-        <h3 class="fieldset-header"><span class="number">1</span>Create My Account</h3></div>
+        <h3 class="fieldset-header"><span class="number">1</span>创建我的帐户</h3></div>
 
       <form accept-charset="UTF-8" action="/campaigns/create_account" class="campaign-form form-horizontal" id="campaign_form" method="post">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -31,70 +31,65 @@
               <div class="col-sm-5 col-sm-offset-1 campaign-account-left">
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="user_email" class="control-label">Email<span class='req'>*</span></label>
-                    <input class="form-control" id="user_email" name="user[email]" placeholder="Enter email">
+                    <label for="user_email" class="control-label">邮箱<span class='req'>*</span></label>
+                    <input class="form-control" id="user_email" name="user[email]" placeholder="邮箱">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="user_pwd" class="control-label">Password<span class='req'>*</span></label><span id="campaign_user_forget_pwd" style="display:none; font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
-                    <input class="form-control" id="user_password" name="user[password]" type="password" placeholder="Enter password">
+                    <label for="user_pwd" class="control-label">密码<span class='req'>*</span></label><span id="campaign_user_forget_pwd" style="display:none; font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
+                    <input class="form-control" id="user_password" name="user[password]" type="密码" placeholder="Enter password">
                   </div>
                 </div>
 
                 <div class="form-group campaign_user_alt_row">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="user_confirm_pwd" class="control-label">Confirm
-                      Password<span class='req'>*</span></label>
+                    <label for="user_confirm_pwd" class="control-label">确认密码<span class='req'>*</span></label>
                     <input class="form-control" id="user_confirm_password" name="user[confirm_password]" type="password" placeholder="Confirm password">
                   </div>
                 </div>
 
                 <div class="form-group campaign_user_alt_row">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="user_pwd" class="control-label">First Name<span class='req'>*</span></label>
-                    <input class="form-control" id="user_first_name" name="user[first_name]" placeholder="Enter first name">
+                    <label for="user_pwd" class="control-label">姓<span class='req'>*</span></label>
+                    <input class="form-control" id="user_first_name" name="user[first_name]" placeholder="输入姓">
                   </div>
                 </div>
 
                 <div class="form-group campaign_user_alt_row">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="user_pwd" class="control-label">Last Name<span class='req'>*</span></label>
-                    <input class="form-control" id="user_last_name" name="user[last_name]" placeholder="Enter last name">
+                    <label for="user_pwd" class="control-label">名<span class='req'>*</span></label>
+                    <input class="form-control" id="user_last_name" name="user[last_name]" placeholder="输入名">
                   </div>
                 </div>
 
                 <div class="form-group campaign_user_alt_row">
                   <div class="col-sm-10 col-sm-offset-1">
-                    <label for="phone_num" class="control-label">Phone Number</label>
-                    <input class="form-control" id="user_phone_number" name="user[phone_number]" placeholder="Phone number">
+                    <label for="phone_num" class="control-label">联系电话</label>
+                    <input class="form-control" id="user_phone_number" name="user[phone_number]" placeholder="联系电话">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1">
                     <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">By checking the
-                      box, you agree to
-                      our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的<%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1" style="text-align:center;">
                     <button id="campaign_form_submit" class="btn btn-primary campaign_form_submit" type="submit">
-                      <span class="text">Continue</span>
+                      <span class="text">继续</span>
                     </button>
 
                     <div style="margin-top:30px;">
                       <div id="campaign_login_account_link" style="text-align:left;">
-                        <span>Already have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_login_account();"><strong>Sign
-                          In</strong></a></span>
+                        <span>已经有帐户了？&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_login_account();"><strong>登录</strong></a></span>
                       </div>
                       <div id="campaign_signup_account_link" style="text-align:left; display:none;">
-                        <span>Don't have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_signup_account();"><strong>Sign
-                          Up</strong></a></span>
+                        <span>还没有帐户？&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_signup_account();"><strong>注册</strong></a></span>
                       </div>
                     </div>
                   </div>
