@@ -33,11 +33,11 @@
     </div>
     <div class="clearfix" style="margin-top:20px;">
       <div id="step_container_1" class="camp-step-container">
-        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>Fundraiser Details&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>筹款团队明细&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
         </h3></div>
         <fieldset>
           <div class="form-group">
-            <label for="organization_name" class="col-sm-2 control-label">Organization<span class='req'>*</span></label>
+            <label for="organization_name" class="col-sm-2 control-label">组织<span class='req'>*</span></label>
 
             <div class="col-sm-10">
               <!-- organization_name actually saves organization id -->
@@ -48,29 +48,29 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_title" class="col-sm-2 control-label">Title<span class='req'>*</span></label>
+            <label for="campaign_title" class="col-sm-2 control-label">标题<span class='req'>*</span></label>
 
             <div class="col-sm-10">
-              <%= f.text_field :title, class: 'form-control', placeholder: 'e.g. New Gym Equipment for Troy Elementary (Note: this will show up in all emails)' %>
+              <%= f.text_field :title, class: 'form-control', placeholder: '比如： 卖牛奶为了xx学校 （注意：这会显示在所有的邮件里）' %>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="campaign_title" class="col-sm-2 control-label">Tagline</label>
+            <label for="campaign_title" class="col-sm-2 control-label">宣传标签</label>
 
             <div class="col-sm-10">
-              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: 'e.g. Help raise funds to purchase new gym equipment for Troy Elementary' %>
+              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：为了给xx学校建设体育器材而筹资' %>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="campaign_goal" class="col-sm-2 control-label">Goal</label>
+            <label for="campaign_goal" class="col-sm-2 control-label">目标</label>
 
             <div class="col-sm-8">
               <div style="width:200px;">
                 <div class="input-group">
-                  <span class="input-group-addon">$</span>
-                  <%= f.text_field :goal, class: 'form-control', placeholder: "i.e. 1,000" %>
+                  <span class="input-group-addon">￥</span>
+                  <%= f.text_field :goal, class: 'form-control', placeholder: "比如：1000" %>
                 </div>
                 <label for="campaign_goal" class="error" style="display: none"></label>
               </div>
@@ -78,11 +78,11 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_end_date" class="col-sm-2 control-label">Sale End Date</label>
+            <label for="campaign_end_date" class="col-sm-2 control-label">销售截止日期</label>
 
             <div class="col-sm-8">
               <div style="width:200px;">
-                <%= f.text_field :end_date, placeholder: "Select date", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
+                <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
                 <label for="campaign_end_date" class="error" style="display: none"></label>
               </div>
             </div>
@@ -92,24 +92,24 @@
           <div class="row web-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
-                <span class="text">Cancel</span>
+                <span class="text">取消</span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
-                <span class="text">Cancel</span>
+                <span class="text">取消</span>
               </button>
             </div>
           </div>
@@ -118,8 +118,7 @@
 
       <div id="step_container_2" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
-          <h3 class="fieldset-header"><span class="number">3</span>Tell Your
-            Story&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+          <h3 class="fieldset-header"><span class="number">3</span>告诉大家您的故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <div style="display:none;">
@@ -156,7 +155,7 @@
                   <span><%= @example_story_4.title %></span>
                 </div>
                 <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story custom-story">Create Your Own</div>
+                <div class="example-story custom-story">创建您自己的</div>
               </div>
             </div>
           </div>
@@ -165,24 +164,24 @@
           <div class="row web-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="2">
-                <span class="text">Back</span>
+                <span class="text">后退</span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="2">
-                <span class="text">Back</span>
+                <span class="text">后退</span>
               </button>
             </div>
           </div>
@@ -195,7 +194,7 @@
             <img style="display:block; margin: 0px auto;">
           </div>
           <div style="width:100%; height:30px; text-align:center; margin:10px 0px 10px 0px;">
-            <button class="btn btn-primary" type="button"><span class="text">Delete</span></button>
+            <button class="btn btn-primary" type="button"><span class="text">删除</span></button>
           </div>
         </div>
         <div style="height:20px; text-align:center;">&nbsp;
@@ -205,11 +204,10 @@
       <div id="step_container_3_1" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>Upload More Fundraiser
-            Photos&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">4</span>上传更多的筹款团队图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
-              (Best size: 280px * 280px)
+              （最好的图片尺寸: 280px * 280px）
             </div>
           </h3>
         </div>
@@ -224,7 +222,7 @@
               <label for="more_photo_upload" class="well add-campaign-photo" style="border-width:2px; border-style:dotted; width:210px; height:262px; text-align:center; margin: auto; cursor:pointer; display:block;">
                 <span class="fa fa-plus fa-2x" style="color: #aaa; margin-top:75px;"></span>
                 <br/>
-                <span style="color: #888;">Add a photo</span>
+                <span style="color: #888;">新增一张照片</span>
                 <br/>
                 <br/>
                 <span class="fa fa-spinner fa-spin fa-2x" style="color:#aaa; display:none;"></span>
@@ -237,34 +235,34 @@
           <div class="row web-box">
             <div class="col-sm-5 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
-                <span class="text">Back</span>
+                <span class="text">后退</span>
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
 	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-	              <span class="text">Skip this step</span> <span class="loader" style="display:none">
+	              <span class="text">跳过这一步</span> <span class="loader" style="display:none">
 	            </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-5 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
 	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-	              <span class="text">Skip this step</span> <span class="loader" style="display:none">
+	              <span class="text">跳过这一步</span> <span class="loader" style="display:none">
 	            </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
-                <span class="text">Back</span>
+                <span class="text">后退</span>
               </button>
             </div>
           </div>
@@ -274,11 +272,10 @@
       <div id="step_container_3" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>Upload A Fundraiser Cover
-            Photo&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">4</span>上传筹款活动封面图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
-              (Best size: 970px * 310px)
+              （最好的图片尺寸: 970px * 310px）
             </div>
           </h3>
         </div>
@@ -309,19 +306,19 @@
                   <div class="col-sm-6">
                     <label for="campaign_logo_file" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
-											Upload</span>
-                      <span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
-                      <a href="#" class="remove-image" style="display: none">Remove picture</a>
+											上传</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
+                      <a href="#" class="remove-image" style="display: none">删除图片</a>
                     </label>
                   </div>
                   <div class="col-sm-6">
                     <div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
-											Use</span>
-                      <span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+											使用</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
                     </div>
-                    <a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">Use
-                      one of ours</a>
+                    <a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">使用
+                      我们提供的</a>
                   </div>
                 </div>
               </div>
@@ -332,23 +329,23 @@
           <div class="row web-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="3">
-                <span class="text">Back</span></button>
+                <span class="text">后退</span></button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
 							</button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
-                <span class="text">Continue</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none">
 							</button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="3">
-                <span class="text">Back</span></button>
+                <span class="text">后退</span></button>
             </div>
           </div>
         </fieldset>
@@ -356,8 +353,7 @@
 
       <div id="step_container_4" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
-          <h3 class="fieldset-header"><span class="number">4</span>Who Are You Raising Funds
-            For?&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+          <h3 class="fieldset-header"><span class="number">4</span>您为了谁筹资款项？&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <!-- <div class="form-group">
@@ -371,7 +367,7 @@
             <table class="allow-direct-donation-box">
               <tr>
                 <td class="checkbox-label">
-                  <label>Allow Direct Donation<span class='req'></span></label>
+                  <label>允许直接捐赠<span class='req'></span></label>
                 </td>
                 <td class="checkbox-input">
                   <%= f.check_box :allow_direct_donation, checked: false %>
@@ -385,22 +381,22 @@
           <div class="row web-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="4">
-                <span class="text">Back</span>
+                <span class="text">后退</span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <% if @collection && current_user %>
                   <button id="campaign_form_submit" class="btn btn-primary btn-lg camp-finish-btn" type="submit" data-currentstep="4">
-                    <span class="text">Continue</span> <span class="loader" style="display:none"></span>
+                    <span class="text">继续</span> <span class="loader" style="display:none"></span>
                   </button>
               <% else %>
                   <% if @collection %>
                       <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="6">
-                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                        <span class="text">继续</span> <span class="loader" style="display:none">
                       </button>
                   <% else %>
                       <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="5">
-                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                        <span class="text">继续</span> <span class="loader" style="display:none">
                       </button>
                   <% end %>
               <% end %>
@@ -410,23 +406,23 @@
             <div class="col-sm-6 backbutton-box">
               <% if @collection && current_user %>
                   <button id="campaign_form_submit" class="btn btn-primary btn-lg camp-finish-btn" type="submit" data-currentstep="4">
-                    <span class="text">Continue</span> <span class="loader" style="display:none"></span>
+                    <span class="text">继续</span> <span class="loader" style="display:none"></span>
                   </button>
               <% else %>
                   <% if @collection %>
                       <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="6">
-                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                        <span class="text">继续</span> <span class="loader" style="display:none">
                       </button>
                   <% else %>
                       <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="4" data-nextstep="5">
-                        <span class="text">Continue</span> <span class="loader" style="display:none">
+                        <span class="text">继续</span> <span class="loader" style="display:none">
                       </button>
                   <% end %>
               <% end %>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="4">
-                <span class="text">Back</span>
+                <span class="text">后腿</span>
               </button>
             </div>
           </div>
@@ -436,8 +432,7 @@
       <% if !@collection %>
           <div id="step_container_5" class="camp-step-container" style="display:none;">
             <div style="text-align:center;">
-              <h3 class="fieldset-header"><span class="number">5</span>Choose
-                Product&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+              <h3 class="fieldset-header"><span class="number">5</span>选择商品系列&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
             </div>
             <fieldset>
               <div class="form-group" style="margin-bottom: -4px">
@@ -464,7 +459,7 @@
                   <div class="col-sm-2"></div>
                   <div class="col-sm-4">
                     <div class="clearfix">
-                      <label class="error no-collection-label" style="display:none;">Please choose a product</label>
+                      <label class="error no-collection-label" style="display:none;">请选择一件商品</label>
                     </div>
                   </div>
                 </div>
@@ -474,24 +469,24 @@
               <div class="row web-box">
                 <div class="col-sm-6 backbutton-box">
                   <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
-                    <span class="text">Back</span>
+                    <span class="text">后退</span>
                   </button>
                 </div>
                 <div class="col-sm-6 continuebutton-box">
                   <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
-                    <span class="text">Continue</span> <span class="loader" style="display:none">
+                    <span class="text">继续</span> <span class="loader" style="display:none">
                   </button>
                 </div>
               </div>
               <div class="row mobile-box">
                 <div class="col-sm-6 backbutton-box">
                   <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
-                    <span class="text">Continue</span> <span class="loader" style="display:none">
+                    <span class="text">继续</span> <span class="loader" style="display:none">
                   </button>
                 </div>
                 <div class="col-sm-6 continuebutton-box">
                   <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
-                    <span class="text">Back</span>
+                    <span class="text">后退</span>
                   </button>
                 </div>
               </div>
@@ -508,7 +503,7 @@
 
                 <div class="modal-header modal-header-purple">
                   <button id="close_campaign_user" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Create An Account</h4>
+                  <h4 class="modal-title">创建帐户</h4>
                 </div>
                 <!-- /.modal-header -->
 
@@ -516,50 +511,49 @@
 
                   <div id="campaign_signup_user">
                     <p class="welcome-back" style="margin-bottom: 20px; display:none;">
-                      Welcome back!
+                      欢迎回来！
                     </p>
 
                     <div class="row">
                       <div class="col-sm-6" style="border-right: 2px solid #eee;">
                         <div class="form-group">
                           <div class="col-sm-11">
-                            <label for="user_email" class="control-label">Email<span class='req'>*</span></label>
+                            <label for="user_email" class="control-label">邮箱<span class='req'>*</span></label>
                             <input class="form-control" id="user_email" name="user[email]" placeholder="Enter email">
                           </div>
                         </div>
 
                         <div class="form-group">
                           <div class="col-sm-11">
-                            <label for="user_pwd" class="control-label">Password<span class='req'>*</span></label><span id="campaign_user_forget_pwd" style="display:none; font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
+                            <label for="user_pwd" class="control-label">密码<span class='req'>*</span></label><span id="campaign_user_forget_pwd" style="display:none; font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
                             <input class="form-control" id="user_password" name="user[password]" type="password" placeholder="Enter password">
                           </div>
                         </div>
 
                         <div class="form-group campaign_user_alt_row">
                           <div class="col-sm-11">
-                            <label for="user_confirm_pwd" class="control-label">Confirm
-                              Password<span class='req'>*</span></label>
+                            <label for="user_confirm_pwd" class="control-label">确认密码<span class='req'>*</span></label>
                             <input class="form-control" id="user_confirm_password" name="user[confirm_password]" type="password" placeholder="Confirm password">
                           </div>
                         </div>
 
                         <div class="form-group campaign_user_alt_row">
                           <div class="col-sm-11">
-                            <label for="user_pwd" class="control-label">First Name<span class='req'>*</span></label>
+                            <label for="user_pwd" class="control-label">姓<span class='req'>*</span></label>
                             <input class="form-control" id="user_first_name" name="user[first_name]" placeholder="Enter first name">
                           </div>
                         </div>
 
                         <div class="form-group campaign_user_alt_row">
                           <div class="col-sm-11">
-                            <label for="user_pwd" class="control-label">Last Name<span class='req'>*</span></label>
+                            <label for="user_pwd" class="control-label">名<span class='req'>*</span></label>
                             <input class="form-control" id="user_last_name" name="user[last_name]" placeholder="Enter last name">
                           </div>
                         </div>
 
                         <div class="form-group campaign_user_alt_row">
                           <div class="col-sm-11">
-                            <label for="phone_num" class="control-label">Phone Number</label>
+                            <label for="phone_num" class="control-label">联系电话</label>
                             <input class="form-control" id="user_phone_number" name="user[phone_number]" placeholder="Phone number">
                           </div>
                         </div>
@@ -567,16 +561,14 @@
                         <div class="form-group">
                           <div class="col-sm-11">
                             <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">By
-                              checking the box, you agree to
-                              our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的 <%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
                           </div>
                         </div>
 
                         <div class="form-group">
                           <div class="col-sm-11" style="text-align:center;">
                             <button id="campaign_form_submit" class="btn btn-primary camp-finish-btn" type="submit" style="height:40px; font-size:16px;">
-                              <span class="text">Create my account</span> <span class="loader" style="display:none"></span>
+                              <span class="text">创建帐户</span> <span class="loader" style="display:none"></span>
                             </button>
                           </div>
                         </div>
@@ -615,12 +607,10 @@
 
                 <div class="modal-footer" style="background:#eee;">
                   <div id="campaign_login_account_link" style="text-align:center;">
-                    <span>Already have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_login_account();"><strong>Sign
-                      In</strong></a></span>
+                    <span>已经有帐户了？&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_login_account();"><strong>登录</strong></a></span>
                   </div>
                   <div id="campaign_signup_account_link" style="text-align:center; display:none;">
-                    <span>Don't have an account?&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_signup_account();"><strong>Sign
-                      Up</strong></a></span>
+                    <span>还没有帐户？&nbsp;<a style="text-decoration:none; cursor:pointer;" onclick="Raisy.campaigns.campaign_signup_account();"><strong>注册</strong></a></span>
                   </div>
                 </div>
                 <!-- /.modal-footer -->
@@ -639,7 +629,7 @@
           <%= image_tag 'example-donation.jpg', class: "img-responsive" %>
         </div>
         <div style="height:50px; text-align:center; margin-top:10px;">
-          <h4>Direct Donation</h4>
+          <h4>直接捐赠</h4>
         </div>
       </div>
     </div>
@@ -650,7 +640,7 @@
 
           <div class="modal-header">
             <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Choose one of our photos</h4>
+            <h4 class="modal-title">选择我们照片中的一个</h4>
           </div>
           <!-- /.modal-header -->
 
@@ -707,13 +697,13 @@
 
           <div class="modal-footer">
             <div style="position:relative; text-align:center;">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
               <div style="position:absolute; bottom:1px; left:0px;">
-                <a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; font-size:12px; font-weight:600;"><span>Preview</span></a>
+                <a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; font-size:12px; font-weight:600;"><span>预览</span></a>
               </div>
               <div class="hide_camp_step_tips_container">
                 <a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
-                  <span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+                  <span style="font-size:12px; font-weight:600;">不要再显示这个信息</span>
                 </a>
               </div>
             </div>
@@ -731,86 +721,82 @@
         <p>
           <label style="font-size:16px;">
             <% if current_user %>
-                Welcome <%= current_user.profile.try(:first_name) %>, let's get started on your next fundraiser
+                欢迎 <%= current_user.profile.try(:first_name) %>, 我们开始您的下一次筹款团队吧
             <% else %>
-                Welcome and Get Started
+                欢迎我们开始吧
             <% end %>
           </label>
         </p>
       </div>
-      <p>Search for your school or group by name or Group ID.</p>
+      <p>通过名字或组织ID搜索您的学校或组织。</p>
 
-      <p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
+      <p>注意：确保您选择的正确的组织（城市和区县列在了组织名称旁边）</p>
 
-      <p>Enter the basic information about your Fundraiser. This information will be displayed on your Fundraising Page
-        and in seller emails.</p>
-      <span>Tips:</span>
+      <p>输入筹款团队的基本信息，这些信息会显示在您的筹款团队的页面上还有卖家的邮件里面。</p>
+      <span>小贴士：</span>
       <ul>
-        <li><span>If you don’t find your group, please contact your sales rep.</span></li>
-        <li><span>Be clear and concise about why you are raising funds, so viewers can easily understand your need for their support.</span>
+        <li><span>如果您找不到您的组织，请联系你的销售代表。</span></li>
+        <li><span>请明确您为什么要筹款，以便人们能够方便理解您需要他们的支持。</span>
         </li>
-        <li><span>Use these fields as a summary. In the next step you will be able to describe your fundraiser in more detail.</span>
+        <li><span>用下面的这些选项作为概要，在下一步您可以更加详细的描述您的筹款团队。</span>
         </li>
       </ul>
     </div>
 
     <div id="camp_step_tips_2" style="display:none;">
-      <p>Tell your supporters the details of your fundraiser. Create your own, or select and edit one of the 4 examples
-        we have provided.</p>
-      <span>Suggestions:</span>
+      <p>告诉您的支持者们您的筹款团队的详情。创建您自己的或者选择下面四个我们提供的例子的其中一个并修改。</p>
+      <span>建议：</span>
       <ul>
-        <li><span>Reiterate what you are raising funds for.</span></li>
-        <li><span>What is your fundraising goal?</span></li>
-        <li><span>Why is this important?</span></li>
-        <li><span>What is the current situation, and how will these funds help?</span></li>
-        <li><span>What is the end result or benefit? (for example, not just a class trip, but an immersive educational experience)</span>
+        <li><span>反复重申您为什么要筹款。</span></li>
+        <li><span>您的筹款目标是什么？</span></li>
+        <li><span>为什么这很重要？</span></li>
+        <li><span>现在的情况是什么，这些筹资款项会如何帮助？</span></li>
+        <li><span>最终的结果和得益是什么？（比如，并不只是一次旅行，而是有深刻教育意义的一次体验）</span>
         </li>
-        <li><span>Any other information you want supporters to know.</span></li>
+        <li><span>如何其他您想要您的支持者知道的信息。</span></li>
       </ul>
-      <span>Tips:</span>
+      <span>小贴士：</span>
       <ul>
-        <li><span>Keep to 3-4 sentences.</span></li>
-        <li><span>Remind supporters that every purchase helps.</span></li>
-        <li><span>Show your appreciation: always close with a “thank you” to your supporters!</span></li>
+        <li><span>控制在三到四句以内。</span></li>
+        <li><span>提醒支持者每次购买都价值。</span></li>
+        <li><span>表达您的赞赏之情，对您的支持者们以“谢谢”作为结尾！</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_3_1" style="display:none;">
-      <p>This is the main image that will be displayed at the very top of your Fundraising Page. We recommend uploading
-        your own photo of your school or group in order to make a personal connection with your supporters.</p>
-      <span>Tips:</span>
+      <p>这是显示在您的筹款页面最顶上的主题图片。我们建议上传您自己学校或组织的照片比便于与您的支持这们建立个人的联系。</p>
+      <span>小贴士：</span>
       <ul>
-        <li><span>You can change this image at any time after your Fundraising Page is created.</span></li>
-        <li><span>The next page will allow you to upload even more photos, if you wish.</span></li>
+        <li><span>在您创建完筹款页面后您可以随时修改这个图片。</span></li>
+        <li><span>下一步会允许您上传更多的图片，如果您需要的话。</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_3_2" style="display:none;">
-      <p>If you have additional photos you want displayed on your Fundraising Page, upload them here.
-        Photos of your group will engage your supporters and help make your fundraiser more successful. We recommend
-        uploading at least one additional photo for your Fundraising Page.</p>
+      <p>如果您有额外的图片需要显示在您的筹款页上的话，就在这里上传。
+        您的组织照片会更容易让您的支持者产生兴趣并帮助筹款活动更加成功。我们建议您至少上传一张额外的照片给你的筹款页面。</p>
 
-      <p>You may skip this step.</p>
-      <span>Tips:</span>
+      <p>您可以跳过这个步骤。</p>
+      <span>小贴士：</span>
       <ul>
-        <li><span>Have fun! Use photos showing your group in action.</span></li>
-        <li><span>You can change your photos or upload additional photos at any time after your Fundraising Page is created.</span>
+        <li><span>玩的开心！用照片生动地展示您的组织。</span></li>
+        <li><span>在您创建完筹款页面后您可以随时修改任何图片或者再上传额外地图片。</span>
         </li>
       </ul>
     </div>
 
     <div id="camp_step_tips_4" style="display:none;">
-      <p>Search for your school or group by name or Group ID.</p>
+      <p>通过名字或组织ID搜索您的学校或组织。</p>
 
-      <p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
-      <span>Tips:</span>
+      <p>注意：确保您选择的正确的组织（城市和区县列在了组织名称旁边）</p>
+      <span>小贴士：</span>
       <ul>
-        <li><span>If you don’t find your group, please contact your sales rep.</span></li>
+        <li><span>如果您找不到您的组织，请联系你的销售代表。</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_5" style="display:none;">
-      <p>Select the product that your group is selling.</p>
+      <p>选择一个您地组织正在销售地产品。</p>
     </div>
 
 <% end %>

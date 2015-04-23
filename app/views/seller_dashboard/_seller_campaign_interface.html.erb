@@ -11,7 +11,7 @@
 		<h4 style="margin-top:10px;"><%= @seller.user_profile.fullname %></h4>
 	</div>
 	<div class="col-sm-7 col-sm-offset-1">
-		<p>Fundraisers I Participate In:</p>
+		<p>我参加的筹款团队：</p>
 		<div class="campaign-callout clearfix" style="margin-bottom: 8px; padding: 10px 10px 10px 10px; border: 1px solid gray; cursor: pointer">
 		    <h4 class="pull-left" style="margin: 0"><%= @seller.campaign.title %></strong></h4>
 		    <div class="pull-right"><span class="glyphicon glyphicon-chevron-down"></span></div>
@@ -31,16 +31,16 @@
 				<tr>
 					<td style="text-align: left">
 			            <p>
-			                <strong>Team Member ID:</strong> <%= @seller.referral_code %>
+			                <strong>成员ID：</strong> <%= @seller.referral_code %>
 							<% if current_user.account_type == 2 || current_user.account_type == 3 %>
 							<br/>
-			                <strong>Grade:</strong> <%= @seller.grade %><br/>
-			                <strong>Homeroom:</strong> <%= @seller.homeroom %>
+			                <strong>年级：</strong> <%= @seller.grade %><br/>
+			                <strong>班主任：</strong> <%= @seller.homeroom %>
 							<% end %>
 			            </p>
 					</td>
 					<td style="text-align: right; vertical-align: top">
-						<a href="<%= short_campaign_path(@seller.campaign, seller: @seller.referral_code) %>">VIEW YOUR FUNDRAISER PAGE</a>
+						<a href="<%= short_campaign_path(@seller.campaign, seller: @seller.referral_code) %>">浏览您的筹款页面</a>
 					</td>
 				</tr>
 			</table>
@@ -70,8 +70,8 @@
 				<div class="row">
                     <div class="col-md-8 raised-count-box">
 						<div class="raised-count">
-							<label>$<%= short_price(@seller.campaign.raised) %>
-							</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+							<label>￥<%= short_price(@seller.campaign.raised) %>
+							</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
 						</div>
 						
 						<% if @seller.campaign.goal.nil? %>
@@ -82,7 +82,7 @@
 	                        </div>
 	                    </div>
 	                    <p class="goal">
-	                        Group GOAL: $<%= short_price( @seller.campaign.goal.nil? ? 0 : @seller.campaign.goal) %>
+	                        组织目标： $<%= short_price( @seller.campaign.goal.nil? ? 0 : @seller.campaign.goal) %>
 	                    </p>
 						<% end %>
 					</div>
@@ -93,7 +93,7 @@
 	                            <%= @seller.campaign.days_remaining %>
 	                        </p>
 	                        <p class="days-title">
-	                            days left
+	                            剩余天数
 	                        </p>
 	                    </div>
 						<% end %>
@@ -103,13 +103,13 @@
 					<table class="campaign-people-box">
 						<tr>
 							<td class="campaign-people-col first-col">
-								Supporters&nbsp;<span class="badge"><%= @seller.campaign.supporters %></span>
+								支持者数&nbsp;<span class="badge"><%= @seller.campaign.supporters %></span>
 							</td>
 							<td class="campaign-people-col middle-col">
-								Team&nbsp;<span class="badge"><%= @seller.campaign.sellers.count %></span>
+								成员数&nbsp;<span class="badge"><%= @seller.campaign.sellers.count %></span>
 							</td>
 							<td class="campaign-people-col">
-								Orders&nbsp;<span class="badge"><%= @seller.campaign.completed %></span>
+								订单数&nbsp;<span class="badge"><%= @seller.campaign.completed %></span>
 							</td>
 						</tr>
 					</table>
@@ -121,17 +121,17 @@
 
 <div id="navigations" role="navigation" style="min-height:200px;">
 	<ul class="nav nav-tabs">
-	  <li href="#nav-share" class="active"><a style="cursor:pointer;">Share</a></li>
-	  <li href="#nav-contacts"><a style="cursor:pointer;">Import Contacts</a></li>
-	  <li id="li-nav-emails" href="#nav-emails"><a style="cursor:pointer;">Email Your Contacts</a></li>
-	  <li href="#nav-activities"><a style="cursor:pointer;">My Activities</a></li>
+	  <li href="#nav-share" class="active"><a style="cursor:pointer;">分享</a></li>
+	  <li href="#nav-contacts"><a style="cursor:pointer;">导入联系人</a></li>
+	  <li id="li-nav-emails" href="#nav-emails"><a style="cursor:pointer;">给您的联系人发邮件</a></li>
+	  <li href="#nav-activities"><a style="cursor:pointer;">我的动态</a></li>
 	</ul>
 	
 	<div id="nav-share" class="nav-content" style="display: block;">
 		<div class="seller-share-links">
 		    <div class="row">
 		        <div class="col-md-12">
-		            <p>Share this link with friends and family!</p>
+		            <p>分享这链接给朋友和家人！</p>
 		            <input class="form-control" value="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>" readonly>
 		            <div class="share-links" style="margin-top: 20px;">
 		                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>"><%= image_tag 'fb.png' %> Share</a>

@@ -7,7 +7,7 @@
             <div class="row" style="margin-top:10px;">
                 <div class="col-md-12">
 					<% if @campaign.orders.completed.count > 0 %>
-						<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>Add Offline Order</span></button>
+						<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
 					
 						<div style="text-align:right;">
 							<a href="<%= dashboard_campaign_orders_download_path(@campaign) %>" target="_blank">Download</a>
@@ -18,11 +18,11 @@
 					
 					<% else %>
 						<div style="text-align: center;">
-							You don't have any orders! Once your supporters make purchases - you'll see them appear here.
+							您还没有任何订单！当您的支持者有购买之后 － 您就会看到它们显示在这里。
 						</div>
 						
 						<div style="text-align: center; margin-top:20px;">
-							<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>Add Offline Order</span></button>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
 						</div>
 					<% end %>
                 </div>

@@ -8,23 +8,23 @@
             <div class="row">
                 <div class="col-md-12">
 					<% if @sellers && @sellers.count>0 %>
-						<p><strong>Activities Report</strong></p>
+						<p><strong>情况报表</strong></p>
 	                    <div style="width:100%; max-height:560px; overflow:auto;">
 	                        <table class="table table-hover">
 	                            <thead>
 	                                <tr>
 										<th></th>
-	                                    <th>Name</th>
-	                                    <th>Parent</th>
-	                                    <th>Email</th>
-	                                    <th>Member ID</th>
-	                                    <th>Total Sales</th>
-	                                    <th>Total Raised</th>
-										<th># of orders</th>
-										<th># of logins</th>
-							            <th># of emails sent</th>
-							            <th># of share</th>
-							            <th># of tweets</th>
+	                                    <th>姓名</th>
+	                                    <th>父母</th>
+	                                    <th>邮箱</th>
+	                                    <th>成员ID</th>
+	                                    <th>销售总数</th>
+	                                    <th>筹款总数</th>
+										<th>订单数</th>
+										<th>登录次数#</th>
+							            <th>邮件发出次数#</th>
+							            <th>分享次数#</th>
+							            <th>tweets次数</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -56,7 +56,7 @@
 	                    </div>
 					<% else %>
 						<div style="width:100%; text-align: center;">
-							You don't have any sellers! Once your sellers join - you'll see them appear here.
+							您还没有任何销售人员！当您的销售人员加入之后，您就会看到他们显示在这里。
 						</div>
 					<% end %>
                 </div>

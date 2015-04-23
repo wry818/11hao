@@ -9,8 +9,8 @@
             <div class="row">
 				<div class="col-xs-8" style="padding:0px;">
 					<div class="raised-count">
-						<label>$<%= short_price(@campaign.raised) %>
-						</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+						<label>￥<%= short_price(@campaign.raised) %>
+						</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
 					</div>
 	                <% if @campaign.goal.present? %> 
 	                    <div class="progress">
@@ -18,7 +18,7 @@
 	                        </div>
 	                    </div>
 	                    <p class="goal" style="margin-top:10px;">
-	                        OVERALL GOAL: $<%= short_price(@campaign.goal) %>
+	                        总体目标：￥<%= short_price(@campaign.goal) %>
 	                    </p> 
 	                <% end %>
 				</div>
@@ -30,7 +30,7 @@
                             <%= @campaign.days_remaining %>
                         </p>
                         <p class="days-title">
-                            days left
+                            剩余天数
                         </p>
                     </div>
                 </div>
@@ -44,11 +44,11 @@
 		<% else %>
 	        <a href="<%= shop_path(@campaign) %>" role="button" class="btn btn-block btn-lg btn-primary cta-btn" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
 	            <%= @campaign.call_to_action %>
-	            <p>to support this fundraiser</p>
+	            <p>以支持这个筹款团队</p>
 	        </a>
 			
 	        <p class="donation-percentage">
-	            Every purchase benefits
+	            每次购买受益于
 				<br/>
 				<% if @organization_campaign %>
 					<%= link_to @campaign.organization.name, short_campaign_path(@organization_campaign) %>
@@ -59,7 +59,7 @@
 		<% end %>
 
 	        <hr/>
-	        <p>Free Shipping!</p>
+	        <p>免运费！</p>
 			
 		<% unless @campaign.ent_campaign? || @campaign.collection_id == 0 || !@campaign.allow_direct_donation? %> 
 	        <hr/>
@@ -72,9 +72,9 @@
     <% if @campaign.organizer %>
     <div class="organizer">
         <div class="clearfix">
-            <h3 class="pull-left">Organizer</h3>
+            <h3 class="pull-left">组织者</h3>
             <% if @campaign.organizer == current_user %>
-            <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span> edit</a>
+            <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span> 编辑</a>
             <% end %>
         </div>
         <div class="row">
@@ -90,7 +90,7 @@
                     <%= @campaign.organizer.profile.display_name || @campaign.organizer.profile.fullname %><br/>
                     <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
                 </p>
-                <a href="mailto:<%= @campaign.organizer.email %>" class="contact"><span class="glyphicon glyphicon-envelope"></span> Contact me</a>
+                <a href="mailto:<%= @campaign.organizer.email %>" class="contact"><span class="glyphicon glyphicon-envelope"></span> 联系我</a>
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
 
     <div class="share-buttons">
         <p style="text-align: center">
-            Please help us by sharing!
+            请通过分享帮助我们！
         </p>
         <div class="clearfix" style="width: 168px; margin: auto">
             <div class="share-button facebook">

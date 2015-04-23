@@ -1,7 +1,7 @@
 <div id="campaign-edit">
     <div class="container">
         <div class="campaign-edit-header">
-			<h3>Your fundraiser <strong><%= @campaign.title %></strong></h3>
+			<h3>您的筹款团队 <strong><%= @campaign.title %></strong></h3>
         </div>
 		<div id="contacts-show">
 	        <div class="container-box top-section">
@@ -18,17 +18,17 @@
 				</div>
 			
 				<div class="form-group">
-					<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">7</span>Invite Your Sellers to Join!&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+					<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">7</span>邀请您的销售人员加入吧！&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
 				</div>
 				
 				<div id="search-contacts-box" class="search-contacts-box">
 					<div class="row header">
 						<div class="col-md-12">
-							<h4>Import Your Contacts</h4>
+							<h4>导入您的联系人</h4>
 						</div>
 					</div>
 		        	<div>
-						<h5>Search your address book for friends</h5>
+						<h5>通过地址薄搜寻您的朋友</h5>
 					</div>
 					<div class="row item">
 						<div class="col-md-9">
@@ -52,13 +52,13 @@
 						</div>
 						<div class="col-md-3" style="display:none;">
 							<button id="btnMyContacts" class="btn btn-primary" type="button" style="margin-top:10px; width:100%;">
-								<span class="text">My Contacts</span>
+								<span class="text">我的联系人</span>
 							</button>
 						</div>
 					</div>
 		        	<div>
 						<p style="padding-top: 10px; font-size: 12px">
-							Choosing a service will open a window for you to log in securely and import your contacts to Raisy. You'll only find users who have allowed their accounts to be found by email address. We won't email anyone without your consent.</p>
+							选择一个服务会弹出一个窗口让您安全登录并导入您的联系人到11号公益圈。您只能找到那些允许通过搜寻邮箱能找到他们的用户。不经过您的准许我们不会发邮件给任何人。</p>
 					</div>
 				</div>	<!-- search-contacts-box -->
 				
@@ -72,17 +72,17 @@
 								<%= image_tag "facebook-icon.png", class: "contacts-icon contacts-icon-facebook", style: "display:none;" %>
 								&nbsp;<b id="provider_contacts_label" style="font-size:16px;">Contacts</b>&nbsp;&nbsp;&nbsp;
 								<a id="btnTryAnotherService" href="javascript:void(0);">
-									Back
+									后退
 								</a>
 							</div>
 							<div class="sub-header">
 								<div class="left-col">
 									<p>
-										Here are <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
+										下面是 <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
 									</p>
 								</div>
 								<div class="select-all-box">
-									<span>Select all</span>
+									<span>全选</span>
 									<input id="cbxSelectAll" type="checkbox" />
 								</div>
 							</div>
@@ -93,7 +93,7 @@
 					<div class="footer">
 						<div class="send-email-box">
 							<a id="btnImportContact" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
-								<span class="text">Import Contacts</span>
+								<span class="text">导入联系人</span>
 								<span class="loader" style="display:none"></span>
 							</a>
 						</div>
@@ -102,7 +102,7 @@
 	        
 				<div id="contacts-list-box">
 					<div style="margin-top:15px;">
-						<label style="font-size:18px;">Or Enter Contacts Individually</label>
+						<label style="font-size:18px;">或者单独地输入联系人</label>
 						&nbsp;&nbsp;&nbsp;
 						<!-- <label class="glyphicon glyphicon-plus-sign show_tooltip" data-title="Add Contact" style="cursor:pointer; font-size:22px; vertical-align:top;" onclick="Raisy.users.addNewContactClick();"></label> -->
 					</div>
@@ -111,10 +111,10 @@
 						<table class="table table-hover contact-table" style="<%= 'display:none;' if @contacts.count==0 %>">
 							<thead>
 								<tr>
-									<th>First Name</th>
-									<th>Last Name</th>
-									<th><span class="show_tooltip" data-title="What you will call this person in the email (e.g. Grandma)">Greeting&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
-									<th>Email</th>
+									<th>姓</th>
+									<th>名</th>
+									<th><span class="show_tooltip" data-title="在邮件里您怎么称呼这个人 （比如：外婆）">称呼&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
+									<th>邮箱</th>
 									<th></th>
 									<th></th>
 									<th></th>
@@ -128,15 +128,15 @@
 										<input type="hidden" class="contact-media-id" value="<%= contact.media_id %>" />
 								
 										<span class="contact-item-text contact-firstname-text"><%= contact.first_name %></span>
-										<input type="text" class="form-control contact-update-input contact-firstname-input" value="<%= contact.first_name %>" maxlength="50" placeholder="e.g. John" />
+										<input type="text" class="form-control contact-update-input contact-firstname-input" value="<%= contact.first_name %>" maxlength="50" placeholder="比如： 张" />
 									</td>
 									<td style="width:160px;">
 										<span class="contact-item-text contact-lastname-text"><%= contact.last_name %></span>
-										<input type="text" class="form-control contact-update-input contact-lastname-input" value="<%= contact.last_name %>" maxlength="50" placeholder="e.g. Smith" />
+										<input type="text" class="form-control contact-update-input contact-lastname-input" value="<%= contact.last_name %>" maxlength="50" placeholder="比如： 鹏" />
 									</td>
 									<td style="width:160px;">
 										<span class="contact-item-text contact-greetings-text"><%= contact.greetings %></span>
-										<input type="text" class="form-control contact-update-input contact-greetings-input" value="<%= contact.greetings %>" maxlength="50" placeholder="e.g. Grandma" />
+										<input type="text" class="form-control contact-update-input contact-greetings-input" value="<%= contact.greetings %>" maxlength="50" placeholder="比如： 外婆" />
 									</td>
 									<td>
 										<span class="contact-item-text contact-email-text"><%= contact.email_address %></span>
@@ -159,17 +159,17 @@
 				<div class="row web-box">
 					<div class="col-sm-5 backbutton-box">
 						<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_preview_path(@campaign) %>';">
-							<span class="text">Back</span>
+							<span class="text">后退</span>
 						</button>
 					</div>
 					<div class="col-sm-3 continuebutton-box">
 						<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-							<span class="text">Skip this step</span>
+							<span class="text">跳过这步</span>
 						</button>
 					</div>
 					<div class="col-sm-3 continuebutton-box">
 						<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-							<span class="text">Continue</span>
+							<span class="text">继续</span>
 						</button>
 					</div>
 				</div>	<!-- web-box -->
@@ -177,17 +177,17 @@
 				<div class="row mobile-box">
 					<div class="col-sm-5 backbutton-box">
 						<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-							<span class="text">Continue</span>
+							<span class="text">继续</span>
 						</button>
 					</div>
 					<div class="col-sm-3 continuebutton-box">
 						<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-							<span class="text">Skip this step</span>
+							<span class="text">跳过这步</span>
 						</button>
 					</div>
 					<div class="col-sm-3 continuebutton-box">
 						<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_preview_path(@campaign) %>';">
-							<span class="text">Back</span>
+							<span class="text">后退</span>
 						</button>
 					</div>
 				</div>	<!-- mobile-box -->
@@ -201,24 +201,24 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Harness the power of sharing! Let us help you get the word out to your fundraising team. You can now invite your sellers/group members to join your <%= @campaign.title %> online fundraiser. They will then set up their own pages in order to reach out to supporters and sell products online!
+				<p>利用分享的力量！让我们帮助您宣传您的筹款团队。您现在就可以邀请您的销售人员／组织成员来加入您的 <%= @campaign.title %> 线上筹款团队。他们会创建他们自己的页面以便联系支持这并线上销售商品！
 </p>
-				<p>Easily select which group members to import from your address book, or select “Enter Contacts Individually“ to type in the name and email address of each member.</p>
-				<p>On the next step, you will edit the email that will be sent to these members.</p>
-				<p>Note: before you send an email, you will be able to select exactly which of your contacts will receive it.</p>
-				<span>Tips:</span>
+				<p>只要从您的地址薄选择那些需要导入的组织成员，或者选择“单独地输入联系人”来给没给成员输入姓名和邮件地址。</p>
+				<p>在下一步，你要编辑发给这些成员的邮箱。</p>
+				<p>注意: 在你发送邮件之情，你可以具体选择哪些联系人会收到邮件。</p>
+				<span>小贴士：</span>
 				<ul>
-					<li><span>The sooner you reach out to your group members and ask them to set up their online fundraising pages, the more money you can raise! Invite as many members as possible today!</span></li>
-					<li><span>If you don’t have the email addresses of everyone in your group, the next step allows you to share a link via social media.</span></li>
+					<li><span>越早联系您的组织成员并让他们创建他们自己的筹款页面，就会筹集越多的款项，尽可能邀请更多的成员！</span></li>
+					<li><span>如果你没有您每个组织成员的邮箱地址，下一步能允许您通过社交媒体分享链接。</span></li>
 				</ul>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_camp_step_tips_container">
 						<a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不要再显示这个信息</span>
 						</a>
 					</div>
 				</div>

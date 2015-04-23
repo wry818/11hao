@@ -73,11 +73,11 @@
 	                            <div class="featured-items">
 	                                <div class="featured-items-header clearfix">
 	                                    <h4 class="pull-left">
-	                                        Featured Items
+	                                        推荐商品
 	                                    </h4>
 	                                    <h4 class="pull-right">
 	                                        <a href="<%= shop_path(@campaign) %>" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %>>
-	                                            View all items
+	                                            查看所有商品
 	                                        </a>
 	                                    </h4>
 	                                </div>
@@ -96,21 +96,21 @@
 														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
 														<% if price_range[:is_discount] %>
 															<% if price_range[:same_discount_price] %>
-																$<%= long_price(price_range[:discount_min]) %>
+																￥<%= long_price(price_range[:discount_min]) %>
 															<% else %>
-																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
 															<% end %> / 
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
-																$<%= long_price(price_range[:min]) %>
+																￥<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
 															<% end %></span>
 														<% else %>
 															<% if price_range[:same_price] %>
-																$<%= long_price(price_range[:min]) %>
+																￥<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
 															<% end %>
 														<% end %>
 		                                            </p>
@@ -129,21 +129,21 @@
 														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
 														<% if price_range[:is_discount] %>
 															<% if price_range[:same_discount_price] %>
-																$<%= long_price(price_range[:discount_min]) %>
+																￥<%= long_price(price_range[:discount_min]) %>
 															<% else %>
-																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
 															<% end %> / 
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
-																$<%= long_price(price_range[:min]) %>
+																￥<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
 															<% end %></span>
 														<% else %>
 															<% if price_range[:same_price] %>
-																$<%= long_price(price_range[:min]) %>
+																￥<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
 															<% end %>
 														<% end %>
 		                                            </p>

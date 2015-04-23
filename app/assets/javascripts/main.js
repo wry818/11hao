@@ -346,7 +346,7 @@ window.Raisy = {
                 $('#user_modal_signup').show();
                 $('#user_modal_signin').hide();
             } else {
-                $('#user_modal .modal-title').text('Sign in to Raisy');
+                $('#user_modal .modal-title').text('登录11号公益圈');
                 $('#user_modal_signup').hide();
                 $('#user_modal_signin').show();
             }

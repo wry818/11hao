@@ -282,9 +282,9 @@ Raisy.shop = {
         //Update the cart count on the show page
         var num_items = $('#checkout-modal .items').attr('data-total');
         if(num_items == 1) {
-            $('#cart-count').html(num_items + ' item');
+            $('#cart-count').html(num_items + ' 件商品');
         } else {
-            $('#cart-count').html(num_items + ' items');
+            $('#cart-count').html(num_items + ' 件商品');
         }
         if(num_items > 0) {
             $('.view-cart').html('View/Checkout');

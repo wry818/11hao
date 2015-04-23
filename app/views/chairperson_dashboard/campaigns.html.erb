@@ -1,16 +1,16 @@
 <div id="chairperson_dashboard" class="dashboard-index">
     <div class="container">
 			<% if @cp_param=="" %>
-				<h3>Your Fundraisers</h3>
+				<h3>您的筹款团队列表</h3>
 			<% else %>
-				<h3>Fundraisers</h3>
+				<h3>筹款团队列表</h3>
 			<% end %>
 		
 		<% if @cp_param!="" && (current_user.is_sales? || current_user.is_crs? || current_user.admin?) %>
 			<div class="row" >
 				<div class="col-sm-5" style="margin-bottom:10px;">
 					<select id="sales_organization_selector" style="width:100%;">
-						<option value="">All Organizations</option>
+						<option value="">所有公益组织</option>
 						<% @organizations.each do |org| %>
 						<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
 							<%= org.name %>
@@ -19,7 +19,7 @@
 					</select>
 				</div>
 				<div class="col-sm-7">
-					<p style="font-size:16px; text-align:right;">Total Orders: <%= @total_orders %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total Sales: $<%= long_price(@total_sales) %></p>
+					<p style="font-size:16px; text-align:right;">订单总数： <%= @total_orders %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售总数： $<%= long_price(@total_sales) %></p>
 				</div>
 			</div>
 		<% end %>
@@ -49,11 +49,11 @@
                             <h4 style="word-wrap:break-word;"><%= campaign.title %></h4>
                             <a href="<%= dashboard_campaign_details_path(campaign) %>" class="btn btn-info">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Edit Details
+                                编辑明细
                             </a>
                             <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-info">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                Manage
+                                管理
                             </a>
                         </div>
 						<div class="col-md-5 campaign-info-box">
@@ -61,8 +61,8 @@
 								<div class="row">
 				                    <div class="col-md-8 raised-count-box">
 										<div class="raised-count">
-											<label>$<%= short_price(campaign.raised) %>
-											</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+											<label>￥<%= short_price(campaign.raised) %>
+											</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
 										</div>
 										
 										<% if campaign.goal.nil? %>
@@ -94,13 +94,13 @@
 									<table class="campaign-people-box">
 										<tr>
 											<td class="campaign-people-col first-col">
-												Supporters&nbsp;<span class="badge"><%= campaign.supporters %></span>
+												支持者数&nbsp;<span class="badge"><%= campaign.supporters %></span>
 											</td>
 											<td class="campaign-people-col middle-col">
-												Team&nbsp;<span class="badge"><%= campaign.sellers.count %></span>
+												团队数&nbsp;<span class="badge"><%= campaign.sellers.count %></span>
 											</td>
 											<td class="campaign-people-col">
-												Orders&nbsp;<span class="badge"><%= campaign.completed %></span>
+												订单数&nbsp;<span class="badge"><%= campaign.completed %></span>
 											</td>
 										</tr>
 									</table>

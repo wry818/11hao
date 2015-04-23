@@ -1,7 +1,7 @@
 <div id="campaign-edit">
     <div class="container">
         <div class="campaign-edit-header">
-			<h3>Your fundraiser <strong><%= @campaign.title %></strong></h3>
+			<h3>您的筹款团队 <strong><%= @campaign.title %></strong></h3>
         </div>
         <div class="container-box top-section">
 			<div class="step-nav-bar">
@@ -16,17 +16,17 @@
 				<div id="step_nav_icon_9" class="step-nav-icon"></div>
 			</div>
 			
-			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">6</span>Preview Your Fundraiser Page&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">6</span>预览您的筹款页面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
 			
 			<div style="text-align:center; margin-top:30px;">
 				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=short_campaign_path(@campaign)%>');">
-					<span class="text">Preview</span>
+					<span class="text">预览</span>
 				</button>
 			</div>
 			
 			<div style="text-align:center; margin-top:30px;">
 				<button class="btn btn-primary btn-lg camp-next-btn" type="button" onclick="window.location.href='<%=campaign_contacts_path(@campaign)%>';">
-					<span class="text">Continue</span>
+					<span class="text">继续</span>
 				</button>
 			</div>
         </div>
@@ -36,16 +36,16 @@
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-body">
-					<p>Congratulations! You’ve successfully created your group’s fundraising page. You may view your page right now by clicking the “Preview“ button. Remember, once you complete these next steps, you will be able to edit your fundraising page at any time by clicking “Edit This Fundraiser“.</p>
-					<p>These next steps will assist you in inviting your group members to join your online fundraiser. Once they set up their own pages they can begin reaching out to supporters and selling products online!</p>
+					<p>恭喜！您已经成功创建了您组织的筹款页。你可以通过点击“预览”按钮来浏览您的页面。请记住，在您完成了这些步骤后，您就可以在任何时间通过点击”编辑这个筹款团队“编辑您的筹款页面。</p>
+					<p>下面的这些步骤会帮助您邀请您的组织成员加入您的线上筹款团队。当他们创建了他们自己的页面后他们就能开始联系支持者们并开始线上销售商品！</p>
 				</div>	<!-- end of modal body -->
 			
 		        <div class="modal-footer">
 					<div style="position:relative; text-align:center;">
-						<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 						<div class="hide_camp_step_tips_container">
 							<a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
-								<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+								<span style="font-size:12px; font-weight:600;">不要再显示这信息</span>
 							</a>
 						</div>
 					</div>

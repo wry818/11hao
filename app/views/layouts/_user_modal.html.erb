@@ -106,24 +106,24 @@
             <div id="user_modal_signin">
                 <div class="modal-body">
                     <p style="margin-bottom: 20px;">
-                        Welcome back!
+                        欢迎回来！
                     </p>
                     <div class="row">
                         <div class="col-md-6" style="border-right: 2px solid #eee;"> 
                             <%= form_for(User.new, url: user_session_path, html: { id: "exist_user_form" } ) do |f| %>
 							<div class="col-md-12">
                                 <div class="form-group"> 
-                                    <%= f.label :email %>
-                                    <%= f.email_field :email, autofocus: true, class: "form-control old-user-email", placeholder: "Enter email", autocomplete: "off" %> 
+									<label>邮箱</label>
+                                    <%= f.email_field :email, autofocus: true, class: "form-control old-user-email", placeholder: "请输入邮箱", autocomplete: "off" %> 
                                 </div>
 
                                 <div class="form-group"> 
-                                    <%= f.label :password %>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:12px;"><%= link_to "Forgot your password?", "/users/password/new", style: "text-decoration:none;" %></span>
-                                    <%= f.password_field :password, class: "form-control old-user-password", placeholder: "Enter password", autocomplete: "off" %> 
+                                    <label>密码</label>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:12px;"><%= link_to "忘记密码？", "/users/password/new", style: "text-decoration:none;" %></span>
+                                    <%= f.password_field :password, class: "form-control old-user-password", placeholder: "请输入密码", autocomplete: "off" %> 
                                 </div>
 							
 								<div class="form-group" style="text-align:center; margin-top:30px;">
-									 <%= f.submit "Sign In", class: "btn btn-primary", style: "width:180px; height:40px; font-size:16px;", onclick: "return Raisy.verify_user(true, $('.old-user-email').val(), $('.old-user-password').val());" %><span class="loader" style="display:none"></span>
+									 <%= f.submit "登录", class: "btn btn-primary", style: "width:180px; height:40px; font-size:16px;", onclick: "return Raisy.verify_user(true, $('.old-user-email').val(), $('.old-user-password').val());" %><span class="loader" style="display:none"></span>
 								</div> 
 							</div>
                             <% end %>

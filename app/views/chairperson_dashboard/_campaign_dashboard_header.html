@@ -2,7 +2,7 @@
     <div class="container">
         <div class="dashboard-header-box">
 			<% if current_user.id == @campaign.organizer_id %>
-				<h2 style="font-weight: bold; margin-top:10px;">Chairperson Toolbox</h2>
+				<h2 style="font-weight: bold; margin-top:10px;">组织主席工具箱</h2>
 			<% end %>
 			
 			<div class="row" style="margin-top:15px;">
@@ -18,7 +18,7 @@
 			
 				<div class="col-sm-7 col-sm-offset-1">
 					<% if current_user.id == @campaign.organizer_id %>
-						<p>My Fundraisers:</p>
+						<p>我的筹款团队列表：</p>
 					<% else %>
 						<% if @campaign.ent_campaign? %>
 						<p>Group Storefronts:</p>
@@ -41,7 +41,7 @@
 					    </div>
 					</div>
 					<div style="margin-top:15px; text-align:right;">
-						<a href="<%= short_campaign_path(@campaign) %>">VIEW YOUR FUNDRAISER PAGE</a>
+						<a href="<%= short_campaign_path(@campaign) %>">浏览您的筹款页面</a>
 					</div>
 				</div>
 			</div>
@@ -70,8 +70,8 @@
 							<div class="row">
 			                    <div class="col-md-8 raised-count-box">
 									<div class="raised-count">
-										<label>$<%= short_price(@campaign.raised) %>
-										</label>&nbsp;&nbsp;<span>in online sales, thru this site alone</span>
+										<label>￥<%= short_price(@campaign.raised) %>
+										</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
 									</div>
 						
 									<% if @campaign.goal.nil? %>
@@ -82,7 +82,7 @@
 				                        </div>
 				                    </div>
 				                    <p class="goal">
-				                        GOAL: $<%= short_price( @campaign.goal.nil? ? 0 : @campaign.goal) %>
+				                        目标： ￥<%= short_price( @campaign.goal.nil? ? 0 : @campaign.goal) %>
 				                    </p>
 									<% end %>
 								</div>
@@ -93,7 +93,7 @@
 				                            <%= @campaign.days_remaining %>
 				                        </p>
 				                        <p class="days-title">
-				                            days left
+				                            剩余天数
 				                        </p>
 				                    </div>
 									<% end %>
@@ -103,13 +103,13 @@
 								<table class="campaign-people-box">
 									<tr>
 										<td class="campaign-people-col first-col">
-											Supporters&nbsp;<span class="badge"><%= @campaign.supporters %></span>
+											支持者数&nbsp;<span class="badge"><%= @campaign.supporters %></span>
 										</td>
 										<td class="campaign-people-col middle-col">
-											Team&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
+											成员数&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
 										</td>
 										<td class="campaign-people-col">
-											Orders&nbsp;<span class="badge"><%= @campaign.completed %></span>
+											订单数&nbsp;<span class="badge"><%= @campaign.completed %></span>
 										</td>
 									</tr>
 								</table>
@@ -123,33 +123,33 @@
         <ul class="nav nav-tabs">
             <li class="<%= 'active' if active == :home %>">
                 <a href="<%= dashboard_campaign_path(@campaign) %>">
-                    <span class="glyphicon glyphicon-th"></span> Share
+                    <span class="glyphicon glyphicon-th"></span> 分享
                 </a>
             </li>
             <li class="<%= 'active' if active == :contacts %>">
-                <a href="<%= dashboard_campaign_contacts_path(@campaign) %>">Import Contacts</a>
+                <a href="<%= dashboard_campaign_contacts_path(@campaign) %>">导入联系人</a>
             </li>
             <li class="<%= 'active' if active == :sendmails %>">
-                <a href="<%= dashboard_campaign_sendmails_path(@campaign) %>">Email Your Contacts</a>
+                <a href="<%= dashboard_campaign_sendmails_path(@campaign) %>">跟联系人发邮件</a>
             </li>
             <li class="<%= 'active' if active == :sellers %>">
                 <a href="<%= dashboard_campaign_sellers_path(@campaign) %>">
-                    Team Members
+                    成员数量
                     <span class="badge"><%= @campaign.sellers.count %></span>
                 </a>
             </li>
             <li class="<%= 'active' if active == :orders %>">
                 <a href="<%= dashboard_campaign_orders_path(@campaign) %>">
-                    View Orders
+                    浏览订单
                     <span class="badge"><%= @campaign.completed %></span>
                 </a>
             </li>
             <li class="<%= 'active' if active == :details %>">
-                <a href="<%= dashboard_campaign_details_path(@campaign) %>">Edit Fundraiser Details</a>
+                <a href="<%= dashboard_campaign_details_path(@campaign) %>">编辑筹款团队明细</a>
             </li>
 			<% if (current_user.is_crs? || current_user.admin?) && @campaign.any_bulkshipping_product? %>
 	            <li class="<%= 'active' if active == :bulkshippinginfo %>">
-	                <a href="<%= dashboard_campaign_bulkshippinginfo_path(@campaign) %>">Edit Bulk Shipping Info</a>
+	                <a href="<%= dashboard_campaign_bulkshippinginfo_path(@campaign) %>">编辑大量运送信息</a>
 	            </li>
 			<% end %>
         </ul>

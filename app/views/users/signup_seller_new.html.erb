@@ -1,14 +1,14 @@
 <div id="signup" class="signup" style="background: whitesmoke;">
 	<div class="container container-background">
 		<div style="margin-bottom: 30px;"></div>
-		<div><h3>Join the fundraising team for <strong><%= @campaign.title %></strong></h3>
+		<div><h3>加入筹款团队<strong><%= @campaign.title %></strong></h3>
 		</div>
 		<div class="container-box">
 			<% if @campaign.expired? || !@campaign.active %>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-8 col-sm-offset-2" style="text-align:center;">
-							<label>Sorry, this fundraiser has ended.</label>
+							<label>抱歉，这个筹款团队已经结束。</label>
 						</div>
 					</div>
 				</div>
@@ -17,14 +17,14 @@
 					<div class="row">
 						<div class="col-sm-4 col-sm-offset-4" style="text-align:center;">
 							<% if current_user && current_user.profile.seller(@campaign) %>
-					      <div><%= link_to "Go to my dashboard", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
+					      <div><%= link_to "跳转到我的仪表", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
 					      </div>
 							<% else %>
 								<% if current_user && current_user.any_seller? %>
-						      <div><%= link_to "Go to my dashboard", seller_dashboard_path, class: "btn btn-primary btn-block" %>
+						      <div><%= link_to "跳转到我的仪表", seller_dashboard_path, class: "btn btn-primary btn-block" %>
 						      </div>
 								<% else %>
-						      <div><%= link_to "View fundraiser page", short_campaign_path(@campaign), class: "btn btn-primary btn-block" %>
+						      <div><%= link_to "浏览筹款页面", short_campaign_path(@campaign), class: "btn btn-primary btn-block" %>
 						      </div>
 								<% end %>
 							<% end %>
@@ -42,7 +42,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-8 col-sm-offset-2" style="text-align:center;">
-											<label>You have already joined this fundraiser!</label>
+											<label>您已经加入了这个筹款团队！</label>
 										</div>
 									</div>
 								</div>
@@ -50,7 +50,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-4 col-sm-offset-4" style="text-align:center;">
-								      <div><%= link_to "Go to your dashboard", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
+								      <div><%= link_to "跳转到我的仪表", seller_dashboard_referral_code_path(current_user.profile.seller(@campaign).referral_code), class: "btn btn-primary btn-block" %>
 								      </div>
 										</div>
 									</div>
@@ -59,7 +59,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-6 col-sm-offset-3">
-											<label>Logged in as <%=current_user.profile.fullname%>.</label>
+											<label>以<%=current_user.profile.fullname%>登录。</label>
 										</div>
 									</div>
 								</div>
@@ -70,7 +70,7 @@
 											<div class="row">
 												<div class="col-sm-8 col-sm-offset-3">
 		                      <div class="form-group">
-		                          To join this fundraiser, please provide your current grade and group leader.
+		                          为了加入这个筹款团队，请提供您的年级和组织领队。
 		                      </div>
 												</div>
 											</div>
@@ -79,10 +79,10 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-3 col-sm-offset-1 control-div">
-													<label class="control-label">Grade</label>
+													<label class="control-label">年级</label>
 												</div>
 												<div class="col-sm-5">
-													<input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+													<input type="text" name="seller[grade]" class="form-control" placeholder="年级">
 												</div>
 											</div>
 										</div>
@@ -90,10 +90,10 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-3 col-sm-offset-1 control-div">
-													<label class="control-label">Group Leader</label>
+													<label class="control-label">组织领队</label>
 												</div>
 												<div class="col-sm-5">
-													<input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+													<input type="text" name="seller[homeroom]" class="form-control" placeholder="班主任，教练，领队等等">
 												</div>
 											</div>
 										</div>
@@ -106,7 +106,7 @@
 										<div class="row">
 											<div class="col-sm-5 col-sm-offset-4">
 										      <button type="submit" class="btn btn-primary btn-block">
-										          <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+										          <span class="text">加入这个筹款团队</span><span class="loader" style="display:none"></span>
 										      </button>
 											</div>
 										</div>
@@ -117,7 +117,7 @@
 									<div class="row">&nbsp;</div>
 									<div class="row">
 										<div class="col-sm-6 col-sm-offset-3">
-								      	  <div>Not <%=current_user.profile.fullname%>? <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+								      	  <div>Not <%=current_user.profile.fullname%>? <%= link_to "退出", destroy_user_session_path, method: :delete%>
 										  </div>
 								  		</div>
 									</div>
@@ -133,7 +133,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-2">
-										<label>Logged in as <%=current_user.profile.fullname%>.</label>
+										<label>以<%=current_user.profile.fullname%>登录</label>
 									</div>
 								</div>
 							</div>
@@ -141,7 +141,7 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-7 col-sm-offset-2"> 
-	                      To join this fundraiser, please choose an existing member from your account, or create a new one. 
+	                      为了加入这个筹款团队，请从您的帐户选择已存在的成员，或者创建一个新的。
 									</div>
 								</div>
 							</div>
@@ -150,7 +150,7 @@
 							 
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-2">
-										<label><input type="radio" name="post_seller_type" onclick="Raisy.users.showExistingSeller('1');" checked="checked" value="1" />&nbsp;&nbsp;Join with an existing member</label>
+										<label><input type="radio" name="post_seller_type" onclick="Raisy.users.showExistingSeller('1');" checked="checked" value="1" />&nbsp;&nbsp;通过已存在的成员加入</label>
 									</div>
 								</div>
 								
@@ -166,7 +166,7 @@
 									<div class="form-group">
 	                  <div class="row">
 	                  	<div class="col-sm-8 col-sm-offset-2">
-												Please provide this member's current grade and group leader:
+												请提供这个成员的年级和组织领队：
 											</div>
 	                  </div>
 									</div>
@@ -174,14 +174,14 @@
 									<div class="row">
 										<div class="col-sm-4 col-sm-offset-2">
 											<div class="form-group">
-											 <label class="control-label">Grade</label>
-											 <input type="text" name="sellerexist[grade]" class="form-control" placeholder="Grade">
+											 <label class="control-label">年级</label>
+											 <input type="text" name="sellerexist[grade]" class="form-control" placeholder="年级">
 										 	</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
-											 <label class="control-label">Group Leader</label>
-											 <input type="text" name="sellerexist[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+											 <label class="control-label">组织领队</label>
+											 <input type="text" name="sellerexist[homeroom]" class="form-control" placeholder="班主任，教练，领队等等">
 											</div>
 										</div>
 									</div>
@@ -191,7 +191,7 @@
 									<div class="row">&nbsp;</div>
 									<div class="row">
 										<div class="col-sm-6 col-sm-offset-2">
-											<label><input type="radio" name="post_seller_type"  onclick="Raisy.users.showExistingSeller('2');" value="2" />&nbsp;&nbsp;Join with a new member</label>
+											<label><input type="radio" name="post_seller_type"  onclick="Raisy.users.showExistingSeller('2');" value="2" />&nbsp;&nbsp;以新成员加入</label>
 										</div>
 									</div>
 								</div>
@@ -200,28 +200,28 @@
 									<div class="row">
 										<div class="col-sm-4 col-sm-offset-2">
 											<div class="form-group">
-											 <label class="control-label">Student First Name</label>
-											 <input type="text" name="seller[first_name]" class="form-control" placeholder="First Name">
+											 <label class="control-label">学生的姓</label>
+											 <input type="text" name="seller[first_name]" class="form-control" placeholder="姓">
 										 	</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
-											 <label class="control-label">Student Last Name</label>
-											 <input type="text" name="seller[last_name]" class="form-control" placeholder="Last Name">
+											 <label class="control-label">学生的名</label>
+											 <input type="text" name="seller[last_name]" class="form-control" placeholder="名">
 											</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-4 col-sm-offset-2">
 											<div class="form-group">
-											 <label class="control-label">Grade</label>
-											 <input type="text" name="seller[grade]" class="form-control" placeholder="Grade">
+											 <label class="control-label">年级</label>
+											 <input type="text" name="seller[grade]" class="form-control" placeholder="年级">
 										 	</div>
 										</div>
 										<div class="col-sm-4">
 											<div class="form-group">
 											 <label class="control-label">Group Leader</label>
-											 <input type="text" name="seller[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+											 <input type="text" name="seller[homeroom]" class="form-control" placeholder="班主任，教练，领队等等">
 											</div>
 										</div>
 									</div>
@@ -232,7 +232,7 @@
 									<div class="row">
 										<div class="col-sm-4 col-sm-offset-4">
 								      <button type="submit" class="btn btn-primary btn-block">
-								          <span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+								          <span class="text">加入这个筹款团队</span><span class="loader" style="display:none"></span>
 								      </button>
 										</div>
 									</div>
@@ -267,7 +267,7 @@
 						
 						<div class="form-group">
 							<div class="step-title-container">
-								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+								<label>开始吧！</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 							</div>
 						</div>
 				
@@ -275,7 +275,7 @@
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-2"> 
 										<div style="font-size:18px;">
-											<label>I am a…</label>
+											<label>我是…</label>
 											<input type="hidden" id="user_account_type" name="user[account_type]">
 										</div> 
 								</div>
@@ -286,21 +286,21 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<button id="seller_signup_button13" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 3);">
-													<span class="text">Parent of a 13 or younger member</span>
+													<span class="text">13岁以下成员的家长</span>
 												</button>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<button id="seller_signup_button14" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 2);">
-													<span class="text">14-17 year old member</span>
+													<span class="text">14到17岁成员</span>
 												</button>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<button id="seller_signup_button18" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 1);">
-													<span class="text">18+ year old member</span>
+													<span class="text">18岁以上成员</span>
 												</button>
 											</div>
 										</div>
@@ -308,7 +308,7 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<button id="seller_signup_has_account" type="button" class="btn btn-default btn-block btn-seller-selector" onclick="Raisy.users.sellerTypeSelectorClick(this, 4);">
-													<span class="text">Already have an account?</span>
+													<span class="text">已经有帐户了？</span>
 												</button>
 											</div>
 										</div>
@@ -324,7 +324,7 @@
 								<div class="col-sm-4 col-sm-offset-4">
 									<div class="form-group">
 									    <button id="seller_signup_selector_continue" class="btn btn-primary btn-lg" type="button" style="height:60px; width:100%;">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
@@ -348,7 +348,7 @@
 						
 						<div class="form-group">
 							<div class="step-title-container">
-								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+								<label>开始吧！</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 							</div>
 						</div>
 						
@@ -357,10 +357,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Student First Name</label>
+									<label class="control-label">学生的姓</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="seller1314[first_name]" class="form-control" placeholder="First Name">
+									<input type="text" name="seller1314[first_name]" class="form-control" placeholder="姓">
 								</div>
 							</div>
 						</div>
@@ -368,10 +368,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Student Last Name</label>
+									<label class="control-label">学生的名</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="seller1314[last_name]" class="form-control" placeholder="Last Name">
+									<input type="text" name="seller1314[last_name]" class="form-control" placeholder="名">
 								</div>
 							</div>
 						</div>
@@ -379,10 +379,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Grade</label>
+									<label class="control-label">年级</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="seller1314[grade]" class="form-control" placeholder="Grade">
+									<input type="text" name="seller1314[grade]" class="form-control" placeholder="年级">
 								</div>
 							</div>
 						</div>
@@ -390,10 +390,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Group Leader</label>
+									<label class="control-label">组织领队</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="seller1314[homeroom]" class="form-control" placeholder="Homeroom Teacher, Coach, Leader, etc.">
+									<input type="text" name="seller1314[homeroom]" class="form-control" placeholder="班主任，教练，领队等等">
 								</div>
 							</div>
 						</div>
@@ -404,14 +404,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="3-13-14">
-									        <span class="text">Back</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="3-13-14">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
@@ -420,14 +420,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="3-13-14">
-									        <span class="text">Continue</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="3-13-14">
-									        <span class="text">Back</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
@@ -451,7 +451,7 @@
 						
 						<div class="form-group">
 							<div class="step-title-container">
-								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+								<label>开始吧！</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 							</div>
 						</div>
 						
@@ -460,10 +460,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Parent's First Name</label>
+									<label class="control-label">家长的姓</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="parent[first_name]" class="form-control" placeholder="First Name">
+									<input type="text" name="parent[first_name]" class="form-control" placeholder="姓">
 								</div>
 							</div>
 						</div>
@@ -471,10 +471,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div">
-									<label class="control-label">Parent's Last Name</label>
+									<label class="control-label">家长的名</label>
 								</div>
 								<div class="col-sm-4">
-									<input type="text" name="parent[last_name]" class="form-control" placeholder="Last Name">
+									<input type="text" name="parent[last_name]" class="form-control" placeholder="名">
 								</div>
 							</div>
 						</div>
@@ -492,10 +492,10 @@
 						<div class="form-group parent-info-14">
 							<div class="row">
 								<div class="col-sm-3 col-sm-offset-2 control-div"> 
-									<label class="control-label">Parent's Email</label>
+									<label class="control-label">家长的邮箱</label>
 								</div>
 								<div class="col-sm-4"> 
-									<input type="text" name="parent[email]" class="form-control" placeholder="Email"> 
+									<input type="text" name="parent[email]" class="form-control" placeholder="邮箱"> 
 								</div>
 							</div>
 							<div style="height:15px;"></div>
@@ -506,14 +506,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-13-14">
-									        <span class="text">Back</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-13-14">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
@@ -522,14 +522,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-13-14">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-13-14">
-									        <span class="text">Back</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
@@ -553,7 +553,7 @@
 						
 						<div class="form-group">
 							<div class="step-title-container">
-								<label>Set Up Your Seller Profile</label>
+								<label>设置您的销售个人信息</label>
 							</div>
 						</div>
 						
@@ -564,7 +564,7 @@
 							
 							<div class="form-group"> 
 								<div style="text-align:center;">
-									<label style="font-size:16px;">You have logged in as <%=current_user.profile.fullname%>.</label>
+									<label style="font-size:16px;">您已经以 <%=current_user.profile.fullname%>登录。</label>
 								</div>
 							</div>
 							
@@ -574,14 +574,14 @@
 									<div class="col-sm-6">
 										<div class="backbutton-box">
 										    <button class="btn btn-success seller-back-btn btn-lg" type="button" data-currentstep="4" style="height:60px; width:200px;">
-										        <span class="text">Back</span>
+										        <span class="text">后退</span>
 										    </button>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="continuebutton-box">
 										    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
-														<span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+														<span class="text">加入这个筹款团队</span><span class="loader" style="display:none"></span>
 										    </button>
 										</div>
 									</div>
@@ -590,14 +590,14 @@
 									<div class="col-sm-6">
 										<div class="backbutton-box">
 										    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
-														<span class="text">Join this fundraiser</span><span class="loader" style="display:none"></span>
+														<span class="text">加入这个筹款团队</span><span class="loader" style="display:none"></span>
 										    </button>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="continuebutton-box">
 										    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="4" style="height:60px; width:200px;">
-										        <span class="text">Back</span>
+										        <span class="text">后退</span>
 										    </button>
 										</div>
 									</div>
@@ -611,10 +611,10 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-5 control-div">
-											<label class="control-label">Email</label>
+											<label class="control-label">邮箱</label>
 										</div>
 										<div class="col-sm-7">
-											<input id="user_email" type="text" name="user[email]" class="form-control" placeholder="Email">
+											<input id="user_email" type="text" name="user[email]" class="form-control" placeholder="邮箱">
 										</div>
 									</div>
 								</div>
@@ -622,10 +622,10 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-5 control-div">
-											<label class="control-label">Password</label>
+											<label class="control-label">密码</label>
 										</div>
 										<div class="col-sm-7">
-											<input id="user_password" type="password" name="user[password]" class="form-control" placeholder="Password">
+											<input id="user_password" type="password" name="user[password]" class="form-control" placeholder="密码">
 										</div>
 									</div>
 								</div>
@@ -633,10 +633,10 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-sm-5 control-div">
-											<label class="control-label">Confirm Password</label>
+											<label class="control-label">确认密码</label>
 										</div>
 										<div class="col-sm-7">
-											<input id="user_confirm_password" type="password" name="user[confirm_password]" class="form-control" placeholder="Confirm password">
+											<input id="user_confirm_password" type="password" name="user[confirm_password]" class="form-control" placeholder="确认密码">
 										</div>
 									</div>
 								</div>
@@ -647,7 +647,7 @@
 										</div>
 										<div class="col-sm-7">
 											<input id="seller_terms_conditions" type="checkbox" name="user[terms_conditions]" />
-											<label for="seller_terms_conditions" style="font-weight:normal; display:inline;">By checking the box, you agree to our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+											<label for="seller_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的 <%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
 										</div>
 									</div>
 								</div>
@@ -658,14 +658,14 @@
 										<div class="col-sm-7">
 											<div class="backbutton-box">
 											    <button class="btn btn-success seller-back-btn" type="button" data-currentstep="4" style="height:50px; width:160px;">
-											        <span class="text">Back</span>
+											        <span class="text">后退</span>
 											    </button>
 											</div>
 										</div>
 										<div class="col-sm-5">
 											<div class="continuebutton-box">
 											    <button id="seller_signup_submit" class="btn btn-primary" type="submit" data-currentstep="4" style="height:50px; width:160px;">
-															<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+															<span class="text">创建我的帐户</span><span class="loader" style="display:none"></span>
 											    </button>
 											</div>
 										</div>
@@ -674,14 +674,14 @@
 										<div class="col-sm-6">
 											<div class="backbutton-box">
 											    <button id="seller_signup_submit" class="btn btn-primary btn-lg" type="submit" data-currentstep="4" style="height:60px; width:200px;">
-															<span class="text">Create my account</span><span class="loader" style="display:none"></span>
+															<span class="text">创建我的帐户</span><span class="loader" style="display:none"></span>
 											    </button>
 											</div>
 										</div>
 										<div class="col-sm-6">
 											<div class="continuebutton-box">
 											    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="4" style="height:60px; width:200px;">
-											        <span class="text">Back</span>
+											        <span class="text">后退</span>
 											    </button>
 											</div>
 										</div>
@@ -689,7 +689,7 @@
 								</div>
 								
 								<div class="has-account-div">
-									<span>If you have an account with us, please <a href="javascript:void(0);" onclick="Raisy.users.sellerTypeSelectorClick(this, 4);">click here</a> to login.</span>
+									<span>如果您已经有一个我们的帐户, 请点击 <a href="javascript:void(0);" onclick="Raisy.users.sellerTypeSelectorClick(this, 4);">这里</a> 登录。</span>
 								</div>
 							</div>	<!-- Create my account -->
 							
@@ -751,7 +751,7 @@
 						
 						<div class="form-group">
 							<div class="step-title-container">
-								<label>Get Started!</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+								<label>开始吧！</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 							</div>
 						</div>
 						
@@ -760,10 +760,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-2 col-sm-offset-2 control-div">
-									<label class="control-label">First Name</label>
+									<label class="control-label">姓</label>
 								</div>
 								<div class="col-sm-5">
-									<input type="text" name="seller18[first_name]" class="form-control" placeholder="First Name">
+									<input type="text" name="seller18[first_name]" class="form-control" placeholder="姓">
 								</div>
 							</div>
 						</div>
@@ -771,10 +771,10 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-2 col-sm-offset-2 control-div">
-									<label class="control-label">Last Name</label>
+									<label class="control-label">名</label>
 								</div>
 								<div class="col-sm-5">
-									<input type="text" name="seller18[last_name]" class="form-control" placeholder="Last Name">
+									<input type="text" name="seller18[last_name]" class="form-control" placeholder="名">
 								</div>
 							</div>
 						</div>
@@ -786,14 +786,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-18">
-									        <span class="text">Back</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-18">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
@@ -803,14 +803,14 @@
 								<div class="col-sm-6">
 									<div class="backbutton-box">
 									    <button class="btn btn-primary btn-lg seller-continue-btn" type="button" data-currentstep="2-18">
-									        <span class="text">Continue</span>
+									        <span class="text">继续</span>
 									    </button>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="continuebutton-box">
 									    <button class="btn btn-success btn-lg seller-back-btn" type="button" data-currentstep="2-18">
-									        <span class="text">Back</span>
+									        <span class="text">后退</span>
 									    </button>
 									</div>
 								</div>
@@ -830,15 +830,15 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>For legal reasons, please let us know your age.</p>
+				<p>因法律原因，请让我们知道您的年龄。</p>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_seller_step_tips_container">
 						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不再显示这信息</span>
 						</a>
 					</div>
 				</div>
@@ -853,12 +853,12 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Welcome! In just a few clicks you’ll be ready to help support <%= @campaign.title %>! Joining is quick and easy. When you’re done, you’ll have a personalized fundraising page that you can share with supporters to start raising funds immediately!</p>
+				<p>欢迎！只需一会儿您就能帮助支持<%= @campaign.title %>！加入非常快捷简单。当你完成的时候，你将立刻会有一个能分享给支持者们以筹措款项的个人筹款页面！</p>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 				</div>
 	        </div> <!-- /.modal-footer -->
 			
@@ -867,7 +867,7 @@
 	</div>	<!-- seller_step_tips_modal -->
 	
 	<div id="seller_step_tips_selector" style="display:none;">
-		<p>For legal reasons, please let us know your age.</p>
+		<p>因法律原因，请让我们知道您的年龄。</p>
 	</div>
 	
 	<div id="seller_step_tips_13_1" style="display:none;">

@@ -8,25 +8,25 @@
 
 <fieldset>
     <div class="form-group">
-        <label for="campaign_title" class="col-sm-2 control-label">Title<span class='req'>*</span></label>
+        <label for="campaign_title" class="col-sm-2 control-label">标题<span class='req'>*</span></label>
         <div class="col-sm-10">
-            <%= f.text_field :title, class: 'form-control', placeholder: 'i.e. Troy Elementary New Gym Equipment; This will show up in all emails' %>
+            <%= f.text_field :title, class: 'form-control', placeholder: '比如： 卖牛奶为了xx学校 （注意：这会显示在所有的邮件里）' %>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="campaign_title" class="col-sm-2 control-label">Tagline</label>
+        <label for="campaign_title" class="col-sm-2 control-label">宣传标签</label>
         <div class="col-sm-10">
-            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: 'i.e. Help raise fund for Troy Elementary New Gym Equipment' %>
+            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：为了给xx学校建设体育器材而筹资' %>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">
-			Campaign Cover Photo 
+			封面照片
 			<br />
 			<span class="upload-tooltip">
-				(Best size: 970px * 310px)
+				（最好的图片尺寸: 970px * 310px）
 			</span>
 		</label>
         <div class="col-sm-10">
@@ -68,16 +68,17 @@
 						<div class="clearfix">
 							<div class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; margin-bottom:10px; width:120px; float:left;">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Upload
+									上传
 								</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
 							</div>
 							<div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; width:120px; float:left;">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Use</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+									使用</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
 							</div>
-							<a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">Use one of ours</a>
+							<a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">使用
+                      我们提供的</a>
 						</div>
 					</div>
 				</div>
@@ -87,10 +88,10 @@
 	
 	<div class="form-group">
 		<label class="col-sm-2 control-label">
-			More Photos 
+			更多照片
 			<br />
 			<span class="upload-tooltip">
-				(Best size: 280px * 280px)
+				（最好的图片尺寸: 280px * 280px）
 			</span>
 		</label>
 		<div class="col-sm-10">
@@ -113,7 +114,7 @@
 				<div class="col-md-2 campaign-photo-upload-button-box">
 					<div id="upload_camp_photo_button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; cursor:pointer; margin-left:5px; width:100px;" data-uploaded="no">
 						<span style="color:#428bca;font-size:1.1em;display:block;">
-							Upload
+							上传
 						</span>
 					</div>
 				</div>
@@ -158,7 +159,7 @@
 					<div class="add-camp-photo-file">
 						<div class="add-campaign-photo" style="border-width:2px; border-style:dotted; border-color: #ccc; width:102px; height:102px;  text-align:center; cursor:pointer; background-color: rgb(245,245,245);" onclick="$('#add_camp_photo_upload').click();">
 							<span class="fa fa-plus fa-2x" style="color: #aaa; display:block; margin-top:20px;"></span>
-							<span style="color: #888; font-size: 12px; display:block;">Add a photo</span>
+							<span style="color: #888; font-size: 12px; display:block;">新增一张照片</span>
 							<span class="fa fa-spinner fa-spin" style="color:#aaa; display:none; margin-top:10px;"></span>
 						</div>
 					</div>
@@ -168,26 +169,26 @@
 	</div>
 
     <div class="form-group">
-        <label for="campaign_goal" class="col-sm-2 control-label">Goal</label>
+        <label for="campaign_goal" class="col-sm-2 control-label">目标</label>
         <div class="col-sm-3">
             <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <%= f.text_field :goal, class: 'form-control', placeholder: "i.e. 1,000" %>
+                <span class="input-group-addon">￥</span>
+                <%= f.text_field :goal, class: 'form-control', placeholder: "比如：1000" %>
             </div>
             <label for="campaign_goal" class="error" style="display: none"></label>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="campaign_end_date" class="col-sm-2 control-label">Sale End Date</label>
+        <label for="campaign_end_date" class="col-sm-2 control-label">销售截止日期</label>
         <div class="col-sm-3">
-            <%= f.text_field :end_date, placeholder: "Select date", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
+            <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
             <label for="campaign_goal" class="error" style="display: none"></label>
         </div>
     </div>
 	
     <div class="form-group">
-        <label for="campaign_description" class="col-sm-2 control-label">Tell Your Story</label>
+        <label for="campaign_description" class="col-sm-2 control-label">告诉大家您的故事</label>
         <div class="col-sm-10">
             <%= f.text_area :description, class: "tinymce", style: 'width: 200px' %>
         </div>
@@ -203,7 +204,7 @@
 		<table class="allow-direct-donation-box" style="display: none">
 			<tr>
 				<td class="checkbox-label">
-					<label>Allow Direct Donation<span class='req'></span></label>
+					<label>允许直接捐赠<span class='req'></span></label>
 				</td>
 				<td class="checkbox-input">
 					<%= f.check_box :allow_direct_donation %> 
@@ -222,10 +223,10 @@
     <% end %> -->
 			
 	    <div class="form-group">
-	        <label for="campaign_goal" class="col-sm-2 control-label">Collection</label>
+	        <label for="campaign_goal" class="col-sm-2 control-label">选择商品系列</label>
 	        <div class="col-sm-10">
 	            <select class="form-control input-small" name="campaign[collection_id]">
-								<option value="">-- Please Select --</option>
+								<option value="">-- 请选择 --</option>
 	                <% @collections.each do |collection| %>
 	                <option value="<%= collection.id %>" <%= f.object.collection_id == collection.id ? 'selected' : '' %> >
 	                    <%= collection.name %>
@@ -237,7 +238,7 @@
 	    </div>
 			
 	    <div class="form-group">
-	        <label for="campaign_active" class="col-sm-2 control-label">Active?</label>
+	        <label for="campaign_active" class="col-sm-2 control-label">是否启动？</label>
 	        <div class="col-sm-3">
             <div style="margin-top: 5px;">
                 <%= f.check_box :active %>
@@ -253,7 +254,7 @@
 
         <div class="modal-header">
             <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Choose one of our photos</h4>
+            <h4 class="modal-title">选择我们提供地照片</h4>
         </div> <!-- /.modal-header -->
 
             <div class="modal-body">

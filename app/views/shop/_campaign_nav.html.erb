@@ -1,29 +1,29 @@
 <div class="campaign-nav clearfix">
     <div class="pull-left">
         <ul>
-            <li><%= link_to "Home", short_campaign_path(@campaign) %></li>
+            <li><%= link_to "首页", short_campaign_path(@campaign) %></li>
 
 			<% if @campaign.collection_id != 0 %>
             	<li><%= link_to @campaign.call_to_action, shop_path(@campaign) %></li>
 			<% end %>
 
             <li class="hidden-xs">
-                <a href="<%= supporters_path(@campaign) %>">Supporters</a>
+                <a href="<%= supporters_path(@campaign) %>">支持者数</a>
                 <span class="badge"><%= @campaign.supporters %></span>
             </li>
 			
 			<% if current_user %>
 		        <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_seller?(@campaign) && !current_user.admin? && !@campaign.expired? && @campaign.active %>
 		            <li>
-		              <%= link_to "Join the fundraising team", signup_seller_path(@campaign), class: "join-fundraising-link" %>
-					  <%= link_to "Not Your Fundraiser? Click Here", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
+		              <%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "join-fundraising-link" %>
+					  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
 		            </li>
 		        <% end %>
 			<% else %>
 	            <% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
 	                <li>
-	                  <%= link_to "Join the fundraising team", signup_seller_path(@campaign),class: "join-fundraising-link" %>
-					  <%= link_to "Not Your Fundraiser? Click Here", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
+	                  <%= link_to "加入筹款团队", signup_seller_path(@campaign),class: "join-fundraising-link" %>
+					  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
 	                </li>
 	            <% end %>
 			<% end %>
@@ -33,7 +33,7 @@
 	<% if @campaign.collection_id != 0 %>
 	    <div class="pull-right">
 	        <a href="#checkout-modal" data-toggle="modal" style="margin: 0">
-	            <span class="glyphicon glyphicon-shopping-cart"></span> <span id="cart-count"><%= @order.num_items %> items</span>
+	            <span class="glyphicon glyphicon-shopping-cart"></span> <span id="cart-count"><%= @order.num_items %> 件商品</span>
 	        </a>
 	    </div>
 	<% end %>

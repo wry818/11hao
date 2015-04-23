@@ -325,15 +325,15 @@ Raisy.users = {
 			'<input type="hidden" class="contact-id" value="" />' + 
 			'<input type="hidden" class="contact-media-id" value="5" />' + 
 			'<span class="contact-item-text contact-firstname-text"></span>' +
-			'<input type="text" class="form-control contact-update-input contact-firstname-input" value="" maxlength="50" placeholder="e.g. John" />' +
+			'<input type="text" class="form-control contact-update-input contact-firstname-input" value="" maxlength="50" placeholder="比如： 张" />' +
 		'</td>' +
 		'<td style="width:160px;">' +
 			'<span class="contact-item-text contact-lastname-text"></span>' +
-			'<input type="text" class="form-control contact-update-input contact-lastname-input" value="" maxlength="50" placeholder="e.g. Smith" />' +
+			'<input type="text" class="form-control contact-update-input contact-lastname-input" value="" maxlength="50" placeholder="比如： 鹏" />' +
 		'</td>' +
 		'<td style="width:160px;">' +
 			'<span class="contact-item-text contact-greetings-text"></span>' +
-			'<input type="text" class="form-control contact-update-input contact-greetings-input" value="" maxlength="50" placeholder="e.g. Grandma" />' +
+			'<input type="text" class="form-control contact-update-input contact-greetings-input" value="" maxlength="50" placeholder="比如： 外婆" />' +
 		'</td>' +
 		'<td>' +
 			'<span class="contact-item-text contact-email-text"></span>' +

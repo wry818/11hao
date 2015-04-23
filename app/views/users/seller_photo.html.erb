@@ -1,7 +1,7 @@
 <div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px;">
 	<div class="container container-background">
 		<div style="margin-bottom: 30px;"></div>
-		<div><h3>Join the fundraising team for <strong><%= @campaign.title %></strong></h3>
+		<div><h3>加入筹款团队<strong><%= @campaign.title %></strong></h3>
 		</div>
 		<div id="seller_photo" class="container-box">
 			<div class="form-group">
@@ -19,7 +19,7 @@
 			
 			<div class="form-group">
 				<div class="step-title-container">
-					<label>Personalize Your Profile</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+					<label>个性化您的个人信息</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 				</div>
 			</div>
 			
@@ -29,10 +29,10 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-3 col-sm-offset-2 control-div" style="padding-right:0px; padding-top:0px;">
-							<label class="control-label" style="padding-top:0px;">Upload Your Selfie</label>
+							<label class="control-label" style="padding-top:0px;">上传您的头像</label>
 							<br/>
 							<span class="upload-tooltip">
-								(Best size: 200px * 200px)
+								（最好的图片尺寸: 200px * 200px）
 							</span>
 						</div>
 						<div class="col-sm-4" style="padding:0px 3px;">
@@ -47,7 +47,7 @@
 	                            <div style="display:none;">
 									<%= hidden_field_tag :use_photo, "" %>
 									<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*" }) %>
-	                            	<a href="#" class="remove-image" style="display: none">Remove picture</a>
+	                            	<a href="#" class="remove-image" style="display: none">删除图片</a>
 								</div>
 			                    <div class="progress progress-striped active" style="display: none; width:102px;">
 			                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
@@ -65,15 +65,15 @@
 						<div class="col-sm-6">
 							<div class="upload-button" onclick="$('#upload_seller_photo').click();">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Upload</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+									上传</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
 							</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="use-button" onclick="$('#default_photos_modal').modal('show');">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Use</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+									使用</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
 							</div>
 						</div>
 					</div>
@@ -84,14 +84,14 @@
 					<div class="col-sm-6">
 						<div class="backbutton-box">
 					    <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
-									<span class="text">Skip this step</span><span class="loader" style="display:none"></span>
+									<span class="text">跳过这步</span><span class="loader" style="display:none"></span>
 					    </button>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="continuebutton-box">
 					    <button class="btn btn-primary btn-lg continue-btn" type="submit">
-									<span class="text">Continue</span><span class="loader" style="display:none"></span>
+									<span class="text">继续</span><span class="loader" style="display:none"></span>
 					    </button>
 						</div>
 					</div>	
@@ -100,14 +100,14 @@
 					<div class="col-sm-6">
 						<div class="backbutton-box">
 						    <button class="btn btn-primary btn-lg continue-btn" type="submit">
-								<span class="text">Continue</span><span class="loader" style="display:none"></span>
+								<span class="text">继续</span><span class="loader" style="display:none"></span>
 						    </button>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="continuebutton-box">
 						    <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
-								<span class="text">Skip this step</span><span class="loader" style="display:none"></span>
+								<span class="text">跳过这步</span><span class="loader" style="display:none"></span>
 						    </button>
 						</div>
 					</div>
@@ -123,7 +123,7 @@
 
 	        <div class="modal-header">
 	            <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	            <h4 class="modal-title">Choose one of our photos</h4>
+	            <h4 class="modal-title">选择一张我们的照片</h4>
 	        </div> <!-- /.modal-header -->
  
 	            <div class="modal-body">
@@ -144,15 +144,15 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Personalize your profile by adding a picture of yourself! Note: your picture will appear on your fundraising site that supporters will view.</p>
+				<p>通过加一张您自己的照片来个性化您的个人信息！注意：您的图片会显示在您的支持者们浏览的筹款站点上。</p>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_seller_step_tips_container">
 						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不再显示这个信息</span>
 						</a>
 					</div>
 				</div>

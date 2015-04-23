@@ -5,15 +5,15 @@
             <div class="row">
                 <% unless @register && @search.blank? %>
                 <div class="col-md-5">
-                    <h4 style="margin: 0 0 30px">Find your group's fundraising page:</h4>
+                    <h4 style="margin: 0 0 30px">找到您的组织的筹款页面：</h4>
                 </div>
                 <div class="col-md-7">
                         <%= form_tag(search_path, method: "get", id: "search_form")%>
                             <div class="input-group">
                                 <input name="register" type="hidden" value="<%= @register %>">
-                                <input name="search" type="text" class="form-control" placeholder="Group ID, fundraiser name or group name" value="<%= @search %>">
+                                <input name="search" type="text" class="form-control" placeholder="组织ID，筹款团队名称或组织名称" value="<%= @search %>">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <button class="btn btn-primary" type="submit">查询</button>
                                 </span>
                             </div><!-- /input-group -->
                         </form>
@@ -25,15 +25,15 @@
             <div class="register-block" style="margin: 40px 0">
                 <div class="row">
                     <div class="col-md-12">
-                        <p style="text-align: center">To register as a seller, please find your fundraising group by name or Group ID</p>
+                        <p style="text-align: center">如果需要注册销售者，请通过名字或组织ID找到您的筹款组织</p>
                         <%= form_tag(search_path, method: "get", id: "search_form")%>
                         <div class="row">
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="input-group">
                                     <input name="register" type="hidden" value="<%= @register %>">
-                                    <input name="search" type="text" class="form-control" placeholder="Group ID, fundraiser name or group name">
+                                    <input name="search" type="text" class="form-control" placeholder="组织ID，筹款团队名称或组织名称">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">Search</button>
+                                        <button class="btn btn-primary" type="submit">查询</button>
                                     </span>
                                 </div><!-- /input-group -->
                             </div>
@@ -46,7 +46,7 @@
             <div class="row">
 							<div class="col-md-12">
 								<% if @is_recent && @campaigns && @campaigns.count>0 %>
-									<h4><b>Recent Fundraisers</b></h4>
+									<h4><b>最近的筹款团队</b></h4>
 								<% end %>
 								<% if @campaigns && @campaigns.count>0 %>
 									<% for i in 0..3 %>
@@ -108,7 +108,7 @@
 																<div style="display:inline-block; margin-left:20px; width:70%;">
 																	<span style="font-size:16px; font-weight:600; display:inline-block; width:100%; height:22px; overflow:hidden;"><%= campaign.organizer.profile.fullname %></span>
 																	<br/>
-																	<span style="color:#888; font-size:13px;">fundraiser owner</span> 
+																	<span style="color:#888; font-size:13px;">筹款团队所有者</span> 
 																</div>
 															</div>
 														</div>
@@ -123,7 +123,7 @@
 								<% else %>
 									<% if @campaigns && !@is_recent %>
 										<div style="text-align:center; margin-top:20px;">
-											<span><strong>No matched results were found.</strong></span>
+											<span><strong>抱歉，未找到相关的记录。</strong></span>
 										</div>
 									<% end %>
 								<% end %>
@@ -138,17 +138,17 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Search for your school or group by name or Group ID.</p>
-				<p>IMPORTANT: Make sure you select the correct group (city and state are listed next to the group names)</p>
-				<p>If you don’t find your group, please contact your chairperson or group leader.</p>
+				<p>通过名字或组织ID搜索您的学校或组织。</p>
+				<p>注意：确保您选择的正确的组织（城市和区县列在了组织名称旁边）</p>
+				<p>如果您找不到您的组织，请联系你的销售代表。</p>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_search_camp_tips_container">
 						<a id="hide_search_camp_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不再显示这个信息</span>
 						</a>
 					</div>
 				</div>

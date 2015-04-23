@@ -3,21 +3,21 @@
         <div class="campaign-edit-header">
 			<% if current_user %>
 				<% if @collection %>
-	            	<h3>Welcome <%= current_user.profile.try(:first_name) %>, let's get started on your next <%= @collection.name  %> fundraiser.</h3>
+	            	<h3>欢迎 <%= current_user.profile.try(:first_name) %>, 我们开始您的下一次 <%= @collection.name  %> 的筹款团队吧</h3>
 				<% else %>
-					<h3>Welcome <%= current_user.profile.try(:first_name) %>, let's get started on your next fundraiser</h3>
+					<h3>欢迎 <%= current_user.profile.try(:first_name) %>, 我们开始您的下一次筹款团队吧</h3>
 				<% end %>
 			<% else %>
 				<% if @collection %>
-	            	<h3>Start a new <%= @collection.name  %> fundraiser</h3>
+	            	<h3>创建 <%= @collection.name  %> 的筹款页</h3>
 				<% else %>
-					<h3>Start a new fundraiser</h3>
+					<h3>创建筹款页</h3>
 				<% end %>
 			<% end %>
         </div>
         <div class="container-box top-section" style="position:relative;">
 			<div style="position:absolute; right:5px; top:5px;">
-				<a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer;"><span>Preview</span></a>
+				<a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer;"><span>预览</span></a>
 			</div>
 			
             <%= render 'form_new' %>
