@@ -19,13 +19,13 @@
 			</div>
 			
 			<div class="form-group">
-				<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">8</span>Invite Your Sellers to Join!&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+				<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">8</span>邀请您的销售们加入！&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
 			</div>
 			
 			<div>
-				<span>Send emails to your sellers/group members inviting them to join your online fundraiser. They will create their own personalized fundraising pages so they can sell online to help you reach your goal!</span>
+				<span>发邮件给您的销售／组织成员以邀请他们加入您的线上筹款团队。他们将创建他们自己的个性化筹款页面，这样他们就能通过线上销售帮助您达成您的目标！</span>
 				<br/><br/>
-				<span>Custom Email Text:</span>
+				<span>邮件内容：</span>
 			</div>
 			
 			<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
@@ -34,7 +34,7 @@
 				</div>
 				
 		    	<div style="margin-top: 10px">
-					<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+					<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="您可以在这里加入自己的内容"><%=raw @email_msg %></textarea>
 				</div>
 				
 				<div style="margin-top: 10px;">
@@ -46,11 +46,11 @@
 				<table>
 					<tr><td style="width:100px;">
 						<button id="btnPreviewEmail" class="btn btn-primary" type="button">
-							<span class="text">Preview Email</span>
+							<span class="text">预览邮件</span>
 							<span class="loader" style="display:none"></span>
 						</button></td>
 						<td style="width:20px;">&nbsp;</td>
-					<td><span>Note: you will be able to review & select which contacts receive this email before it is sent.</span></td></tr>
+					<td><span>注意：在邮件发出之情您可以重新查看并选择哪些联系人会收到这封邮件。</span></td></tr>
 				</table>
 			</div>
 			
@@ -59,17 +59,17 @@
 			<div class="row web-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_contacts_path(@campaign) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_share_path(@campaign) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="ClickSendEmail(this, true);">
-						<span class="text">Send Email</span>
+						<span class="text">发送邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>
 				</div>
@@ -78,18 +78,18 @@
 			<div class="row mobile-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="ClickSendEmail(this, true);">
-						<span class="text">Send Email</span>
+						<span class="text">发送邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg camp-skip-btn" type="button" onclick="window.location.href='<%= campaign_share_path(@campaign) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_contacts_path(@campaign) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 			</div>	<!-- mobile-box -->
@@ -101,19 +101,19 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Customize the email that will be sent to your group members.</p>
-				<span>Tips:</span>
+				<p>个性化这封将要发送给您的组织成员的邮件。</p>
+				<span>小贴士：</span>
 				<ul>
-					<li><span>Encourage everyone to join today! The more sellers you have as part of your online fundraiser, the more money you can raise.</span></li>
+					<li><span>鼓励每个人都来加入！线上筹款团队有越多的销售人员，就会筹集越多的款项！</span></li>
 				</ul>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_camp_step_tips_container">
 						<a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不要在显示这个信息</span>
 						</a>
 					</div>
 				</div>
@@ -136,12 +136,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Preview Email</h4>
+				<h4 class="modal-title">预览邮件</h4>
 			</div>
 			<div class="modal-body">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 			</div>
 		</div>
 	</div>
@@ -197,9 +197,9 @@ function ClickSendEmail(btn, is_send_email){
 	var count=maxLength-content.length;
 	
 	if (count<0) {
-		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("最大"+maxLength+"字符");
 		
-		window.Raisy.alert("Custom Email Text can only have a maximum of " + maxLength + " characters");
+		window.Raisy.alert("内容最多" + maxLength + "字符");
 		
 		return;
 	}
@@ -223,7 +223,7 @@ function ClickSendEmail(btn, is_send_email){
 					$("#contacts_modal").modal("show");
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while sending email, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
                 },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -241,15 +241,15 @@ function ClickSendEmail(btn, is_send_email){
                 },
                 success: function(data) {
 					if (data == "failed") {
-						window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+						window.Raisy.alert("保存出错，请稍后再试。");
 					} else {
 						ed.setContent(data, {format : 'raw'});
 						
-						window.Raisy.alert("Changes have been successfully saved");
+						window.Raisy.alert("修改成功！");
 					}
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
                 },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();
@@ -272,9 +272,9 @@ function continue_next_step(btn) {
 	var count=maxLength-content.length;
 	
 	if (count<0) {
-		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+		$container.find(".tinymce-charcount span").css("color", "#b94a48").text("最大"+maxLength+" 个字符");
 		
-		window.Raisy.alert("Custom Email Text can only have a maximum of " + maxLength + " characters");
+		window.Raisy.alert("内容最多" + maxLength + "个字符");
 		
 		return;
 	}
@@ -293,13 +293,13 @@ function continue_next_step(btn) {
         },
         success: function(data) {
 			if (data == "failed") {
-				window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+				window.Raisy.alert("保存出错，请稍后再试。");
 			} else {
 				window.location.href='<%= campaign_share_path(@campaign) %>';
 			}
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-			window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+			window.Raisy.alert("保存出错，请稍后再试。");
         },
 		complete: function () {
 		}

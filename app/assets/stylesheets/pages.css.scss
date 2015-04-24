@@ -55,12 +55,53 @@
 	}
 	
     .top-row {
-		height: 550px;
-        margin-top: 10px;
-		background: image-url('b1.jpg') no-repeat;
-		background-size: cover;
-		background-position-x: center;
-		position: relative;
+		
+		//height: 550px;
+		background-color: rgb(237, 237, 237);
+		padding: 50px 0px 100px 0px;
+		
+		.container {
+			
+			max-width: 1120px;
+		
+			.left-section {
+			
+				margin-top: 70px;
+				text-align: center;
+			
+				.title {
+	
+					font-size: 40px;
+					color: rgb(133, 125, 125);
+					
+				    @media all and (max-width: 768px){
+						font-size: 30px;
+				    }
+					
+				}
+			
+				.btn {
+					
+					font-size: 30px;
+					padding-left: 80px;
+					padding-right: 80px;
+				
+				    @media all and (max-width: 768px){
+						font-size: 20px;
+				    }
+					
+				}
+			
+			}
+		
+			.right-section {
+			
+				margin-top: 50px;
+			
+			}
+			
+		}
+		
     }
 
 	.startfund-section {
@@ -112,41 +153,53 @@
 		color: white;
 		text-align: center;
 	    padding: 50px 0px 100px 0px;
-	    background-color: rgb(0, 70, 127);
+	    background-color: $site-red;
 
 		.container {
 			max-width: 1120px;
 		}
 		
 	    h1 {
-			//font-size: 44px;
-			font-weight: bold;
+			font-size: 46px;
+			//font-weight: bold;
+		    @media all and (max-width: 768px){
+				font-size: 40px;
+		    }
+			
 	    }
 		
 	    h2 {
-			color: $entertainment-lightgreen;
 			font-size: 26px;
-	        margin: 0 0 30px;
+	        margin: 0 0 20px;
+			
+		    @media all and (max-width: 768px){
+				font-size: 20px;
+		    }
+			
 	    }
 
-		.btn-lightgreen {
+		.btn-white {
 			
-
-			padding-top: 15px;
-			padding-bottom: 15px;
+			padding: 20px 80px 20px 80px;
 			
 			span {
-				font-size: 22px;
+				font-size: 26px;
+				
+			    @media all and (max-width: 768px){
+					font-size: 20px;
+			    }
+				
 			}
 		}
 		
 		#how-it-works {
-		
+			
 			.how-it-works-col {
 				width: 80%;
 				margin: 0 auto;
 				
 				p {
+					text-align: left;
 					margin-top: 20px;
 				}
 			}
@@ -167,19 +220,23 @@
 			}
 			
 			.circle {
-				margin: 0 auto;
+				margin: 10px auto;
 				width: 44px;
 				height: 44px;
-				border-radius: 50%;
 				line-height: 44px;
 				text-align: center;
-				background-color: $entertainment-lightgreen;
+				font-size: 36px;
+				//border-radius: 50%;
+				//background-color: $entertainment-lightgreen;
+			    @media all and (max-width: 768px){
+					font-size: 30px;
+			    }
+				
 			}
+			
 		}
 	
 	    @media (max-width: 992px) {
-		
-	        text-align: center;
 		
 			#how-it-works {
 		
@@ -304,16 +361,40 @@
 	}
 	
 	#why {
-
+		
+		background-color: rgb(237, 237, 237);
 		text-align: center;
 	    padding: 50px 0px 100px 0px;
 
 		.container {
+			
 			max-width: 1120px;
+			color: rgb(133, 125, 125);
+			
+			.left-section {
+				
+				margin-top: 50px;
+				font-size: 24px;
+				
+			}
+		
+			.right-section {
+			
+				margin-top: 80px;
+				margin-bottom: 20px;
+				text-align: center;
+				font-size: 72px;
+				
+			    @media all and (max-width: 768px){
+					font-size: 50px;
+			    }
+				
+			}
+			
 		}
 		
 	    h1 {
-			color: $entertainment-blue;
+			color: $site-red;
 			font-weight: bold;
 	    }
 		
@@ -324,7 +405,7 @@
 	    }
 
 	    h3 {
-			color: $entertainment-blue;
+			color: $site-red;
 			font-size: 20px;
 			font-weight: bold;
 	    }
@@ -352,7 +433,7 @@
 					margin-bottom: 20px;
 					
 					.emphasize {
-						color: $entertainment-blue;
+						color: $site-red;
 						font-weight: bold;
 					}
 				}

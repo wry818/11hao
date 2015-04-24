@@ -22,18 +22,18 @@
 			
 			<div class="form-group">
 				<div class="step-title-container">
-					<label>Help Promote the Fundraiser</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+					<label>帮助促进筹款团队</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 				</div>
 			</div>
 			
 			<div id="search-contacts-box" class="search-contacts-box">
 				<div class="row header">
 					<div class="col-md-12">
-						<h4>Import Your Contacts</h4>
+						<h4>导入您的联系人</h4>
 					</div>
 				</div>
 	        	<div>
-					<h5>Search your address book for friends</h5>
+					<h5>通过地址薄搜寻您的朋友</h5>
 				</div>
 				<div class="row item">
 					<div class="col-md-9">
@@ -57,13 +57,13 @@
 					</div>
 					<div class="col-md-3" style="display:none;">
 						<button id="btnMyContacts" class="btn btn-primary" type="button" style="margin-top:10px; width:100%;">
-							<span class="text">My Contacts</span>
+							<span class="text"我的联系人</span>
 						</button>
 					</div>
 				</div>
 	        	<div>
 					<p style="padding-top: 10px; font-size: 12px">
-						Choosing a service will open a window for you to log in securely and import your contacts to Raisy. You'll only find users who have allowed their accounts to be found by email address. We won't email anyone without your consent.</p>
+						择一个服务会弹出一个窗口让您安全登录并导入您的联系人到11号公益圈。您只能找到那些允许通过搜寻邮箱能找到他们的用户。不经过您的准许我们不会发邮件给任何人。</p>
 				</div>
 			</div> <!-- search-contacts-box -->
 			
@@ -77,17 +77,17 @@
 							<%= image_tag "facebook-icon.png", class: "contacts-icon contacts-icon-facebook", style: "display:none;" %>
 							&nbsp;<b id="provider_contacts_label" style="font-size:16px;">Contacts</b>&nbsp;&nbsp;&nbsp;
 							<a id="btnTryAnotherService" href="javascript:void(0);">
-								Back
+								后退
 							</a>
 						</div>
 						<div class="sub-header">
 							<div class="left-col">
 								<p>
-									Here are <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
+									下面有<span id="txtContactCount"></span>位可以分享您的链接，您可以去掉“全选”或任何您不想分享的人。
 								</p>
 							</div>
 							<div class="select-all-box">
-								<span>Select all</span>
+								<span>全选</span>
 								<input id="cbxSelectAll" type="checkbox" />
 							</div>
 						</div>
@@ -98,7 +98,7 @@
 				<div class="footer">
 					<div class="send-email-box">
 						<a id="btnImportContact" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
-							<span class="text">Import Contacts</span>
+							<span class="text">导入联系人</span>
 							<span class="loader" style="display:none"></span>
 						</a>
 					</div>
@@ -110,17 +110,17 @@
 					<div class="col-md-12">
 						<div>
 							<%= image_tag "edit-icon.png", class: "contacts-icon" %>&nbsp;
-							<b style="font-size: 16px">Manually Enter Emails</b>&nbsp;&nbsp;&nbsp;
+							<b style="font-size: 16px">手动输入邮箱</b>&nbsp;&nbsp;&nbsp;
 							<a id="btnTryAnotherServiceManual" href="javascript:void(0);">
-								Back
+								后退
 							</a>
 						</div>
 						<div class="sub-header">
 							<div class="left-col">
 								<p>
-									Enter emails seperated by commas or one per line.
+									输入邮件按逗号或每行分割。
 									<br />
-									PLEASE NOTE: This will not send email invites.
+									请注意：这不好发送邀请邮件。
 								</p>
 							</div>
 						</div>
@@ -133,7 +133,7 @@
 				</div>
 				<div class="footer" style="padding-top: 0px">
 					<a id="btnImportContactManual" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
-						<span class="text">Import Contacts</span>
+						<span class="text">导入联系人</span>
 						<span class="loader" style="display:none"></span>
 					</a>
 				</div>
@@ -141,7 +141,7 @@
 			
 			<div id="contacts-list-box">
 				<div style="margin-top:15px;">
-					<label style="font-size:18px;">Or Enter Contacts Individually</label>
+					<label style="font-size:18px;">或者单独地输入联系人</label>
 					&nbsp;&nbsp;&nbsp;
 					<!-- <label class="glyphicon glyphicon-plus-sign show_tooltip" data-title="Add Contact" style="cursor:pointer; font-size:22px; vertical-align:top;" onclick="Raisy.users.addNewContactClick();"></label> -->
 				</div>
@@ -150,10 +150,10 @@
 					<table class="table table-hover contact-table" style="<%= 'display:none;' if @contacts.count==0 %>">
 						<thead>
 							<tr>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th><span class="show_tooltip" data-title="What you will call this person in the email (e.g. Grandma)">Greeting&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
-								<th>Email</th>
+								<th>姓</th>
+								<th>名</th>
+								<th><span class="show_tooltip" data-title="在邮件里您怎么称呼这个人 （比如：外婆）">称呼&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
+								<th>邮箱</th>
 								<th></th>
 								<th></th>
 								<th></th>
@@ -198,17 +198,17 @@
 			<div class="row web-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-success btn-lg back-btn camp-back-btn-31" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_photo_path(@seller) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-primary btn-lg continue-btn" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
-						<span class="text">Continue</span>
+						<span class="text">继续</span>
 					</button>
 				</div>
 			</div>	<!-- web-box -->
@@ -216,17 +216,17 @@
 			<div class="row mobile-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-primary btn-lg continue-btn" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
-						<span class="text">Continue</span>
+						<span class="text">继续</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg back-btn camp-back-btn-31" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_photo_path(@seller) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 			</div>	<!-- mobile-box -->
@@ -240,22 +240,22 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Easily select which contacts to import from your address book, or select “Enter Contacts Individually” to type in the name and email address of each contact.</p>
-				<p>On the next step, you will edit the email that will be sent to these contacts.</p>
-				<p>Note: before you send an email, you will be able to select exactly which of your contacts will receive it.</p>
+				<p>只要从您的地址薄选择那些需要导入的组织成员，或者选择“单独地输入联系人”来给没给成员输入姓名和邮件地址。</p>
+				<p>在下一步，你要编辑发给这些成员的邮箱。.</p>
+				<p>注意: 在你发送邮件之情，你可以具体选择哪些联系人会收到邮件。</p>
 				<span>Tips:</span>
 				<ul>
-					<li><span>Think of anyone who can help: neighbors, grandparents, friends, aunts and uncles, co-workers, teammates, etc.</span></li>
-					<li><span>Don’t be shy! Remember: you are not asking for donations, you are offering products that people know and love!</span></li>
+					<li><span>想到任何可以帮助的人：邻居，祖母们，朋友，阿姨叔叔，同事，同桌等等。</span></li>
+					<li><span>不要害羞！记住：您不是向别人要捐赠，您是给您爱的人提供商品！</span></li>
 				</ul>
 	        </div> <!-- end of modal body -->
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_seller_step_tips_container">
 						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不要再显示这个信息e</span>
 						</a>
 					</div>
 				</div>
@@ -282,7 +282,7 @@
 		var count=maxLength-content.length;
 		
 		if (count<0) {
-			$container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to "+maxLength+" characters");
+			$container.find(".tinymce-charcount span").css("color", "#b94a48").text("最大"+maxLength+"字符");
 			
 			//alert("Custom Email Text is too long.");
 			
@@ -519,7 +519,7 @@
 			var error = "";
 			if (contacts.length == 0) {
 				if (error) error += "<br/>";
-				error += "Please select one or more contacts";
+				error += "请选择至少一个联系人";
 			}
 
 			if (error!="") {
@@ -527,7 +527,7 @@
 				return;
 			}
 
-	      $button.prop('disabled', true).find('span.text').text('Importing Contacts...').siblings('span.loader').show(200, function() {
+	      $button.prop('disabled', true).find('span.text').text('导入联系人中...').siblings('span.loader').show(200, function() {
 	          $.ajax('/ajax/importcontacts', {
 	              type: 'POST',
 				  data: { contacts: contacts, seller_id: sellerid },
@@ -536,7 +536,7 @@
 	              },
 	              success: function(data) {
 					if (data != "failed") {
-						window.Raisy.alert("Contacts have been successfully imported");
+						window.Raisy.alert("联系人导入成功！");
 						
 						var ids=data.split(",");
 						
@@ -550,11 +550,11 @@
 						$("#contacts-list-box").show();
 						$("#contacts-result-box").hide();
 					} else {
-						window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+						window.Raisy.alert("保存出错，请稍后再试。");
 					}
 	              },
 	              error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
 	              },
 				  complete: function () {
 					$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();
@@ -576,7 +576,7 @@
 			if (contacts.length == 0) {
 				
 				if (error) error += "\n";
-				error += "Please enter one or more contacts.";
+				error += "请选择至少一个联系人";
 				
 			} else {
 
@@ -590,7 +590,7 @@
 					
 						if (!window.Raisy.valid_email(contactsByComma[j])) {
 							if (error) error += "\n";
-							error += contactsByComma[j] + " is not a valid email.";
+							error += contactsByComma[j] + "不是正确的邮件格式";
 						}
 					
 					}
@@ -632,13 +632,13 @@
               },
               success: function(data) {
 				if (data == "success") {
-					alert("Contacts have been successfully imported");
+					alert("联系人导入成功！");
 				} else {
-					alert("Hmm, there was a problem while importing contacts, please try again.");
+					alert("保存出错，请稍后再试。");
 				}
               },
               error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("Hmm, there was a problem while importing contacts, please try again.");
+				alert("保存出错，请稍后再试。");
               },
 			complete: function () {
 				$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();

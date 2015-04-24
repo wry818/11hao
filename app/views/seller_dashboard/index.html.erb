@@ -4,7 +4,7 @@
         <div class="container-box">
 
             <div class="dashboard-header">
-                <h2 style="margin: 0 0 25px; font-weight: bold"><%=current_user.profile.try(:first_name)%>'的仪表</h2>
+                <h2 style="margin: 0 0 25px; font-weight: bold"><%=current_user.profile.try(:first_name)%>的仪表</h2>
             </div>
 
             <% if current_user.account_type == 3 %>

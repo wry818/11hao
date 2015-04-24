@@ -34,8 +34,8 @@
 	font-size: 11px;
 }
 
-$entertainment-blue: rgb(0, 70, 127);
-$entertainment-blue-hover: rgb(0, 80, 145);
+$site-red: rgb(191, 17, 26);
+$site-red-hover: rgb(210, 16, 16);
 $entertainment-orange: rgb(245, 117, 12);
 $entertainment-orange-hover: rgb(241, 141, 55);
 $entertainment-lightgreen: rgb(168, 193, 51);
@@ -46,11 +46,17 @@ $grey: rgb(114, 113, 113);
 html, body {
     //height: 100%;
 	//color: rgb(142, 148, 153);
+	font-size: 16px;
+	font-family: 黑体, "Microsoft YaHei", 微软雅黑, "Open Sans", sans-serif;
 }
 
-span, p, h1, h2, h3, h4, h5 {
-    font-family: "Open Sans", sans-serif;
+input {
+	font-family: "Open Sans", sans-serif;
 }
+
+//span, p, h1, h2, h3, h4, h5 {
+//    font-family: "Open Sans", sans-serif;
+//}
 
 p {
     line-height: 1.5;
@@ -82,15 +88,38 @@ h1, h2, h3, h4, h5 {
     }
 }
 
+.navbar-brand-main {
+	position: relative;
+	
+	.divlogo {
+		position: absolute; 
+		top: 0px;
+	}
+}
+
 .btn-primary {
-  color: #fff;
-  background-color: $entertainment-blue;
-  border-color: $entertainment-blue;
+	border-radius: 0px;
+	color: #fff;
+	background-color: $site-red;
+	border-color: $site-red;
+	
+	&:hover {
+		background-color: $site-red-hover !important;
+		border-color: $site-red-hover !important;
+	}
+	
+    &:active {
+  	  	color: #fff;
+		background-color: $site-red-hover !important;
+		border-color: $site-red-hover !important;
+    }
   
-  &:hover {
-	  background-color: $entertainment-blue-hover !important;
-	  border-color: $entertainment-blue-hover !important;
-  }
+    &:focus {
+  	  	color: #fff;
+		background-color: $site-red-hover !important;
+		border-color: $site-red-hover !important;
+    }
+	
 }
 
 .btn-orange {
@@ -115,7 +144,7 @@ h1, h2, h3, h4, h5 {
   
 }
 
-.btn-lightgreen {
+.btn-lightgreen, .btn-success {
   color: #fff;
   background-color: $entertainment-lightgreen;
   border-color: $entertainment-lightgreen;
@@ -129,10 +158,36 @@ h1, h2, h3, h4, h5 {
   
   &:active {
 	  color: #fff;
+	  background-color: $entertainment-lightgreen-hover !important;
+	  border-color: $entertainment-lightgreen-hover !important;
   }
   
   &:focus {
 	  color: #fff;
+	  background-color: $entertainment-lightgreen-hover !important;
+	  border-color: $entertainment-lightgreen-hover !important;
+  }
+  
+}
+
+.btn-white {
+  color: rgb(191, 17, 26);
+  background-color: white;
+  border-color: white;
+  border-radius: 0px;
+  
+  &:hover {
+	  color: rgb(191, 17, 26);
+	  background-color: white !important;
+	  border-color: white !important;
+  }
+  
+  &:active {
+	  color: rgb(191, 17, 26);
+  }
+  
+  &:focus {
+	  color: rgb(191, 17, 26);
   }
   
 }
@@ -178,7 +233,7 @@ label.error {
 .modal {
     .modal-header {
         &.modal-header-purple {
-            background: $entertainment-blue;
+            background: $site-red;
             .modal-title, .close {
                 color: white;
                 opacity: 1;
@@ -190,7 +245,7 @@ label.error {
 .panel {
     .panel-purple {
         .panel-heading {
-            background: $entertainment-blue;
+            background: $site-red;
             .panel-title {
                 color: white;
             }
@@ -207,7 +262,7 @@ label.error {
     -moz-border-radius: 30px;
     border-radius: 30px;
     margin-right: 8px;
-    background-color: $entertainment-blue;
+    background-color: $site-red;
     color: white;
     text-align: center;
 }

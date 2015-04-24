@@ -45,12 +45,12 @@ $( document ).ready(function() {
 	        },
 	        messages: {
 	          "user[email]": {
-	            required: "Please enter your email",
-	            email: "Hmm, that email doesn't look valid"
+	            required: "请输入您的邮箱",
+	            email: "邮箱格式不正确"
 	          },
 	          "user[password]": {
-	            required: "Please enter your password",
-	            minlength: "Must be at least 8 characters"
+	            required: "请输入您的密码",
+	            minlength: "密码至少8位"
 	          }
 	        }
 
@@ -82,28 +82,26 @@ $( document ).ready(function() {
 			"user[email]": { required: true, email: true },
 			"user[password]": { required: true, minlength: 8 },
 			"user[terms_conditions]": { required: true },
-			"first_name": { required: true, minlength: 2 },
-			"last_name": { required: true, minlength: 2 }
+			"first_name": { required: true },
+			"last_name": { required: true }
         },
         messages: {
           "user[email]": {
-            required: "Please enter your email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "user[password]": {
-            required: "Please enter your password",
-            minlength: "Must be at least 8 characters"
+            required: "请输入您的密码",
+            minlength: "密码至少8位"
           },
           "user[terms_conditions]": {
-            required: "Please accept our terms and conditions before create your account"
+            required: "在创建您的帐户前请先同意我们的服务协议"
           },
           "first_name": {
-            required: "Please enter your first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的姓"
           },
           "last_name": {
-            required: "Please enter your last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的名"
           }
         }
 
@@ -145,23 +143,23 @@ $( document ).ready(function() {
 					"user[password]": { required: true, minlength: 8 },
 					"user[confirm_password]": { required: true, equalTo: "#user_password" },
 					"user[terms_conditions]": { required: true },
-					"user_profile[first_name]": { required: true, minlength: 2 },
-					"user_profile[last_name]": { required: true, minlength: 2 },
-					"seller[first_name]": { required: true, minlength: 2 },
-					"seller[last_name]": { required: true, minlength: 2 },
+					"user_profile[first_name]": { required: true },
+					"user_profile[last_name]": { required: true },
+					"seller[first_name]": { required: true },
+					"seller[last_name]": { required: true },
 					"guardian_agree": { required: true },
-					"seller13[first_name]": { required: true, minlength: 2 },
-					"seller13[last_name]": { required: true, minlength: 2 },
+					"seller13[first_name]": { required: true },
+					"seller13[last_name]": { required: true },
 					"seller13[grade]": { required: true },
 					"seller13[homeroom]": { required: true },
-					"seller14[first_name]": { required: true, minlength: 2 },
-					"seller14[last_name]": { required: true, minlength: 2 },
+					"seller14[first_name]": { required: true },
+					"seller14[last_name]": { required: true },
 					"seller14[grade]": { required: true },
 					"seller14[homeroom]": { required: true },
 					"seller14[email]": { required: true, email: true },
 					"seller14[password]": { required: true, minlength: 8 },
-					"parent[first_name]": { required: true, minlength: 2 },
-					"parent[last_name]": { required: true, minlength: 2 },
+					"parent[first_name]": { required: true },
+					"parent[last_name]": { required: true },
 					"parent[email]": { required: true, email: true },
 					"seller[grade]": { required: true },
 					"seller[homeroom]": { required: true },
@@ -169,145 +167,131 @@ $( document ).ready(function() {
 					"seller[password]": { required: true, minlength: 8 },
 					"sellerexist[grade]": { required: true },
 					"sellerexist[homeroom]": { required: true },
-					"seller1314[first_name]": { required: true, minlength: 2 },
-					"seller1314[last_name]": { required: true, minlength: 2 },
+					"seller1314[first_name]": { required: true },
+					"seller1314[last_name]": { required: true },
 					"seller1314[grade]": { required: true },
 					"seller1314[homeroom]": { required: true },
-					"seller18[first_name]": { required: true, minlength: 2 },
-					"seller18[last_name]": { required: true, minlength: 2 },
+					"seller18[first_name]": { required: true },
+					"seller18[last_name]": { required: true },
 					"existing_seller_profile[id]": { required: true }
         },
         messages: {
           "user[fullname]": {
-            required: "Please provide your first & last name",
-            twowords: "Please provide your first & last name"
+            required: "请输入您的姓名",
+            twowords: "请输入您的姓名"
           },
           "user[email]": {
-            required: "Please enter your email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "user[password]": {
-            required: "Please enter your password",
-            minlength: "Must be at least 8 characters"
+            required: "请输入您的密码",
+            minlength: "密码至少8位"
           },
           "user[confirm_password]": {
-            required: "Please confirm your password",
-            equalTo: "The passwords you entered do not match. Please try again"
+            required: "请确认您的密码",
+            equalTo: "密码不匹配，请重新输入"
           },
           "user[terms_conditions]": {
-            required: "Please accept our terms and conditions before create your account"
+            required: "在创建您的帐户前请先同意我们的服务协议"
           },
           "user_profile[first_name]": {
-            required: "Please enter your first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的姓"
           },
           "user_profile[last_name]": {
-            required: "Please enter your last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的名"
           },
           "seller[first_name]": {
-            required: "Please enter student first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的姓"
           },
           "seller[last_name]": {
-            required: "Please enter student last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的名"
           },
           "guardian_agree": {
-            required: "Please check the agreement of Parent/Guardian Signup"
+            required: "请勾选家长／监护人注册协议"
           },
           "seller13[first_name]": {
-            required: "Please enter student first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的姓"
           },
           "seller13[last_name]": {
-            required: "Please enter student last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的名"
           },
           "seller13[homeroom]": {
-            required: "Please enter group leader"
+            required: "请输入小组领队"
           },
           "seller13[grade]": {
-            required: "Please enter grade"
+            required: "请输入年级"
           },
           "seller14[first_name]": {
-            required: "Please enter your first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的姓"
           },
           "seller14[last_name]": {
-            required: "Please enter your last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的名"
           },
           "seller14[homeroom]": {
-            required: "Please enter group leader"
+            required: "请输入小组领队"
           },
           "seller14[grade]": {
-            required: "Please enter grade"
+            required: "请输入年级"
           },
           "seller14[email]": {
-            required: "Please enter your email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "seller14[password]": {
-            required: "Please enter your password",
-            minlength: "Must be at least 8 characters"
+            required: "请输入您的密码",
+            minlength: "密码至少8位"
           },
           "parent[first_name]": {
-            required: "Please enter parent first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入家长的姓"
           },
           "parent[last_name]": {
-            required: "Please enter parent last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入家长的名"
           },
           "parent[email]": {
-            required: "Please enter parent email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入家长的邮箱",
+            email: "邮箱格式不正确"
           },
           "seller[homeroom]": {
-            required: "Please enter group leader"
+            required: "请输入小组领队"
           },
           "seller[grade]": {
-            required: "Please enter grade"
+            required: "请输入年级"
           },
           "seller[email]": {
-            required: "Please enter your email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "seller[password]": {
-            required: "Please enter your password",
-            minlength: "Must be at least 8 characters"
+            required: "请输入您的密码",
+            minlength: "密码至少8位"
           },
           "sellerexist[homeroom]": {
-            required: "Please enter group leader"
+            required: "请输入小组领队"
           },
           "sellerexist[grade]": {
-            required: "Please enter grade"
+            required: "请输入年级"
           },
           "seller1314[first_name]": {
-            required: "Please enter student first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的姓"
           },
           "seller1314[last_name]": {
-            required: "Please enter student last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入学生的名"
           },
           "seller1314[homeroom]": {
-            required: "Please enter group leader"
+            required: "请输入小组领队"
           },
           "seller1314[grade]": {
-            required: "Please enter grade"
+            required: "请输入年级"
           },
           "seller18[first_name]": {
-            required: "Please enter your first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的姓"
           },
           "seller18[last_name]": {
-            required: "Please enter your last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的名"
           },
 		  "existing_seller_profile[id]": {
-			  required: "Please select an existing seller"
+			  required: "请选择一个存在的销售"
 		  }
         }
 
@@ -391,7 +375,7 @@ $( document ).ready(function() {
         },
         messages: {
           "organization[name]": {
-            required: "Please provide your organization's name"
+            required: "请输入您组织的名称"
           }
         }
     });
@@ -440,50 +424,48 @@ $( document ).ready(function() {
             "user[email]": { required: true, email: true },
             "user[password]": { required: true, minlength: 8 },
 			"user[confirm_password]": { required: true, equalTo: "#user_password" },
-			"user[first_name]": { required: true, minlength: 2 },
-			"user[last_name]": { required: true, minlength: 2 },
+			"user[first_name]": { required: true },
+			"user[last_name]": { required: true },
 			"user[terms_conditions]": { required: true }
         },
         messages: {
           "organization_name": {
-            required: "Please select an organization"
+            required: "请选择一个组织"
           },
           "campaign[collection_id]": {
-            required: "Please select a product"
+            required: "请选择一件商品"
           },
           "campaign[title]": {
-            required: "Please provide a title",
-            maxlength: "Title must be less than 100 characters"
+            required: "请输入标题",
+            maxlength: "标题至少要100个字符"
           },
           "campaign[organizer_quote]": {
-            maxlength: "Sub-title must be less than 100 characters"
+            maxlength: "副标题至少要100个字符"
           },
           "campaign[goal]": {
-            number: "Only numbers, please",
-            min: "Goal minimum is 1"
+            number: "请只输入数字",
+            min: "目标至少要1元"
           },
           "user[email]": {
-            required: "Please enter your email",
-            email: "Hmm, that email doesn't look valid"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "user[password]": {
-            required: "Please enter your password",
-            minlength: "Must be at least 8 characters"
+            required: "请输入您的密码",
+            minlength: "密码至少8位"
           },
           "user[confirm_password]": {
-            required: "Please confirm your password",
-            equalTo: "The passwords you entered do not match. Please try again"
+            required: "请确认您的密码",
+            equalTo: "密码不匹配，请重新输入"
           },
           "user[first_name]": {
-            required: "Please enter your first name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的姓"
           },
           "user[last_name]": {
-            required: "Please enter your last name",
-            minlength: "Must be at least 2 characters"
+            required: "请输入您的名"
           },
           "user[terms_conditions]": {
-            required: "Please accept our terms and conditions before create your account"
+            required: "在创建您的帐户前请先同意我们的服务协议"
           }
         }
     });
@@ -512,7 +494,7 @@ $( document ).ready(function() {
         },
         // validation messages
         messages: {
-          "direct_donation": "Please enter an amount"
+          "direct_donation": "请输入一个数量"
         }
 
       });
@@ -564,30 +546,30 @@ $( document ).ready(function() {
         },
         // validation messages
         messages: {
-          "order[fullname]": "Please enter your full name",
+          "order[fullname]": "请输入您的全名",
           "order[email]": {
-            required: "Please enter your email address",
-            email: "Hmm, that doesn't look valid yet"
+            required: "请输入您的邮箱",
+            email: "邮箱格式不正确"
           },
           "card_number": {
-            required: "Please enter your card number",
-            minlength: "Hmm, that doesn't look valid yet",
-            creditcard: "Hmm, that doesn't look valid yet"
+            required: "请输入您的信用卡号",
+            minlength: "信用卡号格式不正确",
+            creditcard: "信用卡号格式不正确"
           },
           "cvv": {
-            required: "Please enter your card's CVV",
-            number: "Hmm, that doesn't look valid yet",
-            minlength: "Hmm, that doesn't look valid yet",
-            maxlength: "Hmm, that doesn't look valid yet"
+            required: "请输入您的信用卡号的CVV",
+            number: "CVV格式不正确",
+            minlength: "CVV格式不正确",
+            maxlength: "CVV格式不正确"
           },
-          "order[billing_zip_code]": "Please enter your billing postal code",
-          "order[address_line_one]": "Please enter recipient's address",
-          "order[address_city]": "Please enter recipient's city",
-          "order[address_state]": "Please enter recipient's state",
-          "order[address_postal_code]": "Please enter recipient's postal code",
-          "order[address_country]": "Please select recipient's county",
-		  "order[phone_number]": "Please enter recipient's phone number",
-		  "order[address_fullname]": "Please enter recipient's full name"
+          "order[billing_zip_code]": "请输入记账单邮编",
+          "order[address_line_one]": "请输入收货人地址",
+          "order[address_city]": "请输入收货人城市",
+          "order[address_state]": "请输入收货人区县",
+          "order[address_postal_code]": "请输入收货人邮编",
+          "order[address_country]": "请输入收货人国家",
+		  "order[phone_number]": "请输入收货人联系电话",
+		  "order[address_fullname]": "请输入收货人名字"
         }
 	});
 
@@ -622,23 +604,23 @@ $( document ).ready(function() {
 		// validation messages
         messages: {
             "campaign_bulkshippinginfo[ship_to_name]": {
-              required: "Please enter ship to name"
+              required: "请输入发货名称"
             },
             "campaign_bulkshippinginfo[address_line_1]": {
-              required: "Please enter address line 1"
+              required: "请输入地址"
             },
             "campaign_bulkshippinginfo[city]": {
-              required: "Please enter city"
+              required: "请输入城市"
             },
             "campaign_bulkshippinginfo[zip_code]": {
-              required: "Please enter zip/postal code",
-			  zipcode: "Hmm, that doesn't look valid yet"
+              required: "请输入邮编",
+			  zipcode: "邮编格式不正确"
             },
             "campaign_bulkshippinginfo[phone_number]": {
-              required: "Please enter phone number"
+              required: "请输入联系电话"
             },
             "campaign_bulkshippinginfo[email_address]": {
-              email: "Hmm, that doesn't look valid yet"
+              email: "邮箱格式不正确"
             }
         }
     });

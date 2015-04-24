@@ -22,14 +22,14 @@
 			
 			<div class="form-group">
 				<div class="step-title-container">
-					<label>Help Promote the Fundraiser</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+					<label>帮助促进筹款团队</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
 				</div>
 			</div>
 			
 			<div>
-				<span>Send emails to your friends and family to tell them about your fundraiser and invite them to shop online at your personalized fundraising page to help reach the fundraising goal.</span>
+				<span>发邮件给您的朋友和家人以告诉并邀请他们在您的筹款页上购物来帮助您达成您的目标。</span>
 				<br/><br/>
-				<span>Custom Email Text:</span>
+				<span>邮件内容：</span>
 			</div>
 			
 			<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
@@ -38,7 +38,7 @@
 				</div>
 				
 		    	<div style="margin-top: 10px">
-					<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+					<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="您可以在这里加入自己的内容"><%=raw @email_msg %></textarea>
 				</div>
 				
 				<div style="margin-top: 10px;">
@@ -50,11 +50,11 @@
 				<table>
 					<tr><td style="width:100px;">
 						<button id="btnPreviewEmail" class="btn btn-primary" type="button">
-							<span class="text">Preview Email</span>
+							<span class="text">预览邮件</span>
 							<span class="loader" style="display:none"></span>
 						</button></td>
 						<td style="width:20px;">&nbsp;</td>
-					<td><span>Note: you will be able to review & select which contacts receive this email before it is sent.</span></td></tr>
+					<td><span>注意：在邮件发出之情您可以重新查看并选择哪些联系人会收到这封邮件。</span></td></tr>
 				</table>
 			</div>
 			
@@ -63,17 +63,17 @@
 			<div class="row web-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-success btn-lg back-btn camp-back-btn-31" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= signup_seller_share_path(@seller) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-primary btn-lg continue-btn" type="button" data-currentstep="3.1" onclick="ClickSendEmail(this, true);">
-						<span class="text">Send Email</span>
+						<span class="text">发送邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>
 				</div>
@@ -82,18 +82,18 @@
 			<div class="row mobile-box">
 				<div class="col-sm-5 backbutton-box">
 					<button class="btn btn-primary btn-lg continue-btn" type="button" data-currentstep="3.1" onclick="ClickSendEmail(this, true);">
-						<span class="text">Send Email</span>
+						<span class="text">发送邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= signup_seller_share_path(@seller) %>';">
-						<span class="text">Skip this step</span>
+						<span class="text">跳过这步</span>
 					</button>
 				</div>
 				<div class="col-sm-3 continuebutton-box">
 					<button class="btn btn-success btn-lg back-btn camp-back-btn-31" type="button" data-currentstep="3.1" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
-						<span class="text">Back</span>
+						<span class="text">后退</span>
 					</button>
 				</div>
 			</div>
@@ -112,7 +112,7 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
-				<p>Customize the email that will be sent to your contacts.</p>
+				<p>个性化这封将要发送给您的联系人的邮件。</p>
 				<span>Tips:</span>
 				<ul>
 					<li><span>Make the email more personal by adding another sentence about your fundraiser. Let your contacts know why your cause is important, and they will be more likely to make a purchase.</span></li>
@@ -122,10 +122,10 @@
 
 	        <div class="modal-footer">
 				<div style="position:relative; text-align:center;">
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 					<div class="hide_seller_step_tips_container">
 						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
-							<span style="font-size:12px; font-weight:600;">Don't show this message anymore</span>
+							<span style="font-size:12px; font-weight:600;">不要在显示这个信息</span>
 						</a>
 					</div>
 				</div>

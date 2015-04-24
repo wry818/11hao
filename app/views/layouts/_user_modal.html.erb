@@ -17,45 +17,45 @@
 
 								<div class="col-md-12">
 	                                <div class="form-group">
-	                                    <%= f.label :email %>
-	                                    <%= f.email_field :email, class: "form-control new-user-email", placeholder: "Enter email", autocomplete: "off" %>
+	                                    邮箱
+	                                    <%= f.email_field :email, class: "form-control new-user-email", placeholder: "请输入邮箱", autocomplete: "off" %>
 	                                </div>
 								</div>
 							
 								<div class="col-md-12">
 	                                <div class="form-group">
-	                                    <%= f.label :password %>
-	                                    <%= f.password_field :password, class: "form-control new-user-password", placeholder: "Enter password", autocomplete: "off" %>
+	                                    密码
+	                                    <%= f.password_field :password, class: "form-control new-user-password", placeholder: "请输入密码", autocomplete: "off" %>
 	                                </div>
 								</div>
 							
 								<div class="col-md-12">
 									<div class="form-group"> 
-											<label for="user_first_name">First Name</label>
-							                <input id="user_first_name" name="first_name" type="text" class="form-control" placeholder="Enter first name">
+											<label for="user_first_name">姓</label>
+							                <input id="user_first_name" name="first_name" type="text" class="form-control" placeholder="请输入姓">
 									</div>
 								</div>
 							
 								<div class="col-md-12">
 									<div class="form-group"> 
-											<label for="user_last_name">Last Name</label>
-							                <input id="user_last_name" name="last_name" type="text" class="form-control" placeholder="Enter last name">
+											<label for="user_last_name">名</label>
+							                <input id="user_last_name" name="last_name" type="text" class="form-control" placeholder="请输入名">
 									</div>
 								</div>
 
  								<div class="col-md-12">
  									<div class="form-group"> 
 											<input id="user_terms_conditions" type="checkbox" name="user[terms_conditions]" />
-											<label for="user_terms_conditions" style="font-weight:normal; display:inline;">By checking the box, you agree to our <%= link_to "Terms and Conditions", "https://answers.entertainment.com/", target: "_blank" %></label>
+											<label for="user_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的<%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
  									</div>
  								</div>
 								
-                                <p class="error-message" style="display: none">Hmm, there was a problem with your entries, please try again!</p>
+                                <p class="error-message" style="display: none">登录有问题，请稍后再试!</p>
                                 <input type="hidden" id="landing" name="landing" value="">
 							
 								<div class="col-md-12" style="text-align:center;">
 	                                <button type="submit" class="btn btn-primary" style="width:180px; height:40px; font-size:16px;" onclick="return Raisy.verify_user(false, $('.new-user-email').val(), $('.new-user-password').val());">
-	                                    <span class="text">Create my account</span> <span class="loader" style="display:none"></span>
+	                                    <span class="text">创建我的帐户</span> <span class="loader" style="display:none"></span>
 	                                </button>
 								</div>
                             <% end %>
@@ -98,7 +98,7 @@
 				
 	            <div class="modal-footer" style="background:#eee;">
 					<div style="text-align:center;">
-						<span>Already have an account?&nbsp;<a class="user-modal-signin" style="text-decoration:none; cursor:pointer;"><strong>Sign In</strong></a></span>
+						<span>已经有帐户了？&nbsp;<a class="user-modal-signin" style="text-decoration:none; cursor:pointer;"><strong>登录</strong></a></span>
 					</div>
 	            </div> <!-- /.modal-footer -->
             </div>  <!-- end of #user_modal_signup -->

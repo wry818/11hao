@@ -243,7 +243,7 @@ window.Raisy = {
 							color="#b94a48";
 						}
 						
-						$("<div style=\"text-align:center; color:gray; font-size:14px; font-family:'Open Sans'; display:inline-block; width:50%; margin-top:6px;\">You can add personalized text here</div>").appendTo($container.find(".mce-toolbar .mce-container-body").first());
+						$("<div style=\"text-align:center; color:gray; font-size:14px; font-family:'Open Sans'; display:inline-block; width:50%; margin-top:6px;\">您可以在这里加入自己的内容</div>").appendTo($container.find(".mce-toolbar .mce-container-body").first());
 												
 						$("<div class='tinymce-charcount' style='position:absolute; right: 32px; bottom:2px;'><span style=\"font-size:12px; font-weight:600; font-family:'Open Sans';\">"+count+"</span></div>").insertBefore($container.find(".mce-resizehandle").first());
 						

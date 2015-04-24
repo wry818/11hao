@@ -7,7 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<%= root_path %>" alt="raisy"><%= image_tag "raisyLOGO.png", class: "logo" %></a>
+      <a class="navbar-brand" href="<%= root_path %>" alt="11号公益圈">
+		  <div class="divlogo">
+			  <%= image_tag "logo.png", class: "logo" %>
+		  </div>
+		  
+	  </a>
     </div>
     <nav class="collapse navbar-collapse navbar-responsive-collapse" role="navigation">
       <ul class="nav navbar-nav navbar-right">
@@ -84,7 +89,7 @@
 			<% end %>
         <% else %>
             <li class="home-menu">
-              <%= link_to "创建筹款页", '#startfund', class: 'homemenu' %>
+              <%= link_to "创建筹款页", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
             </li>
             <li class="home-menu">
               <%= link_to "加入筹款团队", '/search' %>

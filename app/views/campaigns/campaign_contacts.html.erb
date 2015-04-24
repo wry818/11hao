@@ -78,7 +78,7 @@
 							<div class="sub-header">
 								<div class="left-col">
 									<p>
-										下面是 <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
+										下面有<span id="txtContactCount"></span>位可以分享您的链接，您可以去掉“全选”或任何您不想分享的人。
 									</p>
 								</div>
 								<div class="select-all-box">
@@ -347,7 +347,7 @@ $(document).ready(function() {
 						}
 					
 						if (contactsCount==0) {
-							window.Raisy.alert("No contact emails found");
+							window.Raisy.alert("抱歉，未找到联系人邮箱");
 						}
 						else {
 							$("#search-contacts-box").hide();
@@ -370,7 +370,7 @@ $(document).ready(function() {
 						
 					} else {
 
-						window.Raisy.alert("No contacts found");
+						window.Raisy.alert("抱歉，未找到联系人");
 
 					}
 
@@ -420,7 +420,7 @@ $(document).ready(function() {
 		var error = "";
 		if (contacts.length == 0) {
 			if (error) error += "<br/>";
-			error += "Please select one or more contacts";
+			error += "请选择至少一个联系人";
 		}
 
 		if (error!="") {
@@ -437,7 +437,7 @@ $(document).ready(function() {
               },
               success: function(data) {
 				if (data != "failed") {
-					window.Raisy.alert("Contacts have been successfully imported");
+					window.Raisy.alert("联系人导入成功！");
 					
 					var ids=data.split(",");
 					
@@ -451,11 +451,11 @@ $(document).ready(function() {
 					$("#contacts-list-box").show();
 					$("#contacts-result-box").hide();
 				} else {
-					window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
 				}
               },
               error: function(XMLHttpRequest, textStatus, errorThrown) {
-				window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+				window.Raisy.alert("保存出错，请稍后再试。");
               },
 			  complete: function () {
 				$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();

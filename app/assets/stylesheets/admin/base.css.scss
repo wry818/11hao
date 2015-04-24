@@ -6,8 +6,8 @@ html, body {
 	font-size: 11px;
 }
 
-$entertainment-blue: rgb(0, 70, 127);
-$entertainment-blue-hover: rgb(0, 80, 145);
+$site-red: rgb(0, 70, 127);
+$site-red-hover: rgb(0, 80, 145);
 
 @media (min-width: 1200px) {
     .container {
@@ -30,17 +30,6 @@ $entertainment-blue-hover: rgb(0, 80, 145);
         margin-left: 0px;
     }
 }
-
-//.btn-primary {
-//  color: #fff;
-//  background-color: $entertainment-blue;
-//  border-color: $entertainment-blue;
-//
-//  &:hover {
-//	  background-color: $entertainment-blue-hover;
-//	  border-color: $entertainment-blue-hover;
-//  }
-//}
 
 .well {
     &.well-white {

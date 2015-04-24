@@ -318,7 +318,7 @@
 			</div>
 		
 	    	<div style="margin-top: 10px;">
-				<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+				<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="您可以在这里加入自己的内容"><%=raw @email_msg %></textarea>
 			</div>
 		 
 			<div style="margin-top: 10px;">
@@ -348,10 +348,10 @@
 			<table class="table">
 				<thead>
 			        <tr>
-						<th># of orders</th>
-						<th># of logins</th>
-			            <th># of emails sent</th>
-			            <th># of share</th>
+						<th>订单数量</th>
+						<th>登录次数</th>
+			            <th>邮件发出次数</th>
+			            <th>分享次数</th>
 			            <th># of tweets</th>
 			        </tr>
 				</thead>
@@ -368,11 +368,11 @@
 		</div>
 		
 		<div class="seller-orders-list">
-			<p><strong>My Orders</strong></p>
+			<p><strong>我的订单列表</strong></p>
 		    <div class="row">
 		        <div class="col-md-12">
 					<div style="text-align:right;">
-						<a href="<%= seller_orders_download_path(@seller.referral_code) %>" target="_blank">Download</a>
+						<a href="<%= seller_orders_download_path(@seller.referral_code) %>" target="_blank">下载</a>
 					</div>
 					<div style="width:100%; max-height:560px; overflow:auto;">
 		            	<%= render 'seller_dashboard/orders_list' %>

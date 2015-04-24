@@ -5,13 +5,13 @@
             <div class="col-md-8 col-md-push-2">
                 <div class="well">
                     <p style="margin-bottom: 20px;">
-						Welcome back!
+						欢迎回来
                     </p>
 					
 					<div id="login_error" style="display:none;">
 				        <div class="alert alert-warning">
 				            <div id="login_error_message" style="text-align: center;">
-								Sorry, your email or password is incorrect
+								抱歉，您的邮箱或密码不正确
 				            </div>
 				        </div>
 						<div>&nbsp;</div>
@@ -22,23 +22,23 @@
                             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
                                 <div class="form-group">
-                                    <label for="session_email">Email Address</label>
-                                    <%= f.email_field :email, class: "form-control", autofocus: true, placeholder: "Enter email" %>
+                                    <label for="session_email">邮箱</label>
+                                    <%= f.email_field :email, class: "form-control", autofocus: true, placeholder: "请输入邮箱" %>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="session_password">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Forgot your password?", new_password_path(resource_name), style: "font-size:12px;" %><br />
-                                    <%= f.password_field :password, class: "form-control", autocomplete: "off", placeholder: "Enter password" %>
+                                    <label for="session_password">密码</label>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "您忘记了密码？", new_password_path(resource_name), style: "font-size:12px;" %><br />
+                                    <%= f.password_field :password, class: "form-control", autocomplete: "off", placeholder: "请输入密码" %>
                                 </div>
 
                                 <% if devise_mapping.rememberable? -%>
                                     <div class="form-group">
-                                        <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+                                        <div><%= f.check_box :remember_me %> 记住我</div>
                                     </div>
                                 <% end -%>
 
 								<div class="form-group" style="text-align:center;">
-                                	<%= f.submit "Sign In", class: "btn btn-lg btn-primary", style: "font-size:16px; height:40px; width:160px;" %>
+                                	<%= f.submit "登录", class: "btn btn-lg btn-primary", style: "font-size:16px; height:40px; width:160px;" %>
 								</div>
                             <% end %>
                         </div>

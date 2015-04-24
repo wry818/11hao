@@ -16,7 +16,7 @@
 				<div id="step_nav_icon_9" class="step-nav-icon step-nav-icon-gray"></div>
 			</div>
 			
-			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">9</span>Invite Your Sellers to Join!</h3></div>
+			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">9</span>邀请您的销售们加入吧！</h3></div>
 			
 			<div style="height:25px;"></div>
 			
@@ -24,10 +24,10 @@
 			    <div class="row">
 			        <div class="col-sm-8 col-sm-offset-2">
 						<div class="form-group">
-				            <p>Share this link with your group members/sellers inviting them to join your online fundraiser. They will create their own personalized fundraising pages so they can sell online to help you reach your goal!</p>
+				            <p>和您的组织成员／销售分享这个链接以让他们加入您的线上筹款团队。他们会创建他们自己的筹款页面通过线上销售商品以帮助您达成您的目标！</p>
 				            <input class="form-control" value="<%= short_campaign_url(@campaign) %>" readonly>
 				            <div class="share-links" style="margin-top: 20px;">
-				                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@campaign) %>"><%= image_tag 'fb.png' %> Share</a>
+				                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@campaign) %>"><%= image_tag 'fb.png' %> 分享</a>
 								<a href="https://twitter.com/intent/tweet?url=<%= url_encode(short_campaign_url(@campaign)) %>&text=<%= url_encode("Help fundraise for #{@campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>
 				            </div>
 						</div>
@@ -40,24 +40,24 @@
 			<div class="row web-box">
 				<div class="col-sm-6 backbutton-box">
 				    <button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-				        <span class="text">Back</span>
+				        <span class="text">后退</span>
 				    </button>
 				</div>
 			    <div class="col-sm-6 continuebutton-box">
  				    <button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= dashboard_campaign_details_path(@campaign) %>';">
- 				        <span class="text">Finish</span>
+ 				        <span class="text">完成</span>
  				    </button>
 				</div>
 			</div>
 			<div class="row mobile-box">
 			    <div class="col-sm-6 backbutton-box">
  				    <button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= dashboard_campaign_details_path(@campaign) %>';">
- 				        <span class="text">Finish</span>
+ 				        <span class="text">完成</span>
  				    </button>
 				</div>
 				<div class="col-sm-6 continuebutton-box">
 				    <button class="btn btn-success btn-lg camp-back-btn" type="button" onclick="window.location.href='<%= campaign_sendmails_path(@campaign) %>';">
-				        <span class="text">Back</span>
+				        <span class="text">后退</span>
 				    </button>
 				</div>
 			</div>

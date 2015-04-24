@@ -622,7 +622,7 @@ Raisy.campaigns = {
 
         $("#campaign_goal").val($("#campaign_goal").val().replace(/,/g, ""));
 
-        $('#campaign_form_submit').prop('disabled', true).find('span.text').text('Saving...').siblings('span.loader').show('fast', function () {
+        $('#campaign_form_submit').prop('disabled', true).find('span.text').text('保存中...').siblings('span.loader').show('fast', function () {
             window.setTimeout(function () {
                 form.submit();
             }, 50)
@@ -1141,15 +1141,15 @@ Raisy.campaigns = {
             $(".campaign_user_alt_row").show();
             $("#campaign_signup_account_link").hide();
             $("#campaign_login_account_link").show();
-            $("#campaign_form_submit span.text").text("Create my account");
-            $("#campaign_user_modal .modal-title").text("Create An Account");
+            $("#campaign_form_submit span.text").text("创建我的帐户");
+            $("#campaign_user_modal .modal-title").text("创建帐户");
             $("#campaign_new_user").val("1");
             $("#auth_provider").val("raisy");
             $("#auth_uid").val("");
             $("#campaign_social_links").css("margin-top", "35px");
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
-            $(".campaign_form_submit span.text").text("Continue");
+            $(".campaign_form_submit span.text").text("继续");
 
             $("#campaign_signup_user").fadeIn(200);
         });
@@ -1168,15 +1168,15 @@ Raisy.campaigns = {
             $(".campaign_user_alt_row").hide();
             $("#campaign_login_account_link").hide();
             $("#campaign_signup_account_link").show();
-            $("#campaign_form_submit span.text").text("Sign In");
-            $("#campaign_user_modal .modal-title").text("Sign in to Raisy");
+            $("#campaign_form_submit span.text").text("登录");
+            $("#campaign_user_modal .modal-title").text("登录到11号公益圈");
             $("#campaign_new_user").val("0");
             $("#auth_provider").val("raisy");
             $("#auth_uid").val("");
             $("#campaign_social_links").css("margin-top", "35px");
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
-            $(".campaign_form_submit span.text").text("Continue");
+            $(".campaign_form_submit span.text").text("继续");
 
             $("#campaign_signup_user").fadeIn(200);
         });

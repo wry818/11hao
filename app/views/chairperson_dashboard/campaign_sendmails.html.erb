@@ -8,9 +8,9 @@
 			
 			<div class="container-box" style="border:0px solid white; padding:0 30px; margin:0;">
 				<div>
-					<span>Send emails to your friends and family to tell them about your fundraiser and invite them to shop online at your personalized fundraising page to help reach the fundraising goal.</span>
+					<span>发邮件给您的朋友和家人以告诉并邀请他们在您的筹款页上购物来帮助您达成您的目标。</span>
 					<br/><br/>
-					<span>Custom Email Text:</span>
+					<span>邮件内容：</span>
 				</div>
 				
 				<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
@@ -19,7 +19,7 @@
 					</div>
 					
 			    	<div style="margin-top: 10px;">
-						<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="You can add personalized text here"><%=raw @email_msg %></textarea>
+						<textarea id="txtEmailBody" name="txtEmailBody" class="tinymce-email" placeholder="您可以在这里加入自己的内容"><%=raw @email_msg %></textarea>
 					</div>
 					
 					<div style="margin-top: 10px;">
@@ -29,15 +29,15 @@
 				
 				<div style="margin-top:20px;"> 
 					<button id="btnSaveEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-						<span class="text">Save Changes</span>
+						<span class="text">修改保存</span>
 						<span class="loader" style="display:none"></span>
 					</button>&nbsp;&nbsp;&nbsp;
 					<button id="btnPreviewEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-						<span class="text">Preview Email</span>
+						<span class="text">预览邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>&nbsp;&nbsp;&nbsp;
 					<button id="btnSendEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-						<span class="text">Send Email</span>
+						<span class="text">发送邮件</span>
 						<span class="loader" style="display:none"></span>
 					</button>
 				</div>
@@ -59,12 +59,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Preview Email</h4>
+				<h4 class="modal-title">预览邮件</h4>
 			</div>
 			<div class="modal-body">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"><span>Close</span></button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
 			</div>
 		</div>
 	</div>
@@ -121,7 +121,7 @@ function SaveEmail(btn, is_send_email){
 					$("#contacts_modal").modal("show");
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while sending email, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
                 },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -143,15 +143,15 @@ function SaveEmail(btn, is_send_email){
                 },
                 success: function(data) {
 					if (data == "failed") {
-						window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+						window.Raisy.alert("保存出错，请稍后再试。");
 					} else {
 						ed.setContent(data, {format : 'raw'});
 						
-						window.Raisy.alert("Changes have been successfully saved");
+						window.Raisy.alert("保存成功！");
 					}
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+					window.Raisy.alert("保存出错，请稍后再试。");
                 },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();

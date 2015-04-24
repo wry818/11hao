@@ -1,34 +1,25 @@
 <div id="homepage">
     <div id="startfund" class="top-row">
-		<div class="row" style="margin-left:0px; margin-right: 0px">
-			<div class="fund-section">
-				<div class="fund-txt">
-					<div class="div1">
-						<span class="txt1">Bring Your</span></div>
-					<div class="div2">
-						<span class="txt2">Fundraiser</span></div>
-					<div class="div3">
-						<span class="txt1">to Life!</span></div>
-				</div>
-				<div class="fund-btn">
-					<div class="item1">
-						<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn btn-block btn-lightgreen" style="padding-top: 15px; padding-bottom: 15px">
-							<span>Chairperson -> Start a Fundraiser</span>
-						</a>
+		<div class="container">
+			<div class="row" style="margin-left:0px; margin-right: 0px">
+	            <div class="col-md-6 left-section">
+					<div class="title">
+						11号计划
 					</div>
-					<div class="item2">
-						<a href="/search" class="btn btn-block btn-orange">
-							<span>Seller -> Join a Fundraiser</span>
-						</a>
+					<div class="title">
+						为公益梦想“加油”
 					</div>
-					<div class="item2">
-						<a href="/search" class="btn btn-block btn-orange">
-							<span>Supporters -> Purchase from a Fundraiser</span>
+					<div style="margin-top: 20px">
+						<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn       btn-lightgreen">
+							立即加入
 						</a>
 					</div>
 				</div>
-			</div>
-        </div>
+	            <div class="col-md-6 right-section">
+					<%= image_tag "comp.png", class: "img-responsive", style: "margin:auto;" %>
+				</div>
+	        </div>
+		</div>
     </div>
 	<div id="howitworks">
 	    <div class="container">
@@ -45,14 +36,15 @@
 							<%= image_tag "how_it_works1.png", class: "img-responsive", style: "margin:auto;" %>
 						</div>
 						<div class="circle">
-							<h1>1</h1>
+							1
 						</div>
 						<h3>
 							创建您的筹款页
 						</h3>
 						<p>
 							告诉我们您的筹款故事，选择您支持的商品，只需要简单几步就可以创建好您的筹款页面。
-							<br />
+						</p>
+						<p>
 							我们精心挑选的商品，销售額最多40%都会回馈给您作为活动经费
 						</p>
 					</div>
@@ -63,7 +55,7 @@
 							<%= image_tag "how_it_works2.png", class: "img-responsive", style: "margin:auto;" %>
 						</div>
 						<div class="circle">
-							<h1>2</h1>
+							2
 						</div>
 						<h3>
 							分享您的筹款页面
@@ -79,176 +71,52 @@
 							<%= image_tag "how_it_works3.png", class: "img-responsive", style: "margin:auto;" %>
 						</div>
 						<div class="circle">
-							<h1>3</h1>
+							3
 						</div>
 						<h3>
 							追踪您的筹款进程
 						</h3>
 						<p>
 							每周我们的系统会把您的筹款进程email给您。
-							<br />
+						</p>
+						<p>
 							同时您也可以随时登录我们的系统，查看给类筹款报表。
-							<br />
+						</p>
+						<p>
 							在筹款的截止日期我们会把您的筹款详情通过email发送给您。
 						</p>
 					</div>
 				</div>
 			</div>
 			<div style="margin-top: 20px">
-				<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn btn-lightgreen">
+				<a href="<%= current_user ? '/campaigns/new' : '/campaigns/account' %>" class="btn btn-white">
 					<span>创建筹款页</span>
 				</a>
 			</div>
 		</div>
 	</div>
 
-	<div id="raised">
-		<div class="container">
-			<h1>
-				Success is at your fingertips!
-			</h1>
-			<h2>
-				Start your fundraiser today, and let Entertainment<sup>®</sup> help meet your goal
-			</h2>
-	        <div id="raised-box" class="row">
-	            <div class="col-md-3 column">
-					<div class="raised-col">
-						<h3>
-							ROCKWOOD SOUTH MIDDLE SCHOOL
-						</h3>
-						<h4>
-							RAISED
-						</h4>
-						<h1>
-							$12,000
-						</h1>
-						<div class="square" style="height: 120px">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-	            <div class="col-md-2 column">
-					<div class="raised-col">
-						<h3>
-							ROYAL OAK MIDDLE SCHOOL
-						</h3>
-						<h4>
-							RAISED
-						</h4>
-						<h1>
-							$8,750
-						</h1>
-						<div class="square" style="height: 70px">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-	            <div class="col-md-2 column">
-					<div class="raised-col">
-						<h3>
-							SLINGER HIGH SCHOOL FOOTBALL TEAM
-						</h3>
-						<h4>
-							RAISED
-						</h4>
-						<h1>
-							$17,280
-						</h1>
-						<div class="square" style="height: 180px">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-	            <div class="col-md-2 column">
-					<div class="raised-col">
-						<h3>
-							GREENFROEST CHRISTIAN ACADEMY
-						</h3>
-						<h4>
-							RAISED
-						</h4>
-						<h1>
-							$7,280
-						</h1>
-						<div class="square" style="height: 50px">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-	            <div class="col-md-3 column">
-					<div class="raised-col">
-						<h3>
-							PALMETTO ELEMENTARY SCHOOL
-						</h3>
-						<h4>
-							RAISED
-						</h4>
-						<h1>
-							$10,020
-						</h1>
-						<div class="square" style="height: 100px">
-							&nbsp;
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- <%= image_tag "raised_bg.jpg", class: "img-responsive", style: "margin:auto;" %> -->
-	</div>
 	<div id="why">
 	    <div class="container">
-			<h1>
-				Why Entertainment<sup>®</sup>?
-			</h1>
-			<h2>
-				Because great things happen when you use Entertainment<sup>®</sup> coupons
-			</h2>
-	        <div id="why-box" class="row">
-	            <div class="col-md-4">
-					<div class="why-col">
-						<div class="img1">
-							<%= image_tag "why1.png", class: "img-responsive", style: "margin:auto;" %>
-						</div>
-						<h3>
-							OVER 50 YEARS OF SAVINGS
-						</h3>
-						<p>
-							For <span class="emphasize">OVER 50 YEARS</span>, Entertainment<sup>®</sup> has been a leader in providing coupon products in communities through North America. Consumers just like you have saved over <span class="emphasize">$22 Billion</span> since <span class="emphasize">1962</span>.
-						</p>
+			<div class="row" style="margin-left:0px; margin-right: 0px">
+	            <div class="col-md-6 left-section">
+					<%= image_tag "11hao-qrcode.png", class: "img-responsive", style: "margin:auto;" %>
+					<div style="margin-top: 20px" class="title">
+						搜索微信公众号［11号公益圈］
+					</div>
+					<div class="title">
+						了解更多精彩内容
 					</div>
 				</div>
-	            <div class="col-md-4">
-					<div class="why-col">
-						<div class="img2">
-							<%= image_tag "why2.png", class: "img-responsive", style: "margin:auto;" %>
-						</div>
-						<h3>
-							NATIONWIDE COVERAGE
-						</h3>
-						<p>
-							Our Digital Subscription members have instant access to new and great local savings in over <span class="emphasize">118 U.S. MARKETS</span>. You'll save on everyday purchases such as dining, apparel, electronics, auto services and more.
-						</p>
+	            <div class="col-md-6 right-section">
+					<div class="title">
+						简单公益
+					</div>
+					<div class="title">
+						只因有你
 					</div>
 				</div>
-	            <div class="col-md-4">
-					<div class="why-col">
-						<div class="img3">
-							<%= image_tag "why3.png", class: "img-responsive", style: "margin:auto;" %>
-						</div>
-						<h3>
-							$3 BILLION RAISED
-						</h3>
-						<p>
-							Our Fundraising program has helped our schools and community groups raise over <span class="emphasize">$3 Billion</span>. While saving Consumers money on the things they do every day, and helping local merchants grow.
-						</p>
-					</div>
-				</div>
-			</div>
-			<div style="margin-top: 20px">
-				<a href="https://www.entertainment.com/fundraising/?form_state=default_state" class="btn btn-orange">
-					<span>Learn More ></span>
-				</a>
-			</div>
+	        </div>
 		</div>
 	</div>
 </div>
@@ -256,6 +124,8 @@
 <script>
 	$(document).ready(function() {
 		
+		
+		$(".navbar-brand").addClass("navbar-brand-main");
 		$(".navbar-default").removeClass("navbar-static-top").addClass("navbar-fixed-top");
 		
 		$(".home-menu").show();
