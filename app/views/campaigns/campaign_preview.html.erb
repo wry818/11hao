@@ -73,6 +73,9 @@ function campaign_preview(path) {
 
 <script>
 $(document).ready(function(){
+	
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
 	window.setTimeout(function(){
 		<% if @step_popup=="yes" %>
 			$("#camp_step_tips_modal").modal("show");
