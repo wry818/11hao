@@ -330,7 +330,7 @@ $(document).ready(function(){
 					$("#resend_code_modal").modal("hide");
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("Hmm, there was a problem while resending access code, please try again.");
+					window.Raisy.alert("抱歉，重发access code时出了问题，请稍好再试。");
 			  },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -618,13 +618,13 @@ $(document).ready(function(){
 					else {
 						$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
 						
-						window.Raisy.alert("Hmm, there was a problem while adding offline order, please try again.");
+						window.Raisy.alert("抱歉，添加线下订单时出了问题，请稍好再试。");
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
 					
-					window.Raisy.alert("Hmm, there was a problem while adding offline order, please try again.");
+					window.Raisy.alert("抱歉，添加线下订单时出了问题，请稍好再试。");
 				},
 				complete: function () {
 					

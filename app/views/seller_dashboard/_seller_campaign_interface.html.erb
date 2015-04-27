@@ -488,7 +488,7 @@
 						$("#open_contacts_modal").click();
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("Hmm, there was a problem while sending email, please try again.");
+						window.Raisy.alert("抱歉，发送邮件时出了问题，请稍好再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -510,7 +510,7 @@
 	                },
 	                success: function(data) {
 						if (data == "failed") {
-							window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+							window.Raisy.alert("抱歉，保存时出了问题，请稍好再试。");
 						} else {
 							ed.setContent(data, {format : 'raw'});
 							
@@ -518,7 +518,7 @@
 						}
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("Hmm, there was a problem while saving changes, please try again.");
+						window.Raisy.alert("抱歉，保存时出了问题，请稍好再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();
@@ -563,7 +563,7 @@
 						$("#resend_code_modal").modal("hide");
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("Hmm, there was a problem while resending access code, please try again.");
+						window.Raisy.alert("抱歉，重发access code时出了问题，请稍好再试。");
 				  },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -816,11 +816,11 @@
 		  						$("#contacts-list-box").show();
 		  						$("#contacts-result-box").hide();
 		  					} else {
-		  						window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+		  						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍好再试。");
 		  					}
 		        	},
 		        	error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("Hmm, there was a problem while importing contacts, please try again.");
+						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍好再试。");
 		        	},
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();
@@ -901,13 +901,13 @@
 	                },
 	                success: function(data) {
 						if (data == "success") {
-							alert("Contacts have been successfully imported");
+							alert("联系人导入成功");
 						} else {
-							alert("Hmm, there was a problem while importing contacts, please try again.");
+							alert("抱歉，导入联系人时出了问题，请稍好再试。");
 						}
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("Hmm, there was a problem while importing contacts, please try again.");
+						alert("抱歉，导入联系人时出了问题，请稍好再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();

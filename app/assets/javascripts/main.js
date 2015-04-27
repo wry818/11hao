@@ -444,7 +444,7 @@ window.Raisy = {
 						result = false;
 						
 						$(".login-social-error").show();
-						$(".login-social-message").text("Sorry, your email or password is incorrect.");
+						$(".login-social-message").text("抱歉，您的邮箱或密码正确。");
 					}
 				}
 			});
@@ -462,7 +462,7 @@ window.Raisy = {
 						result = false;
 						
 						$(".login-social-error").show();
-						$(".login-social-message").text("Sorry, the account has already been taken.");
+						$(".login-social-message").text("抱歉，这个帐户已被注册。");
 					}
 				}
 			});
@@ -485,9 +485,9 @@ window.Raisy = {
 		$("#seller-social-error").show();
 		
 		if (is_signup)
-			$("#seller-social-message").text("Please wait while connecting with twitter...");
+			$("#seller-social-message").text("登录twitter中，请稍后...");
 		else
-			$("#seller-social-message").text("Please wait while processing your login...");
+			$("#seller-social-message").text("登录中，请稍后...");
 		
 		var winLeft = window.screenX || window.screenLeft;
 		var winTop = window.screenY || window.screenTop;
@@ -561,7 +561,7 @@ window.Raisy = {
 							can_go = false;
 							
 							$("#seller-social-error").show();
-							$("#seller-social-message").text("Sorry, the account has already been taken.");
+							$("#seller-social-message").text("抱歉，这个帐户已被注册。");
 						}
 					}
 				});
@@ -596,12 +596,12 @@ window.Raisy = {
 			$("#auth_uid").val("");
 			
 			$("#campaign_social_error").show();
-			$("#campaign_social_message").text("Please wait while processing your login...");
+			$("#campaign_social_message").text("登录中，请稍后...");
 		}
 		else
 		{
 			$(".login-social-error").show();
-			$(".login-social-message").text("Please wait while processing your login...");
+			$(".login-social-message").text("登录中，请稍后...");
 		}
 		
 		var winLeft = window.screenX || window.screenLeft;
@@ -683,7 +683,7 @@ window.Raisy = {
 							can_go = false;
 							
 							$(".login-social-error").show();
-							$(".login-social-message").text("Sorry, the account has already been taken.");
+							$(".login-social-message").text("抱歉，这个帐户已被注册。");
 						}
 					}
 				});
@@ -717,9 +717,9 @@ window.Raisy = {
 		$("#seller-social-error").show();
 		
 		if (is_signup)
-			$("#seller-social-message").text("Please wait while connecting with facebook...");
+			$("#seller-social-message").text("登录facebook中，请稍后...");
 		else
-			$("#seller-social-message").text("Please wait while processing your login...");
+			$("#seller-social-message").text("登录中，请稍后...");
 		
 		var winLeft = window.screenX || window.screenLeft;
 		var winTop = window.screenY || window.screenTop;
@@ -802,7 +802,7 @@ window.Raisy = {
 							can_go = false;
 							
 							$("#seller-social-error").show();
-							$("#seller-social-message").text("Sorry, the account has already been taken.");
+							$("#seller-social-message").text("抱歉，这个帐户已被注册。");
 						}
 					}
 				});
@@ -837,12 +837,12 @@ window.Raisy = {
 			$("#auth_uid").val("");
 			
 			$("#campaign_social_error").show();
-			$("#campaign_social_message").text("Please wait while processing your login...");
+			$("#campaign_social_message").text("登录中，请稍后...");
 		}
 		else
 		{
 			$(".login-social-error").show();
-			$(".login-social-message").text("Please wait while processing your login...");
+			$(".login-social-message").text("登录中，请稍后...");
 		}
 		
 		var winLeft = window.screenX || window.screenLeft;
@@ -932,7 +932,7 @@ window.Raisy = {
 							can_go = false;
 							
 							$(".login-social-error").show();
-							$(".login-social-message").text("Sorry, the account has already been taken.");
+							$(".login-social-message").text("抱歉，这个帐户已被注册。");
 						}
 					}
 				});

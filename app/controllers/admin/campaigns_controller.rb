@@ -58,7 +58,7 @@ class Admin::CampaignsController < Admin::ApplicationController
             campaign = Campaign.storefronts.where(entertainment_group_id: @target_organization.entertainment_customer_id).first
             
             if campaign
-              flash.now[:danger] = "Sorry, group storefront for " + @target_organization.name + " already existed"
+              flash.now[:danger] = "抱歉，" + @target_organization.name + "组织店面已经存在了"
               render action: "new" and return
             end
           end
@@ -178,7 +178,7 @@ class Admin::CampaignsController < Admin::ApplicationController
           @target_organization = Organization.find_by_id(session[:target_organization_id])
           
           if @target_organization && (!@campaign.ent_campaign? || @target_organization.id != @campaign.organization.id)
-            flash.now[:danger] = "Sorry, this is not the group storefront for " + @target_organization.name
+            flash.now[:danger] = "抱歉，这个不是" + @target_organization.name + "店面"
             render action: "edit" and return
           end
         end
@@ -197,13 +197,13 @@ class Admin::CampaignsController < Admin::ApplicationController
         org = Organization.find_by_id(params[:organization_name])
         
         if !org
-          flash.now[:danger] = "Please select an organization"
+          flash.now[:danger] = "请选择一个组织"
           render action: "edit" and return
         end
         
         if @target_organization
           if @target_organization.id != org.id
-            flash.now[:danger] = "Sorry, organization of group storefront can't be changed"
+            flash.now[:danger] = "抱歉，组织的店面不能被修改"
             render action: "edit" and return
           end
         end

@@ -12,7 +12,7 @@ class SellerDashboardController < ApplicationController
 
             if params[:seller_referral_code]
                 @seller = Seller.where(referral_code: params[:seller_referral_code]).first
-                redirect_to(seller_dashboard_path, flash: { warning: "Sorry, we couldn't find the seller" }) and return unless @seller && @seller.user_profile.user == current_user
+                redirect_to(seller_dashboard_path, flash: { warning: "抱歉，我们没有找到这个销售" }) and return unless @seller && @seller.user_profile.user == current_user
 
                 @sellers = @seller.user_profile.sellers
             else
@@ -23,7 +23,7 @@ class SellerDashboardController < ApplicationController
         else
             if params[:seller_referral_code]
                 @seller = Seller.where(referral_code: params[:seller_referral_code]).first
-                redirect_to(seller_dashboard_path, flash: { warning: "Sorry, we couldn't find the seller" }) and return unless @seller && @seller.user_profile.user == current_user
+                redirect_to(seller_dashboard_path, flash: { warning: "抱歉，我们没有找到这个销售" }) and return unless @seller && @seller.user_profile.user == current_user
             else
                 @seller = current_user.profile.sellers.first
             end

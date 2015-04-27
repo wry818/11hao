@@ -91,6 +91,10 @@ h1, h2, h3, h4, h5 {
 .navbar-brand-main {
 	position: relative;
 	
+    @media all and (max-width: 768px){
+		padding-left: 20px !important;
+    }
+	
 	.divlogo {
 		position: absolute; 
 		top: 0px;

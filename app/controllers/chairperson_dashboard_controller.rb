@@ -451,7 +451,7 @@ class ChairpersonDashboardController < ApplicationController
         
         redirect_to root_url and return unless @campaign && (current_user.id == @campaign.organizer_id || admin_user? || sales_user? || crs_user?)
       rescue
-        redirect_to(root_url, flash: { warning: "Sorry, we couldn't find the fundraiser!" }) and return
+        redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
       end
     end
     

@@ -23,12 +23,12 @@ class ShopController < ApplicationController
 
     def category
         @category = Category.friendly.find(params[:category_id])
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "Sorry, we couldn't find that category" }) and return unless @category && @category.collection = @campaign.collection
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个类别" }) and return unless @category && @category.collection = @campaign.collection
     end
 
     def product
         @product = Product.friendly.find(params[:product_id])
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "Sorry, we couldn't find that product" }) and return unless @product && @product.collections.include?(@campaign.collection)
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && @product.collections.include?(@campaign.collection)
 
         @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
         @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
@@ -810,12 +810,12 @@ class ShopController < ApplicationController
             url: short_campaign_url(@campaign)
         }
       rescue
-        redirect_to(root_url, flash: { warning: "Sorry, we couldn't find the fundraiser!" }) and return
+        redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
       end
     end
 
     def check_campaign_expired
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "Sorry, this fundraiser has ended." }) and return if @campaign.expired?
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，这个筹款团队已经结束。" }) and return if @campaign.expired?
     end
 
     def manage_session_order

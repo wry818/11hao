@@ -17,97 +17,97 @@
     <nav class="collapse navbar-collapse navbar-responsive-collapse" role="navigation">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-		        <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_crs? && !current_user.is_seller?(@campaign) && !current_user.admin? && !@campaign.expired? && @campaign.active %>
-		            <li>
-		              <%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "join-fundraising-link" %>
-					  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
-		            </li>
-		        <% end %>
-						
-						<% is_chairperson = current_user.is_chairperson? %>
-				
-            <% if is_chairperson %>
-                <li><%= link_to "组织主席工具箱", dashboard_campaigns_path %></li>
-            <% end %>
-						
-            <% if current_user.is_crs? %>
-                <li><%= link_to "筹款团队列表", dashboard_campaigns_path + "?cp=no" %></li>
-            <% end %>
-						
-            <% if current_user.is_sales? || current_user.is_crs? %>
+			<% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_crs? && !current_user.is_seller?(@campaign) && !current_user.admin? && !@campaign.expired? && @campaign.active %>
+				<li>
+					<%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "join-fundraising-link" %>
+					<%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
+				</li>
+		   <% end %>
+		   <% is_chairperson = current_user.is_chairperson? %>
+		   
+		   <% if is_chairperson %>
+		   		<li><%= link_to "组织主席工具箱", dashboard_campaigns_path %></li>
+		   <% end %>
+		   
+		   <% if current_user.is_crs? %>
+		   		<li><%= link_to "筹款团队列表", dashboard_campaigns_path + "?cp=no" %></li>
+		   <% end %>
+		   
+		   <% if current_user.is_sales? || current_user.is_crs? %>
                 <li><%= link_to "组织店面", dashboard_storefronts_path %></li>
-            <% end %>
-		
-            <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id==current_user.id %>
+		   <% end %>
+		   
+		   <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id==current_user.id %>
                 <li><%= link_to "编辑这个筹款团队", dashboard_campaign_details_path(@campaign) %></li>
-            <% end %>
-				
-						<% if current_user.is_sales? || current_user.is_crs? %>
-							<li class="visible-xs"><%= link_to "Reports", sales_report_path %></li>
-						<% end %>
-				
-	            <li class="dropdown">
-	              <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">我的帐户<b class="caret"></b></a>
-	              <ul class="dropdown-menu">
-	                <% if current_user.any_seller? %>
+		   <% end %>
+		   
+		   <% if current_user.is_sales? || current_user.is_crs? %>
+		   	    <li class="visible-xs"><%= link_to "报表", sales_report_path %></li>
+		   <% end %>
+		   
+		   <li class="dropdown">
+			   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">我的帐户<b class="caret"></b></a>
+			   <ul class="dropdown-menu">
+				   <% if current_user.any_seller? %>
 	                    <li><%= link_to current_user.profile.try(:first_name) + "的仪表", seller_dashboard_path %></li>
-	                <% end %>
-               
-				   	<% if !current_user.is_sales? && !current_user.is_crs? %>
+	               <% end %>
+				   
+				   <% if !current_user.is_sales? && !current_user.is_crs? %>
 						<li><%= link_to "创建筹款页", new_campaign_path %></li>
-					<% end %>
-				
-					<% if is_chairperson %>
+				   <% end %>
+				   
+				   <% if is_chairperson %>
 	                    <li><%= link_to "修改筹款团队明细", dashboard_campaigns_path %></li>
-	                <% end %>
-				
-					<% if current_user.is_sales? %>
+	               <% end %>
+				   
+				   <% if current_user.is_sales? %>
 						<li><%= link_to "我的帐户", dashboard_campaigns_path + "?cp=no" %></li>
-					<% end %>
-				
-	                <li>
+				   <% end %>
+				   
+				   <li>
 	                  <%= link_to "我的个人资料", settings_profile_path %>
-	                </li>
-				
-	                <% if current_user.admin? %>
-	                    <li class="divider"></li>
-	                    <li>
-	                      <%= link_to "管理员", admin_root_path %>
-	                    </li>
-	                <% end %>
-	                <li class="divider"></li>
-	                <li>
+				   </li>
+				   
+				   <% if current_user.admin? %>
+	                   <li class="divider"></li>
+	                   <li>
+	                     	<%= link_to "管理员", admin_root_path %>
+	                   </li>
+				   <% end %>
+				   
+				   <li class="divider"></li>
+				   <li>
 	                  <%= link_to "退出", destroy_user_session_path, method: :delete %>
-	                </li>
-	              </ul>
-	            </li>
-            </ul>
-            <p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
-			
-			<% if current_user.is_sales? || current_user.is_crs? %>
-				<p class="navbar-right navbar-text hidden-xs"><%= link_to "Reports", sales_report_path %></p>
-			<% end %>
-        <% else %>
-            <li class="home-menu">
-              <%= link_to "创建筹款页", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
-            </li>
-            <li class="home-menu">
-              <%= link_to "加入筹款团队", '/search' %>
-            </li>
-            <li class="home-menu">
-              <%= link_to "用户帮助", '#howitworks', class: 'homemenu' %>
-            </li>
-            <% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
-                <li>
-                  <%= link_to "加入筹款团队", signup_seller_path(@campaign),class: "join-fundraising-link" %>
-				  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
-                </li>
-            <% end %>
+				   </li>
+			    </ul>
+	        </li>
+        </ul>
+		<p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
+		
+		<% if current_user.is_sales? || current_user.is_crs? %>
+			<p class="navbar-right navbar-text hidden-xs"><%= link_to "Reports", sales_report_path %></p>
+		<% end %>
+     <% else %>
+	 	<li class="home-menu">
+			<%= link_to "创建筹款页", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
+        </li>
+		<li class="home-menu">
+            <%= link_to "加入筹款团队", '/search' %>
+        </li>
+		<li class="home-menu">
+            <%= link_to "用户帮助", '#howitworks', class: 'homemenu' %>
+        </li>
+		<% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
             <li>
-              <%= link_to '登录', '#user_modal', class: 'btn btn-primary user-modal-launch', data: {action: 'signin'}, style: "display:inline-block; margin-top: 5px; margin-left: 10px; padding: 3px 20px; color: white" %>
-            </li>
-            </ul>
-        <% end %>
-        </nav>
+				<%= link_to "加入筹款团队", signup_seller_path(@campaign),class: "join-fundraising-link" %>
+				<%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
+			</li>
+		<% end %>
+		<li>
+			<%= link_to '登录', '#user_modal', class: 'btn btn-primary user-modal-launch', data: {action: 'signin'}, style: "display:inline-block; margin-top: 5px; margin-left: 10px; padding: 3px 20px; color: white" %>
+		</li>
+	  </ul>
+      <% end %>
+      </nav>
   </div>
 </header>

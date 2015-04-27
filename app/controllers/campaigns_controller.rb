@@ -30,7 +30,7 @@ class CampaignsController < ApplicationController
         # New user to create campaign
         if oldUser
           if is_raisy_user
-            flash.now[:warning] = "Sorry, the account has already been taken."
+            flash.now[:warning] = "抱歉，这个帐户已被注册。"
             render action: "campaign_account" and return
           else
             sign_in(oldUser)
@@ -73,7 +73,7 @@ class CampaignsController < ApplicationController
         end
         
         if !is_valid_user
-          flash.now[:danger] = "Sorry, your email or password is incorrect."
+          flash.now[:danger] = "抱歉，您的邮箱或密码正确。"
           render action: "campaign_account" and return
         end
         
@@ -716,7 +716,7 @@ class CampaignsController < ApplicationController
           redirect_to root_path and return
         end
       rescue
-        redirect_to(root_url, flash: { warning: "Sorry, we couldn't find the fundraiser!" }) and return
+        redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
       end
     end
     

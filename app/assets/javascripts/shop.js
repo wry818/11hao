@@ -298,7 +298,7 @@ Raisy.shop = {
 		$("#stripe_message").text("");
         $('#errors').hide();
         $('#errors').html('');
-        $('#payment-form-submit').prop('disabled', true).find('span.text').text('Processing, please wait...').siblings('span.loader').show();
+        $('#payment-form-submit').prop('disabled', true).find('span.text').text('Processing, 登录中，请稍后...').siblings('span.loader').show();
 
 		Stripe.card.createToken({
 		  number: $("#card_number").val(),

@@ -584,7 +584,7 @@ Raisy.campaigns = {
 
             if (!can_continue) {
                 $("#campaign_social_error").show();
-                $("#campaign_social_message").text("Sorry, the account has already been taken.");
+                $("#campaign_social_message").text("抱歉，这个帐户已被注册。");
             }
         }
         else {
@@ -594,7 +594,7 @@ Raisy.campaigns = {
 
                 if (!can_continue) {
                     $("#campaign_social_error").show();
-                    $("#campaign_social_message").text("Sorry, your email or password is incorrect.");
+                    $("#campaign_social_message").text("抱歉，您的邮箱或密码正确。");
                 }
             }
         }
@@ -607,7 +607,7 @@ Raisy.campaigns = {
         }
 
         $("#campaign_social_error").show();
-        $("#campaign_social_message").text("Please wait while processing your login...");
+        $("#campaign_social_message").text("登录中，请稍后...");
 
         //set the date to midnight in the user's time zone
         var $dateinput = $('#campaign_end_date');
@@ -1012,7 +1012,7 @@ Raisy.campaigns = {
 	                    var campaign_id = parseInt(d.id);
 
 	                    if (isNaN(campaign_id)) {
-												window.Raisy.alert("Hmm, there was a problem while saving fundraiser, please try again.");
+												window.Raisy.alert("抱歉，创建这个筹款团队时出了问题，请稍好再试。");
 	                    }
 	                    else {
 												$("#campaign_id").val(d.id);
@@ -1112,7 +1112,7 @@ Raisy.campaigns = {
 	                }
 	            },
 	            error: function () {
-								window.Raisy.alert("Hmm, there was a problem while saving fundraiser, please try again.");
+								window.Raisy.alert("抱歉，保存这个筹款团队时出了问题，请稍好再试。");
 	            },
 	            complete: function () {
 								$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();

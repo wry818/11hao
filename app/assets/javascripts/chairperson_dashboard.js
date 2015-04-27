@@ -226,11 +226,11 @@ Raisy.chairperson_dashboard = {
 						$('#order_detail_modal .modal-body').html(data);
 					}
 					else {
-						$('#order_detail_modal .modal-body').html('<div style="text-align:center;">No records found</div>');
+						$('#order_detail_modal .modal-body').html('<div style="text-align:center;">没有找到相关记录</div>');
 					}
 	            },
 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-					$('#order_detail_modal .modal-body').html('<div style="text-align:center;">Sorry, there was a problem while loading order detail.</div>');
+					$('#order_detail_modal .modal-body').html('<div style="text-align:center;">抱歉，加载订单明细的时候出了问题，请稍好再试</div>');
 	            },
 				complete: function () {
 				}

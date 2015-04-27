@@ -484,7 +484,7 @@ Raisy.users = {
 					if (data=="") {
 						row.find(".contact-update-loader").first().css("visibility", "hidden");
 					
-						window.Raisy.alert("Hmm, there was a problem while deleting the contact, please try again.");
+						window.Raisy.alert("抱歉，删除联系人时出了问题，请稍好再试。");
 					}
 					else {
 						row.fadeOut(200, function(){
@@ -495,7 +495,7 @@ Raisy.users = {
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					row.find(".contact-update-loader").first().css("visibility", "hidden");
 				
-					window.Raisy.alert("Hmm, there was a problem while deleting the contact, please try again.");
+					window.Raisy.alert("抱歉，删除联系人时出了问题，请稍好再试。");
 				},
 				complete: function () {
 				
@@ -581,11 +581,11 @@ Raisy.users = {
 				}
 			}
 			else {
-				window.Raisy.alert("Hmm, there was a problem while saving the contact, please try again.");
+				window.Raisy.alert("抱歉，保存联系人时出了问题，请稍好再试。");
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			window.Raisy.alert("Hmm, there was a problem while saving the contact, please try again.");
+			window.Raisy.alert("抱歉，保存联系人时出了问题，请稍好再试。");
 		},
 		complete: function () {
 			row.find(".contact-update-loader").first().css("visibility", "hidden");
@@ -662,21 +662,21 @@ Raisy.users = {
 		if (acc_type=="3") 
 		{
 			email=$("#seller13_email").val();
-			msg="Sorry, email has already been taken.";
+			msg="抱歉，这个邮箱已经被注册。";
 			$seller_error=$("#seller13_error");
 			$seller_message=$("#seller13_message");
 		}
 		if (acc_type=="2") 
 		{
 			email=$("#seller14_email").val();
-			msg="Sorry, seller email has already been taken.";
+			msg="抱歉，这个销售的邮箱已经被注册。";
 			$seller_error=$("#seller14_error");
 			$seller_message=$("#seller14_message");
 		}
 		if (acc_type=="1") 
 		{
 			email=$("#seller18_email").val();
-			msg="Sorry, email has already been taken.";
+			msg="抱歉，这个邮箱已经被注册。";
 			$seller_error=$("#seller18_error");
 			$seller_message=$("#seller18_message");
 		}
@@ -685,7 +685,7 @@ Raisy.users = {
 				
 		if ($("#seller-social-error").length==1) {
 			email=$("#user_email").val();
-			msg="Sorry, the account has already been taken.";
+			msg="抱歉，这个帐户已被注册。";
 			$seller_error=$("#seller-social-error");
 			$seller_message=$("#seller-social-message");
 		}
