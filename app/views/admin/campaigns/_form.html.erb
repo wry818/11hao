@@ -212,7 +212,7 @@
     <div class="form-group">
         <label for="campaign_call_to_action" class="col-sm-2 control-label">Call to Action Text<span class='req'>*</span></label>
         <div class="col-sm-10">
-            <%= f.text_field :call_to_action, class: 'form-control', placeholder: 'Shop Now' %>
+            <%= f.text_field :call_to_action, class: 'form-control', placeholder: '立刻购买' %>
         </div>
     </div>
 	
@@ -300,7 +300,7 @@
 
 	<div>
 	    <button id="campaign_form_submit" class="btn btn-primary btn-lg" type="submit">
-	        <span class="text">Save Changes</span> <span class="loader" style="display:none"></span>
+	        <span class="text">修改并保存</span> <span class="loader" style="display:none"></span>
 	    </button>
 		<% if @target_organization %>
 			&nbsp;&nbsp;&nbsp;<%= link_to 'Back', edit_admin_organization_path(@target_organization), class: "btn btn-primary btn-lg" %>

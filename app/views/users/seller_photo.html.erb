@@ -1,7 +1,10 @@
 <div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px;">
 	<div class="container container-background">
 		<div style="margin-bottom: 30px;"></div>
-		<div><h3>加入筹款团队<strong><%= @campaign.title %></strong></h3>
+		<div>
+			<h3 style="text-align: center">
+				加入筹款团队<strong><%= @campaign.title %></strong>
+			</h3>
 		</div>
 		<div id="seller_photo" class="container-box">
 			<div class="form-group">
@@ -11,8 +14,8 @@
 					<div id="step_nav_icon_3" class="step-nav-icon"></div>
 					<div id="step_nav_icon_4" class="step-nav-icon"></div>
 					<div id="step_nav_icon_5" class="step-nav-icon step-nav-icon-gray"></div>
-					<div id="step_nav_icon_6" class="step-nav-icon"></div>
-					<div id="step_nav_icon_7" class="step-nav-icon"></div>
+					<!-- <div id="step_nav_icon_6" class="step-nav-icon"></div>
+					<div id="step_nav_icon_7" class="step-nav-icon"></div> -->
 					<div id="step_nav_icon_8" class="step-nav-icon"></div>
 				</div>
 			</div>
@@ -83,9 +86,12 @@
 				<div class="web-box row">
 					<div class="col-sm-6">
 						<div class="backbutton-box">
-					    <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
-									<span class="text">跳过这步</span><span class="loader" style="display:none"></span>
-					    </button>
+							<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= signup_seller_share_path(@seller) %>';">
+								<span class="text">跳过这步</span>
+							</button>
+						    <!-- <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
+										<span class="text">跳过这步</span><span class="loader" style="display:none"></span>
+						    </button> -->
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -106,9 +112,12 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="continuebutton-box">
-						    <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
+							<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='<%= signup_seller_share_path(@seller) %>';">
+								<span class="text">跳过这步</span>
+							</button>
+						    <!-- <button class="btn btn-success btn-lg skip-btn" type="button" onclick="window.location.href='<%= seller_get_contacts_path(@seller) %>';">
 								<span class="text">跳过这步</span><span class="loader" style="display:none"></span>
-						    </button>
+						    </button> -->
 						</div>
 					</div>
 				</div>
@@ -165,6 +174,9 @@
 
 <script>
 $(document).ready(function() {
+	
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
 	<% if @step_popup=="yes" %>
 		window.setTimeout(function(){
 			$("#seller_step_tips_modal").modal("show");

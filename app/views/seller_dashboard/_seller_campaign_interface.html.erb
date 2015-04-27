@@ -122,8 +122,8 @@
 <div id="navigations" role="navigation" style="min-height:200px;">
 	<ul class="nav nav-tabs">
 	  <li href="#nav-share" class="active"><a style="cursor:pointer;">分享</a></li>
-	  <li href="#nav-contacts"><a style="cursor:pointer;">导入联系人</a></li>
-	  <li id="li-nav-emails" href="#nav-emails"><a style="cursor:pointer;">给您的联系人发邮件</a></li>
+	  <!-- <li href="#nav-contacts"><a style="cursor:pointer;">导入联系人</a></li>
+	  <li id="li-nav-emails" href="#nav-emails"><a style="cursor:pointer;">给您的联系人发邮件</a></li> -->
 	  <li href="#nav-activities"><a style="cursor:pointer;">我的动态</a></li>
 	</ul>
 	
@@ -133,11 +133,11 @@
 		        <div class="col-md-12">
 		            <p>分享这链接给朋友和家人！</p>
 		            <input class="form-control" value="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>" readonly>
-		            <div class="share-links" style="margin-top: 20px;">
+		            <!-- <div class="share-links" style="margin-top: 20px;">
 		                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>"><%= image_tag 'fb.png' %> Share</a>
 		                <a href="https://twitter.com/intent/tweet?url=<%= url_encode(short_campaign_url(@seller.campaign, seller: @seller.referral_code)) %>&text=<%= url_encode("Help #{@seller.user_profile.first_name} fundraise for #{@seller.campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>
 		                <a href="mailto:?subject=<%= url_encode("Please support our fundraiser!") %>&body=<%= url_encode("You can see our fundraiser by clicking the link below:\n\n#{@seller.campaign.title}\n#{short_campaign_url(@seller.campaign, seller: @seller.referral_code)}\n\nPlease consider making a purchase to help us reach our goal!\n\n#{@seller.user_profile.fullname}") %>" class="btn btn-info"><span class="glyphicon glyphicon-envelope" style="color: white"></span> Email</a>
-		            </div>
+		            </div> -->
 		        </div>
 		    </div>
 		</div>
@@ -521,7 +521,7 @@
 						window.Raisy.alert("抱歉，保存时出了问题，请稍好再试。");
 	                },
 					complete: function () {
-						$button.prop('disabled', false).find('span.text').text("Save Changes").siblings('span.loader').hide();
+						$button.prop('disabled', false).find('span.text').text("修改并保存").siblings('span.loader').hide();
 					}
 	            });
 	        });

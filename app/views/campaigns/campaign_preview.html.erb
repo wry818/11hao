@@ -11,9 +11,9 @@
 				<div id="step_nav_icon_4" class="step-nav-icon"></div>
 				<div id="step_nav_icon_5" class="step-nav-icon"></div>
 				<div id="step_nav_icon_6" class="step-nav-icon step-nav-icon-gray"></div>
-				<div id="step_nav_icon_7" class="step-nav-icon"></div>
+				<!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
 				<div id="step_nav_icon_8" class="step-nav-icon"></div>
-				<div id="step_nav_icon_9" class="step-nav-icon"></div>
+				<div id="step_nav_icon_9" class="step-nav-icon"></div> -->
 			</div>
 			
 			<div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header"><span class="number">6</span>预览您的筹款页面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
@@ -25,9 +25,12 @@
 			</div>
 			
 			<div style="text-align:center; margin-top:30px;">
-				<button class="btn btn-primary btn-lg camp-next-btn" type="button" onclick="window.location.href='<%=campaign_contacts_path(@campaign)%>';">
+				<!-- <button class="btn btn-primary btn-lg camp-next-btn" type="button" onclick="window.location.href='<%=campaign_contacts_path(@campaign)%>';">
 					<span class="text">继续</span>
-				</button>
+				</button> -->
+			    <button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= dashboard_campaign_details_path(@campaign) %>';">
+			        <span class="text">完成</span>
+			    </button>
 			</div>
         </div>
     </div>

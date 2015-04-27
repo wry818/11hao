@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150421024605) do
     t.string   "logo"
     t.boolean  "charge_processing_to_supporter",    default: false,      null: false
     t.boolean  "charge_processing_to_organization", default: false,      null: false
-    t.string   "call_to_action",                    default: "Shop Now", null: false
+    t.string   "call_to_action",                    default: "立刻购买", null: false
     t.boolean  "tax_deductible_receipt",            default: false,      null: false
     t.boolean  "hide_featured_items",               default: false,      null: false
     t.string   "entertainment_group_id"

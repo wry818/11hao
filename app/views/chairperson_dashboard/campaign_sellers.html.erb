@@ -24,7 +24,7 @@
 										<th>登录次数</th>
 							            <th>邮件发出次数</th>
 							            <th>分享次数</th>
-							            <th>tweets次数</th>
+							            <!-- <th>tweets次数</th> -->
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -48,7 +48,7 @@
 										<td><%= seller.user_profile.user.sign_in_count %></td>
 										<td><%= seller.email_share_histories.count %></td>
 							            <td><%= social_histories.select{|h| h.media_id==1}.count %></td>
-							            <td><%= social_histories.select{|h| h.media_id==2}.count %></td>
+							            <!-- <td><%= social_histories.select{|h| h.media_id==2}.count %></td> -->
 	                                </tr>
 	                                <% end %>
 	                            </tbody>

@@ -632,12 +632,12 @@ Raisy.campaigns = {
         Raisy.campaigns.skip_add_camp_photo = true;
 
         if ($("#campaign_collection_id").val() == "0") {
-            $("#campaign_call_to_action").attr("placeholder", "Make a Donation");
+            $("#campaign_call_to_action").attr("placeholder", "做一次捐赠");
             $("#campaign_call_to_action").val("Make a Donation");
         }
         else {
-            $("#campaign_call_to_action").attr("placeholder", "Shop Now");
-            $("#campaign_call_to_action").val("Shop Now");
+            $("#campaign_call_to_action").attr("placeholder", "立刻购买");
+            $("#campaign_call_to_action").val("立刻购买");
         }
 
         var nextStep = $(btn).data("nextstep");
@@ -931,8 +931,8 @@ Raisy.campaigns = {
                     $("#campaign_call_to_action").val("Make a Donation");
                 }
                 else {
-                    $("#campaign_call_to_action").attr("placeholder", "Shop Now");
-                    $("#campaign_call_to_action").val("Shop Now");
+                    $("#campaign_call_to_action").attr("placeholder", "立刻购买");
+                    $("#campaign_call_to_action").val("立刻购买");
                 }
 
                 var nextStep = $(this).data("nextstep");
@@ -955,8 +955,8 @@ Raisy.campaigns = {
                     $("#campaign_call_to_action").val("Make a Donation");
                 }
                 else {
-                    $("#campaign_call_to_action").attr("placeholder", "Shop Now");
-                    $("#campaign_call_to_action").val("Shop Now");
+                    $("#campaign_call_to_action").attr("placeholder", "立刻购买");
+                    $("#campaign_call_to_action").val("立刻购买");
                 }
 
                 var nextStep = $(this).data("nextstep");

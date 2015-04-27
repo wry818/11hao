@@ -11,10 +11,10 @@ user = User.create email: "xyang@entertainment.com", password: "temp1234", passw
 UserProfile.create user: user, first_name: "Xiaobing", last_name: "Yang", child_profile: false
 
 # Create three default campaign stories
-CampaignStory.create title: "Example 1", created_at: Time.new
-CampaignStory.create title: "Example 2", created_at: Time.new
-CampaignStory.create title: "Example 3", created_at: Time.new
-CampaignStory.create title: "Example 4", created_at: Time.new
+CampaignStory.create title: "范例1", created_at: Time.new
+CampaignStory.create title: "范例2", created_at: Time.new
+CampaignStory.create title: "范例3", created_at: Time.new
+CampaignStory.create title: "范例4", created_at: Time.new
 
 # Create the collection of direct donation
 Collection.create id: 0, name: "Direct Donation", active: false, slug: "Direct-Donation", created_at: Time.now, donation_percentage: 100

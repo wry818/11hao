@@ -341,7 +341,8 @@ class UsersController < ApplicationController
             end
         end
       
-        redirect_to seller_get_contacts_path(@seller)
+        # redirect_to seller_get_contacts_path(@seller)
+        redirect_to signup_seller_share_path(@seller)
       else
         redirect_to root_path and return
       end   

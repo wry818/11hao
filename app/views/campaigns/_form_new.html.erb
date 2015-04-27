@@ -27,9 +27,9 @@
           <div id="step_nav_icon_5" class="step-nav-icon"></div>
       <% end %>
       <div id="step_nav_icon_6" class="step-nav-icon"></div>
-      <div id="step_nav_icon_7" class="step-nav-icon"></div>
+      <!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
       <div id="step_nav_icon_8" class="step-nav-icon"></div>
-      <div id="step_nav_icon_9" class="step-nav-icon"></div>
+      <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
     </div>
     <div class="clearfix" style="margin-top:20px;">
       <div id="step_container_1" class="camp-step-container">
@@ -359,7 +359,7 @@
           <!-- <div class="form-group">
 			        <label for="campaign_call_to_action" class="col-sm-3 control-label">Call to Action Text<span class='req'>*</span></label>
 			        <div class="col-sm-9">
-			            <%= f.text_field :call_to_action, class: 'form-control', placeholder: 'Shop Now' %>
+			            <%= f.text_field :call_to_action, class: 'form-control', placeholder: '立刻购买' %>
 			        </div>
 			    </div> -->
 
@@ -861,7 +861,7 @@
                     if (event.state) {
 			                	var campaign_id = $("#campaign_id").val();
 			                	if (campaign_id == "0") {
-                            if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                            if (confirm("您还没有创建完成您的筹款页面。 如果您离开这个页面，您之前输入的信息会丢失。 如果您想回到上一步的话，请点击页面上的后退按钮。")) {
                                 if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
                                     <% if @previous_url != nil && @previous_url != "" %>
                                     window.location.href = "<%=@previous_url%>";
@@ -883,7 +883,7 @@
                 } else {
 	                	var campaign_id = $("#campaign_id").val();
 	                	if (campaign_id == "0") {
-                        if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                        if (confirm("您还没有创建完成您的筹款页面。 如果您离开这个页面，您之前输入的信息会丢失。 如果您想回到上一步的话，请点击页面上的后退按钮。")) {
                             if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
                                 <% if @previous_url != nil && @previous_url != "" %>
                                 window.location.href = "<%=@previous_url%>";
@@ -910,7 +910,7 @@
 
                 var campaign_id = $("#campaign_id").val();
                 if (campaign_id == "0") {
-                    if (confirm("You haven't finished creating the fundraiser page yet. Once you leave this page, your data will be lost. If you want to go back to the previous step, please click the Back button on the page.")) {
+                    if (confirm("您还没有创建完成您的筹款页面。 如果您离开这个页面，您之前输入的信息会丢失。 如果您想回到上一步的话，请点击页面上的后退按钮。")) {
                         if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
                             <% if @previous_url != nil && @previous_url != "" %>
                             window.location.href = "<%=@previous_url%>";

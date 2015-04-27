@@ -2,7 +2,10 @@
 	<div class="container container-background">
 		<%= hidden_field_tag 'hidsellerid', @seller.id, id: "hidsellerid" %>
 			
-		<div><h3>加入筹款团队<strong><%= @campaign.title %></strong></h3>
+		<div>
+			<h3 style="text-align: center">
+				加入筹款团队<strong><%= @campaign.title %></strong>
+			</h3>
 		</div>
 		
 		<div class="container-box">
@@ -13,8 +16,8 @@
 					<div id="step_nav_icon_3" class="step-nav-icon"></div>
 					<div id="step_nav_icon_4" class="step-nav-icon"></div>
 					<div id="step_nav_icon_5" class="step-nav-icon"></div>
-					<div id="step_nav_icon_6" class="step-nav-icon"></div>
-					<div id="step_nav_icon_7" class="step-nav-icon"></div>
+					<!-- <div id="step_nav_icon_6" class="step-nav-icon"></div>
+					<div id="step_nav_icon_7" class="step-nav-icon"></div> -->
 					<div id="step_nav_icon_8" class="step-nav-icon step-nav-icon-gray"></div>
 				</div>
 			</div>
@@ -33,12 +36,11 @@
 								<div class="form-group">
 			            <p>和您的朋友和家人告诉他们您的筹款团队并邀请他们在您的筹款页上购物来帮助完成筹款目标。</p>
 			            <input class="form-control" value="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>" readonly>
-			            <div class="share-links" style="margin-top: 20px;">
+			            <!-- <div class="share-links" style="margin-top: 20px;">
 			                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>"><%= image_tag 'fb.png' %> Share</a>
-			                <!-- <a href="https://twitter.com/share?url=<%= url_encode(short_campaign_url(@seller.campaign, seller: @seller.referral_code)) %>&text=<%= url_encode("Help #{@seller.user_profile.first_name} fundraise for #{@seller.campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a> -->
+			                <a href="https://twitter.com/share?url=<%= url_encode(short_campaign_url(@seller.campaign, seller: @seller.referral_code)) %>&text=<%= url_encode("Help #{@seller.user_profile.first_name} fundraise for #{@seller.campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>
 							<a href="https://twitter.com/intent/tweet?url=<%= url_encode(short_campaign_url(@seller.campaign, seller: @seller.referral_code)) %>&text=<%= url_encode("Help #{@seller.user_profile.first_name} fundraise for #{@seller.campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>
-			            </div>
-								</div>
+			            </div> -->
 			        </div>
 			    </div>
 			</div>
@@ -50,7 +52,7 @@
 					<div class="row web-box">
 						<div class="col-sm-6">
 							<div class="backbutton-box">
-						    <button class="btn btn-success btn-lg back-btn" type="button" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
+						    <button class="btn btn-success btn-lg back-btn" type="button" onclick="window.location.href='<%= update_seller_photo_path(@seller) %>';">
 										<span class="text">后退</span><span class="loader" style="display:none"></span>
 						    </button>
 							</div>
@@ -74,7 +76,7 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="continuebutton-box">
-						    <button class="btn btn-success btn-lg back-btn" type="button" onclick="window.location.href='<%= seller_sendemails_path(@seller) %>';">
+						    <button class="btn btn-success btn-lg back-btn" type="button" onclick="window.location.href='<%= update_seller_photo_path(@seller) %>';">
 										<span class="text">后退</span><span class="loader" style="display:none"></span>
 						    </button>
 							</div>
@@ -87,3 +89,12 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	
+$(document).ready(function () {
+	
+	$(".navbar-brand").addClass("navbar-brand-main");
+});
+
+</script>
