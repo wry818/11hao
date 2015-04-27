@@ -147,11 +147,11 @@
 		<div id="search-contacts-box" class="search-contacts-box">
 			<div class="row header">
 				<div class="col-md-12">
-					<h4>Import Your Contacts</h4>
+					<h4>导入您的联系人</h4>
 				</div>
 			</div>
 	    	<div>
-				<h5>Search your address book for friends</h5>
+				<h5>通过地址薄搜寻您的朋友</h5>
 			</div>
 			<div class="row item">
 				<div class="col-md-9">
@@ -181,7 +181,7 @@
 			</div>
 	    	<div>
 				<p style="padding-top: 10px; font-size: 12px">
-					Choosing a service will open a window for you to log in securely and import your contacts to Raisy. You'll only find users who have allowed their accounts to be found by email address. We won't email anyone without your consent.</p>
+					选择一个服务会弹出一个窗口让您安全登录并导入您的联系人到11号公益圈。您只能找到那些允许通过搜寻邮箱能找到他们的用户。不经过您的准许我们不会发邮件给任何人。</p>
 			</div>
 		</div>
 		<div id="contacts-result-box" class="contacts-result-box" style="display: none">
@@ -192,17 +192,17 @@
 						<%= image_tag "yahoo-icon.png", class: "contacts-icon contacts-icon-yahoo", style: "display:none;" %>
 						<%= image_tag "outlook-icon.png", class: "contacts-icon contacts-icon-outlook", style: "display:none;" %>
 						<%= image_tag "facebook-icon.png", class: "contacts-icon contacts-icon-facebook", style: "display:none;" %>
-						&nbsp;<b id="provider_contacts_label" style="font-size:16px;">Contacts</b>&nbsp;&nbsp;&nbsp;
-						<a id="btnTryAnotherService" href="javascript:void(0);">Back</a>
+						&nbsp;<b id="provider_contacts_label" style="font-size:16px;">联系人列表</b>&nbsp;&nbsp;&nbsp;
+						<a id="btnTryAnotherService" href="javascript:void(0);">后退</a>
 					</div>
 					<div class="sub-header">
 						<div class="left-col">
 							<p>
-								Here are <span id="txtContactCount"></span> for you to share your link. You can uncheck "Select all" or anyone you don't want to share.
+								下面有<span id="txtContactCount"></span>位可以分享您的链接，您可以去掉“全选”或任何您不想分享的人。
 							</p>
 						</div>
 						<div class="select-all-box">
-							<span>Select all</span>
+							<span>全选</span>
 							<input id="cbxSelectAll" type="checkbox" />
 						</div>
 					</div>
@@ -213,7 +213,7 @@
 			<div class="footer">
 				<div class="send-email-box">
 					<a id="btnImportContact" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
-						<span class="text">Import Contacts</span>
+						<span class="text">导入联系人</span>
 						<span class="loader" style="display:none"></span>
 					</a>
 				</div>
@@ -224,15 +224,15 @@
 				<div class="col-md-12">
 					<div>
 						<%= image_tag "edit-icon.png", class: "contacts-icon" %>&nbsp;
-						<b style="font-size: 16px">Manually Enter Emails</b>&nbsp;&nbsp;&nbsp;
-						<a id="btnTryAnotherServiceManual" href="javascript:void(0);">Back</a>
+						<b style="font-size: 16px">手动输入邮箱</b>&nbsp;&nbsp;&nbsp;
+						<a id="btnTryAnotherServiceManual" href="javascript:void(0);">后退</a>
 					</div>
 					<div class="sub-header">
 						<div class="left-col">
 							<p>
-								Enter emails seperated by commas or one per line.
+								输入邮件按逗号或每行分割。
 								<br />
-								PLEASE NOTE: This will not send email invites.
+								请注意：这不好发送邀请邮件。
 							</p>
 						</div>
 					</div>
@@ -245,14 +245,14 @@
 			</div>
 			<div class="footer" style="padding-top: 0px">
 				<a id="btnImportContactManual" href="javascript:void(0);" class="btn btn-primary" style="width: 200px">
-					<span class="text">Import Contacts</span>
+					<span class="text">导入联系人</span>
 					<span class="loader" style="display:none"></span>
 				</a>
 			</div>
 		</div>
 		<div id="contacts-list-box" class="contacts-list-box">
 			<div style="margin-top:15px;">
-				<label style="font-size:18px; vertical-align:top;">Or Enter Contacts Individually</label>
+				<label style="font-size:18px; vertical-align:top;">或者单独地输入联系人</label>
 				&nbsp;&nbsp;&nbsp;
 				<!-- <label class="glyphicon glyphicon-plus-sign show_tooltip" data-title="Add Contact" style="cursor:pointer; font-size:22px; vertical-align:top;" onclick="Raisy.users.addNewContactClick();"></label> -->
 			</div>
@@ -261,10 +261,10 @@
 				<table class="table table-hover contact-table" style="<%= 'display:none;' if @contacts.count==0 %>">
 					<thead>
 						<tr>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th><span class="show_tooltip" data-title="What you will call this person in the email (e.g. Grandma)">Greeting&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
-							<th>Email</th>
+							<th>姓</th>
+							<th>名</th>
+							<th><span class="show_tooltip" data-title="在邮件里您怎么称呼这个人 （比如：外婆）">称呼&nbsp;&nbsp;<span class="seller-step-qa-icon">?</span></span></th>
+							<th>邮箱</th>
 							<th></th>
 							<th></th>
 							<th></th>
@@ -307,9 +307,9 @@
 	
 	<div id="nav-emails" class="nav-content">
 		<div>
-			<span>Send emails to your friends and family to tell them about your fundraiser and invite them to shop online at your personalized fundraising page to help reach the fundraising goal.</span>
+			<span>发邮件给您的朋友和家人以告诉并邀请他们在您的筹款页上购物来帮助您达成您的目标。</span>
 			<br/><br/>
-			<span>Custom Email Text:</span>
+			<span>邮件内容：</span>
 		</div>
 		
 		<div style="border:1px solid #ddd; border-radius:3px; margin:10px 0px; padding:15px;">
@@ -328,15 +328,15 @@
 		
 		<div style="margin-top:20px;"> 
 			<button id="btnSaveEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-				<span class="text">Save Changes</span>
+				<span class="text">修改保存</span>
 				<span class="loader" style="display:none"></span>
 			</button>&nbsp;&nbsp;&nbsp;
 			<button id="btnPreviewEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-				<span class="text">Preview Email</span>
+				<span class="text">预览邮件</span>
 				<span class="loader" style="display:none"></span>
 			</button>&nbsp;&nbsp;&nbsp;
 			<button id="btnSendEmail" class="btn btn-primary" type="button" style="margin-bottom:15px; width: 150px;">
-				<span class="text">Send Email</span>
+				<span class="text">发送邮件</span>
 				<span class="loader" style="display:none"></span>
 			</button>
 			<a id="open_contacts_modal" data-toggle="modal" data-target="#contacts_modal" style="display:none;"></a>

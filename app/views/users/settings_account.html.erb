@@ -7,21 +7,21 @@
             <%= form_for(current_user, url: update_account_path(current_user), method: :patch, html: { id: "account_form", class: "form-horizontal" }) do |f| %>
 
                 <div class="form-group">
-                    <label for="user_email" class="col-sm-3 control-label">Email</label>
+                    <label for="user_email" class="col-sm-3 control-label">邮箱</label>
                     <div class="col-sm-4">
                         <label class="control-label" style="font-weight: normal;"><%= current_user.email %></label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="user_password" class="col-sm-3 control-label">Current Password</label>
+                    <label for="user_password" class="col-sm-3 control-label">当前密码</label>
                     <div class="col-sm-4">
                         <%= f.text_field :password, class: 'form-control', type: 'password', autocomplete: 'off' %>
                     </div>
                 </div>
 				
                 <div class="form-group">
-                    <label for="new_password" class="col-sm-3 control-label">New Password</label>
+                    <label for="new_password" class="col-sm-3 control-label">新的密码</label>
                     <div class="col-sm-4">
 						<input id="new_password" name="new_password" type="password" class="form-control" autocomplete="off">
                     </div>
@@ -30,7 +30,7 @@
                 <div class="form-group" style="margin-bottom:80px;">
                     <div class="col-sm-offset-3 col-sm-2">
                         <button type="submit" class="btn btn-primary btn-block">
-                            <span class="text">Reset Password</span> <span class="loader" style="display:none"></span>
+                            <span class="text">重设密码</span> <span class="loader" style="display:none"></span>
                         </button>
                     </div>
                 </div>

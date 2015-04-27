@@ -29,6 +29,7 @@
 //= require seller_dashboard
 //= require chairperson_dashboard
 //= require select2
+//= require select2_locale_zh-CN
 //= require jquery.cropbox
 //= require jquery.slides
 //= require hammer

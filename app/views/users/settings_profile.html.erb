@@ -7,39 +7,39 @@
             <%= form_for(@user_profile, url: update_profile_path, method: :patch, html: { id: "profile_form", class: "form-horizontal" }) do |f| %>
 			
 	            <div class="form-group">
-	                <label for="user_profile_first_name" class="col-sm-3 control-label">First Name</label>
+	                <label for="user_profile_first_name" class="col-sm-3 control-label">姓</label>
 	                <div class="col-sm-4">
-	                    <%= f.text_field :first_name, class: 'form-control', placeholder: 'First Name' %>
+	                    <%= f.text_field :first_name, class: 'form-control', placeholder: '姓' %>
 	                </div>
 	            </div>
 				
 	            <div class="form-group">
-	                <label for="user_profile_last_name" class="col-sm-3 control-label">Last Name</label>
+	                <label for="user_profile_last_name" class="col-sm-3 control-label">名</label>
 	                <div class="col-sm-4">
-	                    <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
+	                    <%= f.text_field :last_name, class: 'form-control', placeholder: '名' %>
 	                </div>
 	            </div>
 
                 <div class="form-group">
-                    <label for="user_profile_display_name" class="col-sm-3 control-label">Display Name</label>
+                    <label for="user_profile_display_name" class="col-sm-3 control-label">昵称</label>
                     <div class="col-sm-4">
-                        <%= f.text_field :display_name, class: 'form-control', placeholder: 'Display Name' %>
+                        <%= f.text_field :display_name, class: 'form-control', placeholder: '昵称' %>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="user_profile_title" class="col-sm-3 control-label">Title</label>
+                    <label for="user_profile_title" class="col-sm-3 control-label">头衔</label>
                     <div class="col-sm-4">
-                        <%= f.text_field :title, class: 'form-control', placeholder: 'Title' %>
+                        <%= f.text_field :title, class: 'form-control', placeholder: '头衔' %>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="user_picture" class="col-sm-3 control-label">
-						Update Your Selfie
+						更新您的头像
 						<br />
 						<span class="upload-tooltip">
-							(Best size: 200px * 200px)
+							（最好的图片尺寸: 200px * 200px）
 						</span>
 					</label>
                     <div class="col-sm-9">
@@ -54,7 +54,7 @@
                             <div style="width:0px; height:0px;">
 								<%= hidden_field_tag :use_photo, "" %>
                                 <%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { accept:"image/*", style: "width:0px; height:0px; visibility:hidden;", id: "user_picture_file" }) %>
-                                <a href="#" class="remove-image" style="display: none">Remove picture</a>
+                                <a href="#" class="remove-image" style="display: none">删除图片</a>
                             </div>
                         </div>
                         <div class="progress progress-striped active" style="display:none; margin-top:5px; width:102px;">
@@ -66,13 +66,13 @@
 						<div class="clearfix" style="margin-top:20px;">
 							<div class="upload-button" style="float:left;" onclick="$('#user_picture_file').click();">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Upload</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+									上传</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
 							</div>
 							<div class="use-button" style="float:left; margin-left:20px;" onclick="$('#default_photos_modal').modal('show');">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Use</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+									使用</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
 							</div>
 						</div>
                     </div>
@@ -81,7 +81,7 @@
                 <div class="form-group" style="margin-top:30px;">
                     <div class="col-sm-offset-3 col-sm-2">
                         <button type="submit" class="btn btn-primary btn-block">
-                            <span class="text">Save</span> <span class="loader" style="display:none"></span>
+                            <span class="text">保存</span> <span class="loader" style="display:none"></span>
                         </button>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
 
         <div class="modal-header">
             <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Choose one of our photos</h4>
+            <h4 class="modal-title">选择一张我们的照片</h4>
         </div> <!-- /.modal-header -->
 
             <div class="modal-body">
