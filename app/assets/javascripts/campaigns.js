@@ -594,7 +594,7 @@ Raisy.campaigns = {
 
                 if (!can_continue) {
                     $("#campaign_social_error").show();
-                    $("#campaign_social_message").text("抱歉，您的邮箱或密码正确。");
+                    $("#campaign_social_message").text("抱歉，您的邮箱或密码不正确。");
                 }
             }
         }

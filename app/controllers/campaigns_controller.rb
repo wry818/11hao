@@ -73,7 +73,7 @@ class CampaignsController < ApplicationController
         end
         
         if !is_valid_user
-          flash.now[:danger] = "抱歉，您的邮箱或密码正确。"
+          flash.now[:danger] = "抱歉，您的邮箱或密码不正确。"
           render action: "campaign_account" and return
         end
         

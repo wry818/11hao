@@ -444,7 +444,7 @@ window.Raisy = {
 						result = false;
 						
 						$(".login-social-error").show();
-						$(".login-social-message").text("抱歉，您的邮箱或密码正确。");
+						$(".login-social-message").text("抱歉，您的邮箱或密码不正确。");
 					}
 				}
 			});

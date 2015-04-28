@@ -59,15 +59,22 @@
 	                                </button>
 								</div>
                             <% end %>
+							<div class="col-md-12 login-social-error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div class="login-social-message" style="text-align: center;"> 
+						            </div>
+						        </div>
+								<div>&nbsp;</div>
+							</div>
                         </div>
 						
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<div class="col-md-12">
 					            <div class="form-group">
 									<label class="control-label">&nbsp;</label>
 					            </div>
 							</div>
-							
+
 							<div class="col-md-12 login-media-box">
 					            <div class="form-group">
 									<label class="control-label">&nbsp;</label>
@@ -82,17 +89,17 @@
 									</a>
 					            </div>
 							</div>
-							
+
 							<br/>
-							
+
 							<div class="col-md-12 login-social-error" style="display:none;">
 						        <div class="alert alert-warning">
-						            <div class="login-social-message" style="text-align: center;"> 
+						            <div class="login-social-message" style="text-align: center;">
 						            </div>
 						        </div>
 								<div>&nbsp;</div>
 							</div>
-						</div>
+						</div> -->
                     </div>
                 </div> <!-- end of .modal-body -->
 				
@@ -109,7 +116,7 @@
                         欢迎回来！
                     </p>
                     <div class="row">
-                        <div class="col-md-6" style="border-right: 2px solid #eee;"> 
+                        <div class="col-md-12" style="border-right: 2px solid #eee;"> 
                             <%= form_for(User.new, url: user_session_path, html: { id: "exist_user_form" } ) do |f| %>
 							<div class="col-md-12">
                                 <div class="form-group"> 
@@ -127,9 +134,16 @@
 								</div> 
 							</div>
                             <% end %>
+							<div class="col-md-12 login-social-error" style="display:none;">
+						        <div class="alert alert-warning">
+						            <div class="login-social-message" style="text-align: center;"> 
+						            </div>
+						        </div>
+								<div>&nbsp;</div>
+							</div>
                         </div>
 						
-						<div class="col-md-6">
+						<!-- <div class="col-md-6">
 							<div class="col-md-12">
 					            <div class="form-group">
 									<div style="margin-top:35px;">
@@ -147,17 +161,17 @@
    									</div>
 					            </div>
 							</div>
-							
+
 							<br />
-							
+
 							<div class="col-md-12 login-social-error" style="display:none;">
 						        <div class="alert alert-warning">
-						            <div class="login-social-message" style="text-align: center;"> 
+						            <div class="login-social-message" style="text-align: center;">
 						            </div>
 						        </div>
 								<div>&nbsp;</div>
 							</div>
-						</div>
+						</div> -->
                     </div>
                 </div> <!-- end of .modal-body -->
 				
