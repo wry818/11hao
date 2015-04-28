@@ -193,4 +193,10 @@ Raisy::Application.routes.draw do
     
     match 'upload/campaign_photo' => 'upload#campaign_photo', via: [:post, :patch]
     
+    # WEIXIN
+    scope 'weixin' do
+        get 'test' => 'weixin#test'
+        post 'notify' => 'weixin#notify'
+    end
+    
 end

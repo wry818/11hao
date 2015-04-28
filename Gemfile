@@ -77,3 +77,5 @@ gem 'dotenv'
 gem 'libxml-ruby'
 
 gem 'omnicontacts'
+
+gem 'wx_pay'
