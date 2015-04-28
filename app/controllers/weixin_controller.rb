@@ -3,8 +3,8 @@ class WeixinController < ApplicationController
   def test
 
     params = {
-      body: '测试商品',
-      out_trade_no: 'test003',
+      body: '测试商品22',
+      out_trade_no: 'test004',
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
       notify_url: 'http://10.12.0.182:3000/weixin/notify',
