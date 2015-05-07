@@ -1,7 +1,7 @@
 <div id="campaign-edit">
   <div class="container">
     <div class="campaign-edit-header">
-      <h3>创建一个新的筹款团队</h3>
+      <h3>发起一次新的筹款</h3>
     </div>
     <div class="container-box top-section">
       <div class="step-nav-bar">
@@ -74,7 +74,7 @@
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1">
                     <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的<%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
+                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意11号公益圈<%= link_to "服务协议", "javascript:void(0)" %></label>
                   </div>
                 </div>
 
@@ -143,6 +143,6 @@
     $(document).ready(function () {
 		$(".home-menu").show();
 		$(".navbar-brand").addClass("navbar-brand-main");
-        $(".user-modal-launch").hide();
+        // $(".user-modal-launch").hide();
     });
 </script>

@@ -71,7 +71,7 @@
                     <div class="col-md-8 raised-count-box">
 						<div class="raised-count">
 							<label>￥<%= short_price(@seller.campaign.raised) %>
-							</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
+							</label>&nbsp;&nbsp;<span>简单公益 只因有你</span>
 						</div>
 						
 						<% if @seller.campaign.goal.nil? %>
@@ -103,7 +103,7 @@
 					<table class="campaign-people-box">
 						<tr>
 							<td class="campaign-people-col first-col">
-								支持者数&nbsp;<span class="badge"><%= @seller.campaign.supporters %></span>
+								支持者&nbsp;<span class="badge"><%= @seller.campaign.supporters %></span>
 							</td>
 							<td class="campaign-people-col middle-col">
 								成员数&nbsp;<span class="badge"><%= @seller.campaign.sellers.count %></span>

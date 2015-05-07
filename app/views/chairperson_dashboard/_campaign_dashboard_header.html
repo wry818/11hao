@@ -2,7 +2,7 @@
     <div class="container">
         <div class="dashboard-header-box">
 			<% if current_user.id == @campaign.organizer_id %>
-				<h2 style="font-weight: bold; margin-top:10px;">组织主席工具箱</h2>
+				<h2 style="font-weight: bold; margin-top:10px;">管理我的团队</h2>
 			<% end %>
 			
 			<div class="row" style="margin-top:15px;">
@@ -18,7 +18,7 @@
 			
 				<div class="col-sm-7 col-sm-offset-1">
 					<% if current_user.id == @campaign.organizer_id %>
-						<p>我的筹款团队列表：</p>
+						<p>我的团队：</p>
 					<% else %>
 						<% if @campaign.ent_campaign? %>
 						<p>Group Storefronts:</p>
@@ -71,7 +71,7 @@
 			                    <div class="col-md-8 raised-count-box">
 									<div class="raised-count">
 										<label>￥<%= short_price(@campaign.raised) %>
-										</label>&nbsp;&nbsp;<span>线上筹措，单单通过这个站点</span>
+										</label>&nbsp;&nbsp;<span>简单公益 只因有你</span>
 									</div>
 						
 									<% if @campaign.goal.nil? %>
@@ -103,7 +103,7 @@
 								<table class="campaign-people-box">
 									<tr>
 										<td class="campaign-people-col first-col">
-											支持者数&nbsp;<span class="badge"><%= @campaign.supporters %></span>
+											支持者&nbsp;<span class="badge"><%= @campaign.supporters %></span>
 										</td>
 										<td class="campaign-people-col middle-col">
 											成员数&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
@@ -134,7 +134,7 @@
             </li> -->
             <li class="<%= 'active' if active == :sellers %>">
                 <a href="<%= dashboard_campaign_sellers_path(@campaign) %>">
-                    成员数量
+                    团队成员
                     <span class="badge"><%= @campaign.sellers.count %></span>
                 </a>
             </li>
@@ -145,7 +145,7 @@
                 </a>
             </li>
             <li class="<%= 'active' if active == :details %>">
-                <a href="<%= dashboard_campaign_details_path(@campaign) %>">编辑筹款团队明细</a>
+                <a href="<%= dashboard_campaign_details_path(@campaign) %>">编辑筹款页面</a>
             </li>
 			<% if (current_user.is_crs? || current_user.admin?) && @campaign.any_bulkshipping_product? %>
 	            <li class="<%= 'active' if active == :bulkshippinginfo %>">

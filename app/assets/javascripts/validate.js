@@ -436,11 +436,11 @@ $( document ).ready(function() {
             required: "请选择一件商品"
           },
           "campaign[title]": {
-            required: "请输入标题",
-            maxlength: "标题至少要100个字符"
+            required: "请输入筹款页面标题",
+            maxlength: "筹款页面标题至少要100个字符"
           },
           "campaign[organizer_quote]": {
-            maxlength: "副标题至少要100个字符"
+            maxlength: "副筹款页面标题至少要100个字符"
           },
           "campaign[goal]": {
             number: "请只输入数字",

@@ -26,11 +26,11 @@
 		   <% is_chairperson = current_user.is_chairperson? %>
 		   
 		   <% if is_chairperson %>
-		   		<li><%= link_to "组织主席工具箱", dashboard_campaigns_path %></li>
+		   		<li><%= link_to "管理我的团队", dashboard_campaigns_path %></li>
 		   <% end %>
 		   
 		   <% if current_user.is_crs? %>
-		   		<li><%= link_to "筹款团队列表", dashboard_campaigns_path + "?cp=no" %></li>
+		   		<li><%= link_to "筹款团队", dashboard_campaigns_path + "?cp=no" %></li>
 		   <% end %>
 		   
 		   <% if current_user.is_sales? || current_user.is_crs? %>
@@ -53,11 +53,11 @@
 	               <% end %>
 				   
 				   <% if !current_user.is_sales? && !current_user.is_crs? %>
-						<li><%= link_to "创建筹款页", new_campaign_path %></li>
+						<li><%= link_to "发起筹款", new_campaign_path %></li>
 				   <% end %>
 				   
 				   <% if is_chairperson %>
-	                    <li><%= link_to "修改筹款团队明细", dashboard_campaigns_path %></li>
+	                    <!-- <li><%= link_to "修改筹款页面摘要", dashboard_campaigns_path %></li> -->
 	               <% end %>
 				   
 				   <% if current_user.is_sales? %>
@@ -89,7 +89,7 @@
 		<% end %>
      <% else %>
 	 	<li class="home-menu">
-			<%= link_to "创建筹款页", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
+			<%= link_to "发起筹款", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
         </li>
 		<li class="home-menu">
             <%= link_to "加入筹款团队", '/search' %>
@@ -104,7 +104,7 @@
 			</li>
 		<% end %>
 		<li>
-			<%= link_to '登录', '#user_modal', class: 'btn btn-primary user-modal-launch', data: {action: 'signin'}, style: "display:inline-block; margin-top: 5px; margin-left: 10px; padding: 3px 20px; color: white" %>
+			<%= link_to '登录', '#user_modal', class: 'btn btn-lightgreen user-modal-launch', data: {action: 'signin'}, style: "display:inline-block; margin-top: 5px; margin-left: 10px; padding: 3px 20px; color: white" %>
 		</li>
 	  </ul>
       <% end %>

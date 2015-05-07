@@ -50,7 +50,7 @@ html, body {
 	font-family: 黑体, "Microsoft YaHei", 微软雅黑, "Open Sans", sans-serif;
 }
 
-input {
+input, .select2-container, #footer {
 	font-family: "Open Sans", sans-serif;
 }
 
@@ -172,6 +172,32 @@ h1, h2, h3, h4, h5 {
 	  border-color: $entertainment-lightgreen-hover !important;
   }
   
+}
+
+.btn-info {
+	
+    color: #fff;
+    background-color: $entertainment-lightgreen;
+    border-color: $entertainment-lightgreen;
+  
+    &:hover {
+  	  color: #fff;
+  	  background-color: $entertainment-lightgreen-hover !important;
+  	  border-color: $entertainment-lightgreen-hover !important;
+    }
+  
+    &:active {
+  	  color: #fff;
+  	  background-color: $entertainment-lightgreen-hover !important;
+  	  border-color: $entertainment-lightgreen-hover !important;
+    }
+  
+    &:focus {
+  	  color: #fff;
+  	  background-color: $entertainment-lightgreen-hover !important;
+  	  border-color: $entertainment-lightgreen-hover !important;
+    }
+	
 }
 
 .btn-white {

@@ -140,7 +140,7 @@ Raisy.campaigns = {
         $("#organization_name").not(".input-organization").select2({
             allowClear: true,
             minimumInputLength: 0,
-            placeholder: "选择一个公益组织",
+            placeholder: "选择您所属的社团或NGO",
             ajax: {
                 url: "/campaigns/organizations.json",
                 cache: true,

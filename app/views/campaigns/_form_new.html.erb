@@ -33,7 +33,7 @@
     </div>
     <div class="clearfix" style="margin-top:20px;">
       <div id="step_container_1" class="camp-step-container">
-        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>筹款团队明细&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
         </h3></div>
         <fieldset>
           <div class="form-group">
@@ -48,10 +48,10 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_title" class="col-sm-2 control-label">标题<span class='req'>*</span></label>
+            <label for="campaign_title" class="col-sm-2 control-label">筹款页面标题<span class='req'>*</span></label>
 
             <div class="col-sm-10">
-              <%= f.text_field :title, class: 'form-control', placeholder: '比如： 卖牛奶为了xx学校 （注意：这会显示在所有的邮件里）' %>
+              <%= f.text_field :title, class: 'form-control', placeholder: '比如：园留守儿童图书馆梦' %>
             </div>
           </div>
 
@@ -59,7 +59,7 @@
             <label for="campaign_title" class="col-sm-2 control-label">宣传标签</label>
 
             <div class="col-sm-10">
-              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：为了给xx学校建设体育器材而筹资' %>
+              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：图书义卖帮云南一所乡村中学的孩子筹集一座乡村图书馆' %>
             </div>
           </div>
 
@@ -118,7 +118,7 @@
 
       <div id="step_container_2" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
-          <h3 class="fieldset-header"><span class="number">3</span>告诉大家您的故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+          <h3 class="fieldset-header"><span class="number">3</span>告诉大家您的筹款故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <div style="display:none;">
@@ -155,7 +155,7 @@
                   <span><%= @example_story_4.title %></span>
                 </div>
                 <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story custom-story">创建您自己的</div>
+                <div class="example-story custom-story">讲述您自己的故事</div>
               </div>
             </div>
           </div>
@@ -204,7 +204,7 @@
       <div id="step_container_3_1" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>上传更多的筹款团队图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">4</span>上传更多的图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
               （最好的图片尺寸: 280px * 280px）
@@ -272,7 +272,7 @@
       <div id="step_container_3" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>上传筹款活动封面图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">4</span>上传筹款页面封面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
               （最好的图片尺寸: 970px * 310px）
@@ -432,7 +432,7 @@
       <% if !@collection %>
           <div id="step_container_5" class="camp-step-container" style="display:none;">
             <div style="text-align:center;">
-              <h3 class="fieldset-header"><span class="number">5</span>选择商品系列&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+              <h3 class="fieldset-header"><span class="number">5</span>选择您将要义卖的产品&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
             </div>
             <fieldset>
               <div class="form-group" style="margin-bottom: -4px">
@@ -561,7 +561,7 @@
                         <div class="form-group">
                           <div class="col-sm-11">
                             <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">勾中选框，就表示您同意我们的 <%= link_to "服务协议", "https://answers.entertainment.com/", target: "_blank" %></label>
+                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意11号公益圈<%= link_to "服务协议", "javascript:void(0)" %></label>
                           </div>
                         </div>
 
@@ -708,7 +708,7 @@
             <div style="position:relative; text-align:center;">
               <button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
               <div style="position:absolute; bottom:1px; left:0px;">
-                <a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; font-size:12px; font-weight:600;"><span>预览</span></a>
+                <a data-toggle="modal" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; font-size:12px; font-weight:600;"><span>预览筹款页面</span></a>
               </div>
               <div class="hide_camp_step_tips_container">
                 <a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
@@ -730,67 +730,61 @@
         <p>
           <label style="font-size:16px;">
             <% if current_user %>
-                欢迎 <%= current_user.profile.try(:first_name) %>, 我们开始您的下一次筹款团队吧
+                欢迎 <%= current_user.profile.try(:first_name) %>, 让我们一起开始发起您的筹款吧
             <% else %>
-                欢迎我们开始吧
+                欢迎让我们一起开始发起您的筹款吧
             <% end %>
           </label>
         </p>
       </div>
-      <p>通过名字或组织ID搜索您的学校或组织。</p>
+      <p>通过名称查找您所属的社团或NGO。</p>
 
-      <p>注意：确保您选择的正确的组织（城市和区县列在了组织名称旁边）</p>
+      <p>注意：本次筹款所得将捐赠给您所选的社团或NGO，所以请确保您的选择正确无误。</p>
 
-      <p>输入筹款团队的基本信息，这些信息会显示在您的筹款团队的页面上还有卖家的邮件里面。</p>
+      <p>输入筹款团队的基本信息, 这些信息将显示在您的筹款页面。</p>
       <span>小贴士：</span>
       <ul>
-        <li><span>如果您找不到您的组织，请联系你的销售代表。</span></li>
-        <li><span>请明确您为什么要筹款，以便人们能够方便理解您需要他们的支持。</span>
-        </li>
-        <li><span>用下面的这些选项作为概要，在下一步您可以更加详细的描述您的筹款团队。</span>
+        <li><span>如果找不到您的组织，请联系我们（微信公众号：11号公益圈）</span></li>
+        <li><span>请尽可能的说明您为什么要筹款， 以便人们能够更好的支持您的团队。</span>
         </li>
       </ul>
     </div>
 
     <div id="camp_step_tips_2" style="display:none;">
-      <p>告诉您的支持者们您的筹款团队的详情。创建您自己的或者选择下面四个我们提供的例子的其中一个并修改。</p>
+      <p>讲述您团队的故事， 您可以从我们提供的4个模板中选择一个并修改，或者告诉大家您自己的故事。</p>
       <span>建议：</span>
       <ul>
         <li><span>反复重申您为什么要筹款。</span></li>
         <li><span>您的筹款目标是什么？</span></li>
-        <li><span>为什么这很重要？</span></li>
-        <li><span>现在的情况是什么，这些筹资款项会如何帮助？</span></li>
-        <li><span>最终的结果和得益是什么？（比如，并不只是一次旅行，而是有深刻教育意义的一次体验）</span>
+        <li><span>所筹款项将如何使用。</span></li>
+        <li><span>最终的成果将是什么？(比如，并不只是一座图书馆，而且是一次改变乡村教育环境的深度尝试)。</span></li>
+        <li><span>其他您的支持者需要知道的信息。</span>
         </li>
         <li><span>如何其他您想要您的支持者知道的信息。</span></li>
       </ul>
       <span>小贴士：</span>
       <ul>
-        <li><span>控制在三到四句以内。</span></li>
-        <li><span>提醒支持者每次购买都价值。</span></li>
-        <li><span>表达您的赞赏之情，对您的支持者们以“谢谢”作为结尾！</span></li>
+        <li><span>尽量控制在140字以内。</span></li>
+        <li><span>提醒支持者每次购买都很有价值。</span></li>
+        <li><span>尽情表达对您支持者的感谢。</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_3_1" style="display:none;">
-      <p>这是显示在您的筹款页面最顶上的主题图片。我们建议上传您自己学校或组织的照片比便于与您的支持这们建立个人的联系。</p>
+      <p>我们建议您上传社团或者NGO的活动照片。</p>
       <span>小贴士：</span>
       <ul>
-        <li><span>在您创建完筹款页面后您可以随时修改这个图片。</span></li>
-        <li><span>下一步会允许您上传更多的图片，如果您需要的话。</span></li>
+        <li><span>创建筹款页面后，您可以随时修改封面照片。</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_3_2" style="display:none;">
-      <p>如果您有额外的图片需要显示在您的筹款页上的话，就在这里上传。
-        您的组织照片会更容易让您的支持者产生兴趣并帮助筹款活动更加成功。我们建议您至少上传一张额外的照片给你的筹款页面。</p>
+      <p>如果您有更多的图片可以生动的展示您的团队的话，可以在这里上传。我们建议您至少上传一张照片。</p>
 
       <p>您可以跳过这个步骤。</p>
       <span>小贴士：</span>
       <ul>
-        <li><span>玩的开心！用照片生动地展示您的组织。</span></li>
-        <li><span>在您创建完筹款页面后您可以随时修改任何图片或者再上传额外地图片。</span>
-        </li>
+        <li><span>筹款页面创建后，您可以随时撤销已上传图片或者上传新的图片。</span></li>
       </ul>
     </div>
 

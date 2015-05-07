@@ -8,16 +8,16 @@
 
 <fieldset>
     <div class="form-group">
-        <label for="campaign_title" class="col-sm-2 control-label">标题<span class='req'>*</span></label>
+        <label for="campaign_title" class="col-sm-2 control-label">筹款页面标题<span class='req'>*</span></label>
         <div class="col-sm-10">
-            <%= f.text_field :title, class: 'form-control', placeholder: '比如： 卖牛奶为了xx学校 （注意：这会显示在所有的邮件里）' %>
+            <%= f.text_field :title, class: 'form-control', placeholder: '比如：园留守儿童图书馆梦' %>
         </div>
     </div>
 
     <div class="form-group">
         <label for="campaign_title" class="col-sm-2 control-label">宣传标签</label>
         <div class="col-sm-10">
-            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：为了给xx学校建设体育器材而筹资' %>
+            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：图书义卖帮云南一所乡村中学的孩子筹集一座乡村图书馆' %>
         </div>
     </div>
 
@@ -188,7 +188,7 @@
     </div>
 	
     <div class="form-group">
-        <label for="campaign_description" class="col-sm-2 control-label">告诉大家您的故事</label>
+        <label for="campaign_description" class="col-sm-2 control-label">告诉大家您的筹款故事</label>
         <div class="col-sm-10">
             <%= f.text_area :description, class: "tinymce", style: 'width: 200px' %>
         </div>
@@ -223,7 +223,7 @@
     <% end %> -->
 			
 	    <div class="form-group">
-	        <label for="campaign_goal" class="col-sm-2 control-label">选择商品系列</label>
+	        <label for="campaign_goal" class="col-sm-2 control-label">选择您将要义卖的产品</label>
 	        <div class="col-sm-10">
 	            <select class="form-control input-small" name="campaign[collection_id]">
 								<option value="">-- 请选择 --</option>
