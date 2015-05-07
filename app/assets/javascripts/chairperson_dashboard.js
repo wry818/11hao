@@ -196,7 +196,7 @@ Raisy.chairperson_dashboard = {
 			$('#chairperson_dashboard .preview img').removeAttr("width").removeAttr("height").cropbox({
 				width: cropWidth,
 				height: cropHeight,
-				//controls: '<div class="cropControls"><span style="width:100%;">Drag to crop</span></div>',
+				//controls: '<div class="cropControls"><span style="width:100%;">拖拉图片调整位置</span></div>',
 				showControls: 'always'
 		  }).on('cropbox', function(e, data) {
 				$("#logo_crop_x").val(data.cropX);

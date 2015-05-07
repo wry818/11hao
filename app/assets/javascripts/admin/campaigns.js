@@ -146,7 +146,7 @@ window.Raisy_admin_campaigns = {
 	        },
 	        progress: function (e, data) {
 	            var prog = Math.round((data.loaded * 100.0) / data.total);
-	            $(".camp-photo-status").text("Uploading...");
+	            $(".camp-photo-status").text("上传中，请稍后...");
 	            $(".camp-photo-progress-bar").css("width", prog + "%").find('span').text(prog + "%");
 	        },
 	        done: function (e, data) {
@@ -183,7 +183,7 @@ window.Raisy_admin_campaigns = {
 				{
 					// txt="Internal Server Error";
 					$("<div/>").text(txt).appendTo("#more_photo_result");
-		            $(".camp-photo-status").text("Upload failed");
+		            $(".camp-photo-status").text("抱歉上传失败，请稍后再试");
 		            $(".camp-photo-progress").hide().find(".camp-photo-progress-bar").css("width", "0").find('span').text("");
 				}
 	        },
@@ -192,7 +192,7 @@ window.Raisy_admin_campaigns = {
 				// which will be considered as errors when using XHR
 
 				$("<div/>").text("Internal Server Error").appendTo("#more_photo_result");
-	            $(".camp-photo-status").text("Upload failed");
+	            $(".camp-photo-status").text("抱歉上传失败，请稍后再试");
 	            $(".camp-photo-progress").hide().find(".camp-photo-progress-bar").css("width", "0").find('span').text("");
 			}
 	    });
@@ -410,7 +410,7 @@ window.Raisy_admin_campaigns = {
 		photo.find("img").first().removeAttr("width").removeAttr("height").cropbox({
 			width: 200,
 	        height: 200,
-			//controls: '<div class="cropControls"><span style="width:100%;">Drag to crop</span></div>',
+			//controls: '<div class="cropControls"><span style="width:100%;">拖拉图片调整位置</span></div>',
 			showControls: 'always'
 	    }).on('cropbox', function(e, data) {
 	        //$("#crop_result").text(JSON.stringify(data));
@@ -464,7 +464,7 @@ window.Raisy_admin_campaigns = {
 			$('#campaigns .preview img').removeAttr("width").removeAttr("height").cropbox({
 				width: cropWidth,
 		        height: cropHeight,
-				//controls: '<div class="cropControls"><span style="width:100%;">Drag to crop</span></div>',
+				//controls: '<div class="cropControls"><span style="width:100%;">拖拉图片调整位置</span></div>',
 				showControls: 'always'
 		    }).on('cropbox', function(e, data) {
 				$("#logo_crop_x").val(data.cropX);

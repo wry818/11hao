@@ -259,7 +259,7 @@
       maxZoom: 1,
       controls: null,
       showControls: 'auto',
-      label: 'Drag to crop'
+      label: '拖拉图片调整位置'
     };
   }
 

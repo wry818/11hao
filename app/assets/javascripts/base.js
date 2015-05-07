@@ -31,11 +31,11 @@ $(document).ready(function() {
         },
         progress: function (e, data) {
             var prog = Math.round((data.loaded * 100.0) / data.total);
-            $(".status").text("Uploading...");
+            $(".status").text("上传中，请稍后...");
             $(".progress-bar").css("width", prog + "%").find('span').text(prog + "%");
         },
         fail: function (e, data) {
-            $(".status").text("Upload failed");
+            $(".status").text("抱歉上传失败，请稍后再试");
             $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
             $("#drop-zone").css("border-color", "#ccc");
         }
