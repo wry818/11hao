@@ -9,8 +9,8 @@ class WeixinController < ApplicationController
       spbill_create_ip: '127.0.0.1',
       notify_url: 'http://10.12.0.182:3000/weixin/notify',
       trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
-      # openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
-      openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
+      openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
+      # openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
     }
 
     r = WxPay::Service.invoke_unifiedorder params
