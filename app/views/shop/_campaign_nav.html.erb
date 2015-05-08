@@ -4,7 +4,7 @@
             <li><%= link_to "首页", short_campaign_path(@campaign) %></li>
 
 			<% if @campaign.collection_id != 0 %>
-            	<li><%= link_to @campaign.call_to_action, shop_path(@campaign) %></li>
+            	<li><%= link_to "爱心商品", shop_path(@campaign) %></li>
 			<% end %>
 
             <li class="hidden-xs">

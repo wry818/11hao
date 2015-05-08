@@ -11,7 +11,7 @@
                     <%= render 'shop/campaign_nav' %>
 
                     <ol class="breadcrumb" style="padding: 20px; 30px 0px; background: white; margin: 0">
-                        <li><a href="<%= shop_path(@campaign) %>">All items</a></li>
+                        <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
                         <% if @category %>
                             <% @category.parents.each do |parent| %>
                                 <li><%= link_to parent.name, shop_category_path([parent]) %></li>
@@ -34,7 +34,7 @@
                                     <p>
                                         <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target)  if @product.description %>
                                     </p>
-                                    <h3 style="margin-top: 5px; margin-bottom: 15px">$<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+                                    <h3 style="margin-top: 5px; margin-bottom: 15px">￥<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
 										<% if @min_price==@min_origin_price %>
 											<span id="product_price_dash_span" style="display:none;"> / </span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;"></span>
 										<% else %>
@@ -62,7 +62,7 @@
                                                                 <% @option_group_properties.each do |property| %>
 	                                                                <option value="<%= property.id %>" data-price="<%= long_price((@discount*property.total_price*100).ceil/100.0) %>" data-origin-price="<%= long_price((property.total_price*100).ceil/100.0) %>">
 	                                                                    <%= property.value %>
-	                                                                    <%= "( $#{long_price((@discount*property.total_price*100).ceil/100.0)} )" if property.total_price >= 0 %>
+	                                                                    <%= "( ￥#{long_price((@discount*property.total_price*100).ceil/100.0)} )" if property.total_price >= 0 %>
 	                                                                </option>
                                                            		<% end %>
                                                             </select>
@@ -91,7 +91,7 @@
 													<% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
                                                     	<div class="col-sm-6">
 	                                                        <button type="button" class="btn btn-primary btn-block add-to-cart">
-	                                                            <span class="text">Add to order</span>
+	                                                            <span class="text">加入订单</span>
 	                                                            <span class="loader" style="display:none"></span>
 	                                                        </button>
 														</div>
@@ -104,7 +104,7 @@
 													<% end %>
                                                 </div>
                                                 <p style="margin-top: 20px; text-align: center">
-                                                    每次购买受益于<br/><%= @campaign.organization.name %>
+                                                    您的每次购买都将帮助<br/><%= @campaign.organization.name %>
                                                 </p>
                                             </form><!-- /.product-form -->
                                         </div>

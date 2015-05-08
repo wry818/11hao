@@ -18,7 +18,7 @@
                             <div class="col-md-8">
                                 <div class="products">
                                     <ol class="breadcrumb">
-                                        <li><a href="<%= shop_path(@campaign) %>">All items</a></li>
+                                        <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
                                         <% @category.parents.each do |parent| %>
                                         <li><%= link_to parent.name, shop_category_path(parent) %></li>
                                         <% end %>

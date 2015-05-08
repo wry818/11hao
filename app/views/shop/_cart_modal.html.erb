@@ -60,13 +60,13 @@
                     </div>
                     <div class="col-xs-3 col-sm-2">
                         <div class="product-price-container">
-                            <span>$<%= long_price(item.total_price / 100.0) %></span>
+                            <span>￥<%= long_price(item.total_price / 100.0) %></span>
                         </div>
 						
 						<% if item.is_discount %>
 	                        <div class="product-origin-price-container">
 								<span>
-									<span>$<%= long_price(item.total_origin_price / 100.0) %></span>
+									<span>￥<%= long_price(item.total_origin_price / 100.0) %></span>
 								</span> 
 	                        </div>
 						<% end %>
@@ -93,7 +93,7 @@
                 <div class="subtotal">
                     <strong>Subtotal:</strong>
                     <span>
-                        $<%= long_price(@order.subtotal.to_f/100) %>
+                        ￥<%= long_price(@order.subtotal.to_f/100) %>
                     </span>
                 </div>
             </div>

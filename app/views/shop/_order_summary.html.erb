@@ -42,7 +42,7 @@
 			  <%= image_tag item.delivery_method_icon, width:24, class:"show_tooltip_html", title: delivery_method_text, style:"display:inline-block; margin-top:10px;" %>
           </td>
           <td style="text-align: right">
-            <p style="margin: 10px 0 0 0;">$<%= long_price(item.total_price/100.0) %></p>
+            <p style="margin: 10px 0 0 0;">￥<%= long_price(item.total_price/100.0) %></p>
           </td>
         </tr>
     <% end %>
@@ -57,7 +57,7 @@
       </td>
       <td style="text-align: right">
         <p id="shipping_fee">
-          $<%= long_price(@order.shipping_fee/100.0) %>
+          ￥<%= long_price(@order.shipping_fee/100.0) %>
         </p>
       </td>
     </tr>
@@ -75,7 +75,7 @@
       </td>
       <td style="text-align: right">
         <p id="shipping_fee">
-          $<%= long_price(@order.direct_donation/100.0) %>
+          ￥<%= long_price(@order.direct_donation/100.0) %>
         </p>
       </td>
     </tr>
@@ -87,7 +87,7 @@
   </td>
   <td style="text-align: right">
     <p id="processing_fee">
-      $<%= long_price(@order.processing_fee_supporter/100.0) %>
+      ￥<%= long_price(@order.processing_fee_supporter/100.0) %>
     </p>
   </td>
 </tr>
@@ -98,7 +98,7 @@
   </td>
   <td style="text-align: right">
     <p id="grand_total" style="font-weight: bold">
-      $<%= long_price(@order.grandtotal.to_f/100.0) %>
+      ￥<%= long_price(@order.grandtotal.to_f/100.0) %>
     </p>
   </td>
 </tr>

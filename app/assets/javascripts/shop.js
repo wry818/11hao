@@ -37,7 +37,7 @@ Raisy.shop = {
             });
 
             if(!errors) {
-                $this.prop('disabled', true).find('span.text').text('Adding...').siblings('span.loader').show();
+                $this.prop('disabled', true).find('span.text').text('加入订单').siblings('span.loader').show();
                 $.ajax('/ajax/update-cart', {
                     type: 'POST',
                     data: $form.serialize(),
@@ -55,7 +55,7 @@ Raisy.shop = {
 													}
                         }
 												
-                        $this.prop('disabled', false).find('span.text').text('Add to order').siblings('span.loader').hide();
+                        $this.prop('disabled', false).find('span.text').text('加入订单').siblings('span.loader').hide();
                     }
                 });
             }
@@ -87,10 +87,10 @@ Raisy.shop = {
                 },
                 success: function(data) {
                     if(!data.error) {
-                        $('#shipping_fee').html('$' + data.shipping_fee);
-                        $('#processing_fee').html('$' + data.processing_fee);
-                        $('#grand_total').html('$' + data.grand_total);
-                        $('#button_total').html('$' + data.grand_total);
+                        $('#shipping_fee').html('￥' + data.shipping_fee);
+                        $('#processing_fee').html('￥' + data.processing_fee);
+                        $('#grand_total').html('￥' + data.grand_total);
+                        $('#button_total').html('￥' + data.grand_total);
                         if(data.show_shipping) {
                             $('.summary-shipping').show();
                         } else {
@@ -121,7 +121,7 @@ Raisy.shop = {
 					$("#product_price_dash_span").hide();
 				}
 				else {
-					$("#product_origin_price_span").text("$" + origin_price);
+					$("#product_origin_price_span").text("￥" + origin_price);
 					$("#product_price_dash_span").show();
 				}
 			}
@@ -136,7 +136,7 @@ Raisy.shop = {
 					$("#product_price_dash_span").hide();
 				}
 				else {
-					$("#product_origin_price_span").text("$" + origin_price);
+					$("#product_origin_price_span").text("￥" + origin_price);
 					$("#product_price_dash_span").show();
 				}
 			}

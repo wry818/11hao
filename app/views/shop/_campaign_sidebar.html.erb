@@ -44,11 +44,11 @@
 		<% else %>
 	        <a href="<%= shop_path(@campaign) %>" role="button" class="btn btn-block btn-lg btn-primary cta-btn" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
 	            <%= @campaign.call_to_action %>
-	            <p>以支持这个筹款团队</p>
+	            <p>支持这个团队</p>
 	        </a>
 			
 	        <p class="donation-percentage">
-	            每次购买受益于
+	            您的每次购买都将帮助
 				<br/>
 				<% if @organization_campaign %>
 					<%= link_to @campaign.organization.name, short_campaign_path(@organization_campaign) %>
@@ -90,7 +90,6 @@
                     <%= @campaign.organizer.profile.display_name || @campaign.organizer.profile.fullname %><br/>
                     <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
                 </p>
-                <a href="mailto:<%= @campaign.organizer.email %>" class="contact"><span class="glyphicon glyphicon-envelope"></span> 联系我</a>
             </div>
         </div>
     </div>
