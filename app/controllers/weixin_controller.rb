@@ -3,8 +3,8 @@ class WeixinController < ApplicationController
   def test
 
     params = {
-      body: '测试商品22',
-      out_trade_no: 'test004',
+      body: '11号公益圈订单',
+      out_trade_no: 'test005',
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
       notify_url: 'http://10.12.0.182:3000/weixin/notify',
@@ -15,22 +15,29 @@ class WeixinController < ApplicationController
 
     r = WxPay::Service.invoke_unifiedorder params
     puts r
-#     puts r["appid"]
-    @js_noncestr = SecureRandom.uuid.tr('-', '')
-    @js_timestamp = Time.now.getutc.to_i.to_s
-    @app_id = r["appid"]
-    @package = "prepay_id=" + r["prepay_id"]
+    
+    @weixin_init_success = false
+    if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+      
+      puts "aa"
+      @js_noncestr = SecureRandom.uuid.tr('-', '')
+      @js_timestamp = Time.now.getutc.to_i.to_s
+      @app_id = r["appid"]
+      @package = "prepay_id=" + r["prepay_id"]
 
-    params_pre_pay_js = {
-      appId: @app_id,
-      nonceStr: @js_noncestr,
-      package: @package,
-      timeStamp: @js_timestamp,
-      signType: 'MD5'
-    }
+      params_pre_pay_js = {
+        appId: @app_id,
+        nonceStr: @js_noncestr,
+        package: @package,
+        timeStamp: @js_timestamp,
+        signType: 'MD5'
+      }
 
-    @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
-    puts @js_pay_sign
+      @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
+      @weixin_init_success = true
+      puts @js_pay_sign
+      
+    end
   
   end
   

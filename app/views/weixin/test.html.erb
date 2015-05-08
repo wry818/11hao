@@ -11,7 +11,7 @@
 	}
 			
 function onBridgeReady(){
-	
+	alert("<%= @js_pay_sign %>");
 	$('#wechat').click(function(){
 		
 	    WeixinJSBridge.invoke('getBrandWCPayRequest', {
