@@ -447,6 +447,44 @@ class ShopController < ApplicationController
     end
 
     def checkout
+
+      
+      params = {
+        body: '11号公益圈订单',
+        out_trade_no: 'test005',
+        total_fee: 1,
+        spbill_create_ip: '127.0.0.1',
+        notify_url: 'http://10.12.0.182:3000/weixin/notify',
+        trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
+        # openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
+        openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
+      }
+
+      r = WxPay::Service.invoke_unifiedorder params
+      puts r
+    
+      @weixin_init_success = false
+      if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+    
+        @js_noncestr = SecureRandom.uuid.tr('-', '')
+        @js_timestamp = Time.now.getutc.to_i.to_s
+        @app_id = r["appid"]
+        @package = "prepay_id=" + r["prepay_id"]
+
+        params_pre_pay_js = {
+          appId: @app_id,
+          nonceStr: @js_noncestr,
+          package: @package,
+          timeStamp: @js_timestamp,
+          signType: 'MD5'
+        }
+
+        @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
+        @weixin_init_success = true
+        puts @js_pay_sign
+        
+      end
+      
         if params[:direct_donation]
             @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
         elsif session[:order_id]
@@ -460,10 +498,8 @@ class ShopController < ApplicationController
 
         #This is the first place the fees are calculated
         @order.calculate_fees!
-        
+
         session[:confirmation_order_id] = nil
-        
-        weixin_payment_init()
         
     end
     

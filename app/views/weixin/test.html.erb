@@ -1,3 +1,9 @@
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <%= link_to '微信支付', "javascript:void(0)", :id => 'wechat'  %>
 <script Language="javascript">
 	
@@ -13,7 +19,7 @@
 function onBridgeReady(){
 	alert("<%= @js_pay_sign %>");
 	$('#wechat').click(function(){
-		
+		alert(1);
 	    WeixinJSBridge.invoke('getBrandWCPayRequest', {
 			"appId" : "<%= @app_id %>",     //公众号名称，由商户传入
 			"timeStamp": "<%= @js_timestamp %>",         //时间戳，自1970年以来的秒数

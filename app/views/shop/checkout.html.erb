@@ -313,7 +313,7 @@
 
 <script Language="javascript">
 	
-	// alert(WeixinJSBridge);
+	alert(1);
 	
 	if (document.addEventListener) {
 		document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -324,8 +324,9 @@
 			
 function onBridgeReady(){
 	
+	alert("<%= @js_pay_sign %>");
 	$('#wechat').click(function(){
-		
+		alert(1);
 		if ("<%= @weixin_init_success %>" == "true") {
 			
 		    WeixinJSBridge.invoke('getBrandWCPayRequest', {
