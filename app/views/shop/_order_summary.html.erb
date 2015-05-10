@@ -2,13 +2,13 @@
 <% unless @order.donation_only? %>
     <tr class="summary-header">
       <th style="min-width:32px;">
-        <p>Qty</p>
+        <p>数量</p>
       </th>
       <th>
-        <p>Item</p>
+        <p>商品</p>
       </th>
       <th>
-        <p>Delivery</p>
+        <p>配送</p>
       </th>
       <th>
         &nbsp;
@@ -53,7 +53,7 @@
     </tr>
     <tr class="summary-row summary-shipping" <%= raw('style="display: none"') unless @order.delivery_method == 2 %>>
       <td colspan="3">
-        <p>Shipping</p>
+        <p>运费</p>
       </td>
       <td style="text-align: right">
         <p id="shipping_fee">
@@ -71,7 +71,7 @@
     </tr>
     <tr class="summary-row summary-donation">
       <td colspan="3">
-        <p>Donation</p>
+        <p>捐赠</p>
       </td>
       <td style="text-align: right">
         <p id="shipping_fee">
@@ -94,7 +94,7 @@
 
 <tr class="summary-row summary-total">
   <td colspan="3">
-    <p><strong>Total</strong></p>
+    <p><strong>总计</strong></p>
   </td>
   <td style="text-align: right">
     <p id="grand_total" style="font-weight: bold">

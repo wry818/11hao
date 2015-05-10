@@ -19,14 +19,13 @@
                 <div class="well well-default sidebar" style="position: relative">
                   <div class="clearfix">
                     <h3 class="order-summary pull-left">
-                      Order Summary
+                      订单明细
                       <span class="loader alt-loader" style="display: none"></span>
                     </h3>
 
                     <div class="pull-right">
                       <% unless @order.donation_only? %>
-                          <!-- <%= link_to "Edit", shop_path(@campaign) %> -->
-                          <a href="#checkout-modal" data-toggle="modal" style="margin: 0">Edit</a>
+                          <a href="#checkout-modal" data-toggle="modal" style="margin: 0">编辑</a>
                       <% end %>
                     </div>
                   </div>
@@ -274,15 +273,15 @@
                     <div class="col-md-8">
                       <div class="payment-submit">
                         <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="<%= @order.donation_only? ? "Submit" : "Place your order" %>">
-                                                            <%= @order.donation_only? ? "Submit" : "Place your order" %>
+                                                        <span class="text" data-text="<%= @order.donation_only? ? "立即捐赠" : "立即付款" %>">
+                                                            <%= @order.donation_only? ? "立即捐赠" : "立即付款" %>
                                                         </span>
                           <span class="loader" style="display:none"></span>
                         </button>
 						<%= link_to '微信支付', "javascript:void(0)", :id => 'wechat'  %>
                       </div>
                       <p style="margin-top: 10px;">
-                        Your card will be charged
+                        需要支付
                         <span id="button_total">￥<%= long_price(@order.grandtotal/100.0) %></span>
                       </p>
                     </div>
