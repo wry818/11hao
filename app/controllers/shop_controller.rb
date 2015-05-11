@@ -39,12 +39,12 @@ class ShopController < ApplicationController
         @discount = 1
         @min_price = (@discount * @product.total_price * 100).ceil/100.0
         @max_price = (@discount * @product.total_price * 100).ceil/100.0
-        @min_origin_price = (@product.total_price * 100).ceil/100.0
-        @max_origin_price = (@product.total_price * 100).ceil/100.0
+        @min_origin_price = (@product.total_original_price * 100).ceil/100.0
+        @max_origin_price = (@product.total_original_price * 100).ceil/100.0
         
-        if @campaign.is_discount?
-            @discount = (100 - @campaign.discount)/100.0
-        end
+        # if @campaign.is_discount?
+        #     @discount = (100 - @campaign.discount)/100.0
+        # end
         
         if @option_group
           @min_price = 99999
@@ -61,7 +61,7 @@ class ShopController < ApplicationController
               has_properties = true
               
               prop_price = (property.total_price * @discount * 100).ceil/100.0
-              prop_origin_price = (property.total_price * 100).ceil/100.0
+              prop_origin_price = (@product.total_original_price * 100).ceil/100.0
                 
               @option_group_properties << property
               
@@ -86,14 +86,14 @@ class ShopController < ApplicationController
           if !has_properties
             @min_price = (@discount * @product.total_price * 100).ceil/100.0
             @max_price = (@discount * @product.total_price * 100).ceil/100.0
-            @min_origin_price = (@product.total_price * 100).ceil/100.0
-            @max_origin_price = (@product.total_price * 100).ceil/100.0
+            @min_origin_price = (@product.total_original_price * 100).ceil/100.0
+            @max_origin_price = (@product.total_original_price * 100).ceil/100.0
           end
         else
           @min_price = (@discount * @product.total_price * 100).ceil/100.0
           @max_price = (@discount * @product.total_price * 100).ceil/100.0
-          @min_origin_price = (@product.total_price * 100).ceil/100.0
-          @max_origin_price = (@product.total_price * 100).ceil/100.0
+          @min_origin_price = (@product.total_original_price * 100).ceil/100.0
+          @max_origin_price = (@product.total_original_price * 100).ceil/100.0
         end
     end
     
@@ -146,23 +146,23 @@ class ShopController < ApplicationController
                 can_update_item = true
                 
                 # If item discounted, check campaign sold counter
-                if existing_item.is_discount
-                    counter = @campaign.purchase_limit - @campaign.discount_counter
-                    counter = counter + existing_item.quantity - total_quantity
-                    
-                    if counter < 0
-                      can_update_item = false
-                      
-                      @discount_avail_count = @campaign.purchase_limit - @campaign.discount_counter
-                      @discount_avail_count = @discount_avail_count + existing_item.quantity
-                      
-                      if @discount_avail_count <= 0
-                        @no_more_discount = true
-                      else
-                        @not_enough_discount = true
-                      end
-                    end
-                end
+                # if existing_item.is_discount
+                #     counter = @campaign.purchase_limit - @campaign.discount_counter
+                #     counter = counter + existing_item.quantity - total_quantity
+                #
+                #     if counter < 0
+                #       can_update_item = false
+                #
+                #       @discount_avail_count = @campaign.purchase_limit - @campaign.discount_counter
+                #       @discount_avail_count = @discount_avail_count + existing_item.quantity
+                #
+                #       if @discount_avail_count <= 0
+                #         @no_more_discount = true
+                #       else
+                #         @not_enough_discount = true
+                #       end
+                #     end
+                # end
                 
                 if can_update_item
                     counter = total_quantity - existing_item.quantity
@@ -271,8 +271,9 @@ class ShopController < ApplicationController
             if can_create_item
               if params[:add_discount] == "1" # Want to add discount item
                 if @campaign.is_discount?
-                  @discount = (100 - @campaign.discount) / 100.0
-                  avail_discount = @campaign.purchase_limit - @campaign.discount_counter
+                  # @discount = (100 - @campaign.discount) / 100.0
+                  
+                  avail_discount = total_quantity   # @campaign.purchase_limit - @campaign.discount_counter
               
                   if avail_discount >= total_quantity
                       @campaign.update_attribute(:discount_counter, @campaign.discount_counter + total_quantity)
@@ -312,7 +313,7 @@ class ShopController < ApplicationController
                       new_item.delivery_updated_at = DateTime.now
                       new_item.base_amount = (@product.base_price * @discount * 100).ceil
                       new_item.donation_amount = (@product.default_donation_amount * @discount * 100).ceil
-                      new_item.origin_base_amount = (@product.base_price * 100).ceil
+                      new_item.origin_base_amount = (@product.original_price * 100).ceil
                       new_item.origin_donation_amount = (@product.default_donation_amount * 100).ceil
                       new_item.is_discount = true
 
@@ -326,8 +327,6 @@ class ShopController < ApplicationController
                             # Update item amount using property price and donation amount
                             new_item.base_amount = (@property.price * @discount * 100).ceil
                             new_item.donation_amount = (@property.donation_amount * @discount * 100).ceil
-                            new_item.origin_base_amount = (@property.price * 100).ceil
-                            new_item.origin_donation_amount = (@property.donation_amount * 100).ceil
 
                             @property.update_attribute(:qty_counter, @property.qty_counter + @discount_quantity)
                           else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421024605) do
+ActiveRecord::Schema.define(version: 20150511080601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,24 +108,24 @@ ActiveRecord::Schema.define(version: 20150421024605) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "picture"
-    t.integer  "status",                            default: 0,          null: false
+    t.integer  "status",                            default: 0,      null: false
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "campaign_type",                     default: 0,          null: false
+    t.integer  "campaign_type",                     default: 0,      null: false
     t.text     "digital_delivery_instructions"
-    t.boolean  "has_pickup",                        default: false,      null: false
+    t.boolean  "has_pickup",                        default: false,  null: false
     t.text     "pickup_instructions"
-    t.boolean  "has_shipping",                      default: false,      null: false
+    t.boolean  "has_shipping",                      default: false,  null: false
     t.text     "shipping_instructions"
     t.decimal  "shipping_flat_rate"
     t.decimal  "shipping_variable_rate"
     t.string   "logo"
-    t.boolean  "charge_processing_to_supporter",    default: false,      null: false
-    t.boolean  "charge_processing_to_organization", default: false,      null: false
+    t.boolean  "charge_processing_to_supporter",    default: false,  null: false
+    t.boolean  "charge_processing_to_organization", default: false,  null: false
     t.string   "call_to_action",                    default: "立刻购买", null: false
-    t.boolean  "tax_deductible_receipt",            default: false,      null: false
-    t.boolean  "hide_featured_items",               default: false,      null: false
+    t.boolean  "tax_deductible_receipt",            default: false,  null: false
+    t.boolean  "hide_featured_items",               default: false,  null: false
     t.string   "entertainment_group_id"
     t.boolean  "allow_direct_donation",             default: false
     t.boolean  "is_bulk_submitted",                 default: false
@@ -455,6 +455,7 @@ ActiveRecord::Schema.define(version: 20150421024605) do
     t.integer  "qty_counter",                default: 0
     t.datetime "inventory_last_update_time"
     t.string   "vendor"
+    t.decimal  "original_price",             default: 0.0,   null: false
   end
 
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree

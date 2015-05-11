@@ -207,7 +207,7 @@ class Admin::ProductsController < Admin::ApplicationController
         end
       else
         properties.each do |prop|
-          prop.deleted
+          prop.deleted = true
           prop.save
         end
       end
@@ -303,7 +303,7 @@ class Admin::ProductsController < Admin::ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def product_params
-        params.require(:product).permit :name, :description, :picture, :base_price, :default_donation_amount, :show_quantity, :is_featured, :fulfillment_method, :sku, :vendor
+        params.require(:product).permit :name, :description, :picture, :base_price, :default_donation_amount, :show_quantity, :is_featured, :fulfillment_method, :sku, :vendor, :original_price
     end
     
     def option_group_params

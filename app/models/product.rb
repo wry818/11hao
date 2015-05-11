@@ -52,11 +52,15 @@ class Product < ActiveRecord::Base
         self.base_price + self.default_donation_amount
     end
     
+    def total_original_price
+        self.original_price + self.default_donation_amount
+    end
+    
     def price_range(discount)
-      min = (self.total_price * 100).ceil/100.0
-      max = (self.total_price * 100).ceil/100.0
-      discount_min = (discount * self.total_price * 100).ceil/100.0
-      discount_max = (discount * self.total_price * 100).ceil/100.0
+      min = (self.total_original_price * 100).ceil/100.0
+      max = (self.total_original_price * 100).ceil/100.0
+      discount_min = (self.total_price * 100).ceil/100.0
+      discount_max = (self.total_price * 100).ceil/100.0
       option_group_is_dropdown = false
       
       option_group = self.option_groups.active.first
@@ -75,8 +79,8 @@ class Product < ActiveRecord::Base
             if property.can_be_ordered?(1)
                 has_properties = true
                 
-                prop_price = (property.total_price * 100).ceil/100.0
-                discount_prop_price = (property.total_price * discount * 100).ceil/100.0
+                prop_price = (self.total_original_price * 100).ceil/100.0
+                discount_prop_price = (property.total_price * 100).ceil/100.0
                 
                 if prop_price<=min
                   min=prop_price
@@ -97,21 +101,21 @@ class Product < ActiveRecord::Base
           end
           
           if !has_properties
-              min = (self.total_price * 100).ceil/100.0
-              max = (self.total_price * 100).ceil/100.0
-              discount_min = (discount * self.total_price * 100).ceil/100.0
-              discount_max = (discount * self.total_price * 100).ceil/100.0
+              min = (self.total_original_price * 100).ceil/100.0
+              max = (self.total_original_price * 100).ceil/100.0
+              discount_min = (self.total_price * 100).ceil/100.0
+              discount_max = (self.total_price * 100).ceil/100.0
           end
       else
-          min = (self.total_price * 100).ceil/100.0
-          max = (self.total_price * 100).ceil/100.0
-          discount_min = (discount * self.total_price * 100).ceil/100.0
-          discount_max = (discount * self.total_price * 100).ceil/100.0
+          min = (self.total_original_price * 100).ceil/100.0
+          max = (self.total_original_price * 100).ceil/100.0
+          discount_min = (self.total_price * 100).ceil/100.0
+          discount_max = (self.total_price * 100).ceil/100.0
       end
       
       {:min=>min, :max=>max, :discount_min=>discount_min, :discount_max=>discount_max,
           :same_price=>(min==max), :same_discount_price=>(discount_min==discount_max),
-          :is_discount=>(discount!=1)
+          :is_discount=>true
       }
     end
 end

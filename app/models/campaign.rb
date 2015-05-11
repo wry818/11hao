@@ -132,7 +132,9 @@ class Campaign < ActiveRecord::Base
     end
     
     def is_discount?
-        !self.discount.nil? && !self.purchase_limit.nil? && (self.purchase_limit-self.discount_counter>0)
+        # !self.discount.nil? && !self.purchase_limit.nil? && (self.purchase_limit-self.discount_counter>0)
+        
+        true  # always discount
     end
     
     private

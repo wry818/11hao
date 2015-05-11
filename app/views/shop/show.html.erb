@@ -121,7 +121,7 @@
 		                                            </div>
 		                                            <p style="text-align: center">
 		                                                <%= truncate(product.name, length: 50) %><br/>
-														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
+														<% price_range=product.price_range(1) %>
 														<% if price_range[:is_discount] %>
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
