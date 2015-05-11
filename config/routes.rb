@@ -173,11 +173,12 @@ Raisy::Application.routes.draw do
     post 'ajax/order-summary', to: 'shop#ajax_order_summary', as: :ajax_order_summary
     post 'ajax/addofflineorder', to: 'shop#ajax_add_offline_order', as: :ajax_add_offline_order
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
+    get 'checkout/:id', to: 'shop#checkout', as: :checkout
     get ':id/shop', to: 'shop#shop', as: :shop
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category
     get ':id/shop/category/:category_id/product/:product_id', to: 'shop#product', as: :shop_category_product
     get ':id/shop/product/:product_id', to: 'shop#product', as: :shop_product
-    get ':id/checkout', to: 'shop#checkout', as: :checkout
+    
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
     post ':id/confirmation', to: 'shop#checkout_confirmation', as: :checkout_confirmation
 
