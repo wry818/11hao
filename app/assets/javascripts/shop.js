@@ -159,7 +159,7 @@ Raisy.shop = {
 			if ($("#checkout_modal_parentpage").length>0)
 				parent_page = $("#checkout_modal_parentpage").val();
 
-            $('#cart_modal_checkout').attr('disabled', true).find('span.text').text('Updating...').siblings('span.loader').show();
+            $('#cart_modal_checkout').attr('disabled', true).find('span.text').siblings('span.loader').show();
             $.ajax('/ajax/update-cart', {
                 type: 'POST',
                 data: { item: { item_id: item_id, order_id: order_id, quantity: 0 }, parent_page: parent_page },
@@ -225,7 +225,7 @@ Raisy.shop = {
 			if ($("#checkout_modal_parentpage").length>0)
 				parent_page = $("#checkout_modal_parentpage").val();
 
-            $('#cart_modal_checkout').attr('disabled', true).find('span.text').text('Updating...').siblings('span.loader').show();
+            $('#cart_modal_checkout').attr('disabled', true).find('span.text').siblings('span.loader').show();
             $.ajax('/ajax/update-cart', {
                 type: 'POST',
                 data: { item: {item_id: item_id, order_id: order_id, quantity: quantity }, parent_page: parent_page },

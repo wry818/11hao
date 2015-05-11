@@ -39,8 +39,8 @@ class ShopController < ApplicationController
         @discount = 1
         @min_price = (@discount * @product.total_price * 100).ceil/100.0
         @max_price = (@discount * @product.total_price * 100).ceil/100.0
-        @min_origin_price = (@product.total_original_price * 100).ceil/100.0
-        @max_origin_price = (@product.total_original_price * 100).ceil/100.0
+        @min_origin_price = (@product.original_price * 100).ceil/100.0
+        @max_origin_price = (@product.original_price * 100).ceil/100.0
         
         # if @campaign.is_discount?
         #     @discount = (100 - @campaign.discount)/100.0
@@ -61,7 +61,7 @@ class ShopController < ApplicationController
               has_properties = true
               
               prop_price = (property.total_price * @discount * 100).ceil/100.0
-              prop_origin_price = (@product.total_original_price * 100).ceil/100.0
+              prop_origin_price = (@product.original_price * 100).ceil/100.0
                 
               @option_group_properties << property
               
@@ -86,14 +86,14 @@ class ShopController < ApplicationController
           if !has_properties
             @min_price = (@discount * @product.total_price * 100).ceil/100.0
             @max_price = (@discount * @product.total_price * 100).ceil/100.0
-            @min_origin_price = (@product.total_original_price * 100).ceil/100.0
-            @max_origin_price = (@product.total_original_price * 100).ceil/100.0
+            @min_origin_price = (@product.original_price * 100).ceil/100.0
+            @max_origin_price = (@product.original_price * 100).ceil/100.0
           end
         else
           @min_price = (@discount * @product.total_price * 100).ceil/100.0
           @max_price = (@discount * @product.total_price * 100).ceil/100.0
-          @min_origin_price = (@product.total_original_price * 100).ceil/100.0
-          @max_origin_price = (@product.total_original_price * 100).ceil/100.0
+          @min_origin_price = (@product.original_price * 100).ceil/100.0
+          @max_origin_price = (@product.original_price * 100).ceil/100.0
         end
     end
     
@@ -314,7 +314,7 @@ class ShopController < ApplicationController
                       new_item.base_amount = (@product.base_price * @discount * 100).ceil
                       new_item.donation_amount = (@product.default_donation_amount * @discount * 100).ceil
                       new_item.origin_base_amount = (@product.original_price * 100).ceil
-                      new_item.origin_donation_amount = (@product.default_donation_amount * 100).ceil
+                      new_item.origin_donation_amount = 0
                       new_item.is_discount = true
 
                       if @option_group

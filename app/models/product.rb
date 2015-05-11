@@ -57,8 +57,8 @@ class Product < ActiveRecord::Base
     end
     
     def price_range(discount)
-      min = (self.total_original_price * 100).ceil/100.0
-      max = (self.total_original_price * 100).ceil/100.0
+      min = (self.original_price * 100).ceil/100.0
+      max = (self.original_price * 100).ceil/100.0
       discount_min = (self.total_price * 100).ceil/100.0
       discount_max = (self.total_price * 100).ceil/100.0
       option_group_is_dropdown = false
@@ -79,7 +79,7 @@ class Product < ActiveRecord::Base
             if property.can_be_ordered?(1)
                 has_properties = true
                 
-                prop_price = (self.total_original_price * 100).ceil/100.0
+                prop_price = (self.original_price * 100).ceil/100.0
                 discount_prop_price = (property.total_price * 100).ceil/100.0
                 
                 if prop_price<=min
@@ -101,14 +101,14 @@ class Product < ActiveRecord::Base
           end
           
           if !has_properties
-              min = (self.total_original_price * 100).ceil/100.0
-              max = (self.total_original_price * 100).ceil/100.0
+              min = (self.original_price * 100).ceil/100.0
+              max = (self.original_price * 100).ceil/100.0
               discount_min = (self.total_price * 100).ceil/100.0
               discount_max = (self.total_price * 100).ceil/100.0
           end
       else
-          min = (self.total_original_price * 100).ceil/100.0
-          max = (self.total_original_price * 100).ceil/100.0
+          min = (self.original_price * 100).ceil/100.0
+          max = (self.original_price * 100).ceil/100.0
           discount_min = (self.total_price * 100).ceil/100.0
           discount_max = (self.total_price * 100).ceil/100.0
       end
