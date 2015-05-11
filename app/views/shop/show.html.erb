@@ -90,17 +90,17 @@
 		                                                <%= truncate(product.name, length: 50) %><br/>
 														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
 														<% if price_range[:is_discount] %>
-															<% if price_range[:same_discount_price] %>
-																￥<%= long_price(price_range[:discount_min]) %>
-															<% else %>
-																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
-															<% end %> / 
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
 																￥<%= long_price(price_range[:min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
-															<% end %></span>
+															<% end %></span><br/>
+															<% if price_range[:same_discount_price] %>
+																￥<%= long_price(price_range[:discount_min]) %>
+															<% else %>
+																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+															<% end %>
 														<% else %>
 															<% if price_range[:same_price] %>
 																￥<%= long_price(price_range[:min]) %>
@@ -123,17 +123,17 @@
 		                                                <%= truncate(product.name, length: 50) %><br/>
 														<% price_range=product.price_range(@campaign.is_discount? ? (100-@campaign.discount)/100.0 : 1) %>
 														<% if price_range[:is_discount] %>
-															<% if price_range[:same_discount_price] %>
-																￥<%= long_price(price_range[:discount_min]) %>
-															<% else %>
-																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
-															<% end %> / 
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
 																￥<%= long_price(price_range[:min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
-															<% end %></span>
+															<% end %></span><br/>
+															<% if price_range[:same_discount_price] %>
+																￥<%= long_price(price_range[:discount_min]) %>
+															<% else %>
+																￥<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+															<% end %>
 														<% else %>
 															<% if price_range[:same_price] %>
 																￥<%= long_price(price_range[:min]) %>
