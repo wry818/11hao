@@ -129,8 +129,8 @@ class ShopController < ApplicationController
       @no_more_discount = false
       @not_enough_discount = false
 
-        #if the order in the session doesn't match, update the session to the order being updated
-        session[:order_id] = params[:item][:order_id]
+      #if the order in the session doesn't match, update the session to the order being updated
+      session[:order_id] = @order.id
 
         if params[:item][:item_id]
              # updating an existing item's quantity in the cart, or deleting it
