@@ -833,6 +833,7 @@
 	        <div class="modal-content">
 
 	        <div class="modal-body">
+				<p>欢迎！只需一会儿您就能帮助支持<%= @campaign.title %>！加入非常快捷简单。当你完成的时候，你将立刻会有一个能分享给支持者们以筹措款项的个人筹款页面！</p>
 				<p>因法律原因，请让我们知道您的年龄。</p>
 	        </div> <!-- end of modal body -->
 
@@ -870,6 +871,7 @@
 	</div>	<!-- seller_step_tips_modal -->
 	
 	<div id="seller_step_tips_selector" style="display:none;">
+		<p>欢迎！只需一会儿您就能帮助支持<%= @campaign.title %>！加入非常快捷简单。当你完成的时候，你将立刻会有一个能分享给支持者们以筹措款项的个人筹款页面！</p>
 		<p>因法律原因，请让我们知道您的年龄。</p>
 	</div>
 	
@@ -905,16 +907,12 @@ $(document).ready(function(){
 		<% if !@campaign.expired? && @campaign.active %>
 			window.setTimeout(function(){
 				<% if @step_popup=="yes" %>
-					$("#seller_welcome_modal").on('hidden.bs.modal', function (e) {
-						window.setTimeout(function(){
-							$("#seller_step_tips_modal").modal("show");
-						}, 200);
-					});
+					window.setTimeout(function(){
+						$("#seller_step_tips_modal").modal("show");
+					}, 200);
 				<% else %>
 					Raisy.users.show_seller_step_tips = false;
 				<% end %>
-				
-				$("#seller_welcome_modal").modal("show");
 			}, 200);
 		<% else %>
 			Raisy.users.show_seller_step_tips = false;

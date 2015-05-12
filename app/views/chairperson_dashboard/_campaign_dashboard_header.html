@@ -9,9 +9,9 @@
 				<div class="col-sm-4" style="margin-top:5px;">
 					<div style="width:100px;">
 				    <% if current_user.profile.picture.present? %>
-				        <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto; width:72px;" %>
+				        <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto;" %>
 				    <% else %>
-				        <%= image_tag 'crown.png', width: 72, style: "display:block; margin:0 auto; width:72px;" %>
+				        <%= image_tag 'crown.png', width: 72, style: "display:block; margin:0 auto;" %>
 				    <% end %>
 					</div>
 	
@@ -108,10 +108,10 @@
 											支持者&nbsp;<span class="badge"><%= @campaign.supporters %></span>
 										</td>
 										<td class="campaign-people-col middle-col">
-											成员数&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
+											团队成员&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
 										</td>
 										<td class="campaign-people-col">
-											订单数&nbsp;<span class="badge"><%= @campaign.completed %></span>
+											订单&nbsp;<span class="badge"><%= @campaign.completed %></span>
 										</td>
 									</tr>
 								</table>

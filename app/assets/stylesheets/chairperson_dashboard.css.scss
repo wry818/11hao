@@ -1,10 +1,17 @@
 #chairperson_dashboard {
 	
-	padding-bottom: 80px;
+	background: #ededed;
+	padding-bottom: 60px;
 	
     .dashboard-header {
-        background: white;
-        border-bottom: 1px solid #dddddd;
+        background: #ededed;
+				padding-top:10px;
+        border-bottom: 0px solid #dddddd;
+				
+				.container {
+					background: #fff;
+				}
+				
         .dashboard-header-box {
             padding: 0 0 10px;
             h3 {
@@ -28,8 +35,12 @@
         }
     }
     .dashboard-content {
-		
-        padding: 30px 0;
+			background: #ededed;
+				
+				.container {
+					padding: 30px 0;
+					background: #fff;
+				}
 		
 		.upload-tooltip {
 			@include fontSize11px;
@@ -224,7 +235,7 @@
 		
 	    &.dashboard-index {
 	        .campaigns-list {
-			
+						
 				.campaign-manage-box {
 					padding-left: 3px;
 					padding-right: 3px;

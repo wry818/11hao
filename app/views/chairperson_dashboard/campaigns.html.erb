@@ -1,5 +1,5 @@
-<div id="chairperson_dashboard" class="dashboard-index">
-    <div class="container">
+<div id="chairperson_dashboard" class="dashboard-index" style="padding-top:10px;">
+    <div class="container" style="background:#fff;">
 			<% if @cp_param=="" %>
 				<h3>您的筹款团队</h3>
 			<% else %>
@@ -51,7 +51,7 @@
                                 <span class="glyphicon glyphicon-cog"></span>
                                 编辑
                             </a>
-                            <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-info">
+                            <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-primary" style="border-radius:4px;">
                                 <span class="glyphicon glyphicon-cog"></span>
                                 筹款追踪
                             </a>
@@ -100,7 +100,7 @@
 												团队成员&nbsp;<span class="badge"><%= campaign.sellers.count %></span>
 											</td>
 											<td class="campaign-people-col">
-												订单数&nbsp;<span class="badge"><%= campaign.completed %></span>
+												订单&nbsp;<span class="badge"><%= campaign.completed %></span>
 											</td>
 										</tr>
 									</table>

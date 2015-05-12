@@ -85,6 +85,7 @@
                                                     <% end %>
                                                     <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
                                                     <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+													<input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
 													<% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
                                                     	<div class="col-sm-6">
 	                                                        <button type="button" class="btn btn-primary btn-block add-to-cart">

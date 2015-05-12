@@ -1,14 +1,16 @@
 <%= hidden_field_tag 'hidsellerid', @seller.id, id: "hidsellerid" %>
 
 <div class="row">
-	<div class="col-sm-4" style="margin-top:5px;"> 
+	<div class="col-sm-4" style="margin-top:5px;">
+		<div style="width:100px;">
 	    <% if @seller.user_profile.user.profile.picture.present? %>
-	        <%= cl_image_tag @seller.user_profile.user.profile.picture, width: 100, height: 100, crop: :limit %>
+	        <%= cl_image_tag @seller.user_profile.user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto;" %>
 	    <% else %>
-	        <%= image_tag 'crown.png', width: 72 %>
+	        <%= image_tag 'crown.png', width: 72, style: "display:block; margin:0 auto;" %>
 	    <% end %>
-	
-		<h4 style="margin-top:10px;"><%= @seller.user_profile.fullname %></h4>
+		</div>
+		
+		<h4 style="margin-top:10px; width:100px; text-align:center;"><%= @seller.user_profile.fullname %></h4>
 	</div>
 	<div class="col-sm-7 col-sm-offset-1">
 		<p>我参加的筹款团队：</p>
@@ -106,10 +108,10 @@
 								支持者&nbsp;<span class="badge"><%= @seller.campaign.supporters %></span>
 							</td>
 							<td class="campaign-people-col middle-col">
-								成员数&nbsp;<span class="badge"><%= @seller.campaign.sellers.count %></span>
+								团队成员&nbsp;<span class="badge"><%= @seller.campaign.sellers.count %></span>
 							</td>
 							<td class="campaign-people-col">
-								订单数&nbsp;<span class="badge"><%= @seller.campaign.completed %></span>
+								订单&nbsp;<span class="badge"><%= @seller.campaign.completed %></span>
 							</td>
 						</tr>
 					</table>

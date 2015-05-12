@@ -48,6 +48,9 @@ Raisy.shop = {
                         if(data != 'fail') {
                           $this.parents('.modal').modal('hide');
                           $('#checkout-modal').html(data);
+													
+													$("#item_order_id").val($("#order_id").val());
+													
                           _this.attachCartEvents();
 													
 													if (data.indexOf("-!-js-!-")<0) {
@@ -155,6 +158,7 @@ Raisy.shop = {
             var item_id = $well.find('.item-id').val();
             var order_id = $('#order_id').val();
 			var parent_page = "";
+			var campaign_id = $('#campaign_id').val();
 			
 			if ($("#checkout_modal_parentpage").length>0)
 				parent_page = $("#checkout_modal_parentpage").val();
@@ -162,7 +166,7 @@ Raisy.shop = {
             $('#cart_modal_checkout').attr('disabled', true).find('span.text').siblings('span.loader').show();
             $.ajax('/ajax/update-cart', {
                 type: 'POST',
-                data: { item: { item_id: item_id, order_id: order_id, quantity: 0 }, parent_page: parent_page },
+                data: { item: { item_id: item_id, order_id: order_id, quantity: 0, campaign_id: campaign_id }, parent_page: parent_page },
                 beforeSend: function(jqXHR, settings) {
                     jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
@@ -183,7 +187,9 @@ Raisy.shop = {
 												success: function(data) {
 													if(data != 'fail') {
 														$osc.html(data);
+														
 														$("#button_total").text($("#grand_total").text());
+														$("#item_order_id").val($("#order_id").val());
 														
 														$('.show_tooltip_html').tooltip({
 														    html: true
@@ -221,6 +227,7 @@ Raisy.shop = {
             var quantity = $this.val();
             var order_id = $('#order_id').val();
 			var parent_page = "";
+			var campaign_id = $('#campaign_id').val();
 			
 			if ($("#checkout_modal_parentpage").length>0)
 				parent_page = $("#checkout_modal_parentpage").val();
@@ -228,7 +235,7 @@ Raisy.shop = {
             $('#cart_modal_checkout').attr('disabled', true).find('span.text').siblings('span.loader').show();
             $.ajax('/ajax/update-cart', {
                 type: 'POST',
-                data: { item: {item_id: item_id, order_id: order_id, quantity: quantity }, parent_page: parent_page },
+                data: { item: {item_id: item_id, order_id: order_id, quantity: quantity, campaign_id: campaign_id }, parent_page: parent_page },
                 beforeSend: function(jqXHR, settings) {
                     jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
@@ -250,7 +257,9 @@ Raisy.shop = {
 					                success: function(data) {
 														if(data != 'fail') {
 															$osc.html(data);
+															
 															$("#button_total").text($("#grand_total").text());
+															$("#item_order_id").val($("#order_id").val());
 															
 															$('.show_tooltip_html').tooltip({
 															    html: true

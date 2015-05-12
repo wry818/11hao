@@ -24,6 +24,7 @@
     </div> <!-- /.modal-header -->
 
     <input type="hidden" id="order_id" value="<%= @order.id %>"/>
+	<input type="hidden" id="campaign_id" value="<%= @campaign.id %>"/>
     <div class="modal-body">
       <div class="items" data-total="<%= @order.num_items %>">
         <% if @order.items.count > 0 %>

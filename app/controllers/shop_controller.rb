@@ -110,14 +110,24 @@ class ShopController < ApplicationController
     end
     
     def ajax_update_cart
-        render text: 'fail' and return unless params[:item] && params[:item][:order_id] && params[:item][:quantity]
+      render text: 'fail' and return unless params[:item] && params[:item][:order_id] && params[:item][:quantity] && params[:item][:campaign_id]
 
-        @order = Order.find_by_id(params[:item][:order_id].to_i)
-        render text: 'fail' and return unless @order && @order.status == 0
-
+      @order = Order.find_by_id(params[:item][:order_id].to_i)
+      
+      if @order
+        render text: 'fail' and return unless @order.status == 0 && @order.campaign_id == params[:item][:campaign_id].to_i
+        
         @campaign = @order.campaign
-        @no_more_discount = false
-        @not_enough_discount = false
+      else
+        @campaign = Campaign.active.where(:id=>params[:item][:campaign_id]).first
+        
+        render text: 'fail' and return unless @campaign
+        
+        @order = Order.create campaign_id: @campaign.id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
+      end
+      
+      @no_more_discount = false
+      @not_enough_discount = false
 
         #if the order in the session doesn't match, update the session to the order being updated
         session[:order_id] = params[:item][:order_id]
@@ -897,17 +907,10 @@ class ShopController < ApplicationController
     end
 
     def manage_session_order
-      if session[:order_id]
-          @order = Order.find_by_id(session[:order_id])
-
-          #if the order stored in the session is for a different campaign, create a new one
-          unless @order && @order.campaign_id == @campaign.id && @order.status == 0
-              @order = Order.create campaign_id: @campaign.id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
-              session[:order_id] = @order.id
-          end
-      else
-          @order = Order.create campaign_id: @campaign.id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
-          session[:order_id] = @order.id
+      @order = Order.find_by_id(session[:order_id])
+      
+      unless @order && @order.campaign_id == @campaign.id && @order.status == 0
+        @order = Order.new
       end
     end
     

@@ -39,10 +39,10 @@
         </div> <!-- /.stats -->
 
 		<% if @campaign.collection_id == 0 %>
-			<a href="#" class="btn btn-block btn-lg btn-primary cta-btn" data-toggle="modal" data-target="#donate_modal" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
+			<a href="#" class="btn btn-block btn-lg btn-primary cta-btn" data-toggle="modal" data-target="#donate_modal" <%=raw('disabled="disabled" style="background-color:gray; border-color:gray;"') if @campaign.expired? || !@campaign.active %>>
 				<%= @campaign.call_to_action %></a>
 		<% else %>
-	        <a href="<%= shop_path(@campaign) %>" role="button" class="btn btn-block btn-lg btn-primary cta-btn" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> >
+	        <a href="<%= shop_path(@campaign) %>" role="button" class="btn btn-block btn-lg btn-primary cta-btn" <%=raw('disabled="disabled" style="background-color:gray; border-color:gray;"') if @campaign.expired? || !@campaign.active %> >
 	            <%= @campaign.call_to_action %>
 	            <p>支持这个团队</p>
 	        </a>
