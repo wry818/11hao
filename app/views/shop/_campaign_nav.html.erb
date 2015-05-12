@@ -11,22 +11,6 @@
                 <a href="<%= supporters_path(@campaign) %>">支持者</a>
                 <span class="badge"><%= @campaign.supporters %></span>
             </li>
-			
-			<% if current_user %>
-		        <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_seller?(@campaign) && !current_user.admin? && !@campaign.expired? && @campaign.active %>
-		            <li>
-		              <%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "join-fundraising-link" %>
-					  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
-		            </li>
-		        <% end %>
-			<% else %>
-	            <% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
-	                <li>
-	                  <%= link_to "加入筹款团队", signup_seller_path(@campaign),class: "join-fundraising-link" %>
-					  <%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
-	                </li>
-	            <% end %>
-			<% end %>
         </ul>
     </div>
 	

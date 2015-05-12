@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511080601) do
+ActiveRecord::Schema.define(version: 20150512094418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150511080601) do
     t.string   "logo"
     t.boolean  "charge_processing_to_supporter",    default: false,  null: false
     t.boolean  "charge_processing_to_organization", default: false,  null: false
-    t.string   "call_to_action",                    default: "立刻购买", null: false
+    t.string   "call_to_action",                    default: "立即购买", null: false
     t.boolean  "tax_deductible_receipt",            default: false,  null: false
     t.boolean  "hide_featured_items",               default: false,  null: false
     t.string   "entertainment_group_id"
