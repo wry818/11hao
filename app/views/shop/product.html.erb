@@ -35,13 +35,8 @@
                                         <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target)  if @product.description %>
                                     </p>
                                     <h3 style="margin-top: 5px; margin-bottom: 15px">
-										<% if @min_price==@min_origin_price %>
-											<span id="product_price_dash_span" style="display:none; color:gray; text-decoration:line-through;">￥</span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;"></span><br/>
-											￥<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
-										<% else %>
-											<span id="product_price_dash_span" style="color:gray; text-decoration:line-through;">￥</span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;"><%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %></span><br/>
-											￥<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
-										<% end %>
+										<span id="product_price_dash_span" style="color:gray; text-decoration:line-through;"></span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;">￥<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %></span><br/>
+										<span style="color:rgb(210, 16, 16); display:inline-block;">￥<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span></span>
 									</h3>
                                     <div class="row">
                                         <div class="col-md-10">

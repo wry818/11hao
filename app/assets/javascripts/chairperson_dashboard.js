@@ -230,7 +230,7 @@ Raisy.chairperson_dashboard = {
 					}
 	            },
 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-					$('#order_detail_modal .modal-body').html('<div style="text-align:center;">抱歉，加载订单明细的时候出了问题，请稍好再试</div>');
+					$('#order_detail_modal .modal-body').html('<div style="text-align:center;">抱歉，加载订单明细的时候出了问题，请稍后再试</div>');
 	            },
 				complete: function () {
 				}

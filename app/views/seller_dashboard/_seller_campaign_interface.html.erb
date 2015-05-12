@@ -488,7 +488,7 @@
 						$("#open_contacts_modal").click();
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("抱歉，发送邮件时出了问题，请稍好再试。");
+						window.Raisy.alert("抱歉，发送邮件时出了问题，请稍后再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -510,7 +510,7 @@
 	                },
 	                success: function(data) {
 						if (data == "failed") {
-							window.Raisy.alert("抱歉，保存时出了问题，请稍好再试。");
+							window.Raisy.alert("抱歉，保存时出了问题，请稍后再试。");
 						} else {
 							ed.setContent(data, {format : 'raw'});
 							
@@ -518,7 +518,7 @@
 						}
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("抱歉，保存时出了问题，请稍好再试。");
+						window.Raisy.alert("抱歉，保存时出了问题，请稍后再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text("修改并保存").siblings('span.loader').hide();
@@ -563,7 +563,7 @@
 						$("#resend_code_modal").modal("hide");
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("抱歉，重发access code时出了问题，请稍好再试。");
+						window.Raisy.alert("抱歉，重发Access Code时出了问题，请稍后再试。");
 				  },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();
@@ -705,7 +705,7 @@
 							}
 							
 							if (contactsCount==0) {
-								window.Raisy.alert("No contact emails found");
+								window.Raisy.alert("抱歉，未找到联系人");
 							}
 							else {
 								$("#search-contacts-box").hide();
@@ -728,7 +728,7 @@
 								
 						} else {
 
-							window.Raisy.alert("No contacts found");
+							window.Raisy.alert("抱歉，未找到联系人");
 
 						}
 
@@ -816,11 +816,11 @@
 		  						$("#contacts-list-box").show();
 		  						$("#contacts-result-box").hide();
 		  					} else {
-		  						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍好再试。");
+		  						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍后再试。");
 		  					}
 		        	},
 		        	error: function(XMLHttpRequest, textStatus, errorThrown) {
-						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍好再试。");
+						window.Raisy.alert("抱歉，导入联系人时出了问题，请稍后再试。");
 		        	},
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();
@@ -903,11 +903,11 @@
 						if (data == "success") {
 							alert("联系人导入成功");
 						} else {
-							alert("抱歉，导入联系人时出了问题，请稍好再试。");
+							alert("抱歉，导入联系人时出了问题，请稍后再试。");
 						}
 	                },
 	                error: function(XMLHttpRequest, textStatus, errorThrown) {
-						alert("抱歉，导入联系人时出了问题，请稍好再试。");
+						alert("抱歉，导入联系人时出了问题，请稍后再试。");
 	                },
 					complete: function () {
 						$button.prop('disabled', false).find('span.text').text('Import Contacts').siblings('span.loader').hide();

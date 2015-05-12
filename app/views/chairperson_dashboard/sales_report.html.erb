@@ -144,7 +144,7 @@ $(document).ready(function() {
 					$("#resend_code_modal").modal("hide");
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					window.Raisy.alert("抱歉，重发access code时出了问题，请稍好再试。");
+					window.Raisy.alert("抱歉，重发Access Code时出了问题，请稍后再试。");
 			  },
 				complete: function () {
 					$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();

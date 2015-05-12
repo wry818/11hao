@@ -3,7 +3,7 @@ class UserProfile < ActiveRecord::Base
     belongs_to :user
     has_many :sellers
 
-    validates :first_name, :last_name, presence: true
+    validates :first_name, presence: true
 
     before_create :set_default_image
 
@@ -13,11 +13,11 @@ class UserProfile < ActiveRecord::Base
     end
 
     def shortname
-        first_name.present? && last_name.present? ? "#{first_name} #{last_name[0]}." : (first_name || "")
+      first_name || ""
     end
 
     def fullname
-      self.user.provider == "twitter" ? (first_name || "") : (first_name.present? && last_name.present? ? "#{first_name} #{last_name}" : (first_name || ""))
+      first_name || ""
     end
     
     def parent_fullname

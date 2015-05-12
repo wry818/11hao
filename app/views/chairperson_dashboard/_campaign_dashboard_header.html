@@ -7,13 +7,15 @@
 			
 			<div class="row" style="margin-top:15px;">
 				<div class="col-sm-4" style="margin-top:5px;">
+					<div style="width:100px;">
 				    <% if current_user.profile.picture.present? %>
-				        <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit %>
+				        <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto; width:72px;" %>
 				    <% else %>
-				        <%= image_tag 'crown.png', width: 72 %>
+				        <%= image_tag 'crown.png', width: 72, style: "display:block; margin:0 auto; width:72px;" %>
 				    <% end %>
+					</div>
 	
-					<h4 style="margin-top:10px;"><%= @campaign.organizer.profile.fullname %></h4>
+					<h4 style="margin-top:10px; width:100px; text-align:center;"><%= @campaign.organizer.profile.fullname %></h4>
 				</div>
 			
 				<div class="col-sm-7 col-sm-offset-1">

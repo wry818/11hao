@@ -116,14 +116,14 @@ Raisy.shop = {
 				
 				span.text(price);
 				
-				if (price==origin_price) {
-					$("#product_origin_price_span").text("");
-					$("#product_price_dash_span").hide();
-				}
-				else {
-					$("#product_origin_price_span").text("￥" + origin_price);
-					$("#product_price_dash_span").show();
-				}
+				// if (price==origin_price) {
+				// 	$("#product_origin_price_span").text("");
+				// 	$("#product_price_dash_span").hide();
+				// }
+				// else {
+				// 	$("#product_origin_price_span").text("￥" + origin_price);
+				// 	$("#product_price_dash_span").show();
+				// }
 			}
 			else {
 				var price=$(".product-dropdown-option option:selected").data("price");
@@ -131,14 +131,14 @@ Raisy.shop = {
 				
 				span.text(price);
 				
-				if (price==origin_price) {
-					$("#product_origin_price_span").text("");
-					$("#product_price_dash_span").hide();
-				}
-				else {
-					$("#product_origin_price_span").text("￥" + origin_price);
-					$("#product_price_dash_span").show();
-				}
+				// if (price==origin_price) {
+				// 	$("#product_origin_price_span").text("");
+				// 	$("#product_price_dash_span").hide();
+				// }
+				// else {
+				// 	$("#product_origin_price_span").text("￥" + origin_price);
+				// 	$("#product_price_dash_span").show();
+				// }
 			}
 		});
 
@@ -298,7 +298,7 @@ Raisy.shop = {
 		$("#stripe_message").text("");
         $('#errors').hide();
         $('#errors').html('');
-        $('#payment-form-submit').prop('disabled', true).find('span.text').text('Processing, 登录中，请稍后...').siblings('span.loader').show();
+        $('#payment-form-submit').prop('disabled', true).find('span.text').text('处理中，请稍候...').siblings('span.loader').show();
 
 		Stripe.card.createToken({
 		  number: $("#card_number").val(),

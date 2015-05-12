@@ -305,7 +305,7 @@ Raisy.campaigns = {
             },
             progress: function (e, data) {
                 var prog = Math.round((data.loaded * 100.0) / data.total);
-                $(".camp-photo-status").text("上传中，请稍后...");
+                $(".camp-photo-status").text("上传中，请稍候...");
                 $(".camp-photo-progress-bar").css("width", prog + "%").find('span').text(prog + "%");
             },
             done: function (e, data) {
@@ -607,7 +607,7 @@ Raisy.campaigns = {
         }
 
         $("#campaign_social_error").show();
-        $("#campaign_social_message").text("登录中，请稍后...");
+        $("#campaign_social_message").text("登录中，请稍候...");
 
         //set the date to midnight in the user's time zone
         var $dateinput = $('#campaign_end_date');
@@ -1012,7 +1012,7 @@ Raisy.campaigns = {
 	                    var campaign_id = parseInt(d.id);
 
 	                    if (isNaN(campaign_id)) {
-												window.Raisy.alert("抱歉，创建这个筹款团队时出了问题，请稍好再试。");
+												window.Raisy.alert("抱歉，创建这个筹款团队时出了问题，请稍后再试。");
 	                    }
 	                    else {
 												$("#campaign_id").val(d.id);
@@ -1112,7 +1112,7 @@ Raisy.campaigns = {
 	                }
 	            },
 	            error: function () {
-								window.Raisy.alert("抱歉，保存这个筹款团队时出了问题，请稍好再试。");
+								window.Raisy.alert("抱歉，保存这个筹款团队时出了问题，请稍后再试。");
 	            },
 	            complete: function () {
 								$button.prop('disabled', false).find('span.text').siblings('span.loader').hide();

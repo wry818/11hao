@@ -146,7 +146,7 @@ window.Raisy_admin_campaigns = {
 	        },
 	        progress: function (e, data) {
 	            var prog = Math.round((data.loaded * 100.0) / data.total);
-	            $(".camp-photo-status").text("上传中，请稍后...");
+	            $(".camp-photo-status").text("上传中，请稍候...");
 	            $(".camp-photo-progress-bar").css("width", prog + "%").find('span').text(prog + "%");
 	        },
 	        done: function (e, data) {

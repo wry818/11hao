@@ -485,9 +485,9 @@ window.Raisy = {
 		$("#seller-social-error").show();
 		
 		if (is_signup)
-			$("#seller-social-message").text("登录twitter中，请稍后...");
+			$("#seller-social-message").text("登录中，请稍候...");
 		else
-			$("#seller-social-message").text("登录中，请稍后...");
+			$("#seller-social-message").text("登录中，请稍候...");
 		
 		var winLeft = window.screenX || window.screenLeft;
 		var winTop = window.screenY || window.screenTop;
@@ -596,12 +596,12 @@ window.Raisy = {
 			$("#auth_uid").val("");
 			
 			$("#campaign_social_error").show();
-			$("#campaign_social_message").text("登录中，请稍后...");
+			$("#campaign_social_message").text("登录中，请稍候...");
 		}
 		else
 		{
 			$(".login-social-error").show();
-			$(".login-social-message").text("登录中，请稍后...");
+			$(".login-social-message").text("登录中，请稍候...");
 		}
 		
 		var winLeft = window.screenX || window.screenLeft;
@@ -717,9 +717,9 @@ window.Raisy = {
 		$("#seller-social-error").show();
 		
 		if (is_signup)
-			$("#seller-social-message").text("登录facebook中，请稍后...");
+			$("#seller-social-message").text("登录中，请稍候...");
 		else
-			$("#seller-social-message").text("登录中，请稍后...");
+			$("#seller-social-message").text("登录中，请稍候...");
 		
 		var winLeft = window.screenX || window.screenLeft;
 		var winTop = window.screenY || window.screenTop;
@@ -837,12 +837,12 @@ window.Raisy = {
 			$("#auth_uid").val("");
 			
 			$("#campaign_social_error").show();
-			$("#campaign_social_message").text("登录中，请稍后...");
+			$("#campaign_social_message").text("登录中，请稍候...");
 		}
 		else
 		{
 			$(".login-social-error").show();
-			$(".login-social-message").text("登录中，请稍后...");
+			$(".login-social-message").text("登录中，请稍候...");
 		}
 		
 		var winLeft = window.screenX || window.screenLeft;

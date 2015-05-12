@@ -31,7 +31,7 @@ $(document).ready(function() {
         },
         progress: function (e, data) {
             var prog = Math.round((data.loaded * 100.0) / data.total);
-            $(".status").text("上传中，请稍后...");
+            $(".status").text("上传中，请稍候...");
             $(".progress-bar").css("width", prog + "%").find('span').text(prog + "%");
         },
         fail: function (e, data) {

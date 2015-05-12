@@ -958,7 +958,7 @@ class UsersController < ApplicationController
             end
         end
 
-        redirect_to(settings_profile_url, flash: { success: "Profile has been successfully updated" }) and return
+        redirect_to(settings_profile_url, flash: { success: "个人资料保存成功" }) and return
     end
 
     def settings_account
@@ -966,8 +966,9 @@ class UsersController < ApplicationController
 
     def update_account
         @user = current_user
-
-        redirect_to(settings_account_url, flash: { warning: "Current password is incorrect" }) and return unless @user.valid_password?(params[:user][:password])
+        
+        redirect_to(settings_account_url, flash: { warning: "当前密码不正确" }) and return unless @user.valid_password?(params[:user][:password])
+        redirect_to(settings_account_url, flash: { warning: "新密码不能为空" }) and return unless params[:new_password].present?
 
         @user.password = params[:new_password]
         @user.password_confirmation = params[:new_password]
@@ -982,7 +983,7 @@ class UsersController < ApplicationController
         
         sign_in(@user, :bypass=>true)
 
-        redirect_to(settings_account_url, flash: { success: "Account has been successfully updated" }) and return
+        redirect_to(settings_account_url, flash: { success: "重设密码成功" }) and return
     end
     
     def omniauth_callback

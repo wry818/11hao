@@ -5,7 +5,7 @@
             <div class="col-md-8 col-md-push-2">
                 <div class="well">
                     <p style="margin-bottom: 20px;">
-						欢迎回来
+						欢迎回来!
                     </p>
 					
 					<div id="login_error" style="display:none;">
@@ -97,6 +97,7 @@
 
 <script>
 $(".user-modal-launch").hide();
+$("div.alert").hide();
 
 if (document.referrer && document.referrer.indexOf("/seller/signup/")>0) {
 	$(".btn-facebook").click(function(){ Raisy.fb_seller_login(false); });
@@ -112,6 +113,7 @@ function login_user(form) {
 	var pwd=encodeURIComponent($("#user_password").val());
 	
 	$("#login_error").hide();
+	$("#login_error .alert").hide();
 	
 	$.ajax({
 		method: "get",
@@ -121,6 +123,7 @@ function login_user(form) {
 		success: function(d){
 			if (d && !d.verified) {
 				$("#login_error").show();
+				$("#login_error .alert").show();
 			}
 			else {
 				form.submit();
@@ -128,6 +131,7 @@ function login_user(form) {
 		},
 		error: function() {
 			$("#login_error").show();
+			$("#login_error .alert").show();
 		}
 	});
 }

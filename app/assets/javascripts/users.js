@@ -484,7 +484,7 @@ Raisy.users = {
 					if (data=="") {
 						row.find(".contact-update-loader").first().css("visibility", "hidden");
 					
-						window.Raisy.alert("抱歉，删除联系人时出了问题，请稍好再试。");
+						window.Raisy.alert("抱歉，删除联系人时出了问题，请稍后再试。");
 					}
 					else {
 						row.fadeOut(200, function(){
@@ -495,7 +495,7 @@ Raisy.users = {
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					row.find(".contact-update-loader").first().css("visibility", "hidden");
 				
-					window.Raisy.alert("抱歉，删除联系人时出了问题，请稍好再试。");
+					window.Raisy.alert("抱歉，删除联系人时出了问题，请稍后再试。");
 				},
 				complete: function () {
 				
@@ -581,11 +581,11 @@ Raisy.users = {
 				}
 			}
 			else {
-				window.Raisy.alert("抱歉，保存联系人时出了问题，请稍好再试。");
+				window.Raisy.alert("抱歉，保存联系人时出了问题，请稍后再试。");
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			window.Raisy.alert("抱歉，保存联系人时出了问题，请稍好再试。");
+			window.Raisy.alert("抱歉，保存联系人时出了问题，请稍后再试。");
 		},
 		complete: function () {
 			row.find(".contact-update-loader").first().css("visibility", "hidden");

@@ -57,18 +57,20 @@
 																<% if price_range[:same_price] %>
 																$<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																$<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
 															<% end %></span><br/>
+															<span style="color:rgb(210, 16, 16); display:inline-block;">
 															<% if price_range[:same_discount_price] %>
 																$<%= long_price(price_range[:discount_min]) %>
 															<% else %>
-																$<%= long_price(price_range[:discount_min]) %> - $<%= short_price(price_range[:discount_max]) %>
+																$<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
 															<% end %>
+															</span>
 														<% else %>
 															<% if price_range[:same_price] %>
 																$<%= long_price(price_range[:min]) %>
 															<% else %>
-																$<%= long_price(price_range[:min]) %> - $<%= short_price(price_range[:max]) %>
+																$<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
 															<% end %>
 														<% end %>
                                                     </p>
