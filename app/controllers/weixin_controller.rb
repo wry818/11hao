@@ -47,7 +47,7 @@ class WeixinController < ApplicationController
     
     params = {
       body: '11号公益圈订单',
-      out_trade_no: 'test006',
+      out_trade_no: 'test007',
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
       notify_url: root_url + 'weixin_custom/notify',
