@@ -11,7 +11,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
   private
 
     def response_text_message(options={})
-      reply_text_message("Your Message: #{@keyword}")
+      # reply_text_message("Your Message: #{@keyword}")
+      reply_text_message("欢迎您加入11号公益圈！")
     end
 
     # <Location_X>23.134521</Location_X>
