@@ -12,7 +12,7 @@
           <div class="checkout-container">
             <div class="clearfix">
               <h2 class="pull-left">Checkout</h2>
-              <%= image_tag 'cards.png', class: "pull-right hidden-xs hidden-sm" %>
+              <!-- <%= image_tag 'cards.png', class: "pull-right hidden-xs hidden-sm" %> -->
             </div>
             <div class="row">
               <div class="col-sm-5 col-sm-push-7">
@@ -34,13 +34,13 @@
 				  </div>
                 </div>
 
-                <div>
+                <!-- <div>
                   <div class="stripe-box">
                     <%= image_tag 'stripe.png', class: 'img-thumbnail-no', style: 'display: inline-block; margin-right:10px; width: 110px' %>
 
                     <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=B0wXAOOppIfnjjzTsRjHZkIdFlwjDTQTpXg1Gy0QAK7CHobsPE1fNHDEaH0Q"></script></span>
                   </div>
-                </div>
+                </div> -->
 
               </div>
 
@@ -192,93 +192,14 @@
                   <!-- end of donation_only -->
 
                   <h3 class="payment-header">
-                    Payment Method
-                    <span class="glyphicon glyphicon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></span>
+                    支付方式
+                    <span class="glyphicon glyphicon-lock show_tooltip" data-placement="top" data-title="微信安全支付"></span>
                   </h3>
-
-                  <fieldset>
-                    <div id="stripe_error" style="display:none;">
-                      <div class="alert alert-warning">
-                        <div id="stripe_message" style="text-align: center;">
-                        </div>
-                      </div>
-                      <div>&nbsp;</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="card_number">Card Number</label>
-                          <input id="card_number" name="card_number" type="text" class="form-control stripe-data" autocomplete="off" data-encrypted-name="number">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Expiration</label>
-
-                          <div class="expiration">
-                            <select id="expiration_month" class="form-control stripe-data" name="expiration_month" data-encrypted-name="expiration_month">
-                              <option value="01" <%= "selected" if Time.now.month==1 %>>01</option>
-                              <option value="02" <%= "selected" if Time.now.month==2 %>>02</option>
-                              <option value="03" <%= "selected" if Time.now.month==3 %>>03</option>
-                              <option value="04" <%= "selected" if Time.now.month==4 %>>04</option>
-                              <option value="05" <%= "selected" if Time.now.month==5 %>>05</option>
-                              <option value="06" <%= "selected" if Time.now.month==6 %>>06</option>
-                              <option value="07" <%= "selected" if Time.now.month==7 %>>07</option>
-                              <option value="08" <%= "selected" if Time.now.month==8 %>>08</option>
-                              <option value="09" <%= "selected" if Time.now.month==9 %>>09</option>
-                              <option value="10" <%= "selected" if Time.now.month==10 %>>10</option>
-                              <option value="11" <%= "selected" if Time.now.month==11 %>>11</option>
-                              <option value="12" <%= "selected" if Time.now.month==12 %>>12</option>
-                            </select>
-                            <select id="expiration_year" class="form-control pull-right stripe-data" name="expiration_year" data-encrypted-name="expiration_year">
-                              <option value="2015" selected>2015</option>
-                              <option value="2016">2016</option>
-                              <option value="2017">2017</option>
-                              <option value="2018">2018</option>
-                              <option value="2019">2019</option>
-                              <option value="2020">2020</option>
-                              <option value="2021">2021</option>
-                              <option value="2022">2022</option>
-                              <option value="2023">2023</option>
-                              <option value="2024">2024</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="cvv">
-                            Security Code
-                            <span class="glyphicon glyphicon-question-sign show_tooltip" data-placement="top" data-title="3 or 4 digit number"></span>
-                          </label>
-                          <input id="cvv" name="cvv" type="text" class="form-control stripe-data" autocomplete="off" data-encrypted-name="cvv">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="billing_zip_code">Billing Zip/Postal Code</label>
-                          <input id="billing_zip_code" name="order[billing_zip_code]" type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-
-                  </fieldset>
 
                   <div class="row">
                     <div class="col-md-8">
                       <div class="payment-submit">
-                        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="<%= @order.donation_only? ? "立即捐赠" : "立即付款" %>">
-                                                            <%= @order.donation_only? ? "立即捐赠" : "立即付款" %>
-                                                        </span>
-                          <span class="loader" style="display:none"></span>
-                        </button>
-						<%= link_to '微信支付', "javascript:void(0)", :id => 'wechat'  %>
+						<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block'  %>
                       </div>
                       <p style="margin-top: 10px;">
                         需要支付
