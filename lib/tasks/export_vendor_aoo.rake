@@ -14,7 +14,8 @@ namespace :eleven do
          
           items=Item.joins("inner join orders on items.order_id=orders.id").where(
             "orders.status in (1,3) and items.delivery_method=2 and 
-            items.delivery_status=1 and items.product_id in (:prod_ids)", prod_ids: prod_ids).readonly(false).all
+            items.delivery_status=1 and items.product_id in (:prod_ids)", prod_ids: prod_ids)
+            .order(:order_id).readonly(false).all
             
           orders=Order.where(:id=>items.collect(&:order_id).uniq).all
 
@@ -25,7 +26,7 @@ namespace :eleven do
           Axlsx::Package.new do |p|
             p.workbook.add_worksheet(:name => "订单") do |sheet|
               sheet.add_row ["订单日期", "订单号", "订单详情号", "货品名称", "数量", "收货人姓名",
-                "省份", "城市", "收货地址", "邮编", "电话"]
+                "省份", "城市", "收货地址", "邮编", "联系电话"]
                 
                 items.each do |item|
                   order=orders.select{|o| o.id==item.order_id}.first
