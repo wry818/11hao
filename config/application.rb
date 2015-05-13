@@ -8,6 +8,13 @@ Bundler.require(:default, Rails.env)
 
 module Raisy
     class Application < Rails::Application
+        config.to_prepare do
+      # Load application's model / class decorators
+      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
+    end
+
         # Settings in config/environments/* take precedence over those specified here.
         # Application configuration should go into files in config/initializers
         # -- all .rb files in that directory are automatically loaded.
@@ -63,6 +70,13 @@ module Raisy
         config.facebook_callback_url = ENV['FACEBOOK_CALLBACK_URL']
         
         ENV['CLOUDINARY_URL']= 'cloudinary://195568989381351:wTcmdQ4UvTIjJy-2cVRykf-HiSo@jli'
+
+        ENV['WEIXIN_APPID'] = 'wxc2251da36f59ced4'
+        ENV['WEIXIN_APP_SECRET'] = '7KcRATv1Ino3mdopKaPGQQ7TtkNySuAm'
+        ENV['WEIXIN_MCHID'] = '10019709'
+               
+        # ENV['WEIXIN_APPID'] = 'wxbd2427d5c32cbff6'
+        # ENV['WEIXIN_APP_SECRET'] = '5fe619dff86284d07b9e301aca4bd2f3'
                 
     end
 end

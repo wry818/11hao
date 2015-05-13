@@ -1,5 +1,6 @@
 Raisy::Application.routes.draw do
   
+  mount WeixinRailsMiddleware::Engine, at: "/"
     root 'pages#index'
 
     devise_for :users,:controllers => {:registrations => "registrations"}
@@ -195,9 +196,17 @@ Raisy::Application.routes.draw do
     match 'upload/campaign_photo' => 'upload#campaign_photo', via: [:post, :patch]
     
     # WEIXIN
-    scope 'weixin' do
+    scope 'weixin_custom' do
+        # get 'index' => 'weixin#index'
+#         post 'index' => 'weixin#reply'
+        get 'menu' => 'weixin#menu'
+        get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
         post 'notify' => 'weixin#notify'
     end
+    
+    # scope 'index' do
+#         get 'authorize' => 'weixin#authorize'
+#     end
     
 end

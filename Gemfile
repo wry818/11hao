@@ -79,3 +79,7 @@ gem 'libxml-ruby'
 gem 'omnicontacts'
 
 gem 'wx_pay'
+
+gem 'weixin_rails_middleware' 
+gem 'weixin_authorize' 
+gem 'typhoeus'

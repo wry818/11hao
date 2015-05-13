@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    before_action :get_wechat_sns, if: :is_wechat_brower?
     # Prevent CSRF attacks by raising an exception.
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
@@ -24,8 +25,28 @@ class ApplicationController < ActionController::Base
         current_user && current_user.is_crs?
     end
     
-    private
+    def is_wechat_brower?
+        request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+    end
+    
+    def get_wechat_sns
+      
+      if session[:openid].blank? && params[:state].present?
 
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        sns_info = $wechat_client.get_oauth_access_token(params[:code])
+        
+        Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
+        
+        # 重复使用相同一个code调用时：
+        if sns_info.result["errcode"] != "40029"
+            session[:openid] = sns_info.result["openid"]
+        end
+        
+      end
+      
+    end
+        
     def set_defaults
         @fb = {
             title: 'Raisy',
