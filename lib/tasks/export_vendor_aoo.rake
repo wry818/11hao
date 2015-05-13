@@ -19,43 +19,48 @@ namespace :eleven do
           orders=Order.where(:id=>items.collect(&:order_id).uniq).all
 
           has_item=false
-          lines="订单日期|订单号|订单详情号|数量|货品名称|收货人姓名|收货地址|邮编|收货电话"
+          file_name=Time.now.strftime("%Y%m%d%H%M") + ".xlsx"
+          file_path="./tmp/" + file_name
           
-          items.each do |item|
-            order=orders.select{|o| o.id==item.order_id}.first
+          Axlsx::Package.new do |p|
+            p.workbook.add_worksheet(:name => "订单") do |sheet|
+              sheet.add_row ["订单日期", "订单号", "订单详情号", "货品名称", "数量", "收货人姓名",
+                "省份", "城市", "收货地址", "邮编", "电话"]
+                
+                items.each do |item|
+                  order=orders.select{|o| o.id==item.order_id}.first
+                  
+                  sheet.add_row [item.created_at.strftime("%Y-%m-%d"),
+                    item.order_id.to_s, item.id.to_s,
+                    products.select{|p| p.id==item.product_id}.first.name,
+                    item.quantity.to_s,
+                    (order.address_fullname || ""),
+                    (order.address_state || ""),
+                    (order.address_city || ""),
+                    (order.address_line_one || ""),
+                    (order.address_postal_code || ""),
+                    (order.phone_number || "")]
             
-            address=(order.address_country || "") + " " + (order.address_state || "") + " " + (order.address_city || "") + " "
-            address+=(order.address_line_one || "") + " " + (order.address_line_two || "")
+                  item.delivery_status=3
+                  item.delivery_updated_at=DateTime.now
+                  item.save
             
-            line=item.created_at.strftime("%Y-%m-%d") + "|" + item.order_id.to_s + "|" + item.id.to_s + "|"
-            line+=item.quantity.to_s + "|" + products.select{|p| p.id==item.product_id}.first.name + "|"
-            line+=(order.address_fullname || "") + "|" + address + "|" + (order.address_postal_code || "") + "|" + (order.phone_number || "")
+                  has_item=true
+                end
+            end
             
-            lines+="\r\n" + line
-            
-            item.delivery_status=3
-            item.delivery_updated_at=DateTime.now
-            item.save
-            
-            has_item=true
+            p.serialize(file_path)
           end
           
           if has_item
             # Send file to vendor via email
-            
-            file_path="./tmp/" + Time.now.strftime("%Y%m%d%H%M") + ".txt"
-            
-            File.open(file_path, "w") do |f|
-              f.write lines
-            end
-            
             Mail.defaults do
               delivery_method :smtp, { 
                 :address=> "smtp.mailgun.org",
                 :port=> 587,
-                :domain=> 'sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org',
-                :user_name=> 'postmaster@sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org',
-                :password=> 'a5dc51db8a5eeea81835fd7d6a18c72f',
+                :domain=> ENV['MAILGUN_DOMAIN'],
+                :user_name=> ENV['MAILGUN_USERNAME'],
+                :password=> ENV['MAILGUN_PASSWORD'],
                 :authentication=> 'plain' }
             end
             
@@ -63,7 +68,7 @@ namespace :eleven do
               from     'admin@11hao.com'
               to       vendor.email
               subject  '11号公益圈订单'
-              body     "11号公益圈订单 - " + Time.now.strftime("%Y%m%d%H%M") + ".txt"
+              body     "11号公益圈订单 - " + file_name
               add_file file_path
             end
           end
