@@ -58,7 +58,7 @@ class WeixinController < ApplicationController
     }
 
     r = WxPay::Service.invoke_unifiedorder params
-    puts r
+    @result = r.to_s
 
     @weixin_init_success = false
     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'

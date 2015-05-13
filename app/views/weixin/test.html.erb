@@ -7,7 +7,7 @@
 <%= link_to '微信支付', "javascript:void(0)", :id => 'wechat'  %>
 <script Language="javascript">
 	
-	// alert(WeixinJSBridge);
+	alert('<%= @result %>');
 	
 	if (document.addEventListener) {
 		document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
