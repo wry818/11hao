@@ -21,10 +21,21 @@ class WeixinController < ApplicationController
     }.to_json
     
     response = $client.create_menu(menu) # Hash or Json
-    # response = $client.menu
+    
     render text: response.result
     
   end
+  
+  def menulist
+    
+    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    
+    response = $client.menu
+    
+    render text: response.result
+    
+  end
+  
   
   def authorize
     

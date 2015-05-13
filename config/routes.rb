@@ -197,16 +197,11 @@ Raisy::Application.routes.draw do
     
     # WEIXIN
     scope 'weixin_custom' do
-        # get 'index' => 'weixin#index'
-#         post 'index' => 'weixin#reply'
         get 'menu' => 'weixin#menu'
+        get 'menulist' => 'weixin#menulist'
         get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
         post 'notify' => 'weixin#notify'
     end
-    
-    # scope 'index' do
-#         get 'authorize' => 'weixin#authorize'
-#     end
     
 end
