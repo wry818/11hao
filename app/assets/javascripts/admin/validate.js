@@ -181,4 +181,39 @@ $( document ).ready(function() {
             }
         }
 	});
+	
+	$("#vendor_form").validate({
+        // custom handler to call named function ""
+        submitHandler: function(form) {
+          form.submit();
+        },
+		
+        // validate the previously selected element when the user clicks out
+        onfocusout: function(element) {
+          $(element).valid();
+        },
+
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+		
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        },
+		
+        // validation rules
+        rules: {
+					"vendor[name]": { required: true },
+					"vendor[email]": { required: true, email: true }
+        },
+        messages: {
+            "vendor[name]": {
+              required: "Please enter name"
+            },
+            "vendor[email]": {
+              required: "Please enter email",
+							email: "Hmm, that doesn't look valid yet"
+            }
+        }
+	});
 });

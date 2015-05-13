@@ -40,6 +40,7 @@ Raisy::Application.routes.draw do
         end
         
         resources :settings
+        resources :vendors
         
         get 'campaign_stories', to: 'campaigns#stories'
         get 'campaign_story/:id', to: 'campaigns#story'
