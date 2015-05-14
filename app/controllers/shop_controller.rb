@@ -4,6 +4,8 @@ class ShopController < ApplicationController
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
     
+    layout "shop"
+    
     def show
         @help_text = "Help" + (@seller ? " " + @seller.user_profile.first_name : "") + " fundraise for " + @campaign.title
       

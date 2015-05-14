@@ -501,32 +501,20 @@ Raisy.campaigns = {
         var cropWidth;
         var cropHeight;
 
-        // if (documentWidth > 768) {
-        //
-        // 	cropWidth = 622;
-        // 	cropHeight = 200;
-        //
-        // } else {
-        //
-        // 	cropWidth = 280;
-        // 	cropHeight = 90;
-        //
-        // }
-
         if (documentWidth > 768) {
 
             cropWidth = 622;
-            cropHeight = 200;
+            cropHeight = 414;
 
         } else if (documentWidth > 468) {
 
             cropWidth = 400;
-            cropHeight = 128;
+            cropHeight = 266;
 
         } else {
 
             cropWidth = 280;
-            cropHeight = 90;
+            cropHeight = 186;
 
         }
 
@@ -534,8 +522,6 @@ Raisy.campaigns = {
             $('#campaign-edit .preview').html(html);
 
             $('#campaign-edit .preview img').removeAttr("width").removeAttr("height").cropbox({
-                // width: 622,
-// 		        height: 200,
                 width: cropWidth,
                 height: cropHeight,
                 //controls: '<div class="cropControls"><span style="width:100%;">拖拉图片调整位置</span></div>',

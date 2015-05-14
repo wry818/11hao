@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="left-column">
-                        <h3 style="margin: 0">Thank you to our supporters!</h3>
+                        <h3 style="margin: 0">简单公益 感谢有你!</h3>
                         <hr/>
                         <% @campaign.orders.completed.online.each do |order| %>
                         <%= order.make_anonymous ? 'Anonymous' : (order.is_offline ? "Anonymous" : order.fullname) %>

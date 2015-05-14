@@ -176,17 +176,17 @@ Raisy.chairperson_dashboard = {
 		if (documentWidth > 768) {
 
 			cropWidth = 622;
-			cropHeight = 200;
+			cropHeight = 414;
 
 		} else if (documentWidth > 468) {
 
 			cropWidth = 400;
-			cropHeight = 128;
+			cropHeight = 266;
 
 		} else {
 
 			cropWidth = 280;
-			cropHeight = 90;
+			cropHeight = 186;
 
 		}
 		

@@ -6,7 +6,7 @@
 <%= hidden_field_tag :logo_crop_x, "0" %>
 <%= hidden_field_tag :logo_crop_y, "0" %>
 <%= hidden_field_tag :logo_crop_w, "622" %>
-<%= hidden_field_tag :logo_crop_h, "200" %>
+<%= hidden_field_tag :logo_crop_h, "414" %>
 <%= hidden_field_tag :campaign_photo_ids, "" %>
 <%= hidden_field_tag :upload_camp_photo_crop, "" %>
 
@@ -30,7 +30,7 @@
 			Fundraiser Cover Photo 
 			<br />
 			<span class="upload-tooltip">
-				(Best size: 970px * 310px)
+				(Best size: 940px * 626px)
 			</span>
 		</label>
         <div class="col-sm-10">
@@ -389,17 +389,17 @@
 			if (documentWidth > 768) {
 
 				cropWidth = 622;
-				cropHeight = 200;
+				cropHeight = 414;
 
 			} else if (documentWidth > 468) {
 
 				cropWidth = 400;
-				cropHeight = 128;
+				cropHeight = 266;
 
 			} else {
 
 				cropWidth = 280;
-				cropHeight = 90;
+				cropHeight = 186;
 
 			}
 

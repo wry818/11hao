@@ -3,7 +3,7 @@
     <%= hidden_field_tag :logo_crop_x, "0" %>
     <%= hidden_field_tag :logo_crop_y, "0" %>
     <%= hidden_field_tag :logo_crop_w, "622" %>
-    <%= hidden_field_tag :logo_crop_h, "200" %>
+    <%= hidden_field_tag :logo_crop_h, "414" %>
     <%= hidden_field_tag :auth_provider, "raisy" %>
     <%= hidden_field_tag :auth_uid, "" %>
     <%= hidden_field_tag :campaign_new_user, "1" %>
@@ -275,7 +275,7 @@
             <span class="number">4</span>上传筹款页面封面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
-              （最好的图片尺寸: 970px * 310px）
+              （最好的图片尺寸: 940px * 626px）
             </div>
           </h3>
         </div>
@@ -951,17 +951,17 @@
             if (documentWidth > 768) {
 
                 cropWidth = 622;
-                cropHeight = 200;
+                cropHeight = 414;
 
             } else if (documentWidth > 468) {
 
                 cropWidth = 400;
-                cropHeight = 128;
+                cropHeight = 266;
 
             } else {
 
                 cropWidth = 280;
-                cropHeight = 90;
+                cropHeight = 186;
 
             }
 

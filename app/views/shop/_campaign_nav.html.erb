@@ -4,10 +4,10 @@
             <li><%= link_to "首页", short_campaign_path(@campaign) %></li>
 
 			<% if @campaign.collection_id != 0 %>
-            	<li><%= link_to "爱心商品", shop_path(@campaign) %></li>
+            	<li class="hidden-xs"><%= link_to "爱心商品", shop_path(@campaign) %></li>
 			<% end %>
 
-            <li class="hidden-xs">
+            <li>
                 <a href="<%= supporters_path(@campaign) %>">支持者</a>
                 <span class="badge"><%= @campaign.supporters %></span>
             </li>

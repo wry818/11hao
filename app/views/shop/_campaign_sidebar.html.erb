@@ -92,11 +92,6 @@
                 </p>
             </div>
         </div>
-		<% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active && (!current_user || @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_crs? && !current_user.is_seller?(@campaign) && !current_user.admin?) %>
-		<div style="margin-top:15px;">
-			<%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "btn btn-block btn-lg btn-lightgreen" %>
-		</div>
-		<% end %>
     </div>
     <% end %>
 
