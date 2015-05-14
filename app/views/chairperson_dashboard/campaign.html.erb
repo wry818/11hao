@@ -6,21 +6,7 @@
         <div class="container">
 
             <div class="row compaign-box">
-                <div class="col-md-3 campaign-photo-box">
-                    <%= cl_image_tag @campaign.campaign_logo.image_id,
-						transformation: [{ 
-								width: @campaign.campaign_logo.crop_width,
-								height: @campaign.campaign_logo.crop_height,
-								x: @campaign.campaign_logo.crop_x,
-								y: @campaign.campaign_logo.crop_y,
-								crop: :crop
-							}],
-						style: 'width: 100%' if @campaign.campaign_logo %>
-						
-					<%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !@campaign.campaign_logo %>
-                </div>
-
-                <div class="col-md-8">
+				<div class="col-sm-8 col-sm-offset-2">
                     <p>分享这个链接给您的成员和支持者们！</p>
                     <input class="form-control" value="<%= signup_seller_url(@campaign) %>" readonly>
                     <!-- <div class="share-links" style="margin-top: 20px;">

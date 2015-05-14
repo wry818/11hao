@@ -73,7 +73,7 @@
 	                            <div class="featured-items">
 	                                <div class="featured-items-header clearfix">
 	                                    <h4 class="pull-left">
-	                                        热卖商品
+	                                        义卖商品
 	                                    </h4>
 	                                </div>
 	                                <div class="row">
@@ -153,11 +153,9 @@
 											<% end %>
 									  <% end %>
 	                                </div>
-	                                <div class="featured-items-header clearfix" style="margin-top:10px;">
-	                                    <h4 class="pull-right">
-	                                        <a href="<%= shop_path(@campaign) %>" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %>>
-	                                            查看所有商品
-	                                        </a>
+	                                <div class="featured-items-header clearfix" style="margin-top:15px; text-align:center;">
+	                                    <h4>
+											<a href="<%= shop_path(@campaign) %>" <%=raw('disabled="disabled"') if @campaign.expired? || !@campaign.active %> class="btn btn-lightgreen">查看所有商品</a>
 	                                    </h4>
 	                                </div>
 	                            </div>

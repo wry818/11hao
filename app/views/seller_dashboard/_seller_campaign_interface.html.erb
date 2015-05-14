@@ -73,7 +73,7 @@
                     <div class="col-md-8 raised-count-box">
 						<div class="raised-count">
 							<label>￥<%= short_price(@seller.campaign.raised) %>
-							</label>&nbsp;&nbsp;<span>简单公益 只因有你</span>
+							</label>
 						</div>
 						
 						<% if @seller.campaign.goal.nil? %>
@@ -132,8 +132,8 @@
 	<div id="nav-share" class="nav-content" style="display: block;">
 		<div class="seller-share-links">
 		    <div class="row">
-		        <div class="col-md-12">
-		            <p>分享这链接给朋友和家人！</p>
+		        <div class="col-sm-8 col-sm-offset-2" style="margin-top:10px;">
+		            <p>分享这个链接给您的朋友和家人！</p>
 		            <input class="form-control" value="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>" readonly>
 		            <!-- <div class="share-links" style="margin-top: 20px;">
 		                <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@seller.campaign, seller: @seller.referral_code) %>"><%= image_tag 'fb.png' %> Share</a>
@@ -354,7 +354,7 @@
 						<th>登录次数</th>
 			            <th>邮件发出次数</th>
 			            <th>分享次数</th>
-			            <th># of tweets</th>
+			            <th>Tweet数</th>
 			        </tr>
 				</thead>
 			    <tbody>
@@ -374,7 +374,7 @@
 		    <div class="row">
 		        <div class="col-md-12">
 					<div style="text-align:right;">
-						<a href="<%= seller_orders_download_path(@seller.referral_code) %>" target="_blank">下载</a>
+						<a href="<%= seller_orders_download_path(@seller.referral_code) %>" target="_blank">导出为Excel</a>
 					</div>
 					<div style="width:100%; max-height:560px; overflow:auto;">
 		            	<%= render 'seller_dashboard/orders_list' %>

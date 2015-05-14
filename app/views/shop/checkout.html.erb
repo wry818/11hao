@@ -11,8 +11,6 @@
 
           <div class="checkout-container">
             <div class="clearfix">
-              <h2 class="pull-left">Checkout</h2>
-              <!-- <%= image_tag 'cards.png', class: "pull-right hidden-xs hidden-sm" %> -->
             </div>
             <div class="row">
               <div class="col-sm-5 col-sm-push-7">
@@ -47,7 +45,7 @@
               <div class="col-sm-7 col-sm-pull-5">
 
                 <div class="main">
-                  <%= form_tag(checkout_confirmation_path(@campaign), method: "post", id: "payment_form") %>
+                  <%= form_tag(checkout_confirmation_path(@campaign), method: "post", id: "the_payment_form") %>
                   <div id="stripe" style="display:none;">
                     <%= hidden_field_tag :stripe_token, "0" %>
                   </div>
@@ -55,17 +53,17 @@
                   <input type="hidden" id="order_id" name="order_id" value="<%= @order.id %>"/>
 
                   <h3>
-                    Supporter Detail
+                    支持者信息
                   </h3>
 
                   <fieldset>
 
                     <div class="form-group">
-                      <label for="fullname">Full Name</label>
+                      <label for="fullname">昵称</label>
                       <input id="fullname" name="order[fullname]" type="text" class="form-control" maxlength="50">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display:none;">
                       <label for="email">Email Address (for receipt &amp; updates)</label>
                       <input id="email" name="order[email]" type="text" class="form-control" maxlength="200">
                     </div>
@@ -74,11 +72,11 @@
                         <%= render 'shop/checkout_option', cog: cog %>
                     <% end %>
 
-                    <div class="form-group" style="margin-top: 25px;">
+                    <div class="form-group" style="margin-top: 15px;">
                       <div class="checkbox">
                         <label for="order_make_anonymous">
                           <input type="checkbox" value="true" name="order[make_anonymous]" id="order_make_anonymous">
-                          Make my name anonymous in the supporters list
+                          匿名
                         </label>
                       </div>
                     </div>
@@ -89,12 +87,12 @@
                   <% @campaign.sellers.each do |s| %>
                       <% if s.id == session[:seller_id]
                            @has_seller=true %>
-                          <h3>Member Details
+                          <h3>成员信息
                           </h3>
 
                           <div class="form-group">
 											<span style="display:inline-block; margin-left:20px;">
-												Thanks for supporting <%= "#{s.user_profile.fullname} (#{s.referral_code})" %></span>
+												感谢您支持<%= "#{s.user_profile.fullname} (#{s.referral_code})" %></span>
                           </div>
 
                           <input type="hidden" id="order_seller_id" name="order[seller_id]" value="<%= s.id %>"/>
@@ -103,14 +101,14 @@
 
                   <% if !@has_seller && @campaign.sellers.count > 0 %>
                       <h3>
-                        Member Details
+                        成员信息
                       </h3>
 
                       <fieldset>
                         <div class="form-group">
-                          <label for="order_seller_id">Please select which member you are supporting</label>
+                          <label for="order_seller_id">请选择您要支持的团队成员</label>
                           <select id="order_seller_id" name="order[seller_id]" class="form-control">
-                            <option value="">-- Please Select --</option>
+                            <option value="">-- 请选择 --</option>
                             <% @campaign.sellers.each do |s| %>
                                 <option value="<%= s.id %>" <%= raw 'selected' if s.id == session[:seller_id] %>>
                                   <%= "#{s.user_profile.fullname} (#{s.referral_code})" %>
@@ -121,7 +119,8 @@
                       </fieldset>
                   <% end %>
 
-                  <% unless @order.donation_only? %>
+				  <div style="display:none;">
+                  	<% unless @order.donation_only? %>
 									
 	                  <h3>
 	                    Delivery Method
@@ -188,8 +187,13 @@
                     </div>
 										
                   <% end %>
+			  	</div>
 
                   <!-- end of donation_only -->
+				  
+                  <h3 class="payment-header">
+					  收货地址
+                  </h3>
 
                   <h3 class="payment-header">
                     支付方式

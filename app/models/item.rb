@@ -22,11 +22,11 @@ class Item < ActiveRecord::Base
     def delivery_method_text
       case self.delivery_method
         when 1
-            'Digital Membership: Email'
+            '通过邮件发送'
         when 2
-            'Book: Shipping'
+            '快递免运费'
         when 3
-            'CD: Seller Delivery'
+            '快递免运费'
         else
             ''
       end

@@ -5,7 +5,7 @@ Raisy.pages = {
 				$("#search .search-result-block").on("mouseenter", function() {
 	        $(this).css("border-color", "rgb(46, 157, 247)");
 		    }).on("mouseleave", function() {
-		        $(this).css("border-color", "#c8c8c8");
+		        $(this).css("border-color", "#e2e2e2");
 		    });
     },
 

@@ -459,7 +459,7 @@ $( document ).ready(function() {
             equalTo: "密码不匹配，请重新输入"
           },
           "user[first_name]": {
-            required: "请输入您的姓"
+            required: "请输入您的昵称"
           },
           "user[last_name]": {
             required: "请输入您的名"
@@ -546,7 +546,7 @@ $( document ).ready(function() {
         },
         // validation messages
         messages: {
-          "order[fullname]": "请输入您的全名",
+          "order[fullname]": "请输入您的昵称",
           "order[email]": {
             required: "请输入您的邮箱",
             email: "邮箱格式不正确"

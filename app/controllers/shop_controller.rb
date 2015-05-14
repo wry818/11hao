@@ -606,42 +606,42 @@ class ShopController < ApplicationController
         end
 
         #Send a confirmation email
-        begin
-            UserMailer.payment_confirmation(@order, @campaign).deliver
-        rescue => exception
-            logger.info exception.message
-        end
+        # begin
+        #     UserMailer.payment_confirmation(@order, @campaign).deliver
+        # rescue => exception
+        #     logger.info exception.message
+        # end
         
         #Send registration codes for the items of which delivery method is email
-        begin
-          items = @order.items.where(:delivery_method=>1).all
-          count = items.count
-          
-          if count>0
-            items.each do |item|
-              codes = RegistrationCode.where(:product_id=>item.product_id, :is_used=>0).limit(item.quantity).all
-              
-              codes.each do |code|
-                code.is_used = 1
-                code.order_id = @order.id
-                code.item_id = item.id
-                code.save
-                
-                code_array = []
-                code_array << code.reg_code
-                
-                AdminMailer.registration_codes(@order, code_array, "").deliver
-              end
-              
-              if codes.count > 0
-                item.delivery_status = 2 # delivered
-                item.save
-              end
-            end
-          end
-        rescue => exception
-            logger.info exception.message
-        end
+        # begin
+        #   items = @order.items.where(:delivery_method=>1).all
+        #   count = items.count
+        #
+        #   if count>0
+        #     items.each do |item|
+        #       codes = RegistrationCode.where(:product_id=>item.product_id, :is_used=>0).limit(item.quantity).all
+        #
+        #       codes.each do |code|
+        #         code.is_used = 1
+        #         code.order_id = @order.id
+        #         code.item_id = item.id
+        #         code.save
+        #
+        #         code_array = []
+        #         code_array << code.reg_code
+        #
+        #         AdminMailer.registration_codes(@order, code_array, "").deliver
+        #       end
+        #
+        #       if codes.count > 0
+        #         item.delivery_status = 2 # delivered
+        #         item.save
+        #       end
+        #     end
+        #   end
+        # rescue => exception
+        #     logger.info exception.message
+        # end
 
         session[:confirm_order_id] = @order.id
         session[:order_id] = nil
