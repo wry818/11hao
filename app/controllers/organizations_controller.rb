@@ -23,7 +23,7 @@ class OrganizationsController < ApplicationController
             end
         end
 
-        redirect_to(dashboard_organization_details_url(@organization), flash: { success: "Details updated!" }) and return
+        redirect_to(dashboard_organization_details_url(@organization), flash: { success: "保存成功" }) and return
     end
 
     def update_deposit

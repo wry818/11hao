@@ -22,46 +22,15 @@ Raisy.shop = {
         });
 
         $('.add-to-cart').on('click', function(e) {
-            e.preventDefault();
-            var errors = false;
-            var $this = $(this);
-
-            var $form = $this.parents('form.product-form');
-
-            $form.find('.required').each(function(index, element) {
-                $element = $(element)
-                if($element.val().length == 0) {
-                    $element.parents('.form-group').addClass('has-error');
-                    errors = true;
-                }
-            });
-
-            if(!errors) {
-                $this.prop('disabled', true).find('span.text').siblings('span.loader').show();
-                $.ajax('/ajax/update-cart', {
-                    type: 'POST',
-                    data: $form.serialize(),
-                    beforeSend: function(jqXHR, settings) {
-                        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                    },
-                    success: function(data) {
-                        if(data != 'fail') {
-                          $this.parents('.modal').modal('hide');
-                          $('#checkout-modal').html(data);
-													
-													$("#item_order_id").val($("#order_id").val());
-													
-                          _this.attachCartEvents();
-													
-													if (data.indexOf("-!-js-!-")<0) {
-														$('#checkout-modal').modal('show');
-													}
-                        }
-												
-                        $this.prop('disabled', false).find('span.text').siblings('span.loader').hide();
-                    }
-                });
-            }
+					$("#is_add_to_cart").val("1");
+					
+					Raisy.shop.addOrderItem(e, this);
+        });
+				
+        $('.add-to-order').on('click', function(e) {
+					$("#is_add_to_cart").val("0");
+					
+					Raisy.shop.addOrderItem(e, this);
         });
 
         _this.attachCartEvents();
@@ -147,6 +116,51 @@ Raisy.shop = {
 
     }, //end of shop.init
 
+		addOrderItem: function(e, btn) {
+      e.preventDefault();
+			
+      var errors = false;
+      var $this = $(btn);
+
+      var $form = $this.parents('form.product-form');
+
+      $form.find('.required').each(function(index, element) {
+          $element = $(element)
+          if($element.val().length == 0) {
+              $element.parents('.form-group').addClass('has-error');
+              errors = true;
+          }
+      });
+
+      if(!errors) {
+          $this.prop('disabled', true).find('span.text').siblings('span.loader').show();
+          $.ajax('/ajax/update-cart', {
+              type: 'POST',
+              data: $form.serialize(),
+              beforeSend: function(jqXHR, settings) {
+                  jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+              },
+              success: function(data) {
+                  if(data != 'fail') {
+                    $this.parents('.modal').modal('hide');
+                    $('#checkout-modal').html(data);
+										
+										$("#item_order_id").val($("#order_id").val());
+										
+                    Raisy.shop.attachCartEvents();
+										
+										if (data.indexOf("-!-js-!-")<0) {
+											$('#checkout-modal').modal('show');
+										}
+                  }
+              },
+							complete: function() {
+								$this.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+							}
+          });
+      }
+		},
+		
     attachCartEvents: function() {
         var _this = this;
 

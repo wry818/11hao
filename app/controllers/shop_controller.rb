@@ -423,6 +423,8 @@ class ShopController < ApplicationController
                 end
             end
         end
+         
+        @is_add_to_cart = (params[:is_add_to_cart]=="1")
         
         if params[:parent_page]=="checkout"
           render partial: "cart_modal", locals: {parent_page: :checkout}

@@ -487,7 +487,7 @@ class CampaignsController < ApplicationController
           end
         end
 
-        redirect_to(dashboard_campaign_details_url(@campaign), flash: { success: "Details updated!" }) and return
+        redirect_to(dashboard_campaign_details_url(@campaign), flash: { success: "保存成功" }) and return
     end
 
     def update_delivery

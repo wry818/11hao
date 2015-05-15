@@ -1,17 +1,23 @@
 <% if @no_more_discount || @not_enough_discount %>
 	<% if @no_more_discount %>
 		<script>
-		window.Raisy.alert("Discount products are sold out");//-!-js-!-
+		window.Raisy.alert("抱歉，打折商品已售完");//-!-js-!-
 		</script>
 	<% end %>
 	<% if @not_enough_discount %>
 		<script>
 		<% if @discount_avail_count>1 %>
-			window.Raisy.alert("Up to <%= @discount_avail_count %> discount products can be added");//-!-js-!-
+			window.Raisy.alert("最多可添加 <%= @discount_avail_count %> 件打折商品");//-!-js-!-
 		<% else %>
-			window.Raisy.alert("Up to <%= @discount_avail_count %> discount product can be added");//-!-js-!-
+			window.Raisy.alert("最多可添加 <%= @discount_avail_count %> 件打折商品");//-!-js-!-
 		<% end %>
 		</script>
+	<% end %>
+<% else %>
+	<% if @is_add_to_cart %>
+	<script>
+	window.Raisy.alert("商品已成功加入购物车!");//-!-js-!-
+	</script>
 	<% end %>
 <% end%>
 
@@ -83,7 +89,7 @@
             </div> <!-- end of item-row well -->
             <% end %>
         <% else %>
-            <p style="text-align:center;">购物车是空的</p>
+            <p style="text-align:center;">购物车是空的，去看看爱心商品吧</p>
         <% end %>
       </div> <!-- end of items div -->
     </div> <!-- end of modal body -->

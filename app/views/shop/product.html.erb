@@ -1,123 +1,148 @@
 <div id="campaign-show">
-    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+  <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
 
-    <div class="container container-background">
-        <div class="row">
-            <div class="col-md-12">
+  <div class="container container-background">
+    <div class="row">
+      <div class="col-md-12">
 
-                <div class="container-box shop">
+        <div class="container-box shop">
 
-                    <%= render 'shop/campaign_header' %>
-                    <%= render 'shop/campaign_nav' %>
+          <%= render 'shop/campaign_header' %>
+          <%= render 'shop/campaign_nav' %>
 
-                    <ol class="breadcrumb" style="padding: 20px; 30px 0px; background: white; margin: 0">
-                        <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
-                        <% if @category %>
-                            <% @category.parents.each do |parent| %>
-                                <li><%= link_to parent.name, shop_category_path([parent]) %></li>
-                            <% end %>
-                            <li><%= link_to @category.name, shop_category_path(@campaign, @category) %></li>
-                        <% end %>
-                        <li class="active"><%= @product.name %></li>
-                    </ol>
+          <ol class="breadcrumb" style="padding: 20px; 30px 0px; background: white; margin: 0">
+            <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
+            <% if @category %>
+                <% @category.parents.each do |parent| %>
+                    <li><%= link_to parent.name, shop_category_path([parent]) %></li>
+                <% end %>
+                <li><%= link_to @category.name, shop_category_path(@campaign, @category) %></li>
+            <% end %>
+            <li class="active"><%= @product.name %></li>
+          </ol>
 
-                    <div class="product-container">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="image-container">
-                                    <%= cl_image_tag @product.picture, width: 455, height: 455, crop: :limit, class: 'img-responsive' %>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="product-details">
-                                    <h3 style="margin-top: 0px"><%= @product.name %></h3>
-                                    <p>
-                                        <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target)  if @product.description %>
-                                    </p>
-                                    <h3 style="margin-top: 5px; margin-bottom: 15px">
-										<span id="product_price_dash_span" style="color:gray; text-decoration:line-through;"></span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;">￥<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %></span><br/>
-										<span style="color:rgb(210, 16, 16); display:inline-block;">￥<span id="product_price_span" data-price="<%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%=  @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%=  @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span></span>
-									</h3>
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <form class="product-form">
-												<input id="add_discount" type="hidden" name="add_discount" value="<%= @campaign.is_discount? ? 1 : 0 %>" />
-												<% option_group=@option_group %>
-                                                <% if option_group %>
-													<% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
-                                                    <div class="form-group">
-                                                        <label class="control-label">
-                                                            <%= option_group.name.capitalize %>
-                                                            <% if option_group.instructions.present? %>
-                                                            <br/><span style="font-style: italic; font-weight: normal"><%= option_group.instructions %></span>
-                                                            <% end %>
-                                                        </label>
-                                                        <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>" />
-                                                        <% if @option_group_is_dropdown %>
-															<select class="product-option product-dropdown-option form-control <%= 'required' if option_group.required %>" name="item[options][][value]">
-                                                                <option value="" data-price="0">-- Select --</option>
-                                                                <% @option_group_properties.each do |property| %>
-	                                                                <option value="<%= property.id %>" data-price="<%= long_price((@discount*property.total_price*100).ceil/100.0) %>" data-origin-price="<%= long_price((property.total_price*100).ceil/100.0) %>">
-	                                                                    <%= property.value %>
-	                                                                    <%= "( ￥#{long_price((@discount*property.total_price*100).ceil/100.0)} )" if property.total_price >= 0 %>
-	                                                                </option>
-                                                           		<% end %>
-                                                            </select>
-                                                        <% else %>
-                                                            <input class="product-option form-control <%= 'required' if option_group.required %>" name="item[options][][value]" type="text" />
-                                                        <% end %>
-                                                    </div>
-													<% end %>
-												<% end %>
-
-                                                <div class="row">
-                                                    <% if @product.show_quantity && ((@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0)) %>
-                                                    <div class="col-sm-4">
-                                                        <div class="form-group">
-                                                            <select class="form-control quantity-input" name="item[quantity]">
-                                                                <option value="1" selected>1</option>
-                                                                <% (2..30).each do |i| %><option value="<%= i %>"><%= i %></option><% end %>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <% else %>
-                                                        <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
-                                                    <% end %>
-                                                    <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
-                                                    <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
-													<input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
-													<% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
-                                                    	<div class="col-sm-6">
-	                                                        <button type="button" class="btn btn-primary btn-block add-to-cart">
-	                                                            <span class="text">加入订单</span>
-	                                                            <span class="loader" style="display:none"></span>
-	                                                        </button>
-														</div>
-													<% else %>
-														<div class="col-sm-12">
-															<div class="alert alert-warning" style="text-align:center;">
-																<span>缺货</span>
-															</div>
-														</div>
-													<% end %>
-                                                </div>
-                                                <p style="margin-top: 20px; text-align: center">
-                                                    您的每次购买都将帮助<br/><%= @campaign.organization.name %>
-                                                </p>
-                                            </form><!-- /.product-form -->
-                                        </div>
-                                    </div>
-                                </div><!-- /.product-details -->
-                            </div>
-                        </div>
-                    </div> <!--/.product-container -->
-
+          <div class="product-container">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="image-container">
+                  <%= cl_image_tag @product.picture, width: 455, height: 455, crop: :limit, class: 'img-responsive' %>
                 </div>
+              </div>
+              <div class="col-md-5">
+                <div class="product-details">
+                  <h3 style="margin-top: 0px"><%= @product.name %></h3>
+
+                  <p>
+                    <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target) if @product.description %>
+                  </p>
+
+                  <h3 style="margin-top: 5px; margin-bottom: 15px">
+                    <span id="product_price_dash_span" style="color:gray; text-decoration:line-through;"></span><span id="product_origin_price_span" style="color:gray; text-decoration:line-through;">￥<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %></span><br/>
+                    <span style="color:rgb(210, 16, 16); display:inline-block;">￥<span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span></span>
+                  </h3>
+
+                  <div class="row">
+                    <div class="col-md-10">
+
+                      <form class="product-form">
+                        <div class="row">
+                          <div class="col-sm-10">
+                            <input id="add_discount" type="hidden" name="add_discount" value="<%= @campaign.is_discount? ? 1 : 0 %>"/>
+                            <% option_group=@option_group %>
+                            <% if option_group %>
+                                <% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
+                                    <div class="form-group">
+                                      <label class="control-label">
+                                        <%= option_group.name.capitalize %>
+                                        <% if option_group.instructions.present? %>
+                                            <br/><span style="font-style: italic; font-weight: normal"><%= option_group.instructions %></span>
+                                        <% end %>
+                                      </label>
+                                      <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
+                                      <% if @option_group_is_dropdown %>
+                                          <select class="product-option product-dropdown-option form-control <%= 'required' if option_group.required %>" name="item[options][][value]">
+                                            <option value="" data-price="0">-- Select --</option>
+                                            <% @option_group_properties.each do |property| %>
+                                                <option value="<%= property.id %>" data-price="<%= long_price((@discount*property.total_price*100).ceil/100.0) %>" data-origin-price="<%= long_price((property.total_price*100).ceil/100.0) %>">
+                                                  <%= property.value %>
+                                                  <%= "( ￥#{long_price((@discount*property.total_price*100).ceil/100.0)} )" if property.total_price >= 0 %>
+                                                </option>
+                                            <% end %>
+                                          </select>
+                                      <% else %>
+                                          <input class="product-option form-control <%= 'required' if option_group.required %>" name="item[options][][value]" type="text"/>
+                                      <% end %>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <% if @product.show_quantity && ((@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0)) %>
+                              <div class="col-sm-10">
+                                <div class="form-group">
+                                  <select class="form-control quantity-input" name="item[quantity]">
+                                    <option value="1" selected>1</option>
+                                    <% (2..30).each do |i| %>
+                                        <option value="<%= i %>"><%= i %></option>
+                                    <% end %>
+                                  </select>
+                                </div>
+                              </div>
+                          <% else %>
+                              <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
+                          <% end %>
+                          <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
+                          <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+                          <input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
+                          <% if (@option_group_is_dropdown && @option_group_properties.count>0) || (!@option_group_is_dropdown && @qty_avail>0) %>
+                              <div class="col-xs-5 col-md-5">
+                                <button type="button" class="btn btn-orange btn-block add-to-cart">
+                                  <span class="text">加入购物车</span>
+                                  <span class="loader" style="display:none"></span>
+                                </button>
+                              </div>
+                              <div class="col-xs-5 col-md-5">
+                                <button type="button" class="btn btn-primary btn-block add-to-order">
+                                  <span class="text">立即购买</span>
+                                  <span class="loader" style="display:none"></span>
+                                </button>
+                              </div>
+															<input type="hidden" id="is_add_to_cart" name="is_add_to_cart" value="1">
+                          <% else %>
+                              <div class="col-sm-12">
+                                <div class="alert alert-warning" style="text-align:center;">
+                                  <span>缺货</span>
+                                </div>
+                              </div>
+                          <% end %>
+                        </div>
+												
+			                  <div class="row">
+			                    <div class="col-md-10">
+														<p style="margin-top: 20px; text-align: center">
+															您的每次购买都将帮助<br/><%= @campaign.organization.name %>
+                        		</p>
+													</div>
+												</div>
+                      </form>
+                      <!-- /.product-form -->
+                    </div>
+                  </div>
+                </div>
+                <!-- /.product-details -->
+              </div>
             </div>
+          </div>
+          <!--/.product-container -->
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
-    <%= render 'shop/cart_modal', parent_page: :product %>
+  <%= render 'shop/cart_modal', parent_page: :product %>
 </div><!-- /.modal -->

@@ -72,7 +72,7 @@
 							<div class="row">
 			                    <div class="col-md-8 raised-count-box">
 									<div class="raised-count">
-										<label>￥<%= short_price(@campaign.raised) %>
+										<strong>已筹得</strong><label>￥<%= short_price(@campaign.raised) %>
 										</label>
 									</div>
 						
@@ -84,7 +84,7 @@
 				                        </div>
 				                    </div>
 				                    <p class="goal">
-				                        目标： ￥<%= short_price( @campaign.goal.nil? ? 0 : @campaign.goal) %>
+				                        筹款目标： ￥<%= short_price( @campaign.goal.nil? ? 0 : @campaign.goal) %>
 				                    </p>
 									<% end %>
 								</div>
