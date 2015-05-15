@@ -37,7 +37,7 @@ Raisy.shop = {
             });
 
             if(!errors) {
-                $this.prop('disabled', true).find('span.text').text('加入订单').siblings('span.loader').show();
+                $this.prop('disabled', true).find('span.text').siblings('span.loader').show();
                 $.ajax('/ajax/update-cart', {
                     type: 'POST',
                     data: $form.serialize(),
@@ -58,7 +58,7 @@ Raisy.shop = {
 													}
                         }
 												
-                        $this.prop('disabled', false).find('span.text').text('加入订单').siblings('span.loader').hide();
+                        $this.prop('disabled', false).find('span.text').siblings('span.loader').hide();
                     }
                 });
             }
