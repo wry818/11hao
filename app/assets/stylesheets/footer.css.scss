@@ -1,3 +1,27 @@
+#footer_cart {
+	position: fixed;
+	bottom: 12px;
+	right: 12px;
+	width: 100%;
+	z-index: 2000;
+	zoom: 1;
+	text-align:right;
+	
+	span {
+		background:rgb(191, 17, 26);
+		font-size:10px;
+		font-weight:600;
+		line-height:1;
+		color:white;
+		padding:2px 2px;
+		min-width:16px;
+	}
+	
+	img, span {
+		cursor: pointer;
+	}
+}
+
 #footer {
 	
 	position: fixed;

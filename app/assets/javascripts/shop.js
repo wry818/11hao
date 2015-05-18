@@ -2,6 +2,10 @@ Raisy.shop = {
     init: function() {
 
         var _this = this;
+				
+				$("#footer_cart").click(function(){
+					$("#checkout-modal").modal("show");
+				})
 		
 		$('#campaign-show #slides').slides({
 			width: 280,
@@ -305,9 +309,9 @@ Raisy.shop = {
         //Update the cart count on the show page
         var num_items = $('#checkout-modal .items').attr('data-total');
         if(num_items == 1) {
-            $('#cart-count').html(num_items + ' 件商品');
+            $('.cart-count').html(num_items);
         } else {
-            $('#cart-count').html(num_items + ' 件商品');
+            $('.cart-count').html(num_items);
         }
         if(num_items > 0) {
             $('.view-cart').html('View/Checkout');

@@ -1,0 +1,63 @@
+<!-- <div id="footer_cart">
+	<%= image_tag "float-cart.png", height: 40 %>
+</div> -->
+
+<div id="footer">
+	<div class="bottom-box">
+		<div class="row" style="margin-left: 0px; margin-right: 0px">
+	        <div class="col-md-5" style="font-size: 13px; font-family: 黑体;">
+	            &copy; 2015 11号公益圈 沪ICP备14036178号-1
+	        </div>
+		</div>
+	</div>
+</div>
+
+<div id="invite-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="invite-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header modal-header-purple">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Contact Us</h4>
+        </div> <!-- /.modal-header -->
+
+        <form role="form" class="invite-form" data-type="modal-form">
+        <div class="modal-body">
+            <p style="margin-bottom: 20px;">We would love to help you! Just give us some basic info and we'll get in touch within 1 day.</p>
+              <div class="form-group">
+                <label for="nameInput" class="control-label">Name</label>
+                <input type="name" class="form-control" id="nameInput" placeholder="Name" name="invite[name]">
+              </div>
+              <div class="form-group">
+                <label for="emailInput" class="control-label">E-Mail</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="E-Mail" name="invite[email]">
+              </div>
+              <div class="form-group">
+                <label for="orgInput" class="control-label">Organization</label>
+                <input type="organization" class="form-control" id="orgInput" placeholder="School, Organization, Team" name="invite[organization]">
+              </div>
+                <input type="hidden" name="invite[source]" value="collection">
+                <input type="hidden" id="invite_collection_id" name="invite[collection_id]" value="0"/>
+            <p class="error-message" style="display: none">Hmm, there was a problem with your entries, please try again!</p>
+        </div> <!-- end of modal body -->
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+                <span class="text">Submit</span> <span class="loader" style="display:none"></span>
+            </button>
+        </div> <!-- /.modal-footer -->
+        </form>
+
+        <div class="success-message" style="display: none">
+            <div class="modal-body">
+                Thanks, we'll get back to you within 1 day!
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true"><span>Close</span></button>
+            </div>
+        </div>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
