@@ -6,6 +6,12 @@ Raisy.shop = {
 				$("#footer_cart").click(function(){
 					$("#checkout-modal").modal("show");
 				})
+				
+				$('#checkout-modal').on('show.bs.modal', function (e) {
+					$("#footer_cart").hide();
+				}).on('hide.bs.modal', function (e) {
+					$("#footer_cart").show();
+				})
 		
 		$('#campaign-show #slides').slides({
 			width: 280,

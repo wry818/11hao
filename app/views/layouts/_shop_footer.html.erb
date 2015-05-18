@@ -1,6 +1,14 @@
-<!-- <div id="footer_cart">
-	<%= image_tag "float-cart.png", height: 40 %>
-</div> -->
+<div id="footer_cart">
+	<div class="container" style="padding:0px;">
+		<div class="row">
+			<div class="col-xs-12" style="text-align:right;">
+				<%= image_tag "float-cart.png", height: 40 %>
+				<div style="position:absolute; top:-10px; right:0px; width:50px; text-align:left;">
+					<span class="badge cart-count"><%= @order.num_items %></span></div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div id="footer">
 	<div class="bottom-box">
