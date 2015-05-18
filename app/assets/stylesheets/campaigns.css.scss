@@ -242,7 +242,7 @@
 
     .top-section {
         .left-column {
-            padding: 30px;
+            padding: 30px 30px 30px 60px;
             @media (max-width: 992px) {
                 padding: 30px;
             }
@@ -297,8 +297,8 @@
 
         .right-column {
             @media (min-width: 992px) {
-                border-left: 1px solid gainsboro;
-//                margin-left: -60px;
+//                border-right: 1px solid gainsboro;
+//                margin-right: -60px;
             }
             @media (max-width: 992px) {
                 min-height: 1px!important;
