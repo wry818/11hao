@@ -152,10 +152,10 @@ class WeixinController < ApplicationController
     
     @timestamp = Time.now.getutc.to_i.to_s
     @nonceStr = SecureRandom.uuid.tr('-', '')
-    absolute_url = request.original_url
+    @absolute_url = request.original_url
     
     require 'digest/sha1'
-    @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,absolute_url].sort.join)
+    @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join)
     
   end
   

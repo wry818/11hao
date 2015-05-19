@@ -16,6 +16,9 @@
 <div>
 	<%= @addrSign %>
 </div>
+<div>
+	<%= @absolute_url %>
+</div>
 
 <script type="text/javascript">
 
@@ -35,13 +38,14 @@
                         "timeStamp": "<%= @timeStamp %>",
                         "nonceStr": "<%= @nonceStr %>"
                     }, function (res) {
-
-                        if (res && res.userName) {
-                            SaveAddress(res);
-                        }
-                        else {
-                            window.history.go(-1);
-                        }
+						
+						alert(res);
+						
+						for (var key in res)
+							
+							alert('res.' + key + ' = ' + res[key].toString());
+						}
+												
 
                     });
                 }, 500);
