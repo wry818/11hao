@@ -195,6 +195,19 @@
 					  收货地址
                   </h3>
 
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="payment-submit">
+						  <%= link_to '获取微信地址', "javascript:void(0)", :id => 'lnkAddShippingAddress', :class => 'btn btn-primary btn-lg btn-block'  %>
+                      </div>
+                      <p style="margin-top: 10px;">
+                        收货地址：
+						<br />
+                        <p id="lblDefaultShippingAddress"></p>
+                      </p>
+                    </div>
+                  </div>
+				  
                   <h3 class="payment-header">
                     支付方式
                     <span class="glyphicon glyphicon-lock show_tooltip" data-placement="top" data-title="微信安全支付"></span>
@@ -241,6 +254,36 @@
 <% end %>
 
 <script Language="javascript">
+	
+$(document).ready(function() {
+
+	$("#lnkAddShippingAddress").click(function (event) {
+		
+		var redirect_uri = encodeURIComponent("http://www.11haoonline.com/weixin_custom/address");
+		
+		window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2251da36f59ced4&redirect_uri="
+	                        + redirect_uri
+	                        + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+	});
+	
+	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+
+	            if (currentShippingAddress != null) {
+
+	                $("#ulDefaultShippingAddress").show();
+
+	                var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
+
+	                $("#lblDefaultShippingAddress").text(address);
+
+	            } else {
+
+	                $("#ulDefaultShippingAddress").hide();
+
+	            }
+									
+});
+	
 	
 	if (document.addEventListener) {
 		document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);

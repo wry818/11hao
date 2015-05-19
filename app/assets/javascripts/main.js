@@ -993,7 +993,7 @@ window.Raisy = {
 
 			            var address = "";
 
-			            address = province + " " + city + " " + cityArea + " " + addressLine + " (" + receiveName + " ’  ÷ª˙£∫" + cellPhone + ") ";
+			            address = province + " " + city + " " + cityArea + " " + addressLine + " (" + receiveName + "收 手机：" + cellPhone + ") ";
 
 			            return address;
 			        }
