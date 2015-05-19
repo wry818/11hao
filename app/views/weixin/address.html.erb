@@ -25,7 +25,7 @@
 						
 						else {
 							
-							alert("系统忙，请稍候再试。");
+							alert("系统忙，请稍候再试。" + res.err_msg);
 							window.location.href = "/checkout/" + "<%= @campaign_id %>";
 						
 						}
