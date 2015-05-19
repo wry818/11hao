@@ -1,3 +1,7 @@
+var sessionStorageManager = {
+    CurrentShippingAddress: "CurrentShippingAddress"
+};
+
 window.Raisy = {
     init: function() {
 		
