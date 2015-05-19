@@ -966,7 +966,33 @@ window.Raisy = {
 		bootbox.confirm(msg, function(result) {
 			if ($.isFunction(callback)) callback(result);
 		});
-	}
+	},
+	SetCurrentShippingAddress: function (receiveName, addressLine, provinceName, cityName, cityAreaName, phoneNumber) {
+
+	            var currentShippingAddress = new Object();
+	            currentShippingAddress.ReceiveName = receiveName;
+	            currentShippingAddress.AddressLine = addressLine;
+	            currentShippingAddress.ProvinceName = provinceName;
+	            currentShippingAddress.CityName = cityName;
+	            currentShippingAddress.CityAreaName = cityAreaName;
+	            currentShippingAddress.PhoneNumber = phoneNumber;
+
+	            sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress, JSON.stringify(currentShippingAddress));
+
+	        },
+			GetCurrentShippingAddress: function () {
+
+			            var currentShippingAddress = JSON.parse(sessionStorage.getItem(sessionStorageManager.CurrentShippingAddress));
+			            return currentShippingAddress;
+			},
+			formatAddress: function (province, city, cityArea, addressLine, receiveName, cellPhone) {
+
+			            var address = "";
+
+			            address = province + " " + city + " " + cityArea + " " + addressLine + " (" + receiveName + " ’  ÷ª˙£∫" + cellPhone + ") ";
+
+			            return address;
+			        }
 }
 
 $(document).ready(function() {

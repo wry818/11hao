@@ -12,6 +12,10 @@
 <br />
 <br />
 <%= link_to '获取微信地址', "javascript:void(0)", :id => 'lnkAddShippingAddress'  %>
+<br />
+<br />
+<br />
+<p id="lblDefaultShippingAddress"></p>
 
 <script Language="javascript">
 	
@@ -25,7 +29,23 @@ $(document).ready(function() {
 	                        + redirect_uri
 	                        + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 	});
-						
+	
+	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+
+	            if (currentShippingAddress != null) {
+
+	                $("#ulDefaultShippingAddress").show();
+
+	                var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
+
+	                $("#lblDefaultShippingAddress").text(address);
+
+	            } else {
+
+	                $("#ulDefaultShippingAddress").hide();
+
+	            }
+									
 });
 			
 	// alert('<%= @result %>');
@@ -60,5 +80,5 @@ function onBridgeReady(){
 	});	
    
 }
-
+						
 </script>

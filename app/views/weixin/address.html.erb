@@ -1,33 +1,11 @@
-
-<div>
-	<%= @aa %>
-</div>
-<br />
-<br />
-<br />
-<div>
-	<%= @addrSign %>
-</div>
-
 <script type="text/javascript">
 
-		var signparasobj = {
-            "accesstoken": "",
-            "appid": "<%= @app_id %>",
-            "noncestr": "",
-            "timestamp": "",
-            "url": ""
-        };
-		
         $(document).ready(function () {
 
             var addrSign = "<%= @addrSign %>";
-			alert(1);
+
             if (addrSign != "") {
-				alert(2);
 				
-				
-						
                 window.setTimeout(function () {
 
                     WeixinJSBridge.invoke('editAddress', {
@@ -37,14 +15,19 @@
                         "addrSign": "<%= @addrSign %>",
                         "timeStamp": "<%= @timestamp %>",
                         "nonceStr": "<%= @nonceStr %>"
+						
                     }, function (res) {
 						
-						alert(res.err_msg);
+						if (res && res.userName) {
+							SaveAddress(res);
 						
-						// for (var key in res)
-//
-// 							alert('res.' + key + ' = ' + res[key].toString());
-// 						}
+						}
+						
+						else {
+							
+							window.history.go(-1);
+						
+						}
 												
 
                     });
@@ -53,55 +36,21 @@
             }
 
         });
-
-
-		// function perapara(objvalues, isencode) {
-// 		            var parastring = "";
-// 		            for (var key in objvalues) {
-// 		                isencode = isencode || false;
-// 		                if (isencode) {
-// 		                    parastring += (key + "=" + encodeURIComponent(objvalues[key]) + "&");
-// 		                }
-// 		                else {
-// 		                    parastring += (key + "=" + objvalues[key] + "&");
-// 		                }
-// 		            }
-// 		            parastring = parastring.substr(0, parastring.length - 1);
-// 		            return parastring;
-// 		}
-//
-// 		function getSign(beforesingstring) {
-// 		   sign = CryptoJS.SHA1(beforesingstring).toString();
-// 		   return sign;
-// 		}
 				
 		function SaveAddress(res) {
+			
 			alert(res);
-		            // //var paras = {
-// 		            //    request: {
-// 		            //        ReceiveName: res.userName,
-// 		            //        AddressLine: res.addressDetailInfo,
-// 		            //        ProvinceName: res.proviceFirstStageName,
-// 		            //        CityName: res.addressCitySecondStageName,
-// 		            //        CityAreaName: res.addressCountiesThirdStageName,
-// 		            //        //ZIP: $("#txtZipCode").val(),
-// 		            //        PhoneNumber: res.telNumber,
-// 		            //        CustomerID: parseInt(sessionStorage.getItem(sessionStorageManager.CustomerID)),
-// 		            //        IsDefaultAddress: "true"
-// 		            //    }
-// 		            //};
-//
-// 		            //$.getAjaxData("SaveAddress", paras, Success);
-//
-// 		            $.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
+			
+			window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
 
-		            window.history.go(-1);
-		        }
-
-		        function Success(data, status) {
-
-		            window.history.go(-1);
-
-		        }
+			window.history.go(-1);
+		
+		}
+				
+		function Success(data, status) {
+			
+			window.history.go(-1);
+		
+		}
 				
 </script>
