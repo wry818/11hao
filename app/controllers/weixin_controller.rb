@@ -149,7 +149,7 @@ class WeixinController < ApplicationController
       
     end
     
-    render text: response.body
+    render text: "response code: " + response.code.to_s + "response body: " + response.body.to_s
     
     # @timestamp = Time.now.getutc.to_i.to_s
 #     @nonceStr = SecureRandom.uuid.tr('-', '')
