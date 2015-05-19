@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
         $(document).ready(function () {
-			alert(1);
+			// alert(1);
             var addrSign = "<%= @addrSign %>";
 
             if (addrSign != "") {
@@ -25,7 +25,8 @@
 						
 						else {
 							
-							// window.history.go(-1);
+							alert("系统忙，请稍候再试。");
+							window.location.href = "/checkout/" + "<%= @campaign_id %>";
 						
 						}
 												
