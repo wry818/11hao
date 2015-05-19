@@ -242,7 +242,7 @@
 
     .top-section {
         .left-column {
-            padding: 30px 30px 30px 60px;
+            padding: 30px 30px 30px 30px;
             @media (max-width: 992px) {
                 padding: 30px;
             }
@@ -253,7 +253,7 @@
                 }
             }
             .main-content {
-                margin-top: 30px;
+                margin-top: 15px;
                 p {
                     font-size: 16px;
                     line-height: 1.5;
@@ -304,7 +304,7 @@
                 min-height: 1px!important;
             }
             .call-to-action {
-                padding: 30px;
+                padding: 30px 30px 5px 30px;
                 text-align: center;
                 border-bottom: 1px solid gainsboro;
                 .stats {
@@ -365,7 +365,7 @@
                 }
             }
             .organizer {
-                padding: 30px;
+                padding: 15px 30px;
                 border-bottom: 0px solid gainsboro;
                 h3 {
                     margin: 0px 0px 20px;
