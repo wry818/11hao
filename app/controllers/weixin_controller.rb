@@ -155,14 +155,14 @@ class WeixinController < ApplicationController
     @nonceStr = SecureRandom.uuid.tr('-', '')
     @absolute_url = request.original_url
 
-render text: "@timestamp: " + @timestamp + "@nonceStr: " + @nonceStr.to_s  + "@@token: " + @absolute_url.to_s 
+# render text: "@timestamp: " + @timestamp + "@nonceStr: " + @nonceStr.to_s  + "@@token: " + @absolute_url.to_s
 
-    # sign = "accesstoken=" + @token + "&appid=" + @app_id + "&noncestr=" + @nonceStr + "&timestamp=" + @timestamp + "&url=" + @absolute_url;
-#     @aa =  sign
-#
-#     require 'digest/sha1'
-#     # @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join)
-#     @addrSign = Digest::SHA1.hexdigest(sign)
+    sign = "accesstoken=" + @token.to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
+    @aa =  sign
+
+    require 'digest/sha1'
+    # @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join)
+    @addrSign = Digest::SHA1.hexdigest(sign)
     
   end
   
