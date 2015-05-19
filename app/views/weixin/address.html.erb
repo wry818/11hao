@@ -23,6 +23,60 @@
 
             var addrSign = "<%= @addrSign %>";
 
+            if (addrSign != "") {
+
+                window.setTimeout(function () {
+
+                    WeixinJSBridge.invoke('editAddress', {
+                        "appId": "<%= @appId %>",
+                        "scope": "jsapi_address",
+                        "signType": "sha1",
+                        "addrSign": "<%= @addrSign %>",
+                        "timeStamp": "<%= @timeStamp %>",
+                        "nonceStr": "<%= @nonceStr %>"
+                    }, function (res) {
+
+                        if (res && res.userName) {
+                            SaveAddress(res);
+                        }
+                        else {
+                            window.history.go(-1);
+                        }
+
+                    });
+                }, 500);
+
+            }
+
         });
 
+		function SaveAddress(res) {
+			alert(res);
+		            // //var paras = {
+// 		            //    request: {
+// 		            //        ReceiveName: res.userName,
+// 		            //        AddressLine: res.addressDetailInfo,
+// 		            //        ProvinceName: res.proviceFirstStageName,
+// 		            //        CityName: res.addressCitySecondStageName,
+// 		            //        CityAreaName: res.addressCountiesThirdStageName,
+// 		            //        //ZIP: $("#txtZipCode").val(),
+// 		            //        PhoneNumber: res.telNumber,
+// 		            //        CustomerID: parseInt(sessionStorage.getItem(sessionStorageManager.CustomerID)),
+// 		            //        IsDefaultAddress: "true"
+// 		            //    }
+// 		            //};
+//
+// 		            //$.getAjaxData("SaveAddress", paras, Success);
+//
+// 		            $.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
+
+		            window.history.go(-1);
+		        }
+
+		        function Success(data, status) {
+
+		            window.history.go(-1);
+
+		        }
+				
 </script>
