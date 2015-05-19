@@ -479,7 +479,7 @@ class ShopController < ApplicationController
 
         session[:confirmation_order_id] = nil
         
-        weixin_payment_init()
+        weixin_payment_init(@order.grandtotal)
         
     end
     
@@ -523,7 +523,7 @@ class ShopController < ApplicationController
       
     end
     
-    def weixin_payment_init
+    def weixin_payment_init(total_fee)
         
       r = Random.new
       num = r.rand(1000...9999)
@@ -534,7 +534,8 @@ class ShopController < ApplicationController
         params = {
           body: '11号公益圈订单',
           out_trade_no: out_trade_no,
-          total_fee: 1,
+          # total_fee: 1,
+          total_fee: total_fee,
           spbill_create_ip: '127.0.0.1',
           notify_url: root_url + 'weixin_custom/notify',
           trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
