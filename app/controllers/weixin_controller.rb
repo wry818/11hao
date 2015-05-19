@@ -118,6 +118,8 @@ class WeixinController < ApplicationController
     @packageValue = ""
     @paySign = ""
     @addrSign = ""
+    @app_id = ENV["WEIXIN_APPID"]
+    @token = ""
     
     code = params[:code]
     state = params[:state]
@@ -130,35 +132,30 @@ class WeixinController < ApplicationController
     @response_code = 0
     @message = ""
 
-    begin
+    uri = URI("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + ENV["WEIXIN_APPID"] + "&secret=" + ENV["WEIXIN_APP_SECRET"] + "&code=" + code + "&grant_type=authorization_code")
 
-      uri = URI("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + ENV["WEIXIN_APPID"] + "&secret=" + ENV["WEIXIN_APP_SECRET"] + "&code=" + code + "&grant_type=authorization_code")
+    Net::HTTP.start(uri.host, uri.port,
+      :use_ssl => uri.scheme == 'https') do |http|
+      request = Net::HTTP::Get.new uri
 
-      Net::HTTP.start(uri.host, uri.port,
-        :use_ssl => uri.scheme == 'https') do |http|
-        request = Net::HTTP::Get.new uri
-        # request.basic_auth(Rails.configuration.shopify_apikey,Rails.configuration.shopify_password)
-
-        response = http.request(request)
-        response_code = Integer(response.code)
-        
-        @response_code = response.code
-        @message = response.body
-        
-        # if (response.code == "200")
-#             @json = JSON.parse(response.body)
-#             message = @json["order"]
-#         else
-#             puts "Shopify order api return failure response order_id: " + order_id + " response_code: " + response.code + " message: " + response.body
-#         end
-
-      end
-
-    rescue => exception
+      response = http.request(request)
+      response_code = Integer(response.code)
       
-      @message = exception.message 
+      @response_code = response.code
+      @message = response.body
+      
+      @json = JSON.parse(response.body)
+      
+      @token = @json["access_token"]
       
     end
+    
+    @timestamp = Time.now.getutc.to_i.to_s
+    @nonceStr = SecureRandom.uuid.tr('-', '')
+    absolute_url = request.original_url
+    
+    require 'digest/sha1'
+    @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,absolute_url].sort.join)
     
   end
   

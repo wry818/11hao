@@ -10,12 +10,43 @@
 <div>
 	<%= @message %>
 </div>
+<div>
+	<%= @token %>
+</div>
+<div>
+	<%= @addrSign %>
+</div>
 
 <script type="text/javascript">
 
         $(document).ready(function () {
 
             var addrSign = "<%= @addrSign %>";
+
+            // if (addrSign != "") {
+//
+//                 window.setTimeout(function () {
+//
+//                     WeixinJSBridge.invoke('editAddress', {
+//                         "appId": "<%= appId %>",
+//                         "scope": "jsapi_address",
+//                         "signType": "sha1",
+//                         "addrSign": "<%= addrSign %>",
+//                         "timeStamp": "<%= timeStamp %>",
+//                         "nonceStr": "<%= nonceStr %>"
+//                     }, function (res) {
+//
+//                         if (res && res.userName) {
+//                             SaveAddress(res);
+//                         }
+//                         else {
+//                             window.history.go(-1);
+//                         }
+//
+//                     });
+//                 }, 500);
+//
+//             }
 
         });
 
