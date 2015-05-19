@@ -1,10 +1,4 @@
 <div>
-	<%= @code %>
-</div>
-<div>
-	<%= @state %>
-</div>
-<div>
 	<%= @response_code %>
 </div>
 <div>
@@ -27,7 +21,7 @@
             var addrSign = "<%= @addrSign %>";
 
             if (addrSign != "") {
-
+				alert(1);
                 window.setTimeout(function () {
 
                     WeixinJSBridge.invoke('editAddress', {
