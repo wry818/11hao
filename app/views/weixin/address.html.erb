@@ -39,8 +39,6 @@
 				
 		function SaveAddress(res) {
 			
-			alert(res);
-			
 			window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
 
 			window.history.go(-1);
