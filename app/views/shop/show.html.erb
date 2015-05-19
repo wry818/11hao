@@ -10,7 +10,7 @@
 
       <div class="row">
         <% if @campaign.campaign_photos.length>0 %>
-            <div class="col-md-7 image-wrapper" style="padding:15px 30px;">
+            <div class="col-md-7 image-wrapper" style="padding:30px 30px 15px 30px;">
               <div class="image-section" style="width:282px; margin:0px auto;">
                 <% if @campaign.campaign_photos.length>1 %>
                     <div id="slides" class="slides" style="margin-top:3px;">
@@ -51,9 +51,9 @@
             </div>
         <% end %>
         <% if @campaign.campaign_photos.length==0 %>
-            <div class="col-md-12" style="word-wrap:break-word;overflow:hidden;text-align:center;">
+            <div class="col-md-12" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 30px 15px 30px;">
         <% else %>
-            <div class="col-md-5 description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:15px 30px;text-align:center;">
+            <div class="col-md-5 description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:15px 30px 15px 30px;">
         <% end %>
         <% if @campaign.description %>
             <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
