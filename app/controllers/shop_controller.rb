@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code]
+    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order]
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
@@ -468,10 +468,10 @@ class ShopController < ApplicationController
         elsif session[:order_id]
             @order = Order.find_by_id(session[:order_id])
             unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
-                redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return
+                redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
             end
         else
-            redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return
+            redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
         end
 
         #This is the first place the fees are calculated
@@ -481,6 +481,46 @@ class ShopController < ApplicationController
         
         weixin_payment_init()
         
+    end
+    
+    def ajax_update_order     
+      
+      order_make_anonymous = params[:order_make_anonymous]
+      fullName = params[:fullName]
+      provinceName = params[:provinceName]
+      cityName = params[:cityName]
+      cityAreaName = params[:cityAreaName]
+      addressLine = params[:addressLine]
+      receiveName = params[:receiveName]
+      phoneNumber = params[:phoneNumber]
+      zipCode = params[:zipCode]
+      
+      order = Order.find_by_id(params[:order_id])
+      
+      order.address_line_one = addressLine
+      order.address_city = cityName
+      order.address_state = provinceName
+      order.address_postal_code = zipCode
+      order.fullname = fullName
+      order.phone_number = phoneNumber
+      order.address_city_area = cityAreaName
+      order.make_anonymous = order_make_anonymous
+      
+      order.status = 3
+      order.save
+      
+      if session[:openid]
+       
+        $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
+        
+      end
+      
+      session[:confirm_order_id] = order.id
+      session[:order_id] = nil
+      
+      render text: "success"
+      
     end
     
     def weixin_payment_init
@@ -536,10 +576,10 @@ class ShopController < ApplicationController
         @order = Order.find_by_id(session[:confirm_order_id])
         
         unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
-          redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
         end
       else
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
       end
       
       render "checkout_confirmation" and return
@@ -550,7 +590,7 @@ class ShopController < ApplicationController
         @order = Order.find_by_id(params[:order_id])
 
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
-          redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
         end
 
         @order.assign_attributes(order_params)

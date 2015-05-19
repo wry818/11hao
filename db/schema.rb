@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513030152) do
+ActiveRecord::Schema.define(version: 20150519102602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(version: 20150513030152) do
     t.integer  "direct_donation",             default: 0,     null: false
     t.string   "phone_number"
     t.boolean  "is_offline",                  default: false
+    t.string   "address_city_area"
   end
 
   create_table "organization_roles", force: true do |t|

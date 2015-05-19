@@ -40,7 +40,7 @@
 				
 		function SaveAddress(res) {
 			
-			window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
+			window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber, res.addressPostalCode);
 			
 			window.location.href = "/checkout/" + "<%= @campaign_id %>";
 		

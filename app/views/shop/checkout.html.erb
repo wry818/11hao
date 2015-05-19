@@ -75,7 +75,7 @@
                     <div class="form-group" style="margin-top: 15px;">
                       <div class="checkbox">
                         <label for="order_make_anonymous">
-                          <input type="checkbox" value="true" name="order[make_anonymous]" id="order_make_anonymous">
+                          <input type="checkbox" name="order[make_anonymous]" id="order_make_anonymous">
                           匿名
                         </label>
                       </div>
@@ -266,21 +266,31 @@ $(document).ready(function() {
 	                        + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 	});
 	
+	// $('#wechat').click(function(){
+//
+// 		$('#wechat').prop('disabled', true)
+//
+// 		window.Raisy.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
+//
+// 		ComfirmOrder();
+//
+// 	});
+	
 	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
-
-	            if (currentShippingAddress != null) {
-
-	                $("#ulDefaultShippingAddress").show();
-
-	                var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
-
-	                $("#lblDefaultShippingAddress").text(address);
-
-	            } else {
-
-	                $("#ulDefaultShippingAddress").hide();
-
-	            }
+	
+	if (currentShippingAddress != null) {
+		
+		$("#ulDefaultShippingAddress").show();
+		
+		var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
+		
+		$("#lblDefaultShippingAddress").text(address);
+	
+	} else {
+		
+		$("#ulDefaultShippingAddress").hide();
+	
+	}
 									
 });
 	
@@ -293,13 +303,14 @@ $(document).ready(function() {
 	}
 			
 function onBridgeReady(){
-	
-	// alert("<%= @js_pay_sign %>");
+
 	$('#wechat').click(function(){
-		// alert(1);
+
 		if ("<%= @weixin_init_success %>" == "true") {
 			
 			if (!Validate()) return;
+			
+			$('#wechat').prop('disabled', true)
 			
 		    WeixinJSBridge.invoke('getBrandWCPayRequest', {
 				"appId" : "<%= @app_id %>",     //公众号名称，由商户传入
@@ -309,12 +320,14 @@ function onBridgeReady(){
 				"signType" : "MD5",         //微信签名方式:
 				"paySign" : "<%= @js_pay_sign %>" //微信签名
 			}, function(res){    
-				if(res.err_msg == "get_brand_wcpay_request:ok" ) {     				//使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-					alert("success");
-					//add update order and go to confirmation page logic here
+				if(res.err_msg == "get_brand_wcpay_request:ok" ) {   
+					
+					ComfirmOrder();
+					
 		        } else {
-					// alert("<%= @app_id %>");
-		        	alert(res.err_msg);
+					
+					$('#wechat').prop('disabled', false)
+					
 		        }
 		    }); 
 			
@@ -324,24 +337,72 @@ function onBridgeReady(){
    
 }
 
-function Validate() {
-
-            var error = "";
-
-            var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
-
-            if (currentShippingAddress == null) {
-                error += "\n";
-                error += "请从微信选择收货地址。";
-            }
-
-            if (error) {
-                alert(error);
-                return false;
-            } else {
-                return true;
-            }
-
+function ComfirmOrder() {
+	
+	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+	
+	var order_make_anonymous = $("#order_make_anonymous").prop("checked");
+	var fullName = "";
+	
+	if (order_make_anonymous) {
+		fullName = "匿名";
+	} else {
+		fullName = $("#fullname").val();
+	}
+	
+	if (!Validate()) return;
+	
+    $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: {
+			order_id: <%= @order.id %>,
+			order_make_anonymous: order_make_anonymous,
+			fullName: fullName,
+			provinceName: currentShippingAddress.ProvinceName,
+			cityName: currentShippingAddress.CityName,
+			cityAreaName: currentShippingAddress.CityAreaName,
+			addressLine: currentShippingAddress.AddressLine,
+			receiveName: currentShippingAddress.ReceiveName,
+			phoneNumber: currentShippingAddress.PhoneNumber,
+			zipCode: currentShippingAddress.ZipCode
+		},
+        beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
         }
+    });
+	
+}
+
+function Validate() {
+	
+	var error = "";
+	
+	var order_make_anonymous = $("#order_make_anonymous").prop("checked");
+	
+	if (!order_make_anonymous && $("#fullname").val().length == 0) {
+		error += "\n";
+		error += "请输入昵称或者选择匿名。";
+	}
+	
+	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+	
+	if (currentShippingAddress == null) {
+		error += "\n";
+		error += "请从微信选择收货地址。";
+	}
+	
+	if (error) {
+		alert(error);
+		return false;
+	} else {
+		return true;
+	}
+}
 		
 </script>
