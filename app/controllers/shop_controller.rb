@@ -460,7 +460,9 @@ class ShopController < ApplicationController
     end
 
     def checkout
-      
+        
+        session[:campaign_id] = @campaign.slug
+        
         if params[:direct_donation]
             @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
         elsif session[:order_id]

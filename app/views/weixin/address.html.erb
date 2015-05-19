@@ -40,14 +40,8 @@
 		function SaveAddress(res) {
 			
 			window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber);
-
-			window.history.go(-1);
-		
-		}
-				
-		function Success(data, status) {
 			
-			window.history.go(-1);
+			window.location.href = "/checkout/" + "<%= @campaign_id %>";
 		
 		}
 				

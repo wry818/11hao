@@ -113,6 +113,7 @@ class WeixinController < ApplicationController
   
   def address
     
+    @campaign_id = session[:campaign_id]
     @timestamp = ""
     @nonceStr = ""
     @addrSign = ""
