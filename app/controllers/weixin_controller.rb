@@ -149,13 +149,15 @@ class WeixinController < ApplicationController
       
     end
     
-    render text: "response code: " + response.code.to_s + "response body: " + response.to_s  + "response bodyaaaaa: " + @json.to_s 
     
-    # @timestamp = Time.now.getutc.to_i.to_s
-#     @nonceStr = SecureRandom.uuid.tr('-', '')
-#     @absolute_url = request.original_url
-#
-#     sign = "accesstoken=" + @token + "&appid=" + @app_id + "&noncestr=" + @nonceStr + "&timestamp=" + @timestamp + "&url=" + @absolute_url;
+    
+    @timestamp = Time.now.getutc.to_i.to_s
+    @nonceStr = SecureRandom.uuid.tr('-', '')
+    @absolute_url = request.original_url
+
+render text: "@timestamp: " + @timestamp + "@nonceStr: " + @nonceStr.to_s  + "@@token: " + @token.to_s 
+
+    # sign = "accesstoken=" + @token + "&appid=" + @app_id + "&noncestr=" + @nonceStr + "&timestamp=" + @timestamp + "&url=" + @absolute_url;
 #     @aa =  sign
 #
 #     require 'digest/sha1'
