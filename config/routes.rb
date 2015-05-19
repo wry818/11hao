@@ -203,6 +203,7 @@ Raisy::Application.routes.draw do
         get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
         post 'notify' => 'weixin#notify'
+        post 'notify_alert' => 'weixin#notify_alert'
         get 'address' => 'weixin#address'
     end
     

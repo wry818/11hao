@@ -17,11 +17,16 @@ class WeixinController < ApplicationController
           name: "测试页面支付",
           url: $client.authorize_url(root_url + "weixin_custom/test")
         },
-        {
-          type: "view",
-          name: "实际页面支付",
-          url: $client.authorize_url(root_url)
-        }
+        # {
+#           type: "view",
+#           name: "实际页面支付",
+#           url: $client.authorize_url(root_url)
+#         }
+{
+  type: "view",
+  name: "支付通知",
+  url: root_url + 'weixin_custom/notify'
+}
       ]
     }.to_json
     
@@ -54,6 +59,7 @@ class WeixinController < ApplicationController
     out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
     
     @result = "not wexin browser"
+    puts root_url + 'weixin_custom/notify'
     
     if session[:openid]
 
@@ -98,6 +104,23 @@ class WeixinController < ApplicationController
   end
 
   def notify
+    result = Hash.from_xml(request.body.read)["xml"]
+
+    if WxPay::Sign.verify?(result)
+
+      # find your order and process the post-paid logic.
+
+      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+    else
+      render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+    end
+    
+    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
+    
+  end
+  
+  def notify_alert
     result = Hash.from_xml(request.body.read)["xml"]
 
     if WxPay::Sign.verify?(result)
