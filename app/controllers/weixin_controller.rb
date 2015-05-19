@@ -155,7 +155,7 @@ class WeixinController < ApplicationController
     @absolute_url = request.original_url
     
     sign = "accesstoken=" + @token + "&appid=" + @app_id + "&noncestr=" + @nonceStr + "&timestamp=" + @timestamp + "&url=" + @absolute_url;
-    @aa =  [@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join
+    @aa =  sign
                            
     require 'digest/sha1'
     # @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join)
