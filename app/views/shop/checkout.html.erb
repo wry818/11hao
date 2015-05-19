@@ -328,7 +328,7 @@ function Validate() {
 
             var error = "";
 
-            var currentShippingAddress = $.GetCurrentShippingAddress();
+            var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 
             if (currentShippingAddress == null) {
                 error += "\n";
