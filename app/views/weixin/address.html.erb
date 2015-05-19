@@ -11,20 +11,31 @@
 
 <script type="text/javascript">
 
+		var signparasobj = {
+            "accesstoken": "",
+            "appid": "<%= @app_id %>",
+            "noncestr": "",
+            "timestamp": "",
+            "url": ""
+        };
+		
         $(document).ready(function () {
 
             var addrSign = "<%= @addrSign %>";
 			alert(1);
             if (addrSign != "") {
 				alert(2);
+				
+				
+						
                 window.setTimeout(function () {
 
                     WeixinJSBridge.invoke('editAddress', {
-                        "appId": "<%= @appId %>",
+                        "appId": "<%= @app_id %>",
                         "scope": "jsapi_address",
                         "signType": "sha1",
                         "addrSign": "<%= @addrSign %>",
-                        "timeStamp": "<%= @timeStamp %>",
+                        "timeStamp": "<%= @timestamp %>",
                         "nonceStr": "<%= @nonceStr %>"
                     }, function (res) {
 						
@@ -43,6 +54,27 @@
 
         });
 
+
+		// function perapara(objvalues, isencode) {
+// 		            var parastring = "";
+// 		            for (var key in objvalues) {
+// 		                isencode = isencode || false;
+// 		                if (isencode) {
+// 		                    parastring += (key + "=" + encodeURIComponent(objvalues[key]) + "&");
+// 		                }
+// 		                else {
+// 		                    parastring += (key + "=" + objvalues[key] + "&");
+// 		                }
+// 		            }
+// 		            parastring = parastring.substr(0, parastring.length - 1);
+// 		            return parastring;
+// 		}
+//
+// 		function getSign(beforesingstring) {
+// 		   sign = CryptoJS.SHA1(beforesingstring).toString();
+// 		   return sign;
+// 		}
+				
 		function SaveAddress(res) {
 			alert(res);
 		            // //var paras = {

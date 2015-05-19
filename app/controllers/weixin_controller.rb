@@ -115,8 +115,6 @@ class WeixinController < ApplicationController
     
     @timestamp = ""
     @nonceStr = ""
-    @packageValue = ""
-    @paySign = ""
     @addrSign = ""
     @app_id = ENV["WEIXIN_APPID"]
     @token = ""
