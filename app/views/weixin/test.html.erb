@@ -5,9 +5,30 @@
 <br />
 <br />
 <%= link_to '微信支付', "javascript:void(0)", :id => 'wechat'  %>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<%= link_to '获取微信地址', "javascript:void(0)", :id => 'lnkAddShippingAddress'  %>
+
 <script Language="javascript">
 	
-	alert('<%= @result %>');
+$(document).ready(function() {
+	
+	$("#lnkAddShippingAddress").click(function (event) {
+		
+		var redirect_uri = encodeURIComponent("http://www.11haoonline.com/weixin_custom/address");
+		
+		window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2251da36f59ced4&redirect_uri="
+	                        + redirect_uri
+	                        + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+	});
+						
+});
+			
+	// alert('<%= @result %>');
 	
 	if (document.addEventListener) {
 		document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);

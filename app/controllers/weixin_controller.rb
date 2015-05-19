@@ -11,17 +11,17 @@ class WeixinController < ApplicationController
           type: "view",
           name: "11号计划",
           url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+        },
+        {
+          type: "view",
+          name: "测试页面支付",
+          url: $client.authorize_url(root_url + "weixin_custom/test")
+        },
+        {
+          type: "view",
+          name: "实际页面支付",
+          url: $client.authorize_url(root_url)
         }
-        # {
-#           type: "view",
-#           name: "测试页面支付",
-#           url: $client.authorize_url(root_url + "weixin_custom/test")
-#         },
-#         {
-#           type: "view",
-#           name: "实际页面支付",
-#           url: $client.authorize_url(root_url)
-#         }
       ]
     }.to_json
     
@@ -40,7 +40,6 @@ class WeixinController < ApplicationController
     render text: response.result
     
   end
-  
   
   def authorize
     
@@ -110,6 +109,57 @@ class WeixinController < ApplicationController
       render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
     end
 
+  end
+  
+  def get_address
+    
+    @timestamp = ""
+    @nonceStr = ""
+    @packageValue = ""
+    @paySign = ""
+    @addrSign = ""
+    
+    code = params[:code]
+    state = params[:state]
+    
+    @code = code
+    @state = state
+    
+    require 'net/http'
+
+    @response_code = 0
+    @message = ""
+
+    begin
+
+      uri = URI("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + ENV["WEIXIN_APPID"] + "&secret=" + ENV["WEIXIN_APP_SECRET"] + "&code=" + code + "&grant_type=authorization_code")
+
+      Net::HTTP.start(uri.host, uri.port,
+        :use_ssl => uri.scheme == 'https') do |http|
+        request = Net::HTTP::Get.new uri
+        # request.basic_auth(Rails.configuration.shopify_apikey,Rails.configuration.shopify_password)
+
+        response = http.request(request)
+        response_code = Integer(response.code)
+        
+        @response_code = response.code
+        @message = response.body
+        
+        # if (response.code == "200")
+#             @json = JSON.parse(response.body)
+#             message = @json["order"]
+#         else
+#             puts "Shopify order api return failure response order_id: " + order_id + " response_code: " + response.code + " message: " + response.body
+#         end
+
+      end
+
+    rescue => exception
+      
+      @message = exception.message 
+      
+    end
+    
   end
   
 end
