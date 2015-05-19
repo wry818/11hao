@@ -111,7 +111,7 @@ class WeixinController < ApplicationController
 
   end
   
-  def get_address
+  def address
     
     @timestamp = ""
     @nonceStr = ""
