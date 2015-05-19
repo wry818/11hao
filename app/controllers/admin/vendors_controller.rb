@@ -44,7 +44,7 @@ class Admin::VendorsController < Admin::ApplicationController
 
     @vendor.save
 
-    redirect_to edit_admin_vendor_path(@vendor), flash: { success: "Vendor updated" }
+    redirect_to admin_vendors_path, flash: { success: "Vendor updated" }
   end
   
   def destroy

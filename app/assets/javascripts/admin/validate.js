@@ -204,15 +204,14 @@ $( document ).ready(function() {
         // validation rules
         rules: {
 					"vendor[name]": { required: true },
-					"vendor[email]": { required: true, email: true }
+					"vendor[email]": { required: true }
         },
         messages: {
             "vendor[name]": {
               required: "Please enter name"
             },
             "vendor[email]": {
-              required: "Please enter email",
-							email: "Hmm, that doesn't look valid yet"
+              required: "Please enter email"
             }
         }
 	});
