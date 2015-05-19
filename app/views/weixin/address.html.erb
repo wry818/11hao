@@ -19,9 +19,9 @@
         $(document).ready(function () {
 
             var addrSign = "<%= @addrSign %>";
-
+			alert(1);
             if (addrSign != "") {
-				alert(1);
+				alert(2);
                 window.setTimeout(function () {
 
                     WeixinJSBridge.invoke('editAddress', {
@@ -35,10 +35,10 @@
 						
 						alert(res);
 						
-						for (var key in res)
-							
-							alert('res.' + key + ' = ' + res[key].toString());
-						}
+						// for (var key in res)
+//
+// 							alert('res.' + key + ' = ' + res[key].toString());
+// 						}
 												
 
                     });
