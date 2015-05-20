@@ -461,6 +461,8 @@ class ShopController < ApplicationController
 
     def checkout
         
+      @aaaa = session[:access_token]
+      @bbbb = session[:expires_in]
         session[:campaign_id] = @campaign.slug
         
         if params[:direct_donation]

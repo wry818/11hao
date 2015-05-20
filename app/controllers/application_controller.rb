@@ -41,6 +41,8 @@ class ApplicationController < ActionController::Base
         # 重复使用相同一个code调用时：
         if sns_info.result["errcode"] != "40029"
             session[:openid] = sns_info.result["openid"]
+            session[:access_token] = sns_info.result["access_token"]
+            session[:expires_in] = sns_info.result["expires_in"]
         end
         
       end
