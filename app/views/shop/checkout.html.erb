@@ -267,15 +267,15 @@ $(document).ready(function() {
 	// });
 	
 	// $('#wechat').click(function(){
-//
-// 		$('#wechat').prop('disabled', true)
-//
-// 		window.Raisy.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
-//
-// 		ComfirmOrder();
-//
-// 	});
-	
+	//
+	// 	$('#wechat').prop('disabled', true)
+	//
+	// 	window.Raisy.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
+	//
+	// 	ComfirmOrder();
+	//
+	// });
+
 	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 	
 	if (currentShippingAddress != null) {
@@ -358,7 +358,7 @@ function onBridgeReady(){
 					
 		        } else {
 					
-					$('#wechat').prop('disabled', false)
+					$('#wechat').prop('disabled', false);
 					
 		        }
 				
