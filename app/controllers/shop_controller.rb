@@ -485,47 +485,8 @@ class ShopController < ApplicationController
         
         # weixin_payment_init(@order.grandtotal)
         weixin_payment_init(1)
+        weixin_address_init()
         
-    end
-    
-    def ajax_update_order     
-      
-      order_make_anonymous = params[:order_make_anonymous]
-      fullName = params[:fullName]
-      provinceName = params[:provinceName]
-      cityName = params[:cityName]
-      cityAreaName = params[:cityAreaName]
-      addressLine = params[:addressLine]
-      receiveName = params[:receiveName]
-      phoneNumber = params[:phoneNumber]
-      zipCode = params[:zipCode]
-      
-      order = Order.find_by_id(params[:order_id])
-      
-      order.address_line_one = addressLine
-      order.address_city = cityName
-      order.address_state = provinceName
-      order.address_postal_code = zipCode
-      order.fullname = fullName
-      order.phone_number = phoneNumber
-      order.address_city_area = cityAreaName
-      order.make_anonymous = order_make_anonymous
-      
-      order.status = 3
-      order.save
-      
-      if session[:openid]
-       
-        $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
-        
-      end
-      
-      session[:confirm_order_id] = order.id
-      session[:order_id] = nil
-      
-      render text: "success"
-      
     end
     
     def weixin_payment_init(total_fee)
@@ -594,6 +555,46 @@ class ShopController < ApplicationController
 
       require 'digest/sha1'
       @addrSign = Digest::SHA1.hexdigest(sign)
+      
+    end
+    
+    def ajax_update_order     
+      
+      order_make_anonymous = params[:order_make_anonymous]
+      fullName = params[:fullName]
+      provinceName = params[:provinceName]
+      cityName = params[:cityName]
+      cityAreaName = params[:cityAreaName]
+      addressLine = params[:addressLine]
+      receiveName = params[:receiveName]
+      phoneNumber = params[:phoneNumber]
+      zipCode = params[:zipCode]
+      
+      order = Order.find_by_id(params[:order_id])
+      
+      order.address_line_one = addressLine
+      order.address_city = cityName
+      order.address_state = provinceName
+      order.address_postal_code = zipCode
+      order.fullname = fullName
+      order.phone_number = phoneNumber
+      order.address_city_area = cityAreaName
+      order.make_anonymous = order_make_anonymous
+      
+      order.status = 3
+      order.save
+      
+      if session[:openid]
+       
+        $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
+        
+      end
+      
+      session[:confirm_order_id] = order.id
+      session[:order_id] = nil
+      
+      render text: "success"
       
     end
     
