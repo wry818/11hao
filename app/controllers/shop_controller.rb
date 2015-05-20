@@ -559,11 +559,11 @@ class ShopController < ApplicationController
 
           @js_noncestr = SecureRandom.uuid.tr('-', '')
           @js_timestamp = Time.now.getutc.to_i.to_s
-          @app_id = r["appid"]
+          @js_app_id = r["appid"]
           @package = "prepay_id=" + r["prepay_id"]
 
           params_pre_pay_js = {
-            appId: @app_id,
+            appId: @js_app_id,
             nonceStr: @js_noncestr,
             package: @package,
             timeStamp: @js_timestamp,
@@ -576,6 +576,26 @@ class ShopController < ApplicationController
         end
 
       end
+      
+    end
+    
+    def weixin_address_init()
+        
+      @app_id = ENV["WEIXIN_APPID"]
+      @timestamp = ""
+      @nonceStr = ""
+      @addrSign = ""
+      
+      access_token = session[:access_token]
+    
+      @timestamp = Time.now.getutc.to_i.to_s
+      @nonceStr = SecureRandom.uuid.tr('-', '')
+      @absolute_url = request.original_url
+
+      sign = "accesstoken=" + access_token.to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
+
+      require 'digest/sha1'
+      @addrSign = Digest::SHA1.hexdigest(sign)
       
     end
     

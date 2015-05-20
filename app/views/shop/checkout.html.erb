@@ -266,14 +266,14 @@
 	
 $(document).ready(function() {
 
-	$("#lnkAddShippingAddress").click(function (event) {
-		
-		var redirect_uri = encodeURIComponent("http://www.11haoonline.com/weixin_custom/address");
-		
-		window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2251da36f59ced4&redirect_uri="
-	                        + redirect_uri
-	                        + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
-	});
+	// $("#lnkAddShippingAddress").click(function (event) {
+	//
+	// 	var redirect_uri = encodeURIComponent("http://www.11haoonline.com/weixin_custom/address");
+	//
+	// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc2251da36f59ced4&redirect_uri="
+	//                         + redirect_uri
+	//                         + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
+	// });
 	
 	// $('#wechat').click(function(){
 //
@@ -313,6 +313,35 @@ $(document).ready(function() {
 			
 function onBridgeReady(){
 
+	$("#lnkAddShippingAddress").click(function (event) {
+		
+        WeixinJSBridge.invoke('editAddress', {
+            "appId": "<%= @app_id %>",
+            "scope": "jsapi_address",
+            "signType": "sha1",
+            "addrSign": "<%= @addrSign %>",
+            "timeStamp": "<%= @timestamp %>",
+            "nonceStr": "<%= @nonceStr %>"
+			
+        }, function (res) {
+			
+			if (res && res.userName) {
+				// SaveAddress(res);
+				alert("success");
+			
+			}
+			
+			else {
+				
+				alert("系统忙，请稍候再试。" + res.err_msg);
+			
+			}
+									
+
+        });
+		
+	});
+	
 	$('#wechat').click(function(){
 
 		if ("<%= @weixin_init_success %>" == "true") {
@@ -322,7 +351,7 @@ function onBridgeReady(){
 			$('#wechat').prop('disabled', true)
 			
 		    WeixinJSBridge.invoke('getBrandWCPayRequest', {
-				"appId" : "<%= @app_id %>",     //公众号名称，由商户传入
+				"appId" : "<%= @js_app_id %>",     //公众号名称，由商户传入
 				"timeStamp": "<%= @js_timestamp %>",         //时间戳，自1970年以来的秒数
 				"nonceStr" : "<%= @js_noncestr %>", //随机串
 				"package" : "<%= @package %>",
