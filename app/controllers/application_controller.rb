@@ -52,8 +52,12 @@ class ApplicationController < ActionController::Base
           
         else
           
-          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          url = $wechat_client.authorize_url(request.original_url)
+          # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#           url = $wechat_client.authorize_url(request.original_url)
+#           redirect_to url
+          
+          redirect_uri = ERB::Util.url_encode(request.original_url)
+          url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
           redirect_to url
           
         end
