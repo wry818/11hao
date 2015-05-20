@@ -484,7 +484,7 @@ class ShopController < ApplicationController
       
       # weixin_payment_init(@order.grandtotal)
       weixin_payment_init(1)
-      weixin_address_init()
+      weixin_address_init(access_token)
         
     end
     
