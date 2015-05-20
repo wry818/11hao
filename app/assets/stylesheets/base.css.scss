@@ -103,23 +103,24 @@ h1, h2, h3, h4, h5 {
 
 .btn-primary {
 	border-radius: 0px;
-	color: #fff;
+	color: #fff !important;
 	background-color: $site-red;
 	border-color: $site-red;
 	
 	&:hover {
+		color: #fff !important;
 		background-color: $site-red-hover !important;
 		border-color: $site-red-hover !important;
 	}
 	
     &:active {
-  	  	color: #fff;
+  	  	color: #fff !important;
 		background-color: $site-red-hover !important;
 		border-color: $site-red-hover !important;
     }
   
     &:focus {
-  	  	color: #fff;
+  	  	color: #fff !important;
 		background-color: $site-red-hover !important;
 		border-color: $site-red-hover !important;
     }
