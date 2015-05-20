@@ -27,28 +27,37 @@ class ApplicationController < ActionController::Base
     
     def is_wechat_brower?
         request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+        # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#         url = $wechat_client.authorize_url(request.original_url)
+#         puts url
     end
     
     def get_wechat_sns
       
-      if session[:openid].blank? && params[:state].present?
-
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        sns_info = $wechat_client.get_oauth_access_token(params[:code])
+      if session[:openid].blank?
         
-        Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
+        if params[:code].present?
+          
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          sns_info = $wechat_client.get_oauth_access_token(params[:code])
         
-        # 重复使用相同一个code调用时：
-        if sns_info.result["errcode"] != "40029"
-            session[:openid] = sns_info.result["openid"]
-            session[:access_token] = sns_info.result["access_token"]
-            session[:expires_in] = sns_info.result["expires_in"]
-            session[:bbbbb] = sns_info.result.to_s
+          Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
+        
+          # 重复使用相同一个code调用时：
+          if sns_info.result["errcode"] != "40029"
+              session[:openid] = sns_info.result["openid"]
+              session[:access_token] = sns_info.result["access_token"]
+              session[:expires_in] = sns_info.result["expires_in"]
+          end
+          
+        else
+          
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          url = $wechat_client.authorize_url(request.original_url)
+          redirect_to url
+          
         end
-      
-      else
         
-        session[:bbbbb] = "no openid"
       end
       
     end
