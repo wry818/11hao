@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
             session[:openid] = sns_info.result["openid"]
             session[:access_token] = sns_info.result["access_token"]
             session[:expires_in] = sns_info.result["expires_in"]
+            session[:bbbbb] = sns_info.result.to_s
         end
         
       end
