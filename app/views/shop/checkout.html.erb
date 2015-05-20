@@ -386,10 +386,11 @@ function SaveAddress(res) {
 	
 	window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber, res.addressPostalCode);
 	
-	$("#ulDefaultShippingAddress").show();
+	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 	
 	var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
 	
+	$("#ulDefaultShippingAddress").show();
 	$("#lblDefaultShippingAddress").text(address);
 	
 }
