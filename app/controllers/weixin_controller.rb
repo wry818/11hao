@@ -11,22 +11,22 @@ class WeixinController < ApplicationController
           type: "view",
           name: "11号计划",
           url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
-        },
-        {
-          type: "view",
-          name: "测试页面支付",
-          url: $client.authorize_url(root_url + "weixin_custom/test")
-        },
+        }
+        # {
+        #   type: "view",
+        #   name: "测试页面支付",
+        #   url: $client.authorize_url(root_url + "weixin_custom/test")
+        # },
         # {
 #           type: "view",
 #           name: "实际页面支付",
 #           url: $client.authorize_url(root_url)
 #         }
-{
-  type: "view",
-  name: "支付通知",
-  url: root_url + 'weixin_custom/notify2'
-}
+# {
+#   type: "view",
+#   name: "支付通知",
+#   url: root_url + 'weixin_custom/notify2'
+# }
       ]
     }.to_json
     
