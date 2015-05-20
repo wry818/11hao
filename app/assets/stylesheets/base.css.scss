@@ -125,6 +125,12 @@ h1, h2, h3, h4, h5 {
 		border-color: $site-red-hover !important;
     }
 	
+    &:visited {
+  	  	color: #fff !important;
+		background-color: $site-red-hover !important;
+		border-color: $site-red-hover !important;
+    }
+	
 }
 
 .btn-orange {
