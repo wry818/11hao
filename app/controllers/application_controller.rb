@@ -45,7 +45,10 @@ class ApplicationController < ActionController::Base
             session[:expires_in] = sns_info.result["expires_in"]
             session[:bbbbb] = sns_info.result.to_s
         end
+      
+      else
         
+        session[:bbbbb] = "no openid"
       end
       
     end
