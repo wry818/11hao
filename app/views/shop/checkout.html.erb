@@ -303,8 +303,6 @@ $(document).ready(function() {
 			
 function onBridgeReady(){
 	
-	$("#fullname").val(<%= @nickname %>);
-	
 	$("#lnkAddShippingAddress").click(function (event) {
 		
         WeixinJSBridge.invoke('editAddress', {
