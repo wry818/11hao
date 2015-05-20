@@ -222,16 +222,7 @@
                         需要支付
                         <span id="button_total">￥<%= long_price(@order.grandtotal/100.0) %></span>
 						<div>
-							<%= @aaaa %>
-						</div>
-						<div>
-							<%= @bbbb %>
-						</div>
-						<div>
-							<%= @dddd %>
-						</div>
-						<div>
-							<%= @addrSign %>
+							<%= @nickname %>
 						</div>
                       </p>
                     </div>
@@ -311,7 +302,9 @@ $(document).ready(function() {
 	}
 			
 function onBridgeReady(){
-
+	
+	$("#fullname").val("<%= @nickname %>");
+	
 	$("#lnkAddShippingAddress").click(function (event) {
 		
         WeixinJSBridge.invoke('editAddress', {

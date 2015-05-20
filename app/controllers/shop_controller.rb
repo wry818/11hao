@@ -461,31 +461,30 @@ class ShopController < ApplicationController
 
     def checkout
         
-      @aaaa = session[:access_token].to_s
-      @bbbb = session[:expires_in].to_s
-      @cccc = session[:openid].to_s
+      access_token = session[:access_token]
+      @nickname = session[:nickname].to_s
       
-        session[:campaign_id] = @campaign.slug
-        
-        if params[:direct_donation]
-            @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
-        elsif session[:order_id]
-            @order = Order.find_by_id(session[:order_id])
-            unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
-                redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
-            end
-        else
-            redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+      session[:campaign_id] = @campaign.slug
+      
+      if params[:direct_donation]
+        @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
+      elsif session[:order_id]
+        @order = Order.find_by_id(session[:order_id])
+        unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
         end
-
-        #This is the first place the fees are calculated
-        @order.calculate_fees!
-
-        session[:confirmation_order_id] = nil
-        
-        # weixin_payment_init(@order.grandtotal)
-        weixin_payment_init(1)
-        weixin_address_init()
+      else
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+      end
+      
+      #This is the first place the fees are calculated
+      @order.calculate_fees!
+      
+      session[:confirmation_order_id] = nil
+      
+      # weixin_payment_init(@order.grandtotal)
+      weixin_payment_init(1)
+      weixin_address_init()
         
     end
     
@@ -538,14 +537,12 @@ class ShopController < ApplicationController
       
     end
     
-    def weixin_address_init()
+    def weixin_address_init(access_token)
         
       @app_id = ENV["WEIXIN_APPID"]
       @timestamp = ""
       @nonceStr = ""
       @addrSign = ""
-      
-      access_token = session[:access_token]
     
       @timestamp = Time.now.getutc.to_i.to_s
       @nonceStr = SecureRandom.uuid.tr('-', '')
