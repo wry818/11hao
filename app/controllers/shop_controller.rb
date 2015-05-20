@@ -461,7 +461,6 @@ class ShopController < ApplicationController
 
     def checkout
         
-      access_token = session[:access_token]
       @nickname = session[:nickname].to_s
       
       session[:campaign_id] = @campaign.slug
@@ -482,20 +481,38 @@ class ShopController < ApplicationController
       
       session[:confirmation_order_id] = nil
       
+      weixin_get_user_info()
       # weixin_payment_init(@order.grandtotal)
       weixin_payment_init(1)
-      weixin_address_init(access_token)
+      weixin_address_init()
         
     end
     
-    def weixin_payment_init(total_fee)
+    def weixin_get_user_info()
+      
+      @nickname = ""
         
-      r = Random.new
-      num = r.rand(1000...9999)
-      out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s   #生产随机订单号，这里用当前时间加随机数，保证唯一
+      if session[:openid] && session[:access_token]
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+        
+        if user_info.result["errcode"] != "40003"
+            @nickname = user_info.result["nickname"]
+        end
+        
+      end
+      
+    end
+    
+    def weixin_payment_init(total_fee)
     
       if session[:openid]
-
+        
+        r = Random.new
+        num = r.rand(1000...9999)
+        out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s #生产随机订单号，这里用当前时间加随机数，保证唯一
+        
         params = {
           body: '11号公益圈订单',
           out_trade_no: out_trade_no,
@@ -537,21 +554,25 @@ class ShopController < ApplicationController
       
     end
     
-    def weixin_address_init(access_token)
+    def weixin_address_init()
         
-      @app_id = ENV["WEIXIN_APPID"]
-      @timestamp = ""
-      @nonceStr = ""
-      @addrSign = ""
+      if session[:access_token]
+      
+        @app_id = ENV["WEIXIN_APPID"]
+        @timestamp = ""
+        @nonceStr = ""
+        @addrSign = ""
     
-      @timestamp = Time.now.getutc.to_i.to_s
-      @nonceStr = SecureRandom.uuid.tr('-', '')
-      @absolute_url = request.original_url
+        @timestamp = Time.now.getutc.to_i.to_s
+        @nonceStr = SecureRandom.uuid.tr('-', '')
+        @absolute_url = request.original_url
 
-      sign = "accesstoken=" + access_token.to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
+        sign = "accesstoken=" + session[:access_token].to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
 
-      require 'digest/sha1'
-      @addrSign = Digest::SHA1.hexdigest(sign)
+        require 'digest/sha1'
+        @addrSign = Digest::SHA1.hexdigest(sign)
+      
+      end  
       
     end
     

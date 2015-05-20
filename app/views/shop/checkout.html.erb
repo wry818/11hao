@@ -220,7 +220,7 @@
                       </div>
                       <p style="margin-top: 10px;">
                         需要支付
-                        <span id="button_total">￥<%= long_price(@order.grandtotal/100.0) %></span>aaaaaa
+                        <span id="button_total">￥<%= long_price(@order.grandtotal/100.0) %></span>
 						<div>
 							<%= @nickname %>
 						</div>
@@ -303,7 +303,7 @@ $(document).ready(function() {
 			
 function onBridgeReady(){
 	
-	
+	$("#fullname").val("<%= @nickname %>");
 	
 	$("#lnkAddShippingAddress").click(function (event) {
 		
