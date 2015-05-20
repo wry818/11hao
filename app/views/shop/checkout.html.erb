@@ -325,14 +325,16 @@ function onBridgeReady(){
         }, function (res) {
 			
 			if (res && res.userName) {
-				// SaveAddress(res);
-				alert("success");
+				SaveAddress(res);
+				// alert("success");
 			
 			}
 			
 			else {
 				
-				alert("系统忙，请稍候再试。" + res.err_msg);
+				if (res.err_msg != "edit_address:fail") {
+					alert("系统忙，请稍候再试。" + res.err_msg);
+				}
 			
 			}
 									
@@ -378,6 +380,18 @@ function onBridgeReady(){
 		
 	});	
    
+}
+
+function SaveAddress(res) {
+	
+	window.Raisy.SetCurrentShippingAddress(res.userName, res.addressDetailInfo, res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.telNumber, res.addressPostalCode);
+	
+	$("#ulDefaultShippingAddress").show();
+	
+	var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
+	
+	$("#lblDefaultShippingAddress").text(address);
+	
 }
 
 function ComfirmOrder() {
