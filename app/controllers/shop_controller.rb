@@ -464,8 +464,6 @@ class ShopController < ApplicationController
       @aaaa = session[:access_token].to_s
       @bbbb = session[:expires_in].to_s
       @cccc = session[:openid].to_s
-      @dddd = session[:bbbbb].to_s
-      @eeee = "eeeee"
       
         session[:campaign_id] = @campaign.slug
         
