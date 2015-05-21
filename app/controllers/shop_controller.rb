@@ -630,7 +630,7 @@ class ShopController < ApplicationController
       campaign_name = order.campaign.title
       group_name = order.campaign.organization.name
       price = view_context.long_price(order.grandtotal/100.0)
-      time = order.updated_at.strftime("%Y年%m月%d日 %H:%M:%S")
+      # time = order.updated_at.strftime("%Y年%m月%d日 %H:%M:%S")
       
       # puts campaign_name
       # puts group_name
@@ -647,7 +647,7 @@ class ShopController < ApplicationController
           color:"#000000"
         },
         keyword2: {
-          value:time,
+          value:format_order_time,
           color:"#000000"
         },
         keyword3: {
