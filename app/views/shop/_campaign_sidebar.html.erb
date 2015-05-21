@@ -72,33 +72,6 @@
   </div>
   <!-- end of .call-to-action -->
 
-  <% if @campaign.organizer %>
-      <div class="organizer">
-        <div class="clearfix">
-          <h3 class="pull-left">组织者</h3>
-          <% if @campaign.organizer == current_user %>
-              <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span>
-                编辑</a>
-          <% end %>
-        </div>
-        <div class="row">
-          <div class="col-xs-4">
-            <% if @campaign.organizer.profile.picture.present? %>
-                <%= cl_image_tag @campaign.organizer.profile.picture, width: 100, height: 100, crop: :limit, class: 'img-thumbnail' %>
-            <% else %>
-                <%= image_tag 'default_avatar.png', width: 100, height: 100, class: 'img-thumbnail' %>
-            <% end %>
-          </div>
-          <div class="col-xs-8">
-            <p>
-              <%= @campaign.organizer.profile.display_name || @campaign.organizer.profile.fullname %><br/>
-              <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
-            </p>
-          </div>
-        </div>
-      </div>
-  <% end %>
-
   <!-- <div class="share-buttons">
         <p style="text-align: center">
             请通过分享帮助我们！
