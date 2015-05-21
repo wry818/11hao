@@ -198,7 +198,7 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="payment-submit">
-						  <%= link_to '获取微信地址', "javascript:void(0)", :id => 'lnkAddShippingAddress', :class => 'btn btn-lightgreen btn-lg btn-block'  %>
+						  <%= link_to '获取微信地址', "javascript:void(0)", :id => 'lnkAddShippingAddress', :class => 'btn btn-lightgreen btn-lg btn-block', :disabled => 'disabled'  %>
                       </div>
                       <p style="margin-top: 10px;">
                         收货地址：
@@ -216,7 +216,7 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="payment-submit">
-						<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block'  %>
+						<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block', :disabled => 'disabled'  %>
                       </div>
                       <p style="margin-top: 10px;">
                         需要支付
@@ -304,6 +304,8 @@ $(document).ready(function() {
 			
 function onBridgeReady(){
 	
+	$('#lnkAddShippingAddress').prop('disabled', false)
+	
 	$("#lnkAddShippingAddress").click(function (event) {
 		
         WeixinJSBridge.invoke('editAddress', {
@@ -335,14 +337,15 @@ function onBridgeReady(){
 		
 	});
 	
-	$('#wechat').click(function(){
-
-		if ("<%= @weixin_init_success %>" == "true") {
-			
+	if ("<%= @weixin_init_success %>" == "true") {
+		
+		$('#wechat').prop('disabled', false)
+		$('#wechat').click(function(){
+		
 			if (!Validate()) return;
-			
+		
 			$('#wechat').prop('disabled', true)
-			
+		
 		    WeixinJSBridge.invoke('getBrandWCPayRequest', {
 				"appId" : "<%= @js_app_id %>",     //公众号名称，由商户传入
 				"timeStamp": "<%= @js_timestamp %>",         //时间戳，自1970年以来的秒数
@@ -351,27 +354,27 @@ function onBridgeReady(){
 				"signType" : "MD5",         //微信签名方式:
 				"paySign" : "<%= @js_pay_sign %>" //微信签名
 			}, function(res){    
-				
+			
 				if(res.err_msg == "get_brand_wcpay_request:ok" ) {   
-					
-					ComfirmOrder();
-					
-		        } else {
-					
-					$('#wechat').prop('disabled', false);
-					
-		        }
 				
+					ComfirmOrder();
+				
+		        } else {
+				
+					$('#wechat').prop('disabled', false);
+				
+		        }
+			
 		    }); 
-			
-		} else {
-			
-			alert("系统忙，请刷新页面再试。");
-			
-		}
 		
-	});	
-   
+		});	
+		
+	} else {
+		
+		alert("系统忙，请刷新页面再试。");
+		
+	}
+    
 }
 
 function SaveAddress(res) {

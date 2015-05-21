@@ -643,7 +643,7 @@ class ShopController < ApplicationController
           color:"#000000"
         },
         keyword1: {
-          value:order.id.to_s,
+          value:order.id.to_s.rjust(8,'0'),
           color:"#000000"
         },
         keyword2: {
