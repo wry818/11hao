@@ -604,7 +604,7 @@ class ShopController < ApplicationController
       
       if session[:openid]
        
-       openid ＝ session[:openid]
+       openid = session[:openid]
        send_template_message(openid, order, format_order_time)
        
         # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
