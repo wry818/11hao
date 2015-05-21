@@ -120,7 +120,7 @@
 												
 												<input id="checkout_modal_parentpage" type="hidden" value="checkout" />
 											<% else %>
-                        <a href="<%= checkout_path(@campaign) %>" class="btn btn-primary btn-block" id="cart_modal_checkout">
+                        <a href="<%= checkout_path(@campaign) + "?showwxpaytitle=1" %>" class="btn btn-primary btn-block" id="cart_modal_checkout">
                             <span class="text">去付款</span>
                             <span class="loader" style="display:none"></span>
                         </a>
