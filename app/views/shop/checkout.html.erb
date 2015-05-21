@@ -400,6 +400,9 @@ function ComfirmOrder() {
 		fullName = $("#fullname").val();
 	}
 	
+	var order_time = new Date();
+	var format_order_time =  order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
 	if (!Validate()) return;
 	
     $.ajax('/ajax/update-order', {
@@ -407,6 +410,7 @@ function ComfirmOrder() {
         data: {
 			order_id: <%= @order.id %>,
 			order_make_anonymous: order_make_anonymous,
+			format_order_time: format_order_time,
 			fullName: fullName,
 			provinceName: currentShippingAddress.ProvinceName,
 			cityName: currentShippingAddress.CityName,

@@ -575,6 +575,7 @@ class ShopController < ApplicationController
     def ajax_update_order     
       
       order_make_anonymous = params[:order_make_anonymous]
+      format_order_time = params[:format_order_time]
       fullName = params[:fullName]
       provinceName = params[:provinceName]
       cityName = params[:cityName]
@@ -598,10 +599,16 @@ class ShopController < ApplicationController
       order.status = 3
       order.save
       
+      # openid = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+      # send_template_message(openid, order, format_order_time)
+      
       if session[:openid]
        
-        $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
+       openid ＝ session[:openid]
+       send_template_message(openid, order, format_order_time)
+       
+        # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#         $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
         
       end
       
@@ -610,6 +617,58 @@ class ShopController < ApplicationController
       
       render text: "success"
       
+    end
+    
+    def send_template_message(openid, order, format_order_time)
+      
+      # touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+      touser = openid
+      template_id = "EnyULkSzskM-dYaof4tAGvueGVjkglhNfObOVdKWsgk"
+      url = ""
+      topcolor = "#FF0000"
+      
+      campaign_name = order.campaign.title
+      group_name = order.campaign.organization.name
+      price = view_context.long_price(order.grandtotal/100.0)
+      time = order.updated_at.strftime("%Y年%m月%d日 %H:%M:%S")
+      
+      # puts campaign_name
+      # puts group_name
+      # puts price.to_s
+      # puts format_order_time
+      
+      data = {
+        first: {
+          value:"您的订单已经提交成功！\n感谢您支持筹款团队：" + campaign_name + ", 您本次购买的商品将为" + group_name + "助力。\n简单公益，只因有你。\n",
+          color:"#000000"
+        },
+        keyword1: {
+          value:order.id.to_s,
+          color:"#000000"
+        },
+        keyword2: {
+          value:time,
+          color:"#000000"
+        },
+        keyword3: {
+          value:price.to_s + "元",
+          color:"#000000"
+        },
+        keyword4: {
+          value:"微信支付",
+          color:"#000000"
+        },
+        remark: {
+          value:"",
+          color:"#000000"
+        }
+      }
+
+      $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+      response = $client.send_template_msg(touser, template_id, url, topcolor, data)
+    
+      # render text: response.result.to_s
+    
     end
     
     def show_confirmation
