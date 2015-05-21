@@ -231,7 +231,7 @@ class WeixinController < ApplicationController
     }
     
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    response ＝ $client.send_template_msg(touser, template_id, url, topcolor, data)
+    response = $client.send_template_msg(touser, template_id, url, topcolor, data)
     
     render text: response.result.to_s
     
