@@ -640,7 +640,7 @@ class ShopController < ApplicationController
       
       data = {
         first: {
-          value:"您的订单已经提交成功！\n感谢您支持筹款团队：" + campaign_name + ", 您本次购买的商品将为" + group_name + "助力。\n简单公益，只因有你。\n",
+          value:"您的订单已经提交成功！\n感谢您的支持，您本次购买的商品将为" + group_name + "助力。\n\n简单公益，只因有你。\n",
           color:"#000000"
         },
         keyword1: {

@@ -254,7 +254,7 @@
 $(document).ready(function() {
 	
 	$("#fullname").val("<%= @nickname %>");
-	alert($("#fullname").val());
+
 	// $("#lnkAddShippingAddress").click(function (event) {
 	//
 	// 	var redirect_uri = encodeURIComponent("http://www.11haoonline.com/weixin_custom/address");
@@ -282,11 +282,11 @@ $(document).ready(function() {
 		
 		var address = window.Raisy.formatAddress(currentShippingAddress.ProvinceName, currentShippingAddress.CityName, currentShippingAddress.CityAreaName, currentShippingAddress.AddressLine, currentShippingAddress.ReceiveName, currentShippingAddress.PhoneNumber);
 		
-		var fullName = $("#fullname").val();
-		if (fullName == "") {
-			alert(1);
-			$("#fullname").val(currentShippingAddress.ReceiveName);
-		}
+		// var fullName = $("#fullname").val();
+// 		if (fullName == "") {
+//
+// 			$("#fullname").val(currentShippingAddress.ReceiveName);
+// 		}
 		
 		$("#lblDefaultShippingAddress").text(address);
 	
