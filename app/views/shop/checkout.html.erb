@@ -340,7 +340,10 @@ function onBridgeReady(){
 		$('#wechat').prop('disabled', false);
 		
 		$('#wechat').click(function(){
-		
+			var order_time = new Date();
+			var format_order_time =  order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+	
+			alert(format_order_time);
 			if (!Validate()) return;
 		
 			$('#wechat').prop('disabled', true)
@@ -404,8 +407,6 @@ function ComfirmOrder() {
 	
 	var order_time = new Date();
 	var format_order_time =  order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
-	
-	alert(format_order_time);
 	
 	if (!Validate()) return;
 	
