@@ -264,15 +264,15 @@ $(document).ready(function() {
 	//                         + "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 	// });
 	
-	$('#wechat').click(function(){
-
-		$('#wechat').prop('disabled', true)
-
-		window.Raisy.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
-
-		ComfirmOrder();
-
-	});
+	// $('#wechat').click(function(){
+//
+// 		$('#wechat').prop('disabled', true)
+//
+// 		window.Raisy.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
+//
+// 		ComfirmOrder();
+//
+// 	});
 
 	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 	
