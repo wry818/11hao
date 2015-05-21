@@ -205,7 +205,7 @@ class WeixinController < ApplicationController
     
     touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     template_id = "L28erDnq-l1coKlINqECUk2YaV6AKtDWwYlKEcKxqQo"
-    url = "http://weixin.qq.com/download"
+    url = ""
     topcolor = "#FF0000"
     data = {
       first: {
