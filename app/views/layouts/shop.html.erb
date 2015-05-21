@@ -31,5 +31,16 @@
     <%= render "layouts/user_modal" %>
 
     <%= cloudinary_js_config %>
+	
+	<% if @campaign %>
+
+	    <script>
+	        $(document).ready(function () {
+	            document.title = "<%= @campaign.title %>";
+	        });
+	    </script>
+			
+	<% end %>
+	
 </body>
 </html>
