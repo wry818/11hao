@@ -16,7 +16,7 @@
 	
 	<% if @campaign.collection_id != 0 %>
 	    <div class="pull-right">
-	        <a href="#checkout-modal" data-toggle="modal" style="margin: 0">
+	        <a href="#checkout-modal" data-toggle="modal" style="margin: 0; display: none">
 	            <span class="glyphicon glyphicon-shopping-cart"></span> <span id="cart-count" class="cart-count"><%= @order.num_items %></span><span> 件商品</span>
 	        </a>
 	    </div>
