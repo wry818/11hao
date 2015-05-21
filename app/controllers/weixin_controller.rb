@@ -209,23 +209,23 @@ class WeixinController < ApplicationController
     topcolor = "#FF0000"
     data = {
       first: {
-        value:"您好，感谢您的购买！"
+        value:"您好，感谢您的购买！",
         color:"#173177"
       },
       product: {
-        value:"书"
+        value:"书",
         color:"#173177"
       },
       price: {
-        value:"1元"
+        value:"1元",
         color:"#173177"
       },
       time: {
-        value:"2015年5月21日"
+        value:"2015年5月21日",
         color:"#173177"
       },
       remark: {
-        value:"祝您生活愉快"
+        value:"祝您生活愉快",
         color:"#173177"
       }
     }
