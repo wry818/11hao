@@ -587,6 +587,7 @@ class ShopController < ApplicationController
       
       order = Order.find_by_id(params[:order_id])
       
+      order.address_fullname = receiveName
       order.address_line_one = addressLine
       order.address_city = cityName
       order.address_state = provinceName
