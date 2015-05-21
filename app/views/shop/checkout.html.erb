@@ -253,8 +253,6 @@
 	
 $(document).ready(function() {
 	
-
-	
 	$("#fullname").val("<%= @nickname %>");
 	
 	// $("#lnkAddShippingAddress").click(function (event) {
@@ -304,7 +302,7 @@ $(document).ready(function() {
 			
 function onBridgeReady(){
 	
-	$('#lnkAddShippingAddress').prop('disabled', false)
+	$('#lnkAddShippingAddress').prop('disabled', false);
 	
 	$("#lnkAddShippingAddress").click(function (event) {
 		
@@ -339,7 +337,8 @@ function onBridgeReady(){
 	
 	if ("<%= @weixin_init_success %>" == "true") {
 		
-		$('#wechat').prop('disabled', false)
+		$('#wechat').prop('disabled', false);
+		
 		$('#wechat').click(function(){
 		
 			if (!Validate()) return;
