@@ -201,4 +201,40 @@ class WeixinController < ApplicationController
     
   end
   
+  def send_template
+    
+    touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+    template_id = "L28erDnq-l1coKlINqECUk2YaV6AKtDWwYlKEcKxqQo"
+    url = "http://weixin.qq.com/download"
+    topcolor = "#FF0000"
+    data = {
+      first: {
+        value:"您好，感谢您的购买！"
+        color:"#173177"
+      },
+      product: {
+        value:"书"
+        color:"#173177"
+      },
+      price: {
+        value:"1元"
+        color:"#173177"
+      },
+      time: {
+        value:"2015年5月21日"
+        color:"#173177"
+      },
+      remark: {
+        value:"祝您生活愉快"
+        color:"#173177"
+      }
+    }
+    
+    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    response ＝ $client.send_template_msg(touser, template_id, url, topcolor, data)
+    
+    render text: response.result.to_s
+    
+  end
+  
 end
