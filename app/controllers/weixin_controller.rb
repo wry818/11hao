@@ -209,7 +209,7 @@ class WeixinController < ApplicationController
     topcolor = "#FF0000"
     data = {
       first: {
-        value:"您的订单已经提交成功！\n感谢您支持筹款团队：“特”立同行, 您本次购买的商品为上海体育学院特奥团助力。\n简单公益，只因有你。",
+        value:"您的订单已经提交成功！\n感谢您支持筹款团队：“特”立同行, 您本次购买的商品为上海体育学院特奥团助力。\n简单公益，只因有你。\n",
         color:"#000000"
       },
       keyword1: {
