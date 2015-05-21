@@ -204,29 +204,33 @@ class WeixinController < ApplicationController
   def send_template
     
     touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
-    template_id = "L28erDnq-l1coKlINqECUk2YaV6AKtDWwYlKEcKxqQo"
+    template_id = "EnyULkSzskM-dYaof4tAGvueGVjkglhNfObOVdKWsgk"
     url = ""
     topcolor = "#FF0000"
     data = {
       first: {
-        value:"您的订单已经提交成功！\n感谢您支持筹款团队：aaaaaa, 您本次购买的商品为Group name助力。\n简单公益，只因有你。",
-        color:"#173177"
+        value:"您的订单已经提交成功！\n感谢您支持筹款团队：“特”立同行, 您本次购买的商品为上海体育学院特奥团助力。\n简单公益，只因有你。",
+        color:"#000000"
       },
-      product: {
-        value:"书",
-        color:"#173177"
+      keyword1: {
+        value:"00000138",
+        color:"#000000"
       },
-      price: {
-        value:"1元",
-        color:"#173177"
+      keyword2: {
+        value:"2015年5月21日 10:58",
+        color:"#000000"
       },
-      time: {
-        value:"2015年5月21日",
-        color:"#173177"
+      keyword3: {
+        value:"58元",
+        color:"#000000"
+      },
+      keyword4: {
+        value:"微信支付",
+        color:"#000000"
       },
       remark: {
-        value:"祝您生活愉快",
-        color:"#173177"
+        value:"",
+        color:"#000000"
       }
     }
     
