@@ -24,6 +24,9 @@ class ShopController < ApplicationController
         
       if session[:access_token]
         
+        @aa = session[:aa]
+        @bb = session[:bb]
+        
         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
         @sign_package = $wechat_client.get_jssign_package(request.url)
       

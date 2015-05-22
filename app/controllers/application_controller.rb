@@ -39,8 +39,13 @@ class ApplicationController < ActionController::Base
         if params[:code].present?
           
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          
+          session[:aa] = $wechat_client.get_access_token
+          
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
-        
+          
+          session[:bb] = $wechat_client.get_access_token
+          
           Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
         
           # 重复使用相同一个code调用时：
