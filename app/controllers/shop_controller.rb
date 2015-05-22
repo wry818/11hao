@@ -21,17 +21,13 @@ class ShopController < ApplicationController
     end
 
     def weixin_jssdk_init()
-        
-      if session[:access_token]
-        
-        @aa = session[:aa]
-        @bb = session[:bb]
-        @cc = session[:access_token]
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        @sign_package = $wechat_client.get_jssign_package(request.url)
       
-      end  
+      $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+      @sign_package = $wechat_client.get_jssign_package(request.url)
+      
+      @aa = session[:aa]
+      @bb = session[:bb]
+      @cc = session[:access_token] 
       
     end
     
@@ -571,7 +567,10 @@ class ShopController < ApplicationController
     def weixin_address_init()
         
       if session[:access_token]
-      
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        token = $wechat_client.get_access_token;
+        
         @app_id = ENV["WEIXIN_APPID"]
         @timestamp = ""
         @nonceStr = ""
@@ -581,7 +580,7 @@ class ShopController < ApplicationController
         @nonceStr = SecureRandom.uuid.tr('-', '')
         @absolute_url = request.original_url
 
-        sign = "accesstoken=" + session[:access_token].to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
+        sign = "accesstoken=" + token.to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
 
         require 'digest/sha1'
         @addrSign = Digest::SHA1.hexdigest(sign)
