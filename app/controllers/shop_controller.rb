@@ -488,8 +488,8 @@ class ShopController < ApplicationController
       session[:confirmation_order_id] = nil
       
       weixin_get_user_info()
-      # weixin_payment_init(@order.grandtotal)
-      weixin_payment_init(1)
+      weixin_payment_init(@order.grandtotal)
+      # weixin_payment_init(1)
       weixin_address_init()
         
     end
