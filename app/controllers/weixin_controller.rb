@@ -11,6 +11,16 @@ class WeixinController < ApplicationController
           type: "view",
           name: "11号计划",
           url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+        },
+        {
+          type: "view",
+          name: "小伙伴招募",
+          url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
+        },
+        {
+          type: "view",
+          name: "关于我们",
+          url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
         }
         # {
         #   type: "view",
