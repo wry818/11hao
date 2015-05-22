@@ -319,6 +319,7 @@ wx.config({
 wx.ready(function(){
 	
 	alert("<%= request.url %>");
+	alert("<%= request.original_url %>");
 	
 	var title = "<%= @campaign.title %>";
 	var desc = "<%= @campaign.organizer_quote %>";
