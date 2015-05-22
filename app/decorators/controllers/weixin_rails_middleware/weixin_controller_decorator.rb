@@ -12,7 +12,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
       # reply_text_message("Your Message: #{@keyword}")
-      reply_text_message("欢迎您加入11号公益圈！")
+      # reply_text_message("欢迎您加入11号公益圈！")
+      reply_transfer_customer_service_message()
     end
 
     # <Location_X>23.134521</Location_X>
@@ -24,7 +25,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       @ly    = @weixin_message.Location_Y
       @scale = @weixin_message.Scale
       @label = @weixin_message.Label
-      reply_text_message("Your Location: #{@lx}, #{@ly}, #{@scale}, #{@label}")
+      reply_text_message("您的当前位置: #{@lx}, #{@ly}, #{@scale}, #{@label}")
     end
 
     # <PicUrl><![CDATA[this is a url]]></PicUrl>
@@ -93,7 +94,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       @lat = @weixin_message.Latitude
       @lgt = @weixin_message.Longitude
       @precision = @weixin_message.Precision
-      reply_text_message("Your Location: #{@lat}, #{@lgt}, #{@precision}")
+      reply_text_message("您的当前地理位置: #{@lat}, #{@lgt}, #{@precision}")
     end
 
     # 点击菜单拉取消息时的事件推送
