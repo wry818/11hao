@@ -15,8 +15,22 @@ class ShopController < ApplicationController
             image: @campaign.logo,
             url: @seller ? short_campaign_url(@campaign, seller: @seller.referral_code) : short_campaign_url(@campaign)
         }
+        
+        weixin_jssdk_init()
+        
     end
 
+    def weixin_jssdk_init()
+        
+      if session[:access_token]
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        @sign_package = $weixin_client.get_jssign_package(request.url)
+      
+      end  
+      
+    end
+    
     def supporters
     end
 
