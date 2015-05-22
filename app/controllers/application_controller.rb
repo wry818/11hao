@@ -40,18 +40,16 @@ class ApplicationController < ActionController::Base
           
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           
-          session[:aa] = $wechat_client.get_access_token
+          session[:access_token] = $wechat_client.get_access_token
           
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
-          
-          session[:bb] = $wechat_client.get_access_token
           
           Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
         
           # 重复使用相同一个code调用时：
           if sns_info.result["errcode"] != "40029"
               session[:openid] = sns_info.result["openid"]
-              session[:access_token] = sns_info.result["access_token"]
+              # session[:access_token] = sns_info.result["access_token"]
               session[:expires_in] = sns_info.result["expires_in"]
           end
           
