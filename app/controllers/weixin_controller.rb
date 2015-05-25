@@ -17,16 +17,16 @@ class WeixinController < ApplicationController
           name: "小伙伴招募",
           url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
         },
-        # {
-#           type: "view",
-#           name: "关于我们",
-#           url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
-#         }
         {
           type: "view",
-          name: "测试页面支付",
-          url: $client.authorize_url(root_url + "weixin_custom/test")
+          name: "关于我们",
+          url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
         }
+        # {
+        #   type: "view",
+        #   name: "测试页面支付",
+        #   url: $client.authorize_url(root_url + "weixin_custom/test")
+        # }
         # {
 #           type: "view",
 #           name: "实际页面支付",
@@ -113,23 +113,82 @@ class WeixinController < ApplicationController
 
   end
 
+  # def native
+#
+#     # sign = r["sign"]
+#     app_id = ENV['WEIXIN_APPID']
+#     mch_id = ENV['WEIXIN_MCHID']
+#     product_id = "1"
+#     timestamp = Time.now.getutc.to_i.to_s
+#     nonce_str = SecureRandom.uuid.tr('-', '')
+#
+#     params_native_sign = {
+#       appid: app_id,
+#       mch_id: mch_id,
+#       time_stamp: timestamp,
+#       nonce_str: nonce_str,
+#       product_id: product_id
+#     }
+#
+#     native_sign = WxPay::Sign.generate(params_native_sign)
+#
+#     # test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
+#     native_pay_url = "weixin://wxpay/bizpayurl?sign=" + native_sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + nonce_str
+#     puts native_pay_url
+#     require 'rqrcode_png'
+#
+#     qr = RQRCode::QRCode.new( native_pay_url, :size => 14, :level => :h )
+#     @qr_url = qr.to_img.resize(250, 250).to_data_url
+#
+#     r = Random.new
+#     num = r.rand(1000...9999)
+#     out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S")
+#
+#     @result = "not wexin browser"
+#     puts root_url + 'weixin_custom/notify'
+#
+#     params = {
+#       body: '11号公益圈订单',
+#       out_trade_no: out_trade_no,
+#       total_fee: 1,
+#       spbill_create_ip: '127.0.0.1',
+#       notify_url: root_url + 'weixin_custom/notify',
+#       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+#     }
+#
+#     r = WxPay::Service.invoke_unifiedorder params
+#     @result = r.to_s
+#     @weixin_init_success = false
+#     @qr_url = "#"
+#
+#     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+#
+#
+#
+#     end
+#
+# # render text: @result
+#
+#   end
+  
   def native
     
     r = Random.new
     num = r.rand(1000...9999)
-    out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S")
+    out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
     
     @result = "not wexin browser"
-    puts root_url + 'weixin_custom/notify'
+    @notify_url = root_url + 'weixin_custom/notify'
     
     params = {
       body: '11号公益圈订单',
       out_trade_no: out_trade_no,
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
-      notify_url: root_url + 'weixin_custom/notify',
+      notify_url: @notify_url,
       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
+    
 
     r = WxPay::Service.invoke_unifiedorder params
     @result = r.to_s
@@ -138,34 +197,16 @@ class WeixinController < ApplicationController
     
     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
       
-      # sign = r["sign"]
-      app_id = r["appid"]
-      mch_id = r["mch_id"]
-      product_id = "1"
-      timestamp = Time.now.getutc.to_i.to_s
-      nonce_str = SecureRandom.uuid.tr('-', '')
+      puts r["code_url"]
+      puts root_url + 'weixin_custom/notify'
+      r = WxPay::Service.invoke_unifiedorder params
+      # qrcode_png = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h ).to_img.resize(200, 200).save("public/uploads/qrcode/#{Time.now.to_i.to_s}.png")
+#       @qr_url = "/uploads/qrcode/#{Time.now.to_i.to_s}.png"
       
-      params_native_sign = {
-        appid: app_id,
-        mch_id: mch_id,
-        time_stamp: timestamp,
-        nonce_str: nonce_str,
-        product_id: product_id
-      }
-
-      native_sign = WxPay::Sign.generate(params_native_sign)
+      qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
+      @qr_url = qr.to_img.resize(200, 200).to_data_url
       
-      # test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
-      native_pay_url = "weixin://wxpay/bizpayurl?sign=" + native_sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + nonce_str
-      puts native_pay_url
-      require 'rqrcode_png'
-      
-      qr = RQRCode::QRCode.new( native_pay_url, :size => 14, :level => :h )
-      @qr_url = qr.to_img.resize(250, 250).to_data_url
-
     end
-
-# render text: @result
 
   end
   
@@ -176,10 +217,14 @@ class WeixinController < ApplicationController
   def native_callback_post
   
   end
-
+  
   def notify
+    
     result = Hash.from_xml(request.body.read)["xml"]
-
+    
+    session[:notify] =  result.to_s
+    redirect_to root_url
+    
     if WxPay::Sign.verify?(result)
     
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
