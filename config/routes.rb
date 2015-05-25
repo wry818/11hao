@@ -203,6 +203,7 @@ Raisy::Application.routes.draw do
         get 'menulist' => 'weixin#menulist'
         # get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
+        get 'native' => 'weixin#native'
         # get 'notify2' => 'weixin#notify2'
         post 'notify' => 'weixin#notify'
         # post 'notify_alert' => 'weixin#notify_alert'
