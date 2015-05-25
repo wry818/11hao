@@ -7,12 +7,12 @@ class ShopController < ApplicationController
     layout "shop"
     
     def show
-      @aa = "xxxxxx"
-      if session[:notify]
-        @aa = session[:notify]
-      end
-      @bb = "aaaaa"
-      
+      # @aa = "xxxxxx"
+#       if session[:notify]
+#         @aa = session[:notify]
+#       end
+#       @bb = "aaaaa"
+#
       
         @help_text = "Help" + (@seller ? " " + @seller.user_profile.first_name : "") + " fundraise for " + @campaign.title
       
