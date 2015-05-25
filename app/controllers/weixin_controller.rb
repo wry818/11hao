@@ -138,36 +138,30 @@ class WeixinController < ApplicationController
     
     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
       
-      sign = r["sign"]
+      # sign = r["sign"]
       app_id = r["appid"]
       mch_id = r["mch_id"]
       product_id = "1"
       timestamp = Time.now.getutc.to_i.to_s
-      noncestr = SecureRandom.uuid.tr('-', '')
+      nonce_str = SecureRandom.uuid.tr('-', '')
       
-      test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
-      native_pay_url = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + noncestr
+      params_native_sign = {
+        appid: app_id,
+        mch_id: mch_id,
+        time_stamp: timestamp,
+        nonce_str: nonce_str,
+        product_id: product_id
+      }
+
+      native_sign = WxPay::Sign.generate(params_native_sign)
+      
+      # test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
+      native_pay_url = "weixin://wxpay/bizpayurl?sign=" + native_sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + nonce_str
       puts native_pay_url
       require 'rqrcode_png'
       
       qr = RQRCode::QRCode.new( native_pay_url, :size => 14, :level => :h )
       @qr_url = qr.to_img.resize(250, 250).to_data_url
-       
-      # @js_noncestr = SecureRandom.uuid.tr('-', '')
-#       @js_timestamp = Time.now.getutc.to_i.to_s
-#       @app_id = r["appid"]
-#       @package = "prepay_id=" + r["prepay_id"]
-#
-#       params_pre_pay_js = {
-#         appId: @app_id,
-#         nonceStr: @js_noncestr,
-#         package: @package,
-#         timeStamp: @js_timestamp,
-#         signType: 'MD5'
-#       }
-#
-#       @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
-#       @weixin_init_success = true
 
     end
 
