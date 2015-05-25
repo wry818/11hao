@@ -173,6 +173,10 @@ class WeixinController < ApplicationController
     
   end
   
+  def native_callback_post
+  
+  end
+
   def notify
     result = Hash.from_xml(request.body.read)["xml"]
 
