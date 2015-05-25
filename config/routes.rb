@@ -204,6 +204,7 @@ Raisy::Application.routes.draw do
         # get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
         get 'native' => 'weixin#native'
+        get 'native_callback' => 'weixin#native_callback'
         # get 'notify2' => 'weixin#notify2'
         post 'notify' => 'weixin#notify'
         # post 'notify_alert' => 'weixin#notify_alert'
