@@ -173,13 +173,17 @@ class WeixinController < ApplicationController
   
   def native
     
+    logger.info "hahahahahahahahahahahahahahahaha"
+    
+    # render text: "aa"
+     
     r = Random.new
     num = r.rand(1000...9999)
     out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
-    
+
     @result = "not wexin browser"
     @notify_url = root_url + 'weixin_custom/notify'
-    
+
     params = {
       body: '11号公益圈订单',
       out_trade_no: out_trade_no,
@@ -188,24 +192,24 @@ class WeixinController < ApplicationController
       notify_url: @notify_url,
       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
-    
+
 
     r = WxPay::Service.invoke_unifiedorder params
     @result = r.to_s
     @weixin_init_success = false
     @qr_url = "#"
-    
+
     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
-      
+
       puts r["code_url"]
       puts root_url + 'weixin_custom/notify'
       r = WxPay::Service.invoke_unifiedorder params
       # qrcode_png = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h ).to_img.resize(200, 200).save("public/uploads/qrcode/#{Time.now.to_i.to_s}.png")
 #       @qr_url = "/uploads/qrcode/#{Time.now.to_i.to_s}.png"
-      
+
       qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
       @qr_url = qr.to_img.resize(200, 200).to_data_url
-      
+
     end
 
   end
