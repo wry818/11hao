@@ -109,7 +109,45 @@ class WeixinController < ApplicationController
 
   end
   
-  def native
+  def native_mode1
+    
+    puts "lalalalalalalalalalalalalalalalala22222222222"
+    
+    app_id = ENV['WEIXIN_APPID']
+    mch_id = ENV['WEIXIN_MCHID']
+    product_id = "1"
+    timestamp = Time.now.getutc.to_i.to_s
+    nonce_str = SecureRandom.uuid.tr('-', '')
+
+    params_native_sign = {
+      appid: app_id,
+      mch_id: mch_id,
+      time_stamp: timestamp,
+      nonce_str: nonce_str,
+      product_id: product_id
+    }
+
+    sign = WxPay::Sign.generate(params_native_sign)
+
+    # test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
+    native_pay_url = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + nonce_str
+    puts native_pay_url
+    require 'rqrcode_png'
+
+    qr = RQRCode::QRCode.new( native_pay_url, :size => 14, :level => :h )
+    @qr_url = qr.to_img.resize(250, 250).to_data_url
+    # render text: @result
+    
+    render "native"
+    
+  end
+  
+  def native_callback
+    
+    puts "lalalalalalalalalalalalalalalalala"
+  end
+  
+  def native_mode2
     
     # render text: "aa"
      
