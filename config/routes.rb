@@ -210,7 +210,7 @@ Raisy::Application.routes.draw do
         get 'native_callback' => 'weixin#native_callback'
         post 'native_callback' => 'weixin#native_callback_post'
         # get 'notify2' => 'weixin#notify2'
-        get 'notify' => 'weixin#notify'
+        post 'notify' => 'weixin#notify'
         post 'notify_alert' => 'weixin#notify_alert'
         # get 'address' => 'weixin#address'
         get 'send_template' => 'weixin#send_template'
