@@ -178,7 +178,7 @@ class WeixinController < ApplicationController
     out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
     
     @result = "not wexin browser"
-    @notify_url = root_url + 'weixin_custom/notify_alert'
+    @notify_url = root_url + 'weixin_custom/notify'
     
     params = {
       body: '11号公益圈订单',
@@ -220,10 +220,11 @@ class WeixinController < ApplicationController
   
   def notify
     
-    result = Hash.from_xml(request.body.read)["xml"]
+    order = Order.find_by_id(8)
+    order.fullname = "nononono"
+    order.save
     
-    session[:notify] =  result.to_s
-    redirect_to root_url
+    result = Hash.from_xml(request.body.read)["xml"]
     
     if WxPay::Sign.verify?(result)
     
