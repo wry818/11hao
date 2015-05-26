@@ -206,8 +206,8 @@ Raisy::Application.routes.draw do
         get 'menulist' => 'weixin#menulist'
         get 'test' => 'weixin#test'
         get 'native' => 'weixin#native_mode1'
-        match "native_callback" => "weixin#native_callback", via: [:get, :post]
-        # get 'native_callback' => 'weixin#native_callback'
+        # match "native_callback" => "weixin#native_callback", via: [:get, :post]
+        post 'native_callback' => 'weixin#native_callback'
         post 'notify' => 'weixin#notify'
         # post 'notify_alert' => 'weixin#notify_alert'
         get 'send_template' => 'weixin#send_template'
