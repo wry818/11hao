@@ -23,22 +23,24 @@ class ShopController < ApplicationController
 
     def weixin_notify
       
-      session[:notify] =  "bbbbbbbbbbbbbbbbbbb"
+      session[:notify] =  "jjjjjjjjjjjjjjj"
       
-      # render text: "aaaaa"
-      result = Hash.from_xml(request.body.read)["xml"]
-
+      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
       
-      # redirect_to root_url
-
-      if WxPay::Sign.verify?(result)
-
-        # find your order and process the post-paid logic.
-
-        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
-      else
-        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
-      end
+      # # render text: "aaaaa"
+#       result = Hash.from_xml(request.body.read)["xml"]
+#
+#
+#       # redirect_to root_url
+#
+#       if WxPay::Sign.verify?(result)
+#
+#         # find your order and process the post-paid logic.
+#
+#
+#       else
+#         render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+#       end
 
     end
     
@@ -48,7 +50,7 @@ class ShopController < ApplicationController
       num = r.rand(1000...9999)
       out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
     
-      @notify_url = root_url + 'checkout/weixin_notify'
+      @notify_url = root_url + 'checkout/' + params[:id] + '/weixin_notify'
     
       params = {
         body: '11号公益圈订单',
