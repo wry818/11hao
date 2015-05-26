@@ -23,24 +23,22 @@ class ShopController < ApplicationController
 
     def weixin_notify
       
-      session[:notify] =  "jjjjjjjjjjjjjjj"
-      
-      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+      order = Order.find_by_id(8)
+      order.fullname = "nononono"
+      order.save
       
       # # render text: "aaaaa"
-#       result = Hash.from_xml(request.body.read)["xml"]
-#
-#
-#       # redirect_to root_url
-#
-#       if WxPay::Sign.verify?(result)
-#
-#         # find your order and process the post-paid logic.
-#
-#
-#       else
-#         render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
-#       end
+      result = Hash.from_xml(request.body.read)["xml"]
+      
+      # redirect_to root_url
+      if WxPay::Sign.verify?(result)
+
+        # find your order and process the post-paid logic.
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+
+      else
+        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+      end
 
     end
     
