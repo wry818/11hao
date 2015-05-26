@@ -197,12 +197,11 @@ class WeixinController < ApplicationController
     # order = Order.find_by_id(8)
     # order.fullname = "nononono"
     # order.save
-    # # logger.info "hahahahahahahahahahahahahahahaha"
+    logger.info "hahahahahahahahahahahahahahahaha"
 
     result = Hash.from_xml(request.body.read)["xml"]
 
     if WxPay::Sign.verify?(result)
-
 
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
