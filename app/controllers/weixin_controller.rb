@@ -55,12 +55,6 @@ class WeixinController < ApplicationController
     render text: response.result
     
   end
-  
-  def authorize
-    
-    render text: session[:openid]
-          
-  end
     
   def test
     
@@ -173,8 +167,6 @@ class WeixinController < ApplicationController
   
   def native
     
-    logger.info "hahahahahahahahahahahahahahahaha"
-    
     # render text: "aa"
      
     r = Random.new
@@ -214,24 +206,19 @@ class WeixinController < ApplicationController
 
   end
   
-  def native_callback
-    
-  end
-  
-  def native_callback_post
-  
-  end
-  
   def notify
 
-    order = Order.find_by_id(8)
-    order.fullname = "nononono"
-    order.save
-    
+    # order = Order.find_by_id(8)
+#     order.fullname = "nononono"
+#     order.save
+    logger.info "hahahahahahahahahahahahahahahaha"
+
     result = Hash.from_xml(request.body.read)["xml"]
     
     if WxPay::Sign.verify?(result)
     
+      logger.info "hahahahahahahahahahahahahahahaha111111"
+      
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
       # find your order and process the post-paid logic.
@@ -239,7 +226,7 @@ class WeixinController < ApplicationController
       render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
     else
       
-    
+      logger.info "hahahahahahahahahahahahahahahaha222222"
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
       
@@ -249,85 +236,23 @@ class WeixinController < ApplicationController
     
   end
   
-  def notify2
-    
-    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    $client.send_text_custom('oaR9aswmRKvGhMdb6kJCgIFKBpeg', "支付成功！订单编号11号公益圈感谢您的支持！")
-    
-  end
-  
-  def notify_alert
-    
-    result = Hash.from_xml(request.body.read)["xml"]
-    
-    session[:notify] =  result.to_s
-    redirect_to root_url
-
-    if WxPay::Sign.verify?(result)
-
-      # find your order and process the post-paid logic.
-
-      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
-    else
-      render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
-    end
-
-  end
-  
-  def address
-    
-    @campaign_id = session[:campaign_id]
-    @timestamp = ""
-    @nonceStr = ""
-    @addrSign = ""
-    @app_id = ENV["WEIXIN_APPID"]
-    @token = ""
-    
-    code = params[:code]
-    state = params[:state]
-    
-    @code = code
-    @state = state
-    
-    require 'net/http'
-
-    @response_code = 0
-    @message = ""
-
-    uri = URI("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + ENV["WEIXIN_APPID"] + "&secret=" + ENV["WEIXIN_APP_SECRET"] + "&code=" + code + "&grant_type=authorization_code")
-
-    Net::HTTP.start(uri.host, uri.port,
-      :use_ssl => uri.scheme == 'https') do |http|
-      request = Net::HTTP::Get.new uri
-
-      response = http.request(request)
-      response_code = Integer(response.code)
-      
-      @response_code = response.code
-      @message = response.body
-      
-      @json = JSON.parse(response.body)
-      
-      @token = @json["access_token"]
-      
-    end
-    
-    
-    
-    @timestamp = Time.now.getutc.to_i.to_s
-    @nonceStr = SecureRandom.uuid.tr('-', '')
-    @absolute_url = request.original_url
-
-# render text: "@timestamp: " + @timestamp + "@nonceStr: " + @nonceStr.to_s  + "@@token: " + @absolute_url.to_s
-
-    sign = "accesstoken=" + @token.to_s + "&appid=" + @app_id.to_s + "&noncestr=" + @nonceStr.to_s + "&timestamp=" + @timestamp.to_s + "&url=" + @absolute_url.to_s
-    # @aa =  sign
-
-    require 'digest/sha1'
-    # @addrSign = Digest::SHA1.hexdigest([@token, @app_id, @nonceStr, @timestamp ,@absolute_url].sort.join)
-    @addrSign = Digest::SHA1.hexdigest(sign)
-    
-  end
+  # def notify_alert
+  #
+  #   result = Hash.from_xml(request.body.read)["xml"]
+  #
+  #   session[:notify] =  result.to_s
+  #   redirect_to root_url
+  #
+  #   if WxPay::Sign.verify?(result)
+  #
+  #     # find your order and process the post-paid logic.
+  #
+  #     render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+  #   else
+  #     render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+  #   end
+  #
+  # end
   
   def send_template
     

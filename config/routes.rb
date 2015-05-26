@@ -204,15 +204,10 @@ Raisy::Application.routes.draw do
     scope 'weixin_custom' do
         get 'menu' => 'weixin#menu'
         get 'menulist' => 'weixin#menulist'
-        # get 'authorize' => 'weixin#authorize'
         get 'test' => 'weixin#test'
         get 'native' => 'weixin#native'
-        get 'native_callback' => 'weixin#native_callback'
-        post 'native_callback' => 'weixin#native_callback_post'
-        # get 'notify2' => 'weixin#notify2'
         post 'notify' => 'weixin#notify'
-        post 'notify_alert' => 'weixin#notify_alert'
-        # get 'address' => 'weixin#address'
+        # post 'notify_alert' => 'weixin#notify_alert'
         get 'send_template' => 'weixin#send_template'
     end
     
