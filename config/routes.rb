@@ -176,6 +176,7 @@ Raisy::Application.routes.draw do
     post 'ajax/addofflineorder', to: 'shop#ajax_add_offline_order', as: :ajax_add_offline_order
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
     post 'ajax/update-order', to: 'shop#ajax_update_order', as: :ajax_update_order
+    post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get 'checkout/:id', to: 'shop#checkout', as: :checkout
     get ':id/shop', to: 'shop#shop', as: :shop
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category

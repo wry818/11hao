@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order]
+    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :weixin_notify]
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
@@ -7,12 +7,6 @@ class ShopController < ApplicationController
     layout "shop"
     
     def show
-      # @aa = "xxxxxx"
-#       if session[:notify]
-#         @aa = session[:notify]
-#       end
-#       @bb = "aaaaa"
-#
       
         @help_text = "Help" + (@seller ? " " + @seller.user_profile.first_name : "") + " fundraise for " + @campaign.title
       
@@ -27,6 +21,60 @@ class ShopController < ApplicationController
         
     end
 
+    def weixin_notify
+      
+      session[:notify] =  "bbbbbbbbbbbbbbbbbbb"
+      
+      # render text: "aaaaa"
+      result = Hash.from_xml(request.body.read)["xml"]
+
+      
+      # redirect_to root_url
+
+      if WxPay::Sign.verify?(result)
+
+        # find your order and process the post-paid logic.
+
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+      else
+        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+      end
+
+    end
+    
+    def weixin_native_payment_init()
+    
+      r = Random.new
+      num = r.rand(1000...9999)
+      out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
+    
+      @notify_url = root_url + 'checkout/weixin_notify'
+    
+      params = {
+        body: '11号公益圈订单',
+        out_trade_no: out_trade_no,
+        total_fee: 1,
+        spbill_create_ip: '127.0.0.1',
+        notify_url: @notify_url,
+        trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+      }
+    
+
+      r = WxPay::Service.invoke_unifiedorder params
+      @weixin_init_success = false
+      @qr_url = "#"
+    
+      if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+      
+        r = WxPay::Service.invoke_unifiedorder params\
+      
+        qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
+        @qr_url = qr.to_img.resize(200, 200).to_data_url
+      
+      end
+
+    end
+    
     def weixin_jssdk_init()
       
       $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
@@ -494,10 +542,22 @@ class ShopController < ApplicationController
       
       session[:confirmation_order_id] = nil
       
+
+      @aa = "xxxxxx"
+      if session[:notify]
+        @aa = session[:notify]
+      end
+      @bb = "aaaaa"
+
+
       weixin_get_user_info()
       weixin_payment_init(@order.grandtotal)
       # weixin_payment_init(1)
       weixin_address_init()
+      
+      if !is_wechat_brower?
+        weixin_native_payment_init()
+      end
         
     end
     
