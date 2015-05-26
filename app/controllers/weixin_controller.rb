@@ -201,21 +201,25 @@ class WeixinController < ApplicationController
     # order.save
     logger.info "hahahahahahahahahahahahahahahaha"
 
-    result = Hash.from_xml(request.body.read)["xml"]
+    if !request.body.read.blank?
+      
+      result = Hash.from_xml(request.body.read)["xml"]
 
-    if WxPay::Sign.verify?(result)
+      if WxPay::Sign.verify?(result)
 
-      # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-#       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
-      # find your order and process the post-paid logic.
+        # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+  #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
+        # find your order and process the post-paid logic.
 
-      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
 
-    else
+      else
 
-      # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-#       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
-      render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+        # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+  #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
+        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+      end
+      
     end
 
     
