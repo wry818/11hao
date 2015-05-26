@@ -60,7 +60,6 @@ class ShopController < ApplicationController
         notify_url: @notify_url,
         trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
       }
-    
 
       r = WxPay::Service.invoke_unifiedorder params
       @weixin_init_success = false
@@ -549,7 +548,6 @@ class ShopController < ApplicationController
       if session[:notify]
         @aa = session[:notify]
       end
-      @bb = "aaaaa"
 
 
       weixin_get_user_info()
