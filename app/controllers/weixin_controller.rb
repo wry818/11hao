@@ -220,9 +220,10 @@ class WeixinController < ApplicationController
   
   def notify
 
-    order = Order.find_by_id(8)
-    order.fullname = "nononono"
-    order.save
+    # order = Order.find_by_id(8)
+    # order.fullname = "nononono"
+    # order.save
+    
     result = Hash.from_xml(request.body.read)["xml"]
     
     if WxPay::Sign.verify?(result)
