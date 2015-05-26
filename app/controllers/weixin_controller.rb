@@ -219,7 +219,10 @@ class WeixinController < ApplicationController
   end
   
   def notify
-    
+
+    order = Order.find_by_id(8)
+    order.fullname = "nononono"
+    order.save
     result = Hash.from_xml(request.body.read)["xml"]
     
     if WxPay::Sign.verify?(result)
@@ -227,9 +230,6 @@ class WeixinController < ApplicationController
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
       # find your order and process the post-paid logic.
-      order = Order.find_by_id(8)
-      order.fullname = "nononono"
-      order.save
       
       render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
     else
