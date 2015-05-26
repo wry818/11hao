@@ -109,6 +109,61 @@ class WeixinController < ApplicationController
 
   end
   
+  def query_order
+    
+    app_id = ENV['WEIXIN_APPID']
+    mch_id = ENV['WEIXIN_MCHID']
+    out_trade_no = params[:id]
+    nonce_str = SecureRandom.uuid.tr('-', '')
+    
+    params_sign = {
+      appid: app_id,
+      mch_id:  mch_id,
+      out_trade_no: out_trade_no,
+      nonce_str: nonce_str
+    }
+    
+    payload = make_payload(params_sign)
+    
+    # puts payload
+    #
+    # render text: payload
+    # sign = WxPay::Sign.generate(params_sign)
+#
+#     params_query = {
+#       appid: app_id,
+#       mch_id:  mch_id,
+#       out_trade_no: out_trade_no,
+#       nonce_str: nonce_str,
+#       sign: sign
+#     }
+    
+    r = RestClient::Request.execute(
+      {
+        method: :post,
+        url: "https://api.mch.weixin.qq.com/pay/orderquery",
+        payload: payload,
+        headers: { content_type: 'application/xml' }
+      }.merge(WxPay.extra_rest_client_options)
+    )
+
+    if r
+      puts "aaaaaaaa"
+      result = WxPay::Result.new Hash.from_xml(r)
+      puts result.to_s
+      
+      render text: result["trade_state"]
+    else
+      puts "bbbbbbbb"
+      render text: "bbbbbbbb"
+    end
+    
+  end
+  
+  def make_payload(params)
+    "<xml>#{params.map { |k, v| "<#{k}>#{v}</#{k}>" }.join}<sign>#{WxPay::Sign.generate(params)}</sign></xml>"
+  end
+  
   def native_mode1
     
     puts "lalalalalalalalalalalalalalalalala22222222222"
@@ -153,14 +208,14 @@ class WeixinController < ApplicationController
      
     r = Random.new
     num = r.rand(1000...9999)
-    out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
+    @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
 
     @result = "not wexin browser"
     @notify_url = root_url + 'weixin_custom/notify'
 
     params = {
       body: '11号公益圈订单',
-      out_trade_no: out_trade_no,
+      out_trade_no: @out_trade_no,
       total_fee: 1,
       spbill_create_ip: '127.0.0.1',
       notify_url: @notify_url,

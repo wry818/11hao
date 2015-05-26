@@ -3,6 +3,7 @@ class ShopController < ApplicationController
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
+    skip_before_filter :verify_authenticity_token, :only => [:weixin_notify]
     
     layout "shop"
     
@@ -23,9 +24,9 @@ class ShopController < ApplicationController
 
     def weixin_notify
       
-      order = Order.find_by_id(8)
-      order.fullname = "nononono"
-      order.save
+      # order = Order.find_by_id(8)
+      # order.fullname = "nononono"
+      # order.save
       
       # # render text: "aaaaa"
       result = Hash.from_xml(request.body.read)["xml"]
@@ -540,12 +541,6 @@ class ShopController < ApplicationController
       @order.calculate_fees!
       
       session[:confirmation_order_id] = nil
-      
-
-      @aa = "xxxxxx"
-      if session[:notify]
-        @aa = session[:notify]
-      end
 
 
       weixin_get_user_info()
@@ -553,9 +548,9 @@ class ShopController < ApplicationController
       # weixin_payment_init(1)
       weixin_address_init()
       
-      if !is_wechat_brower?
-        weixin_native_payment_init()
-      end
+      # if !is_wechat_brower?
+#         weixin_native_payment_init()
+#       end
         
     end
     
