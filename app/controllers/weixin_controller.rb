@@ -151,32 +151,38 @@ class WeixinController < ApplicationController
   end
   
   def notify
-
-    # order = Order.find_by_id(8)
-#     order.fullname = "nononono"
-#     order.save
+# redirect_to root_url and return
+#     render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+    
+    
+    
+    order = Order.find_by_id(8)
+    order.fullname = "nononono"
+    order.save
     logger.info "hahahahahahahahahahahahahahahaha"
 
     result = Hash.from_xml(request.body.read)["xml"]
-    
+
     if WxPay::Sign.verify?(result)
-    
+
       logger.info "hahahahahahahahahahahahahahahaha111111"
-      
+
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
       # find your order and process the post-paid logic.
-      
+      redirect_to root_url and return
+
       render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+
     else
-      
+
       logger.info "hahahahahahahahahahahahahahahaha222222"
       # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
-      
+redirect_to root_url and return
       render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
     end
-    
+
     
   end
   
