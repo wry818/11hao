@@ -53,24 +53,31 @@ namespace :eleven do
             p.serialize(file_path)
           end
           
+          # Send file to vendor via email
+          Mail.defaults do
+            delivery_method :smtp, { 
+              :address=> "smtp.mailgun.org",
+              :port=> 587,
+              :domain=> ENV['MAILGUN_DOMAIN'],
+              :user_name=> ENV['MAILGUN_USERNAME'],
+              :password=> ENV['MAILGUN_PASSWORD'],
+              :authentication=> 'plain' }
+          end
+          
           if has_item
-            # Send file to vendor via email
-            Mail.defaults do
-              delivery_method :smtp, { 
-                :address=> "smtp.mailgun.org",
-                :port=> 587,
-                :domain=> ENV['MAILGUN_DOMAIN'],
-                :user_name=> ENV['MAILGUN_USERNAME'],
-                :password=> ENV['MAILGUN_PASSWORD'],
-                :authentication=> 'plain' }
-            end
-            
             Mail.deliver do
               from     'admin@11hao.com'
               to       vendor.email
               subject  '11号公益圈订单'
               body     "11号公益圈订单 - " + file_name
               add_file file_path
+            end
+          else
+            Mail.deliver do
+              from     'admin@11hao.com'
+              to       vendor.email
+              subject  '11号公益圈订单'
+              body     "无订单"
             end
           end
         end
