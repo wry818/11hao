@@ -185,7 +185,9 @@ class WeixinController < ApplicationController
       @qr_url = qr.to_img.resize(200, 200).to_data_url
 
     end
-
+    
+    render "native"
+    
   end
   
   def notify
