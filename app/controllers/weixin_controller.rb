@@ -1,5 +1,7 @@
 class WeixinController < ApplicationController
   
+  skip_before_filter :verify_authenticity_token, :only => [:notify]
+  
   def menu
     
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
@@ -106,64 +108,6 @@ class WeixinController < ApplicationController
     end
 
   end
-
-  # def native
-#
-#     # sign = r["sign"]
-#     app_id = ENV['WEIXIN_APPID']
-#     mch_id = ENV['WEIXIN_MCHID']
-#     product_id = "1"
-#     timestamp = Time.now.getutc.to_i.to_s
-#     nonce_str = SecureRandom.uuid.tr('-', '')
-#
-#     params_native_sign = {
-#       appid: app_id,
-#       mch_id: mch_id,
-#       time_stamp: timestamp,
-#       nonce_str: nonce_str,
-#       product_id: product_id
-#     }
-#
-#     native_sign = WxPay::Sign.generate(params_native_sign)
-#
-#     # test_url = "weixin://wxpay/bizpayurl?appid=wx2421b1c4370ec43b&mch_id=10000100&nonce_str=f6808210402125e30663234f94c87a8c&product_id=1&time_stamp=1415949957&sign=512F68131DD251DA4A45DA79CC7EFE9D"
-#     native_pay_url = "weixin://wxpay/bizpayurl?sign=" + native_sign + "&appid=" + app_id + "&mch_id=" + mch_id + "&product_id=" + product_id + "&time_stamp=" + timestamp + "&nonce_str=" + nonce_str
-#     puts native_pay_url
-#     require 'rqrcode_png'
-#
-#     qr = RQRCode::QRCode.new( native_pay_url, :size => 14, :level => :h )
-#     @qr_url = qr.to_img.resize(250, 250).to_data_url
-#
-#     r = Random.new
-#     num = r.rand(1000...9999)
-#     out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S")
-#
-#     @result = "not wexin browser"
-#     puts root_url + 'weixin_custom/notify'
-#
-#     params = {
-#       body: '11号公益圈订单',
-#       out_trade_no: out_trade_no,
-#       total_fee: 1,
-#       spbill_create_ip: '127.0.0.1',
-#       notify_url: root_url + 'weixin_custom/notify',
-#       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
-#     }
-#
-#     r = WxPay::Service.invoke_unifiedorder params
-#     @result = r.to_s
-#     @weixin_init_success = false
-#     @qr_url = "#"
-#
-#     if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
-#
-#
-#
-#     end
-#
-# # render text: @result
-#
-#   end
   
   def native
     
