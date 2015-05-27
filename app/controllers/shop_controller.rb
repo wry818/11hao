@@ -1161,10 +1161,17 @@ class ShopController < ApplicationController
     
     def log_ip
       if @campaign
-        query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip 
-        and visited_time>=:start_time and visited_time<:end_time", 
-        campaign_id: @campaign.id, remote_ip: (session[:openid] && session[:access_token] ? session[:openid] : request.remote_ip), 
-        start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+        if session[:openid] && session[:access_token]
+          query=CampaignVisitLog.where("campaign_id=:campaign_id and open_id=:open_id 
+          and visited_time>=:start_time and visited_time<:end_time", 
+          campaign_id: @campaign.id, open_id: session[:openid], 
+          start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+        else
+          query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip 
+          and visited_time>=:start_time and visited_time<:end_time", 
+          campaign_id: @campaign.id, remote_ip: request.remote_ip, 
+          start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+        end
         
         if @seller
           @visit_log = query.where(:seller_id=>@seller.id).first
@@ -1179,7 +1186,8 @@ class ShopController < ApplicationController
             @visit_log.seller_id = @seller.id
           end
           
-          @visit_log.remote_ip = (session[:openid] && session[:access_token] ? session[:openid] : request.remote_ip)
+          @visit_log.open_id = session[:openid]
+          @visit_log.remote_ip = request.remote_ip
           @visit_log.nickname = weixin_get_user_info
           @visit_log.save
         end
