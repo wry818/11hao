@@ -52,37 +52,41 @@
 
                   <input type="hidden" id="order_id" name="order_id" value="<%= @order.id %>"/>
 
-                  <h3>
-                    支持者信息
-                  </h3>
+				  <div id="divSupporterInfo">
+				  		
+	                    <h3>
+	                      支持者信息
+	                    </h3>
 
-                  <fieldset>
+	                    <fieldset>
 
-                    <div class="form-group">
-                      <label for="fullname">昵称</label>
-                      <input id="fullname" name="order[fullname]" type="text" class="form-control" maxlength="50">
-                    </div>
+	                      <div class="form-group">
+	                        <label for="fullname">昵称</label>
+	                        <input id="fullname" name="order[fullname]" type="text" class="form-control" maxlength="50">
+	                      </div>
 
-                    <div class="form-group" style="display:none;">
-                      <label for="email">Email Address (for receipt &amp; updates)</label>
-                      <input id="email" name="order[email]" type="text" class="form-control" maxlength="200">
-                    </div>
+	                      <div class="form-group" style="display:none;">
+	                        <label for="email">Email Address (for receipt &amp; updates)</label>
+	                        <input id="email" name="order[email]" type="text" class="form-control" maxlength="200">
+	                      </div>
 
-                    <% @campaign.checkout_option_groups.everybody.each do |cog| %>
-                        <%= render 'shop/checkout_option', cog: cog %>
-                    <% end %>
+	                      <% @campaign.checkout_option_groups.everybody.each do |cog| %>
+	                          <%= render 'shop/checkout_option', cog: cog %>
+	                      <% end %>
 
-                    <!-- <div class="form-group" style="margin-top: 15px;">
-                      <div class="checkbox">
-                        <label for="order_make_anonymous">
-                          <input type="checkbox" name="order[make_anonymous]" id="order_make_anonymous">
-                          匿名
-                        </label>
-                      </div>
-                    </div> -->
+	                      <!-- <div class="form-group" style="margin-top: 15px;">
+	                        <div class="checkbox">
+	                          <label for="order_make_anonymous">
+	                            <input type="checkbox" name="order[make_anonymous]" id="order_make_anonymous">
+	                            匿名
+	                          </label>
+	                        </div>
+	                      </div> -->
 
-                  </fieldset>
-
+	                    </fieldset>
+						
+				  </div>
+				  
                   <% @has_seller=false %>
                   <% @campaign.sellers.each do |s| %>
                       <% if s.id == session[:seller_id]
@@ -132,11 +136,11 @@
 	                    收货地址
 	                  </h3>
 										
-										<p class="dm-instruction-2" style="display: <%= @order.needs_shipping ? 'block' : 'none' %>">Book orders will be shipped to the address you provide in 14-20 days, excluding weekends and holidays.</p>
-										
+										<!-- <p class="dm-instruction-2" style="display: <%= @order.needs_shipping ? 'block' : 'none' %>">Book orders will be shipped to the address you provide in 14-20 days, excluding weekends and holidays.</p>
+
 										<p class="dm-instruction-3" style="display: <%= @order.needs_bulkshipping ? 'block' : 'none' %>">Cookie Dough orders will be delivered by the seller 4-6 weeks after the sale end date. As these are not shipping via mail please check with your seller prior to placing your order that they are able to deliver to you. Also contact your seller regarding the exact delivery date.</p>
-										
-										<p class="dm-instruction-1" style="display: <%= @order.needs_email ? 'block' : 'none' %>">Digital Memberships will be delivered via email. You will recieve an email containing your access code within 24 hours after your purchase.</p>
+
+										<p class="dm-instruction-1" style="display: <%= @order.needs_email ? 'block' : 'none' %>">Digital Memberships will be delivered via email. You will recieve an email containing your access code within 24 hours after your purchase.</p> -->
 										
                     <!-- <div class="shipping-inputs dm-instruction-2" style="margin-top:20px; display: <%= @order.needs_shipping ? 'block' : 'none' %>"> -->
 					<div class="shipping-inputs dm-instruction-2" style="margin-top:20px">
@@ -234,8 +238,8 @@
                     <div class="col-md-8">
                       <div class="payment-submit">
                         <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="<%= @order.donation_only? ? "Submit" : "Place your order" %>">
-                                                            <%= @order.donation_only? ? "Submit" : "Place your order" %>
+                                                        <span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">
+                                                            <%= @order.donation_only? ? "微信捐赠" : "微信支付" %>
                                                         </span>
                           <span class="loader" style="display:none"></span>
                         </button>
@@ -278,7 +282,7 @@ $(document).ready(function() {
 	
 	if (<%= @is_wechat_browser %> == false) {
 		
-		$("#divMemberInfo").show();
+		$("#divSupporterInfo").show();
 		$("#divAddressInfo").show();
 		$("#divWeiXinAddressInfo").hide();
 		$("#payment-form-submit").show();
@@ -292,7 +296,7 @@ $(document).ready(function() {
 		
 	} else {
 		
-		$("#divMemberInfo").hide();
+		$("#divSupporterInfo").hide();
 		$("#divAddressInfo").hide();
 		$("#divWeiXinAddressInfo").show();
 		$("#payment-form-submit").hide();
