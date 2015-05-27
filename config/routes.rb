@@ -176,11 +176,12 @@ Raisy::Application.routes.draw do
     post 'ajax/addofflineorder', to: 'shop#ajax_add_offline_order', as: :ajax_add_offline_order
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
     post 'ajax/update-order', to: 'shop#ajax_update_order', as: :ajax_update_order
+    post 'ajax/query-weixin-order', to: 'shop#ajax_query_weixin_order', as: :ajax_query_weixin_order
     # match "checkout/weixin_notify" => "shop#weixin_notify", via: [:get, :post]
     # post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get 'checkout/:id', to: 'shop#checkout', as: :checkout
     get 'checkout/:id/weixin_native_pay', to: 'shop#weixin_native_pay', as: :checkout_weixin_native_pay
-    post 'checkout/:id/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
+    post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get ':id/shop', to: 'shop#shop', as: :shop
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category
     get ':id/shop/category/:category_id/product/:product_id', to: 'shop#product', as: :shop_category_product

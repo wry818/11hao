@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :weixin_notify]
+    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_query_weixin_order, :weixin_notify]
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
@@ -530,9 +530,9 @@ class ShopController < ApplicationController
     
       r = Random.new
       num = r.rand(1000...9999)
+      
       @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
-    
-      @notify_url = root_url + 'checkout/' + params[:id] + '/weixin_notify'
+      @notify_url = root_url + 'checkout/weixin_notify'
     
       params = {
         body: '11号公益圈订单',
@@ -572,7 +572,7 @@ class ShopController < ApplicationController
           # total_fee: 1,
           total_fee: total_fee,
           spbill_create_ip: '127.0.0.1',
-          notify_url: root_url + 'weixin_custom/notify',
+          notify_url: root_url + 'checkout/weixin_notify',
           trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
           # openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
           # openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
@@ -612,18 +612,20 @@ class ShopController < ApplicationController
       # order = Order.find_by_id(8)
       # order.fullname = "nononono"
       # order.save
+      logger.info "hahahahahahahahahahahahahahahaha"
+      logger.info session[:order_id]
       
-      # # render text: "aaaaa"
       result = Hash.from_xml(request.body.read)["xml"]
       
-      # redirect_to root_url
       if WxPay::Sign.verify?(result)
 
         # find your order and process the post-paid logic.
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
 
       else
+        
         render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+        
       end
 
     end
@@ -667,6 +669,46 @@ class ShopController < ApplicationController
       
     end
 
+    def ajax_query_weixin_order
+    
+      app_id = ENV['WEIXIN_APPID']
+      mch_id = ENV['WEIXIN_MCHID']
+      out_trade_no = params[:out_trade_no]
+      nonce_str = SecureRandom.uuid.tr('-', '')
+    
+      params_sign = {
+        appid: app_id,
+        mch_id:  mch_id,
+        out_trade_no: out_trade_no,
+        nonce_str: nonce_str
+      }
+    
+      payload = WxPay::Service.make_payload(params_sign)
+    
+      r = RestClient::Request.execute(
+        {
+          method: :post,
+          url: "https://api.mch.weixin.qq.com/pay/orderquery",
+          payload: payload,
+          headers: { content_type: 'application/xml' }
+        }.merge(WxPay.extra_rest_client_options)
+      )
+
+      if r
+        result = WxPay::Result.new Hash.from_xml(r)
+
+        if result["return_code"] == 'SUCCESS'
+          render text: result["trade_state"]
+        else
+          render text: result["return_msg"]
+        end
+      
+      else
+        render text: "error"
+      end
+    
+    end
+    
     def ajax_update_order     
       
       order_make_anonymous = params[:order_make_anonymous]
