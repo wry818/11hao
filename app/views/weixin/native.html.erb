@@ -1,6 +1,116 @@
+<br />
+<br />
+<%= link_to '启动', "javascript:void(0)", :id => 'start'  %>
+<br />
+<br />
+<%= link_to '停止', "javascript:void(0)", :id => 'pause'  %>
+<br />
+<br />
+<%= link_to '结束', "javascript:void(0)", :id => 'stop'  %>
+<br />
+<br />
+
 <div>
 	<%= image_tag @qr_url %>
 </div>
 <div>
 	<%= @out_trade_no %>
 </div>
+
+<script Language="javascript">
+
+
+$(document).ready(function() {
+
+	var times = 0;
+	var try_times = 360;
+	
+	var timer = $.timer(function() {
+		
+		timer.pause();
+		
+		$.ajax('/weixin_custom/ajax/query-weixin-order', {
+		    type: 'POST',
+		    data: {
+				out_trade_no: "<%= @out_trade_no %>"
+			},
+		    beforeSend: function (jqXHR, settings) {
+		        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		    },
+		    success: function (data) {
+				
+				if (data == "error") {
+					
+					timer.stop();
+					alert("调用api出错，请重新刷新页面后再支付。");
+					
+				} else {
+
+					if (data == "SUCCESS") {
+						
+						alert("success");
+						timer.stop();
+						
+					} else {
+						// alert(data);
+						timer.play();
+					}
+					
+				}
+		    },
+		    error: function (XMLHttpRequest, textStatus, errorThrown) {
+				timer.stop();
+				alert("页面出错，请重新刷新页面后再支付。");
+		    },
+			complete: function () {
+				
+				times++;
+		
+				if (times >= try_times) {
+					timer.stop();
+					alert("支付超时，请重新刷新页面后再支付。");
+				}
+				
+			}
+			
+		});
+	
+	}, 5000, true);
+	
+	// _interval = setInterval(QueryWeixinOrder, 5000);
+
+	$('#start').click(function(){
+
+		timer.play();
+
+	});
+	
+	$('#pause').click(function(){
+
+		timer.pause();
+
+	});
+	
+	$('#stop').click(function(){
+
+		timer.stop();
+
+	});
+	
+});
+
+// function QueryWeixinOrder() {
+//
+// 	times++;
+//
+// 	if (times >= 3) {
+//
+// 		// clearInterval(_interval);
+// 		alert("支付超时，请重新刷新页面后再支付。")
+//
+// 	}
+//
+// }
+
+
+</script>

@@ -39,3 +39,4 @@
 //= require jquery.dataTables
 //= require dataTables.bootstrap
 //= require jweixin-1.0.0
+//= require jquery.timer

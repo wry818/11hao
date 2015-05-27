@@ -109,11 +109,11 @@ class WeixinController < ApplicationController
 
   end
   
-  def query_order
+  def ajax_query_weixin_order
     
     app_id = ENV['WEIXIN_APPID']
     mch_id = ENV['WEIXIN_MCHID']
-    out_trade_no = params[:id]
+    out_trade_no = params[:out_trade_no]
     nonce_str = SecureRandom.uuid.tr('-', '')
     
     params_sign = {
@@ -123,20 +123,7 @@ class WeixinController < ApplicationController
       nonce_str: nonce_str
     }
     
-    payload = make_payload(params_sign)
-    
-    # puts payload
-    #
-    # render text: payload
-    # sign = WxPay::Sign.generate(params_sign)
-#
-#     params_query = {
-#       appid: app_id,
-#       mch_id:  mch_id,
-#       out_trade_no: out_trade_no,
-#       nonce_str: nonce_str,
-#       sign: sign
-#     }
+    payload = WxPay::Service.make_payload(params_sign)
     
     r = RestClient::Request.execute(
       {
@@ -148,20 +135,18 @@ class WeixinController < ApplicationController
     )
 
     if r
-      puts "aaaaaaaa"
       result = WxPay::Result.new Hash.from_xml(r)
-      puts result.to_s
+
+      if result["return_code"] == 'SUCCESS'
+        render text: result["trade_state"]
+      else
+        render text: result["return_msg"]
+      end
       
-      render text: result["trade_state"]
     else
-      puts "bbbbbbbb"
-      render text: "bbbbbbbb"
+      render text: "error"
     end
     
-  end
-  
-  def make_payload(params)
-    "<xml>#{params.map { |k, v| "<#{k}>#{v}</#{k}>" }.join}<sign>#{WxPay::Sign.generate(params)}</sign></xml>"
   end
   
   def native_mode1
@@ -197,11 +182,6 @@ class WeixinController < ApplicationController
     
   end
   
-  def native_callback
-    
-    puts "lalalalalalalalalalalalalalalalala"
-  end
-  
   def native_mode2
     
     # render text: "aa"
@@ -221,7 +201,6 @@ class WeixinController < ApplicationController
       notify_url: @notify_url,
       trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
     }
-
 
     r = WxPay::Service.invoke_unifiedorder params
     @result = r.to_s
@@ -246,10 +225,6 @@ class WeixinController < ApplicationController
   end
   
   def notify
-# redirect_to root_url and return
-#     render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
-    
-    
     
     # order = Order.find_by_id(8)
     # order.fullname = "nononono"
@@ -261,18 +236,15 @@ class WeixinController < ApplicationController
       result = Hash.from_xml(request.body.read)["xml"]
 
       if WxPay::Sign.verify?(result)
-
-        # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-  #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
+        
         # find your order and process the post-paid logic.
 
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
 
       else
-
-        # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-  #       $client.send_text_custom(session[:openid], "支付成功！11号公益圈感谢您的支持！")
+        
         render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+        
       end
       
     end

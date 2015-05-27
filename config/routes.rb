@@ -179,6 +179,7 @@ Raisy::Application.routes.draw do
     # match "checkout/weixin_notify" => "shop#weixin_notify", via: [:get, :post]
     # post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get 'checkout/:id', to: 'shop#checkout', as: :checkout
+    get 'checkout/:id/weixin_native_pay', to: 'shop#weixin_native_pay', as: :checkout_weixin_native_pay
     post 'checkout/:id/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get ':id/shop', to: 'shop#shop', as: :shop
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category
@@ -208,11 +209,12 @@ Raisy::Application.routes.draw do
         get 'native' => 'weixin#native_mode2'
         get 'query_order/:id' => 'weixin#query_order'
         # match "native_callback" => "weixin#native_callback", via: [:get, :post]
-        post 'native_callback' => 'weixin#native_callback'
+        # post 'native_callback' => 'weixin#native_callback'
         match "notify" => "weixin#notify", via: [:get, :post]
         # post 'notify' => 'weixin#notify'
         # post 'notify_alert' => 'weixin#notify_alert'
         get 'send_template' => 'weixin#send_template'
+        post 'ajax/query-weixin-order', to: 'weixin#ajax_query_weixin_order'
     end
     
 end

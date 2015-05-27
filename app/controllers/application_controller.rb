@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :get_wechat_sns, if: :is_wechat_brower?
+    before_action :get_wechat_sns, if: :is_wechat_browser?
     # Prevent CSRF attacks by raising an exception.
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
@@ -25,11 +25,15 @@ class ApplicationController < ActionController::Base
         current_user && current_user.is_crs?
     end
     
-    def is_wechat_brower?
+    def is_wechat_browser?
         request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
         # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #         url = $wechat_client.authorize_url(request.original_url)
 #         puts url
+    end
+    
+    def is_wechat_browser2
+        true
     end
     
     def get_wechat_sns

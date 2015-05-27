@@ -22,59 +22,6 @@ class ShopController < ApplicationController
         weixin_jssdk_init()
         
     end
-
-    def weixin_notify
-      
-      # order = Order.find_by_id(8)
-      # order.fullname = "nononono"
-      # order.save
-      
-      # # render text: "aaaaa"
-      result = Hash.from_xml(request.body.read)["xml"]
-      
-      # redirect_to root_url
-      if WxPay::Sign.verify?(result)
-
-        # find your order and process the post-paid logic.
-        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
-
-      else
-        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
-      end
-
-    end
-    
-    def weixin_native_payment_init()
-    
-      r = Random.new
-      num = r.rand(1000...9999)
-      out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
-    
-      @notify_url = root_url + 'checkout/' + params[:id] + '/weixin_notify'
-    
-      params = {
-        body: '11号公益圈订单',
-        out_trade_no: out_trade_no,
-        total_fee: 1,
-        spbill_create_ip: '127.0.0.1',
-        notify_url: @notify_url,
-        trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
-      }
-
-      r = WxPay::Service.invoke_unifiedorder params
-      @weixin_init_success = false
-      @qr_url = "#"
-    
-      if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
-      
-        r = WxPay::Service.invoke_unifiedorder params\
-      
-        qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
-        @qr_url = qr.to_img.resize(200, 200).to_data_url
-      
-      end
-
-    end
     
     def weixin_jssdk_init()
       
@@ -542,34 +489,73 @@ class ShopController < ApplicationController
       @order.calculate_fees!
       
       session[:confirmation_order_id] = nil
-
-
-      weixin_get_user_info()
-      weixin_payment_init(@order.grandtotal)
-      # weixin_payment_init(1)
-      weixin_address_init()
       
-      # if !is_wechat_brower?
-#         weixin_native_payment_init()
-#       end
+      @is_wechat_browser = is_wechat_browser?
+      if is_wechat_browser?
         
-    end
-    
-    def weixin_get_user_info()
-      
-      @nickname = ""
-        
-      if session[:openid] && session[:access_token]
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
-        
-        if user_info.result["errcode"] != "40003"
-            @nickname = user_info.result["nickname"]
-        end
+        weixin_get_user_info()
+        weixin_payment_init(@order.grandtotal)
+        # weixin_payment_init(1)
+        weixin_address_init()
         
       end
       
+    end
+    
+    def weixin_native_pay
+      
+      if params[:direct_donation]
+        @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
+      elsif session[:order_id]
+        @order = Order.find_by_id(session[:order_id])
+        unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        end
+      else
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+      end
+      
+      #This is the first place the fees are calculated
+      @order.calculate_fees!
+      
+      if !is_wechat_browser?
+        
+        weixin_native_payment_init()
+        
+      end
+      
+    end
+    
+    def weixin_native_payment_init()
+    
+      r = Random.new
+      num = r.rand(1000...9999)
+      @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
+    
+      @notify_url = root_url + 'checkout/' + params[:id] + '/weixin_notify'
+    
+      params = {
+        body: '11号公益圈订单',
+        out_trade_no: @out_trade_no,
+        total_fee: 1,
+        spbill_create_ip: '127.0.0.1',
+        notify_url: @notify_url,
+        trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
+      }
+
+      r = WxPay::Service.invoke_unifiedorder params
+      @weixin_init_success = false
+      @qr_url = "#"
+    
+      if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+      
+        r = WxPay::Service.invoke_unifiedorder params\
+      
+        qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
+        @qr_url = qr.to_img.resize(200, 200).to_data_url
+      
+      end
+
     end
     
     def weixin_payment_init(total_fee)
@@ -620,6 +606,44 @@ class ShopController < ApplicationController
       end
       
     end
+
+    def weixin_notify
+      
+      # order = Order.find_by_id(8)
+      # order.fullname = "nononono"
+      # order.save
+      
+      # # render text: "aaaaa"
+      result = Hash.from_xml(request.body.read)["xml"]
+      
+      # redirect_to root_url
+      if WxPay::Sign.verify?(result)
+
+        # find your order and process the post-paid logic.
+        render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+
+      else
+        render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+      end
+
+    end
+    
+    def weixin_get_user_info()
+      
+      @nickname = ""
+        
+      if session[:openid] && session[:access_token]
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+        
+        if user_info.result["errcode"] != "40003"
+            @nickname = user_info.result["nickname"]
+        end
+        
+      end
+      
+    end
     
     def weixin_address_init()
         
@@ -642,7 +666,7 @@ class ShopController < ApplicationController
       end  
       
     end
-    
+
     def ajax_update_order     
       
       order_make_anonymous = params[:order_make_anonymous]

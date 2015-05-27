@@ -1,0 +1,27 @@
+<div id="campaign-show">
+  <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+  <div class="container container-background">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="container-box checkout">
+
+          <%= render 'shop/campaign_header' %>
+
+		  <div>
+		  	<%= image_tag @qr_url %>
+		  </div>
+		  <div>
+		  	<%= @out_trade_no %>
+		  </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+  <%= render 'shop/cart_modal', parent_page: :checkout %>
+</div><!-- /.modal -->
