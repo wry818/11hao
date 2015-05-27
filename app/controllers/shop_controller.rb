@@ -3,6 +3,7 @@ class ShopController < ApplicationController
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
+    before_filter :log_ip, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
     skip_before_filter :verify_authenticity_token, :only => [:weixin_notify]
     
     layout "shop"
@@ -1089,6 +1090,31 @@ class ShopController < ApplicationController
         }
       rescue
         redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
+      end
+    end
+    
+    def log_ip
+      if @campaign
+        query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip 
+        and visited_time>=:start_time and visited_time<:end_time", 
+        campaign_id: @campaign.id, remote_ip: request.remote_ip, 
+        start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+        
+        if @seller
+          @visit_log = query.where(:seller_id=>@seller.id).first
+        else
+          @visit_log = query.first
+        end
+        
+        if !@visit_log
+          @visit_log = CampaignVisitLog.new campaign_id: @campaign.id, remote_ip: request.remote_ip, visited_time: Time.now
+          
+          if @seller
+            @visit_log.seller_id = @seller.id
+          end
+          
+          @visit_log.save
+        end
       end
     end
 
