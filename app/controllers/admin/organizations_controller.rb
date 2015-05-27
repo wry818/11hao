@@ -28,7 +28,7 @@ class Admin::OrganizationsController < Admin::ApplicationController
     
     @organization.save
     
-    redirect_to admin_organizations_path, flash: { success: "Organization created" }
+    redirect_to admin_organizations_path, flash: { success: "组织已创建" }
   end
   
   def edit
@@ -49,7 +49,7 @@ class Admin::OrganizationsController < Admin::ApplicationController
     
     @organization.save
     
-    redirect_to admin_organizations_path, flash: { success: "Organization updated" }
+    redirect_to admin_organizations_path, flash: { success: "组织已更新" }
   end
   
   def destroy
@@ -63,7 +63,7 @@ class Admin::OrganizationsController < Admin::ApplicationController
       campaign.save
     end
     
-    redirect_to admin_organizations_path, flash: { success: "Organization deleted" }
+    redirect_to admin_organizations_path, flash: { success: "组织已删除" }
   end
   
   private

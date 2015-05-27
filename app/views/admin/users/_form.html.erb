@@ -5,45 +5,44 @@
             <div class="col-md-12">
 
                 <div class="well">
-                    <label for="user_profile_first_name">First Name</label>
-                    <input class="form-control" id="user_profile_first_name" name="user_profile[first_name]" placeholder="First Name" type="text" value="<%= @user.profile.try(:first_name) %>">
+                    <label for="user_profile_first_name">姓名</label>
+                    <input class="form-control" id="user_profile_first_name" name="user_profile[first_name]" placeholder="姓名" type="text" value="<%= @user.profile.try(:first_name) %>">
                 </div>
 
-                <div class="well">
+                <div class="well" style="display:none;">
                     <label for="user_profile_last_name">Last Name</label>
                     <input class="form-control" id="user_profile_last_name" name="user_profile[last_name]" placeholder="Last Name" type="text" value="<%= @user.profile.try(:last_name) %>">
                 </div>
 
                 <div class="well">
-                    <label for="user_profile_phone_number">Phone Number</label>
-                    <input class="form-control" id="user_profile_phone_number" name="user_profile[phone_number]" placeholder="Phone Number" type="text" value="<%= @user.profile.try(:phone_number) %>">
+                    <label for="user_profile_phone_number">手机/电话</label>
+                    <input class="form-control" id="user_profile_phone_number" name="user_profile[phone_number]" placeholder="手机/电话" type="text" value="<%= @user.profile.try(:phone_number) %>">
                 </div>
 				
                 <div class="well">
-                    <label for="user_email">Email Address</label>
+                    <label for="user_email">Email</label>
                     <%= f.text_field :email, class: 'form-control', placeholder: 'Email', autocomplete: "off" %>
                 </div>
 
                 <div class="well">
-                    <label for="user_password" class="control-label">Password</label>
+                    <label for="user_password" class="control-label">密码</label>
                     <%= f.text_field :password, class: 'form-control', placeholder: 'Password', type: 'password', autocomplete: "off" %>
                 </div>
 
                 <div class="well">
-                    <label for="user_profile_display_name" class="control-label">Display Name</label>
-                    <input class="form-control" id="user_profile_display_name" name="user_profile[display_name]" placeholder="Display Name" type="text" value="<%= @user.profile.try(:display_name) %>">
+                    <label for="user_profile_display_name" class="control-label">昵称</label>
+                    <input class="form-control" id="user_profile_display_name" name="user_profile[display_name]" placeholder="昵称" type="text" value="<%= @user.profile.try(:display_name) %>">
                 </div>
 
                 <div class="well">
-                    <label for="user_profile_title" class="control-label">Title</label>
-                    <input class="form-control" id="user_profile_title" name="user_profile[title]" placeholder="Title" type="text" value="<%= @user.profile.try(:title) %>">
+                    <label for="user_profile_title" class="control-label">头衔/职位</label>
+                    <input class="form-control" id="user_profile_title" name="user_profile[title]" placeholder="头衔/职位" type="text" value="<%= @user.profile.try(:title) %>">
                 </div>
 
                 <div class="well">
                     <div class="form-group">
-                        <label for="user_picture" class="control-label">
-							Picture 
-							<span style="font-weight: normal">(Best size: 200px * 200px)</span>
+                        <label for="user_picture" class="control-label">头像
+							<span style="font-weight: normal">(最佳尺寸: 200*200像素)</span>
 						</label>
 
                         <div class="image-uploader">
@@ -66,13 +65,13 @@
 						<div class="clearfix" style="margin-top:20px;">
 							<div class="upload-button" style="float:left;" onclick="$('#user_picture_file').click();">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Upload</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">your own photo</span>
+									上传</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">你的头像</span>
 							</div>
 							<div class="use-button" style="float:left; margin-left:20px;" onclick="$('#default_photos_modal').modal('show');">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
-									Use</span>
-								<span style="font-size:0.9em;display:block;font-style:italic;">one of ours</span>
+									使用</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">我们的头像</span>
 							</div>
 						</div>
                     </div>
@@ -81,10 +80,10 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Admin User?</label>
+                            <label>是否管理员</label>
                             <div class="checkbox" style="margin-top: 5px;">
                                 <label for="user_admin_flag">
-                                  <%= f.check_box :admin_flag %>Make Admin
+                                  <%= f.check_box :admin_flag %> 设为管理员
                                 </label>
                             </div>
                         </div>
@@ -95,10 +94,10 @@
 	                <div class="well">
 	                    <div class="row">
 	                        <div class="col-md-12">
-	                            <label>Account Type</label>
+	                            <label>用户类型</label>
 								<div>
 						            <select class="form-control input-small" id="account_type_id" name="user[account_type]" style="width: 200px">
-										<option value="">-- Please Select --</option>
+										<option value="">-- 请选择 --</option>
 						                <% @account_types.each do |account_type| %>
 						                	<option value="<%= account_type.id %>" <%= f.object.account_type == account_type.id ? 'selected' : '' %> >
 						                    	<%= account_type.name %>
@@ -107,10 +106,10 @@
 						            </select>
 								</div>
 								<div id="sales_organizations" style="margin-top: 10px">
-									<label>Sales Organizations</label>
+									<label>所属组织</label>
 		                            <div class="row">
 										<div class="col-md-5">
-											<label>Selected</label>
+											<label>已选择</label>
 											<select id="selected_organization" name="selected_organization" multiple="multiple" class="sales-organizations">
 								                <% @user_organizations.each do |organization| %>
 								                	<option value="<%= organization.id %>">
@@ -122,17 +121,17 @@
 										<div class="col-md-2">
 											<div style="margin-top: 50px; margin-bottom: 50px">
 												<a id="btnAddOrganization" href="javascript:void(0);" class="btn btn-primary" style="width: 100%">
-													<span>Add</span>
+													<span>加入</span>
 												</a>
 												<br />
 												<br />
 												<a id="btnRemoveOrganization" href="javascript:void(0);" class="btn btn-primary" style="width: 100%">
-													<span>Remove</span>
+													<span>移出</span>
 												</a>
 											</div>
 										</div>
 										<div class="col-md-5">
-											<label>Not Selected</label>
+											<label>未选择</label>
 											<select id="unselected_organization" name="unselected_organization" multiple="multiple" class="sales-organizations">
 								                <% @not_user_organizations.each do |organization| %>
 								                	<option value="<%= organization.id %>">
@@ -152,7 +151,7 @@
         </div>
 
         <button id="user-form-submit" class="btn btn-primary" name="commit" type="submit">
-            <span class="text">Save </span> <span class="loader" style="display:none"></span>
+            <span class="text">保存 </span> <span class="loader" style="display:none"></span>
         </button>
 
     </fieldset>
@@ -167,7 +166,7 @@
 
         <div class="modal-header">
             <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Choose one of our photos</h4>
+            <h4 class="modal-title">请选择一个头像</h4>
         </div> <!-- /.modal-header -->
 
             <div class="modal-body">

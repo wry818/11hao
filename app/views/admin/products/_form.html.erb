@@ -102,7 +102,7 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>捐款</label>
+                            <label>捐款金额</label>
                         </div>
                     </div>
                     <div class="row">
@@ -155,7 +155,7 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="product_vendor_id">供货商</label>
+                            <label for="product_vendor_id">供应商</label>
                             <select class="form-control input-small" id="product_vendor_id" name="product[vendor_id]">
 								<option value="">-- 请选择 --</option>
 								<% Vendor.active.each do |vendor| %> 
@@ -193,8 +193,8 @@
 					
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="product_sku">标识码</label>
-                            <%= f.text_field :sku, class: 'form-control', maxlength: 20, placeholder: "标识码" %>
+                            <label for="product_sku">识别码</label>
+                            <%= f.text_field :sku, class: 'form-control', maxlength: 20, placeholder: "识别码" %>
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
                 <div class="well">
                     <div class="row">
                        <div class="col-md-12">
-                           <label>商品选项</label>
+                           <label>选项组</label>
 						   
 						   <% option_group = @product.option_groups.active.first %>
 						   
@@ -252,7 +252,7 @@
 									<thead> 
 										<th>名称</th>
 										<th>描述</th>
-										<th>是否必选</th>
+										<th>必选</th>
 										<th></th>
 										<th></th>
 									</thead>
@@ -277,7 +277,7 @@
 						 	</div>
 						   	<% else %>
 						   	<div style="margin-top:10px;">
-								<%= link_to "添加选项", admin_product_edit_option_group_path(@product), class: "btn btn-primary" %>
+								<%= link_to "添加选项组", admin_product_edit_option_group_path(@product), class: "btn btn-primary" %>
 						   	</div>
 						   	<% end %>
                        </div>

@@ -31,8 +31,8 @@ admin_setting.default_cp_email_message = '<p>Please help us raise even more fund
 <p>The SOONER you join, the MORE you can sell!</p>'
 admin_setting.save
 
-AccountType.create id: 1, name: "18+"
-AccountType.create id: 2, name: "14-17"
-AccountType.create id: 3, name: "13"
-AccountType.create id: 4, name: "Sales"
-AccountType.create id: 5, name: "CSR"
+AccountType.create id: 1, name: "18岁及以上"
+AccountType.create id: 2, name: "14-17岁"
+AccountType.create id: 3, name: "13岁及以下"
+AccountType.create id: 4, name: "销售"
+AccountType.create id: 5, name: "客服"

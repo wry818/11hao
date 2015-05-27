@@ -23,7 +23,7 @@ class Admin::VendorsController < Admin::ApplicationController
     
     @vendor.save
     
-    redirect_to admin_vendors_path, flash: { success: "Vendor created" }
+    redirect_to admin_vendors_path, flash: { success: "供应商已创建" }
   end
   
   def edit
@@ -44,7 +44,7 @@ class Admin::VendorsController < Admin::ApplicationController
 
     @vendor.save
 
-    redirect_to admin_vendors_path, flash: { success: "Vendor updated" }
+    redirect_to admin_vendors_path, flash: { success: "供应商已更新" }
   end
   
   def destroy
@@ -52,7 +52,7 @@ class Admin::VendorsController < Admin::ApplicationController
     @vendor.deleted = true
     @vendor.save
     
-    redirect_to admin_vendors_path, flash: { success: "Vendor deleted" }
+    redirect_to admin_vendors_path, flash: { success: "供应商已删除" }
   end
   
   private

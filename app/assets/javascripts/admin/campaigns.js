@@ -65,7 +65,7 @@ window.Raisy_admin_campaigns = {
 			if ($button.data("uploaded")=="yes")
 			{
 				// Crop done 
-				$button.data("uploaded","no").find("span").text("Upload");
+				$button.data("uploaded","no").find("span").text("上传");
 				
 				$("#upload_camp_photo_container").find("img").first().fadeOut(200, function(){
 					var public_id=$("#upload_camp_photo_container").data("public-id");
@@ -177,7 +177,7 @@ window.Raisy_admin_campaigns = {
 					
 					window.Raisy_admin_campaigns.cropboxPhoto($container);
 					
-					$("#upload_camp_photo_button").data("uploaded","yes").find("span").text("Save");
+					$("#upload_camp_photo_button").data("uploaded","yes").find("span").text("保存");
 				}
 				else
 				{
@@ -303,7 +303,7 @@ window.Raisy_admin_campaigns = {
 		$("#organization_name").not(".input-organization").select2({
 			allowClear: true,
 			minimumInputLength: 0,
-			placeholder: "Select an organization",
+			placeholder: "请选择组织",
 			ajax: {  
 			        url: "/campaigns/organizations.json",
 					cache: true,

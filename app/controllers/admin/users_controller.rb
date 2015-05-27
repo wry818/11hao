@@ -52,7 +52,7 @@ class Admin::UsersController < Admin::ApplicationController
             @user.organizations << user_organizations
         end
         
-        redirect_to admin_users_url, flash: { success: "User created" }
+        redirect_to admin_users_url, flash: { success: "用户已创建" }
 
     end
 
@@ -124,7 +124,7 @@ class Admin::UsersController < Admin::ApplicationController
             @user.organizations << user_organizations
         end
         
-        redirect_to admin_users_url, flash: { success: "User updated" }
+        redirect_to admin_users_url, flash: { success: "用户已更新" }
 
     end
 

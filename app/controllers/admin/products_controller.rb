@@ -15,7 +15,7 @@ class Admin::ProductsController < Admin::ApplicationController
             collection = Collection.find_by_id(params[:product_collection_id])
             
             if collection.products.where(:is_featured=>true).count>=6              
-              flash.now[:danger] = "You can only have up to 6 featured products in " + collection.name
+              flash.now[:danger] = "最多只能添加六个义卖商品"
               render action: "new" and return
             end
         end
@@ -50,7 +50,7 @@ class Admin::ProductsController < Admin::ApplicationController
             @product.categories << categories
         end
 
-        redirect_to admin_products_url, flash: { success: "Product created" }
+        redirect_to admin_products_url, flash: { success: "商品已创建" }
 
     end
 
@@ -66,7 +66,7 @@ class Admin::ProductsController < Admin::ApplicationController
             collection = Collection.find_by_id(params[:product_collection_id])
             
             if collection.products.where("is_featured=true and id!=?", @product.id).count>=6              
-              flash.now[:danger] = "You can only have up to 6 featured products in " + collection.name
+              flash.now[:danger] = "最多只能添加六个义卖商品"
               render action: "new" and return
             end
         end
@@ -109,23 +109,23 @@ class Admin::ProductsController < Admin::ApplicationController
             @product.categories << categories
         end
 
-        redirect_to admin_products_url, flash: { success: "Product updated" }
+        redirect_to admin_products_url, flash: { success: "商品已更新" }
     end
 
     def destroy
         @product = Product.friendly.find(params[:id])
         
         if !@product
-          redirect_to admin_products_url, flash: { danger: "Product does not exist" } and return
+          redirect_to admin_products_url, flash: { danger: "该商品不存在" } and return
         end
         
         if @product.items.count>0
           redirect_to admin_products_url, flash: { 
-            danger: "The product cannot be deleted. It is currently used by one or more orders." } and return
+            danger: "商品正在使用，无法删除" } and return
         end
         
         @product.destroy
-        redirect_to admin_products_url, flash: { success: "Product deleted" }
+        redirect_to admin_products_url, flash: { success: "商品已删除" }
     end
     
     def prod_collections
@@ -143,7 +143,7 @@ class Admin::ProductsController < Admin::ApplicationController
       end
       
       if !@product
-        redirect_to admin_products_url, flash: { danger: "Product does not exist" } and return
+        redirect_to admin_products_url, flash: { danger: "该商品未找到" } and return
       end
       
       @option_group = @product.option_groups.active.first
@@ -161,7 +161,7 @@ class Admin::ProductsController < Admin::ApplicationController
       end
       
       if !@product
-        redirect_to admin_products_url, flash: { danger: "Product does not exist" } and return
+        redirect_to admin_products_url, flash: { danger: "该商品不存在" } and return
       end
       
       @option_group = @product.option_groups.active.first
@@ -222,7 +222,7 @@ class Admin::ProductsController < Admin::ApplicationController
       end
       
       if !@product
-        redirect_to admin_products_url, flash: { danger: "Product does not exist" } and return
+        redirect_to admin_products_url, flash: { danger: "该商品不存在" } and return
       end
       
       @option_group = @product.option_groups.active.first

@@ -85,7 +85,7 @@
 		<p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
 		
 		<% if current_user.is_sales? || current_user.is_crs? %>
-			<p class="navbar-right navbar-text hidden-xs"><%= link_to "Reports", sales_report_path %></p>
+			<p class="navbar-right navbar-text hidden-xs"><%= link_to "报表", sales_report_path %></p>
 		<% end %>
      <% else %>
 	 	<li class="home-menu">

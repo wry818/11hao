@@ -45,26 +45,26 @@ $( document ).ready(function() {
         },
         messages: {
           "organization_name": {
-            required: "Please select an organization"
+            required: "请选择组织"
           },
           "campaign[title]": {
-            required: "Please provide a title",
-            maxlength: "Title must be less than 100 characters"
+            required: "请填写筹款标题",
+            maxlength: "筹款标题最多100字"
           },
           "campaign[organizer_quote]": {
-            maxlength: "Sub-title must be less than 100 characters"
+            maxlength: "宣传口号最多100字"
           },
           "campaign[goal]": {
-            number: "Only numbers, please",
-            min: "Goal minimum is 1"
+            number: "请输入数字",
+            min: "筹款目标最少是一元钱"
           },
           "campaign[discount]": {
-            number: "Only numbers, please",
+            number: "请输入数字",
 			min: "Minimum is 0"
           },
           "campaign[purchase_limit]": {
-            number: "Only numbers, please",
-			min: "Minimum is 0"
+            number: "请输入数字",
+			min: "打折商品数量最小为零"
           }
         }
     });
@@ -146,7 +146,7 @@ $( document ).ready(function() {
 		// validation messages
         messages: {
             "option_group[name]": {
-              required: "Please enter option group name"
+              required: "请输入选项组名称"
             }
         }
 	});
@@ -177,7 +177,7 @@ $( document ).ready(function() {
 		// validation messages
         messages: {
             "organization[name]": {
-              required: "Please enter organization name"
+              required: "请输入组织名称"
             }
         }
 	});
@@ -208,10 +208,10 @@ $( document ).ready(function() {
         },
         messages: {
             "vendor[name]": {
-              required: "Please enter name"
+              required: "请输入供应商名称"
             },
             "vendor[email]": {
-              required: "Please enter email"
+              required: "请输入Email"
             }
         }
 	});

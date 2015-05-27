@@ -117,16 +117,16 @@ window.Raisy_admin_products = {
 				'<input name="properties[][value]" type="text" class="form-control og-property-input og-property-value-input" value="" maxlength="100">' + 
 			'</td>' + 
 			'<td class="og-property-cell og-property-price-cell">' + 
-				'<span class="og-property-text">$</span><span class="og-property-text og-property-price-text"></span>' + 
+				'<span class="og-property-text">￥</span><span class="og-property-text og-property-price-text"></span>' + 
             	'<div class="og-property-input"><div class="input-group">' + 
-                	'<span class="input-group-addon">$</span>' + 
+                	'<span class="input-group-addon">￥</span>' + 
                 	'<input name="properties[][price]" type="text" class="form-control og-property-price-input" value="" maxlength="10">' + 
             	'</div></div>' + 
 			'</td>' + 
 			'<td class="og-property-cell og-property-donation-cell">' + 
-				'<span class="og-property-text">$</span><span class="og-property-text og-property-donation-text"></span>' + 
+				'<span class="og-property-text">￥</span><span class="og-property-text og-property-donation-text"></span>' + 
             	'<div class="og-property-input"><div class="input-group">' + 
-                	'<span class="input-group-addon">$</span>' + 
+                	'<span class="input-group-addon">￥</span>' + 
                		'<input name="properties[][donation]" type="text" class="form-control og-property-donation-input" value="" maxlength="10">' + 
             	'</div></div>' + 
 			'</td>' + 
@@ -138,12 +138,12 @@ window.Raisy_admin_products = {
 			'<td class="og-property-arrow-cell"><span class="glyphicon glyphicon-arrow-up og-property-arrow og-property-arrow-up og-property-hidden-arrow"></td>' + 
 			'<td class="og-property-arrow-cell"><span class="glyphicon glyphicon-arrow-down og-property-arrow og-property-arrow-down og-property-hidden-arrow"></td>' + 
 			'<td class="og-property-opr-cell">' + 
-				'<a class="og-property-opr og-property-oprs1 og-property-edit">Edit</a>' + 
-				'<a class="og-property-opr og-property-oprs2 og-property-save">Save</a>' + 
+				'<a class="og-property-opr og-property-oprs1 og-property-edit">编辑</a>' + 
+				'<a class="og-property-opr og-property-oprs2 og-property-save">保存</a>' + 
 			'</td>' + 
 			'<td class="og-property-opr-cell">' + 
-				'<a class="og-property-opr og-property-oprs1 og-property-delete">Delete</a>' + 
-				'<a class="og-property-opr og-property-oprs2 og-property-cancel">Cancel</a>' + 
+				'<a class="og-property-opr og-property-oprs1 og-property-delete">删除</a>' + 
+				'<a class="og-property-opr og-property-oprs2 og-property-cancel">取消</a>' + 
 			'</td>' +
 			'</tr>';
 			

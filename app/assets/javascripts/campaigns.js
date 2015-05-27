@@ -226,7 +226,7 @@ Raisy.campaigns = {
 
             if ($button.data("uploaded") == "yes") {
                 // Crop done
-                $button.data("uploaded", "no").find("span").text("Upload");
+                $button.data("uploaded", "no").find("span").text("上传");
 
                 $("#upload_camp_photo_container").find("img").first().fadeOut(200, function () {
                     var public_id = $("#upload_camp_photo_container").data("public-id");
@@ -335,7 +335,7 @@ Raisy.campaigns = {
 
                     Raisy.campaigns.cropboxPhoto($container);
 
-                    $("#upload_camp_photo_button").data("uploaded", "yes").find("span").text("Save");
+                    $("#upload_camp_photo_button").data("uploaded", "yes").find("span").text("保存");
                 }
                 else {
                     // txt="Internal Server Error";

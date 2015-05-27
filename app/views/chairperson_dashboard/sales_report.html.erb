@@ -1,10 +1,10 @@
 <div id="sales_report_container" style="padding-bottom:80px;">
     <div style="width:90%; max-width:1280px; margin:auto;">
-        <h3>Reports</h3>
+        <h3>报表</h3>
 		
 		<div>
 			<select id="all_report_org_selector" style="width:400px; margin:20px 0 0 0;">
-				<option value="">All Organizations</option>
+				<option value="">所有组织</option>
 				<% @organizations.each do |org| %>
 				<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
 					<%= org.name %>
@@ -23,7 +23,7 @@
 				<div style="margin-top:15px;">
 					<% if @organizations %>
 						<!-- <select id="activity_report_organization_selector" style="width:400px;">
-							<option value="">All Organizations</option>
+							<option value="">所有组织</option>
 							<% @organizations.each do |org| %>
 							<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
 								<%= org.name %>
@@ -45,7 +45,7 @@
 				<div style="margin-top:15px;">
 					<% if @organizations %>
 						<!-- <select id="sales_report_organization_selector" style="width:400px;">
-							<option value="">All Organizations</option>
+							<option value="">所有组织</option>
 							<% @organizations.each do |org| %>
 							<option value="<%= org.id %>" <%=org.id==@organization_id ? "selected" : ""%>>
 								<%= org.name %>

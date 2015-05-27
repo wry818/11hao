@@ -86,7 +86,7 @@ class Admin::CampaignsController < Admin::ApplicationController
         org = Organization.find_by_id(params[:organization_name])
         
         if !org
-          flash.now[:danger] = "Please select an organization"
+          flash.now[:danger] = "请选择组织"
           render action: "new" and return
         end
       
@@ -423,9 +423,9 @@ class Admin::CampaignsController < Admin::ApplicationController
           @campaign.bulk_submitted_at=DateTime.now
           @campaign.save
 
-          redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "Order has been submitted!" }) and return
+          redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "订单已提交" }) and return
         else
-          redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "Information updated!" }) and return
+          redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "信息已保存" }) and return
         end
 
     end
@@ -454,9 +454,9 @@ class Admin::CampaignsController < Admin::ApplicationController
         @campaign.bulk_submitted_at=DateTime.now
         @campaign.save
 
-        redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "Order has been submitted!" }) and return
+        redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "订单已提交" }) and return
       else
-        redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "Information updated!" }) and return
+        redirect_to(admin_campaign_bulkshippinginfo_url(@campaign), flash: { success: "信息已保存" }) and return
       end
 
     end

@@ -28,7 +28,7 @@ class Admin::CategoriesController < Admin::ApplicationController
             end
         end
 
-        redirect_to admin_collection_url(@collection), flash: { success: "Category succesfully created" }
+        redirect_to admin_collection_url(@collection), flash: { success: "分类已创建" }
     end
 
     def edit
@@ -62,33 +62,33 @@ class Admin::CategoriesController < Admin::ApplicationController
           end
         end
 
-        redirect_to admin_collection_url(@collection), flash: { success: "Category succesfully updated" }
+        redirect_to admin_collection_url(@collection), flash: { success: "分类已更新" }
     end
 
     def destroy
       @category = Category.friendly.find(params[:id])
       
       if !@category
-        redirect_to admin_collection_url(@collection), flash: { danger: "Category does not exist" } and return
+        redirect_to admin_collection_url(@collection), flash: { danger: "该分类不存在" } and return
       end
       
       if @category.products.count>0
         redirect_to admin_collection_url(@collection), flash: { 
-          danger: "The category cannot be deleted. It is currently used by one or more products." } and return
+          danger: "分类正在使用，无法删除" } and return
       end
       
       if @category
         @category.delete
       end
       
-      redirect_to admin_collection_url(@collection), flash: { success: "Category succesfully deleted" }
+      redirect_to admin_collection_url(@collection), flash: { success: "分类已删除" }
     end
 
     private
 
     def load_collection
         @collection = Collection.friendly.find(params[:collection_id])
-        redirect_to admin_root, flash: { danger: "Collection wasn't found" } unless @collection
+        redirect_to admin_root, flash: { danger: "该组合未找到" } unless @collection
     end
 
     def category_params

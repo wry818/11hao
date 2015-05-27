@@ -34,7 +34,7 @@ class Admin::CollectionsController < Admin::ApplicationController
             end
         end
 
-        redirect_to admin_collections_url, flash: { success: "Collection created" }
+        redirect_to admin_collections_url, flash: { success: "组合已创建" }
 
     end
 
@@ -69,28 +69,28 @@ class Admin::CollectionsController < Admin::ApplicationController
           end
         end
 
-        redirect_to admin_collections_url, flash: { success: "Collection updated" }
+        redirect_to admin_collections_url, flash: { success: "组合已更新" }
     end
 
     def destroy
         @collection = Collection.friendly.find(params[:id])
         
         if !@collection
-          redirect_to admin_collections_url, flash: { danger: "Collection does not exist" } and return
+          redirect_to admin_collections_url, flash: { danger: "该组合未找到" } and return
         end
         
         if @collection.campaigns.count>0
           redirect_to admin_collections_url, flash: { 
-            danger: "The collection cannot be deleted. It is currently used by one or more campaigns." } and return
+            danger: "组合正在使用，无法删除" } and return
         end
         
         if @collection.products.count>0
           redirect_to admin_collections_url, flash: { 
-            danger: "The collection cannot be deleted. It is currently used by one or more products." } and return
+            danger: "组合正在使用，无法删除" } and return
         end
         
         @collection.destroy
-        redirect_to admin_collections_url, flash: { success: "Collection deleted" }
+        redirect_to admin_collections_url, flash: { success: "组合已删除" }
     end
 
     private

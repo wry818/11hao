@@ -603,7 +603,7 @@ $(document).ready(function(){
 		
 		var $button = $(this);
 		
-		$button.prop('disabled', true).find('span.text').text("Saving").siblings('span.loader').show(200, function() {
+		$button.prop('disabled', true).find('span.text').text("保存中").siblings('span.loader').show(200, function() {
 			$.ajax("<%= ajax_add_offline_order_path %>", {
 			  	type: 'POST',
 				data: { camp_id:camp_id, seller_id:seller_id, 
@@ -618,13 +618,13 @@ $(document).ready(function(){
 						window.location.href="<%= dashboard_campaign_orders_path(@campaign) %>";
 					}
 					else {
-						$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
+						$button.prop('disabled', false).find('span.text').text("保存").siblings('span.loader').hide();
 						
 						window.Raisy.alert("抱歉，添加线下订单时出了问题，请稍后再试。");
 					}
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					$button.prop('disabled', false).find('span.text').text("Save").siblings('span.loader').hide();
+					$button.prop('disabled', false).find('span.text').text("保存").siblings('span.loader').hide();
 					
 					window.Raisy.alert("抱歉，添加线下订单时出了问题，请稍后再试。");
 				},
