@@ -2,7 +2,7 @@
     <div class="container">
 		 <div class="row">
 			 <div class="col-md-8">
-			 	<h3>Default Seller Email</h3>
+			 	<h3>默认销售邮件</h3>
 			</div>
 		 </div>
 		 
@@ -20,7 +20,7 @@
 					</div>
 					
 					<div style="border:1px solid #ccc; font-size:16px; margin-bottom:10px; padding:10px 0px; text-align:center;">
-						User can add personalized text here
+						此处可添加自定义内容
 					</div>
 					
 					<div style="margin-bottom:10px;">
@@ -30,38 +30,38 @@
 					</div>
 				 </div>
 				 <div class="col-md-4">
-				 	<p>Available predefined variables:</p>
+				 	<p>预定义变量:</p>
 					
 					<table>
 						<tr>
-							<td><label>{{fundraiser.chairperson}}</label> - Chairperson fullname</td>
+							<td><label>{{fundraiser.chairperson}}</label> - 组织者姓名</td>
 						</tr>
 						<tr>
-							<td><label>{{fundraiser.url}}</label> - Url of fundraiser</td>
+							<td><label>{{fundraiser.url}}</label> - 筹款首页地址</td>
 						</tr>
 						<tr>
-							<td><label>{{fundraiser.title}}</label> - Title of fundraiser</td>
+							<td><label>{{fundraiser.title}}</label> - 筹款标题</td>
 						</tr>
 						<tr>
-							<td><label>{{fundraiser.tagline}}</label> - Tagline of fundraiser</td>
+							<td><label>{{fundraiser.tagline}}</label> - 宣传标语</td>
 						</tr>
 						<tr>
-							<td><label>{{fundraiser.goal}}</label> - Goal of fundraiser</td>
+							<td><label>{{fundraiser.goal}}</label> - 筹款目标</td>
 						</tr>
 						<tr>
-							<td><label>{{organization.name}}</label> - Organization name</td>
+							<td><label>{{organization.name}}</label> - 组织名称</td>
 						</tr>
 						<tr>
-							<td><label>{{collection.name}}</label> - Collection name</td>
+							<td><label>{{collection.name}}</label> - 组合名称</td>
 						</tr>
 						<tr>
-							<td><label>{{seller.fullname}}</label> - Seller fullname</td>
+							<td><label>{{seller.fullname}}</label> - 销售姓名</td>
 						</tr>
 						<tr>
-							<td><label>{{seller.url}}</label> - Url of seller's fundraiser page</td>
+							<td><label>{{seller.url}}</label> - 销售首页地址</td>
 						</tr>
 						<tr>
-							<td><label>{{contact.greeting}}</label> - Contact greeting</td>
+							<td><label>{{contact.greeting}}</label> - 联系人问候语</td>
 						</tr>
 					</table>
 				 </div>
@@ -71,8 +71,8 @@
 		 
 			 <div class="row">
 				 <div class="col-md-8" style="text-align:center;">
-					 <input type="submit" class="btn btn-primary btn-lg" value="Save" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					 <%= link_to 'Back', admin_settings_path, class: 'btn btn-primary btn-lg' %>
+					 <input type="submit" class="btn btn-primary btn-lg" value="保存" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 <%= link_to '返回', admin_settings_path, class: 'btn btn-primary btn-lg' %>
 				 </div>
 			 </div>
 		 </form>

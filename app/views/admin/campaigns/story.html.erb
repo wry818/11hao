@@ -11,7 +11,7 @@
 		 <form id="campaign_story_form" action="/admin/campaign_save_story" method="post" class="campaign-story-form form-horizontal">
 			 <div class="row">
 				 <div class="col-md-8 col-md-offset-2">
-					 <label>Title</label>
+					 <label>标题</label>
 					 <input name="title" type="text" class="form-control" maxlength="50" value="<%= @story.title %>" />
 				 </div>
 			 </div>
@@ -27,8 +27,8 @@
 		 
 			 <div class="row">
 				 <div class="col-md-8 col-md-offset-2" style="text-align:center;">
-					 <input type="submit" class="btn btn-primary btn-lg" value="Save" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					 <%= link_to 'Back', "/admin/campaign_stories", class: 'btn btn-primary btn-lg' %>
+					 <input type="submit" class="btn btn-primary btn-lg" value="保存" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					 <%= link_to '返回', "/admin/campaign_stories", class: 'btn btn-primary btn-lg' %>
 				 </div>
 			 </div>
 		 </form>

@@ -1,14 +1,14 @@
 <div id="campaign_images" style="padding: 30px 0">
     <div class="container">
 		 <div class="row">
-			 <h3>Default images</h3>
+			 <h3>默认筹款封面</h3>
 		 </div>
 		 
 		 <div class="row">&nbsp;</div>
 		 
 		 <div class="row">
 			 <div class="col-md-2">
-			 	<%= link_to 'Add Image', "campaign_image", class: 'btn btn-primary' %>
+			 	<%= link_to '添加筹款封面', "campaign_image", class: 'btn btn-primary' %>
 		 	</div>
 		 </div>
 		 
@@ -37,7 +37,7 @@
 		 		</div>
 				<div>&nbsp;</div>
 				<div style="text-align:center;">
-					<button class="btn btn-primary delete-campaign-image" data-pk="<%=image.id%>">Delete</button>
+					<button class="btn btn-primary delete-campaign-image" data-pk="<%=image.id%>">删除</button>
 				</div>
 				<div>&nbsp;</div>
 			</div>
@@ -54,7 +54,7 @@
 		 <div class="row">&nbsp;</div>
 		 
 		 <div>
-			<%= link_to 'Back', admin_settings_path, class: 'btn btn-primary btn-lg' %>
+			<%= link_to '返回', admin_settings_path, class: 'btn btn-primary btn-lg' %>
 		</div>
 	</div>
 </div>

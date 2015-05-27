@@ -5,24 +5,24 @@
             <div class="col-md-12">
 
                 <div class="well">
-                    <label for="collection_name" class="control-label">Name</label>
-                    <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+                    <label for="collection_name" class="control-label">名称</label>
+                    <%= f.text_field :name, class: 'form-control', placeholder: '名称' %>
                 </div>
 
                 <div class="well">
-                    <label for="collection_description" class="control-label">Description</label>
-                    <%= f.text_area :description, class: 'tinymce', placeholder: 'Description' %>
+                    <label for="collection_description" class="control-label">描述</label>
+                    <%= f.text_area :description, class: 'tinymce', placeholder: '描述' %>
                 </div>
 
                 <div class="well">
-                    <label for="collection_landing_page_html" class="control-label">Landing Page HTML</label>
+                    <label for="collection_landing_page_html" class="control-label">登录页HTML</label>
                     <%= f.text_area :landing_page_html, class: "tinymce" %>
                 </div>
 
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Image (optional) <span style="font-weight: normal">(Best size: 280px * 280px)</span></label>
+                            <label>图片 <span style="font-weight: normal">(最佳尺寸: 280*280像素)</span></label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="image-uploader">
@@ -34,7 +34,7 @@
 			  <a href="#" class="remove-image" style="display:none">Remove picture</a>
                                                 </div>
                                             </div><div class="col-md-6">
-                                                <p class="drop-text">...or drop image here</p>
+                                                <p class="drop-text"></p>
                                             </div></div>
                                         </div>
                                         <div class="progress progress-striped active" style="display: none;">
@@ -53,7 +53,7 @@
 										<div class="remove-preview" style="margin-top:10px; display:<%= f.object.picture.present? ? 'block' : 'none' %>;" data-default-url="<%=asset_path 'default_upload_logo.gif'%>">
 											<%= hidden_field_tag :remove_item_image, "no" %>
 											
-											<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">Remove</span></button>
+											<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">删除</span></button>
 										</div>
                                     </div>
                                 </div>
@@ -66,14 +66,14 @@
                     <div class="row">
                         <div class="col-md-12">
                           <div class="checkbox">
-                            <label for="collection_active"><%= f.check_box :active %> Active?</label>
+                            <label for="collection_active"><%= f.check_box :active %> 是否启用</label>
                           </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="well">
-                    <label for="collection_sort_order" class="control-label">Sort Order</label>
+                    <label for="collection_sort_order" class="control-label">排序编号</label>
                     <%= f.text_field :sort_order, class: 'form-control' %>
                 </div>
 
@@ -81,7 +81,7 @@
         </div>
 
         <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
-            <span class="text">Save </span> <span class="loader" style="display:none"></span>
+            <span class="text">保存 </span> <span class="loader" style="display:none"></span>
         </button>
 
     </fieldset>

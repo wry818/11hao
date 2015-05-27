@@ -7,8 +7,8 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="product_name">Name</label>
-                            <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+                            <label for="product_name">商品名称</label>
+                            <%= f.text_field :name, class: 'form-control', placeholder: '名称' %>
                         </div>
                     </div>
                 </div>
@@ -16,8 +16,8 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Description</label>
-                            <%= f.text_area :description, class: 'tinymce', placeholder: 'Description' %>
+                            <label>商品描述</label>
+                            <%= f.text_area :description, class: 'tinymce', placeholder: '描述' %>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Image (optional)<span style="font-weight: normal">(Best size: 280px * 280px)</span></label>
+                            <label>商品图片 <span style="font-weight: normal">(最佳尺寸: 280*280像素)</span></label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="image-uploader">
@@ -37,7 +37,7 @@
 													<a href="#" class="remove-image" style="display:none">Remove picture</a>
                                                 </div>
                                             </div><div class="col-md-6">
-                                                <p class="drop-text">...or drop image here</p>
+                                                <p class="drop-text"><!-- ...or drop image here --></p>
                                             </div></div>
                                         </div>
                                         <div class="progress progress-striped active" style="display: none;">
@@ -56,7 +56,7 @@
 										<div class="remove-preview" style="margin-top:10px; display:<%= f.object.picture.present? ? 'block' : 'none' %>;" data-default-url="<%=asset_path 'default_upload_logo.gif'%>">
 											<%= hidden_field_tag :remove_item_image, "no" %>
 											
-											<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">Remove</span></button>
+											<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">删除</span></button>
 										</div>
                                     </div>
                                 </div>
@@ -68,14 +68,14 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Original Price</label>
+                            <label>原价</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <%= f.text_field :original_price, value: long_price(f.object.original_price), class: 'form-control', placeholder: "Original Price", maxlength: 10 %>
+                                <%= f.text_field :original_price, value: long_price(f.object.original_price), class: 'form-control', placeholder: "原价", maxlength: 10 %>
                             </div>
                         </div>
                     </div>
@@ -85,14 +85,14 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Base Price</label>
+                            <label>售价</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <%= f.text_field :base_price, value: long_price(f.object.base_price), class: 'form-control', placeholder: "Base Price", maxlength: 10 %>
+                                <%= f.text_field :base_price, value: long_price(f.object.base_price), class: 'form-control', placeholder: "售价", maxlength: 10 %>
                             </div>
                         </div>
                     </div>
@@ -102,14 +102,14 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Default Donation Amount</label>
+                            <label>捐款</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4">
                             <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <%= f.text_field :default_donation_amount, value: long_price(f.object.default_donation_amount), class: 'form-control', placeholder: "Donation Amount", maxlength: 10 %>
+                                <%= f.text_field :default_donation_amount, value: long_price(f.object.default_donation_amount), class: 'form-control', placeholder: "捐款", maxlength: 10 %>
                             </div>
                         </div>
                     </div>
@@ -119,10 +119,10 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Quantity</label>
+                            <label>数量</label>
                             <div class="checkbox" style="margin-top: 5px;">
                                 <label for="product_show_quantity">
-                                  <%= f.check_box :show_quantity %>Show Quantity Dropdown
+                                  <%= f.check_box :show_quantity %>可选择购买数量
                                 </label>
                             </div>
                         </div>
@@ -132,20 +132,20 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Delivery Method</label>
+                            <label>配送方式</label>
                             <div class="checkbox" style="margin-top: 5px;">
                                 <label for="product_fulfillment_method_1">
-                                  <%= f.radio_button :fulfillment_method, "1" %> Email
+                                  <%= f.radio_button :fulfillment_method, "1" %> 电子邮件
                                 </label>
                             </div>
                             <div class="checkbox" style="margin-top: 5px;">
                                 <label for="product_fulfillment_method_2">
-                                  <%= f.radio_button :fulfillment_method, "2" %> Shipping Immediately
+                                  <%= f.radio_button :fulfillment_method, "2" %> 快递
                                 </label>
                             </div>
                             <div class="checkbox" style="margin-top: 5px;">
                                 <label for="product_fulfillment_method_3">
-                                  <%= f.radio_button :fulfillment_method, "3" %> Bulk Shipping At Fundraiser Closing
+                                  <%= f.radio_button :fulfillment_method, "3" %> 团队发货
                                 </label>
                             </div>
                         </div>
@@ -155,9 +155,9 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="product_vendor_id">Vendor</label>
+                            <label for="product_vendor_id">供货商</label>
                             <select class="form-control input-small" id="product_vendor_id" name="product[vendor_id]">
-								<option value="">-- Please Select --</option>
+								<option value="">-- 请选择 --</option>
 								<% Vendor.active.each do |vendor| %> 
 									<option value="<%= vendor.id %>" <%= f.object.vendor_id == vendor.id ? 'selected' : '' %>><%= vendor.name %></option>
 								<% end %>
@@ -193,8 +193,8 @@
 					
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="product_sku">SKU</label>
-                            <%= f.text_field :sku, class: 'form-control', maxlength: 20, placeholder: "SKU" %>
+                            <label for="product_sku">标识码</label>
+                            <%= f.text_field :sku, class: 'form-control', maxlength: 20, placeholder: "标识码" %>
                         </div>
                     </div>
                 </div>
@@ -205,13 +205,13 @@
 					
                     <div class="row" style="margin-bottom:10px;">
                         <div class="col-sm-4">
-						  <label>Collection</label>
+						  <label>组合</label>
 					  	</div>
                         <div class="col-sm-2">
-						  <label>Categories</label>
+						  <label>分类</label>
 					  	</div>
                         <div class="col-sm-1">
-						  <a data-toggle="modal" href="<%= admin_product_collections_path(f.object.id.nil? ? 0 : f.object.id) %>" data-target="#collection_modal">Edit</a>
+						  <a data-toggle="modal" href="<%= admin_product_collections_path(f.object.id.nil? ? 0 : f.object.id) %>" data-target="#collection_modal">编辑</a>
 					  	</div>
 				  	</div>
 					
@@ -232,7 +232,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="product_is_featured">
-                              <%= f.check_box :is_featured %>&nbsp;Featured Product
+                              <%= f.check_box :is_featured %>&nbsp;&nbsp;是否义卖
                             </label>
                         </div>
                     </div>
@@ -242,7 +242,7 @@
                 <div class="well">
                     <div class="row">
                        <div class="col-md-12">
-                           <label>Option Group</label>
+                           <label>商品选项</label>
 						   
 						   <% option_group = @product.option_groups.active.first %>
 						   
@@ -250,9 +250,9 @@
 						   <div class="table-responsive">
 							   	<table class="table">
 									<thead> 
-										<th>Name</th>
-										<th>Instructions</th>
-										<th>Required?</th>
+										<th>名称</th>
+										<th>描述</th>
+										<th>是否必选</th>
 										<th></th>
 										<th></th>
 									</thead>
@@ -266,10 +266,10 @@
 												<% end %>
 											</td>
 											<td>
-												<%= link_to "Edit", admin_product_edit_option_group_path(@product) %>
+												<%= link_to "编辑", admin_product_edit_option_group_path(@product) %>
 											</td>
 											<td>
-												<%= link_to "Destroy", admin_product_delete_option_group_path(@product), method: :delete, data: { confirm: "Are you sure that you want to destroy this option group?" } %>
+												<%= link_to "删除", admin_product_delete_option_group_path(@product), method: :delete, data: { confirm: "您确定要删除该选项吗?" } %>
 											</td>
 										</tr>
 									</tbody>
@@ -277,7 +277,7 @@
 						 	</div>
 						   	<% else %>
 						   	<div style="margin-top:10px;">
-								<%= link_to "Create Option Group", admin_product_edit_option_group_path(@product), class: "btn btn-primary" %>
+								<%= link_to "添加选项", admin_product_edit_option_group_path(@product), class: "btn btn-primary" %>
 						   	</div>
 						   	<% end %>
                        </div>
@@ -289,7 +289,7 @@
         </div>
 
         <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
-            <span class="text">Save </span> <span class="loader" style="display:none"></span>
+            <span class="text">保存 </span> <span class="loader" style="display:none"></span>
         </button>
 
     </fieldset>

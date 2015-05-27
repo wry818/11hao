@@ -3,7 +3,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h3>Products</h3>
+                <h3>商品列表</h3>
             </div>
         </div>
 
@@ -13,10 +13,10 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Collection</th>
-								<th>Featured</th>
-                                <th>Image</th>
+                                <th>名称</th>
+                                <th>组合</th>
+								<th>义卖</th>
+                                <th>图片</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
                                     <%= cl_image_tag product.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if product.picture.present? %>
                                 </td>
                                 <td>
-                                    <%= link_to 'Destroy', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure that you want to destroy this product?' } %>
+                                    <%= link_to '删除', admin_product_path(product), method: :delete, data: { confirm: '您确定要删除该商品吗?' } %>
                                 </td>
                             </tr>
                             <% end %>
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <%= link_to 'Create new product', new_admin_product_path, class: 'btn btn-primary' %>
+        <%= link_to '添加商品', new_admin_product_path, class: 'btn btn-primary' %>
 
     </div>
 </div>

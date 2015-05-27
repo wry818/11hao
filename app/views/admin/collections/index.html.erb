@@ -3,7 +3,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h3>Collections</h3>
+                <h3>组合</h3>
             </div>
         </div>
 
@@ -13,10 +13,10 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Active?</th>
-                                <th>Sort Order</th>
-                                <th>Image</th>
+                                <th>名称</th>
+                                <th>启用</th>
+                                <th>排序编号</th>
+                                <th>图片</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -41,7 +41,7 @@
                                 </td>
                                 <td>
 									<% if collection.id>0 %>
-	                                    <%= link_to 'Destroy', admin_collection_path(collection), method: :delete, data: { confirm: 'Are you sure that you want to destroy this collection?' } %>
+	                                    <%= link_to '删除', admin_collection_path(collection), method: :delete, data: { confirm: '您确定要删除该组合吗?' } %>
 									<% end %>
                                 </td>
                             </tr>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <%= link_to 'Create new collection', new_admin_collection_path, class: 'btn btn-primary' %>
+        <%= link_to '添加组合', new_admin_collection_path, class: 'btn btn-primary' %>
 
     </div>
 </div>
