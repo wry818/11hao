@@ -520,24 +520,26 @@ class ShopController < ApplicationController
       
       if !is_wechat_browser?
         
-        weixin_native_payment_init()
+        # weixin_native_payment_init(@order.grandtotal, order)
+        weixin_native_payment_init(1)
         
       end
       
     end
     
-    def weixin_native_payment_init()
+    def weixin_native_payment_init(total_fee)
     
       r = Random.new
       num = r.rand(1000...9999)
       
+      @weixin_init_success = false
       @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
       @notify_url = root_url + 'checkout/weixin_notify'
     
       params = {
         body: '11号公益圈订单',
         out_trade_no: @out_trade_no,
-        total_fee: 1,
+        total_fee: total_fee,
         spbill_create_ip: '127.0.0.1',
         notify_url: @notify_url,
         trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
@@ -548,9 +550,12 @@ class ShopController < ApplicationController
       @qr_url = "#"
     
       if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
-      
-        r = WxPay::Service.invoke_unifiedorder params\
-      
+        
+        @weixin_init_success = true
+        
+        # order.out_trade_no = @out_trade_no
+#         order.save
+        
         qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
         @qr_url = qr.to_img.resize(200, 200).to_data_url
       
@@ -582,7 +587,7 @@ class ShopController < ApplicationController
         r = WxPay::Service.invoke_unifiedorder params
         
         @weixin_init_success = false
-      
+        
         if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
 
           @js_noncestr = SecureRandom.uuid.tr('-', '')
@@ -600,7 +605,10 @@ class ShopController < ApplicationController
 
           @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
           @weixin_init_success = true
-
+        
+          # order.out_trade_no = out_trade_no
+#           order.save
+          
         end
 
       end
@@ -609,16 +617,19 @@ class ShopController < ApplicationController
 
     def weixin_notify
       
-      # order = Order.find_by_id(8)
-      # order.fullname = "nononono"
-      # order.save
       # logger.info "hahahahahahahahahahahahahahahaha"
-#       logger.info session[:order_id]
       
       result = Hash.from_xml(request.body.read)["xml"]
       
       if WxPay::Sign.verify?(result)
-
+        
+        out_trade_no = result["out_trade_no"]
+        logger.info out_trade_no
+        
+        # order = Order.where(:out_trade_no => out_trade_no.to_i).first
+        # order.status = 3
+        # order.save
+        
         # find your order and process the post-paid logic.
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
 
@@ -724,15 +735,19 @@ class ShopController < ApplicationController
       
       order = Order.find_by_id(params[:order_id])
       
-      order.address_fullname = receiveName
-      order.address_line_one = addressLine
-      order.address_city = cityName
-      order.address_state = provinceName
-      order.address_postal_code = zipCode
-      order.fullname = fullName
-      order.phone_number = phoneNumber
-      order.address_city_area = cityAreaName
-      order.make_anonymous = order_make_anonymous
+      if receiveName
+        
+        order.address_fullname = receiveName
+        order.address_line_one = addressLine
+        order.address_city = cityName
+        order.address_state = provinceName
+        order.address_postal_code = zipCode
+        order.fullname = fullName
+        order.phone_number = phoneNumber
+        order.address_city_area = cityAreaName
+        order.make_anonymous = order_make_anonymous
+        
+      end
       
       order.status = 3
       order.save

@@ -12,9 +12,9 @@
 		  <div>
 		  	<%= image_tag @qr_url %>
 		  </div>
-		  <div>
+		  <!-- <div>
 		  	<%= @out_trade_no %>
-		  </div>
+		  </div> -->
 
         </div>
       </div>
@@ -30,62 +30,92 @@
 
 
 $(document).ready(function() {
-
-	var times = 0;
-	var try_times = 360;
 	
-	var timer = $.timer(function() {
+	if ("<%= @weixin_init_success %>" == "true") {
 		
-		timer.pause();
+		var times = 0;
+		var try_times = 360;
+	
+		var timer = $.timer(function() {
 		
-		$.ajax('/ajax/query-weixin-order', {
-		    type: 'POST',
-		    data: {
-				out_trade_no: "<%= @out_trade_no %>"
-			},
-		    beforeSend: function (jqXHR, settings) {
-		        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-		    },
-		    success: function (data) {
+			timer.pause();
+		
+			$.ajax('/ajax/query-weixin-order', {
+			    type: 'POST',
+			    data: {
+					out_trade_no: "<%= @out_trade_no %>"
+				},
+			    beforeSend: function (jqXHR, settings) {
+			        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+			    },
+			    success: function (data) {
 				
-				if (data == "error") {
+					if (data == "error") {
 					
-					timer.stop();
-					alert("调用api出错，请重新刷新页面后再支付。");
-					
-				} else {
-
-					if (data == "SUCCESS") {
-						
-						alert("success");
 						timer.stop();
-						
-					} else {
-						alert(data);
-						timer.play();
-					}
+						alert("调用api出错，请重新刷新页面后再支付。");
 					
-				}
-		    },
-		    error: function (XMLHttpRequest, textStatus, errorThrown) {
-				timer.stop();
-				alert("页面出错，请重新刷新页面后再支付。");
-		    },
-			complete: function () {
-				
-				times++;
-		
-				if (times >= try_times) {
+					} else {
+
+						if (data == "SUCCESS") {
+						
+							timer.stop();
+							ComfirmOrder();
+							
+						} else {
+							
+							timer.play();
+							// timer.stop();
+// 							ComfirmOrder();
+							
+						}
+					
+					}
+			    },
+			    error: function (XMLHttpRequest, textStatus, errorThrown) {
 					timer.stop();
-					alert("支付超时，请重新刷新页面后再支付。");
-				}
+					alert("页面出错，请重新刷新页面后再支付。");
+			    },
+				complete: function () {
 				
-			}
+					times++;
+		
+					if (times >= try_times) {
+						timer.stop();
+						alert("支付超时，请重新刷新页面后再支付。");
+					}
+				
+				}
 			
-		});
+			});
 	
-	}, 5000, true);
+		}, 5000, true);
+		
+	} else {
+		
+		alert("系统忙，请刷新页面再试。");
+	}
 	
 });
+
+function ComfirmOrder() {
+	
+    $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: {
+			order_id: <%= @order.id %>
+		},
+        beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+        }
+    });
+	
+}
 
 </script>
