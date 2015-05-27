@@ -235,6 +235,9 @@ class WeixinController < ApplicationController
 
     if WxPay::Sign.verify?(result)
       
+      logger.info "hahahahahahahahahahahahahahahaha"
+      logger.info result.to_s
+      
       # find your order and process the post-paid logic.
 
       render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)

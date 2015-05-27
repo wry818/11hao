@@ -538,6 +538,7 @@ $( document ).ready(function() {
           	"order[billing_zip_code]": { required: true },
           	"order[address_line_one]": { required: true },
           	"order[address_city]": { required: true },
+			"order[address_city_area]": { required: true },
           	"order[address_state]": { required: true },
           	"order[address_postal_code]": { required: true },
 		  	"order[address_country]": { required: true },
@@ -565,11 +566,12 @@ $( document ).ready(function() {
           "order[billing_zip_code]": "请输入记账单邮编",
           "order[address_line_one]": "请输入收货人地址",
           "order[address_city]": "请输入收货人城市",
-          "order[address_state]": "请输入收货人区县",
+		  "order[address_city_area]": "请输入收货人区县",
+          "order[address_state]": "请输入收货人直辖市/省份",
           "order[address_postal_code]": "请输入收货人邮编",
           "order[address_country]": "请输入收货人国家",
 		  "order[phone_number]": "请输入收货人联系电话",
-		  "order[address_fullname]": "请输入收货人名字"
+		  "order[address_fullname]": "请输入收货人姓名"
         }
 	});
 

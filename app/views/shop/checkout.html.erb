@@ -45,18 +45,18 @@
               <div class="col-sm-7 col-sm-pull-5">
 
                 <div class="main">
-                  <%= form_tag(checkout_confirmation_path(@campaign), method: "post", id: "the_payment_form") %>
+                  <%= form_tag(checkout_confirmation_path(@campaign), method: "post", id: "payment_form") %>
                   <div id="stripe" style="display:none;">
                     <%= hidden_field_tag :stripe_token, "0" %>
                   </div>
 
                   <input type="hidden" id="order_id" name="order_id" value="<%= @order.id %>"/>
 
-                  <!-- <h3>
+                  <h3>
                     支持者信息
-                  </h3> -->
+                  </h3>
 
-                  <fieldset style="display: none">
+                  <fieldset>
 
                     <div class="form-group">
                       <label for="fullname">昵称</label>
@@ -72,14 +72,14 @@
                         <%= render 'shop/checkout_option', cog: cog %>
                     <% end %>
 
-                    <div class="form-group" style="margin-top: 15px;">
+                    <!-- <div class="form-group" style="margin-top: 15px;">
                       <div class="checkbox">
                         <label for="order_make_anonymous">
                           <input type="checkbox" name="order[make_anonymous]" id="order_make_anonymous">
                           匿名
                         </label>
                       </div>
-                    </div>
+                    </div> -->
 
                   </fieldset>
 
@@ -99,7 +99,10 @@
                       <% end %>
                   <% end %>
 
+				  <div id="divMemberInfo">
+	
                   <% if !@has_seller && @campaign.sellers.count > 0 %>
+				  
                       <h3>
                         成员信息
                       </h3>
@@ -117,13 +120,16 @@
                           </select>
                         </div>
                       </fieldset>
+					  
                   <% end %>
 
-				  <div style="display:none;">
+			  	</div>
+
+				  <div id="divAddressInfo">
                   	<% unless @order.donation_only? %>
 									
 	                  <h3>
-	                    Delivery Method
+	                    收货地址
 	                  </h3>
 										
 										<p class="dm-instruction-2" style="display: <%= @order.needs_shipping ? 'block' : 'none' %>">Book orders will be shipped to the address you provide in 14-20 days, excluding weekends and holidays.</p>
@@ -132,45 +138,52 @@
 										
 										<p class="dm-instruction-1" style="display: <%= @order.needs_email ? 'block' : 'none' %>">Digital Memberships will be delivered via email. You will recieve an email containing your access code within 24 hours after your purchase.</p>
 										
-                    <div class="shipping-inputs dm-instruction-2" style="margin-top:20px; display: <%= @order.needs_shipping ? 'block' : 'none' %>">
+                    <!-- <div class="shipping-inputs dm-instruction-2" style="margin-top:20px; display: <%= @order.needs_shipping ? 'block' : 'none' %>"> -->
+					<div class="shipping-inputs dm-instruction-2" style="margin-top:20px">
                       <div class="form-group">
-                        <label for="order_address_fullname">Recipient's Full Name</label>
+                        <label for="order_address_fullname">收货人姓名</label>
                         <input id="order_address_fullname" name="order[address_fullname]" type="text" class="form-control" maxlength="50">
                       </div>
                       <div class="form-group">
-                        <label for="order_address_line_one">Address Line 1</label>
+                        <label for="order_address_line_one">地址</label>
                         <input id="order_address_line_one" name="order[address_line_one]" type="text" class="form-control" maxlength="50">
                       </div>
-                      <div class="form-group">
+                      <!-- <div class="form-group">
                         <label for="order_address_line_two">Address Line 2 (optional)</label>
                         <input id="order_address_line_two" name="order[address_line_two]" type="text" class="form-control" maxlength="50">
-                      </div>
+                      </div> -->
                       <div class="form-group">
-                        <label for="order_phone_number">Phone Number</label>
+                        <label for="order_phone_number">电话号码</label>
                         <input id="order_phone_number" name="order[phone_number]" type="text" class="form-control" maxlength="15">
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="order_address_city">City</label>
+                            <label for="order_address_city_area">区县</label>
+                            <input id="order_address_city_area" name="order[address_city_area]" type="text" class="form-control" maxlength="35">
+                          </div>
+                        </div>  
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="order_address_city">城市</label>
                             <input id="order_address_city" name="order[address_city]" type="text" class="form-control" maxlength="35">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="order_address_state">State/Province</label>
-                            <input id="order_address_state" name="order[address_state]" type="text" class="form-control" maxlength="2">
+                            <label for="order_address_state">直辖市/省份</label>
+                            <input id="order_address_state" name="order[address_state]" type="text" class="form-control" maxlength="25">
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="order_address_postal_code">Zip/Postal Code</label>
+                            <label for="order_address_postal_code">邮编</label>
                             <input id="order_address_postal_code" name="order[address_postal_code]" type="text" class="form-control" maxlength="25">
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                           <div class="form-group">
                             <label for="order_address_country">Country</label>
                             <select id="order_address_country" name="order[address_country]" class="form-control" maxlength="25">
@@ -179,7 +192,7 @@
                               <option value="CA">Canada</option>
                             </select>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                       <% @campaign.checkout_option_groups.shipping.each do |cog| %>
                           <%= render 'shop/checkout_option', cog: cog %>
@@ -190,23 +203,27 @@
 			  	</div>
 
                   <!-- end of donation_only -->
-				  
-                  <h3 class="payment-header">
-					  收货地址
-                  </h3>
+				<div id="divWeiXinAddressInfo">
+					
+                    <h3 class="payment-header">
+  					  收货地址
+                    </h3>
 
-                  <div class="row">
-                    <div class="col-md-8">
-                      <div class="payment-submit">
-						  <%= link_to '常用地址', "javascript:void(0)", :id => 'lnkAddShippingAddress', :class => 'btn btn-lightgreen btn-lg btn-block'  %>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="payment-submit">
+  						  <%= link_to '常用地址', "javascript:void(0)", :id => 'lnkAddShippingAddress', :class => 'btn btn-lightgreen btn-lg btn-block'  %>
+                        </div>
+                        <p style="margin-top: 10px;">
+                          收货地址：
+  						<br />
+                          <p id="lblDefaultShippingAddress"></p>
+                        </p>
                       </div>
-                      <p style="margin-top: 10px;">
-                        收货地址：
-						<br />
-                        <p id="lblDefaultShippingAddress"></p>
-                      </p>
                     </div>
-                  </div>
+					
+				</div>
+                  
 				  
                   <h3 class="payment-header">
                     支付方式
@@ -216,6 +233,12 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="payment-submit">
+                        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
+                                                        <span class="text" data-text="<%= @order.donation_only? ? "Submit" : "Place your order" %>">
+                                                            <%= @order.donation_only? ? "Submit" : "Place your order" %>
+                                                        </span>
+                          <span class="loader" style="display:none"></span>
+                        </button>
 						<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block'  %>
                       </div>
                       <p style="margin-top: 10px;">
@@ -255,11 +278,25 @@ $(document).ready(function() {
 	
 	if (<%= @is_wechat_browser %> == false) {
 		
-		$('#wechat').click(function(){
-
-			window.location.href = "/checkout/" + "<%= @campaign.slug %>" + "/weixin_native_pay";
-
-		});
+		$("#divMemberInfo").show();
+		$("#divAddressInfo").show();
+		$("#divWeiXinAddressInfo").hide();
+		$("#payment-form-submit").show();
+		$('#wechat').hide();
+		
+		// $('#wechat').click(function(){
+		//
+		// 	window.location.href = "/checkout/" + "<%= @campaign.slug %>" + "/weixin_native_pay";
+		//
+		// });
+		
+	} else {
+		
+		$("#divMemberInfo").hide();
+		$("#divAddressInfo").hide();
+		$("#divWeiXinAddressInfo").show();
+		$("#payment-form-submit").hide();
+		$('#wechat').show();
 		
 	}
 	

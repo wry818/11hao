@@ -327,35 +327,37 @@ Raisy.shop = {
     }, // end of attachCartEvents
 
     submitPaymentForm: function(form) {
+		
 		$("#stripe_error").hide();
 		$("#stripe_message").text("");
         $('#errors').hide();
         $('#errors').html('');
         $('#payment-form-submit').prop('disabled', true).find('span.text').text('处理中，请稍候...').siblings('span.loader').show();
-
-		Stripe.card.createToken({
-		  number: $("#card_number").val(),
-		  cvc: $("#cvv").val(),
-		  exp_month: $("#expiration_month").val(),
-		  exp_year: $("#expiration_year").val(),
-		  name: $("#fullname").val()
-		}, function (status, response) {
-			$("<div/>").text(JSON.stringify(response)).appendTo($("#stripe"));
+		form.submit();
 		
-			if (response.error) {
-				$('#payment-form-submit').prop('disabled', false).find('span.text')
-					.text('Place your order').siblings('span.loader').hide();
-					
-				$("#stripe_message").text(response.error.message);
-				$("#stripe_error").show();
-			} else {
-				$("#stripe_token").val(response.id);
-				
-				// Clear sensitive data then submit
-				$(".stripe-data").val("");
-				
-				form.submit();
-			}
-		});
+		// Stripe.card.createToken({
+// 		  number: $("#card_number").val(),
+// 		  cvc: $("#cvv").val(),
+// 		  exp_month: $("#expiration_month").val(),
+// 		  exp_year: $("#expiration_year").val(),
+// 		  name: $("#fullname").val()
+// 		}, function (status, response) {
+// 			$("<div/>").text(JSON.stringify(response)).appendTo($("#stripe"));
+//
+// 			if (response.error) {
+// 				$('#payment-form-submit').prop('disabled', false).find('span.text')
+// 					.text('Place your order').siblings('span.loader').hide();
+//
+// 				$("#stripe_message").text(response.error.message);
+// 				$("#stripe_error").show();
+// 			} else {
+// 				$("#stripe_token").val(response.id);
+//
+// 				// Clear sensitive data then submit
+// 				$(".stripe-data").val("");
+//
+// 				form.submit();
+// 			}
+// 		});
     } // end of submitPaymentForm
 }

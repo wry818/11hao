@@ -612,8 +612,8 @@ class ShopController < ApplicationController
       # order = Order.find_by_id(8)
       # order.fullname = "nononono"
       # order.save
-      logger.info "hahahahahahahahahahahahahahahaha"
-      logger.info session[:order_id]
+      # logger.info "hahahahahahahahahahahahahahahaha"
+#       logger.info session[:order_id]
       
       result = Hash.from_xml(request.body.read)["xml"]
       
@@ -832,7 +832,8 @@ class ShopController < ApplicationController
         end
 
         @order.assign_attributes(order_params)
-
+        @order.save
+        
         if !@order.valid?
           message = ''
           @order.errors.each do |key, error|
@@ -841,51 +842,53 @@ class ShopController < ApplicationController
           redirect_to short_campaign_url(@campaign), flash: { danger: message[0...-2] } and return
         end
 
+        redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
+        
         # redirect_to(short_campaign_url(@campaign), flash: { warning: "Invalid order" }) and return unless params[:card_number] && params[:cvv] && params[:expiration_month] && params[:expiration_year]
          
-        Stripe.api_key = Rails.configuration.stripe_api_key  
-        
-        response = PaymentApiResponse.new
-        
-        begin
-          # if @campaign.organization.processor_id.present?
-          #                 transaction[:service_fee_amount] = (@order.processing_fee_supporter + @order.processing_fee_organization)/100.0
-          # end
-          
-          req = {
-            :amount => @order.grandtotal.to_i,
-            :currency => "usd",
-            :description => "Raisy",
-            :card => params[:stripe_token],
-            :metadata => {
-              :order_id => params[:order_id]
-            }
-          }
-          
-          stripe_hash = Stripe::Charge.create(req)
-          
-          response.success = true
-          response.charge_id = stripe_hash[:id]
-          response.card_type = stripe_hash[:source][:brand]
-          response.card_last4 = stripe_hash[:source][:last4]
-          response.card_expiration_month = stripe_hash[:source][:exp_month]
-          response.card_expiration_year = stripe_hash[:source][:exp_year] 
-        rescue => exception
-            response.success = false
-            response.message = exception.message
-            
-            logger.info exception.message
-            redirect_to short_campaign_url(@campaign), flash: { warning: response.message } and return
-        end
-
-        if response.success?
-            @order.status = 3
-            @order.update_payment_api_data(response)
-            @order.save
-        else
-            logger.info response.message
-            redirect_to short_campaign_url(@campaign), flash: { warning: response.message } and return
-        end
+        # Stripe.api_key = Rails.configuration.stripe_api_key
+#
+#         response = PaymentApiResponse.new
+#
+#         begin
+#           # if @campaign.organization.processor_id.present?
+#           #                 transaction[:service_fee_amount] = (@order.processing_fee_supporter + @order.processing_fee_organization)/100.0
+#           # end
+#
+#           req = {
+#             :amount => @order.grandtotal.to_i,
+#             :currency => "usd",
+#             :description => "Raisy",
+#             :card => params[:stripe_token],
+#             :metadata => {
+#               :order_id => params[:order_id]
+#             }
+#           }
+#
+#           stripe_hash = Stripe::Charge.create(req)
+#
+#           response.success = true
+#           response.charge_id = stripe_hash[:id]
+#           response.card_type = stripe_hash[:source][:brand]
+#           response.card_last4 = stripe_hash[:source][:last4]
+#           response.card_expiration_month = stripe_hash[:source][:exp_month]
+#           response.card_expiration_year = stripe_hash[:source][:exp_year]
+#         rescue => exception
+#             response.success = false
+#             response.message = exception.message
+#
+#             logger.info exception.message
+#             redirect_to short_campaign_url(@campaign), flash: { warning: response.message } and return
+#         end
+#
+#         if response.success?
+#             @order.status = 3
+#             @order.update_payment_api_data(response)
+#             @order.save
+#         else
+#             logger.info response.message
+#             redirect_to short_campaign_url(@campaign), flash: { warning: response.message } and return
+#         end
 
         #Send a confirmation email
         # begin
@@ -925,22 +928,22 @@ class ShopController < ApplicationController
         #     logger.info exception.message
         # end
 
-        session[:confirm_order_id] = @order.id
-        session[:order_id] = nil
-
-        if params[:order][:checkout_options]
-            params[:order][:checkout_options].each do |option|
-                cog = CheckoutOptionGroup.find_by_id(option[:checkout_option_group_id])
-                if cog && option[:value].present?
-                    if cog.is_dropdown?
-                        property = cog.checkout_option_group_properties.find_by_id(option[:value])
-                        @order.checkout_options.create(checkout_option_group_id: cog.id, value: property.value) if property
-                    else
-                        @order.checkout_options.create checkout_option_group_id: cog.id, value: option[:value]
-                    end
-                end
-            end
-        end
+        # session[:confirm_order_id] = @order.id
+#         session[:order_id] = nil
+#
+#         if params[:order][:checkout_options]
+#             params[:order][:checkout_options].each do |option|
+#                 cog = CheckoutOptionGroup.find_by_id(option[:checkout_option_group_id])
+#                 if cog && option[:value].present?
+#                     if cog.is_dropdown?
+#                         property = cog.checkout_option_group_properties.find_by_id(option[:value])
+#                         @order.checkout_options.create(checkout_option_group_id: cog.id, value: property.value) if property
+#                     else
+#                         @order.checkout_options.create checkout_option_group_id: cog.id, value: option[:value]
+#                     end
+#                 end
+#             end
+#         end
 
     end
     
@@ -1235,7 +1238,7 @@ class ShopController < ApplicationController
     end
 
     def order_params
-        params.require(:order).permit :fullname, :email, :billing_zip_code, :address_fullname, :address_line_one, :address_line_two, :address_city,
+        params.require(:order).permit :fullname, :email, :billing_zip_code, :address_fullname, :address_line_one, :address_line_two, :address_city, :address_city_area,
                                                              :address_state, :address_postal_code, :address_country, :seller_id, :delivery_method,
                                                              :make_anonymous, :phone_number
     end
