@@ -1163,7 +1163,7 @@ class ShopController < ApplicationController
       if @campaign
         query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip 
         and visited_time>=:start_time and visited_time<:end_time", 
-        campaign_id: @campaign.id, remote_ip: request.remote_ip, 
+        campaign_id: @campaign.id, remote_ip: (session[:openid] && session[:access_token] ? session[:openid] : request.remote_ip), 
         start_time: Time.now.to_date, end_time: Time.now.to_date+1)
         
         if @seller
@@ -1173,12 +1173,13 @@ class ShopController < ApplicationController
         end
         
         if !@visit_log
-          @visit_log = CampaignVisitLog.new campaign_id: @campaign.id, remote_ip: request.remote_ip, visited_time: Time.now
+          @visit_log = CampaignVisitLog.new campaign_id: @campaign.id, visited_time: Time.now
           
           if @seller
             @visit_log.seller_id = @seller.id
           end
           
+          @visit_log.remote_ip = (session[:openid] && session[:access_token] ? session[:openid] : request.remote_ip)
           @visit_log.nickname = weixin_get_user_info
           @visit_log.save
         end
