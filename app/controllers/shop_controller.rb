@@ -1137,6 +1137,7 @@ class ShopController < ApplicationController
             @visit_log.seller_id = @seller.id
           end
           
+          @visit_log.nickname = weixin_get_user_info
           @visit_log.save
         end
       end
