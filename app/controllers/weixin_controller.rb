@@ -34,7 +34,7 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
-              name: "“特”立同行11",
+              name: "“特”立同行",
               url: "http://www.11haoonline.com/-a9943d98-f6a3-4eb4-b52f-e8a2dded8914?from=singlemessage&isappinstalled=0"
             }
           ]
