@@ -494,7 +494,7 @@ class ShopController < ApplicationController
       if is_wechat_browser?
         
         weixin_get_user_info()
-        weixin_payment_init(@order.grandtotal)
+        weixin_payment_init(@order)
         # weixin_payment_init(1)
         weixin_address_init()
         
@@ -521,13 +521,13 @@ class ShopController < ApplicationController
       if !is_wechat_browser?
         
         # weixin_native_payment_init(@order.grandtotal, order)
-        weixin_native_payment_init(1)
+        weixin_native_payment_init(@order)
         
       end
       
     end
     
-    def weixin_native_payment_init(total_fee)
+    def weixin_native_payment_init(order)
     
       r = Random.new
       num = r.rand(1000...9999)
@@ -539,7 +539,7 @@ class ShopController < ApplicationController
       params = {
         body: '11号公益圈订单',
         out_trade_no: @out_trade_no,
-        total_fee: total_fee,
+        total_fee: 1,
         spbill_create_ip: '127.0.0.1',
         notify_url: @notify_url,
         trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
@@ -553,9 +553,9 @@ class ShopController < ApplicationController
         
         @weixin_init_success = true
         
-        # order.out_trade_no = @out_trade_no
-#         order.save
-        
+        order.out_trade_no = @out_trade_no
+        order.save
+
         qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
         @qr_url = qr.to_img.resize(300, 300).to_data_url
       
@@ -563,7 +563,7 @@ class ShopController < ApplicationController
 
     end
     
-    def weixin_payment_init(total_fee)
+    def weixin_payment_init(order)
     
       if session[:openid]
         
@@ -575,7 +575,7 @@ class ShopController < ApplicationController
           body: '11号公益圈订单',
           out_trade_no: out_trade_no,
           # total_fee: 1,
-          total_fee: total_fee,
+          total_fee: order.grandtotal,
           spbill_create_ip: '127.0.0.1',
           notify_url: root_url + 'checkout/weixin_notify',
           trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
@@ -606,8 +606,8 @@ class ShopController < ApplicationController
           @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
           @weixin_init_success = true
         
-          # order.out_trade_no = out_trade_no
-#           order.save
+          order.out_trade_no = out_trade_no
+          order.save
           
         end
 
@@ -626,9 +626,14 @@ class ShopController < ApplicationController
         out_trade_no = result["out_trade_no"]
         logger.info out_trade_no
         
-        # order = Order.where(:out_trade_no => out_trade_no.to_i).first
-        # order.status = 3
-        # order.save
+        order = Order.where(:out_trade_no => out_trade_no).first
+        
+        if order
+          
+          order.status = 3
+          order.save
+          
+        end
         
         # find your order and process the post-paid logic.
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)

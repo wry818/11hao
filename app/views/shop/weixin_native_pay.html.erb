@@ -24,7 +24,7 @@
 							  </p> -->
 							  <p class="pay_tip">
 								  <!-- span id="redirectTimer">5</span>秒后返回商户网页，你也可以点击 <a id="resultLink" href="javascript:;" target="_blank">这里</a> 立即返回。 -->
-								  <span id="redirectTimer">即将跳转到确认订单页面，你也可以点击 <a id="resultLink" href="javascript:void(0);">这里</a> 立即跳转。
+								  <span id="redirectTimer">3秒后将跳转到确认订单页面，你也可以点击 <a id="resultLink" href="javascript:void(0);">这里</a> 立即跳转。
 							  </p>
 						  </div>
 					  </div>
@@ -118,9 +118,6 @@ $(document).ready(function() {
 	var format_order_time =  order_time.getFullYear() + "-" + (order_time.getMonth() + 1) + "-" + order_time.getDate();
 	$("#order_time").text(format_order_time);
 	
-	$("#pay_succ").show();
-	$("#qr_normal").hide();
-	
 	$('#resultLink').click(function(){
 
 		ComfirmOrder();
@@ -155,8 +152,13 @@ $(document).ready(function() {
 
 						if (data == "SUCCESS") {
 
+							$("#pay_succ").show();
+							$("#qr_normal").hide();
 							timer.stop();
-							ComfirmOrder();
+							
+							window.setTimeout(function(){
+						        ComfirmOrder();
+							}, 3000);
 
 						} else {
 
@@ -196,21 +198,23 @@ $(document).ready(function() {
 
 function ComfirmOrder() {
 	
-    $.ajax('/ajax/update-order', {
-        type: 'POST',
-        data: {
-			order_id: <%= @order.id %>
-		},
-        beforeSend: function (jqXHR, settings) {
-            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-        },
-        success: function (data) {
-			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
-        }
-    });
+	window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+	
+    // $.ajax('/ajax/update-order', {
+//         type: 'POST',
+//         data: {
+// 			order_id: <%= @order.id %>
+// 		},
+//         beforeSend: function (jqXHR, settings) {
+//             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+//         },
+//         success: function (data) {
+// 			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+//         },
+//         error: function (XMLHttpRequest, textStatus, errorThrown) {
+// 			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+//         }
+//     });
 	
 }
 
