@@ -60,3 +60,185 @@
       }
     }
 }
+
+.native-pay-container {
+	
+	max-width: 660px;
+	margin: 0 auto;
+	
+	#qr_normal {
+		display: block;
+	}
+	
+	#qr_normal {
+		display: block;
+	}
+	
+	.area {
+		text-align: center;
+	}
+	
+	.area_hd h2 {
+		display: none;
+	}
+	
+	.pay_msg_t {
+		color: rgb(0, 0, 0); 
+		line-height: 2.2; 
+		font-size: 30px; 
+		font-weight: 400;
+	}
+	
+	.pay_tip {
+		color: rgb(86, 86, 86); 
+		padding-top: 6px; 
+		padding-bottom: 10px;
+	}
+	
+	.pay_bill .area_hd {
+		height: 60px; 
+		padding-bottom: 4px; 
+		border-bottom-color: rgb(224, 227, 235); 
+		border-bottom-width: 3px; 
+		border-bottom-style: solid;
+	}
+	
+	.pay_bill .area_hd .icon_wrapper {
+		top: 25px; 
+		padding-right: 14px; 
+		padding-left: 12px; 
+		display: inline-block; 
+		position: relative; 
+		background-color: rgb(255, 255, 255);
+	}
+	
+	.icon60_pay {
+		background: url("cart_icon.png") no-repeat 0px 0px; 
+		width: 60px; 
+		height: 60px; 
+		vertical-align: middle; 
+		display: inline-block;
+	}
+	
+	.area_bd {
+		display: none;
+	}
+	
+	.pay_bill .area_bd {
+		display: block;
+	}
+	
+	.msg_default_box {
+		
+		margin: 0 auto;
+		width: 258px;
+		padding: 12px 0px; 
+		border-radius: 3px; 
+		border: 1px solid $site-red; 
+		text-align: center; 
+		color: rgb(255, 255, 255); 
+		letter-spacing: 6px; 
+		background-color: $site-red;
+		
+		i {
+			margin-left: -16px;
+		}
+		
+	    p {
+	   		text-align: left; 
+			letter-spacing: normal; 
+			font-size: 16px; 
+			vertical-align: middle; 
+			display: inline-block;
+			margin-bottom: 0px;
+	   	}
+		
+		strong {
+			color: rgb(255, 255, 255); 
+			font-size: 15px; 
+			font-weight: 400; 
+			display: block;
+		}
+		
+		.icon60_qr {
+			background: url("qr_icon.png") no-repeat 0px 0px; 
+			width: 60px; 
+			height: 60px; 
+			vertical-align: middle; 
+			display: inline-block;
+			background-position: 0px -60px;
+			
+		}
+			
+	}
+	
+	.pay_money {
+		
+		color: rgb(88, 88, 88); 
+		line-height: 68px; 
+		padding-top: 50px; 
+		padding-bottom: 20px; 
+		font-size: 60px; 
+		font-weight: 400; 
+		border-bottom-color: rgb(208, 216, 228); 
+		border-bottom-width: 1px; 
+		border-bottom-style: solid;
+		
+		span {
+			margin-right: -10px;
+		}
+			
+	}
+	
+	.pay_bill_unit {
+		
+		padding: 18px 0px 40px;
+		
+		dl {
+			border-bottom-color: rgb(229, 231, 234); 
+			border-bottom-width: 1px; 
+			border-bottom-style: solid;
+		}
+		
+		dt {
+			color: rgb(74, 74, 74); 
+			line-height: 24px; 
+			font-size: 20px;
+		}
+		
+		dd {
+			color: rgb(102, 102, 102); 
+			padding-top: 4px; 
+			padding-bottom: 16px;
+		}
+					
+	}
+	
+	.pay_bill_info {
+		line-height: 26px; 
+		padding-top: 10px;
+		
+	    p {
+	   		overflow: hidden;
+	   	}
+		
+		label {
+			color: rgb(142, 142, 142); 
+			float: left;
+		}
+		
+		.pay_bill_value {
+			float: right;
+		}
+				
+	}
+	
+	.aside {
+		padding-top: 20px; 
+		clear: both; 
+		margin-top: 14px; 
+		border-top-color: rgb(224, 227, 235); 
+		border-top-width: 3px; 
+		border-top-style: solid;
+	}
+}

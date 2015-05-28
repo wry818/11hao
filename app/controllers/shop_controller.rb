@@ -557,7 +557,7 @@ class ShopController < ApplicationController
 #         order.save
         
         qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
-        @qr_url = qr.to_img.resize(200, 200).to_data_url
+        @qr_url = qr.to_img.resize(300, 300).to_data_url
       
       end
 

@@ -9,12 +9,92 @@
 
           <%= render 'shop/campaign_header' %>
 
-		  <div>
-		  	<%= image_tag @qr_url %>
-		  </div>
-		  <div>
-			  请用微信扫描二维玛以完成支付
-		  </div>
+		  <div class="checkout-container native-pay-container">
+			  <div class="area primary">
+				  <div class="pay_msg" id="payMsg">
+					  <!-- <div class="area_hd">
+						  <h2>支付结果</h2>
+					  </div> -->
+					  <div class="area_bd" id="pay_succ">
+						  <i class="icon110_msg pngFix"></i>
+						  <h3 class="pay_msg_t">购买成功!</h3>
+						  <div class="vh" id="payMsgDetail">
+							  <!-- <p class="pay_msg_desc">
+								  <span id="userName">&lt;用户&gt;</span>，你使用<strong id="bankCard">&lt;银行卡&gt;</strong>银行卡完成了本次交易。
+							  </p> -->
+							  <p class="pay_tip">
+								  <!-- span id="redirectTimer">5</span>秒后返回商户网页，你也可以点击 <a id="resultLink" href="javascript:;" target="_blank">这里</a> 立即返回。 -->
+								  <span id="redirectTimer">即将跳转到确认订单页面，你也可以点击 <a id="resultLink" href="javascript:void(0);">这里</a> 立即跳转。
+							  </p>
+						  </div>
+					  </div>
+					  <!-- <div class="area_bd" id="pay_error">
+						  <i class="icon110_msg pngFix"></i>
+						  <h3 class="pay_msg_t">无法支付</h3>
+						  <p class="pay_msg_desc">商品金额大于银行卡快捷支付限额</p>
+					  </div> -->
+					  <div class="area_bd" id="qr_normal">
+						  <span class="qr_img_wrapper">
+							  <%= image_tag @qr_url %>
+							  <!-- <img class="qrcode" id="QRcode" alt="二维码">
+							  <img class="guide pngFix" id="guide" alt="" src="微信支付_files/webpay_guide.png"> -->
+						  </span>
+						  <div class="msg_default_box">
+							  <i class="icon60_qr pngFix"></i>
+							  <p>
+								  请使用微信扫描
+								  <br />
+								  二维码以完成支付
+							  </p>
+							  </div>
+							  <!-- <div class="msg_box">
+								  <i class="icon60_qr pngFix"></i>
+								  <p><strong>扫描成功</strong>请在手机确认支付</p>
+							  </div> -->
+						  </div>
+					  </div>
+				  </div>
+				  <div class="area second">
+					  <div class="pay_bill shopping">
+						  <div class="area_hd">
+							  <span class="icon_wrapper">
+								  <i class="icon60_pay pngFix"></i>
+							  </span>
+						  </div>
+						  <div class="area_bd">
+							  <h3 class="pay_money"><span>￥</span><%= long_price(@order.grandtotal/100.0) %></h3>
+							  <div class="pay_bill_unit">
+								  <dl>
+									  <dt>11号公益圈</dt>
+									  <dd>订单编号<%= @order.id.to_s.rjust(8,'0') %></dd>
+								  </dl>
+								  <div class="pay_bill_info">
+									  <p>
+										  <label>交易单号</label>
+										  <span class="pay_bill_value"><%= @out_trade_no %></span>
+									  </p>
+									  <p>
+										  <label>创建时间</label>
+										  <span id="order_time" class="pay_bill_value"></span>
+									  </p>
+								  </div>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+				  <div class="aside">
+					  <!-- <div class="pay_widget help">
+						  <div class="pay_widget_hd">
+							  <i class="icon30_add_on pngFix"></i>
+						  </div>
+						  <div class="pay_widget_bd">
+							  <strong class="widget_name">客服</strong>
+							  <p class="widget_desc">0755 - 86013860</p>
+						  </div>
+					   </div> -->
+				   </div>
+			   </div>
+		  
 		  <!-- <div>
 		  	<%= @out_trade_no %>
 		  </div> -->
@@ -34,15 +114,28 @@
 
 $(document).ready(function() {
 	
+	var order_time = new Date();
+	var format_order_time =  order_time.getFullYear() + "-" + (order_time.getMonth() + 1) + "-" + order_time.getDate();
+	$("#order_time").text(format_order_time);
+	
+	$("#pay_succ").show();
+	$("#qr_normal").hide();
+	
+	$('#resultLink').click(function(){
+
+		ComfirmOrder();
+
+	});
+	
 	if ("<%= @weixin_init_success %>" == "true") {
 		
 		var times = 0;
 		var try_times = 360;
-	
+
 		var timer = $.timer(function() {
-		
+
 			timer.pause();
-		
+
 			$.ajax('/ajax/query-weixin-order', {
 			    type: 'POST',
 			    data: {
@@ -52,27 +145,27 @@ $(document).ready(function() {
 			        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 			    },
 			    success: function (data) {
-				
+
 					if (data == "error") {
-					
+
 						timer.stop();
 						alert("调用api出错，请重新刷新页面后再支付。");
-					
+
 					} else {
 
 						if (data == "SUCCESS") {
-						
+
 							timer.stop();
 							ComfirmOrder();
-							
+
 						} else {
-							
+
 							timer.play();
 							// timer.stop();
 // 							ComfirmOrder();
-							
+
 						}
-					
+
 					}
 			    },
 			    error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -80,20 +173,20 @@ $(document).ready(function() {
 					alert("页面出错，请重新刷新页面后再支付。");
 			    },
 				complete: function () {
-				
+
 					times++;
-		
+
 					if (times >= try_times) {
 						timer.stop();
 						alert("支付超时，请重新刷新页面后再支付。");
 					}
-				
+
 				}
-			
+
 			});
-	
+
 		}, 5000, true);
-		
+
 	} else {
 		
 		alert("系统忙，请刷新页面再试。");

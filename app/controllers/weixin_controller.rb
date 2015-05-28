@@ -216,7 +216,7 @@ class WeixinController < ApplicationController
 #       @qr_url = "/uploads/qrcode/#{Time.now.to_i.to_s}.png"
 
       qr = RQRCode::QRCode.new( r["code_url"], :size => 5, :level => :h )
-      @qr_url = qr.to_img.resize(200, 200).to_data_url
+      @qr_url = qr.to_img.resize(300, 300).to_data_url
 
     end
     
