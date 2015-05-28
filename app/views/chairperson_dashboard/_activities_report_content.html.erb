@@ -1,18 +1,14 @@
 <div style="display:none;">report_content</div>
 <table class="table">
 	<thead>
-          <th>Seller Name</th>
-          <th>Parent</th>
+          <th>志愿者姓名</th>
           <th>Email</th>
-		<th>Fundraiser</th>
-          <th>Member ID</th>
-          <th>Total Sales</th>
-          <th>Total Raised</th>
-		<th># of orders</th>
-		<th># of logins</th>
-          <th># of emails sent</th>
-          <th># of share</th>
-          <th># of tweets</th>
+					<th>筹款团队</th>
+          <th>志愿者编号</th>
+          <th>销售总计</th>
+          <th>筹款总计</th>
+					<th>订单总数</th>
+					<th>登录次数</th>
 	</thead>
 	<tbody>
 		<% if @sellers 
@@ -28,13 +24,13 @@
 			
 			@sellers.each do |seller| 
 				total_rows+=1 
-				social_histories=seller.social_share_histories.select("id, media_id").all 
+				# social_histories=seller.social_share_histories.select("id, media_id").all
 				sales=seller.total_sales 
 				raised=seller.total_raised 
 				orders=seller.total_orders 
-				emails=seller.email_share_histories.count 
-				fbs=social_histories.select{|h| h.media_id==1}.count 
-				tws=social_histories.select{|h| h.media_id==2}.count 
+				emails=0 # seller.email_share_histories.count
+				fbs=0	# social_histories.select{|h| h.media_id==1}.count
+				tws=0 # social_histories.select{|h| h.media_id==2}.count
 				total_sales+=sales 
 				total_raised+=raised 
 				total_orders+=orders 
@@ -44,17 +40,13 @@
 				users << seller.user_profile.user if !users.include?(seller.user_profile.user) %>
                 <tr>
                     <td><%= seller.user_profile.fullname %></td>
-                    <td><%= seller.user_profile.parent_fullname %></td>
                     <td><%= seller.user_profile.user.email %></td>
 					<td><%= seller.campaign.title %></td>
                     <td><%= seller.referral_code %></td>
-                    <td>$<%= long_price(sales) %></td>
-                    <td>$<%= long_price(raised) %></td>
+                    <td>￥<%= long_price(sales) %></td>
+                    <td>￥<%= long_price(raised) %></td>
 					<td><%= orders %></td>
 					<td><%= seller.user_profile.user.sign_in_count %></td>
-					<td><%= emails %></td>
-		            <td><%= fbs %></td>
-		            <td><%= tws %></td>
                 </tr>
               <% end %>
 			<% users.each do |user|  total_signin+= user.sign_in_count end %>
@@ -62,16 +54,11 @@
 				<td></td>
                 <td></td>
                 <td></td>
-                <td></td>
-				<td></td>
-                <th style="text-align:right;">Total</th>
-                <th>$<%= long_price(total_sales) %></th>
-                <th>$<%= long_price(total_raised) %></th>
+                <th style="text-align:right;">总计</th>
+                <th>￥<%= long_price(total_sales) %></th>
+                <th>￥<%= long_price(total_raised) %></th>
 				<th><%= total_orders %></th>
 				<th><%= total_signin %></th>
-	            <th><%= total_emails %></th>
-	            <th><%= total_fbs %></th>
-	            <th><%= total_tws %></th>
 			</tr>
 		<% end %>
 	</tbody>

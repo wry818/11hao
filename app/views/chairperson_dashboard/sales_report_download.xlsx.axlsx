@@ -17,7 +17,7 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
 										:vertical => :top, 
 										:wrap_text => true }
 										
-	sheet.add_row ["Order ID", "Order Date", "Name", "Email", "Quantity-Products", "Total Paid", "Seller Name"], :style => header_text
+	sheet.add_row ["订单编号", "订单日期", "购买人姓名", "Email", "数量-商品", "支付金额", "志愿者"], :style => header_text
 	
 	if @campaigns && @orders
 		total_rows=0 
@@ -60,7 +60,7 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
 				order.fullname,
 				order.email,
 				rt,
-				"$" + long_price(paid/100),
+				"￥" + long_price(paid/100),
 				order.seller ? order.seller.user_profile.fullname : ""
 			], :style => wrap_text
 		end
@@ -70,8 +70,8 @@ wb.add_worksheet(name: "Sales Report") do |sheet|
 			"",
 			"",
 			"",
-			"Total",
-			"$" + long_price(total_paid/100),
+			"总计",
+			"￥" + long_price(total_paid/100),
 			""
 		], :style => [footer_text, footer_text, footer_text, footer_text, total_text, footer_text, footer_text]
 	end

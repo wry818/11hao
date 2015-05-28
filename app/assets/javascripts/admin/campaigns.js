@@ -493,7 +493,7 @@ window.Raisy_admin_campaigns = {
 		
 		$("#campaign_goal").val($("#campaign_goal").val().replace(/,/g,""));
 
-        $('#campaign_form_submit').prop('disabled', true).find('span.text').text('Saving...').siblings('span.loader').show('fast', function() {
+        $('#campaign_form_submit').prop('disabled', true).find('span.text').text('保存中...').siblings('span.loader').show('fast', function() {
             window.setTimeout(function(){
             	form.submit();
             },50)
@@ -533,7 +533,7 @@ window.Raisy_admin_campaigns = {
 		}
 		
 		if (new Date(dd)<minDeliveryDate) {
-			lb.text("Please select a deliverable date").show();
+			lb.text("请选择送货日期").show();
 			container.addClass("has-error");
 			can_continue=false;
 		}
@@ -543,7 +543,7 @@ window.Raisy_admin_campaigns = {
 		var container_dt=lb_dt.closest(".form-group");
 		
 		if (dt=="") {
-			lb_dt.text("Please select a delivery time").show();
+			lb_dt.text("请选择送货时间").show();
 			container_dt.addClass("has-error");
 			can_continue=false;
 		}
@@ -555,7 +555,7 @@ window.Raisy_admin_campaigns = {
 		lb_dt.hide();
 		container_dt.removeClass("has-error");
 		
-		if (!confirm("This order can only be submitted one time. Are you sure you want to submit this order?")) return;
+		if (!confirm("订单只能提交一次，您确定要提交吗?")) return;
 		
 		$("#bulk_submit_order").val("1");
 		$("#bulk_submit_order").closest("form").submit();

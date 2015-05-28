@@ -2,13 +2,13 @@
 <table class="table">
     <thead>
         <tr>
-			<th>Order ID</th>
-            <th>Order Date</th>
-            <th>Name</th>
+			<th>订单编号</th>
+            <th>订单日期</th>
+            <th>购买人姓名</th>
             <th>Email</th>
-            <th>Quantity-Products</th>
-            <th>Total Paid</th>
-            <th>Seller Name</th>
+            <th>数量-商品</th>
+            <th>支付金额</th>
+            <th>志愿者</th>
         </tr>
     </thead>
 	<tbody>
@@ -49,7 +49,7 @@
 								<% end %>
 							</ul>
             </td>
-	          <td>$<%= long_price(paid/100) %></td>
+	          <td>￥<%= long_price(paid/100) %></td>
 	          <td><%= order.seller.user_profile.fullname if order.seller %></td>
 	        </tr>
 		  <% end %>
@@ -58,8 +58,8 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<th style="text-align:right;">Total</th>
-				<th>$<%= long_price(total_paid/100) %></th>
+				<th style="text-align:right;">总计</th>
+				<th>￥<%= long_price(total_paid/100) %></th>
 				<td></td>
 			</tr>
 		<% end %>

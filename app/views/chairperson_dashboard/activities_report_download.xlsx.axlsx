@@ -17,8 +17,8 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 										:vertical => :top, 
 										:wrap_text => true }
 										
-	sheet.add_row ["Seller Name", "Parent", "Email", "Fundraiser", "Member ID", "Total Sales", "Total Raised", 
-		"# of orders", "# of logins", "# of emails sent", "# of share", "# of tweets"], :style => header_text
+	sheet.add_row ["志愿者姓名", "Email", "筹款团队", "志愿者编号", "销售总计", "筹款总计", 
+		"订单总数", "登录次数"], :style => header_text
 		
 	if @sellers
 		total_rows=0
@@ -33,13 +33,13 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 
 		@sellers.each do |seller|
 			total_rows+=1
-			social_histories=seller.social_share_histories.select("id, media_id").all
+			# social_histories=seller.social_share_histories.select("id, media_id").all
 			sales=seller.total_sales
 			raised=seller.total_raised
 			orders=seller.total_orders
-			emails=seller.email_share_histories.count
-			fbs=social_histories.select{|h| h.media_id==1}.count
-			tws=social_histories.select{|h| h.media_id==2}.count
+			emails=0 # seller.email_share_histories.count
+			fbs=0 # social_histories.select{|h| h.media_id==1}.count
+			tws=0 # social_histories.select{|h| h.media_id==2}.count
 			total_sales+=sales
 			total_raised+=raised
 			total_orders+=orders
@@ -54,8 +54,8 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 				seller.user_profile.user.email,
 				seller.campaign.title,
 				seller.referral_code,
-				"$" + long_price(sales),
-				"$" + long_price(raised),
+				"￥" + long_price(sales),
+				"￥" + long_price(raised),
 				orders,
 				seller.user_profile.user.sign_in_count,
 				emails, fbs, tws 
@@ -70,17 +70,13 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 			"",
 			"",
 			"",
-			"",
 			"Total",
-			"$" + long_price(total_sales),
-			"$" + long_price(total_raised),
+			"￥" + long_price(total_sales),
+			"￥" + long_price(total_raised),
 			total_orders,
-			total_signin,
-			total_emails,
-			total_fbs,
-			total_tws 
-		], :style => [footer_text, footer_text, footer_text, footer_text, total_text, 
-			footer_text, footer_text, footer_text, footer_text, footer_text, footer_text, footer_text ]
+			total_signin
+		], :style => [footer_text, footer_text, footer_text, total_text, 
+			footer_text, footer_text, footer_text, footer_text]
 	end
 	
 	sheet.column_widths 15, 15, 15, 15, 15

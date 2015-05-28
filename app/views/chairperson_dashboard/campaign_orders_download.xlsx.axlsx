@@ -1,5 +1,5 @@
 wb = xlsx_package.workbook
-wb.add_worksheet(name: "Orders") do |sheet|
+wb.add_worksheet(name: "订单") do |sheet|
 	header_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true
 
 	wrap_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :alignment => {
@@ -11,12 +11,12 @@ wb.add_worksheet(name: "Orders") do |sheet|
 	
 	if @campaign
 		sheet.add_row [@campaign.title], :style => header_text
-		sheet.add_row ["Total Sales: " + "$" + long_price(@campaign.saled)], :style => header_text
+		sheet.add_row ["销售总计: " + "￥" + long_price(@campaign.saled)], :style => header_text
 	end
 	
-	sheet.add_row ["Sales Summary as of: " + Time.now.strftime('%-m/%d/%y')], :style => header_text
+	sheet.add_row ["销售统计日期: " + Time.now.strftime('%-m/%d/%y')], :style => header_text
 	sheet.add_row [""]	# blank row
-	sheet.add_row ["Order ID", "Order Date", "Name", "Email", "Quantity-Products", "Total Paid", "Member"], :style => header_text
+	sheet.add_row ["订单编号", "订单日期", "购买人姓名", "Email", "数量-商品", "支付金额", "志愿者"], :style => header_text
 	
 	if @campaign
 		@campaign.orders.completed.order(:id=>:desc).each do |order|
@@ -52,7 +52,7 @@ wb.add_worksheet(name: "Orders") do |sheet|
 				order.fullname,
 				order.email,
 				rt,
-				"$" + long_price(order.grandtotal.to_f/100),
+				"￥" + long_price(order.grandtotal.to_f/100),
 				order.seller ? order.seller.user_profile.fullname : ""
 			], :style => wrap_text
 		end
