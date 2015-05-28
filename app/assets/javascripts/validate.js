@@ -540,9 +540,9 @@ $( document ).ready(function() {
           	"order[address_city]": { required: true },
 			"order[address_city_area]": { required: true },
           	"order[address_state]": { required: true },
-          	"order[address_postal_code]": { required: true },
+          	"order[address_postal_code]": { required: true, zipcode: true },
 		  	"order[address_country]": { required: true },
-			"order[phone_number]": { required: true },
+			"order[phone_number]": { required: true, number: true },
 			"order[address_fullname]": { required: true }
         },
         // validation messages
@@ -568,9 +568,15 @@ $( document ).ready(function() {
           "order[address_city]": "请输入收货人城市",
 		  "order[address_city_area]": "请输入收货人区县",
           "order[address_state]": "请输入收货人直辖市/省份",
-          "order[address_postal_code]": "请输入收货人邮编",
+          "order[address_postal_code]": {
+            required: "请输入收货人邮编",
+		  	zipcode: "邮编格式不正确"
+          },
           "order[address_country]": "请输入收货人国家",
-		  "order[phone_number]": "请输入收货人联系电话",
+          "order[phone_number]": {
+            required: "请输入收货人联系电话",
+            number: "联系电话必须是数字"
+          },
 		  "order[address_fullname]": "请输入收货人姓名"
         }
 	});

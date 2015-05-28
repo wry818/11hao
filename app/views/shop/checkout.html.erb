@@ -144,60 +144,56 @@
 										
                     <!-- <div class="shipping-inputs dm-instruction-2" style="margin-top:20px; display: <%= @order.needs_shipping ? 'block' : 'none' %>"> -->
 					<div class="shipping-inputs dm-instruction-2" style="margin-top:20px">
-                      <div class="form-group">
-                        <label for="order_address_fullname">收货人姓名</label>
-                        <input id="order_address_fullname" name="order[address_fullname]" type="text" class="form-control" maxlength="50">
-                      </div>
-                      <div class="form-group">
-                        <label for="order_address_line_one">地址</label>
-                        <input id="order_address_line_one" name="order[address_line_one]" type="text" class="form-control" maxlength="50">
-                      </div>
-                      <!-- <div class="form-group">
-                        <label for="order_address_line_two">Address Line 2 (optional)</label>
-                        <input id="order_address_line_two" name="order[address_line_two]" type="text" class="form-control" maxlength="50">
-                      </div> -->
-                      <div class="form-group">
-                        <label for="order_phone_number">电话号码</label>
-                        <input id="order_phone_number" name="order[phone_number]" type="text" class="form-control" maxlength="15">
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="order_address_city_area">区县</label>
-                            <input id="order_address_city_area" name="order[address_city_area]" type="text" class="form-control" maxlength="35">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="order_address_state">直辖市/省份</label>
+                              <input id="order_address_state" name="order[address_state]" type="text" class="form-control" maxlength="25">
+                            </div>
+                          </div>  
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="order_address_city">城市</label>
+                              <input id="order_address_city" name="order[address_city]" type="text" class="form-control" maxlength="35">
+                            </div>
                           </div>
-                        </div>  
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="order_address_city">城市</label>
-                            <input id="order_address_city" name="order[address_city]" type="text" class="form-control" maxlength="35">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="order_address_city_area">区县</label>
+                              <input id="order_address_city_area" name="order[address_city_area]" type="text" class="form-control" maxlength="35">
+                            </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="order_address_state">直辖市/省份</label>
-                            <input id="order_address_state" name="order[address_state]" type="text" class="form-control" maxlength="25">
-                          </div>
+                        <div class="form-group">
+                          <label for="order_address_line_one">地址</label>
+                          <input id="order_address_line_one" name="order[address_line_one]" type="text" class="form-control" maxlength="50">
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="order_address_postal_code">邮编</label>
-                            <input id="order_address_postal_code" name="order[address_postal_code]" type="text" class="form-control" maxlength="25">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="order_address_postal_code">邮编</label>
+                              <input id="order_address_postal_code" name="order[address_postal_code]" type="text" class="form-control" maxlength="25">
+                            </div>
                           </div>
+                          <!-- <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="order_address_country">Country</label>
+                              <select id="order_address_country" name="order[address_country]" class="form-control" maxlength="25">
+                                <option value="" selected>-- Please Select --</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                              </select>
+                            </div>
+                          </div> -->
                         </div>
-                        <!-- <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="order_address_country">Country</label>
-                            <select id="order_address_country" name="order[address_country]" class="form-control" maxlength="25">
-                              <option value="" selected>-- Please Select --</option>
-                              <option value="US">United States</option>
-                              <option value="CA">Canada</option>
-                            </select>
-                          </div>
-                        </div> -->
-                      </div>
+                        <div class="form-group">
+                          <label for="order_address_fullname">收货人姓名</label>
+                          <input id="order_address_fullname" name="order[address_fullname]" type="text" class="form-control" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                          <label for="order_phone_number">电话号码</label>
+                          <input id="order_phone_number" name="order[phone_number]" type="text" class="form-control" maxlength="15">
+                        </div>
                       <% @campaign.checkout_option_groups.shipping.each do |cog| %>
                           <%= render 'shop/checkout_option', cog: cog %>
                       <% end %>

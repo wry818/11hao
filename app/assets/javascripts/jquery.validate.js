@@ -1017,7 +1017,8 @@ $.extend($.validator, {
 
         zipcode: function( value, element ) {
             // contributed by rwen
-            return this.optional(element) || /(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/.test(value.toUpperCase());
+            // return this.optional(element) || /(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/.test(value.toUpperCase());
+			return this.optional(element) || /^[1-9][0-9]{5}$/.test(value.toUpperCase());
         },
 		
         // http://docs.jquery.com/Plugins/Validation/Methods/url
