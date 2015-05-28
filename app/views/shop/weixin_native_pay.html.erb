@@ -198,23 +198,21 @@ $(document).ready(function() {
 
 function ComfirmOrder() {
 	
-	window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
-	
-    // $.ajax('/ajax/update-order', {
-//         type: 'POST',
-//         data: {
-// 			order_id: <%= @order.id %>
-// 		},
-//         beforeSend: function (jqXHR, settings) {
-//             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-//         },
-//         success: function (data) {
-// 			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
-//         },
-//         error: function (XMLHttpRequest, textStatus, errorThrown) {
-// 			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
-//         }
-//     });
+    $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: {
+			order_id: <%= @order.id %>
+		},
+        beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+        }
+    });
 	
 }
 
