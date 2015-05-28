@@ -7,38 +7,58 @@ class WeixinController < ApplicationController
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
     # puts $client.is_valid?
 
+    # menu = {
+    #   button: [
+    #     {
+    #       type: "view",
+    #       name: "11号计划",
+    #       url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+    #     },
+    #     {
+    #       type: "view",
+    #       name: "小伙伴招募",
+    #       url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
+    #     },
+    #     {
+    #       type: "view",
+    #       name: "关于我们",
+    #       url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
+    #     }
+    #   ]
+    # }.to_json
+    
     menu = {
       button: [
         {
-          type: "view",
-          name: "11号计划",
-          url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+          name: "筹款活动",
+          sub_button: [
+            {
+              type: "view",
+              name: "“特”立同行",
+              url: "http://www.11haoonline.com/-a9943d98-f6a3-4eb4-b52f-e8a2dded8914"
+            }
+          ]
         },
         {
-          type: "view",
-          name: "小伙伴招募",
-          url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
-        },
-        {
-          type: "view",
           name: "关于我们",
-          url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
+          sub_button: [
+            {
+              type: "view",
+              name: "11号计划",
+              url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+            },
+            {
+              type: "view",
+              name: "小伙伴招募",
+              url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
+            },
+            {
+              type: "view",
+              name: "关于我们",
+              url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
+            }
+          ]
         }
-        # {
-        #   type: "view",
-        #   name: "测试页面支付",
-        #   url: $client.authorize_url(root_url + "weixin_custom/test")
-        # }
-        # {
-#           type: "view",
-#           name: "实际页面支付",
-#           url: $client.authorize_url(root_url)
-#         }
-# {
-#   type: "view",
-#   name: "支付通知",
-#   url: root_url + 'weixin_custom/notify2'
-# }
       ]
     }.to_json
     
