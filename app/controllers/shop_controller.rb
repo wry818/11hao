@@ -539,7 +539,8 @@ class ShopController < ApplicationController
       params = {
         body: '11号公益圈订单',
         out_trade_no: @out_trade_no,
-        total_fee: 1,
+        # total_fee: 1,
+        total_fee: order.grandtotal,
         spbill_create_ip: '127.0.0.1',
         notify_url: @notify_url,
         trade_type: 'NATIVE' # could be "JSAPI" or "NATIVE",
