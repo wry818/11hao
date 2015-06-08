@@ -47,7 +47,7 @@ class WeixinController < ApplicationController
             {
               type: "view",
               name: "11号计划",
-              url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
+              url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=206174662&idx=1&sn=2c8fb51a94197eae2a6817cc87235b76#rd"
             },
             {
               type: "view",
