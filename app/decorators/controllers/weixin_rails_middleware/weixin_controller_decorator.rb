@@ -65,8 +65,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       @media_id = @weixin_message.MediaId # 可以调用多媒体文件下载接口拉取数据。
       # 视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
       @thumb_media_id = @weixin_message.ThumbMediaId
-      # reply_text_message("回复视频信息")
-      reply_transfer_customer_service_message()
+      reply_text_message(@media_id + "   " + @thumb_media_id)
+      # reply_transfer_customer_service_message()
     end
 
     def response_event_message(options={})
