@@ -201,6 +201,7 @@ Raisy::Application.routes.draw do
     patch ':id/bulkshippinginfo/edit', to: 'campaigns#update_bulkshippinginfo', as: :campaign_bulkshippinginfo
     
     match 'upload/campaign_photo' => 'upload#campaign_photo', via: [:post, :patch]
+    match 'upload/product_photo' => 'upload#product_photo', via: [:post, :patch]
     
     # WEIXIN
     scope 'weixin_custom' do

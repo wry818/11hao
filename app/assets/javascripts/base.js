@@ -35,7 +35,7 @@ $(document).ready(function() {
             $(".progress-bar").css("width", prog + "%").find('span').text(prog + "%");
         },
         fail: function (e, data) {
-            $(".status").text("抱歉上传失败，请稍后再试");
+            $(".status").text("抱歉! 上传失败，请稍后再试");
             $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
             $("#drop-zone").css("border-color", "#ccc");
         }

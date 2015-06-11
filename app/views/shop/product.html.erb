@@ -21,15 +21,33 @@
             <li class="active"><%= @product.name %></li>
           </ol>
 
-          <div class="product-container">
+          <div class="product-container" style="padding-top:10px;">
             <div class="row">
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="image-container">
-                  <%= cl_image_tag @product.picture, width: 455, height: 455, crop: :limit, class: 'img-responsive' %>
+                  <% photos=@product.all_photo.all %>
+									
+									<% if photos.length>0 %>
+										<% if photos.length==1 %>
+											<% photos.each do |photo| %>
+												<%= cl_image_tag photo.public_id, width: 280, height: 280, crop: :fill, class: "img-responsive" %>
+											<% end %>
+										<% else %>
+											<div class="image-section" style="margin:0px auto;">
+												<div id="slides" class="slides" style="margin-top:3px;">
+													<div class="slides_container">
+														<% photos.each do |photo| %>
+															<%= cl_image_tag photo.public_id, width: 280, height: 280, crop: :fill, class: "img-responsive" %>
+														<% end %>
+													</div>
+												</div>
+											</div>
+										<% end %>
+									<% end %>
                 </div>
               </div>
-              <div class="col-md-5">
-                <div class="product-details">
+              <div class="col-md-5 col-md-offset-1">
+                <div class="product-details" style="padding-top:10px;">
                   <h3 style="margin-top: 0px"><%= @product.name %></h3>
 
                   <p>

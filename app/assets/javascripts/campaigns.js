@@ -340,7 +340,7 @@ Raisy.campaigns = {
                 else {
                     // txt="Internal Server Error";
                     $("<div/>").text(txt).appendTo("#more_photo_result");
-                    $(".camp-photo-status").text("抱歉上传失败，请稍后再试");
+                    $(".camp-photo-status").text("抱歉! 上传失败，请稍后再试");
                     $(".camp-photo-progress").hide().find(".camp-photo-progress-bar").css("width", "0").find('span').text("");
                 }
             },
@@ -349,7 +349,7 @@ Raisy.campaigns = {
                 // which will be considered as errors when using XHR
 
                 $("<div/>").text("Internal Server Error").appendTo("#more_photo_result");
-                $(".camp-photo-status").text("抱歉上传失败，请稍后再试");
+                $(".camp-photo-status").text("抱歉! 上传失败，请稍后再试");
                 $(".camp-photo-progress").hide().find(".camp-photo-progress-bar").css("width", "0").find('span').text("");
             }
         });

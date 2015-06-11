@@ -37,6 +37,15 @@ class Admin::ProductsController < Admin::ApplicationController
             preloaded = Cloudinary::PreloadedFile.new(params[:product_image])
             if preloaded.valid?
                 @product.update_attribute(:picture, preloaded.identifier)
+                
+                cover_photo = @product.cover_photo
+                
+                if !cover_photo
+                  cover_photo = ProductImage.new product_id: @product.id, public_id: preloaded.identifier, is_cover: true
+                else
+                  cover_photo.public_id = preloaded.identifier
+                  cover_photo.save
+                end
             end
         end
         
@@ -49,9 +58,14 @@ class Admin::ProductsController < Admin::ApplicationController
             categories = Category.where(:id=>params[:product_category_id].split(","))
             @product.categories << categories
         end
+        
+        if params[:more_photo_public_id].present?
+          params[:more_photo_public_id].each do |public_id|
+            ProductImage.create product_id: @product.id, public_id: public_id, is_cover: false
+          end
+        end
 
         redirect_to admin_products_url, flash: { success: "商品已创建" }
-
     end
 
     def edit
@@ -86,11 +100,26 @@ class Admin::ProductsController < Admin::ApplicationController
         
         if params[:remove_item_image]=="yes"
            @product.update_attribute(:picture, "")
+           
+           cover_photo = @product.cover_photo
+           
+           if cover_photo
+             cover_photo.destroy
+           end
         else
           if params[:product_image].present?
               preloaded = Cloudinary::PreloadedFile.new(params[:product_image])
               if preloaded.valid?
                   @product.update_attribute(:picture, preloaded.identifier)
+                  
+                  cover_photo = @product.cover_photo
+                
+                  if !cover_photo
+                    cover_photo = ProductImage.create product_id: @product.id, public_id: preloaded.identifier, is_cover: true
+                  else
+                    cover_photo.public_id = preloaded.identifier
+                    cover_photo.save
+                  end
               end
           end
         end
@@ -107,6 +136,28 @@ class Admin::ProductsController < Admin::ApplicationController
         if params[:product_category_id].present?
             categories = Category.where(:id=>params[:product_category_id].split(","))
             @product.categories << categories
+        end
+        
+        if params[:more_photo_public_id].present?
+          more_photo = @product.more_photo.all
+          
+          params[:more_photo_public_id].each do |public_id|
+            photo = more_photo.select{|p| p.public_id==public_id}.first
+            
+            if !photo
+              ProductImage.create product_id: @product.id, public_id: public_id, is_cover: false
+            end
+          end
+          
+          more_photo.each do |photo|
+            if !params[:more_photo_public_id].include?(photo.public_id)
+              photo.destroy
+            end
+          end
+        else
+          @product.more_photo.each do |photo|
+            photo.destroy
+          end
         end
 
         redirect_to admin_products_url, flash: { success: "商品已更新" }

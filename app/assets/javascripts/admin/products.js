@@ -14,6 +14,57 @@ window.Raisy_admin_products = {
 			window.Raisy_admin_products.draw_og_property_table();
 			window.Raisy_admin_products.bind_option_group_oprs();
 		}
+		
+    $('#upload_product_more_photo').fileupload({
+        forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
+        add: function (e, data) {
+            data.submit();
+        },
+        start: function (e) {
+					$(".product-photo-status").text("上传中，请稍候...");
+        },
+        progress: function (e, data) {
+            
+        },
+        done: function (e, data) {
+            $(".product-photo-status").text("");
+
+            var txt = $(data.result[0].body).text();	// Thanks to IE, work became so ugly
+
+            // Upload#save action returns filename+'upload.done' to indicate a successful uploading
+            if (txt.indexOf("upload.done") > 0) {
+                var txt = txt.replace("upload.done", "");
+                var json = JSON.parse(txt);
+								
+                var params = {
+                    angle: "exif",
+										width: 97,
+										height: 94,
+										crop: "limit"
+                };
+
+                var url = $.cloudinary.url(json.public_id, params);
+								var html="<div class=\"product-more-photo\" data-public-id=\"" + json.public_id + "\""
+									+ "style=\"float:left; margin-right:20px; position:relative; width:100px;\">" 
+									+ "<img src=\"" + url + "\" class=\"img-responsive\">" 
+									+ "<div onclick=\"$(this).closest('.product-more-photo').remove();\""
+									+ "style=\"position:absolute; top:-5px; right:1px; cursor:pointer;\">"
+									+ "<span class=\"glyphicon glyphicon-remove\"></span></div>"
+									+ "<input type=\"hidden\" name=\"more_photo_public_id[]\" value=\"" + json.public_id + "\"></div>";
+									
+								$(html).appendTo($("#product_more_photo_container"));
+            }
+            else {
+                $(".product-photo-status").text("抱歉! 上传失败，请稍后再试");
+            }
+        },
+        fail: function (e, data) {
+            // No longer triggered when using iframe as it always get back the response, even if 404 or 500
+            // which will be considered as errors when using XHR
+
+            $(".product-photo-status").text("抱歉! 上传失败，请稍后再试");
+        }
+    });
 	},
 	submitOptionGroupForm: function(form) {
 		window.Raisy_admin_products.destroy_og_property_table();

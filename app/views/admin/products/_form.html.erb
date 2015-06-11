@@ -30,15 +30,18 @@
                                 <div class="col-md-6">
                                     <div class="image-uploader">
                                         <div id="drop-zone" class="drop-zone">
-                                            <div class="row"><div class="col-md-6">
+                                            <div class="row">
+																							<div class="col-md-6">
                                                 <div class="upload-button-holder" style="position: relative">
-                                                    <a class="btn btn-default btn-block upload-button">Choose File</a>
+                                                    <a class="btn btn-default btn-block upload-button">上传图片</a>
                                                     <%= cl_image_upload_tag(:product_image, tags: Rails.env, html: { accept:"image/*"}) %>
 													<a href="#" class="remove-image" style="display:none">Remove picture</a>
                                                 </div>
-                                            </div><div class="col-md-6">
+                                            </div>
+																						<div class="col-md-6">
                                                 <p class="drop-text"><!-- ...or drop image here --></p>
-                                            </div></div>
+                                            </div>
+																					</div>
                                         </div>
                                         <div class="progress progress-striped active" style="display: none;">
                                             <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
@@ -63,6 +66,32 @@
                             </div>
                         </div>
                     </div>
+                </div>
+								
+                <div class="well">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <label>更多图片 <span style="font-weight: normal">(最佳尺寸: 280*280像素)</span></label>
+                      </div>
+                  </div>
+									<div style="padding:20px; width:300px;">
+										<label for="upload_product_more_photo" class="btn btn-default btn-block">上传图片</label>
+										<input id="upload_product_more_photo" name="photo_upload" type="file" accept="image/*" data-url="/upload/product_photo" style="width:0px; height:0px; visibility:hidden;">
+										<div style="text-align:center; margin-top:10px;">
+											<span class="product-photo-status"></span>
+										</div>
+									</div>
+                  <div id="product_more_photo_container" style="position:relative;">
+                      <% f.object.more_photo.each do |photo| %>
+											<div class="product-more-photo" data-public-id="<%= photo.public_id %>" style="float:left; margin-right:20px; position:relative; width:100px;">
+													<%= cl_image_tag photo.public_id, width: 97, height: 94, crop: :limit, class: 'img-responsive' %>
+													<div onclick="$(this).closest('.product-more-photo').remove();" style="position:absolute; top:-5px; right:1px; cursor:pointer;"><span class="glyphicon glyphicon-remove"></span></div>
+													
+													<input type="hidden" name="more_photo_public_id[]" value="<%= photo.public_id %>">
+											</div>
+											<% end %>
+                  </div>
+									<div style="clear:both;"></div>
                 </div>
 								
                 <div class="well">

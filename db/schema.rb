@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528080304) do
+ActiveRecord::Schema.define(version: 20150611055655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -447,6 +447,12 @@ ActiveRecord::Schema.define(version: 20150528080304) do
 
   add_index "organizations_users", ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", using: :btree
   add_index "organizations_users", ["user_id", "organization_id"], name: "index_organizations_users_on_user_id_and_organization_id", using: :btree
+
+  create_table "product_images", force: true do |t|
+    t.integer "product_id"
+    t.string  "public_id"
+    t.boolean "is_cover",   default: false
+  end
 
   create_table "products", force: true do |t|
     t.string   "name"

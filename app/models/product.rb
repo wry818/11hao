@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
     has_and_belongs_to_many :categories
     has_many :items
     has_many :option_groups
+    has_many :product_images
 
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     
@@ -117,5 +118,17 @@ class Product < ActiveRecord::Base
           :same_price=>(min==max), :same_discount_price=>(discount_min==discount_max),
           :is_discount=>true
       }
+    end
+    
+    def cover_photo
+      self.product_images.where(:is_cover=>true).first
+    end
+    
+    def more_photo
+      self.product_images.where(:is_cover=>false).order(:id)
+    end
+    
+    def all_photo
+      self.product_images.order(:is_cover=>:desc).order(:id)
     end
 end
