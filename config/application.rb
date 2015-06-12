@@ -19,6 +19,8 @@ module Raisy
         ENV['MAILGUN_DOMAIN'] = 'sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
         ENV['MAILGUN_USERNAME'] = 'postmaster@sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
         ENV['MAILGUN_PASSWORD'] = 'a5dc51db8a5eeea81835fd7d6a18c72f'
+        
+        config.url_host = "http://www.11haoonline.com"
 
         # Settings in config/environments/* take precedence over those specified here.
         # Application configuration should go into files in config/initializers

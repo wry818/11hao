@@ -70,6 +70,14 @@ class PagesController < ApplicationController
           render text: session[:search_camp_popup] || "yes"
         end
     end
+    
+    def tos
+      render "tos", :layout=>false
+    end
+    
+    def reg_tos
+      render "reg_tos", :layout=>false
+    end
 
     private
 

@@ -88,6 +88,8 @@ Raisy::Application.routes.draw do
     get 'privacy', to: 'pages#privacy'
     get 'tou', to: 'pages#tou'
     get 'copyright', to: 'pages#copyright'
+    get 'tos', to: 'pages#tos'
+    get 'reg_tos', to: 'pages#reg_tos'
 
     post 'ajax/invite', to: 'pages#ajax_invite', as: :ajax_invite
     

@@ -578,7 +578,7 @@ class CampaignsController < ApplicationController
       
       @step_popup = session[:camp_step_popup] || "yes"
       
-      qr = RQRCode::QRCode.new(short_campaign_url(@campaign), :size => 10, :level => :h)
+      qr = RQRCode::QRCode.new(Rails.configuration.url_host + short_campaign_path(@campaign), :size => 10, :level => :h)
 
       @qr_url = qr.to_img.resize(200, 200).to_data_url
     end
