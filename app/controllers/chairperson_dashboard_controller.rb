@@ -450,6 +450,10 @@ class ChairpersonDashboardController < ApplicationController
         @campaign = Campaign.friendly.find(params[:id])
         
         redirect_to root_url and return unless @campaign && (current_user.id == @campaign.organizer_id || admin_user? || sales_user? || crs_user?)
+        
+        qr = RQRCode::QRCode.new(short_campaign_url(@campaign), :size => 10, :level => :h)
+
+        @qr_url = qr.to_img.resize(150, 150).to_data_url
       rescue
         redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
       end

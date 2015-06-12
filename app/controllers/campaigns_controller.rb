@@ -577,6 +577,10 @@ class CampaignsController < ApplicationController
       session[:is_campaign_preview] = "yes"
       
       @step_popup = session[:camp_step_popup] || "yes"
+      
+      qr = RQRCode::QRCode.new(short_campaign_url(@campaign), :size => 10, :level => :h)
+
+      @qr_url = qr.to_img.resize(200, 200).to_data_url
     end
     
     def campaign_contacts
