@@ -14,8 +14,29 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       content = "#{@keyword}"
       
-      if content == "活动代码"
-        reply_text_message("请上传视频")
+      if content.include? "#筹款"
+        
+        slug = content.split(' ')
+        
+        if slug.length > 1
+          
+          puts "bbbbbbbb"
+         
+          
+          campaign_slug = slug[1]
+          session[:campaign_slug] = slug[1]
+          
+          puts session[:campaign_slug]
+          puts "cccccccc"
+            
+          reply_text_message("请上传视频" + session[:campaign_slug])
+          
+        else
+          
+          reply_text_message("请输入筹款活动代号")
+            
+        end
+      
       else
         # reply_transfer_customer_service_message()
       end
@@ -71,28 +92,29 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
     def response_video_message(options={})
       
-      @media_id = @weixin_message.MediaId
-      @thumb_media_id = @weixin_message.ThumbMediaId
+      puts "bbbbbbbb"
+      puts session[:campaign_slug]
+      reply_text_message("视频上传成功！" + session[:campaign_slug])
       
-      # reply_text_message(@media_id + "   " + @thumb_media_id)
-      # reply_transfer_customer_service_message()
-      
-      @media_id = @weixin_message.MediaId
-      $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-      uri = $wechat_client.download_media_url(@media_id)
-    
-      file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
-      
-      require 'open-uri'
-      open('./app/assets/video/' + file_name, 'wb') do |file|
-        
-        reply_text_message("请稍后...")
-        
-        file << open(uri).read
-        
-        reply_text_message("视频上传成功！点击下面链接创建seller")
-      
-      end
+      # @media_id = @weixin_message.MediaId
+#       @thumb_media_id = @weixin_message.ThumbMediaId
+#
+#       # reply_text_message(@media_id + "   " + @thumb_media_id)
+#       # reply_transfer_customer_service_message()
+#
+#       @media_id = @weixin_message.MediaId
+#       $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#       uri = $wechat_client.download_media_url(@media_id)
+#
+#       file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
+#
+#       require 'open-uri'
+#       open('./app/assets/video/' + file_name, 'wb') do |file|
+#
+#         file << open(uri).read
+#         reply_text_message("视频上传成功！点击下面链接创建seller")
+#
+#       end
       
     end
 
