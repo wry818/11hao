@@ -21,13 +21,12 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         if slug.length > 1
           
           puts "bbbbbbbb"
-         
+          WeixinCache.set(slug[1])
+          puts WeixinCache.get()
           
           campaign_slug = slug[1]
-          session[:campaign_slug] = slug[1]
           
-          puts session[:campaign_slug]
-          puts "cccccccc"
+          
             
           reply_text_message("请上传视频" + session[:campaign_slug])
           
@@ -92,9 +91,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
     def response_video_message(options={})
       
-      puts "bbbbbbbb"
-      puts session[:campaign_slug]
-      reply_text_message("视频上传成功！" + session[:campaign_slug])
+      puts "cccccccc"
+      puts WeixinCache.get()
+      
+      reply_text_message("视频上传成功")
       
       # @media_id = @weixin_message.MediaId
 #       @thumb_media_id = @weixin_message.ThumbMediaId
