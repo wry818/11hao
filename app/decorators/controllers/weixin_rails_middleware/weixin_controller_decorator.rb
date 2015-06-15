@@ -20,9 +20,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
         if slug.length > 1
           
-          puts "bbbbbbbb"
-          WeixinCache.set(slug[1])
-          puts WeixinCache.get()
+          # puts "bbbbbbbb"
+ #          WeixinCache.set(slug[1])
+ #          puts WeixinCache.get()
           
           campaign_slug = slug[1]
           
@@ -37,10 +37,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         end
       
       else
-        # reply_transfer_customer_service_message()
+        
+        reply_transfer_customer_service_message()
+        
       end
-      
-      # reply_text_message("欢迎您加入11号公益圈！")
       
     end
 
@@ -91,9 +91,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
     def response_video_message(options={})
       
-      puts "cccccccc"
-      puts WeixinCache.get()
-      
+      # puts "cccccccc"
+ #      puts WeixinCache.get()
+ #
       reply_text_message("视频上传成功")
       
       # @media_id = @weixin_message.MediaId

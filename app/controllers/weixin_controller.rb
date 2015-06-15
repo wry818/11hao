@@ -331,38 +331,23 @@ class WeixinController < ApplicationController
   end
   
   def download_file
-  
-    uri = 'http://www.zhongchou.com/attachment/201505/13/15/0a512c396e06b271ec346d0598984ff135.jpg'
     
-    $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    uri = $wechat_client.download_media_url("noSs9By0dV9PKzMjOX1Xf_eOYYDGPX2TSL5Jfpa-E_ARPKEhjzms_OwGG9ElBuxh")
-    puts uri
+    puts WeixinCache.get()
     
-    file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
-    require 'open-uri'
-    
-    open('./app/assets/video/' + file_name, 'wb') do |file|
-      puts "aaaaaa"
-      file << open(uri).read
-      puts "bbbbbb"
-    end
-
-   
-    # File.open("/tmp/test.jpg", "wb") do |saved_file|
-    #   # the following "open" is provided by open-uri
-    #   open(uri, "rb") do |read_file|
-    #     puts "aaaaaa"
-    #     saved_file.write(read_file.read)
-    #   end
-    # end
-
-    # open(uri) {|f|
-    #    File.open("test.jpg","wb") do |file|
-    #      puts "aaaa"
-    #      file.puts f.read
-    #      puts "bbbb"
-    #    end
-    # }
+    # uri = 'http://www.zhongchou.com/attachment/201505/13/15/0a512c396e06b271ec346d0598984ff135.jpg'
+#
+#     $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#     uri = $wechat_client.download_media_url("noSs9By0dV9PKzMjOX1Xf_eOYYDGPX2TSL5Jfpa-E_ARPKEhjzms_OwGG9ElBuxh")
+#     puts uri
+#
+#     file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
+#     require 'open-uri'
+#
+#     open('./app/assets/video/' + file_name, 'wb') do |file|
+#       puts "aaaaaa"
+#       file << open(uri).read
+#       puts "bbbbbb"
+#     end
 
     render text: "aaaaa"
       
