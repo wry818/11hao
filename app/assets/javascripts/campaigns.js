@@ -1213,17 +1213,17 @@ Raisy.campaigns = {
         switch (Raisy.campaigns.campaign_current_step) {
             case 1:
                 border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(180 * y_ratio)).toString() + "px";
+                border_top = (img_top + Math.floor(256 * y_ratio)).toString() + "px";
                 border_width = Math.ceil(389 * x_ratio).toString() + "px";
                 border_height = Math.ceil(45 * y_ratio).toString() + "px";
 
                 break;
 
             case 2:
-                border_left = (img_left + Math.floor(261 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(287 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(158 * x_ratio).toString() + "px";
-                border_height = Math.ceil(51 * y_ratio).toString() + "px";
+                border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
+                border_top = (img_top + Math.floor(340 * y_ratio)).toString() + "px";
+                border_width = Math.ceil(690 * x_ratio).toString() + "px";
+                border_height = Math.ceil(121 * y_ratio).toString() + "px";
 
                 break;
 
@@ -1231,15 +1231,15 @@ Raisy.campaigns = {
                 border_left = img_left.toString() + "px";
                 border_top = img_top.toString() + "px";
                 border_width = img_width.toString() + "px";
-                border_height = Math.ceil(227 * y_ratio).toString() + "px";
+                border_height = Math.ceil(257 * y_ratio).toString() + "px";
 
                 break;
 
             case 3.1:
-                border_left = (img_left + Math.floor(20 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(287 * y_ratio)).toString() + "px";
+                border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
+                border_top = (img_top + Math.floor(337 * y_ratio)).toString() + "px";
                 border_width = Math.ceil(226 * x_ratio).toString() + "px";
-                border_height = Math.ceil(255 * y_ratio).toString() + "px";
+                border_height = Math.ceil(55 * y_ratio).toString() + "px";
 
                 break;
 
@@ -1252,9 +1252,9 @@ Raisy.campaigns = {
                 break;
 
             case 5:
-                border_left = (img_left + Math.floor(19 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(606 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(262 * x_ratio).toString() + "px";
+                border_left = (img_left + Math.floor(259 * x_ratio)).toString() + "px";
+                border_top = (img_top + Math.floor(526 * y_ratio)).toString() + "px";
+                border_width = Math.ceil(412 * x_ratio).toString() + "px";
                 border_height = Math.ceil(166 * y_ratio).toString() + "px";
 
                 break;
