@@ -2,7 +2,8 @@
 	视频：
 </div>
 <div>
-	<%= video_tag @file_name, :size => "240x320", :controls => true %>
+	<video controls="true" height="320" src="/assets/<%= @file_name %>" width="240" webkit-playsinline>
+	</video>
 </div>
 <div>
 	<%= @nick_name %>
