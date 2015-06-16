@@ -38,14 +38,15 @@ class ApplicationController < ActionController::Base
     
     def get_wechat_sns
       
-      logger.info "aaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaa"
+      
       if session[:openid].blank?
         
-        logger.info "bbbbbbbbbbb"
+        # logger.info "bbbbbbbbbbb"
         
         if params[:code].present?
           
-          logger.info "cccccccccccc"
+          # logger.info "cccccccccccc"
           
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
@@ -61,7 +62,7 @@ class ApplicationController < ActionController::Base
           
         else
           
-          logger.info "ddddddddddddd"
+          # logger.info "ddddddddddddd"
           
           # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           # url = $wechat_client.authorize_url(request.original_url)

@@ -299,12 +299,20 @@ class UsersController < ApplicationController
     
     def signup_seller_weixin
        
-       logger.info "aaaaaaaaaaaaa"
-      logger.info "aaaaaaaaaaaaa"
-      logger.info session[:openid]
         # @campaign = Campaign.friendly.find(params[:campaign_id])
         @file_name = params[:video_file_name] + ".mp4"
-        logger.info @file_name
+        @nick_name = ""
+        @avatar_url = ""
+        
+        user_info = WeixinHelper.get_user_info(session[:openid], session[:access_token])
+        
+        if user_info
+          
+          @nick_name = user_info.result["nickname"]
+          @avatar_url = user_info.result["headimgurl"]
+          
+        end
+        
     end
     
     def seller_photo
