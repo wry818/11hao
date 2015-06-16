@@ -62,7 +62,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       else
         
-        reply_transfer_customer_service_message()
+        reply_text_message("视频上传成功！点击下面链接创建seller \n http://www.11haoonline.com/")
+        
+        # reply_transfer_customer_service_message()
         
       end
       
@@ -124,8 +126,6 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         campaign = Campaign.friendly.find(weixin_user_info.campaign_slug)
     
         if campaign && campaign.active?
-          
-          reply_text_message("请稍候...")
           
           @media_id = @weixin_message.MediaId
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
