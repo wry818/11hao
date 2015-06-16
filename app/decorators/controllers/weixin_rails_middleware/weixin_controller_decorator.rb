@@ -11,7 +11,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
   private
 
     def response_text_message(options={})
-      
+
+      open_id = @weixin_message.FromUserName
       content = "#{@keyword}"
       
       if content.include? "#筹款"
@@ -27,21 +28,19 @@ WeixinRailsMiddleware::WeixinController.class_eval do
             campaign = Campaign.friendly.find(campaign_slug)
         
             if campaign && campaign.active?
-            
-              # open_id = @weixin_message.FromUserName
-              #
-              # weixin_user_info = WeixinCache.get(open_id)
-              #
-              # if !weixin_user_info
-              #
-              #   weixin_user_info = WeixinUserInfo.new
-              #
-              # end
-              #
-              # weixin_user_info.campaign_slug = slug[1]
-              # WeixinCache.set(open_id, weixin_user_info)
+
+              weixin_user_info = WeixinCache.get(open_id)
+
+              if !weixin_user_info
+
+                weixin_user_info = WeixinUserInfo.new
+
+              end
+
+              weixin_user_info.campaign_slug = slug[1]
+              WeixinCache.set(open_id, weixin_user_info)
           
-              reply_text_message("请上传视频。")
+              reply_text_message("请上传您的视频。")
             
             else
               
@@ -116,30 +115,49 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     # <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
     def response_video_message(options={})
       
-      puts "cccccccc"
-      puts WeixinCache.get()
-
-      reply_text_message("视频上传成功" + WeixinCache.get())
+      open_id = @weixin_message.FromUserName
       
-      # @media_id = @weixin_message.MediaId
-#       @thumb_media_id = @weixin_message.ThumbMediaId
-#
-#       # reply_text_message(@media_id + "   " + @thumb_media_id)
-#       # reply_transfer_customer_service_message()
-#
-#       @media_id = @weixin_message.MediaId
-#       $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-#       uri = $wechat_client.download_media_url(@media_id)
-#
-#       file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
-#
-#       require 'open-uri'
-#       open('./app/assets/video/' + file_name, 'wb') do |file|
-#
-#         file << open(uri).read
-#         reply_text_message("视频上传成功！点击下面链接创建seller")
-#
-#       end
+      weixin_user_info = WeixinCache.get(open_id)
+
+      if weixin_user_info && weixin_user_info.campaign_slug
+        
+        campaign = Campaign.friendly.find(weixin_user_info.campaign_slug)
+    
+        if campaign && campaign.active?
+          
+          reply_text_message("请稍候...")
+          
+          # @media_id = @weixin_message.MediaId
+          # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          # uri = $wechat_client.download_media_url(@media_id)
+          #
+          # file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S")
+          #
+          # require 'open-uri'
+          # open('./app/assets/video/' + file_name + ".mp4", 'wb') do |file|
+          #
+          #   file << open(uri).read
+          #
+          #   weixin_user_info.video_url = file_name
+          #   WeixinCache.set(open_id, weixin_user_info)
+          #
+          #   reply_text_message("视频上传成功！点击下面链接创建seller")
+          #
+          # end
+          #
+          # reply_text_message("视频上传成功")
+        
+        else
+          
+          reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+        
+        end
+         
+      else
+        
+         reply_text_message('您尚未输入筹款活动代码，请以"#筹款 代码"的格式输入筹款活动代码')
+         
+      end
       
     end
 
