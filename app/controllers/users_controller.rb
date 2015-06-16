@@ -316,6 +316,9 @@ class UsersController < ApplicationController
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
           
+          logger.info @nick_name
+          logger.info @avatar_url
+          
         end
         
     end
