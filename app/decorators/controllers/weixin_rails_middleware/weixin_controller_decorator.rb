@@ -20,15 +20,20 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
         if slug.length > 1
           
-          puts "bbbbbbbb"
-          WeixinCache.set(slug[1])
-          puts WeixinCache.get()
+          open_id = @weixin_message.FromUserName
           
-          campaign_slug = slug[1]
+          # weixin_user_info = WeixinCache.get(open_id)
+          #
+          # if !weixin_user_info
+          #
+          #   weixin_user_info = WeixinUserInfo.new
+          #
+          # end
+          #
+          # weixin_user_info.campaign_slug = slug[1]
+          # WeixinCache.set(open_id, weixin_user_info)
           
-          
-            
-          reply_text_message("请上传视频" + WeixinCache.get())
+          reply_text_message("请上传视频" + open_id)
           
         else
           

@@ -332,7 +332,56 @@ class WeixinController < ApplicationController
   
   def download_file
     
-    puts WeixinCache.get()
+    weixin_user_info = WeixinUserInfo.new
+    weixin_user_info.campaign_slug = "111"
+    weixin_user_info.video_url = "2222"
+    
+    puts weixin_user_info.campaign_slug
+    puts weixin_user_info.video_url
+    
+    WeixinCache.set("openid_1", weixin_user_info)
+    
+    weixin_user_info2 = WeixinCache.get("openid_1")
+    puts weixin_user_info2.campaign_slug
+    puts weixin_user_info2.video_url
+    
+    weixin_user_info2.campaign_slug = "333"
+    weixin_user_info2.video_url = "444"
+    WeixinCache.set("openid_1", weixin_user_info2)
+    
+    weixin_user_info3 = WeixinCache.get("openid_1")
+    puts weixin_user_info3.campaign_slug
+    puts weixin_user_info3.video_url
+    
+#
+#     weixin_info3 = WeixinCache.get("openid_2")
+#
+#     if weixin_info2
+#
+#       puts "aaaaa"
+#     else
+#       puts "bbbb"
+#     end
+#
+#     if weixin_info3
+#
+#       puts "aaaaa"
+#     else
+#       puts "bbbb"
+#     end
+#
+#     # WeixinCache.clear()
+#
+#     weixin_info4 = WeixinCache.get("openid_1")
+#
+#     if weixin_info4
+#
+#       puts "aaaaa"
+#     else
+#       puts "bbbb"
+#     end
+    
+    # puts WeixinCache.get()
     
     # uri = 'http://www.zhongchou.com/attachment/201505/13/15/0a512c396e06b271ec346d0598984ff135.jpg'
 #
