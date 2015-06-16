@@ -94,7 +94,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       puts "cccccccc"
       puts WeixinCache.get()
 
-      reply_text_message("视频上传成功")
+      reply_text_message("视频上传成功" + WeixinCache.get())
       
       # @media_id = @weixin_message.MediaId
 #       @thumb_media_id = @weixin_message.ThumbMediaId
