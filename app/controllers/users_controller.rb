@@ -304,9 +304,14 @@ class UsersController < ApplicationController
         @nick_name = ""
         @avatar_url = ""
         
+        logger.info session[:openid]
+        logger.info session[:access_token]
+        
         user_info = WeixinHelper.get_user_info(session[:openid], session[:access_token])
         
         if user_info
+          
+          logger.info "xxxxxxxxxxx"
           
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
