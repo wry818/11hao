@@ -127,25 +127,23 @@ WeixinRailsMiddleware::WeixinController.class_eval do
           
           reply_text_message("请稍候...")
           
-          # @media_id = @weixin_message.MediaId
-          # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          # uri = $wechat_client.download_media_url(@media_id)
-          #
-          # file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S")
-          #
-          # require 'open-uri'
-          # open('./app/assets/video/' + file_name + ".mp4", 'wb') do |file|
-          #
-          #   file << open(uri).read
-          #
-          #   weixin_user_info.video_url = file_name
-          #   WeixinCache.set(open_id, weixin_user_info)
-          #
-          #   reply_text_message("视频上传成功！点击下面链接创建seller")
-          #
-          # end
-          #
-          # reply_text_message("视频上传成功")
+          @media_id = @weixin_message.MediaId
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          uri = $wechat_client.download_media_url(@media_id)
+
+          file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S")
+
+          require 'open-uri'
+          open('./app/assets/video/' + file_name + ".mp4", 'wb') do |file|
+
+            file << open(uri).read
+
+            weixin_user_info.video_url = file_name
+            WeixinCache.set(open_id, weixin_user_info)
+
+            reply_text_message("视频上传成功！点击下面链接创建seller\nhttp://www.11haoonline.com/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url)
+
+          end
         
         else
           
