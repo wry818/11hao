@@ -134,7 +134,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
           file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S")
 
           require 'open-uri'
-          open('./app/assets/video/' + file_name + ".mp4", 'wb') do |file|
+          open('./app/assets/videos/' + file_name + ".mp4", 'wb') do |file|
 
             file << open(uri).read
 
