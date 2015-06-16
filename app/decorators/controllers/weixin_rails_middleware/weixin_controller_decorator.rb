@@ -62,9 +62,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       else
         
-        reply_text_message("视频上传成功！点击下面链接创建seller \n http://www.11haoonline.com/")
+        # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
         
-        # reply_transfer_customer_service_message()
+        reply_transfer_customer_service_message()
         
       end
       
@@ -141,7 +141,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
             weixin_user_info.video_url = file_name
             WeixinCache.set(open_id, weixin_user_info)
 
-            reply_text_message("视频上传成功！点击下面链接创建seller\nhttp://www.11haoonline.com/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url)
+            reply_text_message("视频上传成功！点击下面链接创建seller \n" + 
+              "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url)
 
           end
         

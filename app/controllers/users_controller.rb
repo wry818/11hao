@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   
     before_filter :authenticate_user!, 
-      except: [:show, :new, :create, :signup_seller, :signup_seller_create, 
+      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin,  
         :omniauth_callback, :omniauth_failure, 
         :verify_user, :lookup_user, :ajax_seller_step_popup]
 
@@ -295,6 +295,13 @@ class UsersController < ApplicationController
 
         redirect_to seller_photo_path(seller) and return
 
+    end
+    
+    def signup_seller_weixin
+      
+        # @campaign = Campaign.friendly.find(params[:campaign_id])
+        @file_name = params[:video_file_name] + ".mp4"
+        puts @file_name
     end
     
     def seller_photo

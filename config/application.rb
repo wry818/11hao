@@ -9,12 +9,18 @@ Bundler.require(:default, Rails.env)
 module Raisy
     class Application < Rails::Application
         config.to_prepare do
-      # Load application's model / class decorators
-      Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
-        Rails.configuration.cache_classes ? require(c) : load(c)
-      end
-    end
-    
+          # Load application's model / class decorators
+          Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
+            Rails.configuration.cache_classes ? require(c) : load(c)
+          end
+        end
+        
+        # Add the fonts path
+        config.assets.paths << Rails.root.join('app', 'assets', 'videos')
+        
+        # Precompile additional assets
+        config.assets.precompile += %w( .mp4 )
+        
         # Init ENV
         ENV['MAILGUN_DOMAIN'] = 'sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
         ENV['MAILGUN_USERNAME'] = 'postmaster@sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
