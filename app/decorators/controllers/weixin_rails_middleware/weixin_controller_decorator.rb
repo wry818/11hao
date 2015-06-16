@@ -21,26 +21,35 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         if slug.length > 1
           
           campaign_slug = slug[1]
-          campaign = Campaign.friendly.find(campaign_slug)
           
-          if campaign && campaign.active?
+          begin
             
-            # open_id = @weixin_message.FromUserName
-            #
-            # weixin_user_info = WeixinCache.get(open_id)
-            #
-            # if !weixin_user_info
-            #
-            #   weixin_user_info = WeixinUserInfo.new
-            #
-            # end
-            #
-            # weixin_user_info.campaign_slug = slug[1]
-            # WeixinCache.set(open_id, weixin_user_info)
+            campaign = Campaign.friendly.find(campaign_slug)
+        
+            if campaign && campaign.active?
+            
+              # open_id = @weixin_message.FromUserName
+              #
+              # weixin_user_info = WeixinCache.get(open_id)
+              #
+              # if !weixin_user_info
+              #
+              #   weixin_user_info = WeixinUserInfo.new
+              #
+              # end
+              #
+              # weixin_user_info.campaign_slug = slug[1]
+              # WeixinCache.set(open_id, weixin_user_info)
           
-            reply_text_message("请上传视频。")
+              reply_text_message("请上传视频。")
             
-          else
+            else
+              
+              reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+            
+            end
+            
+          rescue
             
             reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
             
