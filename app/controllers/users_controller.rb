@@ -298,7 +298,9 @@ class UsersController < ApplicationController
     end
     
     def signup_seller_weixin
-      
+        
+      puts "aaaaaaaaaaaaa"
+      puts session[:openid]
         # @campaign = Campaign.friendly.find(params[:campaign_id])
         @file_name = params[:video_file_name] + ".mp4"
         puts @file_name
