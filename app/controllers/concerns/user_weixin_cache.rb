@@ -1,4 +1,4 @@
-class WeixinCache
+class UserWeixinCache
   
   @@weixin_cache = {}
   

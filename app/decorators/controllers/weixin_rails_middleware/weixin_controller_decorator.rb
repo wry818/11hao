@@ -29,16 +29,16 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
             if campaign && campaign.active?
 
-              weixin_user_info = WeixinCache.get(open_id)
+              weixin_user_info = UserWeixinCache.get(open_id)
 
               if !weixin_user_info
 
-                weixin_user_info = WeixinUserInfo.new
+                weixin_user_info = UserWeixinInfo.new
 
               end
 
               weixin_user_info.campaign_slug = slug[1]
-              WeixinCache.set(open_id, weixin_user_info)
+              UserWeixinCache.set(open_id, weixin_user_info)
           
               reply_text_message("请上传您的视频。")
             
@@ -119,7 +119,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       open_id = @weixin_message.FromUserName
       
-      weixin_user_info = WeixinCache.get(open_id)
+      weixin_user_info = UserWeixinCache.get(open_id)
 
       if weixin_user_info && weixin_user_info.campaign_slug
         
@@ -139,7 +139,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
             file << open(uri).read
 
             weixin_user_info.video_url = file_name
-            WeixinCache.set(open_id, weixin_user_info)
+            UserWeixinCache.set(open_id, weixin_user_info)
 
             reply_text_message("视频上传成功！点击下面链接创建seller \n" + 
               "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url)

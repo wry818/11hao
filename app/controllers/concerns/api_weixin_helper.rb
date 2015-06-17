@@ -1,4 +1,4 @@
-class WeixinHelper
+class ApiWeixinHelper
   
   def self.get_user_info(openid, access_token)
     

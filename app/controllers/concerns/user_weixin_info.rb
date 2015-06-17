@@ -1,4 +1,4 @@
-class WeixinUserInfo
+class UserWeixinInfo
   
   attr_accessor :campaign_slug, :video_url
   

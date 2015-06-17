@@ -385,9 +385,9 @@ class WeixinController < ApplicationController
     
   end
   
-  def download_file    
+  def download_file
     
-    uri = 'http://www.zhongchou.com/attachment/201505/13/15/0a512c396e06b271ec346d0598984ff135.jpg'
+    # uri = 'http://www.zhongchou.com/attachment/201505/13/15/0a512c396e06b271ec346d0598984ff135.jpg'
 
     $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
     uri = $wechat_client.download_media_url("noSs9By0dV9PKzMjOX1Xf_eOYYDGPX2TSL5Jfpa-E_ARPKEhjzms_OwGG9ElBuxh")
@@ -396,10 +396,8 @@ class WeixinController < ApplicationController
     file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + ".mp4"
     require 'open-uri'
 
-    open('./app/assets/videos/' + file_name, 'wb') do |file|
-      puts "aaaaaa"
+    open('./public/videos/' + file_name, 'wb') do |file|
       file << open(uri).read
-      puts "bbbbbb"
     end
 
     render text: "aaaaa"
