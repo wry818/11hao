@@ -12,65 +12,65 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
       
-      logger.info "#{@keyword}"
-      
-      reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
+      # logger.info "#{@keyword}"
+      #
+      # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
 
-      # open_id = @weixin_message.FromUserName
-#       content = "#{@keyword}"
-#
-#       if content.include? "#筹款"
-#
-#         slug = content.split(' ')
-#
-#         if slug.length > 1
-#
-#           campaign_slug = slug[1]
-#
-#           begin
-#
-#             campaign = Campaign.friendly.find(campaign_slug)
-#
-#             if campaign && campaign.active?
-#
-#               weixin_user_info = UserWeixinCache.get(open_id)
-#
-#               if !weixin_user_info
-#
-#                 weixin_user_info = UserWeixinInfo.new
-#
-#               end
-#
-#               weixin_user_info.campaign_slug = slug[1]
-#               UserWeixinCache.set(open_id, weixin_user_info)
-#
-#               reply_text_message("请上传您的视频。")
-#
-#             else
-#
-#               reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
-#
-#             end
-#
-#           rescue
-#
-#             reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
-#
-#           end
-#
-#         else
-#
-#           reply_text_message("请输入筹款活动代号。")
-#
-#         end
-#
-#       else
-#
-#         # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
-#
-#         reply_transfer_customer_service_message()
-#
-#       end
+      open_id = @weixin_message.FromUserName
+      content = "#{@keyword}"
+
+      if content.include? "#筹款"
+
+        slug = content.split(' ')
+
+        if slug.length > 1
+
+          campaign_slug = slug[1]
+
+          begin
+
+            campaign = Campaign.friendly.find(campaign_slug)
+
+            if campaign && campaign.active?
+
+              weixin_user_info = UserWeixinCache.get(open_id)
+
+              if !weixin_user_info
+
+                weixin_user_info = UserWeixinInfo.new
+
+              end
+
+              weixin_user_info.campaign_slug = slug[1]
+              UserWeixinCache.set(open_id, weixin_user_info)
+
+              reply_text_message("请上传您的视频。")
+
+            else
+
+              reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+
+            end
+
+          rescue
+
+            reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+
+          end
+
+        else
+
+          reply_text_message("请输入筹款活动代号。")
+
+        end
+
+      else
+
+        # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
+
+        reply_transfer_customer_service_message()
+
+      end
       
     end
 
