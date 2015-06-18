@@ -129,6 +129,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       open_id = @weixin_message.FromUserName
       
+      logger.info "response_video_message" + open_id
+      
       weixin_user_info = UserWeixinCache.get(open_id)
 
       if weixin_user_info && weixin_user_info.campaign_slug
