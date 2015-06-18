@@ -18,9 +18,13 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
       open_id = @weixin_message.FromUserName
       content = "#{@keyword}"
-
+      
+      logger.info "#{@keyword}"
+      
       if content.include? "#筹款"
-
+        
+        logger.info "aaaaaaaaaaaaaaa"
+        
         slug = content.split(' ')
 
         if slug.length > 1
@@ -67,8 +71,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       else
 
         # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
-
-        reply_transfer_customer_service_message()
+        
+        logger.info "bbbbbbbbbbb"
+        reply_text_message("测试 #{@keyword}")
+        # reply_transfer_customer_service_message()
 
       end
       
