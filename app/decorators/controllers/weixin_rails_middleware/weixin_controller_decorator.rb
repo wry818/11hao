@@ -52,19 +52,19 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
             else
 
-              reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+              reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
 
             end
 
           rescue
 
-            reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+            reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
 
           end
 
         else
 
-          reply_text_message("请输入筹款活动代号。")
+          reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
 
         end
 
@@ -73,8 +73,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
         
         logger.info "bbbbbbbbbbb"
-        reply_text_message("测试 #{@keyword}")
-        # reply_transfer_customer_service_message()
+        # reply_text_message("测试 #{@keyword}")
+        reply_transfer_customer_service_message()
 
       end
       
@@ -158,7 +158,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
         else
           
-          reply_text_message("抱歉，未找到相应活动，请重新输入筹款活动代号。")
+          reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
         
         end
          
