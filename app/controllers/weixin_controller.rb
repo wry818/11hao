@@ -330,6 +330,25 @@ class WeixinController < ApplicationController
     
   end
   
+  def send_message
+    
+    to_user = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+    
+    articles = [
+      {
+        title: "视频上传成功！",
+        description: "点击创建seller。",
+        url: "http://www.baidu.com"
+      }
+    ]
+    
+    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    response = $client.send_news_custom(to_user, articles)
+    
+    render text: response.result.to_s
+    
+  end
+  
   def test_cache
     
     weixin_user_info = WeixinUserInfo.new

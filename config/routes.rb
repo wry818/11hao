@@ -220,6 +220,7 @@ Raisy::Application.routes.draw do
         # post 'notify' => 'weixin#notify'
         # post 'notify_alert' => 'weixin#notify_alert'
         get 'send_template' => 'weixin#send_template'
+        get 'send_message' => 'weixin#send_message'
         post 'ajax/query-weixin-order', to: 'weixin#ajax_query_weixin_order'
         
         get 'download' => 'weixin#download_file'

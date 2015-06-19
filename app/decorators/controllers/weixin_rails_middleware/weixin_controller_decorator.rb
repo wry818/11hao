@@ -152,9 +152,16 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
             weixin_user_info.video_url = file_name
             UserWeixinCache.set(open_id, weixin_user_info)
-
-            reply_text_message("视频上传成功！点击下面链接创建seller \n" + 
-              "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url)
+    
+            articles = [
+              {
+                title: "视频上传成功！",
+                description: "点击创建seller。",
+                url: "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url
+              }
+            ]
+    
+            $wechat_client.send_news_custom(open_id, articles)
 
           end
         
