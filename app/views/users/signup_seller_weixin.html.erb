@@ -18,30 +18,29 @@
 			<%= form_tag("signup_seller_weixin", method: :post, html: { id: "signup_seller_weixin_form", class: "form-horizontal" }) do %>
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-3 col-sm-offset-2">
+						<div class="col-xs-3 col-xs-offset-2 control-div">
 							<label class="control-label">昵称</label>
 						</div>
-						<div class="col-sm-4">
-							<input id="nickname" name="nickname" type="text" class='form-control' value="<%= @nick_name %>">
+						<div class="col-xs-6" style="padding:0px 15px;">
+							<input id="nickname" name="nickname" type="text" class='form-control' style="width:150px;" value="<%= @nick_name %>">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-3 col-sm-offset-2 control-div" style="padding-right:0px; padding-top:0px;">
+						<div class="col-xs-3 col-xs-offset-2 control-div" style="padding-right:0px; padding-top:0px;">
 							<label class="control-label" style="padding-top:0px;">上传您的头像</label>
 							<br/>
 							<span class="upload-tooltip">
 								（最好的图片尺寸: 200px * 200px）
 							</span>
 						</div>
-						<div class="col-sm-4" style="padding:0px 3px;">
-		                    <div class="image-uploader">
+						<div class="col-xs-6" style="padding:0px 3px;">
+		                    <div class="image-uploader" style="margin:0px 15px;">
 		                    	<div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;"><%= image_tag @avatar_url, width: 100 %></div>
 													<div style="width:0px; height:0px;">
 															<%= hidden_field_tag :use_photo, @avatar_url %>
 															<%= hidden_field_tag :video_file_name, @file_name %>
-															<%=@avatar_url%><br/><%=@file_name%>
 															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
 													</div>
 			                    <div class="progress progress-striped active" style="display: none; width:102px;">
@@ -77,7 +76,21 @@
 				</div>
 				
 				<div class="row">&nbsp;</div>
-				<div class="web-box row">
+				
+				<div class="row">
+					<div class="col-xs-6" style="text-align:right;">
+							<button class="btn btn-success btn-lg" type="submit" style="width:135px;" onclick="window.location.href='#';">
+								<span class="text">跳过这步</span>
+							</button>
+					</div>
+					<div class="col-xs-6">
+					    <button class="btn btn-primary btn-lg" type="submit" style="width:135px;">
+									<span class="text">继续</span><span class="loader" style="display:none"></span>
+					    </button>
+					</div>	
+				</div>
+				
+				<!-- <div class="web-box row">
 					<div class="col-sm-6">
 						<div class="backbutton-box">
 							<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='#';">
@@ -91,9 +104,9 @@
 									<span class="text">继续</span><span class="loader" style="display:none"></span>
 					    </button>
 						</div>
-					</div>	
-				</div>
-				<div class="mobile-box row">
+					</div>
+				</div> -->
+				<!-- <div class="mobile-box row">
 					<div class="col-sm-6">
 						<div class="backbutton-box">
 						    <button class="btn btn-primary btn-lg continue-btn" type="submit">
@@ -108,7 +121,7 @@
 							</button>
 						</div>
 					</div>
-				</div>
+				</div> -->
 						
 			<% end %>
 		</div>
