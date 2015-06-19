@@ -308,6 +308,8 @@ class UsersController < ApplicationController
         user_info = ApiWeixinHelper.get_user_info(session[:openid], session[:access_token])
 
         if user_info
+          render text: user_info and return
+          
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
         else
