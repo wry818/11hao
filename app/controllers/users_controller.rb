@@ -382,19 +382,19 @@ class UsersController < ApplicationController
             @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
           end
           
-          # logger.info "aaaa"
-#           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-#           articles = [
-#             {
-#               title: "您的筹款页面已经创建成功！",
-#               description: "点击查看并分享。",
-#               url: "http://www.11haoonline.com"
-#             }
-#           ]
-#
-#   logger.info "bbbb"
-#           $wechat_client.send_news_custom(session[:openid], articles)
-#           logger.info "cccc"
+          logger.info "aaaa"
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          articles = [
+            {
+              title: "您的筹款页面已经创建成功！",
+              description: "点击查看并分享。",
+              url: "http://www.11haoonline.com"
+            }
+          ]
+
+  logger.info "bbbb"
+          $wechat_client.send_news_custom(session[:openid], articles)
+          logger.info "cccc"
           redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
         
         else
