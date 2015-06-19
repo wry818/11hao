@@ -328,14 +328,10 @@ class UsersController < ApplicationController
         
         @file_name = params[:video_file_name]
         @nick_name = ""
-        @avatar_url = ""
 
-        user_info = ApiWeixinHelper.get_user_info(session[:openid], session[:access_token])
-
-        if user_info
-          @nick_name = user_info.result["nickname"]
-          @avatar_url = user_info.result["headimgurl"]
-          @nick_name = params[:nickname] if params[:nickname].present?
+        if session[:openid]
+          
+          @nick_name = params[:nickname]
           @user = User.find_by uid: session[:openid], provider: "wx"
           
           if !@user
@@ -383,9 +379,13 @@ class UsersController < ApplicationController
           end
           
           redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
+        
         else
+        
           redirect_to root_path and return
+          
         end
+        
       rescue => ex
         redirect_to root_path and return
       end
