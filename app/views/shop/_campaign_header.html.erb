@@ -1,4 +1,26 @@
 <div class="header-box">
+		<% if @seller %>
+			<div class="row">
+				<div class="col-md-12">
+					<div style="padding:15px;">
+						<% if @seller.user_profile.user.profile.picture.present? %>
+						<%= cl_image_tag @seller.user_profile.user.profile.picture, width: 150, height: 150, crop: :limit %>
+						&nbsp;&nbsp;&nbsp;
+						<% end %>
+						<span style="font-size:18px; vertical-align:top;"><%= @seller.user_profile.first_name %></span>
+					</div>
+				</div>
+			</div>
+			<% if @seller.video_file.present? %>
+			<div class="row">
+				<div class="col-md-12">
+					<div style="padding:15px;">
+						<embed src="/videos/<%= @seller.video_file %>" allowFullScreen="true" quality="high" width="100%" height="320" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+					</div>
+				</div>
+			</div>
+			<% end %>
+		<% end %>
     <div class="row">
         <div class="col-md-12">
             <div style="position:relative">
@@ -23,12 +45,9 @@
 				<% if @seller %>
 					<div class="seller-header-title-box">
 						<table><tr>
-							<% if @seller.user_profile.user.profile.picture.present? %>
-							<td style="padding:5px 0px 0px 5px;"><%= cl_image_tag @seller.user_profile.user.profile.picture, width: 50, height: 50, crop: :limit %></td>
-							<% end %>
 							<td>
 								<div class="campaign-header-logo-title">
-									<span style="color: white">帮助<%= @seller.user_profile.first_name %>为<%= @campaign.title %>筹款</span>
+									<span style="color: white">支持<%= @seller.user_profile.first_name %> 为<%= @campaign.title %>筹款</span>
 								</div>
 								<div class="campaign-header-organizer-quote">
 									<span style="color: white"><%= @campaign.organizer_quote %></span>
