@@ -351,6 +351,9 @@ class UsersController < ApplicationController
           
           if !@user_profile
             @user_profile = UserProfile.create user: @user, first_name: @nick_name, child_profile: false
+          else
+            @user_profile.first_name = @nick_name
+            @user_profile.save
           end
           
           if params[:user_picture].present?
