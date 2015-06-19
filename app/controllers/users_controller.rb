@@ -298,29 +298,24 @@ class UsersController < ApplicationController
     end
     
     def signup_seller_weixin
-      
-        # @campaign = Campaign.friendly.find(params[:campaign_id])
+      begin
+        @campaign = Campaign.friendly.find(params[:campaign_id])
+        
         @file_name = params[:video_file_name] + ".mp4"
         @nick_name = ""
         @avatar_url = ""
 
-        logger.info session[:openid]
-        logger.info session[:access_token]
-
         user_info = ApiWeixinHelper.get_user_info(session[:openid], session[:access_token])
 
         if user_info
-
-          logger.info "xxxxxxxxxxx"
-
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
-
-          logger.info @nick_name
-          logger.info @avatar_url
-
+        else
+          # redirect_to root_path and return
         end
-        
+      rescue => ex
+        redirect_to root_path and return
+      end
     end
     
     def seller_photo

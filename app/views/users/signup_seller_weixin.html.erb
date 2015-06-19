@@ -1,14 +1,197 @@
-<div>
-	视频：
+<div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px;">
+	<div class="container container-background">
+		<div style="margin-bottom: 30px;"></div>
+		<div>
+			<h3 style="text-align: center">
+				加入筹款团队 <strong><%= @campaign.title %></strong>
+			</h3>
+		</div>
+		<div id="seller_photo" class="container-box">
+			<div class="form-group">
+				<div class="step-title-container">
+					<label>个性化您的个人信息</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+				</div>
+			</div>
+			
+			<div style="height:5px;"></div>
+			
+			<%= form_tag("signup_seller_weixin", method: :post, html: { id: "signup_seller_weixin_form", class: "form-horizontal" }) do %>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-3 col-sm-offset-2">
+							<label class="control-label">昵称</label>
+						</div>
+						<div class="col-sm-4">
+							<input id="nickname" name="nickname" type="text" class='form-control' value="<%= @nick_name %>">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-3 col-sm-offset-2 control-div" style="padding-right:0px; padding-top:0px;">
+							<label class="control-label" style="padding-top:0px;">上传您的头像</label>
+							<br/>
+							<span class="upload-tooltip">
+								（最好的图片尺寸: 200px * 200px）
+							</span>
+						</div>
+						<div class="col-sm-4" style="padding:0px 3px;">
+		                    <div class="image-uploader">
+		                        <div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;">
+		                                <%= image_tag @avatar_url, width: 72, style: "display:inline-block; margin-top:30px;" %>
+		                        </div>
+	                            <div style="width:0px; height:0px;">
+									<%= hidden_field_tag :use_photo, @avatar_url %>
+									<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
+								</div>
+			                    <div class="progress progress-striped active" style="display: none; width:102px;">
+			                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+			                            <span>0%</span>
+			                        </div>
+			                    </div>
+			                    <div style="text-align:center; width:100px;"><span class="status"></span></div>
+		                    </div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="upload_seller_photo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+							<span style="color:#428bca;font-size:1.1em;display:block;">
+								上传</span>
+                <span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
+                <a href="#" class="remove-image" style="display: none">删除图片</a>
+              </label>
+							
+						</div>
+						<div class="col-sm-6">
+							<div class="use-button" onclick="$('#default_photos_modal').modal('show');">
+								<span style="color:#428bca;font-size:1.1em;display:block;">
+									使用</span>
+								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">&nbsp;</div>
+				<div class="web-box row">
+					<div class="col-sm-6">
+						<div class="backbutton-box">
+							<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='#';">
+								<span class="text">跳过这步</span>
+							</button>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="continuebutton-box">
+					    <button class="btn btn-primary btn-lg continue-btn" type="submit">
+									<span class="text">继续</span><span class="loader" style="display:none"></span>
+					    </button>
+						</div>
+					</div>	
+				</div>
+				<div class="mobile-box row">
+					<div class="col-sm-6">
+						<div class="backbutton-box">
+						    <button class="btn btn-primary btn-lg continue-btn" type="submit">
+								<span class="text">继续</span><span class="loader" style="display:none"></span>
+						    </button>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="continuebutton-box">
+							<button class="btn btn-success btn-lg skip-btn camp-skip-btn-31" type="button" onclick="window.location.href='#';">
+								<span class="text">跳过这步</span>
+							</button>
+						</div>
+					</div>
+				</div>
+						
+			<% end %>
+		</div>
+	</div>
+	
+	<div id="default_photos_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="default_photos_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-header">
+	            <button id="close_use_ours" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	            <h4 class="modal-title">选择一张我们的照片</h4>
+	        </div> <!-- /.modal-header -->
+ 
+	            <div class="modal-body">
+			 		<div style="padding:10px; position:relative;">
+						<% 45.times do |i| %>
+							<div data-photo='<%=image_url("avatars/Avatar_#{(i+1).to_s}.jpg")%>' class="default-photo-div" style="float:left; margin-bottom:5px; text-align:center; width:20%;"><%= image_tag "avatars/Avatar_#{(i+1).to_s}.jpg", class: "img-responsive", style: "max-width:50px; margin:0 auto; border:1px solid white; border-radius:3px; cursor:pointer;" %></div>
+						<% end %>
+						<div class="clearfix"></div>
+					</div>
+	            </div> <!-- end of modal body -->
+				
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+	
+	<div id="seller_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="seller_step_tips_modal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+
+	        <div class="modal-body">
+				<p>通过加一张您自己的照片来个性化您的个人信息！注意：您的图片会显示在您的支持者们浏览的筹款站点上。</p>
+	        </div> <!-- end of modal body -->
+
+	        <div class="modal-footer">
+				<div style="position:relative; text-align:center;">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
+					<div class="hide_seller_step_tips_container">
+						<a id="hide_seller_step_tips" style="cursor:pointer; text-decoration: none;">
+							<span style="font-size:12px; font-weight:600;">不再显示这个信息</span>
+						</a>
+					</div>
+				</div>
+	        </div> <!-- /.modal-footer -->
+			
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
 </div>
-<div>
-	<video width="300" height="480" controls="controls" preload="auto" autobuffer="autobuffer">
-		<source src="/videos/<%= @file_name %>" type='video/mp4' />
-	</video>
-</div>
-<div>
-	<%= @nick_name %>
-</div>
-<div>
-	<%= @avatar_url %>
-</div>
+
+<script>
+$(document).ready(function() {
+	
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
+	<% if @step_popup=="yes" %>
+		window.setTimeout(function(){
+			$("#seller_step_tips_modal").modal("show");
+		}, 200);
+	<% end %>
+	
+	$("#default_photos_modal .default-photo-div img").mouseenter(function(){
+		$(this).css("border", "1px solid #ccc");
+	}).mouseleave(function(){
+		$(this).css("border", "1px solid white")
+	}).click(function(){
+		$(".preview img").attr("src", $(this).attr("src")).addClass("img-responsive").removeAttr("width").removeAttr("height").css({"margin":"0 auto","max-height":"100px","display":"block"});
+		$("input[name=user_picture]").val("");
+		$("input[name=use_photo]").val($(this).closest("div").data("photo"));
+		$("#default_photos_modal").modal("hide");
+	});
+	
+	$(".upload-button").mouseenter(function(){
+		$(this).css("background-color", "#eee");
+	}).mouseleave(function(){
+		$(this).css("background-color", "white");
+	});
+	
+	$(".use-button").mouseenter(function(){
+		$(this).css("background-color", "#eee");
+	}).mouseleave(function(){
+		$(this).css("background-color", "white");
+	});
+});
+</script>
