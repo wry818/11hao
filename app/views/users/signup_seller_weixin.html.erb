@@ -41,6 +41,7 @@
 													<div style="width:0px; height:0px;">
 															<%= hidden_field_tag :use_photo, @avatar_url %>
 															<%= hidden_field_tag :video_file_name, @file_name %>
+															<%= session[:openid] %>
 															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
 													</div>
 			                    <div class="progress progress-striped active" style="display: none; width:102px;">
@@ -79,7 +80,7 @@
 				
 				<div class="row">
 					<div class="col-xs-6" style="text-align:right;">
-							<button class="btn btn-success btn-lg" type="submit" style="width:135px;" onclick="window.location.href='#';">
+							<button class="btn btn-success btn-lg" type="submit" style="width:135px;">
 								<span class="text">跳过这步</span>
 							</button>
 					</div>
