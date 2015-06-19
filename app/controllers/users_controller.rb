@@ -383,12 +383,14 @@ class UsersController < ApplicationController
           end
           
           logger.info "aaaa"
+          url_param = short_campaign_path(@campaign, seller: @seller.referral_code)
+          logger.info url_param
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           articles = [
             {
               title: "您的筹款页面已经创建成功！",
               description: "点击查看并分享。",
-              url: "http://www.11haoonline.com"
+              url: "http://www.11haoonline.com" + url_param
             }
           ]
 
