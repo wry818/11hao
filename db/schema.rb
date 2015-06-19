@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611055655) do
+ActiveRecord::Schema.define(version: 20150619071851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -505,6 +505,7 @@ ActiveRecord::Schema.define(version: 20150611055655) do
     t.string   "grade"
     t.string   "homeroom"
     t.text     "email_text"
+    t.string   "video_file"
   end
 
   add_index "sellers", ["campaign_id", "user_profile_id"], name: "index_sellers_on_campaign_id_and_user_profile_id", using: :btree

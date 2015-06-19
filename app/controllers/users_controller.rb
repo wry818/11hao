@@ -358,16 +358,6 @@ class UsersController < ApplicationController
             @user_profile = UserProfile.create user: @user, first_name: @nick_name, child_profile: false
           end
           
-          if @user.is_seller?(@campaign)
-            sign_in(@user)
-            
-            redirect_to short_campaign_path(@campaign, seller: @user.profile.seller(@campaign).referral_code), flash: { success: "您已加入此筹款团队!" } and return
-          end
-          
-          @seller = Seller.create user_profile: @user_profile, campaign: @campaign
-
-          sign_in(@user)
-          
           if params[:user_picture].present?
               preloaded = Cloudinary::PreloadedFile.new(params[:user_picture])
               if preloaded.valid?
@@ -383,6 +373,17 @@ class UsersController < ApplicationController
                 @user_profile.update_attribute(:picture, image_hash["public_id"])
               end
           end
+          
+          @seller = @user_profile.seller(@campaign)
+          
+          if @seller
+            @seller.video_file = params[:video_file]
+            @seller.save
+          else
+            @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
+          end
+          
+          sign_in(@user)
           
           redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
         else

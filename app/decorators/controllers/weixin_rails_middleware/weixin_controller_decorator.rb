@@ -143,7 +143,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           uri = $wechat_client.download_media_url(@media_id)
 
-          file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S")
+          file_name = "video_" + DateTime.now.strftime("%Y%m%d%H%M%S") + SecureRandom.hex(2)
 
           require 'open-uri'
           open('./public/videos/' + file_name + ".mp4", 'wb') do |file|
