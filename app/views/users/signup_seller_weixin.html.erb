@@ -9,33 +9,26 @@
 		<div id="seller_photo" class="container-box">
 			<div class="form-group">
 				<div class="step-title-container">
-					<label>个性化您的个人信息</label>&nbsp;&nbsp;<span class="seller-step-qa-icon" style="margin-bottom:6px;">?</span>
+					<label>个性化您的个人信息</label>
 				</div>
 			</div>
 			
 			<div style="height:5px;"></div>
 			
 			<%= form_tag(signup_seller_weixin_create_path, method: :post, html: { id: "signup_seller_weixin_form", class: "form-horizontal" }) do %>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-xs-4 col-xs-offset-1 control-div">
+
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group"> 
 							<label class="control-label">昵称</label>
+							<input id="nickname" name="nickname" type="text" class='form-control' value="<%= @nick_name %>">
 						</div>
-						<div class="col-xs-7" style="padding:0px 15px;">
-							<input id="nickname" name="nickname" type="text" class='form-control' style="max-width:150px;" value="<%= @nick_name %>">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-xs-4 col-xs-offset-1 control-div" style="padding-right:0px; padding-top:0px;">
+						<div class="form-group"> 
 							<label class="control-label" style="padding-top:0px;">上传您的头像</label>
 							<br/>
 							<span class="upload-tooltip">
 								（最好的图片尺寸: 200px * 200px）
 							</span>
-						</div>
-						<div class="col-xs-6" style="padding:0px 3px;">
 		                    <div class="image-uploader" style="margin:0px 15px;">
 		                    	<div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;"><%= image_tag @avatar_url, width: 100 %></div>
 													<div style="width:0px; height:0px;">
@@ -55,6 +48,21 @@
 					</div>
 				</div>
 				
+				
+				
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-4 col-xs-offset-1 control-div" style="padding-right:0px; padding-top:0px;">
+							
+							
+							
+						</div>
+						<div class="col-xs-6" style="padding:0px 3px;">
+		                    
+						</div>
+					</div>
+				</div>
+				
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-6">
@@ -67,11 +75,11 @@
 							
 						</div>
 						<div class="col-sm-6">
-							<div class="use-button" onclick="$('#default_photos_modal').modal('show');">
+							<!-- <div class="use-button" onclick="$('#default_photos_modal').modal('show');">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
 									使用</span>
 								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -79,12 +87,7 @@
 				<div class="row">&nbsp;</div>
 				
 				<div class="row">
-					<div class="col-xs-6" style="text-align:right;">
-							<button class="btn btn-success btn-lg" type="submit" style="width:120px;">
-								<span class="text">跳过这步</span>
-							</button>
-					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-12" style="text-align: center">
 					    <button class="btn btn-primary btn-lg" type="submit" style="width:120px;">
 									<span class="text">继续</span><span class="loader" style="display:none"></span>
 					    </button>
