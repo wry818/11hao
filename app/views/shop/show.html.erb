@@ -393,7 +393,7 @@ wx.error(function(res){
             $(document).ready(function () {
                 if (document.referrer.indexOf("/search?") >= 0) {
                     window.setTimeout(function () {
-                        $("#join_campaign_modal").modal("show");
+                        // $("#join_campaign_modal").modal("show");
                     }, 200);
                 }
             });
@@ -404,7 +404,7 @@ wx.error(function(res){
         <script>
             $(document).ready(function () {
                 window.setTimeout(function () {
-                    $("#help_text_modal").modal("show");
+                    // $("#help_text_modal").modal("show");
                 }, 200);
             });
         </script>
@@ -415,13 +415,13 @@ wx.error(function(res){
             $(document).ready(function () {
                 if (document.referrer.indexOf("/search?") >= 0) {
                     window.setTimeout(function () {
-                        $("#join_campaign_modal").modal("show");
+                        // $("#join_campaign_modal").modal("show");
                     }, 200);
                 }
 
                 <% if @seller %>
                 window.setTimeout(function () {
-                    $("#help_text_modal").modal("show");
+                    // $("#help_text_modal").modal("show");
                 }, 200);
                 <% end %>
             });
