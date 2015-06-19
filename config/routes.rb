@@ -130,7 +130,8 @@ Raisy::Application.routes.draw do
     post "ajax/deletecontact", to: 'users#ajax_delete_contact', as: :ajax_seller_delete_contact
     get "ajax/sellersteppopup", to: "users#ajax_seller_step_popup", as: :ajax_seller_step_popup
     get 'seller/signup_weixin/:campaign_id/:video_file_name', to: 'users#signup_seller_weixin', as: :signup_seller_weixin
-     
+    post 'seller/signup_weixin_create', to: 'users#signup_seller_weixin_create', as: :signup_seller_weixin_create
+    
     #SELLER DASHBOARD
     scope 'seller' do
         root 'seller_dashboard#index', as: :seller_dashboard

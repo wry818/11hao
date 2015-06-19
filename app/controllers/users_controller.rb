@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   
     before_filter :authenticate_user!, 
-      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin,  
+      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create,  
         :omniauth_callback, :omniauth_failure, 
         :verify_user, :lookup_user, :ajax_seller_step_popup]
 
@@ -145,7 +145,7 @@ class UsersController < ApplicationController
           if @user.is_seller?(@campaign)
             sign_in(@user)
             
-            redirect_to seller_dashboard_referral_code_url(@user.profile.seller(@campaign).referral_code), flash: { success: "You have already joined this fundraiser!" } and return
+            redirect_to seller_dashboard_referral_code_url(@user.profile.seller(@campaign).referral_code), flash: { success: "您已加入此筹款团队!" } and return
           end
           
           #save seller
@@ -187,7 +187,7 @@ class UsersController < ApplicationController
           if @user.is_seller?(@campaign)
             sign_in(@user)
             
-            redirect_to seller_dashboard_referral_code_url(@user.profile.seller(@campaign).referral_code), flash: { success: "You have already joined this fundraiser!" } and return
+            redirect_to seller_dashboard_referral_code_url(@user.profile.seller(@campaign).referral_code), flash: { success: "您已加入此筹款团队!" } and return
           end
           
           #save seller
@@ -265,7 +265,7 @@ class UsersController < ApplicationController
             seller = existing_seller_profile.seller(campaign)
             
             if seller
-              redirect_to seller_dashboard_referral_code_url(seller.referral_code), flash: { success: "You have already joined this fundraiser!" } and return
+              redirect_to seller_dashboard_referral_code_url(seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
             else
               seller = Seller.create user_profile: existing_seller_profile, campaign: campaign, grade: sellerexist['grade'], homeroom: sellerexist['homeroom']
             end
@@ -284,7 +284,7 @@ class UsersController < ApplicationController
             seller = current_user.profile.seller(campaign)
             
             if seller
-              redirect_to seller_dashboard_referral_code_url(seller.referral_code), flash: { success: "You have already joined this fundraiser!" } and return
+              redirect_to seller_dashboard_referral_code_url(seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
             else
               seller = Seller.create user_profile: current_user.profile, campaign: campaign, grade: sellernew['grade'], homeroom: sellernew['homeroom']
             end
@@ -308,12 +308,85 @@ class UsersController < ApplicationController
         user_info = ApiWeixinHelper.get_user_info(session[:openid], session[:access_token])
 
         if user_info
-          render text: user_info.result.to_s and return
-          
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
         else
           # redirect_to root_path and return
+        end
+      rescue => ex
+        redirect_to root_path and return
+      end
+    end
+    
+    def signup_seller_weixin_create
+      begin
+        @campaign = Campaign.find_by_id(params[:campaign_id])
+        
+        if !@campaign
+          redirect_to root_path and return
+        end
+        
+        @file_name = params[:video_file_name]
+        @nick_name = ""
+        @avatar_url = ""
+
+        user_info = ApiWeixinHelper.get_user_info(session[:openid], session[:access_token])
+
+        if user_info
+          @nick_name = user_info.result["nickname"]
+          @avatar_url = user_info.result["headimgurl"]
+          @nick_name = params[:nickname] if params[:nickname].present?
+          
+          @user = User.find_by uid: session[:openid], provider: "wx"
+          
+          if !@user
+            @user = User.new
+            @user.password = "welcome!"
+            @user.email = SecureRandom.hex(4) + "@11hao.com"
+            @user.account_type = 1
+            @user.uid = session[:openid]
+            @user.provider = "wx"
+            
+            unless @user.save
+              redirect_to root_path and return
+            end
+          end
+          
+          @user_profile = @user.profile
+          
+          if !@user_profile
+            @user_profile = UserProfile.create user: @user, first_name: @nick_name, child_profile: false
+          end
+          
+          if @user.is_seller?(@campaign)
+            sign_in(@user)
+            
+            redirect_to short_campaign_path(@campaign, seller: @user.profile.seller(@campaign).referral_code), flash: { success: "您已加入此筹款团队!" } and return
+          end
+          
+          @seller = Seller.create user_profile: @user_profile, campaign: @campaign
+
+          sign_in(@user)
+          
+          if params[:user_picture].present?
+              preloaded = Cloudinary::PreloadedFile.new(params[:user_picture])
+              if preloaded.valid?
+                  @user_profile.update_attribute(:picture, preloaded.identifier)
+              end
+          else
+              if params[:use_photo].present?
+                # Use default photo, so upload the url passed in to cloud
+                # Note: it does not work on localhost since the url is not public
+              
+                image_hash = Cloudinary::Uploader.upload(params[:use_photo], :tags => "custom-user-photo")
+
+                @user_profile.update_attribute(:picture, image_hash["public_id"])
+              end
+          end
+          
+          redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
+        else
+          redirect_to root_path and return
         end
       rescue => ex
         redirect_to root_path and return

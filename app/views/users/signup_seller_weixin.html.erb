@@ -15,7 +15,7 @@
 			
 			<div style="height:5px;"></div>
 			
-			<%= form_tag("signup_seller_weixin", method: :post, html: { id: "signup_seller_weixin_form", class: "form-horizontal" }) do %>
+			<%= form_tag(signup_seller_weixin_create_path, method: :post, html: { id: "signup_seller_weixin_form", class: "form-horizontal" }) do %>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-xs-3 col-xs-offset-2 control-div">
@@ -41,6 +41,7 @@
 													<div style="width:0px; height:0px;">
 															<%= hidden_field_tag :use_photo, @avatar_url %>
 															<%= hidden_field_tag :video_file_name, @file_name %>
+															<%= hidden_field_tag :campaign_id, @campaign.id %>
 															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
 													</div>
 			                    <div class="progress progress-striped active" style="display: none; width:102px;">
