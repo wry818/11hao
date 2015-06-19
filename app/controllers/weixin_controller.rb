@@ -334,16 +334,30 @@ class WeixinController < ApplicationController
     
     to_user = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     
+    # articles = [
+    #   {
+    #     title: "视频上传成功！",
+    #     description: "点击创建seller。",
+    #     url: "http://www.baidu.com"
+    #   }
+    # ]
+    #
+    # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    # response = $client.send_news_custom(to_user, articles)
+    
+    @campaign = Campaign.friendly.find("test1")
+    
+    $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
     articles = [
       {
-        title: "视频上传成功！",
-        description: "点击创建seller。",
-        url: "http://www.baidu.com"
+        title: "您的筹款页面已经创建成功！",
+        description: "点击查看并分享。",
+        url: "http://www.11haoonline.com" + short_campaign_path(@campaign, seller: "12345"),
+        picurl: @campaign.logo
       }
     ]
-    
-    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    response = $client.send_news_custom(to_user, articles)
+
+    response = $wechat_client.send_news_custom(to_user, articles)
     
     render text: response.result.to_s
     
