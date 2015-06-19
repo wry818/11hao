@@ -336,13 +336,12 @@ class UsersController < ApplicationController
           @nick_name = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
           @nick_name = params[:nickname] if params[:nickname].present?
-          
           @user = User.find_by uid: session[:openid], provider: "wx"
           
           if !@user
             @user = User.new
-            @user.password = "welcome!"
-            @user.email = SecureRandom.hex(4) + "@11hao.com"
+            @user.password = "temp1234"
+            @user.email = SecureRandom.hex(2) + Time.now.to_i.to_s + "@11hao.com"
             @user.account_type = 1
             @user.uid = session[:openid]
             @user.provider = "wx"
@@ -382,8 +381,6 @@ class UsersController < ApplicationController
           else
             @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
           end
-          
-          sign_in(@user)
           
           redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
         else
