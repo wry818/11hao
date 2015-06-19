@@ -382,6 +382,7 @@ class UsersController < ApplicationController
             @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
           end
           
+          logger.info "aaaa"
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           articles = [
             {
@@ -391,8 +392,9 @@ class UsersController < ApplicationController
             }
           ]
   
+  logger.info "bbbb"
           $wechat_client.send_news_custom(session[:openid], articles)
-          
+          logger.info "cccc"
           redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
         
         else
@@ -402,6 +404,7 @@ class UsersController < ApplicationController
         end
         
       rescue => ex
+        logger.info ex.message
         redirect_to root_path and return
       end
     end
