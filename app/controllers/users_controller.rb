@@ -388,7 +388,7 @@ class UsersController < ApplicationController
             {
               title: "您的筹款页面已经创建成功！",
               description: "点击查看并分享。",
-              url: "http://www.11haoonline.com" + short_campaign_path(@campaign, seller: @seller.referral_code)
+              url: "http://www.11haoonline.com"
             }
           ]
   
