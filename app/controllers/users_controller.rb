@@ -395,7 +395,7 @@ class UsersController < ApplicationController
 
           $wechat_client.send_news_custom(session[:openid], articles)
 
-          redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "您已加入此筹款团队!" } and return
+          redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "感谢您的支持，您现在已经是筹款团队的一员，现在可以将此筹款页面分享给您的朋友及家人。简单公益，只因有你。" } and return
         
         else
         
