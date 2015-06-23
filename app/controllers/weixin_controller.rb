@@ -36,8 +36,28 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
-              name: "“特”立同行",
-              url: "http://www.11haoonline.com/-a9943d98-f6a3-4eb4-b52f-e8a2dded8914?from=singlemessage&isappinstalled=0"
+              name: "威爱有你",
+              url: "http://www.11haoonline.com/1"
+            },
+            {
+              type: "view",
+              name: "助力无障碍电影院",
+              url: "http://www.11haoonline.com/0-2"
+            },
+            {
+              type: "view",
+              name: "Smile, Change, Unplug",
+              url: "http://www.11haoonline.com/smile-change-unplug"
+            },
+            {
+              type: "view",
+              name: "以物益物",
+              url: "http://www.11haoonline.com/0-4"
+            },
+            {
+              type: "view",
+              name: "融爱融乐，暖心暖情",
+              url: "http://www.11haoonline.com/0-7"
             }
           ]
         },
