@@ -23,7 +23,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content.include? "#筹款"
         
-        logger.info "aaaaaaaaaaaaaaa"
+        # logger.info "aaaaaaaaaaaaaaa"
         
         slug = content.split(' ')
 
@@ -48,7 +48,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
               weixin_user_info.campaign_slug = slug[1]
               UserWeixinCache.set(open_id, weixin_user_info)
 
-              reply_text_message("请上传您的视频。")
+              reply_text_message("感谢您的支持，请拍摄一小段募捐视频并发送至我们的公众号，这将帮助您成功的筹款。")
 
             else
 
@@ -72,7 +72,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
         # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
         
-        logger.info "bbbbbbbbbbb"
+        # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
         reply_transfer_customer_service_message()
 
@@ -155,8 +155,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
     
             articles = [
               {
-                title: "视频上传成功！",
-                description: "点击创建seller。",
+                title: "太棒了！您的募捐视频上传成功！",
+                description: "现在只需点击创建您的个人筹款页面。",
                 url: "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url
               }
             ]
