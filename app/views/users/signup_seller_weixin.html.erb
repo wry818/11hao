@@ -25,7 +25,7 @@ $(".navbar-toggle").remove();
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group"> 
-							<label class="control-label">昵称</label>
+							<label class="control-label">筹款人昵称(这将显示在您的筹款页面)</label>
 							<input id="nickname" name="nickname" type="text" class='form-control' value="<%= @nick_name %>">
 						</div>
 						<div class="form-group"> 
@@ -34,7 +34,8 @@ $(".navbar-toggle").remove();
 							<span class="upload-tooltip">
 								（最好的图片尺寸: 200px * 200px）
 							</span>
-		                    <div class="image-uploader" style="margin:0px 15px;">
+							<div class="form-group"></div>
+		                    <div class="image-uploader" style="margin:0px auto;">
 		                    	<div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;"><%= image_tag @avatar_url, width: 100 %></div>
 													<div style="width:0px; height:0px;">
 															<%= hidden_field_tag :use_photo, @avatar_url %>
@@ -47,31 +48,20 @@ $(".navbar-toggle").remove();
 			                            <span>0%</span>
 			                        </div>
 			                    </div>
-			                    <div style="text-align:center; width:100px;"><span class="status"></span></div>
 		                    </div>
+							<div style="text-align:center;"><span class="status" style="font-size:14px;"></span></div>
 						</div>
 					</div>
 				</div>
 				
 				
 				
-				<div class="form-group">
-					<div class="row">
-						<div class="col-xs-4 col-xs-offset-1 control-div" style="padding-right:0px; padding-top:0px;">
-							
-							
-							
-						</div>
-						<div class="col-xs-6" style="padding:0px 3px;">
-		                    
-						</div>
-					</div>
-				</div>
+				<div class="form-group"></div>
 				
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-6">
-							<label for="upload_seller_photo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+						<div class="col-sm-12">
+							<label for="upload_seller_photo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal; float:none; margin:0 auto;">
 							<span style="color:#428bca;font-size:1.1em;display:block;">
 								上传</span>
                 <span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
@@ -79,13 +69,13 @@ $(".navbar-toggle").remove();
               </label>
 							
 						</div>
-						<div class="col-sm-6">
-							<!-- <div class="use-button" onclick="$('#default_photos_modal').modal('show');">
+						<!-- <div class="col-sm-6">
+							<div class="use-button" onclick="$('#default_photos_modal').modal('show');">
 								<span style="color:#428bca;font-size:1.1em;display:block;">
 									使用</span>
 								<span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
-							</div> -->
-						</div>
+							</div>
+						</div> -->
 					</div>
 				</div>
 				
