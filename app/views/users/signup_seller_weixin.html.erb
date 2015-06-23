@@ -3,7 +3,7 @@ $("nav").remove();
 $(".navbar-toggle").remove();
 </script>
 
-<div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px;">
+<div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px; padding-top:30px;">
 	<div class="container container-background">
 		<div style="margin-bottom: 30px;"></div>
 		<div>
@@ -83,8 +83,8 @@ $(".navbar-toggle").remove();
 				
 				<div class="row">
 					<div class="col-xs-12" style="text-align: center">
-					    <button class="btn btn-primary btn-lg" type="submit" style="width:120px;">
-									<span class="text">继续</span><span class="loader" style="display:none"></span>
+					    <button id="btnSubmit" class="btn btn-primary btn-lg" type="button" style="width:120px;">
+									<span class="text">继续</span>&nbsp;&nbsp;<span class="loader" style="display:none"></span>
 					    </button>
 					</div>	
 				</div>
@@ -200,6 +200,14 @@ $(document).ready(function() {
 		$(this).css("background-color", "#eee");
 	}).mouseleave(function(){
 		$(this).css("background-color", "white");
+	});
+	
+	$("#btnSubmit").click(function(){
+		var $button=$(this);
+		
+		$button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+			$button.closest("form").submit();
+		});
 	});
 });
 </script>
