@@ -87,5 +87,5 @@ gem 'typhoeus'
 
 gem 'rqrcode_png'
 
-gem 'videojs_rails'
+# gem 'videojs_rails'
 # gem 'paperclip-av-transcoder'
