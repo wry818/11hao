@@ -180,6 +180,26 @@
     </div>
 
     <div class="form-group">
+        <label for="campaign_seller_goal" class="col-sm-2 control-label">个人目标</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <span class="input-group-addon">￥</span>
+                <%= f.text_field :seller_goal, class: 'form-control', placeholder: "比如：1000" %>
+            </div>
+            <label for="campaign_seller_goal" class="error" style="display: none"></label>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="campaign_display_seller_goal" class="col-sm-2 control-label">显示个人目标</label>
+        <div class="col-sm-3">
+        <div style="margin-top: 5px;">
+            <%= f.check_box :display_seller_goal %>
+        </div>
+        </div>
+    </div>
+	
+    <div class="form-group">
         <label for="campaign_end_date" class="col-sm-2 control-label">销售截止日期</label>
         <div class="col-sm-3">
             <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>

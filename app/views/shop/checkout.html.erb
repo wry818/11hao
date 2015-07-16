@@ -63,6 +63,17 @@
 	                      <div class="form-group">
 	                        <label for="fullname">昵称</label>
 	                        <input id="fullname" name="order[fullname]" type="text" class="form-control" maxlength="50">
+							
+							<div>
+								<%= @nickname %>
+							</div>
+							<div>
+								<%= @avatar_url %>
+							</div>
+							<div>
+								<%= image_tag @avatar_url, width: 32, height: 32, class: 'img-thumbnail' %>
+							</div>
+							<input type="hidden" id="avatar_url" name="avatar_url" value="<%= @avatar_url %>"/>
 	                      </div>
 
 	                      <div class="form-group" style="display:none;">
@@ -454,6 +465,8 @@ function ComfirmOrder() {
 		order_make_anonymous = true;
 	}
 	
+	var avatar_url = $("#avatar_url").val();
+	
 	var order_time = new Date();
 	var format_order_time =  order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
 	
@@ -466,6 +479,7 @@ function ComfirmOrder() {
 			order_make_anonymous: order_make_anonymous,
 			format_order_time: format_order_time,
 			fullName: fullName,
+			avatar_url: avatar_url,
 			provinceName: currentShippingAddress.ProvinceName,
 			cityName: currentShippingAddress.CityName,
 			cityAreaName: currentShippingAddress.CityAreaName,

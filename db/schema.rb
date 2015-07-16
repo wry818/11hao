@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716065828) do
+ActiveRecord::Schema.define(version: 20150716083254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -386,6 +386,7 @@ ActiveRecord::Schema.define(version: 20150716065828) do
     t.boolean  "is_offline",                  default: false
     t.string   "address_city_area"
     t.string   "out_trade_no"
+    t.string   "avatar_url"
   end
 
   create_table "organization_roles", force: true do |t|

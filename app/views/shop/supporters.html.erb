@@ -13,8 +13,24 @@
                         <h3 style="margin: 0">简单公益 只因有你!</h3>
                         <hr/>
                         <% @campaign.orders.completed.online.each do |order| %>
-                        <%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
-                        <hr/>
+							<div class="support_content">
+								<p>
+						            <% if order.avatar_url.present? %>
+				                		<%= image_tag order.avatar_url, width: 32, height: 32, class: 'img-thumbnail' %>
+						            <% else %>
+						                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
+						            <% end %>
+								</p>
+								<div class="right_content">
+									<div>
+										<%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
+
+										<div style="float: right">
+											￥<%= long_price(order.donation_total/100.0) %>
+										</div>
+									</div>
+								</div>
+							</div>
                         <% end %>
                     </div> <!-- /.left-column -->
                 </div>

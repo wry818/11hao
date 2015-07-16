@@ -420,6 +420,7 @@ $( document ).ready(function() {
             "campaign[title]": { required: true, maxlength: 100 },
             "campaign[organizer_quote]": { maxlength: 100 },
             "campaign[goal]": { number: true, min: 1 },
+			"campaign[seller_goal]": { number: true, min: 1 },
             "campaign[call_to_action]": { required: true },
             "user[email]": { required: true, email: true },
             "user[password]": { required: true, minlength: 8 },
@@ -445,6 +446,10 @@ $( document ).ready(function() {
           "campaign[goal]": {
             number: "请只输入数字",
             min: "目标至少要1元"
+          },
+          "campaign[seller_goal]": {
+            number: "请只输入数字",
+            min: "个人目标至少要1元"
           },
           "user[email]": {
             required: "请输入您的邮箱",

@@ -650,6 +650,7 @@ class ShopController < ApplicationController
     def weixin_get_user_info()
       
       @nickname = ""
+      @avatar_url = ""
         
       if session[:openid] && session[:access_token]
         
@@ -658,6 +659,7 @@ class ShopController < ApplicationController
         
         if user_info.result["errcode"] != "40003"
             @nickname = user_info.result["nickname"]
+            @avatar_url = user_info.result["headimgurl"]
         end
         
       end
@@ -731,6 +733,7 @@ class ShopController < ApplicationController
       order_make_anonymous = params[:order_make_anonymous]
       format_order_time = params[:format_order_time]
       fullName = params[:fullName]
+      avatar_url = params[:avatar_url]
       provinceName = params[:provinceName]
       cityName = params[:cityName]
       cityAreaName = params[:cityAreaName]
@@ -749,6 +752,11 @@ class ShopController < ApplicationController
         order.address_state = provinceName
         order.address_postal_code = zipCode
         order.fullname = fullName
+        
+        if avatar_url && avatar_url.length > 0
+          order.avatar_url = avatar_url
+        end
+        
         order.phone_number = phoneNumber
         order.address_city_area = cityAreaName
         order.make_anonymous = order_make_anonymous
