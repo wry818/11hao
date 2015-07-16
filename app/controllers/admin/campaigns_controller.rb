@@ -464,7 +464,7 @@ class Admin::CampaignsController < Admin::ApplicationController
     private
 
     def campaign_params
-        params.require(:campaign).permit :title, :organizer_quote, :goal, :end_date, :organizer_quote, 
+        params.require(:campaign).permit :title, :organizer_quote, :goal, :seller_goal, :display_seller_goal, :end_date, :organizer_quote, 
             :description, :collection_id, :call_to_action, :organizer_id, :allow_direct_donation,
             :discount, :purchase_limit, :active
     end

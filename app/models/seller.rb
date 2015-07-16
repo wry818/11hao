@@ -19,11 +19,19 @@ class Seller < ActiveRecord::Base
     def total_raised
         (orders.completed.joins(:items).sum('items.quantity * items.donation_amount') + orders.completed.sum('direct_donation') )/ 100.0
     end
-
+    
     def total_sales
         (orders.completed.joins(:items).sum('items.quantity * (items.base_amount + items.donation_amount)') + orders.completed.sum('direct_donation') )/ 100.0
     end
-
+    
+    def progress_percent
+      if self.campaign.seller_goal.nil? || self.campaign.seller_goal == 0 
+        0 
+      else
+        ((self.total_raised / self.campaign.seller_goal) * 100).ceil
+      end
+    end
+    
     private
 
     def set_referral_code

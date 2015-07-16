@@ -39,6 +39,7 @@ $( document ).ready(function() {
             "campaign[title]": { required: true, maxlength: 100 },
             "campaign[organizer_quote]": { maxlength: 100 },
             "campaign[goal]": { number: true, min: 1 },
+			"campaign[seller_goal]": { number: true, min: 1 },
             "campaign[call_to_action]": { required: true },
 			"campaign[discount]": { number: true, min: 0 },
 			"campaign[purchase_limit]": { number: true, min: 0 }
@@ -57,6 +58,10 @@ $( document ).ready(function() {
           "campaign[goal]": {
             number: "请输入数字",
             min: "筹款目标最少是一元钱"
+          },
+          "campaign[goal]": {
+            number: "请输入数字",
+            min: "个人筹款目标最少是一元钱"
           },
           "campaign[discount]": {
             number: "请输入数字",

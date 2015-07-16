@@ -9,18 +9,41 @@
       <div class="row">
         <div class="col-xs-8" style="padding:0px;">
           <div class="raised-count">
-            <strong>已筹得</strong><label>￥<%= short_price(@campaign.raised) %>
+			  
+			<% if @seller && @campaign.display_seller_goal %>
+			    <strong>已筹得</strong><label>￥<%= short_price(@seller.total_raised) %>
+			<% else %>	  
+				<strong>已筹得</strong><label>￥<%= short_price(@campaign.raised) %>
+			<% end %>
+            
           </label>
           </div>
-          <% if @campaign.goal.present? %>
-              <div class="progress">
-                <div class="progress-bar" style="width: <%= @campaign.progress_percent > 100 ? 100 : @campaign.progress_percent  %>%;">
+		  <% if @seller && @campaign.display_seller_goal %>
+		  
+          	<% if @campaign.seller_goal.present? %>
+				<div class="progress">
+					<div class="progress-bar" style="width: <%= @seller.progress_percent > 100 ? 100 : @seller.progress_percent  %>%;">
+					</div>
+				</div>
+				<p class="goal" style="margin-top:10px;">
+					筹款目标：￥<%= short_price(@campaign.seller_goal) %>
+				</p>
+          	<% end %>
+		  
+		  <% else %>	  
+		  	
+            <% if @campaign.goal.present? %>
+                <div class="progress">
+                  <div class="progress-bar" style="width: <%= @campaign.progress_percent > 100 ? 100 : @campaign.progress_percent  %>%;">
+                  </div>
                 </div>
-              </div>
-              <p class="goal" style="margin-top:10px;">
-                筹款目标：￥<%= short_price(@campaign.goal) %>
-              </p>
-          <% end %>
+                <p class="goal" style="margin-top:10px;">
+                  筹款目标：￥<%= short_price(@campaign.goal) %>
+                </p>
+            <% end %>
+			
+		  <% end %>
+          
         </div>
 
         <% if @campaign.end_date.present? %>
