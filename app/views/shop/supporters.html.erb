@@ -12,26 +12,54 @@
                     <div class="left-column">
                         <h3 style="margin: 0">简单公益 只因有你!</h3>
                         <hr/>
-                        <% @campaign.orders.completed.online.each do |order| %>
-							<div class="support_content">
-								<p>
-						            <% if order.avatar_url.present? %>
-				                		<%= image_tag order.avatar_url, width: 32, height: 32, class: 'img-thumbnail' %>
-						            <% else %>
-						                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
-						            <% end %>
-								</p>
-								<div class="right_content">
-									<div>
-										<%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
+						<% if @seller && @campaign.display_seller_goal %>
+							
+	                        <% @seller.orders.completed.online.each do |order| %>
+								<div class="support_content">
+									<p>
+							            <% if order.avatar_url.present? %>
+					                		<%= image_tag order.avatar_url, width: 32, height: 32, class: 'img-thumbnail' %>
+							            <% else %>
+							                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
+							            <% end %>
+									</p>
+									<div class="right_content">
+										<div>
+											<%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
 
-										<div style="float: right">
-											￥<%= long_price(order.donation_total/100.0) %>
+											<div style="float: right">
+												￥<%= long_price(order.donation_total/100.0) %>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-                        <% end %>
+	                        <% end %>
+							
+						<% else %>
+							
+	                        <% @campaign.orders.completed.online.each do |order| %>
+								<div class="support_content">
+									<p>
+							            <% if order.avatar_url.present? %>
+					                		<%= image_tag order.avatar_url, width: 32, height: 32, class: 'img-thumbnail' %>
+							            <% else %>
+							                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
+							            <% end %>
+									</p>
+									<div class="right_content">
+										<div>
+											<%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
+
+											<div style="float: right">
+												￥<%= long_price(order.donation_total/100.0) %>
+											</div>
+										</div>
+									</div>
+								</div>
+	                        <% end %>
+							
+						<% end %>
+                        
                     </div> <!-- /.left-column -->
                 </div>
                 <div class="col-md-4">

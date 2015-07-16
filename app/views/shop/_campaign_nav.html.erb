@@ -9,7 +9,15 @@
 
             <li>
                 <a href="<%= supporters_path(@campaign) %>">支持者</a>
-                <span class="badge"><%= @campaign.supporters %></span>
+                <span class="badge">
+					
+					<% if @seller && @campaign.display_seller_goal %>
+						<%= @seller.supporters %>
+					<% else %>
+						<%= @campaign.supporters %>
+					<% end %>
+					
+				</span>
             </li>
         </ul>
     </div>

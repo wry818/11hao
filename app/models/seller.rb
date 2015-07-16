@@ -12,6 +12,10 @@ class Seller < ActiveRecord::Base
 
     scope :sorted, -> { joins(:user_profile).order('user_profiles.first_name') }
 
+    def supporters
+        orders.completed.online.count
+    end
+
     def total_orders
         orders.completed.count
     end
