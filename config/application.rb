@@ -22,9 +22,9 @@ module Raisy
         config.assets.precompile += %w( .mp4 )
         
         # Init ENV
-        ENV['MAILGUN_DOMAIN'] = 'sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
-        ENV['MAILGUN_USERNAME'] = 'postmaster@sandbox878e3120a7e94827a62bffa19d89f1b1.mailgun.org'
-        ENV['MAILGUN_PASSWORD'] = 'a5dc51db8a5eeea81835fd7d6a18c72f'
+        ENV['MAILGUN_DOMAIN'] = 'sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
+        ENV['MAILGUN_USERNAME'] = 'postmaster@sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
+        ENV['MAILGUN_PASSWORD'] = '7q7vmclgby93'
         
         config.url_host = "http://www.11haoonline.com"
 
