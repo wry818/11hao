@@ -19,7 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :environment, @environment
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+
+set :environment, Rails.env.to_sym
 
 every 2.minutes do
   rake "eleven:test"
