@@ -27,7 +27,7 @@ set :environment, Rails.env.to_sym
 #   rake "eleven:test"
 # end
 
-every 1.day, :at => '4:50 pm' do
+every 1.day, :at => '5:30 pm' do
   rake "eleven:export_vendor_aoo"
 end
 
