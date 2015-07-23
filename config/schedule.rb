@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
+every 5.minutes do
   rake "eleven:test"
 end
 
