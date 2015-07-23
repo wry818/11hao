@@ -23,8 +23,12 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 set :environment, Rails.env.to_sym
 
-every 2.minutes do
-  rake "eleven:test"
+# every 2.minutes do
+#   rake "eleven:test"
+# end
+
+every 1.day, :at => '4:50 pm' do
+  rake "eleven:export_vendor_aoo"
 end
 
 # every 3.hours do
