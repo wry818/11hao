@@ -14,15 +14,19 @@ namespace :eleven do
         if defined?(Rails) && (Rails.env == 'development')
           Rails.logger = Logger.new(STDOUT)
         end
-
+        
+        aa = 'sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
+        bb = 'postmaster@sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
+        cc = '7q7vmclgby93'
+        
         # Send file to vendor via email
         Mail.defaults do
           delivery_method :smtp, {
             :address=> "smtp.mailgun.org",
             :port=> 587,
-            :domain=> ENV['MAILGUN_DOMAIN'],
-            :user_name=> ENV['MAILGUN_USERNAME'],
-            :password=> ENV['MAILGUN_PASSWORD'],
+            :domain=> aa,
+            :user_name=> bb,
+            :password=> cc,
             :authentication=> 'plain' }
         end
 
