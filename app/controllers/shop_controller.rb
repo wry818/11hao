@@ -129,16 +129,21 @@ class ShopController < ApplicationController
 
       @order = Order.find_by_id(params[:item][:order_id].to_i)
       
+      seller_id = session[:seller_id] ? session[:seller_id] : nil
+
       if @order
+
         render text: 'fail' and return unless @order.status == 0 && @order.campaign_id == params[:item][:campaign_id].to_i
-        
         @campaign = @order.campaign
-      else
-        @campaign = Campaign.active.where(:id=>params[:item][:campaign_id]).first
         
+      else
+        
+        @campaign = Campaign.active.where(:id=>params[:item][:campaign_id]).first
         render text: 'fail' and return unless @campaign
         
-        @order = Order.create campaign_id: @campaign.id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
+        seller_id = session[:seller_id] ? session[:seller_id] : nil
+        @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
+      
       end
       
       @no_more_discount = false
@@ -475,7 +480,8 @@ class ShopController < ApplicationController
     def checkout
       
       if params[:direct_donation]
-        @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
+        seller_id = session[:seller_id] ? session[:seller_id] : nil
+        @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
       elsif session[:order_id]
         @order = Order.find_by_id(session[:order_id])
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
@@ -505,7 +511,8 @@ class ShopController < ApplicationController
     def weixin_native_pay
       
       if params[:direct_donation]
-        @order = Order.create campaign_id: @campaign.id, direct_donation: (params[:direct_donation].to_f * 100)
+        seller_id = session[:seller_id] ? session[:seller_id] : nil
+        @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
       elsif session[:order_id]
         @order = Order.find_by_id(session[:order_id])
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
@@ -664,6 +671,8 @@ class ShopController < ApplicationController
         
       end
       
+      @nickname
+      
     end
     
     def weixin_address_init()
@@ -745,22 +754,43 @@ class ShopController < ApplicationController
       order = Order.find_by_id(params[:order_id])
       
       if receiveName
-        
         order.address_fullname = receiveName
+      end
+      
+      if addressLine
         order.address_line_one = addressLine
+      end
+      
+      if cityName
         order.address_city = cityName
+      end
+      
+      if provinceName
         order.address_state = provinceName
+      end
+      
+      if zipCode
         order.address_postal_code = zipCode
+      end
+      
+      if fullName
         order.fullname = fullName
-        
-        if avatar_url && avatar_url.length > 0
-          order.avatar_url = avatar_url
-        end
-        
+      end
+      
+      if avatar_url && avatar_url.length > 0
+        order.avatar_url = avatar_url
+      end
+      
+      if phoneNumber
         order.phone_number = phoneNumber
+      end
+      
+      if cityAreaName
         order.address_city_area = cityAreaName
+      end
+      
+      if order_make_anonymous
         order.make_anonymous = order_make_anonymous
-        
       end
       
       order.status = 3
