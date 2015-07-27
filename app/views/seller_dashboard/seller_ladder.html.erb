@@ -11,7 +11,11 @@
 						<div class="support_wrapper">
 	                        <h3 style="margin: 0">简单公益 只因有你!</h3>
 							<div style="margin-top: 5px">
-								您当前的排名: 第<%=@current_rank %>名
+								<% if @current_rank > 0 %>
+									您当前的排名: 第<%=@current_rank %>名
+								<% else %>
+									您当前的排名: 没有名次
+								<% end %>
 							</div>
 	                        <hr style="margin-bottom: 0px"/>
 							<% if @seller_ladder_result && @seller_ladder_result.count > 0 %>

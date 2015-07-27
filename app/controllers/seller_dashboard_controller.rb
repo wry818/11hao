@@ -109,7 +109,7 @@ class SellerDashboardController < ApplicationController
     def seller_ladder
       
       @seller = Seller.where(referral_code: params[:seller_referral_code]).first
-      @current_rank = "没有排名"
+      @current_rank = 0
       
       query = "
       select ROW_NUMBER() over (order by a.sum desc) as rank, a.*, user_profiles.first_name, user_profiles.picture from

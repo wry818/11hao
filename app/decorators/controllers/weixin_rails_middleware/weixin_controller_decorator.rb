@@ -75,21 +75,21 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
         
-        # reply_transfer_customer_service_message()
+        reply_transfer_customer_service_message()
 
-        seller = Seller.find_by_id(17)
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        logger.info seller.referral_code
-        articles = [
-          {
-            title: "有顾客购买了您的商品！",
-            description: "点击查看当前的筹款排名。",
-            url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
-          }
-        ]
-
-        $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
+        # seller = Seller.find_by_id(17)
+#
+#         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#         logger.info seller.referral_code
+#         articles = [
+#           {
+#             title: "有顾客购买了您的商品！",
+#             description: "点击查看当前的筹款排名。",
+#             url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
+#           }
+#         ]
+#
+#         $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
           
       end
       
@@ -172,7 +172,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
               {
                 title: "太棒了！您的募捐视频上传成功！",
                 description: "现在只需点击创建您的个人筹款页面。",
-                url: "http://www.11haoonline.com/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url
+                url: request.protocol + request.host + "/seller/signup_weixin/" + weixin_user_info.campaign_slug + "/" + weixin_user_info.video_url
               }
             ]
     
