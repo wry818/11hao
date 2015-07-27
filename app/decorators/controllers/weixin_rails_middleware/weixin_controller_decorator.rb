@@ -83,8 +83,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
         articles = [
           {
-            title: "aaa",
-            description: "bbb"
+            title: "有顾客购买了您的商品！",
+            description: "点击查看当前的筹款排名。",
+            url: ""
           }
         ]
   
