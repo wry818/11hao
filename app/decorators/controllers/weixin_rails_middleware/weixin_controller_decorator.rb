@@ -75,21 +75,21 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
         
-        
-        
         # reply_transfer_customer_service_message()
 
+        seller = Seller.find_by_id(17)
+        
         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-
+        logger.info seller.referral_code
         articles = [
           {
             title: "有顾客购买了您的商品！",
             description: "点击查看当前的筹款排名。",
-            url: ""
+            url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
           }
         ]
-  
-        $wechat_client.send_news_custom("oaR9aswmRKvGhMdb6kJCgIFKBpeg", articles)  
+
+        $wechat_client.send_news_custom(seller.uid, articles)
           
       end
       

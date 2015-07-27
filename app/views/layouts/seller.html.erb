@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>11号公益圈</title>
+	<meta name="description" content="11号公益圈" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-title" content="Raisy">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+    <%= csrf_meta_tags %>
+	<%= favicon_link_tag 'favicon.ico?v=3' %>
+	
+	<link rel="apple-touch-icon" href="<%= image_url 'apple-touch-icon.png?v=3' %>" />
+	
+	<%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+</head>
+<body style="background-color: #ededed;">
+	<% flash.each do |key, value| %>
+        <% if !value.blank? && key.to_s !='notice' %>
+        <div class="alert alert-<%= key.to_s %>">
+            <div class="container" style="text-align: center">
+                <%= value %>
+            </div>
+        </div>
+        <% end %>
+    <% end %>
+
+	<%= yield %>
+
+    <%= render "layouts/footer" %>
+    <%= render "layouts/user_modal" %>
+
+    <%= cloudinary_js_config %>
+	
+	<% if @campaign %>
+
+	    <script>
+	        $(document).ready(function () {
+	            document.title = "<%= @campaign.title %>";
+	        });
+	    </script>
+			
+	<% end %>
+	
+</body>
+</html>

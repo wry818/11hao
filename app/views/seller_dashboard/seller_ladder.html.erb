@@ -1,0 +1,57 @@
+<div id="campaign-show">
+
+    <div class="container container-background">
+        <div class="container-box top-section">
+			
+			<%= render 'shop/seller_header' %>
+			
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="left-column">
+						<div class="support_wrapper">
+	                        <h3 style="margin: 0">简单公益 只因有你!</h3>
+							<div style="margin-top: 5px">
+								您当前的排名: 第<%=@current_rank %>名
+							</div>
+	                        <hr style="margin-bottom: 0px"/>
+							<% if @seller_ladder_result && @seller_ladder_result.count > 0 %>
+								
+		                        <% @seller_ladder_result.each do |seller_ladder| %>
+									<div class="support_content">
+										<p>
+								            <% if seller_ladder["picture"].present? %>
+						                		<%= image_tag seller_ladder["picture"], width: 32, height: 32, class: 'img-thumbnail' %>
+								            <% else %>
+								                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
+								            <% end %>
+										</p>
+										<div class="right_content">
+											<div>
+												<%= seller_ladder["first_name"] %>
+
+												<div style="float: right">
+													￥<%= long_price(seller_ladder["sum"].to_f/100.0) %>
+												</div>
+											</div>
+										</div>
+									</div>
+		                        <% end %>
+								
+							<% else %>
+								
+								<div style="margin-top: 10px">
+									尚未有志愿者筹款记录
+								</div>
+								
+							<% end %>
+	                        
+							
+						</div>
+                    </div> <!-- /.left-column -->
+                </div>
+            </div> <!-- /.row -->
+
+        </div> <!--/.top-section -->
+    </div> <!--/.container-background -->
+
+</div> <!-- /#campaign-show -->
