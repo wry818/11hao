@@ -823,7 +823,7 @@ class ShopController < ApplicationController
       #           }
       #         ]
       #
-      #         $wechat_client.send_news_custom(seller.uid, articles)
+      #         $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
       #
       #       end
             
