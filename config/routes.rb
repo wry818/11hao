@@ -137,6 +137,7 @@ Raisy::Application.routes.draw do
         root 'seller_dashboard#index', as: :seller_dashboard
         get ':seller_referral_code', to: 'seller_dashboard#index', as: :seller_dashboard_referral_code
         get ':seller_referral_code/orders/download', to: 'seller_dashboard#seller_orders_download', as: :seller_orders_download
+        get ':seller_referral_code/seller_ladder', to: 'seller_dashboard#seller_ladder', as: :seller_ladder
     end
 
     #CHAIRPERSON DASHBOARD
@@ -212,6 +213,7 @@ Raisy::Application.routes.draw do
         get 'menu' => 'weixin#menu'
         get 'menulist' => 'weixin#menulist'
         get 'test' => 'weixin#test'
+        get 'video' => 'weixin#video'
         get 'native' => 'weixin#native_mode2'
         get 'query_order/:id' => 'weixin#query_order'
         # match "native_callback" => "weixin#native_callback", via: [:get, :post]
