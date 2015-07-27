@@ -145,8 +145,8 @@ class SellerDashboardController < ApplicationController
         end
         
       end
-      puts request.protocol + request.host
-      render text: "aa"
+      # puts request.protocol + request.host
+#       render text: "aa"
       
     end
     
