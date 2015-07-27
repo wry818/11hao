@@ -350,32 +350,42 @@ class WeixinController < ApplicationController
     
   end
   
+  def video
+    
+      # result = Seller.find_by_sql("select * from sellers limit 5")
+      # puts result.to_s
+    
+      # result2 = ActiveRecord::Base.connection.execute("select * from sellers limit 5")
+      # puts result2.values
+      #
+      # render text: "aa"
+  end
+    
   def send_message
     
     to_user = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
-    
-    # articles = [
-    #   {
-    #     title: "视频上传成功！",
-    #     description: "点击创建seller。",
-    #     url: "http://www.baidu.com"
-    #   }
-    # ]
-    #
-    # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    # response = $client.send_news_custom(to_user, articles)
-    
-    @campaign = Campaign.friendly.find("test1")
-    
     $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    
     articles = [
       {
-        title: "您的筹款页面已经创建成功！",
-        description: "点击查看并分享。",
-        url: "http://www.11haoonline.com" + short_campaign_path(@campaign, seller: "12345"),
-        picurl: @campaign.logo
+        title: "视频上传成功！",
+        description: "点击创建seller。",
+        url: "http://www.baidu.com"
       }
     ]
+
+    
+    # @campaign = Campaign.friendly.find("test1")
+#
+#
+#     articles = [
+#       {
+#         title: "您的筹款页面已经创建成功！",
+#         description: "点击查看并分享。",
+#         url: "http://www.11haoonline.com" + short_campaign_path(@campaign, seller: "12345"),
+#         picurl: @campaign.logo
+#       }
+#     ]
 
     response = $wechat_client.send_news_custom(to_user, articles)
     

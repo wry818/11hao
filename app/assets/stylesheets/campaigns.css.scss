@@ -242,19 +242,26 @@
 
     .top-section {
 		
+        .image-section {
+			
+			margin:0 15px 15px 0;
+			
+            @media (min-width: 420px) {
+				float: left;
+            }
+			
+			img {
+                margin: auto;
+            }
+			
+        }
+		
         .left-column {
 			
             padding: 30px 30px 30px 30px;
 			
             @media (max-width: 992px) {
                 padding: 30px;
-            }
-			
-            .image-section {
-                width: 100%;
-                img {
-                    margin: auto;
-                }
             }
 			
             .main-content {
