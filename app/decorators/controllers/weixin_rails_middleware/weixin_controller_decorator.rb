@@ -74,8 +74,23 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
         # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
-        reply_transfer_customer_service_message()
+        
+        
+        
+        # reply_transfer_customer_service_message()
 
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+
+        articles = [
+          {
+            title: "太棒了！您的募捐视频上传成功！",
+            description: "现在只需点击创建您的个人筹款页面。",
+            url: "http://www.baidu.com"
+          }
+        ]
+  
+        $wechat_client.send_news_custom("oaR9aswmRKvGhMdb6kJCgIFKBpeg", articles)  
+          
       end
       
     end
