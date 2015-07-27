@@ -83,9 +83,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
         articles = [
           {
-            title: "太棒了！您的募捐视频上传成功！",
-            description: "现在只需点击创建您的个人筹款页面。",
-            url: "http://www.baidu.com"
+            title: "aaa",
+            description: "bbb"
           }
         ]
   
