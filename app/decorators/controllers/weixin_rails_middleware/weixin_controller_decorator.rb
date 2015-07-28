@@ -75,8 +75,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
         
-        reply_transfer_customer_service_message()
-
+        # reply_transfer_customer_service_message()
+        
+        reply_text_message("感谢您关注11号公益圈！\n现在回复 “#筹款 urgames”即可参加“有的玩”亲子家庭日活动！")
+        
         # seller = Seller.find_by_id(17)
 #
 #         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
