@@ -24,7 +24,7 @@
 									<div class="support_content">
 										<p>
 								            <% if seller_ladder["picture"].present? %>
-						                		<%= image_tag seller_ladder["picture"], width: 32, height: 32, class: 'img-thumbnail' %>
+												<%= cl_image_tag seller_ladder["picture"], width: 32, height: 32, crop: :limit %>
 								            <% else %>
 								                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
 								            <% end %>

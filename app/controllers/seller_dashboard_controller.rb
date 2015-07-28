@@ -124,7 +124,7 @@ class SellerDashboardController < ApplicationController
 
         left join items on items.order_id = orders.id
 
-        where orders.status in (1,3)
+        where sellers.campaign_id = " + @seller.campaign_id.to_s + " and orders.status in (1,3)
 
         group by sellers.id, sellers.user_profile_id
 
