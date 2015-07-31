@@ -182,6 +182,8 @@ Raisy::Application.routes.draw do
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
     post 'ajax/update-order', to: 'shop#ajax_update_order', as: :ajax_update_order
     post 'ajax/query-weixin-order', to: 'shop#ajax_query_weixin_order', as: :ajax_query_weixin_order
+    post 'ajax/update-order-address', to: 'shop#ajax_update_order_address', as: :ajax_update_order_address
+    
     # match "checkout/weixin_notify" => "shop#weixin_notify", via: [:get, :post]
     # post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get 'checkout/:id', to: 'shop#checkout', as: :checkout

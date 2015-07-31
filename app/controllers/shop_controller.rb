@@ -834,6 +834,67 @@ class ShopController < ApplicationController
       
     end
     
+    def ajax_update_order_address
+      
+      order_make_anonymous = params[:order_make_anonymous]
+      fullName = params[:fullName]
+      avatar_url = params[:avatar_url]
+      provinceName = params[:provinceName]
+      cityName = params[:cityName]
+      cityAreaName = params[:cityAreaName]
+      addressLine = params[:addressLine]
+      receiveName = params[:receiveName]
+      phoneNumber = params[:phoneNumber]
+      zipCode = params[:zipCode]
+      
+      order = Order.find_by_id(params[:order_id])
+      
+      if receiveName
+        order.address_fullname = receiveName
+      end
+      
+      if addressLine
+        order.address_line_one = addressLine
+      end
+      
+      if cityName
+        order.address_city = cityName
+      end
+      
+      if provinceName
+        order.address_state = provinceName
+      end
+      
+      if zipCode
+        order.address_postal_code = zipCode
+      end
+      
+      if fullName
+        order.fullname = fullName
+      end
+      
+      if avatar_url && avatar_url.length > 0
+        order.avatar_url = avatar_url
+      end
+      
+      if phoneNumber
+        order.phone_number = phoneNumber
+      end
+      
+      if cityAreaName
+        order.address_city_area = cityAreaName
+      end
+      
+      if order_make_anonymous
+        order.make_anonymous = order_make_anonymous
+      end
+      
+      order.save
+      
+      render text: "success"
+      
+    end
+    
     def send_template_message(openid, order, format_order_time)
       
       # touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
