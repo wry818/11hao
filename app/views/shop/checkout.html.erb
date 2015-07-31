@@ -442,6 +442,7 @@ function SaveAddress(res) {
 	$("#ulDefaultShippingAddress").show();
 	$("#lblDefaultShippingAddress").text(address);
 	
+	var order_make_anonymous = false;
 	var fullName = $("#fullname").val();
 	
 	if (fullName == "") {
