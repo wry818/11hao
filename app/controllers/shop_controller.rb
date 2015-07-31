@@ -836,7 +836,6 @@ class ShopController < ApplicationController
     
     def ajax_update_order_address
       
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaa"
       order_make_anonymous = params[:order_make_anonymous]
       fullName = params[:fullName]
       avatar_url = params[:avatar_url]

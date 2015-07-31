@@ -452,7 +452,6 @@ function SaveAddress(res) {
 	
 	var avatar_url = $("#avatar_url").val();
 	
-	alert(1);
     $.ajax('/ajax/update-order-address', {
         type: 'POST',
         data: {
@@ -472,10 +471,10 @@ function SaveAddress(res) {
             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
-			alert(2);
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert(3);
+
         }
     });
 	
