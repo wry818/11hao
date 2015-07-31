@@ -40,38 +40,42 @@ class ApplicationController < ActionController::Base
       
       # logger.info "aaaaaaaaaaaaa"
       
-      if session[:openid].blank?
+      if !Rails.env.test?
         
-        # logger.info "bbbbbbbbbbb"
+        if session[:openid].blank?
         
-        if params[:code].present?
-          
-          # logger.info "cccccccccccc"
-          
-          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          sns_info = $wechat_client.get_oauth_access_token(params[:code])
-          
-          Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
+          # logger.info "bbbbbbbbbbb"
         
-          # 重复使用相同一个code调用时：
-          if sns_info.result["errcode"] != "40029"
-              session[:openid] = sns_info.result["openid"]
-              session[:access_token] = sns_info.result["access_token"]
-              session[:expires_in] = sns_info.result["expires_in"]
+          if params[:code].present?
+          
+            # logger.info "cccccccccccc"
+          
+            $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+            sns_info = $wechat_client.get_oauth_access_token(params[:code])
+          
+            Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
+        
+            # 重复使用相同一个code调用时：
+            if sns_info.result["errcode"] != "40029"
+                session[:openid] = sns_info.result["openid"]
+                session[:access_token] = sns_info.result["access_token"]
+                session[:expires_in] = sns_info.result["expires_in"]
+            end
+          
+          else
+          
+            # logger.info "ddddddddddddd"
+          
+            # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+            # url = $wechat_client.authorize_url(request.original_url)
+            # redirect_to url
+          
+            redirect_uri = ERB::Util.url_encode(request.original_url)
+            url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
+            redirect_to url
+          
           end
-          
-        else
-          
-          # logger.info "ddddddddddddd"
-          
-          # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          # url = $wechat_client.authorize_url(request.original_url)
-          # redirect_to url
-          
-          redirect_uri = ERB::Util.url_encode(request.original_url)
-          url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
-          redirect_to url
-          
+        
         end
         
       end
