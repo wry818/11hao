@@ -442,6 +442,41 @@ function SaveAddress(res) {
 	$("#ulDefaultShippingAddress").show();
 	$("#lblDefaultShippingAddress").text(address);
 	
+	var fullName = $("#fullname").val();
+	
+	if (fullName == "") {
+		fullName = "匿名";
+		order_make_anonymous = true;
+	}
+	
+	var avatar_url = $("#avatar_url").val();
+	
+    $.ajax('/ajax/update-order-address', {
+        type: 'POST',
+        data: {
+			order_id: <%= @order.id %>,
+			order_make_anonymous: order_make_anonymous,
+			fullName: fullName,
+			avatar_url: avatar_url,
+			provinceName: currentShippingAddress.ProvinceName,
+			cityName: currentShippingAddress.CityName,
+			cityAreaName: currentShippingAddress.CityAreaName,
+			addressLine: currentShippingAddress.AddressLine,
+			receiveName: currentShippingAddress.ReceiveName,
+			phoneNumber: currentShippingAddress.PhoneNumber,
+			zipCode: currentShippingAddress.ZipCode
+		},
+        beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+	
 }
 
 function ComfirmOrder() {
