@@ -73,18 +73,19 @@ class ApplicationController < ActionController::Base
             
           else
           
-            # logger.info "ddddddddddddd"
+            logger.info "ddddddddddddd"
           
             # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
             # url = $wechat_client.authorize_url(request.original_url)
             # redirect_to url
             
             redirect_uri = ERB::Util.url_encode(request.original_url)
-            
+
             if Rails.env.test?
               logger.info "iiiiiiiiiiiiiii"
               redirect_uri = "http://www.11haoonline.com" + request.path + "&is_test=1"
             else
+              logger.info "cccccccccccc"
               redirect_uri = ERB::Util.url_encode(request.original_url)
             end
                   
