@@ -43,7 +43,14 @@ class ApplicationController < ActionController::Base
       if session[:openid].blank?
       
         # logger.info "bbbbbbbbbbb"
-      
+        if Rails.env.test? && params[:open_id].present?
+          
+          session[:openid] = params[:open_id]
+          session[:access_token] = params[:access_token]
+          return
+          
+        end
+        
         if params[:code].present?
         
           # logger.info "cccccccccccc"
@@ -64,7 +71,7 @@ class ApplicationController < ActionController::Base
           logger.info params[:is_test]
           if params[:is_test]
             
-            url = "http://test.11haoonline.com" + request.path
+            url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
             redirect_to url and return
             
           end
@@ -81,7 +88,13 @@ class ApplicationController < ActionController::Base
 
           if Rails.env.test?
             logger.info "iiiiiiiiiiiiiii"
-            redirect_uri = "http://www.11haoonline.com?is_test=1"
+            
+            if request.path == "/"
+              redirect_uri = "http://www.11haoonline.com?is_test=1"
+            else
+              redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
+            end
+            
           else
             logger.info "cccccccccccc"
             redirect_uri = ERB::Util.url_encode(request.original_url)
