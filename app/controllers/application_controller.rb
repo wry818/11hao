@@ -61,7 +61,16 @@ class ApplicationController < ActionController::Base
                 session[:access_token] = sns_info.result["access_token"]
                 session[:expires_in] = sns_info.result["expires_in"]
             end
-          
+            
+            logger.info "cccccccccccc"
+            logger.info params[:is_test]
+            if params[:is_test]
+              
+              url = "http://test.11haoonline.com" + request.path
+              redirect_to url and return
+              
+            end
+            
           else
           
             # logger.info "ddddddddddddd"
@@ -69,8 +78,16 @@ class ApplicationController < ActionController::Base
             # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
             # url = $wechat_client.authorize_url(request.original_url)
             # redirect_to url
-          
+            
             redirect_uri = ERB::Util.url_encode(request.original_url)
+            
+            if Rails.env.test?
+              logger.info "iiiiiiiiiiiiiii"
+              redirect_uri = "http://www.11haoonline.com" + request.path + "&is_test=1"
+            else
+              redirect_uri = ERB::Util.url_encode(request.original_url)
+            end
+                  
             url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
             redirect_to url
           
