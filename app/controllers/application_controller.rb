@@ -39,6 +39,8 @@ class ApplicationController < ActionController::Base
     def get_wechat_sns
       
       logger.info "aaaaaaaaaaaaa"
+      puts "cccccccccccc"
+      Rails.logger.debug("ssssssssssssss")
       
       if session[:openid].blank?
       
