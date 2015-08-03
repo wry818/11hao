@@ -39,8 +39,6 @@ class ApplicationController < ActionController::Base
     def get_wechat_sns
       
       logger.info "aaaaaaaaaaaaa"
-      puts "cccccccccccc"
-      Rails.logger.debug("ssssssssssssss")
       
       if session[:openid].blank?
       
@@ -85,11 +83,11 @@ class ApplicationController < ActionController::Base
             logger.info "iiiiiiiiiiiiiii"
             redirect_uri = "http://www.11haoonline.com" + request.path + "&is_test=1"
           else
-            puts "cccccccccccc"
-            redirect_uri = "http://www.11haoonline.com" + request.path + "&is_test=1"
+            logger.info "cccccccccccc"
+            redirect_uri = ERB::Util.url_encode(request.original_url)
           end
                 
-          url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
+          url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + "http://www.11haoonline.com" + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
           redirect_to url
         
         end
