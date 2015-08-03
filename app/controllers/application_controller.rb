@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
 
           if Rails.env.test?
             logger.info "iiiiiiiiiiiiiii"
-            redirect_uri = "http://www.11haoonline.com" + request.path + "&is_test=1"
+            redirect_uri = "http://www.11haoonline.com?is_test=1"
           else
             logger.info "cccccccccccc"
             redirect_uri = ERB::Util.url_encode(request.original_url)
