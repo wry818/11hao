@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
       if session[:openid].blank?
       
         # logger.info "bbbbbbbbbbb"
-        if Rails.env.test? && params[:open_id].present?
-          
-          session[:openid] = params[:open_id]
+        if Rails.env.test? && params[:openid].present?
+          logger.info "bbbbbbbbbbb"
+          session[:openid] = params[:openid]
           session[:access_token] = params[:access_token]
           return
           
