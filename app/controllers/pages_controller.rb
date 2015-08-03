@@ -2,10 +2,6 @@ class PagesController < ApplicationController
 
     def index
       
-      logger.info "aaaaaaaaaaaaa"
-      puts "cccccccccccc"
-      Rails.logger.debug("ssssssssssssss")
-      
     end
 
     def search
