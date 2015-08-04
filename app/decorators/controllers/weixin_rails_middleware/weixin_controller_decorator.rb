@@ -75,7 +75,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         # logger.info "bbbbbbbbbbb"
         # reply_text_message("测试 #{@keyword}")
         
-        reply_transfer_customer_service_message()
+        # reply_transfer_customer_service_message()
         
         # seller = Seller.find_by_id(17)
 #
