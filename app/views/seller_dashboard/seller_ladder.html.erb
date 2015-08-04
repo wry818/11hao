@@ -23,16 +23,16 @@
 		                        <% @seller_ladder_result.each do |seller_ladder| %>
 									<div class="support_content">
 										<p>
+											<%= seller_ladder["rank"] %>
 								            <% if seller_ladder["picture"].present? %>
 												<%= cl_image_tag seller_ladder["picture"], width: 32, height: 32, crop: :limit %>
 								            <% else %>
 								                <%= image_tag 'default_avatar.png', width: 32, height: 32, class: 'img-thumbnail' %>
 								            <% end %>
+											<%= seller_ladder["first_name"] %>
 										</p>
 										<div class="right_content">
 											<div>
-												<%= seller_ladder["first_name"] %>
-
 												<div style="float: right">
 													￥<%= long_price(seller_ladder["sum"].to_f/100.0) %>
 												</div>

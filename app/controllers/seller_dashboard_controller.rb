@@ -111,29 +111,7 @@ class SellerDashboardController < ApplicationController
       @seller = Seller.where(referral_code: params[:seller_referral_code]).first
       @current_rank = 0
       
-      query = "
-      select ROW_NUMBER() over (order by a.sum desc) as rank, a.*, user_profiles.first_name, user_profiles.picture from
-      (
-        select 
-
-      	  sellers.id, sellers.user_profile_id, sum(items.quantity * items.donation_amount + orders.direct_donation)
-
-        from sellers 
-
-        left join orders on sellers.id = orders.seller_id
-
-        left join items on items.order_id = orders.id
-
-        where sellers.campaign_id = " + @seller.campaign_id.to_s + " and orders.status in (1,3)
-
-        group by sellers.id, sellers.user_profile_id
-
-        limit 10000
-        
-      ) a
-      inner join user_profiles on a.user_profile_id = user_profiles.id
-      
-      "
+      query = QueryHelper.get_seller_ladder(@seller.campaign_id)
       
       @seller_ladder_result = ActiveRecord::Base.connection.execute(query)
       
