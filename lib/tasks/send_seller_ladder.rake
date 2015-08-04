@@ -35,7 +35,9 @@ namespace :eleven do
               else
                 url = "http://test.11haoonline.com"
               end
-            
+              
+              url += "/seller/" + row["referral_code"] + "/seller_ladder"
+              
               Rails.logger.info url
             
               articles = [
