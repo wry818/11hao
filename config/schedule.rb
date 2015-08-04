@@ -31,6 +31,10 @@ every 1.day, :at => '3:30 pm' do
   rake "eleven:export_vendor_aoo"
 end
 
+every 1.day, :at => '4:00 pm' do
+  rake "eleven:send_seller_ladder"
+end
+
 # every 3.hours do
 #   runner "MyModel.some_process"
 #   rake "my:rake:task"
