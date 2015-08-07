@@ -43,7 +43,7 @@ $("header").css("min-height", "0px");
 															<%= hidden_field_tag :use_photo, @avatar_url %>
 															<%= hidden_field_tag :video_file, @file_name %>
 															<%= hidden_field_tag :campaign_id, @campaign.id %>
-															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
+															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"video/*;capture=camcorder", style: "width:0px; height:0px; visibility:hidden;" }) %>
 													</div>
 			                    <div class="progress progress-striped active" style="display: none; width:102px;">
 			                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
