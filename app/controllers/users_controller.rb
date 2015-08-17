@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   
     before_filter :authenticate_user!, 
-      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create,  
+      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create, :signup_seller_weixin_video,  
         :omniauth_callback, :omniauth_failure, 
         :verify_user, :lookup_user, :ajax_seller_step_popup]
 
@@ -302,7 +302,8 @@ class UsersController < ApplicationController
       begin
         @campaign = Campaign.friendly.find(params[:campaign_id])
         
-        @file_name = params[:video_file_name] + ".mp4"
+        @file_name = ""
+        # @file_name = params[:video_file_name] + ".mp4"
         @nick_name = ""
         @avatar_url = ""
 
@@ -317,19 +318,24 @@ class UsersController < ApplicationController
       rescue => ex
         redirect_to root_path and return
       end
+      
     end
     
     def signup_seller_weixin_create
+      
       begin
+        
         @campaign = Campaign.find_by_id(params[:campaign_id])
         
         if !@campaign
           redirect_to root_path and return
         end
         
-        @file_name = params[:video_file_name]
+        # @file_name = params[:video_file_name]
         @nick_name = ""
-
+        
+        
+        
         if session[:openid]
           
           @nick_name = params[:nickname]
@@ -376,14 +382,15 @@ class UsersController < ApplicationController
           @seller = @user_profile.seller(@campaign)
           
           if @seller
-            @seller.video_file = params[:video_file]
-            @seller.save
+            # @seller.video_file = params[:video_file]
+            # @seller.save
           else
-            @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
+            # @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
+            @seller = Seller.create user_profile: @user_profile, campaign: @campaign
           end
           
           url_param = short_campaign_path(@campaign, seller: @seller.referral_code)
-          # logger.info url_param
+
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           articles = [
             {
@@ -394,8 +401,8 @@ class UsersController < ApplicationController
           ]
 
           $wechat_client.send_news_custom(session[:openid], articles)
-
-          redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "感谢您的支持，您现在已经是筹款团队的一员，现在可以将此筹款页面分享给您的朋友及家人。简单公益，只因有你。" } and return
+          
+          redirect_to signup_seller_weixin_video_path(@seller)
         
         else
         
@@ -404,9 +411,61 @@ class UsersController < ApplicationController
         end
         
       rescue => ex
+        
         logger.info ex.message
         redirect_to root_path and return
+        
       end
+      
+    end
+    
+    def signup_seller_weixin_video
+      
+      @seller = Seller.find_by_id(params[:seller_id])
+      
+      if @seller
+        
+        @campaign = @seller.campaign
+        
+        # @user_profile = @seller.user_profile.user.profile
+#
+#         if params[:user_picture].present?
+#             preloaded = Cloudinary::PreloadedFile.new(params[:user_picture])
+#             if preloaded.valid?
+#                 @user_profile.update_attribute(:picture, preloaded.identifier)
+#             end
+#         else
+#             if params[:use_photo].present?
+#               # Use default photo, so upload the url passed in to cloud
+#               # Note: it does not work on localhost since the url is not public
+#
+#               image_hash = Cloudinary::Uploader.upload(params[:use_photo], :tags => "custom-user-photo")
+#
+#               @user_profile.update_attribute(:picture, image_hash["public_id"])
+#             end
+#         end
+#
+#         # redirect_to seller_get_contacts_path(@seller)
+#         redirect_to signup_seller_share_path(@seller)
+
+      else
+
+        redirect_to root_path and return
+
+      end  
+      
+    end
+    
+    def signup_seller_weixin_update
+      
+      @seller = Seller.find_by_id(params[:seller_id])
+      @seller.assign_attributes seller_params
+      @seller.save
+      
+      @campaign = @seller.campaign
+      
+      redirect_to short_campaign_path(@campaign, seller: @seller.referral_code), flash: { success: "感谢您的支持，您现在已经是筹款团队的一员，现在可以将此筹款页面分享给您的朋友及家人。简单公益，只因有你。" } and return
+      
     end
     
     def seller_photo
@@ -1123,4 +1182,9 @@ class UsersController < ApplicationController
     def account_params
         params.require(:user).permit :email
     end
+    
+    def seller_params
+        params.require(:seller).permit :description, :video_file
+    end
+    
 end

@@ -7,6 +7,13 @@
         background: white;
         margin: 40px 0px;
         padding: 30px;
+		
+        fieldset {
+            @media (min-width: 992px) {
+                padding: 30px 20px 30px 20px;
+            }
+        }
+		
     }
 		
 	.seller-back-btn, .seller-continue-btn {
@@ -28,6 +35,14 @@
 		text-align:center;
 		height:18px;
 		width: 196px;
+		margin:0px auto;
+	}
+	
+	.step-nav-bar-seller
+	{
+		text-align:center;
+		height:18px;
+		width: 65px;
 		margin:0px auto;
 	}
 	

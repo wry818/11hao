@@ -1,0 +1,81 @@
+<div id="signup" class="signup" style="background: whitesmoke; padding-bottom:60px; padding-top:30px;">
+	<div class="container container-background">
+		<div style="margin-bottom: 30px;"></div>
+		<div>
+			<h3 style="text-align: center">
+				加入筹款团队 <strong><%= @campaign.title %></strong>
+			</h3>
+		</div>
+		<div id="seller_photo" class="container-box">
+			
+			<div class="form-group">
+				<div class="step-nav-bar-seller">
+					<div id="step_nav_icon_1" class="step-nav-icon"></div>
+					<div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="step-title-container">
+					<label>个性化您的个人信息</label>
+				</div>
+			</div>
+			
+			<div style="height:5px;"></div>
+			
+			<%= form_for(@seller, :url => {:action => "signup_seller_weixin_update"}, html: {id: "signup_seller_weixin_form", class: 'form-horizontal'}) do |f| %>
+				
+				<%= hidden_field_tag :seller_id, @seller.id %>
+				
+				<fieldset>
+					
+		            <div class="form-group descrption-box">
+		              <div>
+		                <%= f.text_area :description, class: "tinymce", style: 'width: 200px; height:200px' %>
+		              </div>
+		            </div>
+					
+				</fieldset>
+	            
+				
+				<div class="row">
+		            <div class="col-sm-6 backbutton-box">
+		              <button class="btn btn-success btn-lg back-btn" type="button" data-currentstep="2">
+		                <span class="text">后退</span>
+		              </button>
+		            </div>
+		            <div class="col-sm-6 continuebutton-box">
+		              <button class="btn btn-primary btn-lg continue-btn" type="button" data-currentstep="2">
+		                <span class="text">继续</span> <span class="loader" style="display:none">
+		              </button>
+		            </div>
+				</div>
+						
+			<% end %>
+		</div>
+	</div>
+	
+</div>
+
+<script>
+$(document).ready(function() {
+	
+	$("nav").remove();
+	$(".navbar-header").remove();
+	$("header").css("min-height", "0px");
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
+	$(".back-btn").click(function(){
+		window.location.href = "/seller/signup_weixin/" + "<%= @campaign.slug %>";
+	});
+	
+	$(".continue-btn").click(function(){
+		var $button=$(this);
+		
+		$button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+			$button.closest("form").submit();
+		});
+	});
+	
+});
+</script>

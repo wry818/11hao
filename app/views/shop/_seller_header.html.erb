@@ -10,6 +10,14 @@
 			</div>
 		</div>
 	</div>
+  <% if @seller.description %>
+  
+	<div style="padding: 0px 15px;">
+		<%= sanitize @seller.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+	</div>
+	
+  <% end %>
+  	
 	<% if @seller.video_file.present? %>
 	<div class="row">
 		<div class="col-md-12">
