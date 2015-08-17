@@ -129,8 +129,10 @@ Raisy::Application.routes.draw do
     delete "seller/contacts/:id", to: 'users#seller_delete_contacts', as: :seller_delete_contacts
     post "ajax/deletecontact", to: 'users#ajax_delete_contact', as: :ajax_seller_delete_contact
     get "ajax/sellersteppopup", to: "users#ajax_seller_step_popup", as: :ajax_seller_step_popup
-    get 'seller/signup_weixin/:campaign_id/:video_file_name', to: 'users#signup_seller_weixin', as: :signup_seller_weixin
+    get 'seller/signup_weixin/:campaign_id', to: 'users#signup_seller_weixin', as: :signup_seller_weixin
+    get 'seller/signup_weixin_video/:seller_id', to: 'users#signup_seller_weixin_video', as: :signup_seller_weixin_video
     post 'seller/signup_weixin_create', to: 'users#signup_seller_weixin_create', as: :signup_seller_weixin_create
+    patch 'seller/signup_weixin_update', to: 'users#signup_seller_weixin_update', as: :signup_seller_weixin_update
     
     #SELLER DASHBOARD
     scope 'seller' do
@@ -216,6 +218,7 @@ Raisy::Application.routes.draw do
         get 'menulist' => 'weixin#menulist'
         get 'test' => 'weixin#test'
         get 'video' => 'weixin#video'
+        post 'video' => 'weixin#video_post', as: :video_post
         get 'native' => 'weixin#native_mode2'
         get 'query_order/:id' => 'weixin#query_order'
         # match "native_callback" => "weixin#native_callback", via: [:get, :post]
