@@ -37,19 +37,17 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
             if campaign && campaign.active?
 
-              weixin_user_info = UserWeixinCache.get(open_id)
-
-              if !weixin_user_info
-
-                weixin_user_info = UserWeixinInfo.new
-
-              end
-
-              weixin_user_info.campaign_slug = slug[1]
-              UserWeixinCache.set(open_id, weixin_user_info)
-
-              reply_text_message("感谢您的支持，请拍摄一小段募捐视频并发送至我们的公众号，这将帮助您成功的筹款。")
-
+              $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+              articles = [
+                {
+                  title: "感谢您的支持!",
+                  description: "现在只需点击创建您的个人筹款页面。",
+                  url: request.protocol + request.host + "/seller/signup_weixin/" + campaign_slug
+                }
+              ]
+  
+              $wechat_client.send_news_custom(open_id, articles)
+              
             else
 
               reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
@@ -69,27 +67,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         end
 
       else
-
-        # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
-        
-        # logger.info "bbbbbbbbbbb"
-        # reply_text_message("测试 #{@keyword}")
         
         reply_transfer_customer_service_message()
-        
-        # seller = Seller.find_by_id(17)
-#
-#         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-#         logger.info seller.referral_code
-#         articles = [
-#           {
-#             title: "有顾客购买了您的商品！",
-#             description: "点击查看当前的筹款排名。",
-#             url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
-#           }
-#         ]
-#
-#         $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
           
       end
       
