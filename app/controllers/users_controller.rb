@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   
     before_filter :authenticate_user!, 
-      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create, :signup_seller_weixin_video,  
+      except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create, :signup_seller_weixin_video, :signup_seller_weixin_update,  
         :omniauth_callback, :omniauth_failure, 
         :verify_user, :lookup_user, :ajax_seller_step_popup]
 
@@ -333,7 +333,6 @@ class UsersController < ApplicationController
         
         # @file_name = params[:video_file_name]
         @nick_name = ""
-        
         
         
         if session[:openid]
