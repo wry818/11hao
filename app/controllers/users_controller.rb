@@ -334,7 +334,6 @@ class UsersController < ApplicationController
         # @file_name = params[:video_file_name]
         @nick_name = ""
         
-        
         if session[:openid]
           
           @nick_name = params[:nickname]
@@ -386,20 +385,21 @@ class UsersController < ApplicationController
           else
             # @seller = Seller.create user_profile: @user_profile, campaign: @campaign, video_file: params[:video_file]
             @seller = Seller.create user_profile: @user_profile, campaign: @campaign
+            
+            url_param = short_campaign_path(@campaign, seller: @seller.referral_code)
+
+            $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+            articles = [
+              {
+                title: "感谢您对" + @campaign.title + "活动的支持， 您的筹款页面已经创建成功。",
+                description: "现在可以将您的筹款页面分享给您的朋友与家人。简单公益，只因有你。",
+                url: "http://www.11haoonline.com" + url_param
+              }
+            ]
+
+            $wechat_client.send_news_custom(session[:openid], articles)
+            
           end
-          
-          url_param = short_campaign_path(@campaign, seller: @seller.referral_code)
-
-          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          articles = [
-            {
-              title: "感谢您对" + @campaign.title + "活动的支持， 您的筹款页面已经创建成功。",
-              description: "现在可以将您的筹款页面分享给您的朋友与家人。简单公益，只因有你。",
-              url: "http://www.11haoonline.com" + url_param
-            }
-          ]
-
-          $wechat_client.send_news_custom(session[:openid], articles)
           
           redirect_to signup_seller_weixin_video_path(@seller)
         
@@ -458,8 +458,15 @@ class UsersController < ApplicationController
     def signup_seller_weixin_update
       
       @seller = Seller.find_by_id(params[:seller_id])
-      @seller.assign_attributes seller_params
-      @seller.save
+      
+      is_skip = params[:is_skip].to_i
+      
+      if is_skip == 0
+        
+        @seller.assign_attributes seller_params
+        @seller.save
+        
+      end
       
       @campaign = @seller.campaign
       

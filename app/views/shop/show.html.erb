@@ -2,6 +2,11 @@
   <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
 
   <div class="container container-background">
+	
+	<% if @seller %>
+		<%= render 'shop/seller_header' %>
+	<% end %>
+	
     <div class="container-box top-section">
 
       <%= render 'shop/campaign_header' %>
