@@ -1,0 +1,29 @@
+<div class="header-box">
+	<div class="row">
+		<div class="col-md-12">
+			<div style="padding:15px 0px;">
+				<table width="100%">
+					<tr>
+						<td style="width: 40px; vertical-align:top">
+							<% if @seller.user_profile.user.profile.picture.present? %>
+								<%= cl_image_tag @seller.user_profile.user.profile.picture, width: 35, height: 35, crop: :limit %>
+							<% end %>
+						</td>
+						<td>
+							<label style="font-weight: normal; font-size: 14px; vertical-align:top; line-height: normal"><%= @seller.user_profile.first_name %>
+							</label>
+
+						    <% if @seller.description %>
+	
+						  	<div class="bubble">
+						  		<%= sanitize @seller.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+						  	</div>
+	
+						    <% end %>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
