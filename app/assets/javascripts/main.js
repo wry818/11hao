@@ -373,7 +373,9 @@ window.Raisy = {
 					}
 				}).on("init", function(e) {
 					var $container=$(ed.getContainer());
-
+					
+					$container.css("border-top-width", "0px");
+					
 					if (!$container.hasClass("mce-tinymce")) {
 						$container=$container.parents(".mce-tinymce").first();
 					}
