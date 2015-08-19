@@ -4,9 +4,9 @@
 			<div style="padding:15px 0px;">
 				<table width="100%">
 					<tr>
-						<td style="width: 40px; vertical-align:top">
+						<td style="width: 60px; vertical-align:top">
 							<% if @seller.user_profile.user.profile.picture.present? %>
-								<%= cl_image_tag @seller.user_profile.user.profile.picture, width: 35, height: 35, crop: :limit %>
+								<%= cl_image_tag @seller.user_profile.user.profile.picture, width: 50, height: 50, crop: :limit %>
 							<% end %>
 						</td>
 						<td>
