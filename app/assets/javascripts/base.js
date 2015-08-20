@@ -10,7 +10,6 @@ $(document).ready(function() {
 	
     $(".aaaaa").fileupload({
         add: function(e, data) {
-			alert(1);
             // var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
 //             if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
 //                 alert('Not an accepted file type');
@@ -26,7 +25,6 @@ $(document).ready(function() {
             $('#drop-zone').css("border-color", "green");
         },
         start: function (e) {
-			alert(2);
 			$(".status").text("");
 			$(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("0%");
             $(".progress").not(".camp-photo-progress").show();
