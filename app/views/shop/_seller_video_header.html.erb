@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div style="margin-bottom:10px;">
-				<%= cl_video_tag(@seller.video_file, :width => "100%", :height => 240, :background => "black", :preload => "none", :controls => true, :fallback_content => "Your browser does not support HTML5 video tags" ) %>
+				<%= cl_video_tag(@seller.video_file, :width => "100%", :height => 240, :background => "black", :preload => "none", :controls => true, :preload => true, :autobuffer => "autobuffer", :fallback_content => "Your browser does not support HTML5 video tags" ) %>
 			</div>
 		</div>
 	</div>
