@@ -453,13 +453,9 @@ class UsersController < ApplicationController
         
         @seller.assign_attributes seller_params
         
-        if params[:video_file].present?
+        if params[:seller_video_file].present?
           
-          preloaded = Cloudinary::PreloadedFile.new(params[:video_file])
-          
-          if preloaded.valid?
-              @seller.update_attribute(:video_file, preloaded.identifier)
-          end
+           @seller.update_attribute(:video_file, params[:seller_video_file])
           
         end
         

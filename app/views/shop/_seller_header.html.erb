@@ -10,10 +10,15 @@
 							<% end %>
 						</td>
 						<td>
+						    <% if @seller.user_profile.first_name.present? %>
+	
+
 							<label style="font-weight: normal; font-size: 14px; vertical-align:top; line-height: normal"><%= @seller.user_profile.first_name %>
 							</label>
+	
+						    <% end %>
 
-						    <% if @seller.description %>
+						    <% if @seller.description.present? %>
 	
 						  	<div class="bubble">
 						  		<%= sanitize @seller.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>

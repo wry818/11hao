@@ -8,39 +8,6 @@ $(document).ready(function() {
 	    html: true
 	});		
 	
-//     $(".upload_video").fileupload({
-//         add: function(e, data) {
-//             // var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
-// //             if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-// //                 alert('Not an accepted file type');
-// //             } else {
-// //                 data.submit();
-// //             }
-//
-// 			data.submit();
-//         },
-//         dropZone: "#drop-zone",
-//         dragover: function (e) {
-//             e.preventDefault();
-//             $('#drop-zone').css("border-color", "green");
-//         },
-//         start: function (e) {
-// 			$(".status").text("");
-// 			$(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("0%");
-//             $(".progress").not(".camp-photo-progress").show();
-//         },
-//         progress: function (e, data) {
-//             var prog = Math.round((data.loaded * 100.0) / data.total);
-//             $(".status").text("上传中，请稍候...");
-//             $(".progress-bar").css("width", prog + "%").find('span').text(prog + "%");
-//         },
-//         fail: function (e, data) {
-//             $(".status").text("抱歉! 上传失败，请稍后再试");
-//             $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
-//             $("#drop-zone").css("border-color", "#ccc");
-//         }
-//     });
-	
     $(".cloudinary-fileupload").fileupload({
         add: function(e, data) {
             // var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
