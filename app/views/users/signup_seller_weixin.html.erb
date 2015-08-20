@@ -49,7 +49,6 @@ $("header").css("min-height", "0px");
 		                    	<div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;"><%= image_tag @avatar_url, width: 100 %></div>
 													<div style="width:0px; height:0px;">
 															<%= hidden_field_tag :use_photo, @avatar_url %>
-															<%= hidden_field_tag :video_file, @file_name %>
 															<%= hidden_field_tag :campaign_id, @campaign.id %>
 															<%= cl_image_upload_tag(:user_picture, tags: Rails.env, html: { id:'upload_seller_photo', accept:"image/*", style: "width:0px; height:0px; visibility:hidden;" }) %>
 													</div>

@@ -333,6 +333,7 @@ class UsersController < ApplicationController
         
         # @file_name = params[:video_file_name]
         @nick_name = ""
+        # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
         
         if session[:openid]
           
@@ -420,32 +421,19 @@ class UsersController < ApplicationController
     
     def signup_seller_weixin_video
       
+      @avatar_url = ""
+      @video_name = ""
       @seller = Seller.find_by_id(params[:seller_id])
       
       if @seller
         
         @campaign = @seller.campaign
         
-        # @user_profile = @seller.user_profile.user.profile
-#
-#         if params[:user_picture].present?
-#             preloaded = Cloudinary::PreloadedFile.new(params[:user_picture])
-#             if preloaded.valid?
-#                 @user_profile.update_attribute(:picture, preloaded.identifier)
-#             end
-#         else
-#             if params[:use_photo].present?
-#               # Use default photo, so upload the url passed in to cloud
-#               # Note: it does not work on localhost since the url is not public
-#
-#               image_hash = Cloudinary::Uploader.upload(params[:use_photo], :tags => "custom-user-photo")
-#
-#               @user_profile.update_attribute(:picture, image_hash["public_id"])
-#             end
-#         end
-#
-#         # redirect_to seller_get_contacts_path(@seller)
-#         redirect_to signup_seller_share_path(@seller)
+        if @seller.video_file.present?
+          
+          @video_name = @seller.video_file
+          
+        end
 
       else
 
@@ -458,12 +446,23 @@ class UsersController < ApplicationController
     def signup_seller_weixin_update
       
       @seller = Seller.find_by_id(params[:seller_id])
-      
+       
       is_skip = params[:is_skip].to_i
       
       if is_skip == 0
         
         @seller.assign_attributes seller_params
+        
+        if params[:video_file].present?
+          
+          preloaded = Cloudinary::PreloadedFile.new(params[:video_file])
+          
+          if preloaded.valid?
+              @seller.update_attribute(:video_file, preloaded.identifier)
+          end
+          
+        end
+        
         @seller.save
         
       end

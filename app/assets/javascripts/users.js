@@ -135,21 +135,42 @@ Raisy.users = {
 			}
 		});
 		
-		$("#signup .cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", function (e, data) {
+		// $("#signup .cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", function (e, data) {
+// 	        $(".status").text("");
+// 	        $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
+// 	        $("#drop-zone").css("border-color", "#ccc");
+// 	        var params = {
+// 	            format: data.result.format,
+// 	            width: 100,
+// 	            height: 100,
+// 	            crop: "limit",
+// 				angle: "exif"
+// 	        };
+// 	        var html = $.cloudinary.image(data.result.public_id, params);
+// 	        $(".preview img").fadeOut(200, function() {
+// 	            $('.preview').html(html);
+// 	        }).fadeIn(200);
+// 	    });
+		
+		$("#signup .upload_video").off("cloudinarydone").on("cloudinarydone", function (e, data) {
+			
 	        $(".status").text("");
 	        $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
 	        $("#drop-zone").css("border-color", "#ccc");
+			
 	        var params = {
-	            format: data.result.format,
-	            width: 100,
-	            height: 100,
-	            crop: "limit",
-				angle: "exif"
+	            width: "100%",
+	            height: 240,
+				background: "black",
+				controls: "true"
 	        };
-	        var html = $.cloudinary.image(data.result.public_id, params);
-	        $(".preview img").fadeOut(200, function() {
+			
+	        var html = $.cloudinary.video(data.result.public_id, params);
+			
+	        $(".preview video").fadeOut(200, function() {
 	            $('.preview').html(html);
 	        }).fadeIn(200);
+			
 	    });
 		
 		$("#contacts-show .contact-edit-btn").click(function(){
