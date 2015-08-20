@@ -136,6 +136,7 @@ Raisy.users = {
 		});
 		
 		$("#signup .cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", function (e, data) {
+			alert(6);
 	        $(".status").text("");
 	        $(".progress").not(".camp-photo-progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
 	        $("#drop-zone").css("border-color", "#ccc");
@@ -144,7 +145,7 @@ Raisy.users = {
 	            width: 100,
 	            height: 100,
 	            crop: "limit",
-							angle: "exif"
+				angle: "exif"
 	        };
 	        var html = $.cloudinary.image(data.result.public_id, params);
 	        $(".preview img").fadeOut(200, function() {

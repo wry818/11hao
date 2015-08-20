@@ -39,6 +39,44 @@
 					
 				</fieldset>
 	            
+				<div class="form-group"> 
+                    <div class="image-uploader" style="margin:0px auto;">
+                    	<div class="preview" style="width: 102px; height: 102px; text-align:center; border:1px solid #ccc;"><%= image_tag @avatar_url, width: 100 %>
+						</div>
+						<div style="width:0px; height:0px;">
+							<%= hidden_field_tag :use_photo, @avatar_url %>
+							<%= hidden_field_tag :video_file, @file_name %>
+							<%= cl_upload_tag(:video_id, tags: Rails.env, html: { id:'upload_seller_photo', style: "width:0px; height:0px; visibility:hidden;", class: "aaaaa" }) %>
+						</div>
+	                    <div class="progress progress-striped active" style="display: none; width:102px;">
+	                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+	                            <span>0%</span>
+	                        </div>
+	                    </div>
+                    </div>
+					<div style="text-align:center;">
+						<span class="status" style="font-size:14px;">
+						</span>
+					</div>
+					
+	  				<div class="form-group">
+	  					<div class="row">
+	  						<div class="col-sm-12">
+	  							<label for="upload_seller_photo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal; float:none; margin:0 auto;">
+									<span style="color:#428bca;font-size:1.1em;display:block;">
+										上传
+									</span>
+									<span style="font-size:0.9em;display:block;font-style:italic;">
+										你自己的视频
+									</span>
+									<a href="#" class="remove-image" style="display: none">
+										删除视频
+									</a>
+								</label>
+							</div>
+	  					</div>
+	  				</div>
+				</div>
 				
 				<div class="row">
 		            <div class="col-xs-12" style="text-align: center">
