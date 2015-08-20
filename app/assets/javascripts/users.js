@@ -162,12 +162,15 @@ Raisy.users = {
 	            width: "100%",
 	            height: 240,
 				background: "black",
-				controls: "true"
+				controls: true,
+				autoplay: true,
+				preload: "auto",
+				autobuffer: "autobuffer"
 	        };
 			
 			$("#seller_video_file").val(data.result.public_id);
 	        var html = $.cloudinary.video(data.result.public_id, params);
-			
+			alert(html);
 	        $(".preview video").fadeOut(200, function() {
 	            $('.preview').html(html);
 	        }).fadeIn(200);
