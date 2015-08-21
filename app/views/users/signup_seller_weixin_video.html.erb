@@ -25,7 +25,7 @@
 			
 			<%= form_for(@seller, :url => {:action => "signup_seller_weixin_update"}, html: {id: "signup_seller_weixin_form", class: 'form-horizontal'}) do |f| %>
 				
-				<%= hidden_field_tag :seller_id, @seller.id %>
+				<%= hidden_field_tag :seller_referral_code, @seller.referral_code %>
 				<%= hidden_field_tag :is_skip, "0" %>
 				
 				<fieldset>

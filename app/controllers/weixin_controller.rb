@@ -80,6 +80,21 @@ class WeixinController < ApplicationController
               url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
             }
           ]
+        },
+        {
+          name: "我的11号",
+          sub_button: [
+            {
+              type: "view",
+              name: "我的订单",
+              url: "http://www.11haoonline.com/user/order_list"
+            }
+            # {
+#               type: "view",
+#               name: "我的筹款页面",
+#               url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
+#             }
+          ]
         }
       ]
     }.to_json
@@ -361,6 +376,17 @@ class WeixinController < ApplicationController
       # render text: "aa"
   end
     
+  def video_post
+    
+      # result = Seller.find_by_sql("select * from sellers limit 5")
+      # puts result.to_s
+    
+      # result2 = ActiveRecord::Base.connection.execute("select * from sellers limit 5")
+      # puts result2.values
+      #
+      # render text: "aa"
+  end
+  
   def send_message
     
     to_user = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"

@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     before_filter :authenticate_user!, 
       except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create, :signup_seller_weixin_video, :signup_seller_weixin_update,  
         :omniauth_callback, :omniauth_failure, 
-        :verify_user, :lookup_user, :ajax_seller_step_popup]
-
+        :verify_user, :lookup_user, :ajax_seller_step_popup, :order_list, :order_detail]
+        
     def show
         @user = User.friendly.find(params[:id])
     end
@@ -402,7 +402,7 @@ class UsersController < ApplicationController
             
           end
           
-          redirect_to signup_seller_weixin_video_path(@seller)
+          redirect_to signup_seller_weixin_video_path(@seller.referral_code)
         
         else
         
@@ -423,7 +423,7 @@ class UsersController < ApplicationController
       
       @avatar_url = ""
       @video_name = ""
-      @seller = Seller.find_by_id(params[:seller_id])
+      @seller = Seller.where(referral_code: params[:seller_referral_code]).first
       
       if @seller
         
@@ -445,7 +445,7 @@ class UsersController < ApplicationController
     
     def signup_seller_weixin_update
       
-      @seller = Seller.find_by_id(params[:seller_id])
+      @seller = Seller.where(referral_code: params[:seller_referral_code]).first
        
       is_skip = params[:is_skip].to_i
       
@@ -1164,6 +1164,38 @@ class UsersController < ApplicationController
     end
     
     def omniauth_failure
+      
+    end
+    
+    def order_list
+      
+      # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+      
+      if session[:openid]
+        
+        @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
+        
+      else
+      
+        redirect_to root_path and return
+        
+      end
+      
+    end
+    
+    def order_detail
+      
+      # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+      
+      if session[:openid]
+        
+        @order = Order.find_by_id(params[:order_id])
+        
+      else
+      
+        redirect_to root_path and return
+        
+      end
       
     end
     

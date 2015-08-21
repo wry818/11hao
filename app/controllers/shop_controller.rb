@@ -631,12 +631,17 @@ class ShopController < ApplicationController
       
       if WxPay::Sign.verify?(result)
         
+        open_id = result["openid"]
         out_trade_no = result["out_trade_no"]
         logger.info out_trade_no
         
         order = Order.where(:out_trade_no => out_trade_no).first
         
         if order
+          
+          if open_id.present?
+            order.open_id = open_id
+          end
           
           order.status = 3
           order.save
@@ -791,6 +796,10 @@ class ShopController < ApplicationController
       
       if order_make_anonymous
         order.make_anonymous = order_make_anonymous
+      end
+      
+      if session[:openid]
+        order.open_id = session[:openid]
       end
       
       order.status = 3

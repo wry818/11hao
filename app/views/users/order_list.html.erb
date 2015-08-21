@@ -1,0 +1,74 @@
+<div id="order-show">
+	
+	<div class="order_wrapper">
+		<% if @orders && @orders.count > 0 %>
+			
+            <% @orders.each do |order| %>
+
+				<div class="order_content">
+					<p>
+						<% if order.campaign.campaign_logo %>
+	                    	<%= cl_image_tag order.campaign.campaign_logo.image_id, 
+							transformation: [
+								{
+									width: order.campaign.campaign_logo.crop_width, 
+									height: order.campaign.campaign_logo.crop_height,
+									x: order.campaign.campaign_logo.crop_x,
+									y: order.campaign.campaign_logo.crop_y,
+									crop: :crop
+								}
+							], style: "width: 100px", class: 'campaign-logo'%>
+						<% else %>
+							<div class="campaign-default-logo-box">
+								<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+							</div>
+						<% end %>
+						
+					</p>
+					<div class="right_content">
+						<div>
+							<%= order.campaign.title %>
+						</div>
+						<div class="detail">
+							<div>
+								<%= order.num_items %>件｜总价：￥<%= long_price(order.grandtotal.to_f/100) %>
+							</div>
+							<div>
+								已付款
+							</div>
+						</div>
+					</div>
+					<input class="order_id" type="hidden" value="<%= order.id %>" />
+				</div>
+				
+            <% end %>
+			
+		<% else %>
+			
+			<div class="order_content">
+				您还没有任何订单
+			</div>
+			
+		<% end %>
+		
+	</div>
+
+</div> <!-- /#campaign-show -->
+
+<script>
+$(document).ready(function() {
+	
+	$("nav").remove();
+	$(".navbar-header").remove();
+	$("header").css("min-height", "0px");
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
+	$(".order_content").click(function(){
+		
+		var order_id = $(this).find(".order_id").val();
+		window.location.href = "/user/order_detail/" + order_id;
+		
+	});
+	
+});
+</script>
