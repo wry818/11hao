@@ -5,7 +5,7 @@
 			
             <% @orders.each do |order| %>
 
-				<div class="order_content">
+				<div class="order_content order_item">
 					<p>
 						<% if order.campaign.campaign_logo %>
 	                    	<%= cl_image_tag order.campaign.campaign_logo.image_id, 
@@ -63,7 +63,7 @@ $(document).ready(function() {
 	$("header").css("min-height", "0px");
 	$(".navbar-brand").addClass("navbar-brand-main");
 	
-	$(".order_content").click(function(){
+	$(".order_item").click(function(){
 		
 		var order_id = $(this).find(".order_id").val();
 		window.location.href = "/user/order_detail/" + order_id;
