@@ -17,7 +17,7 @@
 									y: order.campaign.campaign_logo.crop_y,
 									crop: :crop
 								}
-							], style: "width: 100px", class: 'campaign-logo'%>
+							], style: "width: 120px", class: 'campaign-logo'%>
 						<% else %>
 							<div class="campaign-default-logo-box">
 								<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
@@ -26,7 +26,7 @@
 						
 					</p>
 					<div class="right_content">
-						<div>
+						<div class="title">
 							<%= order.campaign.title %>
 						</div>
 						<div class="detail">
@@ -62,6 +62,8 @@ $(document).ready(function() {
 	$(".navbar-header").remove();
 	$("header").css("min-height", "0px");
 	$(".navbar-brand").addClass("navbar-brand-main");
+	
+	document.title = "我的订单";
 	
 	$(".order_item").click(function(){
 		

@@ -693,6 +693,7 @@
 		background-color: white;
 	
 		.order_content {
+			
 			border-bottom: 1px solid #eeeeee;
 			padding: 20px;
 			//cursor: pointer;
@@ -702,14 +703,18 @@
 				font-size: 14px;
 
 			}
-	
+			
+			.title {
+				font-size: 18px;
+			}
+			
 			p {
 				float:left; 
 				margin-bottom: 0px;
 			}
 	
 			.right_content {
-				margin-left: 120px;
+				margin-left: 140px;
 			
 				.detail {
 					color: rgb(150,150,150);

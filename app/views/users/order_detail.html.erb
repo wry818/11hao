@@ -14,7 +14,7 @@
 							y: @order.campaign.campaign_logo.crop_y,
 							crop: :crop
 						}
-					], style: "width: 100px", class: 'campaign-logo'%>
+					], style: "width: 120px", class: 'campaign-logo'%>
 				<% else %>
 					<div class="campaign-default-logo-box">
 						<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
@@ -23,7 +23,7 @@
 				
 			</p>
 			<div class="right_content">
-				<div>
+				<div class="title">
 					<%= @order.campaign.title %>
 				</div>
 				<div class="detail">
@@ -82,7 +82,9 @@
 				<div class="right_content">
 					<div>
 						<div style="float: right">
-							￥<%= long_price(item.total_price.to_f/100) %>
+							<small>
+								￥<%= long_price(item.total_price.to_f/100) %>
+							</small>
 						</div>
 					</div>
 				</div>
@@ -107,6 +109,8 @@
 
 <script>
 $(document).ready(function() {
+	
+	document.title = "我的订单";
 	
 	$("body").css("background-color", "rgb(237, 237, 237)")
 	$("nav").remove();
