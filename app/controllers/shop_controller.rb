@@ -1386,11 +1386,23 @@ class ShopController < ApplicationController
       @user_is_seller = false
       if @seller && session[:openid]
         
-        open_id = seller.user_profile.user.uid
-        
-        if open_id == session[:openid]
+        user = User.find_by uid: session[:openid], provider: "wx"
+    
+        if user
           
-          @user_is_seller = true
+          user_profile = user.profile
+          
+          if user_profile
+              
+            has_seller = Seller.where(campaign_id: @campaign.id, user_profile_id: user_profile.id).first
+            
+            if has_seller
+              
+              @user_is_seller = true
+              
+            end
+              
+          end
           
         end
         
