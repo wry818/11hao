@@ -1382,6 +1382,20 @@ class ShopController < ApplicationController
       else
         @ent_url = ent_url(@campaign)
       end
+      
+      @user_is_seller = false
+      if @seller && session[:openid]
+        
+        open_id = seller.user_profile.user.uid
+        
+        if open_id == session[:openid]
+          
+          @user_is_seller = true
+          
+        end
+        
+      end
+      
     end
 
     def order_params

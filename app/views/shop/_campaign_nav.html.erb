@@ -24,7 +24,7 @@
 	
 	<% if @campaign.collection_id != 0 %>
 	    <div class="pull-right">
-			<% if session[:openid] %>
+			<% if !@user_is_seller %>
             	<%= link_to "加入筹款团队", signup_seller_weixin_path(@campaign), class: "join-fundraising-link" %>
 			<% end %>
 	        <a href="#checkout-modal" data-toggle="modal" style="margin: 0; display: none">
