@@ -135,6 +135,7 @@ Raisy::Application.routes.draw do
     patch 'seller/signup_weixin_update', to: 'users#signup_seller_weixin_update', as: :signup_seller_weixin_update
     get 'user/order_list', to: 'users#order_list', as: :user_order_list
     get 'user/order_detail/:order_id', to: 'users#order_detail', as: :user_order_detail
+    get 'seller/campaign_list', to: 'users#campaign_list', as: :seller_campaign_list
     
     #SELLER DASHBOARD
     scope 'seller' do

@@ -880,6 +880,16 @@
       h2 {
           margin: 0 0 20px;
       }
+	  
+  	@media all and (max-width: 768px){
+		
+  		.col-md-4 {
+  			padding-left: 0px;
+			padding-right: 0px;
+  		}
+		
+  	}
+	
   }
 	
 	.pagination {

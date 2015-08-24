@@ -1,0 +1,113 @@
+<div id="search">
+    <div class="container">
+        <div class="container-box">
+
+            <div class="row">
+				<div class="col-md-12">
+					<h4>
+						<b>我的筹款团队</b>
+					</h4>
+					<% if @campaigns && @campaigns.count>0 %>
+						<% for i in 0..3 %>
+							<% camps = @campaigns[i*3..(i+1)*3-1] %>
+								<% if camps %>
+									<div class="row" style="margin-top:10px;">
+										<% camps.each do |campaign| %>
+
+											<% seller = @sellers.where(campaign_id: campaign.id).first %>
+											
+											<div class="col-md-4" onclick="window.location.href='<%= short_campaign_path(campaign, seller: seller.referral_code) %>';">
+											
+											<div class="search-result-block" style="border:2px solid #e2e2e2; border-radius: 2px; cursor:pointer; margin-bottom:10px;">
+												<div style="padding:10px; position:relative;">
+													<div style="text-align:center;">
+						                    			<%= cl_image_tag campaign.campaign_logo.image_id,
+																	transformation: [{ 
+																			width: campaign.campaign_logo.crop_width,
+																			height: campaign.campaign_logo.crop_height,
+																			x: campaign.campaign_logo.crop_x,
+																			y: campaign.campaign_logo.crop_y,
+																			crop: :crop
+																		}], style: 'max-width:100%; max-height:100%;' if campaign.campaign_logo %>
+														<%= image_tag 'crown.png', style: "display:inline-block; margin-top:20px; width:72px;" if !campaign.campaign_logo %>
+													</div>
+													<div style="height:52px; margin-top:10px; overflow:hidden;">
+														<span style="font-size:18px; font-weight:600;">
+															<%= campaign.title %>
+														</span>
+													</div>
+													<div style="color:#888; font-size:12px; margin-top:10px;">
+														<div>
+															<span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+															<span>
+																<%= (campaign.organization.address_city.nil? ? "" : campaign.organization.address_city.strip + ", ") + (campaign.organization.address_state || "").strip %>
+															</span>
+														</div>
+														<div style="height:38px; margin-top:2px; overflow:hidden;">
+															<span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;
+															<span>
+																<%= campaign.organization.name %>
+															</span>
+														</div>
+													</div>
+													
+													<% if campaign.expired? || !campaign.active %>
+														<div style="position:absolute; bottom:0; right:0;">
+															<span style="color:red; font-size:12px; font-weight:600;">已结束</span>
+														</div>
+													<% end %>
+												</div>
+												<div style="background:#f6f6f6;border-top:1px solid #e6e6e6; padding:10px;">
+													<div style="width:100%;">
+														<div style="display:inline-block; width:50px; height:50px; vertical-align:top;">
+															<% if campaign.organizer.profile.picture.present? %>
+																<%= cl_image_tag campaign.organizer.profile.picture, width: 48, height: 48, crop: :fill, class: "img-circle", style: "vertical-align:top;" %>
+															<% else %>
+																<%= image_tag 'crown.png', style: "display:inline-block; margin-top:4px; width:48px;" %>
+															<% end %>
+													</div>
+													<div style="display:inline-block; margin-left:20px; width:68%;">
+														<span style="font-size:16px; font-weight:600; display:inline-block; width:100%; height:22px; overflow:hidden;">
+															<%= campaign.organizer.profile.fullname %>
+														</span>
+														<br/>
+														<span style="color:#888; font-size:13px;">
+															筹款团队所有者
+														</span> 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								<% end %>
+									</div>
+							<% end %>
+						<% end %>
+						<div style="text-align:center;">
+							<%= paginate @campaigns %>
+						</div>
+					<% else %>
+						<div style="text-align:center; margin-top:20px;">
+							<span><strong>您还未加入任何筹款团队。</strong></span>
+						</div>
+					<% end %>
+				</div>
+            </div>
+			
+        </div>
+    </div>
+	
+</div>
+
+<script>
+$(document).ready(function() {
+	
+	$("nav").remove();
+	$(".navbar-header").remove();
+	$("header").css("min-height", "0px");
+	$(".navbar-brand").addClass("navbar-brand-main");
+	
+	document.title = "我的筹款团队";
+	
+});
+</script>

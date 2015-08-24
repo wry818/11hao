@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     before_filter :authenticate_user!, 
       except: [:show, :new, :create, :signup_seller, :signup_seller_create, :signup_seller_weixin, :signup_seller_weixin_create, :signup_seller_weixin_video, :signup_seller_weixin_update,  
         :omniauth_callback, :omniauth_failure, 
-        :verify_user, :lookup_user, :ajax_seller_step_popup, :order_list, :order_detail]
+        :verify_user, :lookup_user, :ajax_seller_step_popup, :order_list, :order_detail, :campaign_list]
         
     def show
         @user = User.friendly.find(params[:id])
@@ -1191,6 +1191,38 @@ class UsersController < ApplicationController
         
         @order = Order.find_by_id(params[:order_id])
         
+      else
+      
+        redirect_to root_path and return
+        
+      end
+      
+    end
+    
+    def campaign_list
+      
+      # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+      
+      if session[:openid]
+        
+        user = User.find_by uid: session[:openid], provider: "wx"
+        
+        unless user
+          redirect_to root_path and return
+        end
+        
+        user_profile = user.profile
+
+        unless user_profile
+          redirect_to root_path and return
+        end
+
+        @sellers = user_profile.sellers
+        
+        ids = @sellers.collect(&:campaign_id)
+      
+        @campaigns = Campaign.active.joins(:organization).where(:id=>ids).order("title, organizations.name, campaigns.id desc").page(params[:page]) 
+      
       else
       
         redirect_to root_path and return
