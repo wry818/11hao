@@ -71,7 +71,7 @@ class WeixinController < ApplicationController
             },
             {
               type: "view",
-              name: "我的筹款页面",
+              name: "我的筹款团队",
               url: "http://www.11haoonline.com/seller/campaign_list"
             }
           ]
