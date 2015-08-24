@@ -23,14 +23,17 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content.include? "#筹款"
         
-        # logger.info "aaaaaaaaaaaaaaa"
+        logger.info "aaaaaaaaaaaaaaa"
         
         slug = content.split(' ')
 
         if slug.length > 1
 
           campaign_slug = slug[1]
-
+          
+          logger.info "bbbbbbbbbbbbbbb"
+          logger.info campaign_slug
+          
           begin
 
             campaign = Campaign.friendly.find(campaign_slug)
