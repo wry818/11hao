@@ -1220,7 +1220,10 @@ class UsersController < ApplicationController
         @sellers = user_profile.sellers
         
         ids = @sellers.collect(&:campaign_id)
-      
+        
+        logger.info "bbbbbbbbbbb"
+        logger.info ids
+        
         @campaigns = Campaign.active.joins(:organization).where(:id=>ids).order("title, organizations.name, campaigns.id desc").page(params[:page]) 
       
       else
