@@ -23,7 +23,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content.include? "#筹款"
         
-        logger.info "aaaaaaaaaaaaaaa"
+        # logger.info "aaaaaaaaaaaaaaa"
         
         slug = content.split(' ')
 
@@ -31,8 +31,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
           campaign_slug = slug[1]
           
-          logger.info "bbbbbbbbbbbbbbb"
-          logger.info campaign_slug
+          # logger.info "bbbbbbbbbbbbbbb"
+#           logger.info campaign_slug
           
           begin
 
