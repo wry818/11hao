@@ -883,7 +883,22 @@
 	  
   	@media all and (max-width: 768px){
 		
+		h4 {
+  			margin-left: -15px;
+			margin-right: -15px;
+		}
+		
   		.col-md-4 {
+  			padding-left: 0px;
+			padding-right: 0px;
+  		}
+		
+  		.col-md-5 {
+  			padding-left: 0px;
+			padding-right: 0px;
+  		}
+		
+  		.col-md-7 {
   			padding-left: 0px;
 			padding-right: 0px;
   		}
