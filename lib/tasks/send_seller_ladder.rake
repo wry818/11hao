@@ -49,7 +49,7 @@ namespace :eleven do
                 
                 title = ""
                 
-                if campaign.campaign_mode == Campaign::Compassion
+                if campaign.campaign_mode == Campaign::Fundraising
                   
                   seller_orders = orders.where(:seller_id => row["id"].to_i)
                   
