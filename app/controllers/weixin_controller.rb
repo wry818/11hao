@@ -367,13 +367,20 @@ class WeixinController < ApplicationController
   
   def video
     
-      # result = Seller.find_by_sql("select * from sellers limit 5")
-      # puts result.to_s
+    yesterday = Time.now - 5.day
+    puts Time.now
+    puts yesterday
+    # puts yesterday.beginning_of_day
+#     puts yesterday.end_of_day
     
-      # result2 = ActiveRecord::Base.connection.execute("select * from sellers limit 5")
-      # puts result2.values
-      #
-      # render text: "aa"
+    # products = Product.where(["created_at >= ?", yesterday])
+    # puts products.count
+
+    orders = Order.completed.where(["campaign_id= ? and created_at >= ?", 5, yesterday])
+    puts orders.count
+
+    render text: "aa"
+  
   end
     
   def video_post
