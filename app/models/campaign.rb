@@ -1,10 +1,16 @@
 class Campaign < ActiveRecord::Base
-
+    
+    # enum campaign_mode: [:Fundraising, :Compassion]
+    
     # CAMPAIGN TYPES
     # Possible values for the campaign_type field:
     # 1 - A standard raisy campaign that uses the raisy shopping cart.  Will have an associated collection and orders.
     # 2 - An entertainment campaign that links to the entertainment shopping cart.  No associated collection.  Has associated ent_orders that are imported nightly
 
+    # CAMPAIGN MODE
+    Fundraising = 1
+    Compassion = 2
+    
     extend FriendlyId
     friendly_id :slug_candidates, use: :slugged
     

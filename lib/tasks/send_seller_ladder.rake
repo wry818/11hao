@@ -18,7 +18,7 @@ namespace :eleven do
         
         campaigns.each do |campaign|
           
-          orders = Order.completed.where(["campaign_id= ? and created_at >= ?", campaign.id, yesterday])
+          orders = Order.completed.where(["orders.campaign_id= ? and orders.created_at >= ?", campaign.id, yesterday])
           
           if orders && orders.count > 0
             
@@ -26,13 +26,14 @@ namespace :eleven do
             # Rails.logger.info Rails.env
             $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           
-            query = QueryHelper.get_seller_ladder(campaign.id)
+            query = QueryHelper.get_seller_ladder(campaign.id, campaign.campaign_mode)
 
             seller_ladder_result = ActiveRecord::Base.connection.execute(query)
 
             seller_ladder_result.each do |row|
 
-              Rails.logger.info row["uid"]
+              # Rails.logger.info row["uid"]
+              
               if row["uid"] && row["uid"].length > 0
 
                 url = ""
@@ -44,12 +45,49 @@ namespace :eleven do
 
                 url += "/seller/" + row["referral_code"] + "/seller_ladder"
 
-                Rails.logger.info url
-
+                # Rails.logger.info url
+                
+                title = ""
+                
+                if campaign.campaign_mode == Campaign::Compassion
+                  
+                  seller_orders = orders.where(:seller_id => row["id"].to_i)
+                  
+                  if seller_orders && seller_orders.count > 0
+                    
+                    seller_total_raised = (seller_orders.joins(:items).sum('items.quantity * items.donation_amount') + seller_orders.sum('direct_donation') )/ 100.0
+                    # seller_total_raised = QueryHelper.short_price(seller_total_raised)
+                    
+                    title = "您今天为" + campaign.title + "筹得募款" + seller_total_raised.to_s + "元！"
+                    
+                  else
+                    
+                    title = campaign.title + "活动筹款义卖排名"
+                      
+                  end
+      
+                else
+      
+                  seller_orders = orders.where(:seller_id => row["id"].to_i)
+                  
+                  if seller_orders && seller_orders.count > 0
+                    
+                    title = "您今天为" + campaign.title + "募集了" + seller_orders.count.to_s + "颗爱心！"
+                    
+                  else
+                    
+                    title = campaign.title + "活动爱心募集排名"
+                      
+                  end
+      
+                end
+                
+                Rails.logger.info title
+                  
                 articles = [
                   {
-                    title: "您在" + campaign.title + "的排名",
-                    description: "您当前的排名：" + "第" + row["rank"] + "名。\n点击查看其他志愿者的排名。",
+                    title: title,
+                    description: "您当前的排名：" + "第" + row["rank"] + "名。\n点击查看其他小伙伴的排名。",
                     url: url
                   }
                 ]

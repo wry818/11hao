@@ -29,7 +29,13 @@
 												<%= order.make_anonymous ? '匿名' : (order.is_offline ? "Anonymous" : order.fullname) %>
 
 												<div style="float: right">
-													￥<%= long_price(order.donation_total/100.0) %>
+													
+													<% if @campaign.campaign_mode == Campaign::Fundraising %>
+														￥<%= long_price(order.donation_total/100.0) %>
+													<% else %>
+														<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %>
+													<% end %>
+													
 												</div>
 											</div>
 										</div>

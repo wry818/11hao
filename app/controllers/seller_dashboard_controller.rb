@@ -111,7 +111,7 @@ class SellerDashboardController < ApplicationController
       @seller = Seller.where(referral_code: params[:seller_referral_code]).first
       @current_rank = 0
       
-      query = QueryHelper.get_seller_ladder(@seller.campaign_id)
+      query = QueryHelper.get_seller_ladder(@seller.campaign_id, @seller.campaign.campaign_mode)
       
       @seller_ladder_result = ActiveRecord::Base.connection.execute(query)
       

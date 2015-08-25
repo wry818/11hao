@@ -29,11 +29,25 @@ class Seller < ActiveRecord::Base
     end
     
     def progress_percent
-      if self.campaign.seller_goal.nil? || self.campaign.seller_goal == 0 
-        0 
+      
+      if self.campaign.campaign_mode == Campaign::Fundraising
+        
+        if self.campaign.seller_goal.nil? || self.campaign.seller_goal == 0 
+          0 
+        else
+          ((self.total_raised / self.campaign.seller_goal) * 100).ceil
+        end
+        
       else
-        ((self.total_raised / self.campaign.seller_goal) * 100).ceil
+        
+        if self.campaign.seller_compassion_goal.nil? || self.campaign.seller_compassion_goal == 0 
+          0 
+        else
+          (self.total_orders.to_f / self.campaign.seller_compassion_goal.to_f) * 100
+        end
+        
       end
+      
     end
     
     private

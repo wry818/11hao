@@ -11,16 +11,22 @@
           <div class="raised-count">
 			  
 			<% if @seller && @campaign.display_seller_goal %>
-			    <strong>已筹得</strong><label>￥<%= short_price(@seller.total_raised) %>
+				
+				<% if @campaign.campaign_mode == Campaign::Fundraising %>
+					<strong>已筹得：</strong><label>￥<%= short_price(@seller.total_raised) %></label>
+				<% else %>
+					已筹得：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart" %> X <%= @seller.total_orders %>
+				<% end %>
+			    
 			<% else %>	  
-				<strong>已筹得</strong><label>￥<%= short_price(@campaign.raised) %>
+				<strong>已筹得：</strong><label>￥<%= short_price(@campaign.raised) %></label>
 			<% end %>
             
-          </label>
           </div>
 		  <% if @seller && @campaign.display_seller_goal %>
-		  
-          	<% if @campaign.seller_goal.present? %>
+		  	
+			<% if @campaign.campaign_mode == Campaign::Fundraising %>
+				
 				<div class="progress">
 					<div class="progress-bar" style="width: <%= @seller.progress_percent > 100 ? 100 : @seller.progress_percent  %>%;">
 					</div>
@@ -28,7 +34,18 @@
 				<p class="goal" style="margin-top:10px;">
 					筹款目标：￥<%= short_price(@campaign.seller_goal) %>
 				</p>
-          	<% end %>
+				
+			<% else %>
+				
+				<div class="progress">
+					<div class="progress-bar progress-bar-danger" style="width: <%= @seller.progress_percent > 100 ? 100 : @seller.progress_percent  %>%;">
+					</div>
+				</div>
+				<p class="goal" style="margin-top:10px;">
+					爱心目标：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %> X <%= @campaign.seller_compassion_goal %>
+				</p>
+				
+			<% end %>
 		  
 		  <% else %>	  
 		  	

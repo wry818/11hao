@@ -171,6 +171,16 @@
 	</div>
 	
     <div class="form-group">
+        <label for="campaign_seller_goal" class="col-sm-2 control-label">筹款模式</label>
+        <div class="col-sm-3">
+            <select class="form-control input-small" id="campaign_campaign_mode" name="campaign[campaign_mode]">
+				<option value="<%= Campaign::Fundraising %>" <%= @campaign.campaign_mode == Campaign::Fundraising ? 'selected' : '' %>>筹款义卖</option>
+				<option value="<%= Campaign::Compassion %>" <%= @campaign.campaign_mode == Campaign::Compassion ? 'selected' : '' %>>爱心义卖</option>
+			</select>
+        </div>
+    </div>
+	
+    <div class="form-group">
         <label for="campaign_goal" class="col-sm-2 control-label">筹款目标<span class='req'>*</span></label>
         <div class="col-sm-3">
             <div class="input-group">
@@ -180,8 +190,8 @@
             <label for="campaign_goal" class="error" style="display: none"></label>
         </div>
     </div>
-
-    <div class="form-group">
+	
+    <div id="seller_seller_goal" class="form-group">
         <label for="campaign_seller_goal" class="col-sm-2 control-label">个人筹款目标</label>
         <div class="col-sm-3">
             <div class="input-group">
@@ -189,6 +199,16 @@
                 <%= f.text_field :seller_goal, class: 'form-control', placeholder: "比如：1000" %>
             </div>
             <label for="campaign_seller_goal" class="error" style="display: none"></label>
+        </div>
+    </div>
+	
+    <div id="seller_compassion_goal" class="form-group">
+        <label for="campaign_seller_compassion_goal" class="col-sm-2 control-label">个人爱心目标</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <%= f.text_field :seller_compassion_goal, class: 'form-control', placeholder: "比如：100" %>
+            </div>
+            <label for="campaign_seller_compassion_goal" class="error" style="display: none"></label>
         </div>
     </div>
 	
@@ -375,7 +395,54 @@
     </div><!-- /.modal-dialog -->
 </div>
 
+
+<% if @campaign.campaign_mode == Campaign::Fundraising %>
+		
+   
+				
+<% else %>
+			
+		
+<% end %>
+
+<script>
+
+	$(document).ready(function () {
+		
+		if(<%= @campaign.campaign_mode %> == <%= Campaign::Fundraising %>) {
+			
+			$("#seller_seller_goal").show();
+			$("#seller_compassion_goal").hide();
+			
+		} else {
+			
+			$("#seller_seller_goal").hide();
+			$("#seller_compassion_goal").show();
+			
+		}
+		
+		$('#campaign_campaign_mode').on('change', function() {
+			
+			if (this.value == "<%= Campaign::Fundraising %>") {
+				
+				$("#seller_seller_goal").show();
+				$("#seller_compassion_goal").hide();
+				
+			} else {
+				
+				$("#seller_seller_goal").hide();
+				$("#seller_compassion_goal").show();
+				
+			}
+			
+		});
+		
+	});
+	
+</script>
+				
  <script>
+
 	var isuploadCampaignPhoto = false;
 
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {

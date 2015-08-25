@@ -1,13 +1,25 @@
 class QueryHelper
   
-  def self.get_seller_ladder(campaign_id)
+  def self.get_seller_ladder(campaign_id, campaign_mode)
+    
+    order_column = ""
+    
+    if campaign_mode == Campaign::Fundraising
+      
+      order_column = "a.sum"
+      
+    else
+      
+      order_column = "a.count"
+      
+    end
     
     query = "
-    select ROW_NUMBER() over (order by a.sum desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
+    select ROW_NUMBER() over (order by " + order_column + " desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
     (
       select 
 
-    	  sellers.id, sellers.user_profile_id, sum(items.quantity * items.donation_amount + orders.direct_donation)
+    	  sellers.id, sellers.user_profile_id, sum(items.quantity * items.donation_amount + orders.direct_donation), count(1)
 
       from sellers 
 
