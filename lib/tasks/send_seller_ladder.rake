@@ -18,6 +18,7 @@ namespace :eleven do
         
         campaigns.each do |campaign|
           
+          # orders = Order.completed.where(["orders.campaign_id= ? and orders.created_at >= ?", campaign.id, yesterday])
           orders = Order.completed.where(["orders.campaign_id= ? and orders.created_at >= ?", campaign.id, yesterday])
           
           if orders && orders.count > 0
@@ -27,7 +28,9 @@ namespace :eleven do
             $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           
             query = QueryHelper.get_seller_ladder(campaign.id, campaign.campaign_mode)
-
+            
+            Rails.logger.info query
+             
             seller_ladder_result = ActiveRecord::Base.connection.execute(query)
 
             seller_ladder_result.each do |row|
@@ -93,7 +96,7 @@ namespace :eleven do
                 ]
 
                 $wechat_client.send_news_custom(row["uid"], articles)
-
+                
               end
 
             end
