@@ -19,7 +19,7 @@ namespace :eleven do
         campaigns.each do |campaign|
           
           # orders = Order.completed.where(["orders.campaign_id= ? and orders.created_at >= ?", campaign.id, yesterday])
-          orders = Order.completed.where(["orders.campaign_id= ? and orders.created_at >= ?", campaign.id, yesterday])
+          orders = Order.completed.where(["orders.campaign_id= ? and orders.seller_id > 0 and orders.created_at >= ?", campaign.id, yesterday])
           
           if orders && orders.count > 0
             
@@ -29,7 +29,7 @@ namespace :eleven do
           
             query = QueryHelper.get_seller_ladder(campaign.id, campaign.campaign_mode)
             
-            Rails.logger.info query
+            # Rails.logger.info query
              
             seller_ladder_result = ActiveRecord::Base.connection.execute(query)
 
