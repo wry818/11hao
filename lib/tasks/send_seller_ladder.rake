@@ -14,7 +14,7 @@ namespace :eleven do
         
         campaigns = Campaign.active.order(:id=>:desc)
         
-        yesterday = Time.now - 1.day
+        yesterday = Time.now - 300.day
         
         campaigns.each do |campaign|
           
