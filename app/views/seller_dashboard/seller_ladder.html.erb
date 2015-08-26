@@ -26,7 +26,7 @@
 		                        <% @seller_ladder_result.each do |seller_ladder| %>
 									<div class="support_content">
 										<p>
-											<%= seller_ladder["rank"] %>
+											<%= seller_ladder["rank"] %>&nbsp;
 								            <% if seller_ladder["picture"].present? %>
 												<%= cl_image_tag seller_ladder["picture"], width: 32, height: 32, crop: :limit %>
 								            <% else %>

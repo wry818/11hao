@@ -61,7 +61,7 @@ namespace :eleven do
                     seller_total_raised = (seller_orders.joins(:items).sum('items.quantity * items.donation_amount') + seller_orders.sum('direct_donation') )/ 100.0
                     # seller_total_raised = QueryHelper.short_price(seller_total_raised)
                     
-                    title = "您今天为" + campaign.title + "筹得募款" + seller_total_raised.to_s + "元！"
+                    title = "您今天为" + campaign.title + "募得筹款" + seller_total_raised.to_s + "元！"
                     
                   else
                     
