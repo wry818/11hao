@@ -41,7 +41,7 @@
 													<% if @seller.campaign.campaign_mode == Campaign::Fundraising %>
 														￥<%= long_price(seller_ladder["sum"].to_f/100.0) %>
 													<% else %>
-														<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %><span class="times"> &times; </span><%= seller_ladder["count"] %>
+														<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %> <span class="times">&times;</span> <%= seller_ladder["count"] %>
 													<% end %>
 													
 												</div>

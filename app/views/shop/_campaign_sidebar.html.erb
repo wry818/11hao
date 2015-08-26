@@ -15,7 +15,7 @@
 				<% if @campaign.campaign_mode == Campaign::Fundraising %>
 					<strong>已筹得：</strong><label>￥<%= short_price(@seller.total_raised) %></label>
 				<% else %>
-					已筹得：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart" %> X <%= @seller.total_orders %>
+					已筹得：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart" %> <span class="times">&times;</span> <%= @seller.total_orders %>
 				<% end %>
 			    
 			<% else %>	  
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<p class="goal" style="margin-top:10px;">
-					爱心目标：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %> X <%= @campaign.seller_compassion_goal %>
+					爱心目标：<%= image_tag 'heart.png', width: 16, height: 16, class: "heart", style: "margin-top: 3px" %> <span class="times">&times;</span> <%= @campaign.seller_compassion_goal %>
 				</p>
 				
 			<% end %>

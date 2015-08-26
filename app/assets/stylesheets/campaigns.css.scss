@@ -372,9 +372,15 @@
                 min-height: 1px!important;
             }
             .call-to-action {
-                padding: 30px 30px 5px 30px;
+                
+				padding: 30px 30px 5px 30px;
                 text-align: center;
                 border-bottom: 0px solid gainsboro;
+				
+	            @media (max-width: 992px) {
+	                padding: 30px 10px 5px 10px;
+	            }
+				
                 .stats {
                     margin-top: 0px;
                     margin-bottom: 30px;
