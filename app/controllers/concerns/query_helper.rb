@@ -15,11 +15,11 @@ class QueryHelper
     end
     
     query = "
-    select ROW_NUMBER() over (order by " + order_column + " desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
+    select rank() over (order by " + order_column + " desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
     (
       select 
 
-    	  sellers.id, sellers.user_profile_id, sum(items.quantity * items.donation_amount + orders.direct_donation), count(1)
+    	  sellers.id, sellers.user_profile_id, sum(COALESCE(items.quantity * items.donation_amount + orders.direct_donation, 0)), count(orders.id)
 
       from sellers 
 
@@ -27,7 +27,7 @@ class QueryHelper
 
       left join items on items.order_id = orders.id
 
-      where sellers.campaign_id = " + campaign_id.to_s + " and orders.status in (1,3)
+      where sellers.campaign_id = " + campaign_id.to_s + " 
 
       group by sellers.id, sellers.user_profile_id
 
