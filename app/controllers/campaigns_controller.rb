@@ -86,6 +86,18 @@ class CampaignsController < ApplicationController
     end
     
     def new
+      
+      @campaign_mode = 1
+      if params[:is_compassion].present?
+        
+        if params[:is_compassion].to_i > 0
+          @campaign_mode = 2
+        else
+          @campaign_mode = 1
+        end
+        
+      end
+      
       if !current_user
         redirect_to campaign_account_path and return
       end
@@ -114,6 +126,7 @@ class CampaignsController < ApplicationController
       @campaign = Campaign.new
       @campaign.description = @example_story_1.story
       @step_popup = session[:camp_step_popup] || "yes"
+      
     end
     
     def get_organizations
@@ -186,7 +199,8 @@ class CampaignsController < ApplicationController
               @campaign.logo = preloaded.identifier
           end
       end
-
+      
+      @campaign.campaign_mode = params[:campaign_mode].to_i
       @campaign.active = !@campaign.collection_id.nil?
       @campaign.save
       
@@ -698,7 +712,7 @@ class CampaignsController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def campaign_params
-        params.require(:campaign).permit :title, :organizer_quote, :goal, :seller_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
+        params.require(:campaign).permit :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
     end
 
     def campaign_delivery_params
