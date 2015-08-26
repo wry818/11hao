@@ -12,7 +12,7 @@ namespace :eleven do
         
         Rails.logger = Logger.new(STDOUT)
         
-        campaigns = Campaign.active.order(:id=>:desc)
+        campaigns = Campaign.order(:id=>:desc)
         
         yesterday = Time.now - 300.day
         
