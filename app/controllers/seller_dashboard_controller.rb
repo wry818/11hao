@@ -109,6 +109,7 @@ class SellerDashboardController < ApplicationController
     def seller_ladder
       
       @seller = Seller.where(referral_code: params[:seller_referral_code]).first
+      @campaign = @seller.campaign
       @current_rank = 0
       
       query = QueryHelper.get_seller_ladder(@seller.campaign_id, @seller.campaign.campaign_mode)
