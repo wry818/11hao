@@ -96,6 +96,7 @@ class ApplicationController < ActionController::Base
           end
                 
           url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
+          logger.info url
           redirect_to url
         
         end
