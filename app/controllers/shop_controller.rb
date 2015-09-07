@@ -758,24 +758,36 @@ class ShopController < ApplicationController
       
       order = Order.find_by_id(params[:order_id])
       
-      if receiveName
-        order.address_fullname = receiveName
-      end
+      if order.needs_shipping
+        
+        if receiveName
+          order.address_fullname = receiveName
+        end
       
-      if addressLine
-        order.address_line_one = addressLine
-      end
+        if addressLine
+          order.address_line_one = addressLine
+        end
       
-      if cityName
-        order.address_city = cityName
-      end
+        if cityName
+          order.address_city = cityName
+        end
       
-      if provinceName
-        order.address_state = provinceName
-      end
+        if provinceName
+          order.address_state = provinceName
+        end
       
-      if zipCode
-        order.address_postal_code = zipCode
+        if zipCode
+          order.address_postal_code = zipCode
+        end
+
+        if phoneNumber
+          order.phone_number = phoneNumber
+        end
+      
+        if cityAreaName
+          order.address_city_area = cityAreaName
+        end
+        
       end
       
       if fullName
@@ -784,14 +796,6 @@ class ShopController < ApplicationController
       
       if avatar_url && avatar_url.length > 0
         order.avatar_url = avatar_url
-      end
-      
-      if phoneNumber
-        order.phone_number = phoneNumber
-      end
-      
-      if cityAreaName
-        order.address_city_area = cityAreaName
       end
       
       if order_make_anonymous
