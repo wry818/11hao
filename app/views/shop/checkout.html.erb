@@ -129,6 +129,7 @@
 
 			  	</div>
 
+				<div style="display: <%= @order.needs_shipping ? 'block' : 'none' %>">
 				  <div id="divAddressInfo">
                   	<% unless @order.donation_only? %>
 									
@@ -225,7 +226,8 @@
                     </div>
 					
 				</div>
-                  
+                
+				</div>  
 				  
                   <h3 class="payment-header">
                     支付方式
@@ -538,11 +540,15 @@ function Validate() {
 	
 	var error = "";
 	
-	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+	if ("<%= @order.needs_shipping %>" == "true") {
+		
+		var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 	
-	if (currentShippingAddress == null) {
-		error += "\n";
-		error += "请点击“常用地址”按钮选择收货地址。";
+		if (currentShippingAddress == null) {
+			error += "\n";
+			error += "请点击“常用地址”按钮选择收货地址。";
+		}
+		
 	}
 	
 	if (error) {

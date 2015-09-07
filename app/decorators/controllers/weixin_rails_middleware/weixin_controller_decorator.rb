@@ -186,9 +186,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       if @keyword.present?
         # 扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送
         # return reply_text_message("扫描带参数二维码事件: 1. 用户未关注时，进行关注后的事件推送, keyword: #{@keyword}")
-        return reply_text_message("感谢您关注11号公益圈！\n现在回复 “#筹款 urgames”即可参加“有的玩”亲子家庭日活动！")
+        return reply_text_message("感谢您关注11号公益圈！")
       end
-      reply_text_message("感谢您关注11号公益圈！\n现在回复 “#筹款 urgames”即可参加“有的玩”亲子家庭日活动！")
+      return reply_text_message("感谢您关注11号公益圈！")
     end
 
     # 取消关注
