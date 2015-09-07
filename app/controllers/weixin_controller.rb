@@ -37,7 +37,7 @@ class WeixinController < ApplicationController
             {
               type: "view",
               name: "威爱有你",
-              url: "http://www.11haoonline.com/1"
+              url: "http://www.11haoonline.com/love-have-you"
             },
             {
               type: "view",
