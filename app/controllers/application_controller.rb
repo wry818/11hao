@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
         
         if params[:code].present?
         
-          # logger.info "cccccccccccc"
+          logger.info "cccccccccccc"
         
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
@@ -69,6 +69,8 @@ class ApplicationController < ActionController::Base
           end
           
           if params[:is_test]
+            
+            logger.info "ddddddddddddd"
             
             url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
             redirect_to url and return
