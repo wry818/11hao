@@ -1291,7 +1291,7 @@ class ShopController < ApplicationController
 
     def load_campaign
       begin
-        @campaign = Campaign.friendly.find(params[:id])
+        @campaign = Campaign.friendly.find(params[:id].downcase)
         
         if !@campaign.active?
           redirect_to root_url and return
