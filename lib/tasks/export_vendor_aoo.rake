@@ -73,12 +73,12 @@ namespace :eleven do
               add_file file_path
             end
           else
-            Mail.deliver do
-              from     'admin@11hao.com'
-              to       vendor.email
-              subject  '11号公益圈订单'
-              body     "无订单"
-            end
+            # Mail.deliver do
+#               from     'admin@11hao.com'
+#               to       vendor.email
+#               subject  '11号公益圈订单'
+#               body     "无订单"
+#             end
           end
         end
       rescue => e

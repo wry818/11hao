@@ -36,8 +36,8 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
-              name: "威爱有你",
-              url: "http://www.11haoonline.com/love-have-you"
+              name: "加油吧 “天使”！",
+              url: "http://www.11haoonline.com/tswd"
             },
             {
               type: "view",
@@ -428,26 +428,49 @@ class WeixinController < ApplicationController
   
   def test_cache
     
-    weixin_user_info = WeixinUserInfo.new
-    weixin_user_info.campaign_slug = "111"
-    weixin_user_info.video_url = "2222"
+    require 'uri'
+    require 'net/http'
+
+    url = URI.encode("http://a.apix.cn/apixlife/express/delivery?id=710093138324&logistics=圆通速递")
+    url2 = URI.parse(url)
+    # puts url
+    # url2 = URI(url)
+
+    http = Net::HTTP.new(url2.host, url2.port)
+
+    request = Net::HTTP::Get.new(url)
+    request["accept"] = 'application/json'
+    request["content-type"] = 'application/json'
+    request["apix-key"] = 'e2fa6ac82e8e496c52e0f798d1aab5cf'
+
+    response = http.request(request)
     
-    puts weixin_user_info.campaign_slug
-    puts weixin_user_info.video_url
+    # URI.encode(response.body)
+#
+#     data = ActiveSupport::JSON.decode(response.body.to_json)
+#     puts data
+    render text: URI.decode(response.body)
     
-    WeixinCache.set("openid_1", weixin_user_info)
-    
-    weixin_user_info2 = WeixinCache.get("openid_1")
-    puts weixin_user_info2.campaign_slug
-    puts weixin_user_info2.video_url
-    
-    weixin_user_info2.campaign_slug = "333"
-    weixin_user_info2.video_url = "444"
-    WeixinCache.set("openid_1", weixin_user_info2)
-    
-    weixin_user_info3 = WeixinCache.get("openid_1")
-    puts weixin_user_info3.campaign_slug
-    puts weixin_user_info3.video_url
+    # weixin_user_info = WeixinUserInfo.new
+#     weixin_user_info.campaign_slug = "111"
+#     weixin_user_info.video_url = "2222"
+#
+#     puts weixin_user_info.campaign_slug
+#     puts weixin_user_info.video_url
+#
+#     WeixinCache.set("openid_1", weixin_user_info)
+#
+#     weixin_user_info2 = WeixinCache.get("openid_1")
+#     puts weixin_user_info2.campaign_slug
+#     puts weixin_user_info2.video_url
+#
+#     weixin_user_info2.campaign_slug = "333"
+#     weixin_user_info2.video_url = "444"
+#     WeixinCache.set("openid_1", weixin_user_info2)
+#
+#     weixin_user_info3 = WeixinCache.get("openid_1")
+#     puts weixin_user_info3.campaign_slug
+#     puts weixin_user_info3.video_url
     
 #
 #     weixin_info3 = WeixinCache.get("openid_2")
