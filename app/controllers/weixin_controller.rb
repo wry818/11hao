@@ -39,11 +39,11 @@ class WeixinController < ApplicationController
               name: "威爱有你",
               url: "http://www.11haoonline.com/love-have-you"
             },
-            {
-              type: "view",
-              name: "加油吧 “天使”！",
-              url: "http://www.11haoonline.com/tswd"
-            },
+            # {
+#               type: "view",
+#               name: "加油吧 “天使”！",
+#               url: "http://www.11haoonline.com/tswd"
+#             },
             {
               type: "view",
               name: "助力无障碍电影院",
