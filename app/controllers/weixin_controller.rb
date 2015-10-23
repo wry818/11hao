@@ -36,6 +36,11 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
+              name: "威爱有你",
+              url: "http://www.11haoonline.com/love-have-you"
+            },
+            {
+              type: "view",
               name: "加油吧 “天使”！",
               url: "http://www.11haoonline.com/tswd"
             },
@@ -44,11 +49,11 @@ class WeixinController < ApplicationController
               name: "助力无障碍电影院",
               url: "http://www.11haoonline.com/0-2"
             },
-            {
-              type: "view",
-              name: "Smile, Change, Unplug",
-              url: "http://www.11haoonline.com/smile-change-unplug"
-            },
+            # {
+            #   type: "view",
+            #   name: "Smile, Change, Unplug",
+            #   url: "http://www.11haoonline.com/smile-change-unplug"
+            # },
             {
               type: "view",
               name: "以物益物",
