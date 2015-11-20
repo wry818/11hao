@@ -372,18 +372,6 @@ function onBridgeReady(){
 		$('#wechat').prop('disabled', false);
 		
 		$('#wechat').click(function(){
-
-		
-			var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
-			alert(currentShippingAddress);
-			alert(currentShippingAddress.ProvinceName);
-			alert(currentShippingAddress.CityName);
-			alert(currentShippingAddress.CityAreaName);
-			alert(currentShippingAddress.AddressLine);
-			alert(currentShippingAddress.ReceiveName);
-			alert(currentShippingAddress.PhoneNumber);
-			alert(currentShippingAddress.ZipCode);
-			if (!Validate()) return;
 		
 			$('#wechat').prop('disabled', true)
 		
@@ -395,7 +383,7 @@ function onBridgeReady(){
 				"signType" : "MD5",         //微信签名方式:
 				"paySign" : "<%= @js_pay_sign %>" //微信签名
 			}, function(res){    
-				alert(1);
+
 				if(res.err_msg == "get_brand_wcpay_request:ok" ) {   
 				
 					ComfirmOrder();
@@ -468,8 +456,6 @@ function SaveAddress(res) {
 }
 
 function ComfirmOrder() {
-	alert(2);
-	var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
 	
 	var order_make_anonymous = false;
 	var fullName = $("#fullname").val();
@@ -486,10 +472,13 @@ function ComfirmOrder() {
 	
 	if (!Validate()) return;
 	
-	alert(3);
-    $.ajax('/ajax/update-order', {
-        type: 'POST',
-        data: {
+	var data;
+	
+	if ("<%= @order.needs_shipping %>" == "true") {
+
+		var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+		
+		data = {
 			order_id: <%= @order.id %>,
 			order_make_anonymous: order_make_anonymous,
 			format_order_time: format_order_time,
@@ -502,7 +491,23 @@ function ComfirmOrder() {
 			receiveName: currentShippingAddress.ReceiveName,
 			phoneNumber: currentShippingAddress.PhoneNumber,
 			zipCode: currentShippingAddress.ZipCode
-		},
+		};
+		
+	} else {
+		
+		data = {
+			order_id: <%= @order.id %>,
+			order_make_anonymous: order_make_anonymous,
+			format_order_time: format_order_time,
+			fullName: fullName,
+			avatar_url: avatar_url
+		};
+		
+	}
+	
+    $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: data,
         beforeSend: function (jqXHR, settings) {
             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
