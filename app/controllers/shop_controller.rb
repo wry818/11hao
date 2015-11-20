@@ -742,11 +742,7 @@ class ShopController < ApplicationController
     
     end
     
-    def ajax_update_order     
-      
-      logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    def ajax_update_order
             
       order_make_anonymous = params[:order_make_anonymous]
       format_order_time = params[:format_order_time]

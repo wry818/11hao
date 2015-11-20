@@ -512,7 +512,6 @@ function ComfirmOrder() {
             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
-			alert(4);
 			window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
