@@ -372,7 +372,17 @@ function onBridgeReady(){
 		$('#wechat').prop('disabled', false);
 		
 		$('#wechat').click(function(){
+
 		
+			var currentShippingAddress = window.Raisy.GetCurrentShippingAddress();
+			alert(currentShippingAddress);
+			alert(currentShippingAddress.ProvinceName);
+			alert(currentShippingAddress.CityName);
+			alert(currentShippingAddress.CityAreaName);
+			alert(currentShippingAddress.AddressLine);
+			alert(currentShippingAddress.ReceiveName);
+			alert(currentShippingAddress.PhoneNumber);
+			alert(currentShippingAddress.ZipCode);
 			if (!Validate()) return;
 		
 			$('#wechat').prop('disabled', true)
