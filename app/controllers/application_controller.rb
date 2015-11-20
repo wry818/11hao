@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
       logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
       logger.info request.env["HTTP_USER_AGENT"]
       logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      
       request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
       # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
       # url = $wechat_client.authorize_url(request.original_url)

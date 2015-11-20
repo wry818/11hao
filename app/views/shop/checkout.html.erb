@@ -281,7 +281,7 @@
 $(document).ready(function() {
 	
 	if (<%= @is_wechat_browser %> == false) {
-		
+		alert(1);
 		$("#divSupporterInfo").show();
 		$("#divAddressInfo").show();
 		$("#divWeiXinAddressInfo").hide();
@@ -295,7 +295,7 @@ $(document).ready(function() {
 		// });
 		
 	} else {
-		
+		alert(2);
 		$("#divSupporterInfo").hide();
 		$("#divAddressInfo").hide();
 		$("#divWeiXinAddressInfo").show();
