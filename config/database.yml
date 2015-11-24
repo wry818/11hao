@@ -2,8 +2,12 @@ development:
   adapter: postgresql
   database: 11hao_dev
   host: localhost
+  username: postgres
+  password: 123456
 
 test:
   adapter: postgresql
   database: 11hao_test
   host: localhost
+  username: postgres
+  password: 123456

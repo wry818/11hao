@@ -605,8 +605,9 @@
                         <div class="form-group">
                           <div class="col-sm-11">
                             <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意11号公益圈<%= link_to "服务协议", "/reg_tos" %></label>
-                          </div>
+                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline; ">阅读并同意11号公益圈
+                              <%= link_to "服务协议", "/reg_tos",{:target=>"_blank"} %></label>
+                        </div>
                         </div>
 
                         <div class="form-group">
