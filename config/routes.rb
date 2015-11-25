@@ -236,5 +236,7 @@ Raisy::Application.routes.draw do
         get 'download' => 'weixin#download_file'
         
     end
-    
+    # make sure this rule is the last one
+    # match '*path' => proc { |env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env) }
+    # get '*unmatched_route', :to => 'application#raise_not_found!'
 end
