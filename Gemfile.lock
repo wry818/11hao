@@ -178,6 +178,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    puma (2.15.3)
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -318,6 +319,7 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
+  puma
   rails (= 4.0.2)
   rqrcode_png
   rspec-rails (~> 2.0)

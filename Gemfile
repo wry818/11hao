@@ -89,5 +89,10 @@ gem 'rqrcode_png'
 
 gem 'whenever', :require => false
 
+gem 'puma'
+
+# gem 'thin', group: :development
+
+
 # gem 'videojs_rails'
 # gem 'paperclip-av-transcoder'
