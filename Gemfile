@@ -91,6 +91,7 @@ gem 'whenever', :require => false
 
 gem 'puma'
 
+gem 'cancan'
 # gem 'thin', group: :development
 
 
