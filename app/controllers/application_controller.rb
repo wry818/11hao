@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
 
     ACCESS_DENIED_CLASSES = [CanCan::AccessDenied]
     if Rails.configuration.error_page_ishow
-      rescue_from *AR_ERROR_CLASSES, :with => :page_not_found
-      rescue_from *ERROR_CLASSES, :with => :page_not_found
-      rescue_from *ACCESS_DENIED_CLASSES, :with => :page_not_found
+      rescue_from *AR_ERROR_CLASSES, :with => :page_error
+      rescue_from *ERROR_CLASSES, :with => :page_error
+      rescue_from *ACCESS_DENIED_CLASSES, :with => :page_error
     end
     # @@my_log = Logger.new("#{Rails.root}/log/mydev.log")
     def page_error
