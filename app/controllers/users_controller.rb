@@ -1170,7 +1170,7 @@ class UsersController < ApplicationController
     def order_list
       
       # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-      
+      # return @orders = Order.all
       if session[:openid]
         
         @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
@@ -1187,7 +1187,7 @@ class UsersController < ApplicationController
       
       # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
       # return @order= Order.find_by_id(params[:order_id])
-
+      # return @order = Order.find_by_id(params[:order_id])
       if session[:openid]
         
         @order = Order.find_by_id(params[:order_id])
@@ -1203,7 +1203,12 @@ class UsersController < ApplicationController
     def campaign_list
       
       # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-      
+
+      # user =User.find(1)
+      # user_profile = user.profile
+      # @sellers = user_profile.sellers
+      # return  @campaigns = Campaign.normal.joins(:organization).where(:id=>[1,2,3], :active=>true).order("title, organizations.name, campaigns.id desc")
+
       if session[:openid]
         
         user = User.find_by uid: session[:openid], provider: "wx"
