@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825065330) do
+ActiveRecord::Schema.define(version: 20151127032053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150825065330) do
     t.boolean  "display_seller_goal",               default: false,  null: false
     t.integer  "campaign_mode"
     t.integer  "seller_compassion_goal"
+    t.boolean  "is_destroy",                        default: false
   end
 
   add_index "campaigns", ["entertainment_group_id"], name: "index_campaigns_on_entertainment_group_id", unique: true, using: :btree

@@ -1,6 +1,8 @@
 class Admin::CampaignsController < Admin::ApplicationController
     def index
         @campaigns = Campaign.order(:id)
+
+        @campaigns = Campaign.isdestroy.order(:id)
     end
 
     def new
@@ -165,7 +167,16 @@ class Admin::CampaignsController < Admin::ApplicationController
          
         redirect_to admin_campaigns_path and return 
     end
-    
+
+    def destroy
+     campaign = Campaign.find(params[:id])
+      # campaign.is_destroy=true;
+      campaign.update(is_destroy:true)
+
+      # render text: @campaign.to_yaml
+      redirect_to admin_campaigns_path, flash: { success: "筹款团队刪除成功" }
+    end
+
     def update
         @campaign = Campaign.friendly.find(params[:id])
         @campaign.assign_attributes campaign_params

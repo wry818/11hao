@@ -20,6 +20,7 @@ class Campaign < ActiveRecord::Base
     scope :ended, -> { where('end_date < ? and active=true', Time.current) }
     scope :normal, -> { where(:campaign_type=>0) }
     scope :storefronts, -> { where(:campaign_type=>2) }
+    scope :isdestroy, -> { where(:is_destroy=>false) }
 
     belongs_to :collection
     belongs_to :organizer, class_name: "User"
