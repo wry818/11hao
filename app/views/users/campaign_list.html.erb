@@ -1,5 +1,5 @@
 <div id="search">
-    <div class="container" style="margin-top: 10px; margin-bottom: 60px">
+    <div class="container" style="margin-top: 0px; margin-bottom: 60px">
         <div class="row">
 			<div class="col-md-12">
 				<% if @campaigns && @campaigns.count>0 %>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	
 	$("nav").remove();
 	$(".navbar-header").remove();
-	$("header").css("min-height", "0px");
+	$("header").css("min-height", "0px").css("height","0px");
 	$(".navbar-brand").addClass("navbar-brand-main");
 	
 	document.title = "我的筹款页面";
