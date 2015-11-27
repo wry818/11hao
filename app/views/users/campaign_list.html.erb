@@ -1,5 +1,5 @@
 <div id="search">
-    <div class="container" style="margin-top: 10px; margin-bottom: 60px">
+    <div class="container" style=" margin-bottom: 60px">
         <div class="row">
 			<div class="col-md-12">
 				<% if @campaigns && @campaigns.count>0 %>
@@ -17,7 +17,7 @@
 										<div class="col-md-4" onclick="window.location.href='<%= short_campaign_path(campaign, seller: seller.referral_code) %>';">
 										
 										<div class="search-result-block" style="border:2px solid #e2e2e2; border-radius: 2px; cursor:pointer; margin-bottom:10px;">
-											<div style="padding:10px; position:relative;">
+											<div style="padding:10px; position:relative;background-color: white;">
 												<div style="text-align:center;">
 					                    			<%= cl_image_tag campaign.campaign_logo.image_id,
 																transformation: [{ 
