@@ -7,6 +7,38 @@ class ApplicationController < ActionController::Base
     before_filter :set_defaults
     after_filter :store_location
 
+
+    # error page set
+    AR_ERROR_CLASSES = [ActiveRecord::RecordNotFound, ActiveRecord::StatementInvalid]
+    ERROR_CLASSES = [NameError, NoMethodError, RuntimeError,
+                     ActionView::TemplateError,
+                     ActiveRecord::StaleObjectError, ActionController::RoutingError,
+                     ActionController::UnknownController, AbstractController::ActionNotFound,
+                     ActionController::MethodNotAllowed, ActionController::InvalidAuthenticityToken]
+
+    ACCESS_DENIED_CLASSES = [CanCan::AccessDenied]
+    if Rails.configuration.error_page_ishow
+      rescue_from *AR_ERROR_CLASSES, :with => :page_error
+      rescue_from *ERROR_CLASSES, :with => :page_error
+      rescue_from *ACCESS_DENIED_CLASSES, :with => :page_error
+    end
+    # @@my_log = Logger.new("#{Rails.root}/log/mydev.log")
+    def page_error
+      respond_to do |format|
+        format.html { render :file => "#{Rails.root}/public/500", :layout => false, :status => :not_found }
+        format.xml  { head :not_found }
+        format.any  { head :not_found }
+      end
+    end
+    def page_not_found
+      respond_to do |format|
+        format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
+        format.xml  { head :not_found }
+        format.any  { head :not_found }
+      end
+    end
+
+
     def store_location
       if !request.fullpath.start_with?("/users/") && !request.fullpath.start_with?("/auth/") && !request.xhr?
         session["user_return_to"]=request.fullpath
@@ -110,6 +142,7 @@ class ApplicationController < ActionController::Base
     end
         
     def set_defaults
+
         @fb = {
             title: 'Raisy',
             description: "Fun, easy online fundraisers for your school, team, charity, or group",

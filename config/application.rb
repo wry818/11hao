@@ -88,7 +88,15 @@ module Raisy
         ENV['WEIXIN_APP_SECRET'] = 'cac0b5aec6aef1884138bb4970d5e54d'
         ENV['WEIXIN_API_KEY'] = '7KcRATv1Ino3mdopKaPGQQ7TtkNySuAm'
         ENV['WEIXIN_MCHID'] = '10019709'
-               
+
+        # show error page set
+        # ENV['ERRORPAGESHOW'] = 'true'
+        config.error_page_ishow=true;
+        # Show full error reports and disable caching
+        #defaults: true for development, false for production
+        # config.action_controller.consider_all_requests_local = false
+
+        config.exceptions_app = self.routes
         # ENV['WEIXIN_APPID'] = 'wxbd2427d5c32cbff6'
         # ENV['WEIXIN_APP_SECRET'] = '5fe619dff86284d07b9e301aca4bd2f3'
                 

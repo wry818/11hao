@@ -1186,7 +1186,8 @@ class UsersController < ApplicationController
     def order_detail
       
       # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-      
+      # return @order= Order.find_by_id(params[:order_id])
+
       if session[:openid]
         
         @order = Order.find_by_id(params[:order_id])

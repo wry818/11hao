@@ -1,3 +1,4 @@
+#encoding: utf-8
 class PagesController < ApplicationController
 
     def index
@@ -5,6 +6,7 @@ class PagesController < ApplicationController
     end
 
     def search
+        # @@my_log.info("开始搜索")
         @register = params[:register] == "true" ? true : false
         @search = params[:search]
         @is_recent = false

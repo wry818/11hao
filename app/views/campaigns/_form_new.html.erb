@@ -1,5 +1,5 @@
 <%= form_for(@campaign, html: {id: "campaign_form", class: 'campaign-form form-horizontal'}) do |f| %>
-	<%= hidden_field_tag :campaign_mode, @campaign_mode %>
+    <%= hidden_field_tag :campaign_mode, @campaign_mode %>
     <%= hidden_field_tag :campaign_logo %>
     <%= hidden_field_tag :logo_crop_x, "0" %>
     <%= hidden_field_tag :logo_crop_y, "0" %>
@@ -9,8 +9,8 @@
     <%= hidden_field_tag :auth_uid, "" %>
     <%= hidden_field_tag :campaign_new_user, "1" %>
     <%= hidden_field_tag :campaign_photo_ids, "" %>
-		<%= hidden_field_tag :campaign_id, @campaign.id.nil? ? 0 : @campaign.id %>
-		
+    <%= hidden_field_tag :campaign_id, @campaign.id.nil? ? 0 : @campaign.id %>
+
     <div id="social_result" style="display:none;"></div>
 
     <% if @collection %>
@@ -34,7 +34,8 @@
     </div>
     <div class="clearfix" style="margin-top:20px;">
       <div id="step_container_1" class="camp-step-container">
-        <div style="text-align:center;"><h3 class="fieldset-header"><span class="number">2</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">2</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
         </h3></div>
         <fieldset>
           <div class="form-group">
@@ -63,7 +64,7 @@
               <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：图书义卖帮云南一所乡村中学的孩子筹集一座乡村图书馆' %>
             </div>
           </div>
-		  
+
           <div class="form-group">
             <label for="campaign_goal" class="col-sm-2 control-label">目标</label>
 
@@ -77,50 +78,51 @@
               </div>
             </div>
           </div>
-		  
-		  <% if @campaign_mode == Campaign::Fundraising %>
-		  	
-            <div class="form-group">
-              <label for="campaign_seller_goal" class="col-sm-2 control-label">个人目标</label>
 
-              <div class="col-sm-8">
-                <div style="width:200px;">
-                  <div class="input-group">
-                    <span class="input-group-addon">￥</span>
-                    <%= f.text_field :seller_goal, class: 'form-control', placeholder: "比如：1000" %>
+          <% if @campaign_mode == Campaign::Fundraising %>
+
+              <div class="form-group">
+                <label for="campaign_seller_goal" class="col-sm-2 control-label">个人目标</label>
+
+                <div class="col-sm-8">
+                  <div style="width:200px;">
+                    <div class="input-group">
+                      <span class="input-group-addon">￥</span>
+                      <%= f.text_field :seller_goal, class: 'form-control', placeholder: "比如：1000" %>
+                    </div>
+                    <label for="campaign_seller_goal" class="error" style="display: none"></label>
                   </div>
-                  <label for="campaign_seller_goal" class="error" style="display: none"></label>
                 </div>
+              </div>
+
+          <% else %>
+
+              <div id="seller_compassion_goal" class="form-group">
+                <label for="campaign_seller_compassion_goal" class="col-sm-2 control-label">个人爱心目标</label>
+
+                <div class="col-sm-8">
+                  <div style="width:200px;">
+                    <div class="input-group">
+                      <%= f.text_field :seller_compassion_goal, class: 'form-control', placeholder: "比如：100" %>
+                    </div>
+                    <label for="campaign_seller_compassion_goal" class="error" style="display: none"></label>
+                  </div>
+                </div>
+
+              </div>
+
+          <% end %>
+
+          <div class="form-group" style="margin-bottom: 10px">
+            <label for="display_seller_goal" class="col-sm-2 control-label" style="padding-top: 0px">显示个人筹款目标</label>
+
+            <div class="col-sm-8">
+              <div style="width:200px;">
+                <%= f.check_box :display_seller_goal, checked: false %>
               </div>
             </div>
-			
-		  <% else %>
-		  	
-  	      <div id="seller_compassion_goal" class="form-group">
-  	          <label for="campaign_seller_compassion_goal" class="col-sm-2 control-label">个人爱心目标</label>
-			  
-              <div class="col-sm-8">
-                <div style="width:200px;">
-  	              <div class="input-group">
-  	                  <%= f.text_field :seller_compassion_goal, class: 'form-control', placeholder: "比如：100" %>
-  	              </div>
-                  <label for="campaign_seller_compassion_goal" class="error" style="display: none"></label>
-                </div>
-              </div>
-			  
-  	      </div>
-			
-		  <% end %>
-		  
-          <div class="form-group" style="margin-bottom: 10px">
-			 <label for="display_seller_goal" class="col-sm-2 control-label" style="padding-top: 0px">显示个人筹款目标</label>
-              <div class="col-sm-8">
-                <div style="width:200px;">
-                  <%= f.check_box :display_seller_goal, checked: false %>
-                </div>
-              </div>
           </div>
-		  
+
           <div class="form-group">
             <label for="campaign_end_date" class="col-sm-2 control-label">销售截止日期</label>
 
@@ -162,7 +164,8 @@
 
       <div id="step_container_2" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
-          <h3 class="fieldset-header"><span class="number">3</span>告诉大家您的筹款故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+          <h3 class="fieldset-header">
+            <span class="number">3</span>告诉大家您的筹款故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <div style="display:none;">
@@ -182,24 +185,40 @@
           <div class="form-group descrption-box">
             <div>
               <%= f.text_area :description, class: "tinymce", style: 'width: 200px;height:200px;' %>
-              <div style="width:100%;margin-top:5px;">
-                <div class="example-story example-story-selected" data-story="example_story_1">
-                  <span><%= @example_story_1.title %></span>
+              <div calss="row" style="margin-top:5px;margin-left: -10px;margin-right: -10px;">
+                <div class="col-sm-5ths">
+                  <div class="example-story example-story-selected" data-story="example_story_1">
+                    <span><%= @example_story_1.title %></span>
+                  </div>
+                  <div style="clear:both;"></div>
                 </div>
-                <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story" data-story="example_story_2">
-                  <span><%= @example_story_2.title %></span>
+                <!--<div class="example-story-blank">&nbsp;</div>-->
+                <div class="col-sm-5ths">
+                  <div class=" example-story" data-story="example_story_2">
+                    <span><%= @example_story_2.title %></span>
+                  </div>
+                  <div style="clear:both;"></div>
                 </div>
-                <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story" data-story="example_story_3">
-                  <span><%= @example_story_3.title %></span>
+                <!--<div class="example-story-blank">&nbsp;</div>-->
+                <div class="col-sm-5ths">
+                  <div class=" example-story" data-story="example_story_3">
+                    <span><%= @example_story_3.title %></span>
+                  </div>
+                  <div style="clear:both;"></div>
                 </div>
-                <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story" data-story="example_story_4">
-                  <span><%= @example_story_4.title %></span>
+                <!--<div class="example-story-blank">&nbsp;</div>-->
+                <div class="col-sm-5ths">
+                  <div class=" example-story" data-story="example_story_4">
+                    <span><%= @example_story_4.title %></span>
+                  </div>
+                  <div style="clear:both;"></div>
                 </div>
-                <div class="example-story-blank">&nbsp;</div>
-                <div class="example-story custom-story">讲述团队的故事</div>
+                <!--<div class="example-story-blank">&nbsp;</div>-->
+                <div class="col-sm-5ths">
+                  <div class=" example-story custom-story">讲述团队的故事</div>
+                  <div style="clear:both;"></div>
+                </div>
+                <div style="clear: both;"></div>
               </div>
             </div>
           </div>
@@ -283,9 +302,9 @@
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
-	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-	              <span class="text">跳过这一步</span> <span class="loader" style="display:none">
-	            </button>
+              <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
+                <span class="text">跳过这一步</span> <span class="loader" style="display:none">
+              </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
@@ -300,9 +319,9 @@
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
-	            <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-	              <span class="text">跳过这一步</span> <span class="loader" style="display:none">
-	            </button>
+              <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
+                <span class="text">跳过这一步</span> <span class="loader" style="display:none">
+              </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
@@ -378,14 +397,14 @@
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
                 <span class="text">继续</span> <span class="loader" style="display:none">
-							</button>
+              </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3">
                 <span class="text">继续</span> <span class="loader" style="display:none">
-							</button>
+              </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="3">
@@ -397,7 +416,8 @@
 
       <div id="step_container_4" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
-          <h3 class="fieldset-header"><span class="number">4</span>您为了谁筹资款项？&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+          <h3 class="fieldset-header">
+            <span class="number">4</span>您为了谁筹资款项？&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <!-- <div class="form-group">
@@ -476,7 +496,8 @@
       <% if !@collection %>
           <div id="step_container_5" class="camp-step-container" style="display:none;">
             <div style="text-align:center;">
-              <h3 class="fieldset-header"><span class="number">5</span>选择您将要义卖的产品&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+              <h3 class="fieldset-header">
+                <span class="number">5</span>选择您将要义卖的产品&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
             </div>
             <fieldset>
               <div class="form-group" style="margin-bottom: -4px">
@@ -605,7 +626,8 @@
                         <div class="form-group">
                           <div class="col-sm-11">
                             <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意11号公益圈<%= link_to "服务协议", "/reg_tos" %></label>
+                            <label for="campaign_terms_conditions" style="font-weight:normal; display:inline; ">阅读并同意11号公益圈
+                              <%= link_to "服务协议", "/reg_tos", {:target => "_blank"} %></label>
                           </div>
                         </div>
 
@@ -616,7 +638,7 @@
                             </button>
                           </div>
                         </div>
-						
+
                         <div id="campaign_social_error" style="display:none;">
                           <div class="alert alert-warning">
                             <div id="campaign_social_message" style="text-align: center;">
@@ -624,7 +646,7 @@
                           </div>
                           <div>&nbsp;</div>
                         </div>
-						
+
                       </div>
 
                       <!-- <div class="col-sm-6">
@@ -872,8 +894,8 @@
     }
 
     $(document).ready(function () {
-		
-		$(".navbar-brand").addClass("navbar-brand-main");
+
+        $(".navbar-brand").addClass("navbar-brand-main");
         $(".user-modal-launch").hide();
 
         window.setTimeout(function () {
@@ -906,8 +928,8 @@
 
                 if (window.Raisy.IsSafari()) {
                     if (event.state) {
-			                	var campaign_id = $("#campaign_id").val();
-			                	if (campaign_id == "0") {
+                        var campaign_id = $("#campaign_id").val();
+                        if (campaign_id == "0") {
                             if (confirm("您还没有创建完成您的筹款页面。 如果您离开这个页面，您之前输入的信息会丢失。 如果您想回到上一步的话，请点击页面上的后退按钮。")) {
                                 if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
                                     <% if @previous_url != nil && @previous_url != "" %>
@@ -928,8 +950,8 @@
                         }
                     }
                 } else {
-	                	var campaign_id = $("#campaign_id").val();
-	                	if (campaign_id == "0") {
+                    var campaign_id = $("#campaign_id").val();
+                    if (campaign_id == "0") {
                         if (confirm("您还没有创建完成您的筹款页面。 如果您离开这个页面，您之前输入的信息会丢失。 如果您想回到上一步的话，请点击页面上的后退按钮。")) {
                             if ($("#step_nav_icon_2").hasClass("step-nav-icon-gray")) {
                                 <% if @previous_url != nil && @previous_url != "" %>

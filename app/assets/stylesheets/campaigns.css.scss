@@ -934,14 +934,14 @@
 		border:1px solid rgb(200,200,200);
 		color:rgb(200,200,200);
 		cursor:pointer;
-		float:left;
+		//float:left;
 		height:50px;
 		line-height:50px;
 		text-align:center;
-		width:18.4%;
-		
+		width:100%;
+
 		span {
-			display:inline-block; 
+			display:inline-block;
 			line-height:1; 
 			vertical-align:middle;
 		}
