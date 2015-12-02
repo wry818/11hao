@@ -1,7 +1,7 @@
 class Admin::UsersController < Admin::ApplicationController
     
     def index
-      @users = User.order(:id)
+      @users = User.isnot_destroy.order(:id)
     end
       
     def new
@@ -42,7 +42,7 @@ class Admin::UsersController < Admin::ApplicationController
               
               image_hash = Cloudinary::Uploader.upload(params[:use_photo], :tags => "custom-user-photo")
 
-              @user_profile.update_attribute(:picture, image_hash["public_id"])
+              @user_profile. (:picture, image_hash["public_id"])
             end
         end
 
@@ -128,6 +128,11 @@ class Admin::UsersController < Admin::ApplicationController
 
     end
 
+    def destroy
+        @user=User.find(params[:id])
+        @user.update(is_destroy:true)
+        redirect_to admin_users_url, flash: { success: "用户已删除" }
+    end
     private
 
     def user_params

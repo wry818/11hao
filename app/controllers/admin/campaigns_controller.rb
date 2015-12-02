@@ -2,13 +2,13 @@ class Admin::CampaignsController < Admin::ApplicationController
     def index
         @campaigns = Campaign.order(:id)
 
-        @campaigns = Campaign.isdestroy.order(:id)
+        @campaigns = Campaign.isnot_destroy.order(:id)
     end
 
     def new
         @campaign = Campaign.new
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @campaign_images = CampaignImage.default_images.order(:id).all
         
         if params[:organization].present?
@@ -28,8 +28,8 @@ class Admin::CampaignsController < Admin::ApplicationController
 
     def edit
         @campaign = Campaign.friendly.find(params[:id])
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @campaign_images = CampaignImage.default_images.order(:id).all
         
         if params[:organization].present?
@@ -45,8 +45,8 @@ class Admin::CampaignsController < Admin::ApplicationController
     
     def create
         @campaign = Campaign.new campaign_params
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all
         
@@ -180,7 +180,7 @@ class Admin::CampaignsController < Admin::ApplicationController
     def update
         @campaign = Campaign.friendly.find(params[:id])
         @campaign.assign_attributes campaign_params
-        @users = User.where(:is_fake=>false).order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @collections = Collection.where("id>0").order(:id)
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all

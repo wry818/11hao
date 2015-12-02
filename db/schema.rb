@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127032053) do
+ActiveRecord::Schema.define(version: 20151202001400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 20151127032053) do
     t.integer  "donation_percentage"
     t.text     "landing_page_html"
     t.integer  "sort_order"
+    t.boolean  "is_destroy",          default: false
   end
 
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree
@@ -481,6 +482,7 @@ ActiveRecord::Schema.define(version: 20151127032053) do
     t.string   "vendor"
     t.decimal  "original_price",             default: 0.0,   null: false
     t.integer  "vendor_id"
+    t.boolean  "is_destroy",                 default: false
   end
 
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
@@ -572,6 +574,7 @@ ActiveRecord::Schema.define(version: 20151127032053) do
     t.string   "last_sign_in_ip"
     t.integer  "account_type"
     t.boolean  "is_fake",                default: false
+    t.boolean  "is_destroy",             default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

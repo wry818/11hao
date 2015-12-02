@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     end
     
     def verify_user
-      user = User.find_by email: URI.unescape(params[:email].downcase)
+      user = User.isnot_destroy.find_by email: URI.unescape(params[:email].downcase)
       
       if user
         is_valid = user.valid_password?(URI.unescape(params[:password]))
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     end
     
     def lookup_user
-      user = User.find_by email: URI.unescape(params[:email])
+      user = User.isnot_destroy.find_by email: URI.unescape(params[:email])
       
       if user
         render json: {user: {email: user.email, uid: user.uid || "", provider: user.provider || "raisy"}}.to_json 

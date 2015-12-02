@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     has_many :contacts
     
     scope :real, -> { where("id>0 and is_fake=false") }
+    scope :isnot_destroy,->{ where(is_destroy: false)}
     
     # All users should have at least one user_profile associated which represents their primary profile
     def profile
