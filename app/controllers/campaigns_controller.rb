@@ -21,7 +21,7 @@ class CampaignsController < ApplicationController
       is_valid_user = false
       
       if is_raisy_user
-        oldUser = User.find_by email: params[:user]['email']
+        oldUser = User.isnot_destroy.find_by email: params[:user]['email']
       else
         oldUser = User.find_by uid: params[:auth_uid], provider: params[:auth_provider]
       end
@@ -111,11 +111,11 @@ class CampaignsController < ApplicationController
       end
       
       if params[:collection]
-          @collection = Collection.find_by_slug(params[:collection])
+          @collection = Collection.isnot_destroy.find_by_slug(params[:collection])
       end
       
       if !@collection
-        @collections = Collection.active.order(:id)
+        @collections = Collection.isnot_destroy.active.order(:id)
       end
       
       @example_story_1 = CampaignStory.find_by_id(1)
@@ -159,9 +159,9 @@ class CampaignsController < ApplicationController
       name = params[:name]
       page = params[:page].to_i
       
-      total = Collection.where("active=true and upper(name) like ?", name.upcase + "%").count
+      total = Collection.isnot_destroy.where("active=true and upper(name) like ?", name.upcase + "%").count
       
-      cols = Collection.where("active=true and upper(name) like ?", name.upcase + "%").limit(10).offset(10*(page-1)).order(:name)
+      cols = Collection.isnot_destroy.where("active=true and upper(name) like ?", name.upcase + "%").limit(10).offset(10*(page-1)).order(:name)
       
       render json: cols_to_json(cols, total)
     end
@@ -305,7 +305,7 @@ class CampaignsController < ApplicationController
       @step_popup = session[:camp_step_popup] || "yes"
       
       if !@collection
-        @collections = Collection.active.order(:id)
+        @collections = Collection.isnot_destroy.active.order(:id)
       end
 
       # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
@@ -396,7 +396,7 @@ class CampaignsController < ApplicationController
         @campaign.assign_attributes campaign_params
         
         @campaign_images = CampaignImage.default_images.order(:id).all
-        @collections = Collection.active.order(:id)
+        @collections = Collection.isnot_destroy.active.order(:id)
         @show_congratulation = false
       
         if session[:congratulate_campaign_id] == @campaign.id && (session[:is_campaign_preview] || "") != "yes" && current_user && current_user.id == @campaign.organizer_id

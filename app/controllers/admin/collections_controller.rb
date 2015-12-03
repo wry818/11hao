@@ -1,11 +1,11 @@
 class Admin::CollectionsController < Admin::ApplicationController
 
     def index
-        @collections = Collection.order(:id)
+        @collections = Collection.isnot_destroy.order(:id)
     end
 
     def show
-        @collection = Collection.friendly.find(params[:id])
+        @collection = Collection.isnot_destroy.friendly.find(params[:id])
     end
 
     def new
@@ -39,11 +39,11 @@ class Admin::CollectionsController < Admin::ApplicationController
     end
 
     def edit
-        @collection = Collection.friendly.find(params[:id])
+        @collection = Collection.isnot_destroy.friendly.find(params[:id])
     end
 
     def update
-        @collection = Collection.friendly.find(params[:id])
+        @collection = Collection.isnot_destroy.friendly.find(params[:id])
         @collection.assign_attributes(collection_params)
 
         # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
@@ -88,8 +88,8 @@ class Admin::CollectionsController < Admin::ApplicationController
           redirect_to admin_collections_url, flash: { 
             danger: "组合正在使用，无法删除" } and return
         end
-        
-        @collection.destroy
+
+        @collection.update(is_destroy:true)
         redirect_to admin_collections_url, flash: { success: "组合已删除" }
     end
 

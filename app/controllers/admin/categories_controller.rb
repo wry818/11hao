@@ -87,7 +87,7 @@ class Admin::CategoriesController < Admin::ApplicationController
     private
 
     def load_collection
-        @collection = Collection.friendly.find(params[:collection_id])
+        @collection = Collection.isnot_destroy.friendly.find(params[:collection_id])
         redirect_to admin_root, flash: { danger: "该组合未找到" } unless @collection
     end
 

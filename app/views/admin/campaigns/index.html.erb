@@ -28,8 +28,11 @@
                                 <td><%= campaign.collection.name if campaign.collection %></td>
                                 <td><%= campaign.organizer.profile.fullname if campaign.organizer %></td>
                                 <td>
-									<%= link_to '编辑', edit_admin_campaign_path(campaign) %>
+									<%= link_to '编辑', edit_admin_campaign_path(campaign)%>
                                 </td>
+                               <td>
+                                <%= link_to '删除', admin_campaign_path(campaign.id),:method => :delete,data:{confirm:'是否确定删除？'}%>
+                              </td>
                             </tr>
                             <% end %>
                         </tbody>

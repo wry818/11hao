@@ -1,7 +1,9 @@
 class Admin::ProductsController < Admin::ApplicationController
 
     def index
-        @products = Product.order(:id)
+      # @products = Product.isnot_destroy.order(:id).all
+      # render @products.to_yaml and  return
+      @products = Product.isnot_destroy.order(:id)
     end
 
     def new
@@ -175,13 +177,13 @@ class Admin::ProductsController < Admin::ApplicationController
             danger: "商品正在使用，无法删除" } and return
         end
         
-        @product.destroy
+        @product.update(is_destroy:true)
         redirect_to admin_products_url, flash: { success: "商品已删除" }
     end
     
     def prod_collections
       @product = Product.find_by_id(params[:id])
-      @collections = Collection.where("id>0").order(:id)
+      @collections = Collection.isnot_destroy.where("id>0").order(:id)
       @categories = Category.order(:id)
       
       render partial: "collections"

@@ -60,7 +60,7 @@
 						
 						<p><b>Items:</b></p>
 						
-						<% products=Product.all
+						<% products=Product.isnot_destroy.all
 							item_names=[]
 							html_entities=HTMLEntities.new
 						
