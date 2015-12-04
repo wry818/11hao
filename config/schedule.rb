@@ -21,7 +21,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
-set :environment, Rails.env.to_sym
+# set :environment, Rails.env.to_sym
 
 # every 2.minutes do
 #   rake "eleven:test"
