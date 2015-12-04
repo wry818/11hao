@@ -21,7 +21,7 @@ class Admin::UsersController < Admin::ApplicationController
         unless @user.save
             message = ''
             @user.errors.each do |key, error|
-                message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+                message = message  + error.to_s + ', '
             end
             flash.now[:danger] = message[0...-2]
             render action: "new" and return
@@ -33,7 +33,7 @@ class Admin::UsersController < Admin::ApplicationController
         unless profile.save
           message = ''
           profile.errors.each do |key, error|
-              message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+              message = message + error.to_s + ', '
           end
           flash.now[:danger] = message[0...-2]
           @user.destroy
@@ -104,7 +104,7 @@ class Admin::UsersController < Admin::ApplicationController
         unless @user.save
             message = ''
             @user.errors.each do |key, error|
-                message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+                message = message  + error.to_s + ', '
             end
             flash.now[:danger] = message[0...-2]
             render action: "edit" and return
