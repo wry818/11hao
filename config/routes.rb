@@ -201,6 +201,7 @@ Raisy::Application.routes.draw do
     
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
     post ':id/confirmation', to: 'shop#checkout_confirmation', as: :checkout_confirmation
+    get ':id/checkout_support', to: 'shop#checkout_support', as: :checkout_support
 
     get ':id/supporters', to: 'shop#supporters', as: :supporters
     get ':id', to: 'shop#show', as: :short_campaign

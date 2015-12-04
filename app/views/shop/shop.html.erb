@@ -7,14 +7,19 @@
 
                 <div class="container-box shop">
 
-                    <%= render 'shop/campaign_header' %>
-                    <%= render 'shop/campaign_nav' %>
+										<% if !@campaign.used_as_default? %>
+											<%= render 'shop/campaign_header' %>
+											<%= render 'shop/campaign_nav' %>
+										<% end %>
 
                     <div class="products-container">
                         <div class="row">
+														<% if !@campaign.used_as_default? %>
                             <div class="col-md-4">
                                 <%= render 'shop/collection_sidebar' %>
                             </div>
+														<% end %>
+                            
                             <div class="col-md-8">
                                 <div class="products">
                                     <div class="row">
@@ -74,6 +79,46 @@
 
                                         <% end %>
 																				
+																			<% else %>
+																			<!-- Show all products without campaign  -->
+																			<div class="col-md-4" style="text-align:center;">
+																				<h4 style="margin-bottom:20px;">所有商品</h4>
+																			</div>
+																			
+                                        <% Product.all.order(:id).each do |product| %>
+                                        <div class="col-md-4">
+                                            <a href="<%= shop_product_path(@campaign, product) %>" class="product-tile">
+                                                <div class="image-container">
+                                                    <%= cl_image_tag product.picture, width: 232, height: 232, crop: :fill, class: 'img-responsive' %>
+                                                </div>
+                                                <p style="text-align: center">
+                                                   <%= truncate(product.name, length: 50) %><br/>
+																									<% price_range=product.price_range(1) %>
+																									<% if price_range[:is_discount] %>
+																										<span style="color:gray; display:inline-block; text-decoration:line-through;">
+																											<% if price_range[:same_price] %>
+																											￥<%= long_price(price_range[:min]) %>
+																										<% else %>
+																											￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+																										<% end %></span><br/>
+																										<span style="color:rgb(210, 16, 16); display:inline-block;">
+																										<% if price_range[:same_discount_price] %>
+																											￥<%= long_price(price_range[:discount_min]) %>
+																										<% else %>
+																											￥<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
+																										<% end %>
+																										</span>
+																									<% else %>
+																										<% if price_range[:same_price] %>
+																											￥<%= long_price(price_range[:min]) %>
+																										<% else %>
+																											￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+																										<% end %>
+																									<% end %>
+                                                </p>
+                                            </a>
+                                        </div>
+                                        <% end %> <!-- end do -->
 																			<% end %>
 
                                     </div> <!-- /.row -->

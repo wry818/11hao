@@ -43,7 +43,7 @@ class ShopController < ApplicationController
 
     def product
         @product = Product.friendly.find(params[:product_id])
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && @product.collections.include?(@campaign.collection)
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
 
         @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
         @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
@@ -262,7 +262,7 @@ class ShopController < ApplicationController
             # adding a new item from the product page
             render text: 'fail' and return unless params[:item][:product_id]
             @product = Product.find_by_id(params[:item][:product_id].to_i)
-            render text: 'fail' and return unless @product && @product.collections.include?(@campaign.collection)
+            render text: 'fail' and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
             
             if params[:item][:options]
                 params[:item][:options].each do |option|
@@ -960,9 +960,26 @@ class ShopController < ApplicationController
     
     end
     
+    def checkout_support
+      if session[:confirm_order_id]
+        @order = Order.find_by_id(session[:confirm_order_id])
+        
+        unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
+          redirect_to root_path and return
+        end
+      else
+        redirect_to root_path and return
+      end
+    end
+    
     def show_confirmation
       if session[:confirm_order_id]
         @order = Order.find_by_id(session[:confirm_order_id])
+        
+        if @order.campaign.used_as_default?
+          @order.campaign_id = @campaign.id
+          @order.save
+        end
         
         unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
           redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
@@ -977,6 +994,11 @@ class ShopController < ApplicationController
     def checkout_confirmation
 
         @order = Order.find_by_id(params[:order_id])
+        
+        if @order.campaign.used_as_default?
+          @order.campaign_id = @campaign.id
+          @order.save
+        end
 
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
           redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
