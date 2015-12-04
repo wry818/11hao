@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     before_filter :set_defaults
     after_filter :store_location
 
+    # my_log = Logger.new("#{RAILS_ROOT}/log/development.log")
+
     def store_location
       if !request.fullpath.start_with?("/users/") && !request.fullpath.start_with?("/auth/") && !request.xhr?
         session["user_return_to"]=request.fullpath

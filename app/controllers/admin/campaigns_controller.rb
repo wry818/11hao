@@ -49,7 +49,9 @@ class Admin::CampaignsController < Admin::ApplicationController
         @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all
-        
+
+        session[:target_organization_id]=@campaign.organizer_id
+
         if session[:target_organization_id]
           @target_organization = Organization.find_by_id(session[:target_organization_id])
           

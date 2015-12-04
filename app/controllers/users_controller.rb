@@ -1221,7 +1221,7 @@ class UsersController < ApplicationController
         
         ids = @sellers.collect(&:campaign_id)
         
-        @campaigns = Campaign.normal.joins(:organization).where(:id=>ids, :active=>true).order("title, organizations.name, campaigns.id desc").page(params[:page]) 
+        @campaigns = Campaign.normal.joins(:organization).where(:id=>ids, :active=>true,:is_destroy=>false).order("title, organizations.name, campaigns.id desc").page(params[:page])
       
       else
       

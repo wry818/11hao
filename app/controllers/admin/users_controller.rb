@@ -28,7 +28,19 @@ class Admin::UsersController < Admin::ApplicationController
         end
 
         userprofile = params[:user_profile]
-        profile = UserProfile.create user: @user, first_name: userprofile['first_name'], last_name: userprofile['last_name'], phone_number: userprofile['phone_number'], display_name: userprofile['display_name'], title: userprofile['title'], child_profile: false
+        profile = UserProfile.new user: @user, first_name: userprofile['first_name'], last_name: userprofile['last_name'], phone_number: userprofile['phone_number'], display_name: userprofile['display_name'], title: userprofile['title'], child_profile: false
+
+        unless profile.save
+          message = ''
+          profile.errors.each do |key, error|
+              message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+          end
+          flash.now[:danger] = message[0...-2]
+          @user.destroy
+          render action: "new" and return
+        end
+
+
 
         if params[:user_profile_picture].present?
             preloaded = Cloudinary::PreloadedFile.new(params[:user_profile_picture])
