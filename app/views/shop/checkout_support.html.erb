@@ -6,20 +6,12 @@
             <div class="col-md-12">
 
                 <div class="container-box checkout">
-
-                    <%= render 'shop/campaign_header' %>
-
+									
                     <div class="checkout-confirmation-container">
 
                         <div class="row checkout-confirmation-box">
                             <div class="col-sm-7">
-                                <h2>支付完成</h2>
-                                <p>感谢您的支持，您本次购买的商品将为<%= @campaign.organization.name %>助力。</p>
-								<p>简单公益，只因有你。</p>
-                                <p>如果您有任何疑问, 请联系11号公益圈。</p>
-                                <p style="margin-top:30px;">
-                                    <%= link_to "返回筹款团队首页", short_campaign_path(@campaign), class: 'btn btn-primary' %>
-                                </p>
+                                <p>感谢您在11号公益圈购物，欢迎再次光临。</p>
                             </div>
 
                             <div class="col-sm-5">
@@ -77,12 +69,42 @@
                                 </div>
                             </div>
                         </div>
+												
+												<div><h4>支持您感兴趣的公益活动</h4></div>
+												
+												<% Campaign.active.real.where("id>0").order(:title).each do |campaign| %>
+												<hr/>
+												<div class="row">
+													<div class="col-xs-5">
+														<div class="image-container">
+								                            <%= cl_image_tag campaign.campaign_logo.image_id,
+																transformation: [{ 
+																		width: campaign.campaign_logo.crop_width,
+																		height: campaign.campaign_logo.crop_height,
+																		x: campaign.campaign_logo.crop_x,
+																		y: campaign.campaign_logo.crop_y,
+																		crop: :crop
+																	}],
+																style: 'width: 100%' if campaign.campaign_logo %>
+									
+									                        <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !campaign.campaign_logo %>
+														</div>
+													</div>
+													<div class="col-xs-7">
+														<div><%= campaign.title %></div>
+														<div style="color:#bbb;"><%= campaign.organizer_quote %></div>
+														<div style="margin-top:10px;">
+															<span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange">我要支持</a></div>
+													</div>
+												</div>
+												<% end %>
 
                     </div><!-- /.checkout-confirmation-container -->
 
                 </div>
             </div>
         </div>
+				
     </div>
 </div>
 
