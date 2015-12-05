@@ -7,7 +7,7 @@ class CreateProductCategory < ActiveRecord::Migration
           t.references :product_category
           t.boolean :is_destroy,:default=>false
           t.timestamps
-      
+
     end
   end
 end
