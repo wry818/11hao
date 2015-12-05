@@ -1,0 +1,55 @@
+<div id="collections" style="padding: 30px 0">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>商品类别</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>名称</th>
+              <th>启用</th>
+              <th>排序编号</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @product_categories.order(:id).each do |product_category| %>
+                <tr>
+                  <td>
+                    <% if product_category.id>0 %>
+                        <%= link_to product_category.name, admin_product_category_path(product_category) %>
+                    <% else %>
+                        <%= product_category.name %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if product_category.active %>
+                        <span class="glyphicon glyphicon-ok"></span>
+                    <% end %>
+                  </td>
+                  <td><%= product_category.sort_mark %></td>
+
+                  <td>
+                    <% if product_category.id>0 %>
+                        <%= link_to '删除', admin_product_category_path(product_category), method: :delete, data: { confirm: '您确定要删除该组合吗?' } %>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <%= link_to '添加商品类别', new_admin_product_category_path, class: 'btn btn-primary' %>
+
+  </div>
+</div>
