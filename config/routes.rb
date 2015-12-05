@@ -25,6 +25,7 @@ Raisy::Application.routes.draw do
         resources :product_categories do
           resources :product_categories
         end
+        
 
         resources :products do
           get '/option_group/edit', to: 'products#edit_option_group', as: :edit_option_group
