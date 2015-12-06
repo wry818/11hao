@@ -1,4 +1,4 @@
-<%= form_for(admin_product_category_product_category_path(@product_category.product_category,@product_category), html: { class: "product_category_form" }) do |f| %>
+<%= form_for([:admin,@product_category.product_category, @product_category], html: { class: "product_category_form" }) do |f| %>
     <fieldset>
       <div class="row">
         <div class="col-md-12">

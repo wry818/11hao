@@ -26,9 +26,11 @@ Raisy::Application.routes.draw do
         resources :product_categories do
           match 'product_categories/new', to: 'product_categories#subclassnew',via:[:get], as: :new_product_category_subclass
           post 'product_categories', to: 'product_categories#subclasscreate', as: :create_product_category_subclass
-          get 'product_categories', to: 'product_categories#show', as: :show_product_category_subclass
-          delete 'product_categories', to: 'product_categories#subclassdestroy', as: :delete_product_category_subclass
-          get 'product_categories/:id/edit', to: 'product_categories#subclassedit', as: :edit_product_category_subclass
+          get 'product_categories', to: 'product_categories#subclassindex', as: :index_product_category_subclass
+          delete 'product_categories/:id', to: 'product_categories#subclassdestroy', as: :delete_product_category_subclass
+          get  'product_categories/:id/edit', to: 'product_categories#subclassedit', as: :edit_product_category_subclass
+          get  'product_categories/:id', to: 'product_categories#subclassshow', as: :show_product_category_subclass
+          match  'product_categories/:id', to: 'product_categories#subclassupdate',via: [:patch,:put], as: :update_product_category_subclass
           resources :product_categories
         end
 

@@ -45,7 +45,7 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     end
 
     if @product_category_subclass.save
-      redirect_to admin_product_category_product_categories_path(@product_category),flash: { success: "子类别已保存" }
+      redirect_to admin_product_category_path(@product_category.product_category),flash: { success: "子类别已保存" }
     else
       render action: :subclassnew
     end
@@ -77,7 +77,25 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
       render action: :new
     end
   end
+  def subclassupdate
+    @product_category=ProductCategory.find(params[:id])
+    @product_category.assign_attributes(product_category_params)
 
+    if !@product_category.valid?
+      message = ''
+      @product_category.errors.each do |key, error|
+        message = message + error.to_s + ', '
+      end
+      flash.now[:danger] = message[0...-2]
+      render action: "new" and return
+    end
+
+    if @product_category.save
+      redirect_to admin_product_category_path(@product_category.product_category),flash: { success: "子类别已修改" }
+    else
+      render action: :subclassnew
+    end
+  end
   def show
     if params.has_key?(:id)
       @product_category=ProductCategory.find(params[:id]) and return
