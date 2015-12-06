@@ -31,7 +31,7 @@
                   </td>
                   <td>
                     <%= link_to '编辑', edit_admin_product_category_product_category_path(@product_category,pc.id) %>
-                    <%= link_to '删除', admin_product_category_product_categories_path(pc), method: :delete, data: { confirm: '您确定要删除该子类吗?' } %>
+                    <%= link_to '删除', admin_product_category_product_category_path(pc.product_category_id,pc), method: :delete, data: { confirm: '您确定要删除该子类吗?' } %>
                   </td>
                   <td>
 

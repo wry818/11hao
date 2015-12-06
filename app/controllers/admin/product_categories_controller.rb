@@ -1,7 +1,7 @@
 class Admin::ProductCategoriesController < Admin::ApplicationController
 
   def index
-    @product_categories=ProductCategory.isnot_destroy
+    @product_categories=ProductCategory.isnot_destroy.order(:sort_mark)
   end
 
   def new
@@ -11,7 +11,7 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
   def subclassnew
     logger.debug("1001subclassnew")
     @product_category = ProductCategory.find(params[:product_category_id])
-
+    @product_category=@product_category.product_categories.new
   end
   def create
     @product_category=ProductCategory.new(product_category_params)
@@ -33,19 +33,19 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
   end
 
   def subclasscreate
-    @product_category = ProductCategory.find(params[:product_category_id])
-    @product_category_subclass=@product_category.product_categories.new(product_category_params)
-    if !@product_category_subclass.valid?
+    product_category = ProductCategory.find(params[:product_category_id])
+    @product_category=product_category.product_categories.new(product_category_params)
+    if !@product_category.valid?
       message = ''
-      @product_category_subclass.errors.each do |key, error|
+      @product_category.errors.each do |key, error|
         message = message + error.to_s + ', '
       end
       flash.now[:danger] = message[0...-2]
       render action: "subclassnew" and return
     end
 
-    if @product_category_subclass.save
-      redirect_to admin_product_category_path(@product_category.product_category),flash: { success: "子类别已保存" }
+    if @product_category.save
+      redirect_to admin_product_category_path(product_category),flash: { success: "子类别已保存" }
     else
       render action: :subclassnew
     end
@@ -68,13 +68,13 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
         message = message + error.to_s + ', '
       end
       flash.now[:danger] = message[0...-2]
-      render action: "new" and return
+      render action: "edit" and return
     end
 
     if @product_category.save
       redirect_to admin_product_categories_path,flash: { success: "商品类别已修改" }
     else
-      render action: :new
+      render action: :edit
     end
   end
   def subclassupdate
@@ -87,7 +87,7 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
         message = message + error.to_s + ', '
       end
       flash.now[:danger] = message[0...-2]
-      render action: "new" and return
+      render action: "subclassnew" and return
     end
 
     if @product_category.save
@@ -119,12 +119,11 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     redirect_to admin_product_categories_path, flash: { success: "商品类别已删除" }
   end
   def subclassdestroy
-    @product_category=ProductCategory.find(params[:product_category_id])
+    @product_category=ProductCategory.find(params[:id])
 
     @product_category.update(is_destroy:true)
 
-    @product_category=@product_category.product_category
-    redirect_to admin_product_category_product_categories_path(@product_category), flash: { success: "子类别已删除" }
+    redirect_to admin_product_category_path(@product_category.product_category), flash: { success: "子类别已删除" }
 
   end
 
