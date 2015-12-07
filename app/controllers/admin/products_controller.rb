@@ -172,10 +172,10 @@ class Admin::ProductsController < Admin::ApplicationController
           redirect_to admin_products_url, flash: { danger: "该商品不存在" } and return
         end
         
-        if @product.items.count>0
-          redirect_to admin_products_url, flash: { 
-            danger: "商品正在使用，无法删除" } and return
-        end
+        # if @product.items.count>0
+        #   redirect_to admin_products_url, flash: {
+        #     danger: "商品正在使用，无法删除" } and return
+        # end
         
         @product.update(is_destroy:true)
         redirect_to admin_products_url, flash: { success: "商品已删除" }
