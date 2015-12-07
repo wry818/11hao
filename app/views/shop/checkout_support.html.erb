@@ -58,7 +58,7 @@
 												
 												<div><strong>支持您感兴趣的公益活动</strong></div>
 												
-												<% Campaign.isnot_destroy.active.real.where("id>0").order(:title).each do |campaign| %>
+												<% Campaign.isnot_destroy.active.real.order(:title).each do |campaign| %>
 												<hr/>
 												<div class="row">
 													<div class="col-xs-5">
