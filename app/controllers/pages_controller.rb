@@ -24,7 +24,7 @@ class PagesController < ApplicationController
         if params[:search].present?
           query = "title ILIKE :search OR organizations.name ILIKE :search 
             OR organizations.entertainment_customer_id ILIKE :search"
-
+            
            @campaigns = Campaign.isnot_destroy.active.real.joins(:organization).where(query, search: "%"+@search+"%").order("title, organizations.name, campaigns.id desc").page(params[:page])
         else
           # If the search is not a part of seller registration, 
