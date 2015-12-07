@@ -38,13 +38,13 @@
 															<% unless @order.donation_only? %>
 															<h3 style="margin-top: 0px">订单明细</h3>
 															
-															<table style="width: 100%">
+															<table style="width:90%">
 																<% @order.items.each do |item| %>
 																<tr style="vertical-align: top;">
 												          <td>
 												            <p style="margin: 10px 0 0 0;">&nbsp;<%= item.quantity %> - <%= item.product.name %></p>
 												          </td>
-																	<td><p style="margin: 10px 0 0 0;">&nbsp;￥<%= long_price(item.total_price/100.0) %></p>
+																	<td style="text-align:right;"><p style="margin: 10px 0 0 0;">&nbsp;￥<%= long_price(item.total_price/100.0) %></p>
 																	</td>
 																</tr>
 																<% end %>
