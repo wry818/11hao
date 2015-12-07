@@ -10,7 +10,9 @@ class Admin::ProductsController < Admin::ApplicationController
 
     def create
         @product = Product.new(product_params)
-        
+        if @product.pro_cat_subclass_id<0
+          @product.product_category_id=nil
+        end
         if params[:product_collection_id].present? && @product.is_featured
             collection = Collection.find_by_id(params[:product_collection_id])
             
@@ -75,7 +77,9 @@ class Admin::ProductsController < Admin::ApplicationController
     def update
         @product = Product.friendly.find(params[:id])
         @product.assign_attributes(product_params)
-        
+        if @product.pro_cat_subclass_id<0
+          @product.product_category_id=nil
+        end
         if params[:product_collection_id].present? && @product.is_featured
             collection = Collection.find_by_id(params[:product_collection_id])
             
@@ -348,13 +352,15 @@ class Admin::ProductsController < Admin::ApplicationController
       render text: "ok"
     end
 
+
+
     private
     # Using a private method to encapsulate the permissible parameters is
     # just a good pattern since you'll be able to reuse the same permit
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def product_params
-        params.require(:product).permit :name, :description, :picture, :base_price, :default_donation_amount, :show_quantity, :is_featured, :fulfillment_method, :sku, :vendor_id, :original_price
+        params.require(:product).permit :name, :description, :picture, :base_price, :default_donation_amount, :show_quantity, :is_featured, :fulfillment_method, :sku, :vendor_id, :original_price,:product_category_id,:pro_cat_subclass_id
     end
     
     def option_group_params

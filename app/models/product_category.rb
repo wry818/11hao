@@ -7,6 +7,8 @@ class ProductCategory< ActiveRecord::Base
     scope :root_product_category,->{where("product_category_id<?",1)}
     scope :isnot_destroy,->{where(:is_destroy => false)}
     scope :is_active,->{where(:active => true)}
+    scope :showall,->{where(:active => true).where(:is_destroy => false)}
+    scope :showroot,->{where(:active => true).where(:is_destroy => false).where('product_category_id<?',1)}
 
     has_many :product_categories,->{where(:is_destroy => false).where('product_category_id>?',0)}
     belongs_to :product_category

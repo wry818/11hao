@@ -1,7 +1,7 @@
 class Admin::ProductCategoriesController < Admin::ApplicationController
 
   def index
-    @product_categories=ProductCategory.isnot_destroy.order(:sort_mark)
+    @product_categories=ProductCategory.root_product_category.isnot_destroy.order(:sort_mark)
   end
 
   def new
@@ -24,7 +24,7 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
       flash.now[:danger] = message[0...-2]
       render action: "new" and return
     end
-
+    @product_category.product_category_id=0
     if @product_category.save
       redirect_to admin_product_categories_path,flash: { success: "商品类别已保存" }
     else
@@ -127,8 +127,15 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
 
   end
 
+  def sublass_ajax_select
+    @product_category=ProductCategory.find(params[:product_category_id]).product_categories
 
+    respond_to do |format|
+      format.html{render :html=>@product_category,:layout => false}
+    end
+  end
 
+  private
   def product_category_params
     params.require(:product_category).permit :name,:sort_mark,:active
   end
