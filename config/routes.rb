@@ -22,7 +22,21 @@ Raisy::Application.routes.draw do
         resources :collections do
             resources :categories
         end
-        
+
+        resources :product_categories do
+          match 'product_categories/new', to: 'product_categories#subclassnew',via:[:get], as: :new_product_category_subclass
+          post 'product_categories', to: 'product_categories#subclasscreate', as: :create_product_category_subclass
+          get 'product_categories', to: 'product_categories#subclassindex', as: :index_product_category_subclass
+          delete 'product_categories/:id', to: 'product_categories#subclassdestroy', as: :delete_product_category_subclass
+          get  'product_categories/:id/edit', to: 'product_categories#subclassedit', as: :edit_product_category_subclass
+          get  'product_categories/:id', to: 'product_categories#subclassshow', as: :show_product_category_subclass
+          match  'product_categories/:id', to: 'product_categories#subclassupdate',via: [:patch,:put], as: :update_product_category_subclass
+
+          get  'product_categories/ajax/select', to: 'product_categories#sublass_ajax_select', as: :show_product_category_subclass_ajax_select
+          resources :product_categories
+        end
+
+
         resources :products do
           get '/option_group/edit', to: 'products#edit_option_group', as: :edit_option_group
           match '/option_group/save' => 'products#save_option_group', via: [:post, :patch], as: :save_option_group

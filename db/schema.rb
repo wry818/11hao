@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204080822) do
+ActiveRecord::Schema.define(version: 20151207012415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -456,6 +456,16 @@ ActiveRecord::Schema.define(version: 20151204080822) do
   add_index "organizations_users", ["organization_id", "user_id"], name: "index_organizations_users_on_organization_id_and_user_id", using: :btree
   add_index "organizations_users", ["user_id", "organization_id"], name: "index_organizations_users_on_user_id_and_organization_id", using: :btree
 
+  create_table "product_categories", force: true do |t|
+    t.string   "name"
+    t.integer  "sort_mark"
+    t.boolean  "active",              default: false, null: false
+    t.integer  "product_category_id"
+    t.boolean  "is_destroy",          default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "product_images", force: true do |t|
     t.integer "product_id"
     t.string  "public_id"
@@ -483,6 +493,8 @@ ActiveRecord::Schema.define(version: 20151204080822) do
     t.decimal  "original_price",             default: 0.0,   null: false
     t.integer  "vendor_id"
     t.boolean  "is_destroy",                 default: false
+    t.integer  "product_category_id"
+    t.integer  "pro_cat_subclass_id"
   end
 
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree

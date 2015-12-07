@@ -1,0 +1,4 @@
+<option value="-1">-- 请选择 --</option>
+<% @product_category.each do |p| %>
+    <option value="<%= p.id %>" ><%= p.name %></option>
+<% end %>

@@ -1,0 +1,50 @@
+<div id="collections">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>商品类别: <%= @product_category.name %></h3>
+      </div>
+    </div>
+    <%= link_to "编辑", edit_admin_product_category_path(@product_category), class: 'btn btn-primary' %>
+
+
+    <h4>子类别</h4>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>名称</th>
+              <th>排序编号</th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @product_category.product_categories.order(:sort_mark).each do |pc| %>
+                <tr>
+                  <td><%= pc.name %></td>
+                  <td>
+                    <%= pc.sort_mark%>
+                  </td>
+                  <td>
+                    <%= link_to '编辑', edit_admin_product_category_product_category_path(@product_category,pc.id) %>
+                    <%= link_to '删除', admin_product_category_product_category_path(pc.product_category_id,pc), method: :delete, data: { confirm: '您确定要删除该子类吗?' } %>
+                  </td>
+                  <td>
+
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <%= link_to '添加子类', new_admin_product_category_product_category_path(@product_category), class: 'btn btn-primary' %>
+
+  </div>
+</div>
