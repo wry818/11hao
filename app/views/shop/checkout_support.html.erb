@@ -80,7 +80,7 @@
 														<div><strong><%= campaign.title %></strong></div>
 														<div style="color:#888;"><%= campaign.organizer_quote %></div>
 														<div style="margin-top:10px;">
-															<span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange" style="margin-top:5px;">我要支持</a></div>
+															<span style="display:inline-block; margin-bottom:5px;"><span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持</span>&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange" style="margin-top:0px;">我要支持</a></div>
 													</div>
 												</div>
 												<% end %>
