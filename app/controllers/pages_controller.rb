@@ -33,7 +33,6 @@ class PagesController < ApplicationController
           if !@register
             @is_recent = true
             @campaigns = Campaign.isnot_destroy.active.real.order(:id=>:desc).page(1)
-            @campaigns = Campaign.isnot_destroy.active.order(:id=>:desc).page(1)
           end
         end
         
