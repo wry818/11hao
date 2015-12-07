@@ -2,7 +2,17 @@
 class PagesController < ApplicationController
 
     def index
-      
+      # user = User.find(1)
+      #
+      # user_profile = user.profile
+      #
+      # @sellers = user_profile.sellers
+      #
+      # ids = @sellers.collect(&:campaign_id)
+      # @campaigns = Campaign.normal.joins(:organization).where(:id=>ids, :active=>true,:is_destroy=>false)
+      #
+      # render @campaigns.to_yaml
+
     end
 
     def search
@@ -14,15 +24,16 @@ class PagesController < ApplicationController
         if params[:search].present?
           query = "title ILIKE :search OR organizations.name ILIKE :search 
             OR organizations.entertainment_customer_id ILIKE :search"
-           
-           @campaigns = Campaign.active.real.joins(:organization).where(query, search: "%"+@search+"%").order("title, organizations.name, campaigns.id desc").page(params[:page])
+            
+           @campaigns = Campaign.isnot_destroy.active.real.joins(:organization).where(query, search: "%"+@search+"%").order("title, organizations.name, campaigns.id desc").page(params[:page])
         else
           # If the search is not a part of seller registration, 
           # display 12 lastest created campaigns by default
           
           if !@register
             @is_recent = true
-            @campaigns = Campaign.active.real.order(:id=>:desc).page(1)
+            @campaigns = Campaign.isnot_destroy.active.real.order(:id=>:desc).page(1)
+            @campaigns = Campaign.isnot_destroy.active.order(:id=>:desc).page(1)
           end
         end
         

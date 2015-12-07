@@ -12,9 +12,8 @@
                         <div class="row checkout-confirmation-box">
                             <div class="col-sm-12">
                                 <p>感谢您在11号公益圈购物，欢迎再次光临。</p>
+																<hr/>
                             </div>
-														
-														<hr/>
 														
                             <div class="col-sm-12">
 															<div style="background-color:rgb(255,250,244); border-top:4px solid transparent; border-bottom:4px solid transparent; margin:10px 0px 15px 0px; -moz-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -webkit-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -o-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; padding:15px 0px;">
@@ -89,7 +88,7 @@
 												
 												<div><h4>支持您感兴趣的公益活动</h4></div>
 												
-												<% Campaign.active.real.where("id>0").order(:title).each do |campaign| %>
+												<% Campaign.isnot_destroy.active.real.where("id>0").order(:title).each do |campaign| %>
 												<hr/>
 												<div class="row">
 													<div class="col-xs-5">

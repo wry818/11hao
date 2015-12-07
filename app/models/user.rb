@@ -1,5 +1,5 @@
+# encoding: utf-8
 class User < ActiveRecord::Base
-
     # ACCOUNT TYPES
     # Possible values for the account_type field:
     # 1 - A seller that is 18+ (controls her own account)
@@ -8,17 +8,28 @@ class User < ActiveRecord::Base
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
-    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
+    devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable
+
+    validates_presence_of :email,message:'邮箱不能为空'
+    validates :email, uniqueness: {scope: :is_destroy,message:'邮箱已注册请重新输入'}
+
+    validates_presence_of :password,message: '密码不能为空'
+    validates_length_of :password, within: 8..20,message:'密码长度必须是8到20'
+    validates_confirmation_of :password,  :message => "两次密码不一致!"
+
+    # validates :email,->{where(is_destroy:false) }
+    # validates :email, uniqueness: {scope: :shop_id}, format: {with: /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/ }, if: :email_changed?
 
     has_many :organization_roles
     #has_many :organizations, -> { distinct }, through: :organization_roles
     has_and_belongs_to_many :organizations
-    has_many :campaigns, foreign_key: 'organizer_id'
+    has_many :campaigns,->{where is_destroy: false}, foreign_key: 'organizer_id'
 
     has_many :user_profiles
     has_many :contacts
     
     scope :real, -> { where("id>0 and is_fake=false") }
+    scope :isnot_destroy,->{ where(is_destroy: false)}
     
     # All users should have at least one user_profile associated which represents their primary profile
     def profile

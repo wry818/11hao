@@ -165,7 +165,7 @@ class ChairpersonDashboardController < ApplicationController
 
     def campaign_details
       @campaign_images = CampaignImage.default_images.order(:id).all
-      @collections = Collection.active.order(:id)
+      @collections = Collection.isnot_destroy.active.order(:id)
       @show_congratulation = false
       
       if session[:congratulate_campaign_id] == @campaign.id && (session[:is_campaign_preview] || "") != "yes" && current_user && current_user.id == @campaign.organizer_id

@@ -1,12 +1,14 @@
 class Admin::CampaignsController < Admin::ApplicationController
     def index
         @campaigns = Campaign.order(:id)
+
+        @campaigns = Campaign.isnot_destroy.order(:id)
     end
 
     def new
         @campaign = Campaign.new
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @campaign_images = CampaignImage.default_images.order(:id).all
         
         if params[:organization].present?
@@ -26,8 +28,8 @@ class Admin::CampaignsController < Admin::ApplicationController
 
     def edit
         @campaign = Campaign.friendly.find(params[:id])
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @campaign_images = CampaignImage.default_images.order(:id).all
         
         if params[:organization].present?
@@ -43,11 +45,13 @@ class Admin::CampaignsController < Admin::ApplicationController
     
     def create
         @campaign = Campaign.new campaign_params
-        @collections = Collection.where("id>0").order(:id)
-        @users = User.where(:is_fake=>false).order(:id)
+        @collections = Collection.isnot_destroy.where("id>0").order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all
-        
+
+        session[:target_organization_id]=@campaign.organizer_id
+
         if session[:target_organization_id]
           @target_organization = Organization.find_by_id(session[:target_organization_id])
           
@@ -165,11 +169,20 @@ class Admin::CampaignsController < Admin::ApplicationController
          
         redirect_to admin_campaigns_path and return 
     end
-    
+
+    def destroy
+     campaign = Campaign.find(params[:id])
+      # campaign.is_destroy=true;
+      campaign.update(is_destroy:true)
+
+      # render text: @campaign.to_yaml
+      redirect_to admin_campaigns_path, flash: { success: "筹款团队刪除成功" }
+    end
+
     def update
         @campaign = Campaign.friendly.find(params[:id])
         @campaign.assign_attributes campaign_params
-        @users = User.where(:is_fake=>false).order(:id)
+        @users = User.isnot_destroy.where(:is_fake=>false).order(:id)
         @collections = Collection.where("id>0").order(:id)
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all

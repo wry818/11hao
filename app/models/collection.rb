@@ -3,9 +3,10 @@ class Collection < ActiveRecord::Base
     friendly_id :name, use: :slugged
 
     scope :active, -> { where(active: true).order(:sort_order) }
+    scope :isnot_destroy,->{where(is_destroy:false)}
 
     has_many :categories, :dependent => :destroy
-    has_and_belongs_to_many :products
+    has_and_belongs_to_many :products,->{where is_destroy: false}
     has_many :campaigns
 
     validates :name, presence: true
