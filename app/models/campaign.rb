@@ -22,6 +22,7 @@ class Campaign < ActiveRecord::Base
     scope :storefronts, -> { where(:campaign_type=>2) }
     scope :isnot_destroy, -> { where(:is_destroy=>false) }
     scope :real, -> { where('campaigns.id>0') }
+    scope :isnot_destroy, -> { where(:is_destroy=>false) }
 
     belongs_to :collection,->{where is_destroy: false}
     belongs_to :organizer, class_name: "User"

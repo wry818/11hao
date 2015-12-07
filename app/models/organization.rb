@@ -12,7 +12,7 @@ class Organization < ActiveRecord::Base
     has_many :organization_roles
     #has_many :users, -> { distinct }, through: :organization_roles
     has_and_belongs_to_many :users
-    has_many :campaigns
+    has_many :campaigns, -> { where(:is_destroy=>false) }
 
     def has_rep?
         self.legal_rep_first_name.present? && self.legal_rep_last_name.present? && self.legal_rep_phone.present?

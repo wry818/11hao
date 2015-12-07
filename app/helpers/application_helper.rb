@@ -10,4 +10,14 @@ module ApplicationHelper
     def long_price(price)
         number_with_precision(price, :precision => 2, :delimiter => ',')
     end
+    
+    def mask_phone_number(num)
+      num = num || ""
+      
+      if num.length>=7
+        num = num[0,3] + "****" + num[-4,4]
+      end
+      
+      num
+    end
 end

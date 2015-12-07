@@ -2,7 +2,17 @@
 class PagesController < ApplicationController
 
     def index
-      
+      # user = User.find(1)
+      #
+      # user_profile = user.profile
+      #
+      # @sellers = user_profile.sellers
+      #
+      # ids = @sellers.collect(&:campaign_id)
+      # @campaigns = Campaign.normal.joins(:organization).where(:id=>ids, :active=>true,:is_destroy=>false)
+      #
+      # render @campaigns.to_yaml
+
     end
 
     def search

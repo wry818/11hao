@@ -10,13 +10,29 @@
                     <div class="checkout-confirmation-container">
 
                         <div class="row checkout-confirmation-box">
-                            <div class="col-sm-7">
+                            <div class="col-sm-12">
                                 <p>感谢您在11号公益圈购物，欢迎再次光临。</p>
+																<hr/>
                             </div>
-
-                            <div class="col-sm-5">
+														
+                            <div class="col-sm-12">
+															<div style="background-color:rgb(255,250,244); border-top:4px solid transparent; border-bottom:4px solid transparent; margin:10px 0px 15px 0px; -moz-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -webkit-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -o-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; padding:15px 0px;">
+																<div>&nbsp;&nbsp;
+																	<span class="glyphicon glyphicon-user" style="color:rgb(191, 17, 26);"></span>&nbsp;
+																	<span><%= @order.address_fullname %>
+																	<span style="display:inline-block; width:60px;">&nbsp;</span>
+																	<span class="glyphicon glyphicon-phone" style="color:rgb(191, 17, 26);"></span>&nbsp;
+																	<span><%= mask_phone_number @order.phone_number %></span>
+																</div>
+																<div style="margin-top:10px; color:#888;">&nbsp;&nbsp;
+																	<span><%= @order.address_city %></span>
+																	<span><%= @order.address_city_area %></span>
+																	<span><%= @order.address_line_one %></span>
+																</div>
+															</div>
+															
                                 <div class="well well-default confirmation_sidebar">
-
+																	
                                     <h3 style="margin-top: 0px">订单明细</h3>
                                     <% unless @order.donation_only? %>
                                     <table style="width: 100%">
@@ -72,7 +88,7 @@
 												
 												<div><h4>支持您感兴趣的公益活动</h4></div>
 												
-												<% Campaign.active.real.where("id>0").order(:title).each do |campaign| %>
+												<% Campaign.isnot_destroy.active.real.where("id>0").order(:title).each do |campaign| %>
 												<hr/>
 												<div class="row">
 													<div class="col-xs-5">
@@ -92,7 +108,7 @@
 													</div>
 													<div class="col-xs-7">
 														<div><%= campaign.title %></div>
-														<div style="color:#bbb;"><%= campaign.organizer_quote %></div>
+														<div style="color:#888;"><%= campaign.organizer_quote %></div>
 														<div style="margin-top:10px;">
 															<span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange">我要支持</a></div>
 													</div>
