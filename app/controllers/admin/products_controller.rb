@@ -10,7 +10,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
     def create
         @product = Product.new(product_params)
-        if @product.pro_cat_subclass_id<0
+        if @product.pro_cat_subclass_id&&@product.pro_cat_subclass_id<0
           @product.product_category_id=nil
         end
         if params[:product_collection_id].present? && @product.is_featured
@@ -77,7 +77,7 @@ class Admin::ProductsController < Admin::ApplicationController
     def update
         @product = Product.friendly.find(params[:id])
         @product.assign_attributes(product_params)
-        if @product.pro_cat_subclass_id<0
+        if @product.pro_cat_subclass_id&&@product.pro_cat_subclass_id<0
           @product.product_category_id=nil
         end
         if params[:product_collection_id].present? && @product.is_featured
