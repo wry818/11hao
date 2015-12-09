@@ -407,5 +407,11 @@ function ajax_load_subclass()
             $('select#pro_cat_subclass_id').append(result);
         });
     }
+    else
+    {
+        var op=$('select#pro_cat_subclass_id').children()[0]
+        $('select#pro_cat_subclass_id').children().remove();
+        $('select#pro_cat_subclass_id').append(op);
+    }
 
 }

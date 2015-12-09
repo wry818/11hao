@@ -128,7 +128,7 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
   end
 
   def sublass_ajax_select
-    @product_category=ProductCategory.find(params[:product_category_id]).product_categories
+    @product_category=ProductCategory.find(params[:product_category_id]).product_categories.is_active
 
     respond_to do |format|
       format.html{render :html=>@product_category,:layout => false}
