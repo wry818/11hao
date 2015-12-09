@@ -1,20 +1,22 @@
 <style>
 .bx-wrapper {
+	border: 0px solid transparent !important;
+	box-shadow: none !important;
 	margin-bottom: 5px !important;
 }
 </style>
 
 <div id="mall_home">
-	<div style="padding:10px 0px; text-align:center; background-color:rgb(210, 16, 16); position:relative;">
+	<div style="padding:10px 0px; text-align:center; background-color:rgb(198, 1, 10); position:relative;">
 		<%= image_tag 'crown-white.png', height: 40 %>
 		
 		<div style="position:absolute; top:12px; right:6px; width:130px; height:30px;">
-			<input style="width:100px; height:30px; color:black; font-size:16px; vertical-align:middle;" />&nbsp;<span class="glyphicon glyphicon-search" style="color:white; font-size:24px; vertical-align:middle;"></span>
+			<input style="width:100px; height:30px; color:black; font-size:16px; vertical-align:middle; border:1px solid #efefef;" />&nbsp;<span class="glyphicon glyphicon-search" style="color:white; font-size:24px; vertical-align:middle;"></span>
 		</div>
 	</div>
 	
 	<div style="text-align:center;">
-		<ul id="bxslider" class="bxslider">
+		<ul id="bxslider" class="bxslider" style="margin:0px auto; display:none;">
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
@@ -25,20 +27,20 @@
 		<table style="width:100%;">
 			<tr>
 				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-gift" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
-					<div style="color:#888; margin-top:5px">购物</div>
+					<span class="glyphicon glyphicon-gift" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">购物</div>
 				</td>
 				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
-					<div style="color:#888; margin-top:5px">推荐</div>
+					<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">推荐</div>
 				</td>
 				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-flash" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
-					<div style="color:#888; margin-top:5px">快购</div>
+					<span class="glyphicon glyphicon-flash" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">快购</div>
 				</td>
 				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-plane" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
-					<div style="color:#888; margin-top:5px">配送</div>
+					<span class="glyphicon glyphicon-plane" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">配送</div>
 				</td>
 			</tr>
 		</table>
@@ -71,9 +73,9 @@
 
 <script>
 $(document).ready(function(){
-  $('.bxslider').bxSlider({
+  $("#bxslider").bxSlider({
   	auto: true,
 		pager: false
-  });
+  }).show();
 });
 </script>
