@@ -61,20 +61,27 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
 
     from_date=Time.parse(from_date).strftime("%Y-%m-%d")
     to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
+
+    logger.debug "1001:"
+    logger.debug campagin_id.to_i
     if campagin_id.to_i<1
       @results=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
                                                                          {start_date:from_date,end_date: to_date}).includes(:campaign).order(:id=>:desc).page(params[:page])
+      @total=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
+                                    {start_date:from_date,
+                                     end_date: to_date}).count
     else
       @results=CampaignVisitLog.where(:campaign_id => campagin_id).where("visited_time >= :start_date AND visited_time < :end_date",
                                                                          {start_date:from_date,end_date: to_date}).includes(:campaign).order(:id=>:desc).page(params[:page])
+      @total=CampaignVisitLog.where(:campaign_id => campagin_id).where("visited_time >= :start_date AND visited_time < :end_date",
+                                    {start_date:from_date,
+                                     end_date: to_date}).count
     end
 
     # logger.debug @results.to_yaml ·
     # ids=@results.collect(&:campaign_id)
     # @campagins=Campaign.all.where(id:ids)
-    @total=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
-                                  {start_date:from_date,
-                                   end_date: to_date}).count
+
 
     render :partial=>"report_content"
   end
