@@ -32,11 +32,12 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     if params[:to_date]
       endate=Time.parse(params[:to_date]).strftime("%Y-%m-%d")
     else
-      endate= Time.now.strftime("%Y-%m-%d") +" 23:59:59"
+      endate= Time.now.strftime("%Y-%m-%d")
     end
 
     @fromdate=fromdate
     @todate=endate
+    endate+=" 23:59:59"
 
 
     @results=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
@@ -63,8 +64,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
 
     logger.debug "1001:"
+    logger.debug campagin_id
     logger.debug campagin_id.to_i
-    if campagin_id.to_i<1
+
+    if campagin_id&&campagin_id.to_i<0
       @results=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
                                                                          {start_date:from_date,end_date: to_date}).includes(:campaign).order(:id=>:desc).page(params[:page])
       @total=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
