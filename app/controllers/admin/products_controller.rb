@@ -13,7 +13,8 @@ class Admin::ProductsController < Admin::ApplicationController
     def create
         @product = Product.new(product_params)
         if @product.pro_cat_subclass_id&&@product.pro_cat_subclass_id<0
-          @product.product_category_id=nil
+          # @product.product_category_id=nil
+          @product.pro_cat_subclass_id=nil
         end
         if params[:product_collection_id].present? && @product.is_featured
             collection = Collection.find_by_id(params[:product_collection_id])
@@ -80,7 +81,8 @@ class Admin::ProductsController < Admin::ApplicationController
         @product = Product.friendly.find(params[:id])
         @product.assign_attributes(product_params)
         if @product.pro_cat_subclass_id&&@product.pro_cat_subclass_id<0
-          @product.product_category_id=nil
+          # @product.product_category_id=nil
+          @product.pro_cat_subclass_id=nil
         end
         if params[:product_collection_id].present? && @product.is_featured
             collection = Collection.find_by_id(params[:product_collection_id])

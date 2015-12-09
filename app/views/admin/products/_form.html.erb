@@ -28,7 +28,7 @@
                 <select class="form-control input-small" id="pro_cat_subclass_id" name="product[pro_cat_subclass_id]">
                   <option value="">-- 请选择 --</option>
                   <%	if f.object.product_category %>
-                    <% f.object.product_category.product_categories.each do |p| %>
+                    <% f.object.product_category.product_categories.is_active.each do |p| %>
                         <option value="<%= p.id %>"  <%= f.object.pro_cat_subclass_id == p.id ? 'selected' : '' %>><%= p.name %></option>
                     <% end %>
                   <% end %>
