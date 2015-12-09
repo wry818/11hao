@@ -97,3 +97,5 @@ gem 'cancan'
 
 # gem 'videojs_rails'
 # gem 'paperclip-av-transcoder'
+
+gem 'bxslider-rails'

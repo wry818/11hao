@@ -49,6 +49,7 @@ GEM
     braintree (2.33.1)
       builder (>= 2.0.0)
     builder (3.1.4)
+    bxslider-rails (4.2.5.1)
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
@@ -314,6 +315,7 @@ DEPENDENCIES
   axlsx_rails
   bootstrap-sass (~> 3.1.0)
   braintree
+  bxslider-rails
   cancan
   cloudinary
   coffee-rails (~> 4.0.0)
@@ -353,6 +355,3 @@ DEPENDENCIES
   weixin_rails_middleware
   whenever
   wx_pay
-
-BUNDLED WITH
-   1.10.6

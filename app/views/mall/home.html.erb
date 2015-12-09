@@ -1,13 +1,25 @@
+<style>
+.bx-wrapper {
+	margin-bottom: 5px !important;
+}
+</style>
+
 <div id="mall_home">
 	<div style="padding:10px 0px; text-align:center; background-color:rgb(210, 16, 16); position:relative;">
 		<%= image_tag 'crown-white.png', height: 40 %>
 		
-		<div style="color:white; font-size:24px; position:absolute; top:12px; right:6px; width:30px; height:30px;">
-			<span class="glyphicon glyphicon-search"></span>
+		<div style="position:absolute; top:12px; right:6px; width:130px; height:30px;">
+			<input style="width:100px; height:30px; color:black; font-size:16px; vertical-align:middle;" />&nbsp;<span class="glyphicon glyphicon-search" style="color:white; font-size:24px; vertical-align:middle;"></span>
 		</div>
 	</div>
 	
-	<div style="text-align:center;"><%= image_tag 'screen.jpg', class: "img-responsive" %></div>
+	<div style="text-align:center;">
+		<ul id="bxslider" class="bxslider">
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		</ul>
+	</div>
 	
 	<div style="padding:10px 0px;">
 		<table style="width:100%;">
@@ -44,15 +56,24 @@
 	
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-6" style="height:100px;">
-				<%= image_tag 'why1.png', class: "img-responsive" %>
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why1.png', style: "max-height:100%; max-width:100%;" %>
 			</div>
-			<div class="col-xs-6" style="height:100px;">
-				<%= image_tag 'why2.png', class: "img-responsive" %>
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why2.png', style: "max-height:100%; max-width:100%;" %>
 			</div>
-			<div class="col-xs-6" style="height:100px;">
-				<%= image_tag 'why3.png', class: "img-responsive" %>
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why3.png', style: "max-height:100%; max-width:100%;" %>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+  $('.bxslider').bxSlider({
+  	auto: true,
+		pager: false
+  });
+});
+</script>
