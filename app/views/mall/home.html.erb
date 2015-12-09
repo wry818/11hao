@@ -1,0 +1,79 @@
+<style>
+.bx-wrapper {
+	margin-bottom: 5px !important;
+}
+</style>
+
+<div id="mall_home">
+	<div style="padding:10px 0px; text-align:center; background-color:rgb(210, 16, 16); position:relative;">
+		<%= image_tag 'crown-white.png', height: 40 %>
+		
+		<div style="position:absolute; top:12px; right:6px; width:130px; height:30px;">
+			<input style="width:100px; height:30px; color:black; font-size:16px; vertical-align:middle;" />&nbsp;<span class="glyphicon glyphicon-search" style="color:white; font-size:24px; vertical-align:middle;"></span>
+		</div>
+	</div>
+	
+	<div style="text-align:center;">
+		<ul id="bxslider" class="bxslider">
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		</ul>
+	</div>
+	
+	<div style="padding:10px 0px;">
+		<table style="width:100%;">
+			<tr>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-gift" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
+					<div style="color:#888; margin-top:5px">购物</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
+					<div style="color:#888; margin-top:5px">推荐</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-flash" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
+					<div style="color:#888; margin-top:5px">快购</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-plane" style="border-radius:32px; color:rgb(210, 16, 16); font-size:20px; border:1px solid rgb(210, 16, 16); padding:10px 10px;"></span>
+					<div style="color:#888; margin-top:5px">配送</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<table style="width:100%;">
+			<tr>
+				<td style="text-align:center; width:33%;"><hr/></td>
+				<td style="text-align:center; width:33%;">热卖新品</td>
+				<td style="text-align:center; width:33%;"><hr/></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why1.png', style: "max-height:100%; max-width:100%;" %>
+			</div>
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why2.png', style: "max-height:100%; max-width:100%;" %>
+			</div>
+			<div class="col-xs-6" style="height:100px; text-align:center;">
+				<%= image_tag 'why3.png', style: "max-height:100%; max-width:100%;" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+  $('.bxslider').bxSlider({
+  	auto: true,
+		pager: false
+  });
+});
+</script>

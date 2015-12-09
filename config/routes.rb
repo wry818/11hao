@@ -86,6 +86,11 @@ Raisy::Application.routes.draw do
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
         end
     end
+    
+    # Mall
+    scope 'mall' do
+      root 'mall#home', as: :mall_home
+    end
 
     resources :collections
     resources :organizations
@@ -269,5 +274,5 @@ Raisy::Application.routes.draw do
     #  get '*path' => proc { |env| Rails.env.development? ? (raise ActionController::RoutingError, %{No route matches "#{env["PATH_INFO"]}"}) : ApplicationController.action(:render_not_found).call(env) }
     # get '*unmatched_route', :to => 'application#raise_not_found!'
 
-     match '*path' => proc { |env| ApplicationController.action(:page_not_found).call(env) },via: [:get]
+    match '*path' => proc { |env| ApplicationController.action(:page_not_found).call(env) },via: [:get]
 end
