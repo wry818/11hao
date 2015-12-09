@@ -1,0 +1,28 @@
+<div style="display:none;">报表内容</div>
+<table class="table">
+  <thead>
+  <th>编号</th>
+  <th>筹款团队</th>
+  <th>终端IP</th>
+  <th>访问时间</th>
+  <th>昵称</th>
+  </thead>
+  <tbody>
+   <%@results.each do |r| %>
+  <tr>
+    <td><%=	 r.id %></td>
+      <td><%=	 r.title %></td>
+      <td><%=	 r.remote_ip %></td>
+      <td><%=	 r.visited_time %></td>
+      <td><%=	 r.nickname %></td>
+  </tr>
+   <%	 end %>
+   <tr>
+     <td></td>
+     <td></td>
+     <td></td>
+     <td>总计:<%=	 @total.total %></td>
+     <td></td>
+   </tr>
+  </tbody>
+</table>
