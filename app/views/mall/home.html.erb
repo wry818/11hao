@@ -104,7 +104,8 @@ var is_search_shown=false;
 $(document).ready(function(){
   $("#bxslider").bxSlider({
   	auto: true,
-		pager: false
+		pager: false,
+		preloadImages: "all"
   }).show();
 	
 	$("#search_button").click(function(){
@@ -123,7 +124,7 @@ $(document).ready(function(){
 		}
 		else {
 			$("#mall_logo").hide();
-			$("#search_text").show().animate({width:150}, function(){$("#search_text").focus();});
+			$("#search_text").show().animate({width:200}, function(){$("#search_text").focus();});
 			
 			is_search_shown=true;
 		}
