@@ -18,7 +18,7 @@
 	</div>
 	
 	<div style="text-align:center;">
-		<ul id="bxslider" style="margin:0px auto; display:none;">
+		<ul id="bxslider" style="margin:0px auto;">
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
@@ -109,8 +109,6 @@ $(document).ready(function(){
 		pager: false,
 		preloadImages: "all"
   });
-	
-	$("#bxslider").show();
 	
 	$("#search_button").click(function(){
 		if (is_search_shown) {
