@@ -19,7 +19,7 @@ module Raisy
         config.assets.paths << Rails.root.join('app', 'assets', 'videos')
         
         # Precompile additional assets
-        config.assets.precompile += %w( .mp4 bx_loader.gif controls.png )
+        config.assets.precompile += %w( .mp4 )
         
         # Init ENV
         ENV['MAILGUN_DOMAIN'] = 'sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
