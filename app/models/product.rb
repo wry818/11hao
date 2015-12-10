@@ -13,6 +13,8 @@ class Product < ActiveRecord::Base
     belongs_to :product_category,->{where(:is_destroy => false)},foreign_key: "product_category_id"
     belongs_to :pro_cat_subclass,->{where(:is_destroy => false)},class_name: "ProductCategory",foreign_key: "pro_cat_subclass_id"
 
+    has_many :product_tagses
+    has_many :tags,through: :product_tagses
 
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     
