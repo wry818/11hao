@@ -44,4 +44,7 @@ Raisy::Application.configure do
 
     # Print deprecation notices to the stderr.
     config.active_support.deprecation = :stderr
+    
+    # show error page set
+    config.error_page_ishow=false
 end

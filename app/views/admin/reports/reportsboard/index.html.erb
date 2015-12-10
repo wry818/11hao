@@ -1,0 +1,28 @@
+<div id="settings" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row"> 
+        	<h3>报表</h3>
+        </div>
+		
+		<div class="row">&nbsp;
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4" style="margin-bottom:20px;">
+				<%= link_to '销售报表', sales_report_path, class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+			<div class="col-md-4" style="margin-bottom:20px;">
+				<%= link_to '分享统计报表',admin_reports_campvisit_log_report_path, class: 'btn btn-primary btn-block btn-lg' %>
+			</div>
+
+		</div>
+		
+		<div class="row">&nbsp;
+		</div>
+		
+		<div>
+			<%= link_to '返回', admin_root_path, class: 'btn btn-primary btn-lg' %>
+		</div>
+	</div>
+</div>

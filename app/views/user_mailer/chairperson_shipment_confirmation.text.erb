@@ -22,7 +22,7 @@ Email Address: <%= ship_info.email_address %>
 <% end %>
 
 Items:
-<% products=Product.all
+<% products=Product.isnot_destroy.all
 	item_names=[]
 
 	@campaign.orders.completed.each do |order|

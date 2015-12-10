@@ -33,3 +33,4 @@
 //= require bootbox
 //= require jquery.dataTables
 //= require dataTables.bootstrap
+//= require bxslider

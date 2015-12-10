@@ -20,8 +20,11 @@ class Campaign < ActiveRecord::Base
     scope :ended, -> { where('end_date < ? and active=true', Time.current) }
     scope :normal, -> { where(:campaign_type=>0) }
     scope :storefronts, -> { where(:campaign_type=>2) }
+    scope :isnot_destroy, -> { where(:is_destroy=>false) }
+    scope :real, -> { where('campaigns.id>0') }
+    scope :isnot_destroy, -> { where(:is_destroy=>false) }
 
-    belongs_to :collection
+    belongs_to :collection,->{where is_destroy: false}
     belongs_to :organizer, class_name: "User"
     belongs_to :organization
 
@@ -141,6 +144,10 @@ class Campaign < ActiveRecord::Base
         # !self.discount.nil? && !self.purchase_limit.nil? && (self.purchase_limit-self.discount_counter>0)
         
         true  # always discount
+    end
+    
+    def used_as_default?
+      self.id == 0
     end
     
     private

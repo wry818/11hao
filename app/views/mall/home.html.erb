@@ -1,0 +1,135 @@
+<style>
+.bx-wrapper {
+	border: 0px solid transparent !important;
+	box-shadow: none !important;
+	margin-bottom: 5px !important;
+}
+</style>
+
+<div id="mall_home">
+	<div style="padding:10px 0px; text-align:center; background-color:rgb(198, 1, 10); position:relative;">
+		<%= image_tag 'crown-white.png', id: "mall_logo", height: 40 %>
+		
+		<span style="display:inline-block; width:1px; height:40px; vertical-align:top;"></span>
+		
+		<div style="position:absolute; top:12px; right:6px; height:40px;">
+			<input id="search_text" style="width:0px; height:30px; color:black; font-size:16px; border:1px solid #efefef; vertical-align:middle; display:none;" />&nbsp;<span id="search_button" class="glyphicon glyphicon-search" style="color:white; font-size:24px; height:30px; vertical-align:middle;"></span>
+		</div>
+	</div>
+	
+	<div style="text-align:center;">
+		<ul id="bxslider" style="margin:0px auto;">
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		</ul>
+	</div>
+	
+	<div style="padding:10px 0px;">
+		<table style="width:100%;">
+			<tr>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-gift" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">购物</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">推荐</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-flash" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">快购</div>
+				</td>
+				<td style="text-align:center; width:25%;">
+					<span class="glyphicon glyphicon-plane" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+					<div style="color:#999; margin-top:5px; font-size:14px;">配送</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<table style="width:100%;">
+			<tr>
+				<td style="text-align:center; width:33%;"><hr/></td>
+				<td style="text-align:center; width:33%;">热卖新品</td>
+				<td style="text-align:center; width:33%;"><hr/></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<% @products.each do |product|%>
+			<div class="col-xs-6">
+				<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
+					<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
+				</div>
+				<div style="font-size:14px; text-align:center;"><%= product.name %></div>
+				
+				<% price_range=product.price_range(1) %>
+				
+				<div style="font-size:14px; text-align:center; margin-top:5px;">
+					<% if price_range[:is_discount] %>
+						<span style="color:gray; display:inline-block; text-decoration:line-through;">
+							<% if price_range[:same_price] %>
+							￥<%= long_price(price_range[:min]) %>
+						<% else %>
+							￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+						<% end %></span><br/>
+						<span style="color:rgb(210, 16, 16); display:inline-block;">
+						<% if price_range[:same_discount_price] %>
+							￥<%= long_price(price_range[:discount_min]) %>
+						<% else %>
+							￥<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
+						<% end %>
+						</span>
+					<% else %>
+						<% if price_range[:same_price] %>
+							￥<%= long_price(price_range[:min]) %>
+						<% else %>
+							￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+						<% end %>
+					<% end %>
+				</div>
+				
+				<div>&nbsp;</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<script>
+var is_search_shown=false;
+
+$(document).ready(function(){
+  $("#bxslider").bxSlider({
+  	auto: true,
+		pager: false,
+		preloadImages: "all"
+  });
+	
+	$("#search_button").click(function(){
+		if (is_search_shown) {
+			var txt=$.trim($("#search_text").val() || "");
+			
+			if (txt=="") {
+				$("#mall_logo").show();
+				$("#search_text").animate({width:0}, function(){$("#search_text").hide();});
+				
+				is_search_shown=false;
+			}
+			else {
+				alert("搜索" + txt);
+			}
+		}
+		else {
+			$("#mall_logo").hide();
+			$("#search_text").show().animate({width:200}, function(){$("#search_text").focus();});
+			
+			is_search_shown=true;
+		}
+	});
+});
+</script>

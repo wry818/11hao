@@ -40,3 +40,4 @@
 //= require dataTables.bootstrap
 //= require jweixin-1.0.0
 //= require jquery.timer
+//= require bxslider

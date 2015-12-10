@@ -3,11 +3,14 @@ class Product < ActiveRecord::Base
     
     friendly_id :name, use: :slugged
 
+    scope :isnot_destroy,->{where(is_destroy:false)}
+
     has_and_belongs_to_many :collections
     has_and_belongs_to_many :categories
     has_many :items
     has_many :option_groups
     has_many :product_images
+    belongs_to :product_category,->{where(:is_destroy => false)},foreign_key: "product_category_id"
 
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     

@@ -19,6 +19,7 @@
                                 <th>头衔/职位</th>
                                 <th>头像</th>
                                 <th>管理员</th>
+                              <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,6 +37,9 @@
                                         <span class="glyphicon glyphicon-ok"></span>
                                     <% end %>
                                 </td>
+                              <td>
+                                   <%= link_to '删除',admin_user_path(user),:method => :delete,data: { confirm: '您确定要删除该用户吗?' } %>
+                              </td>
                             </tr>
                             <% end %>
                         </tbody>
