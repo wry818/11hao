@@ -1,0 +1,105 @@
+<div id="campaign-show">
+    <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+    <div class="container container-background">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="container-box checkout">
+									
+                    <div class="checkout-confirmation-container">
+
+                        <div class="row checkout-confirmation-box">
+                            <div class="col-sm-12">
+															<p><strong>订单号: <%= @order.id.to_s.rjust(8,'0') %></strong></p>
+															<hr/>
+															<p><strong>感谢您在11号公益圈购物，欢迎再次光临。</strong></p>
+															<hr/>
+                            </div>
+														
+                            <div class="col-sm-12">
+															<div style="background-color:rgb(255,250,244); border-top:4px solid transparent; border-bottom:4px solid transparent; margin:10px 0px 20px 0px; -moz-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -webkit-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -o-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; padding:15px 0px;">
+																<div>&nbsp;
+																	<span class="glyphicon glyphicon-user" style="color:rgb(191, 17, 26);"></span>&nbsp;
+																	<span><strong><%= @order.address_fullname %></strong></span>
+																	<span style="display:inline-block; width:20px;">&nbsp;</span>
+																	<span class="glyphicon glyphicon-phone" style="color:rgb(191, 17, 26);"></span>&nbsp;
+																	<span><strong><%= mask_phone_number @order.phone_number %></strong></span>
+																</div>
+																<div style="margin-top:10px; color:#888;">&nbsp;
+																	<span><%= @order.address_city %></span>
+																	<span><%= @order.address_city_area %></span>
+																	<span><%= @order.address_line_one %></span>
+																</div>
+															</div>
+															
+															<hr/>
+															
+															<% unless @order.donation_only? %>
+															<h4 style="color:#888;">订单明细</h4>
+															
+															<table style="width:90%">
+																<% @order.items.each do |item| %>
+																<tr style="vertical-align: top;">
+												          <td>
+												            <p style="margin: 10px 0 0 0;">&nbsp;<strong><%= item.quantity %> - <%= item.product.name %></strong></p>
+												          </td>
+																	<td style="text-align:right;"><p style="margin: 10px 0 0 0;">&nbsp;￥<%= long_price(item.total_price/100.0) %></p>
+																	</td>
+																</tr>
+																<% end %>
+															</table>
+															<% end %>
+															
+                            </div>
+                        </div>
+												
+												<hr/>
+												
+												<div><strong>支持您感兴趣的公益活动</strong></div>
+												
+												<% Campaign.isnot_destroy.active.real.order(:title).each do |campaign| %>
+												<hr/>
+												<div class="row">
+													<div class="col-xs-5">
+														<div class="image-container">
+								                            <%= cl_image_tag campaign.campaign_logo.image_id,
+																transformation: [{ 
+																		width: campaign.campaign_logo.crop_width,
+																		height: campaign.campaign_logo.crop_height,
+																		x: campaign.campaign_logo.crop_x,
+																		y: campaign.campaign_logo.crop_y,
+																		crop: :crop
+																	}],
+																style: 'width: 100%' if campaign.campaign_logo %>
+									
+									                        <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !campaign.campaign_logo %>
+														</div>
+													</div>
+													<div class="col-xs-7">
+														<div><strong><%= campaign.title %></strong></div>
+														<div style="color:#888;"><%= campaign.organizer_quote %></div>
+														<div style="margin-top:10px;">
+															<span style="display:inline-block; margin-bottom:5px;"><span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持</span>&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange" style="margin-top:0px;">我要支持</a></div>
+													</div>
+												</div>
+												<% end %>
+
+                    </div><!-- /.checkout-confirmation-container -->
+
+                </div>
+            </div>
+        </div>
+				
+    </div>
+</div>
+
+<script Language="javascript">
+	
+$(document).ready(function() {
+	
+	$("#footer_cart").hide();
+									
+});
+
+</script>

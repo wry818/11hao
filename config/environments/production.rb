@@ -88,4 +88,7 @@ Raisy::Application.configure do
 
     # Use default logging formatter so that PID and timestamp are not suppressed.
     config.log_formatter = ::Logger::Formatter.new
+    
+    # show error page set
+    config.error_page_ishow=true
 end

@@ -7,8 +7,10 @@
 
         <div class="container-box shop">
 
-          <%= render 'shop/campaign_header' %>
-          <%= render 'shop/campaign_nav' %>
+					<% if !@campaign.used_as_default? %>
+          	<%= render 'shop/campaign_header' %>
+          	<%= render 'shop/campaign_nav' %>
+					<% end %>
 					
           <ol class="breadcrumb" style="padding: 20px; 30px 0px; background: white; margin: 0">
             <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
@@ -137,13 +139,15 @@
                           <% end %>
                         </div>
 												
-			                  <div class="row">
+												<% if !@campaign.used_as_default? %>
+			                  	<div class="row">
 			                    <div class="col-xs-12 col-sm-10 col-md-12">
 														<p style="margin-top: 20px; text-align: center">
 															您的每次购买都将帮助<br/><%= @campaign.organization.name %>
                         		</p>
 													</div>
 												</div>
+												<% end %>
                       </form>
                       <!-- /.product-form -->
                     </div>

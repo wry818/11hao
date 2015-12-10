@@ -1,9 +1,11 @@
+# encoding: utf-8
 class UserProfile < ActiveRecord::Base
 
     belongs_to :user
     has_many :sellers
 
-    validates :first_name, presence: true
+    validates_presence_of :first_name,message:'姓名不能为空'
+    # validates :first_name, presence: true
 
     before_create :set_default_image
 

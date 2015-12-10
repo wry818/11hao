@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
 
     before_filter :set_defaults
     after_filter :store_location
-
-
+    
     # error page set
     AR_ERROR_CLASSES = [ActiveRecord::RecordNotFound, ActiveRecord::StatementInvalid]
     ERROR_CLASSES = [NameError, NoMethodError, RuntimeError,
@@ -37,7 +36,6 @@ class ApplicationController < ActionController::Base
         format.any  { head :not_found }
       end
     end
-
 
     def store_location
       if !request.fullpath.start_with?("/users/") && !request.fullpath.start_with?("/auth/") && !request.xhr?

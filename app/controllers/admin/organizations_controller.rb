@@ -55,7 +55,11 @@ class Admin::OrganizationsController < Admin::ApplicationController
   def destroy
     @organization.deleted=true
     @organization.save
-    
+
+    @organization.campaigns.each do |cap|
+      cap.update(is_destroy:true)
+    end
+
     campaign = Campaign.where(:organization_id=>@organization.id, :campaign_type=>2).first
     
     if campaign
