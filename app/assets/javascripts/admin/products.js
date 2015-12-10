@@ -401,6 +401,13 @@ function ajax_load_subclass()
     var id=$('select#select_product_category_id option:selected').val();
     if(id)
     {
+        if(id=='-1')
+        {
+            var op=$('select#pro_cat_subclass_id').children()[0]
+            $('select#pro_cat_subclass_id').children().remove();
+            $('select#pro_cat_subclass_id').append(op);
+            return;
+        }
         var url='/admin/product_categories/'+id+"/product_categories/ajax/select";
         $.get(url,function(result){
             $('select#pro_cat_subclass_id').children().remove();

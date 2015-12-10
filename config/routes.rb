@@ -36,7 +36,8 @@ Raisy::Application.routes.draw do
           resources :product_categories
         end
 
-
+        get 'products/ajax',to: 'products#show_pager_data', as: :load_products_show_pager_data
+        post 'products/ajax',to: 'products#show_pager_data', as: :products_show_pager_data
         resources :products do
           get '/option_group/edit', to: 'products#edit_option_group', as: :edit_option_group
           match '/option_group/save' => 'products#save_option_group', via: [:post, :patch], as: :save_option_group

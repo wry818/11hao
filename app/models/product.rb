@@ -11,6 +11,8 @@ class Product < ActiveRecord::Base
     has_many :option_groups
     has_many :product_images
     belongs_to :product_category,->{where(:is_destroy => false)},foreign_key: "product_category_id"
+    belongs_to :pro_cat_subclass,->{where(:is_destroy => false)},class_name: "ProductCategory",foreign_key: "pro_cat_subclass_id"
+
 
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     

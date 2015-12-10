@@ -355,3 +355,6 @@ DEPENDENCIES
   weixin_rails_middleware
   whenever
   wx_pay
+
+BUNDLED WITH
+   1.10.6
