@@ -6,7 +6,7 @@
       </div>
       <div class="col-xs-4">
         <select id="all_report_product_selector" class="form-control input-small" style="width:100%;">
-          <option value="">All</option>
+          <option value="-1">All</option>
           <% Campaign.isnot_destroy.each do |c| %>
               <option value="<%= c.id %>"><%= c.title %></option>
           <% end %>
