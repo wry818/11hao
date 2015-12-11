@@ -13,7 +13,7 @@
 		<span style="display:inline-block; width:1px; height:40px; vertical-align:top;"></span>
 		
 		<div style="position:absolute; top:12px; right:6px; height:40px;">
-			<input id="search_text" style="width:0px; height:30px; color:black; font-size:16px; border:1px solid #efefef; vertical-align:middle; display:none;" />&nbsp;<span id="search_button" class="glyphicon glyphicon-search" style="color:white; font-size:24px; height:30px; vertical-align:middle;"></span>
+			<input id="mall_search_text" style="width:0px; height:30px; color:black; font-size:16px; border:1px solid #efefef; vertical-align:middle; display:none;" />&nbsp;<span id="mall_search_button" class="glyphicon glyphicon-search" style="color:white; font-size:24px; height:30px; vertical-align:middle;"></span>
 		</div>
 	</div>
 	
@@ -61,13 +61,16 @@
 	<div class="container">
 		<div class="row">
 			<% @products.each do |product|%>
-			<div class="col-xs-6">
-				<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
-					<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
-				</div>
-				<div style="font-size:14px; text-align:center;"><%= product.name %></div>
+			<div class="col-xs-6" style="padding:0px 5px;">
+				<a href="<%= shop_product_path(@campaign, product) %>">
+					<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
+						<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
+					</div>
+					
+					<div style="font-size:14px; text-align:center;"><%= product.name %></div>
+				</a>
 				
-				<% price_range=product.price_range(1) %>
+				<div><% price_range=product.price_range(1) %></div>
 				
 				<div style="font-size:14px; text-align:center; margin-top:5px;">
 					<% if price_range[:is_discount] %>
@@ -92,7 +95,7 @@
 						<% end %>
 					<% end %>
 				</div>
-				
+					
 				<div>&nbsp;</div>
 			</div>
 			<% end %>
@@ -110,13 +113,13 @@ $(document).ready(function(){
 		preloadImages: "all"
   });
 	
-	$("#search_button").click(function(){
+	$("#mall_search_button").click(function(){
 		if (is_search_shown) {
-			var txt=$.trim($("#search_text").val() || "");
+			var txt=$.trim($("#mall_search_text").val() || "");
 			
 			if (txt=="") {
 				$("#mall_logo").show();
-				$("#search_text").animate({width:0}, function(){$("#search_text").hide();});
+				$("#mall_search_text").animate({width:0}, function(){$("#mall_search_text").hide();});
 				
 				is_search_shown=false;
 			}
@@ -126,7 +129,7 @@ $(document).ready(function(){
 		}
 		else {
 			$("#mall_logo").hide();
-			$("#search_text").show().animate({width:200}, function(){$("#search_text").focus();});
+			$("#mall_search_text").show().animate({width:200}, function(){$("#mall_search_text").focus();});
 			
 			is_search_shown=true;
 		}

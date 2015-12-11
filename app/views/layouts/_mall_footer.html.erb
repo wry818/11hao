@@ -2,20 +2,22 @@
 	<table style="width:100%;">
 		<tr>
 			<td style="text-align:center; width:20%;">
-				<span class="glyphicon glyphicon-home" style="color:#999; font-size:24px; padding:3px 3px;"></span>
-				<div style="color:#999; font-size:12px;">首页</div>
+				<a href="<%= mall_home_path %>">
+					<span class="glyphicon glyphicon-home" style="color:#999; font-size:24px; padding:3px 3px;"></span>
+					<div style="color:#999; font-size:12px;">首页</div>
+				</a>
 			</td>
 			<td style="text-align:center; width:20%;">
 				<span class="glyphicon glyphicon-th-list" style="color:#999; font-size:24px; padding:3px 3px;"></span>
 				<div style="color:#999; font-size:12px;">分类</div>
 			</td>
 			<td style="text-align:center; width:20%;">
-				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;">
+				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;" data-toggle="modal" data-target="#checkout-modal">
 					<span class="glyphicon glyphicon-shopping-cart" style="color:white; font-size:32px;"></span>
-					<div style="position:absolute; top:-10px; right:0px; font-size:16px; font-weight:600; color:rgb(198, 1, 10); height:20px; min-width:20px; line-height:20px; background-color:whitesmoke; border:1px solid #eee; border-radius:20px; padding:0px 3px;">2</div>
+					<div style="position:absolute; top:-10px; right:0px; font-size:16px; font-weight:600; color:rgb(198, 1, 10); height:20px; min-width:20px; line-height:20px; background-color:whitesmoke; border:1px solid #eee; border-radius:20px; padding:0px 3px;"><%= @order.num_items %></div>
 				</div>
 			</td>
-			<td style="text-align:center; width:20%;">
+			<td style="text-align:center; width:20%;" onclick="triggerMallSearch()">
 				<span class="glyphicon glyphicon-search" style="color:#999; font-size:24px; padding:3px 3px;"></span>
 				<div style="color:#999; font-size:12px;">搜索</div>
 			</td>
@@ -26,3 +28,20 @@
 		</tr>
 	</table>
 </div>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+  <%= render 'shop/cart_modal', parent_page: :other %>
+</div>
+
+<script>
+function triggerMallSearch() {
+	$('body').animate({scrollTop:0}, function(){
+		is_search_shown=true;
+		
+		$("#mall_logo").hide();
+		$("#mall_search_text").show().animate({width:200}, function(){$("#mall_search_text").focus();});
+		
+		is_search_shown=true;
+	});
+}
+</script>
