@@ -1,0 +1,55 @@
+<div id="mall_search" style="margin-top:10px;">
+	<div class="container">
+		<% if @products.count==0 %>
+			<div style="color:#999; font-size:20px; margin-top:60px; text-align:center;">
+				<strong>没有找到适合的商品</strong>
+			</div>
+		<% else %>
+			<% @products.each do |product| %>
+			<div class="row">
+				<div class="col-xs-5" style="padding:0px 5px; text-align:center;">
+					<%= cl_image_tag product.picture, width:150, height:150, crop: :fill, style: "max-width:100%;" %>
+				</div>
+				<div class="col-xs-7" style="padding:0px 5px;">
+					<div style="font-size:18px; text-align:center;"><strong><%= product.name %></strong></div>
+				
+	        <p style="color:#999; font-size:14px; text-align:center;"><%= sanitize product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target) if product.description %></p>
+					
+					<% price_range=product.price_range(1) %>
+					
+					<div style="font-size:14px; text-align:center; margin-top:5px;">
+						<p>
+						<% if price_range[:is_discount] %>
+							<span style="color:gray; display:inline-block; text-decoration:line-through;">
+								<% if price_range[:same_price] %>
+								￥<%= long_price(price_range[:min]) %>
+							<% else %>
+								￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+							<% end %></span><br/>
+							<span style="color:rgb(210, 16, 16); display:inline-block;">
+							<% if price_range[:same_discount_price] %>
+								￥<%= long_price(price_range[:discount_min]) %>
+							<% else %>
+								￥<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
+							<% end %>
+							</span>
+						<% else %>
+							<% if price_range[:same_price] %>
+								￥<%= long_price(price_range[:min]) %>
+							<% else %>
+								￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+							<% end %>
+						<% end %>
+						</p>
+					
+						<div>
+							<a href="<%= shop_product_path(@campaign, product) %>" class="btn btn-primary" style="width:50%;"><span class="text">立即购买</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<% end %>
+		<% end %>
+	</div>
+</div>
