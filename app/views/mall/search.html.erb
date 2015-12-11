@@ -12,13 +12,10 @@
 				</div>
 				<div class="col-xs-6" style="padding:0px 5px;">
 					<div style="font-size:18px; text-align:center;"><strong><%= product.name %></strong></div>
-				
-	        <p style="color:#999; font-size:14px; text-align:center;"><%= sanitize product.description, tags: %w(p span strong em u ul ol li a), attributes: %w(id class style href target) if product.description %></p>
 					
 					<% price_range=product.price_range(1) %>
 					
-					<div style="font-size:14px; text-align:center; margin-top:5px;">
-						<p>
+					<div style="font-size:14px; text-align:center; margin-top:20px;">
 						<% if price_range[:is_discount] %>
 							<span style="color:gray; display:inline-block; text-decoration:line-through;">
 								<% if price_range[:same_price] %>
@@ -40,10 +37,9 @@
 								￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
 							<% end %>
 						<% end %>
-						</p>
 					
-						<div>
-							<a href="<%= shop_product_path(@campaign, product) %>" class="btn btn-primary" style="width:50%;"><span class="text">立即购买</span></a>
+						<div style="margin-top:20px; text-align:center;">
+							<a href="<%= shop_product_path(@campaign, product) %>" class="btn btn-primary" style="width:100px;"><span class="text">立即购买</span></a>
 						</div>
 					</div>
 				</div>
