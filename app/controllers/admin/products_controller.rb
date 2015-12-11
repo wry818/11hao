@@ -93,6 +93,7 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def update
+    logger.debug "1001:"+params.inspect
     @product = Product.friendly.find(params[:id])
     @product.assign_attributes(product_params)
     if @product.pro_cat_subclass_id&&@product.pro_cat_subclass_id<0
