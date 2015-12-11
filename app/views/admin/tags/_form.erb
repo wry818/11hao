@@ -1,0 +1,42 @@
+<%= form_for([:admin, @tag]) do |f| %>
+    <fieldset>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="well">
+            <label for="product_category_name" class="control-label">标签名称</label>
+            <%= f.text_field :name, class: 'form-control', placeholder: '标签名称' %>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="checkbox">
+                  <label for="tag_active"><%= f.check_box :active %> 是否启用</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <label for="product_category_sort_mark" class="control-label">推荐等级</label>
+            <div class="rating inline" style="cursor: pointer;">
+              <i title="Cancel this rating!" class="raty-cancel cancel-off-png" data-alt="x"></i>&nbsp;
+              <a><i class="fa fa-star-o"></i> star-o</a>
+              <i data-alt="2" class="star-on-png" title="poor"></i>&nbsp;
+              <i data-alt="3" class="star-on-png" title="regular"></i>&nbsp;
+              <i data-alt="4" class="star-half-png" title="good"></i>&nbsp;
+              <i data-alt="5" class="star-off-png" title="gorgeous"></i>
+              <input name="score" type="hidden" value="3.5">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
+        <span class="text">保存 </span> <span class="loader" style="display:none"></span>
+      </button>
+      <%= link_to "返回", admin_tags_path, class: 'btn btn-primary' %>
+    </fieldset>
+<% end %>

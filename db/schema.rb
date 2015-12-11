@@ -563,7 +563,7 @@ ActiveRecord::Schema.define(version: 20151210094124) do
     t.integer  "use_count"
     t.string   "display"
     t.boolean  "active"
-    t.boolean  "is_destroy"
+    t.boolean  "is_destroy",  default: false
     t.integer  "starmark"
     t.datetime "created_at"
     t.datetime "updated_at"

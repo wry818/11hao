@@ -57,8 +57,8 @@ Raisy::Application.routes.draw do
         resources :settings
         resources :vendors
 
-
-
+        resources :tags
+        post 'tags/ajax',to: 'tags#ajax_pager_data', as: :tags_page_ajax
         
         get 'campaign_stories', to: 'campaigns#stories'
         get 'campaign_story/:id', to: 'campaigns#story'

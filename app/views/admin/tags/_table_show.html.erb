@@ -1,0 +1,35 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>名称</th>
+    <th>是否启用</th>
+    <th>推荐等级</th>
+    <th>使用计数</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tags.each do |t| %>
+      <tr>
+        <td>
+          <%= t.name %>
+        </td>
+        <td>
+          <% if t.active %>
+              <span class="glyphicon glyphicon-ok"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= t.starmark %>
+        </td>
+
+        <td>
+          <% if t.id>0 %>
+              <%= link_to '删除', admin_tag_path(t), method: :delete, data: {confirm: '您确定要删除该标签吗?'} %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div id="page_pager" style="text-align:center;"><%= paginate @products if @products %></div>

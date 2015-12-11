@@ -6,7 +6,7 @@ class CreateTags < ActiveRecord::Migration
       t.integer :use_count
       t.string :display
       t.boolean :active
-      t.boolean :is_destroy
+      t.boolean :is_destroy, default: false
       t.integer :starmark
       t.timestamps
     end

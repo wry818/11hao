@@ -93,7 +93,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.8)
     ffi (1.9.8-x86-mingw32)
-    font-awesome-rails (4.2.0.0)
+    font-awesome-rails (4.5.0.0)
       railties (>= 3.2, < 5.0)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
@@ -321,7 +321,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   dotenv
-  font-awesome-rails
+  font-awesome-rails (~> 4.4)
   friendly_id (~> 5.0.0)
   gibbon
   iso_country_codes
