@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210094124) do
+ActiveRecord::Schema.define(version: 20151211125314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -560,11 +560,11 @@ ActiveRecord::Schema.define(version: 20151210094124) do
   create_table "tags", force: true do |t|
     t.string   "name"
     t.string   "search_help"
-    t.integer  "use_count"
+    t.integer  "use_count",   default: 0
     t.string   "display"
     t.boolean  "active"
     t.boolean  "is_destroy",  default: false
-    t.integer  "starmark"
+    t.integer  "starmark",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

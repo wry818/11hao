@@ -1,0 +1,5 @@
+<div class="tags">
+  <% @tags.each do |t| %>
+ <a href="javascript:void(0);"> <span class="tag" data-id="<%= t.id %>"><%=t.name %></span></a>
+  <% end %>
+</div>

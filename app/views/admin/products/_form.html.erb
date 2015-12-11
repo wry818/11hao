@@ -1,3 +1,108 @@
+<style type="text/css">
+  .tags {
+    display: inline-block;
+    padding: 4px 6px;
+    color: #777777;
+    vertical-align: middle;
+    background-color: #FFF;
+    border: 1px solid #d5d5d5;
+    width: 100%;
+  }
+  .tags:hover {
+    border-color: #b5b5b5;
+  }
+  .tags-hover,
+  .tags-hover:hover {
+    border-color: #f59942;
+    outline: 0;
+  }
+  .tags[class*="span"] {
+    float: none;
+    margin-left: 0;
+  }
+  .tags input[type="text"],
+  .tags input[type="text"]:focus {
+    border: none;
+    display: inline;
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 18px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    width: 100%;
+  }
+  .tags .tag {
+    display: inline-block;
+    position: relative;
+    font-size: 13px;
+    font-weight: normal;
+    vertical-align: baseline;
+    white-space: nowrap;
+    background-color: #91b8d0;
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    padding: 4px 22px 5px 9px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    /**
+    &:nth-child(5n+1) {
+    background-color:#48A2E0;
+    }
+    &:nth-child(5n+2) {
+    background-color:#34C896;
+    }
+    &:nth-child(5n+3) {
+    background-color:#B57BB3;
+    }
+    &:nth-child(5n+4) {
+    background-color:#CC7DA8;
+    }
+    &:nth-child(5n+5) {
+    background-color:#666;
+    }
+  */
+  }
+  .tags .tag:empty {
+    display: none;
+  }
+  .tags .tag-important {
+    background-color: #d15b47;
+  }
+  .tags .tag-warning {
+    background-color: #ffb752;
+  }
+  .tags .tag-success {
+    background-color: #87b87f;
+  }
+  .tags .tag-info {
+    background-color: #6fb3e0;
+  }
+  .tags .tag-inverse {
+    background-color: #555555;
+  }
+  .tags .tag .close {
+    font-size: 15px;
+    line-height: 20px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    color: #FFF;
+    text-shadow: none;
+    float: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    text-align: center;
+  }
+  .tags .tag .close:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+</style>
 <%= form_for([:admin, @product], html: {class: "product_form"}) do |f| %>
     <fieldset>
 
@@ -27,12 +132,53 @@
                 <label for="product[pro_cat_subclass_id]">子类别</label>
                 <select class="form-control input-small" id="pro_cat_subclass_id" name="product[pro_cat_subclass_id]">
                   <option value="">-- 请选择 --</option>
-                  <%	if f.object.product_category %>
-                    <% f.object.product_category.product_categories.is_active.each do |p| %>
-                        <option value="<%= p.id %>"  <%= f.object.pro_cat_subclass_id == p.id ? 'selected' : '' %>><%= p.name %></option>
-                    <% end %>
+                  <% if f.object.product_category %>
+                      <% f.object.product_category.product_categories.is_active.each do |p| %>
+                          <option value="<%= p.id %>"  <%= f.object.pro_cat_subclass_id == p.id ? 'selected' : '' %>><%= p.name %></option>
+                      <% end %>
                   <% end %>
                 </select>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label>商品标签</label>
+                <div class="inline">
+                  <div id="tags_add" class="tags">
+                    <span class="tag">Tag Input Control<button type="button" class="close">×</button></span>
+                    <!--<span class="tag">Programmatically Added<button type="button" class="close">×</button></span>-->
+                    <!--<span class="tag">Texas<button type="button" class="close">×</button></span>-->
+                    <!--<input type="text" name="tags" id="form-field-tags" value="Tag Input Control" placeholder="Enter tags ..." style="display: none;">-->
+                    <!--<input type="text" placeholder="Enter tags ...">-->
+                    <!--<ul class="typeahead dropdown-menu" style="top: 86px; left: 19px; display: none;">-->
+                    <!--<li data-value="Tennessee" class=""><a href="#"><strong>T</strong>ennessee</a></li>-->
+                    <!--<li data-value="Texas" class="active"><a href="#"><strong>T</strong>exas</a></li>-->
+                    <!--<li data-value="Connecticut" class="">-->
+                    <!--<a href="#">Connec<strong>t</strong>icu<strong>t</strong></a></li>-->
+                    <!--<li data-value="Kentucky"><a href="#">Ken<strong>t</strong>ucky</a></li>-->
+                    <!--<li data-value="Massachusetts"><a href="#">Massachuse<strong>t</strong><strong>t</strong>s</a>-->
+                    <!--</li>-->
+                    <!--<li data-value="Minnesota"><a href="#">Minneso<strong>t</strong>a</a></li>-->
+                    <!--<li data-value="Montana"><a href="#">Mon<strong>t</strong>ana</a></li>-->
+                    <!--<li data-value="North Dakota"><a href="#">Nor<strong>t</strong>h Dako<strong>t</strong>a</a></li>-->
+                    <!--</ul>-->
+                    <input type="hidden" id="product_tags" name="product_tags" value="">
+                  </div>
+
+                </div>
+                <div class="input-group">
+                  <input id="tags_name_input" class="form-control"  placeholder="输入标签..." type="text">
+                  <div class="input-group-btn">
+                    <button id="tags_search" type="button" class="btn btn-default">查询</button>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="sarch_tagsdate"></div>
               </div>
             </div>
           </div>
@@ -360,5 +506,26 @@
       </div>
     </div>
 <% end %>
+<script language="javascript" type="text/javascript">
+  $(function(){
+    load_search_tags();
+    $("#tags_search").click(function(){
+      load_search_tags();
+    });
+    function  load_search_tags()
+    {
+      var url='<%= admin_tags_search_ajax_path%>';
+      var tag_name= $("#tags_name_input").val();
 
+      $.post(url,{ tag_name:tag_name }).success(function (data, textStatus, jqXHR) {
+        $("#sarch_tagsdate").html(data);
+
+      }).error(function() {
+        alert("请求已经结束但是可能发生了错误！");
+      }).complete(function() {
+//        $("div.all_report_loader").hide();
+      });
+    }
+  });
+</script>
 
