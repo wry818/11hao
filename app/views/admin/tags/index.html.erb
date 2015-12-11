@@ -24,15 +24,14 @@
 </div>
 <script language="javascript" type="text/javascript">
   $(function () {
-    var pagers = $("div#page_pager .pagination span a");
+
     var ajax_load_url = '<%=admin_tags_page_ajax_path %>';
     var loading = $("div.all_report_loader");
     var data_content = $("#activity_tags_content");
 
     function init_post_data() {
-      var product_category_id = $("#select_product_category_id").val();
-      var pro_cat_subclass_id = $("#pro_cat_subclass_id").val();
-      return {product_category_id: product_category_id, pro_cat_subclass_id: pro_cat_subclass_id}
+      var name = $("#tag_name").val();
+      return {name: name}
     }
     bun_run_click();
     $("#run_report").bind('click', function () {
@@ -40,6 +39,7 @@
     });
     //    替换默认的分页是分页变成异步发送
     function bind_pager_click() {
+      var pagers = $("div#page_pager .pagination span a");
       pagers.each(function () {
         var url = this.href;
         this.href = "javascript:void(0);";

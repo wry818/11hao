@@ -20,11 +20,16 @@
           <% end %>
         </td>
         <td>
-          <%= t.starmark %>
+          <% if t.starmark&&t.starmark>0%>
+              <% (0...t.starmark).each do |s| %>
+                  <i class="fa fa-star-o"></i>&nbsp;
+              <%end%>
+          <%end%>
         </td>
-
+<td></td>
         <td>
           <% if t.id>0 %>
+              <%= link_to '编辑', edit_admin_tag_path(t) %>
               <%= link_to '删除', admin_tag_path(t), method: :delete, data: {confirm: '您确定要删除该标签吗?'} %>
           <% end %>
         </td>
@@ -32,4 +37,4 @@
   <% end %>
   </tbody>
 </table>
-<div id="page_pager" style="text-align:center;"><%= paginate @products if @products %></div>
+<div id="page_pager" style="text-align:center;"><%= paginate @tags if @tags %></div>

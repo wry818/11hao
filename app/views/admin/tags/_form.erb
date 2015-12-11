@@ -19,15 +19,19 @@
           </div>
 
           <div class="well">
-            <label for="product_category_sort_mark" class="control-label">推荐等级</label>
-            <div class="rating inline" style="cursor: pointer;">
-              <i title="Cancel this rating!" class="raty-cancel cancel-off-png" data-alt="x"></i>&nbsp;
-              <a><i class="fa fa-star-o"></i> star-o</a>
-              <i data-alt="2" class="star-on-png" title="poor"></i>&nbsp;
-              <i data-alt="3" class="star-on-png" title="regular"></i>&nbsp;
-              <i data-alt="4" class="star-half-png" title="good"></i>&nbsp;
-              <i data-alt="5" class="star-off-png" title="gorgeous"></i>
-              <input name="score" type="hidden" value="3.5">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_category_sort_mark" class="control-label">推荐等级</label>
+                <div id="stars"  style="cursor: pointer; font-size: 20px; ">
+                  <i class="fa fa-star-o"></i>&nbsp;
+                  <i class="fa fa-star-o"></i>&nbsp;
+                  <i class="fa fa-star-o"></i>&nbsp;
+                  <i class="fa fa-star-o"></i>&nbsp;
+                  <i class="fa fa-star-o"></i>&nbsp;
+                  <%= f.hidden_field(:starmark) %>
+                  <!--<input id="starmark" name="tag[starmark]" type="hidden" value="0">-->
+                </div>
+              </div>
             </div>
           </div>
 
@@ -40,3 +44,37 @@
       <%= link_to "返回", admin_tags_path, class: 'btn btn-primary' %>
     </fieldset>
 <% end %>
+<script language="javascript" type="text/javascript">
+  $(function () {
+    bing_star_mark();
+    $("#stars i").mousemove(function () {
+      var value=$("#tag_starmark").val();
+      $(this).prevAll().removeClass().addClass("fa fa-star");
+      $(this).removeClass().addClass("fa fa-star");
+      $(this).nextAll("i").removeClass().addClass("fa fa-star-o");
+
+        $(this).click(function () {
+          $(this).prevAll().removeClass().addClass("fa fa-star");
+          $(this).removeClass().addClass("fa fa-star");
+          $(this).nextAll("i").removeClass().addClass("fa fa-star-o");
+          $("#tag_starmark").val($(this).prevAll().length + 1)
+        });
+
+    }).mouseout(function () {
+      bing_star_mark();
+    });
+    function bing_star_mark()
+    {
+      var value=$("#tag_starmark").val();
+//      alert(value);
+      var is= $("#stars i");
+      for(var i=0;i<5;i++)
+      {
+        $(is[i]).removeClass().addClass("fa fa-star-o");
+        if (i<parseInt(value)) {
+          $(is[i]).removeClass().addClass("fa fa-star");
+        }
+      }
+    }
+  });
+</script>
