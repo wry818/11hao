@@ -82,23 +82,28 @@
 
 <script>
 $(document).ready(function(){
-	window.setInterval(setCategoryMenuPos, 5000);
+	try {
+		window.setInterval(setCategoryMenuPos, 5000);
 	
-	setCategoryMenuPos();
+		setCategoryMenuPos();
 	
-	$(".parent-category-menu").click(function(e) {
-		var _left=$(this).width() + 10;
-		var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
+		$(".parent-category-menu").click(function(e) {
+			var _left=$(this).width() + 10;
+			var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
 		
-		_bottom=0;
+			_bottom=0;
 		
-	  e.preventDefault();
-	  e.stopPropagation();
-	  $('.parent-category-menu').parent().removeClass('open');
-	  $(this).parent().addClass('open');
+		  e.preventDefault();
+		  e.stopPropagation();
+		  $('.parent-category-menu').parent().removeClass('open');
+		  $(this).parent().addClass('open');
 		
-		$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
-	});
+			$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
+		});
+	}
+	catch(err) {
+		alert(err.message);
+	}
 });
 
 function setCategoryMenuPos() {
