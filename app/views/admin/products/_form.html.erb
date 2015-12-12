@@ -160,7 +160,12 @@
                 <label>商品标签</label>
 
                 <div class="inline">
+
                   <div id="tags_add" class="tags">
+                    <%  @product.tags.each do |tag| %>
+                        <span class="tag"><%= tag.name %><button type="button" class="close">×</button></span>
+                        <input class="product_tag_id" type="hidden" value="<%=tag.id%>">
+                    <% end %>
                     <!--<span class="tag">Tag Input Control<button type="button" class="close">×</button></span>-->
                     <!--<span class="tag">Programmatically Added<button type="button" class="close">×</button></span>-->
                     <!--<span class="tag">Texas<button type="button" class="close">×</button></span>-->
@@ -178,7 +183,7 @@
                     <!--<li data-value="Montana"><a href="#">Mon<strong>t</strong>ana</a></li>-->
                     <!--<li data-value="North Dakota"><a href="#">Nor<strong>t</strong>h Dako<strong>t</strong>a</a></li>-->
                     <!--</ul>-->
-                    <!--<input type="hidden" id="product_tags" name="product_tags" value="">-->
+                    <input type="hidden" id="product_tags" name="product_tags" value="">
                   </div>
 
                 </div>
@@ -523,7 +528,9 @@
 <% end %>
 <script language="javascript" type="text/javascript">
   $(function () {
+
     load_search_tags();
+
     $("#tags_search").click(function () {
       load_search_tags();
     });
@@ -534,6 +541,8 @@
       $.post(url, {tag_name: tag_name}).success(function (data, textStatus, jqXHR) {
         $("#sarch_tagsdate").html(data);
         bind_click_add();
+        bind_click_remove();
+        refresh_tags_status();
       }).error(function () {
         alert("请求已经结束但是可能发生了错误！");
       }).complete(function () {
@@ -548,8 +557,9 @@
     }
     function  on_click_fun(a)
     {
+
       $("#tags_add").append("<span class=\'tag\'>" + $(a).find("span").text() + "<button type=\'button\' class=\'close\'>×</button></span>");
-      $("#tags_add").append("<input type=\"hidden\" name=\"product_tags\" value=\"" + $(a).attr("data-id") + "\">");
+      $("#tags_add").append("<input type=\"hidden\" class=\"product_tag_id\" value=\"" + $(a).attr("data-id") + "\">");
 
       bind_click_remove();
       refresh_tags_status();
@@ -557,37 +567,53 @@
 
     function bind_click_remove() {
       $("#tags_add button.close").click(function () {
+        check_has_bind_add($(this).parent("span.tag").next("input").val());
+
         $(this).parent("span.tag").next("input").remove();
         $(this).parent("span.tag").remove();
-        refresh_tags_status();
+
       });
     }
 
     function refresh_tags_status() {
-      var as = $("#sarch_tagsdate a").each(function () {
-//        alert(check_has($(this).attr("data-id")));
-        if (check_has($(this).attr("data-id"))) {
-          $(this).unbind("click");
-          $(this).find("span").css('background-color', 'silver');
-        }else {
-          $(this).find("span").css('background-color', '#91b8d0');
-          $(this).unbind("click").bind("click", function(){
-            on_click_fun(this);
-          });
-        }
+      var values_all="";
+      var as = $("#tags_add input.product_tag_id").each(function () {
+//        alert($(this).val());
+        check_has_unbind_add($(this).val());
+        values_all+=","+$(this).val();
       });
+      if(values_all.length>0)
+      {
+        values_all= values_all.slice(1);
+      }
+      $("#product_tags").val(values_all);
 
     }
 
-    function check_has(tag_id) {
+    function check_has_unbind_add(tag_id) {
       var flag = false;
-      var tags = $("#tags_add input").each (function () {
-        if ($(this).val() == tag_id) {
-//          alert($(this).val()+""+tag_id);
+       $("#sarch_tagsdate a").each (function () {
+        if ($(this).attr("data-id") == tag_id) {
+//         alert($(this).attr("data-id")+":"+tag_id);
+          $(this).unbind("click");
+          $(this).find("span").css('background-color', 'silver');
           flag = true;
         }
       });
       return flag;
+    }
+    function check_has_bind_add(tag_id) {
+       $("#sarch_tagsdate a").each (function () {
+        if ($(this).attr("data-id") == tag_id) {
+          $(this).find("span").css('background-color', '#91b8d0');
+          $(this).unbind("click").bind("click", function(){
+            on_click_fun(this);
+          });
+        }else {
+
+        }
+      });
+
     }
   });
 </script>

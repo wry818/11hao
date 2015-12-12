@@ -84,6 +84,12 @@ class Admin::ProductsController < Admin::ApplicationController
         ProductImage.create product_id: @product.id, public_id: public_id, is_cover: false
       end
     end
+    if params[:product_tags].present?
+      params[:product_tags].each do |tag_id|
+        @product.product_tagses.create( tag_id:tag_id);
+      end
+    end
+
 
     redirect_to admin_products_url, flash: {success: "商品已创建"}
   end
@@ -184,6 +190,12 @@ class Admin::ProductsController < Admin::ApplicationController
       end
     end
 
+    @product.product_tagses.clear
+    if params[:product_tags].present?
+      params[:product_tags].split(',').each do |tag_id|
+        @product.product_tagses.create( tag_id:tag_id);
+      end
+    end
     redirect_to admin_products_url, flash: {success: "商品已更新"}
   end
 
