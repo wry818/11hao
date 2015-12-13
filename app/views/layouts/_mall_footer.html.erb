@@ -90,8 +90,6 @@ $(document).ready(function(){
 		$(".parent-category-menu").click(function(e) {
 			var _left=$(this).width() + 10;
 			var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
-			
-			alert(_left.toString() + "px");
 		
 			_bottom=0;
 		
@@ -115,8 +113,6 @@ function setCategoryMenuPos() {
 	var _left=td_offset.left+(td_width-menu_width)/2;
 	
 	$("#root_category_menu").css("left", _left.toString() + "px");
-	
-	alert(_left.toString() + "px");
 }
 
 function triggerMallSearch() {
