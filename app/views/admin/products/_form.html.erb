@@ -1,3 +1,4 @@
+
 <%= form_for([:admin, @product], html: {class: "product_form"}) do |f| %>
     <fieldset>
 
@@ -27,12 +28,60 @@
                 <label for="product[pro_cat_subclass_id]">子类别</label>
                 <select class="form-control input-small" id="pro_cat_subclass_id" name="product[pro_cat_subclass_id]">
                   <option value="">-- 请选择 --</option>
-                  <%	if f.object.product_category %>
-                    <% f.object.product_category.product_categories.is_active.each do |p| %>
-                        <option value="<%= p.id %>"  <%= f.object.pro_cat_subclass_id == p.id ? 'selected' : '' %>><%= p.name %></option>
-                    <% end %>
+                  <% if f.object.product_category %>
+                      <% f.object.product_category.product_categories.is_active.each do |p| %>
+                          <option value="<%= p.id %>"  <%= f.object.pro_cat_subclass_id == p.id ? 'selected' : '' %>><%= p.name %></option>
+                      <% end %>
                   <% end %>
                 </select>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label>商品标签</label>
+
+                <div class="inline">
+
+                  <div id="tags_add" class="tags">
+                    <%  @product.tags.each do |tag| %>
+                        <span class="tag"><%= tag.name %><button type="button" class="close">×</button></span>
+                        <input class="product_tag_id" type="hidden" value="<%=tag.id%>">
+                    <% end %>
+                    <!--<span class="tag">Tag Input Control<button type="button" class="close">×</button></span>-->
+                    <!--<span class="tag">Programmatically Added<button type="button" class="close">×</button></span>-->
+                    <!--<span class="tag">Texas<button type="button" class="close">×</button></span>-->
+                    <!--<input type="text" name="tags" id="form-field-tags" value="Tag Input Control" placeholder="Enter tags ..." style="display: none;">-->
+                    <!--<input type="text" placeholder="Enter tags ...">-->
+                    <!--<ul class="typeahead dropdown-menu" style="top: 86px; left: 19px; display: none;">-->
+                    <!--<li data-value="Tennessee" class=""><a href="#"><strong>T</strong>ennessee</a></li>-->
+                    <!--<li data-value="Texas" class="active"><a href="#"><strong>T</strong>exas</a></li>-->
+                    <!--<li data-value="Connecticut" class="">-->
+                    <!--<a href="#">Connec<strong>t</strong>icu<strong>t</strong></a></li>-->
+                    <!--<li data-value="Kentucky"><a href="#">Ken<strong>t</strong>ucky</a></li>-->
+                    <!--<li data-value="Massachusetts"><a href="#">Massachuse<strong>t</strong><strong>t</strong>s</a>-->
+                    <!--</li>-->
+                    <!--<li data-value="Minnesota"><a href="#">Minneso<strong>t</strong>a</a></li>-->
+                    <!--<li data-value="Montana"><a href="#">Mon<strong>t</strong>ana</a></li>-->
+                    <!--<li data-value="North Dakota"><a href="#">Nor<strong>t</strong>h Dako<strong>t</strong>a</a></li>-->
+                    <!--</ul>-->
+                    <input type="hidden" id="product_tags" name="product_tags" value="">
+                  </div>
+
+                </div>
+                <div class="input-group" style="margin-top: 10px;">
+                  <input id="tags_name_input" class="form-control" placeholder="输入标签..." type="text">
+
+                  <div class="input-group-btn">
+                    <button id="tags_search" type="button" class="btn btn-default">添加标签</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="sarch_tagsdate"></div>
               </div>
             </div>
           </div>
@@ -360,5 +409,129 @@
       </div>
     </div>
 <% end %>
+<script language="javascript" type="text/javascript">
+  $(function () {
 
+    load_search_tags();
+
+    $("#tags_search").click(function () {
+      load_search_tags();
+//       add_tag_ajax();
+    });
+
+    //查询标签并显示到指定位置
+    function load_search_tags() {
+      var url = '<%= admin_tags_search_ajax_path%>';
+      var tag_name = $("#tags_name_input").val();
+
+      $.post(url, {tag_name: tag_name}).success(function (data, textStatus, jqXHR) {
+        $("#sarch_tagsdate").html(data);
+        bind_click_add();
+        bind_delete_click();
+        bind_click_remove();
+        refresh_tags_status();
+      }).error(function () {
+        alert("请求已经结束但是可能发生了错误！");
+      }).complete(function () {
+//        $("div.all_report_loader").hide();
+      });
+    }
+    function  bind_delete_click()
+    {
+      $("#sarch_tagsdate button.close").bind('click', function(){
+//          alert("删除");
+
+        var atag=$(this).parent().parent();
+        if(confirm("其他商品中此标签也将会被删除！"))
+        {
+          var url = '<%= admin_tags_ajax_delete_path%>';
+          var tag_id = $(this).attr("data-id");
+          $.post(url, {tag_id: tag_id}).success(function (data, textStatus, jqXHR) {
+            $(atag).remove();
+            var as = $("#tags_add input.product_tag_id").each(function () {
+               if( $(atag).attr("data-id")==$(this).val())
+               {
+                 $(this).prev("span.tag").remove();
+                 $(this).remove();
+               }
+            });
+          }).error(function () {
+            alert("请求已经结束但是可能发生了错误！");
+          }).complete(function () {
+        $("div.all_report_loader").hide();
+          });
+        }
+        return false;
+      });
+    }
+//为查询出来的标签添加clikc事件
+    function bind_click_add() {
+      $("#sarch_tagsdate a").bind('click', function(){
+        on_click_fun(this);
+      });
+    }
+    //标签click事件的处理函数
+    function  on_click_fun(a)
+    {
+
+      $("#tags_add").append("<span class=\'tag\'>" + $(a).find("span").attr("data-value") + "<button type=\'button\' class=\'close\'>×</button></span>");
+      $("#tags_add").append("<input type=\"hidden\" class=\"product_tag_id\" value=\"" + $(a).attr("data-id") + "\">");
+
+      bind_click_remove();
+      refresh_tags_status();
+    }
+//为已添加的标签bind移除click
+    function bind_click_remove() {
+      $("#tags_add button.close").click(function () {
+        check_has_bind_add($(this).parent("span.tag").next("input").val());
+
+        $(this).parent("span.tag").next("input").remove();
+        $(this).parent("span.tag").remove();
+        refresh_tags_status();
+      });
+    }
+//遍历已添加的标签，把已经添加的标签禁用，并统计已经添加的标签id
+    function refresh_tags_status() {
+      var values_all="";
+      var as = $("#tags_add input.product_tag_id").each(function () {
+//        alert($(this).val());
+        check_has_unbind_add($(this).val());
+        values_all+=","+$(this).val();
+      });
+      if(values_all.length>0)
+      {
+        values_all= values_all.slice(1);
+      }
+      $("#product_tags").val(values_all);
+
+    }
+//检查如果标签已经存在就移除click 并改变标签颜色
+    function check_has_unbind_add(tag_id) {
+      var flag = false;
+       $("#sarch_tagsdate a").each (function () {
+        if ($(this).attr("data-id") == tag_id) {
+//         alert($(this).attr("data-id")+":"+tag_id);
+          $(this).unbind("click");
+          $(this).find("span").css('background-color', 'silver');
+          flag = true;
+        }
+      });
+      return flag;
+    }
+    //如果已经添加的标签被删除 把禁用状态取消
+    function check_has_bind_add(tag_id) {
+       $("#sarch_tagsdate a").each (function () {
+        if ($(this).attr("data-id") == tag_id) {
+          $(this).find("span").css('background-color', '#91b8d0');
+          $(this).unbind("click").bind("click", function(){
+            on_click_fun(this);
+          });
+        }else {
+
+        }
+      });
+
+    }
+  });
+</script>
 

@@ -1,0 +1,39 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>名称</th>
+    <th>商品类别</th>
+    <th>子类别</th>
+    <th>组合</th>
+    <th>义卖</th>
+    <th>图片</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, edit_admin_product_path(product) %></td>
+        <td><%=product.product_category==nil ? '':product.product_category.name  %></td>
+        <td><%=product.pro_cat_subclass==nil ? '':product.pro_cat_subclass.name %></td>
+        <td>
+          <% product.collections.each do |collection| %>
+              <%= collection.name %><br/>
+          <% end %>
+        </td>
+        <td>
+          <% if product.is_featured %>
+              <span class="glyphicon glyphicon-ok"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= cl_image_tag product.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if product.picture.present? %>
+        </td>
+        <td>
+          <%= link_to '删除', admin_product_path(product), method: :delete, data: {confirm: '您确定要删除该商品吗?'} %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div id="page_pager" style="text-align:center;"><%= paginate @products if @products %></div>
