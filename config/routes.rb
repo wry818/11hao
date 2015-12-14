@@ -60,6 +60,7 @@ Raisy::Application.routes.draw do
         resources :tags
         post 'tags/ajax',to: 'tags#ajax_pager_data', as: :tags_page_ajax
         post  'tags/search_ajax',to:"tags#search_ajax", as: :tags_search_ajax
+        post  'tags/ajax_delete',to: 'tags#ajax_delete', as: :tags_ajax_delete
         
         get 'campaign_stories', to: 'campaigns#stories'
         get 'campaign_story/:id', to: 'campaigns#story'

@@ -70,11 +70,11 @@
                   </div>
 
                 </div>
-                <div class="input-group">
+                <div class="input-group" style="margin-top: 10px;">
                   <input id="tags_name_input" class="form-control" placeholder="输入标签..." type="text">
 
                   <div class="input-group-btn">
-                    <button id="tags_search" type="button" class="btn btn-default">查询</button>
+                    <button id="tags_search" type="button" class="btn btn-default">添加标签</button>
                   </div>
                 </div>
               </div>
@@ -416,7 +416,9 @@
 
     $("#tags_search").click(function () {
       load_search_tags();
+//       add_tag_ajax();
     });
+
     //查询标签并显示到指定位置
     function load_search_tags() {
       var url = '<%= admin_tags_search_ajax_path%>';
@@ -425,12 +427,41 @@
       $.post(url, {tag_name: tag_name}).success(function (data, textStatus, jqXHR) {
         $("#sarch_tagsdate").html(data);
         bind_click_add();
+        bind_delete_click();
         bind_click_remove();
         refresh_tags_status();
       }).error(function () {
         alert("请求已经结束但是可能发生了错误！");
       }).complete(function () {
 //        $("div.all_report_loader").hide();
+      });
+    }
+    function  bind_delete_click()
+    {
+      $("#sarch_tagsdate button.close").bind('click', function(){
+//          alert("删除");
+
+        var atag=$(this).parent().parent();
+        if(confirm("删除此标签会删除所有商品对应标签！"))
+        {
+          var url = '<%= admin_tags_ajax_delete_path%>';
+          var tag_id = $(this).attr("data-id");
+          $.post(url, {tag_id: tag_id}).success(function (data, textStatus, jqXHR) {
+            $(atag).remove();
+            var as = $("#tags_add input.product_tag_id").each(function () {
+               if( $(atag).attr("data-id")==$(this).val())
+               {
+                 $(this).prev("span.tag").remove();
+                 $(this).remove();
+               }
+            });
+          }).error(function () {
+            alert("请求已经结束但是可能发生了错误！");
+          }).complete(function () {
+        $("div.all_report_loader").hide();
+          });
+        }
+        return false;
       });
     }
 //为查询出来的标签添加clikc事件
