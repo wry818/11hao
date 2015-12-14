@@ -4,14 +4,22 @@
 	box-shadow: none !important;
 	margin-bottom: 5px !important;
 }
+
+.bx-wrapper .bx-pager {
+	bottom: 10px !important;
+}
+
+.bx-pager-link.active {
+	background-color: rgb(198, 1, 10) !important;
+}
 </style>
 
 <div id="mall_home">
 	<div style="text-align:center;">
 		<ul id="bxslider" style="margin:0px auto;">
 		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
 		</ul>
 	</div>
 	
@@ -57,11 +65,11 @@
 						<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
 					</div>
 					
-					<div style="font-size:14px; text-align:center;"><%= product.name %></div>
+					<div style="font-size:14px; text-align:center; max-height:44px; overflow:hidden;"><%= product.name %></div>
 					
 					<% price_range=product.price_range(1) %>
 					
-					<div style="font-size:14px; text-align:center; margin-top:5px;">
+					<div style="font-size:14px; text-align:center; margin-top:10px;">
 						<span style="display:inline-block;">
 							<% if price_range[:is_discount] %>
 								<span style="color:gray; display:inline-block; text-decoration:line-through;">
@@ -100,7 +108,10 @@ $(document).ready(function(){
   $("#bxslider").bxSlider({
   	auto: true,
 		pager: false,
+		controls: true,
 		preloadImages: "all"
   });
+	
+	$("#bxslider li").show();
 });
 </script>
