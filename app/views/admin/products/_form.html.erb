@@ -427,6 +427,14 @@
       $.post(url, {tag_name: tag_name}).success(function (data, textStatus, jqXHR) {
         $("#sarch_tagsdate").html(data);
         bind_click_add();
+
+        refresh_tags_status();
+        //触发点击自动添加tag
+        var newtag=$("#sarch_tagsdate a:first");
+        if($(newtag).find("span").attr("data-value")==tag_name)
+        {
+            $(newtag).click();
+        }
         bind_delete_click();
         bind_click_remove();
         refresh_tags_status();
