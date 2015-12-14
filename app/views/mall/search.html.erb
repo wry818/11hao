@@ -15,7 +15,7 @@
 					
 					<% price_range=product.price_range(1) %>
 					
-					<div style="font-size:14px; text-align:center; margin-top:15px;">
+					<div style="font-size:14px; text-align:center; margin-top:10px;">
 						<% if price_range[:is_discount] %>
 							<span style="color:gray; display:inline-block; text-decoration:line-through;">
 								<% if price_range[:same_price] %>
@@ -38,7 +38,7 @@
 							<% end %>
 						<% end %>
 					
-						<div style="margin-top:15px; text-align:center;">
+						<div style="margin-top:10px; text-align:center;">
 							<a href="<%= shop_product_path(@campaign, product) %>" class="btn btn-primary" style="width:100px;"><span class="text">立即购买</span></a>
 						</div>
 					</div>
