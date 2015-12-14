@@ -9,7 +9,7 @@
 			</td>
 			<td id="td_categories" style="text-align:center; width:20%;">
 				<div class="dropup">
-					<div class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div id="root_category_dropup" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<span class="glyphicon glyphicon-th-list" style="color:#999; font-size:24px; padding:3px 3px;"></span>
 						<div style="color:#999; font-size:12px;">分类</div>
 					</div>
@@ -82,28 +82,25 @@
 
 <script>
 $(document).ready(function(){
-	try {
-		window.setInterval(setCategoryMenuPos, 5000);
+	$("#root_category_dropup").dropdown();
 	
-		setCategoryMenuPos();
+	window.setInterval(setCategoryMenuPos, 5000);
 	
-		$(".parent-category-menu").click(function(e) {
-			var _left=$(this).width() + 10;
-			var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
+	setCategoryMenuPos();
+
+	$(".parent-category-menu").click(function(e) {
+		var _left=$(this).width() + 10;
+		var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
+	
+		_bottom=0;
 		
-			_bottom=0;
+	  e.preventDefault();
+	  e.stopPropagation();
 		
-		  e.preventDefault();
-		  e.stopPropagation();
-		
-		  $('.parent-category-menu').parent().removeClass('open');
-		  $(this).parent().addClass('open');
-			$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
-		});
-	}
-	catch(err) {
-		alert(err.message);
-	}
+	  $('.parent-category-menu').parent().removeClass('open');
+	  $(this).parent().addClass('open');
+		$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
+	});
 });
 
 function setCategoryMenuPos() {
