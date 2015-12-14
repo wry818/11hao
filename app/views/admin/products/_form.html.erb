@@ -442,7 +442,7 @@
 //          alert("删除");
 
         var atag=$(this).parent().parent();
-        if(confirm("删除此标签会删除所有商品对应标签！"))
+        if(confirm("其他商品中此标签也将会被删除！"))
         {
           var url = '<%= admin_tags_ajax_delete_path%>';
           var tag_id = $(this).attr("data-id");
@@ -474,7 +474,7 @@
     function  on_click_fun(a)
     {
 
-      $("#tags_add").append("<span class=\'tag\'>" + $(a).find("span").text() + "<button type=\'button\' class=\'close\'>×</button></span>");
+      $("#tags_add").append("<span class=\'tag\'>" + $(a).find("span").attr("data-value") + "<button type=\'button\' class=\'close\'>×</button></span>");
       $("#tags_add").append("<input type=\"hidden\" class=\"product_tag_id\" value=\"" + $(a).attr("data-id") + "\">");
 
       bind_click_remove();
