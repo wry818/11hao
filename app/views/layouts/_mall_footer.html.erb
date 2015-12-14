@@ -59,7 +59,7 @@
 				</div>
 			</td>
 			<td style="text-align:center; width:20%;">
-				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;" data-toggle="modal" data-target="#checkout-modal">
+				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;" onclick="$('#checkout-modal').modal('show');">
 					<span class="glyphicon glyphicon-shopping-cart" style="color:white; font-size:32px;"></span>
 					<div style="position:absolute; top:-10px; right:0px; font-size:16px; font-weight:600; color:rgb(198, 1, 10); height:20px; min-width:20px; line-height:20px; background-color:whitesmoke; border:1px solid #eee; border-radius:20px; padding:0px 3px;"><%= @order.num_items %></div>
 				</div>
@@ -76,7 +76,7 @@
 	</table>
 </div>
 
-<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true" style="z-index:99999;">
   <%= render 'shop/cart_modal', parent_page: :other %>
 </div>
 
@@ -95,9 +95,9 @@ $(document).ready(function(){
 		
 		  e.preventDefault();
 		  e.stopPropagation();
+		
 		  $('.parent-category-menu').parent().removeClass('open');
 		  $(this).parent().addClass('open');
-		
 			$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
 		});
 	}
