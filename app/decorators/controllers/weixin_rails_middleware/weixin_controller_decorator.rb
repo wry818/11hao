@@ -11,7 +11,10 @@ WeixinRailsMiddleware::WeixinController.class_eval do
   private
 
     def response_text_message(options={})
-
+      
+      open_id = @weixin_message.FromUserName
+      logger.info "aaaaaaaaaaaaaaaaaaa"
+      
       reply_text_message("aaaaaa")
 
 #       open_id = @weixin_message.FromUserName
