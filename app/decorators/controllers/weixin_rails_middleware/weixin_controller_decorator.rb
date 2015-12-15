@@ -12,9 +12,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
       
-      # logger.info "#{@keyword}"
-      #
-      # reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
+      logger.info "#{@keyword}"
+
+      reply_text_message("视频上传成功！点击下面链接创建seller \nhttp://www.11haoonline.com/")
 
       open_id = @weixin_message.FromUserName
       content = "#{@keyword}"
@@ -23,18 +23,16 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content == "11"
         
-        reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        articles = [
-          {
-            title: "11号公益圈粉丝专享福利",
-            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
-            picurl: "http://11haoonline.com/assets/logo-e7dfcfb53c53e1d195c7b724f41e3f5a.png"
-          }
-        ]
-
-        $wechat_client.send_news_custom(open_id, articles)
+        # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        # articles = [
+        #   {
+        #     title: "11号公益圈粉丝专享福利",
+        #     url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+        #     picurl: "http://11haoonline.com/assets/logo-e7dfcfb53c53e1d195c7b724f41e3f5a.png"
+        #   }
+        # ]
+        #
+        # $wechat_client.send_news_custom(open_id, articles)
         
       elsif content.include? "#筹款"
         
