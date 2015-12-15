@@ -48,6 +48,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'friendly_id', '~> 5.0.0'
+gem 'hanzi_to_pinyin'
 
 gem 'braintree'
 
