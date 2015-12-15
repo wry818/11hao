@@ -9,7 +9,7 @@
     <%= hidden_field_tag :auth_uid, "" %>
     <%= hidden_field_tag :campaign_new_user, "1" %>
     <%= hidden_field_tag :campaign_photo_ids, "" %>
-    <%= hidden_field_tag :campaign_id, @campaign.id.nil? ? 0 : @campaign.id %>
+    <%= hidden_field_tag :campaign_id, @campaign.id.nil? ? -1 : @campaign.id %>
 
     <div id="social_result" style="display:none;"></div>
 

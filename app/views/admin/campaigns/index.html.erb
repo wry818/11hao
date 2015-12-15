@@ -1,48 +1,49 @@
 <div id="campaigns" style="padding: 30px 0">
-    <div class="container">
+  <div class="container">
 
-        <div class="row">
-            <div class="col-md-8">
-                <h3>筹款团队</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>筹款标题</th>
-                                <th>组合</th>
-                                <th>组织</th>
-								<th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% @campaigns.order(:id).each do |campaign| %>
-                            <tr>
-                                <td><%= campaign.created_at.strftime('%b %-d, %Y') %></td>
-                                <td><%= link_to campaign.title, short_campaign_path(campaign) %></td>
-                                <td><%= campaign.collection.name if campaign.collection %></td>
-                                <td><%= campaign.organizer.profile.fullname if campaign.organizer %></td>
-                                <td>
-									<%= link_to '编辑', edit_admin_campaign_path(campaign)%>
-                                </td>
-                               <td>
-                                <%= link_to '删除', admin_campaign_path(campaign.id),:method => :delete,data:{confirm:'是否确定删除？'}%>
-                              </td>
-                            </tr>
-                            <% end %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-        <%= link_to '创建筹款团队', new_admin_campaign_path, class: 'btn btn-primary' %>
-
+    <div class="row">
+      <div class="col-md-8">
+        <h3>筹款团队</h3>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>日期</th>
+              <th>筹款标题</th>
+              <th>组合</th>
+              <th>组织者</th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @campaigns.order(:id).each do |campaign| %>
+                <tr>
+                  <td><%= campaign.created_at.strftime('%b %-d, %Y') %></td>
+                  <td><%= link_to campaign.title, short_campaign_path(campaign) %></td>
+                  <td><%= campaign.collection.name if campaign.collection %></td>
+                  <td><%= campaign.organizer.profile.fullname if campaign.organizer %></td>
+                  <td>
+                    <%= link_to '编辑', edit_admin_campaign_path(campaign) %>
+                  </td>
+                  <td>
+                    <%= link_to '删除', admin_campaign_path(campaign.id), :method => :delete, data: {confirm: '是否确定删除？'} %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <%= link_to '创建筹款团队', new_admin_campaign_path, class: 'btn btn-primary' %>
+
+  </div>
 </div>
