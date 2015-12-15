@@ -12,79 +12,79 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     def response_text_message(options={})
 
-      # reply_text_message("aaaaaa")
+      reply_text_message("aaaaaa")
 
-      open_id = @weixin_message.FromUserName
-      content = "#{@keyword}"
-
-      logger.info "#{@keyword}"
-
-      if content.include? "#筹款"
-
-        # logger.info "aaaaaaaaaaaaaaa"
-
-        slug = content.split(' ')
-
-        if slug.length > 1
-
-          campaign_slug = slug[1]
-
-          # logger.info "bbbbbbbbbbbbbbb"
-#           logger.info campaign_slug
-
-          begin
-
-            campaign = Campaign.friendly.find(campaign_slug)
-
-            if campaign && campaign.active?
-
-              $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-              articles = [
-                {
-                  title: "感谢您的支持!",
-                  description: "现在只需点击创建您的个人筹款页面。",
-                  url: request.protocol + request.host + "/seller/signup_weixin/" + campaign_slug
-                }
-              ]
-
-              $wechat_client.send_news_custom(open_id, articles)
-
-            else
-
-              reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
-
-            end
-
-          rescue
-
-            reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
-
-          end
-
-        else
-
-          reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
-
-        end
-  
-      elsif content == "11"
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        articles = [
-          {
-            title: "11号公益圈粉丝专享福利",
-            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
-            picurl: "http://11haoonline.com/assets/logo-e7dfcfb53c53e1d195c7b724f41e3f5a.png"
-          }
-        ]
-
-        $wechat_client.send_news_custom(open_id, articles)
-        
-      else
-        
-        reply_transfer_customer_service_message()
-
-      end
+#       open_id = @weixin_message.FromUserName
+#       content = "#{@keyword}"
+#
+#       logger.info "#{@keyword}"
+#
+#       if content.include? "#筹款"
+#
+#         # logger.info "aaaaaaaaaaaaaaa"
+#
+#         slug = content.split(' ')
+#
+#         if slug.length > 1
+#
+#           campaign_slug = slug[1]
+#
+#           # logger.info "bbbbbbbbbbbbbbb"
+# #           logger.info campaign_slug
+#
+#           begin
+#
+#             campaign = Campaign.friendly.find(campaign_slug)
+#
+#             if campaign && campaign.active?
+#
+#               $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#               articles = [
+#                 {
+#                   title: "感谢您的支持!",
+#                   description: "现在只需点击创建您的个人筹款页面。",
+#                   url: request.protocol + request.host + "/seller/signup_weixin/" + campaign_slug
+#                 }
+#               ]
+#
+#               $wechat_client.send_news_custom(open_id, articles)
+#
+#             else
+#
+#               reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
+#
+#             end
+#
+#           rescue
+#
+#             reply_text_message('抱歉，未找到相应活动，请以"#筹款 代码"的格式重新输入筹款活动代号。')
+#
+#           end
+#
+#         else
+#
+#           reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
+#
+#         end
+#
+#       elsif content == "11"
+#
+#         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#         articles = [
+#           {
+#             title: "11号公益圈粉丝专享福利",
+#             url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+#             picurl: "http://11haoonline.com/assets/logo-e7dfcfb53c53e1d195c7b724f41e3f5a.png"
+#           }
+#         ]
+#
+#         $wechat_client.send_news_custom(open_id, articles)
+#
+#       else
+#
+#         reply_transfer_customer_service_message()
+#
+#       end
 
     end
 
