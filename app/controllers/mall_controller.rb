@@ -1,8 +1,8 @@
 class MallController < ApplicationController
   layout "mall"
   
-  before_filter :load_mall, only: [:home, :search]
-  before_filter :manage_session_order, only: [:home, :search]
+  before_filter :load_mall, only: [:home, :search, :orders, :order_detail]
+  before_filter :manage_session_order, only: [:home, :search, :orders, :order_detail]
   
   def home
     @products = Product.isnot_destroy.first(6)
@@ -24,6 +24,24 @@ class MallController < ApplicationController
     end
     
     @products = @products.order(:id)
+  end
+  
+  def orders
+    # session[:openid] = "1"
+    
+    if session[:openid]
+      @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
+    else
+      redirect_to mall_home_path and return
+    end
+  end
+  
+  def order_detail
+    @the_order = Order.where(:open_id => session[:openid], :id => params[:id].to_i).first
+    
+    if !@the_order
+      redirect_to mall_home_path and return
+    end
   end
   
   private
