@@ -27,13 +27,7 @@ class MallController < ApplicationController
   end
   
   def orders
-    # session[:openid] = "1"
-    
-    if session[:openid]
-      @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
-    else
-      redirect_to mall_home_path and return
-    end
+    @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
   end
   
   def order_detail

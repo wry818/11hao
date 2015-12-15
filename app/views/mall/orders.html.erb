@@ -9,9 +9,9 @@
               <p>
 								<% if order.campaign.used_as_default? %>
 									<% if order.items.first.product.picture %>
-                    <%= cl_image_tag order.items.first.product.picture, style: "width: 120px", class: 'campaign-logo' %>
+                    <%= cl_image_tag order.items.first.product.picture, style: "max-width:120px; max-height:100px;", class: 'campaign-logo' %>
 									<% else %>
-										<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;width: 120px;height:80px;" %>
+										<%= image_tag 'default_upload_logo.gif' %>
 									<% end %>
 								<% else %>
 	                <% if order.campaign.campaign_logo %>
@@ -24,9 +24,9 @@
 	                                                     y: order.campaign.campaign_logo.crop_y,
 	                                                     crop: :crop
 	                                             }
-	                                     ], style: "width: 120px", class: 'campaign-logo' %>
+	                                     ], style: "max-width:120px; max-height:100px;", class: 'campaign-logo' %>
 	                <% else %>
-	                    <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;width: 120px;height:80px;" %>
+	                    <%= image_tag 'default_upload_logo.gif' %>
 	                <% end %>
 								<% end %>
               </p>
