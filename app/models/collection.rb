@@ -11,6 +11,7 @@ class Collection < ActiveRecord::Base
         ]
     end
 
+
     scope :active, -> { where(active: true).order(:sort_order) }
     scope :isnot_destroy,->{where(is_destroy:false)}
 
