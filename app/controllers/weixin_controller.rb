@@ -404,14 +404,21 @@ class WeixinController < ApplicationController
     to_user = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
     
+    # articles = [
+    #   {
+    #     title: "视频上传成功！",
+    #     description: "点击创建seller。",
+    #     url: "http://www.baidu.com"
+    #   }
+    # ]
+
     articles = [
       {
-        title: "视频上传成功！",
-        description: "点击创建seller。",
-        url: "http://www.baidu.com"
+        title: "11号公益圈粉丝专享福利",
+        url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+        picurl: "http://11haoonline.com/images/hongbao.jpg"
       }
     ]
-
     
     # @campaign = Campaign.friendly.find("test1")
 #
