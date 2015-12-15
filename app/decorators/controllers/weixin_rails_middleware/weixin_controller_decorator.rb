@@ -25,6 +25,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
         reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
         
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
         articles = [
           {
             title: "11号公益圈粉丝专享福利",
