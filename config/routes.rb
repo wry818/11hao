@@ -91,6 +91,8 @@ Raisy::Application.routes.draw do
     scope 'mall' do
       root 'mall#home', as: :mall_home
       match 'search' => 'mall#search', via: [:get, :post], as: :mall_search
+      get 'orders', to: 'mall#orders', as: :mall_orders
+      get 'order_detail/:id', to: 'mall#order_detail', as: :mall_order_detail
     end
 
     resources :collections

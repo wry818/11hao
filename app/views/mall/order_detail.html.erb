@@ -1,0 +1,116 @@
+<div id="order-show">
+
+  <div class="order_wrapper">
+
+		<% if !@the_order.campaign.used_as_default? %>
+    <div class="order_content">
+      <p>
+        <% if @the_order.campaign.campaign_logo %>
+            <%= cl_image_tag @the_order.campaign.campaign_logo.image_id,
+                             transformation: [
+                                     {
+                                             width: @the_order.campaign.campaign_logo.crop_width,
+                                             height: @the_order.campaign.campaign_logo.crop_height,
+                                             x: @the_order.campaign.campaign_logo.crop_x,
+                                             y: @the_order.campaign.campaign_logo.crop_y,
+                                             crop: :crop
+                                     }
+                             ], style: "width: 120px", class: 'campaign-logo' %>
+        <% else %>
+            <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;width:120px;height:80px;" %>
+        <% end %>
+      </p>
+
+      <div class="right_content">
+        <div class="title" style="font-size:16px; max-height:44px; overflow:hidden;">
+          <%= @the_order.campaign.title %>
+        </div>
+        <div class="detail" style="margin-top:5px;">
+          <div>
+            数量：<%= @the_order.num_items %>
+          </div>
+          <div>
+            总价：￥<%= long_price(@the_order.grandtotal.to_f/100) %>
+          </div>
+        </div>
+      </div>
+    </div>
+		<% end %>
+
+    <div class="order_content">
+      <p>
+        订单编号
+      </p>
+
+      <div class="right_content">
+        <div>
+          <div style="float: right">
+            <%= @the_order.out_trade_no %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="order_content">
+      <p>
+        下单时间
+      </p>
+
+      <div class="right_content">
+        <div>
+          <div style="float: right">
+            <%= @the_order.created_at.strftime('%Y-%-m-%-d %H:%M') %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="order_detail_content">
+
+    <p>
+      订单明细
+    </p>
+
+    <% @the_order.items.each do |item| %>
+
+        <div class="item_content">
+          <small>
+            <%= item.quantity %>-<%= item.product.name %>
+          </small>
+          <div class="right_content">
+            <div>
+              <div style="float: right">
+                <small>
+                  ￥<%= long_price(item.total_price.to_f/100) %>
+                </small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+    <% end %>
+
+    <p style="margin-top: 30px">
+      邮寄地址
+    </p>
+
+    <small>
+      <%= @the_order.address_fullname %>  <%= @the_order.phone_number %>
+      <br/>
+      <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
+    </small>
+
+  </div>
+
+</div>
+
+<script>
+$(document).ready(function () {
+	document.title = "我的订单";
+});
+</script>
