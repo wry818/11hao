@@ -85,7 +85,7 @@ class Admin::ProductsController < Admin::ApplicationController
       end
     end
     if params[:product_tags].present?
-      params[:product_tags].each do |tag_id|
+      params[:product_tags].split(',').each do |tag_id|
         @product.product_tagses.create( tag_id:tag_id);
       end
     end

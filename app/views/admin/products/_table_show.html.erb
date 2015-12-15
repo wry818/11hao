@@ -13,7 +13,7 @@
   <tbody>
   <% @products.each do |product| %>
       <tr>
-        <td><%= link_to product.name, edit_admin_product_path(product) %></td>
+        <td style="width:200px;"><%= link_to product.name, edit_admin_product_path(product) %></td>
         <td><%=product.product_category==nil ? '':product.product_category.name  %></td>
         <td><%=product.pro_cat_subclass==nil ? '':product.pro_cat_subclass.name %></td>
         <td>
