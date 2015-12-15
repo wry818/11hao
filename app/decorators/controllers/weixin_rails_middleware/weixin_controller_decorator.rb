@@ -5,6 +5,7 @@
 WeixinRailsMiddleware::WeixinController.class_eval do
 
   def reply
+    logger.info "aaaaaaaaaaaaaaaaaaa"
     render xml: send("response_#{@weixin_message.MsgType}_message", {})
   end
 
