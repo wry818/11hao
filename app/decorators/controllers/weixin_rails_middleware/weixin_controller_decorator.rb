@@ -23,6 +23,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content == "11"
         
+        reply_text_message('请以"#筹款 代码"的格式输入筹款活动代号')
+        
         articles = [
           {
             title: "11号公益圈粉丝专享福利",
@@ -31,7 +33,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
           }
         ]
 
-        $wechat_client.send_news_custom(to_user, articles)
+        $wechat_client.send_news_custom(open_id, articles)
         
       elsif content.include? "#筹款"
         
