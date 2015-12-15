@@ -16,6 +16,7 @@
 															<p style="font-size:14px;"><strong>感谢您在11号公益圈购物，欢迎您再次光临!</strong></p>
                             </div>
 														
+														<% if @order.needs_shipping %>
                             <div class="col-sm-12" style="padding:0px 0px;">
 															<div style="padding:10px 0px; background-color:#f4f4f4; border-top:1px solid #eee; border-bottom:1px solid #ddd; margin:15px 0px;">
 																<div style="background-color:rgb(255,250,244); border-top:4px solid transparent; border-bottom:4px solid transparent; -moz-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -webkit-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; -o-border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; border-image:url(<%= image_url "envelope-border.png" %>) 4 0 4 0 round; padding:15px 0px;">
@@ -34,6 +35,11 @@
 																</div>
 															</div>
                             </div>
+														<% else %>
+															<div class="col-sm-12" style="padding:0px 5px;">
+																<hr/>
+															</div>
+														<% end %>
 														
 														<div class="col-sm-12" style="padding:0px 5px;">
 															<% unless @order.donation_only? %>
