@@ -27,7 +27,7 @@ class MallController < ApplicationController
   end
   
   def orders
-    session[:openid] = "1"
+    # session[:openid] = "1"
     
     if session[:openid]
       @orders = Order.where(open_id: session[:openid]).completed.order(:id=>:desc)
