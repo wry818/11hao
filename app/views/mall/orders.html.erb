@@ -6,12 +6,12 @@
         <% @orders.each do |order| %>
 
             <div class="order_content order_item" data-url="<%= mall_order_detail_path order.id %>">
-              <p style="width:120px;">
+              <p style="width:120px; text-align:center;">
 								<% if order.campaign.used_as_default? %>
 									<% if order.items.first.product.picture %>
-                    <%= cl_image_tag order.items.first.product.picture, style: "max-width:120px; max-height:100px; display:inline-block; margin:0px auto;" %>
+                    <%= cl_image_tag order.items.first.product.picture, style: "max-width:120px; max-height:100px;" %>
 									<% else %>
-										<%= image_tag 'default_upload_logo.gif', style: "display:inline-block; margin:0px auto;" %>
+										<%= image_tag 'default_upload_logo.gif' %>
 									<% end %>
 								<% else %>
 	                <% if order.campaign.campaign_logo %>
@@ -24,9 +24,9 @@
 	                                                     y: order.campaign.campaign_logo.crop_y,
 	                                                     crop: :crop
 	                                             }
-	                                     ], style: "max-width:120px; max-height:100px; display:inline-block; margin:0px auto;" %>
+	                                     ], style: "max-width:120px; max-height:100px;" %>
 	                <% else %>
-	                    <%= image_tag 'default_upload_logo.gif', style: "display:inline-block; margin:0px auto;" %>
+	                    <%= image_tag 'default_upload_logo.gif' %>
 	                <% end %>
 								<% end %>
               </p>
