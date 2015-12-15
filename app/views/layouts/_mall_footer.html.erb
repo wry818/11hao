@@ -34,6 +34,8 @@
 									</div>
 									
 									<ul class="dropdown-menu" style="min-width:100px;">
+										<li><a href="<%= mall_search_path + "?category_id=" + rc.id.to_s %>" style="color:#999; font-size:14px; padding:3px 5px;">全部</a></li>
+										<li role="separator" class="divider"></li>
 										<% sub_idx=1 
 										sub_categories.each do |sub_rc| %>
 										<li>
