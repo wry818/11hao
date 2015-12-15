@@ -21,7 +21,19 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       logger.info "#{@keyword}"
       
-      if content.include? "#筹款"
+      if content == "11"
+        
+        articles = [
+          {
+            title: "11号公益圈粉丝专享福利",
+            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"
+            picurl: "http://11haoonline.com/assets/logo-e7dfcfb53c53e1d195c7b724f41e3f5a.png"
+          }
+        ]
+
+        $wechat_client.send_news_custom(to_user, articles)
+        
+      elsif content.include? "#筹款"
         
         # logger.info "aaaaaaaaaaaaaaa"
         
