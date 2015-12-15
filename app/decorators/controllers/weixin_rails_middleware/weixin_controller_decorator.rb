@@ -67,7 +67,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
         end
   
-      else
+      elsif content == "11"
+        
         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
         articles = [
           {
@@ -79,7 +80,9 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
         $wechat_client.send_news_custom(open_id, articles)
         
-        # reply_transfer_customer_service_message()
+      else
+        
+        reply_transfer_customer_service_message()
 
       end
 
