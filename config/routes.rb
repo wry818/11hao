@@ -94,7 +94,9 @@ Raisy::Application.routes.draw do
     scope 'mall' do
       root 'mall#home', as: :mall_home
       match 'search' => 'mall#search', via: [:get, :post], as: :mall_search
+      match 'search_page' => 'mall#search_page', via: [:get, :post], as: :mall_search_page
       get 'orders', to: 'mall#orders', as: :mall_orders
+      get 'orders_page', to: 'mall#orders_page', as: :mall_orders_page
       get 'order_detail/:id', to: 'mall#order_detail', as: :mall_order_detail
     end
 
@@ -236,6 +238,7 @@ Raisy::Application.routes.draw do
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
     post ':id/confirmation', to: 'shop#checkout_confirmation', as: :checkout_confirmation
     get ':id/checkout_support', to: 'shop#checkout_support', as: :checkout_support
+    get ':id/checkout_support_page', to: 'shop#checkout_support_page', as: :checkout_support_page
 
     get ':id/supporters', to: 'shop#supporters', as: :supporters
     get ':id', to: 'shop#show', as: :short_campaign

@@ -973,9 +973,17 @@ class ShopController < ApplicationController
         unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
           redirect_to root_path and return
         end
+        
+        do_checkout_support
       else
         redirect_to root_path and return
       end
+    end
+    
+    def checkout_support_page
+      do_checkout_support
+      
+      render partial: "checkout_support_page" and return
     end
     
     def show_confirmation
@@ -1457,6 +1465,21 @@ class ShopController < ApplicationController
         end
 
         url
+    end
+    
+    def do_checkout_support
+      @page = params[:page].to_i
+      @page = 1 if @page == 0
+      @show_pager = false
+      @campaigns = Campaign.isnot_destroy.active.real.order(:id => :desc).page(@page).per(5)
+    
+      if @campaigns.total_pages > 0 && @campaigns.total_pages > @page
+        @show_pager = true
+        
+        query = "?" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+          
+        @page_url = checkout_support_page_path(@campaign) + query
+      end
     end
 
 end
