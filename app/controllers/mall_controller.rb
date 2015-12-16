@@ -5,7 +5,7 @@ class MallController < ApplicationController
   before_filter :manage_session_order, only: [:home, :search, :search_page, :orders, :order_detail]
   
   def home
-    @products = Product.isnot_destroy.first(6)
+    @products = Product.isnot_destroy.order(:id => :desc).limit(6)
   end
   
   def search
