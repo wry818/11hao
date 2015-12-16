@@ -12,6 +12,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
   private
 
     def response_text_message(options={})
+      
       # reply_text_message("aaaaaa")
 
       open_id = @weixin_message.FromUserName
@@ -68,7 +69,6 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         end
   
       else
-        
         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
         articles = [
           {
