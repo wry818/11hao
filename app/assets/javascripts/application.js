@@ -41,3 +41,4 @@
 //= require jweixin-1.0.0
 //= require jquery.timer
 //= require bxslider
+//= require jquery.jscroll.min

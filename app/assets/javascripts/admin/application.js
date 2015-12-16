@@ -34,3 +34,4 @@
 //= require jquery.dataTables
 //= require dataTables.bootstrap
 //= require bxslider
+//= require jquery.jscroll.min

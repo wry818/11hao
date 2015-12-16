@@ -1,0 +1,55 @@
+<% if @orders && @orders.count > 0 %>
+    <% @orders.each do |order| %>
+        <div class="order_content order_item" data-url="<%= mall_order_detail_path order.id %>">
+          <p style="width:120px; text-align:center;">
+						<% if order.campaign.used_as_default? %>
+							<% if order.items.first.product.picture %>
+                <%= cl_image_tag order.items.first.product.picture, style: "max-width:120px; max-height:100px;" %>
+							<% else %>
+								<%= image_tag 'crown.png', style: "width:120px;" %>
+							<% end %>
+						<% else %>
+              <% if order.campaign.campaign_logo %>
+                  <%= cl_image_tag order.campaign.campaign_logo.image_id,
+                                   transformation: [
+                                           {
+                                                   width: order.campaign.campaign_logo.crop_width,
+                                                   height: order.campaign.campaign_logo.crop_height,
+                                                   x: order.campaign.campaign_logo.crop_x,
+                                                   y: order.campaign.campaign_logo.crop_y,
+                                                   crop: :crop
+                                           }
+                                   ], style: "max-width:120px; max-height:100px;" %>
+              <% else %>
+                  <%= image_tag 'crown.png', style: "width:120px;" %>
+              <% end %>
+						<% end %>
+          </p>
+
+          <div class="right_content">
+            <div class="title" style="font-size:16px; max-height:44px; overflow:hidden;">
+              <%= order.campaign.used_as_default? ? order.items.first.product.name : order.campaign.title %>
+            </div>
+            <div class="detail" style="margin-top:5px;">
+              <div>
+                <%= order.num_items %>件｜总价：￥<%= long_price(order.grandtotal.to_f/100) %>
+              </div>
+              <div>
+                已付款
+              </div>
+            </div>
+          </div>
+          <input class="order_id" type="hidden" value="<%= order.id %>"/>
+        </div>
+    <% end %>
+		
+		<% if @show_pager %>
+		<div style="text-align:center; padding:20px 0px 30px 0px;">
+			<a href="<%= @page_url %>" class="a-pager" style="color:#333; font-size:14px; text-decoration:underline;">查看更多</a>
+		</div>
+		<% end %>
+<% else %>
+		<div style="color:#999; font-size:16px; margin-top:40px; text-align:center;">
+			<strong>您还没有任何订单</strong>
+		</div>
+<% end %>

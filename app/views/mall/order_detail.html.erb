@@ -17,7 +17,7 @@
                                      }
                              ], style: "max-width:120px; max-height:100px;" %>
         <% else %>
-            <%= image_tag 'default_upload_logo.gif' %>
+            <%= image_tag 'crown.png', style: "width:120px;" %>
         <% end %>
       </p>
 
@@ -95,6 +95,7 @@
 
     <% end %>
 
+		<% if @the_order.needs_shipping %>
     <p style="margin-top: 30px">
       邮寄地址
     </p>
@@ -104,6 +105,7 @@
       <br/>
       <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
     </small>
+		<% end %>
 
   </div>
 

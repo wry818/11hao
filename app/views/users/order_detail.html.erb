@@ -93,6 +93,7 @@
         	
         <% end %>
 		
+		<% if @order.needs_shipping %>
 		<p style="margin-top: 30px">
 			邮寄地址
 		</p>
@@ -102,6 +103,7 @@
 			<br />
 			<%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
 		</small>
+		<% end %>
 		
 	</div>
 	

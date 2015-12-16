@@ -81,7 +81,7 @@
                                       <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
                                       <% if @option_group_is_dropdown %>
                                           <select class="product-option product-dropdown-option form-control <%= 'required' if option_group.required %>" name="item[options][][value]">
-                                            <option value="" data-price="0">-- Select --</option>
+                                            <option value="" data-price="0">-- 请选择 --</option>
                                             <% @option_group_properties.each do |property| %>
                                                 <option value="<%= property.id %>" data-price="<%= long_price((@discount*property.total_price*100).ceil/100.0) %>" data-origin-price="<%= long_price((property.total_price*100).ceil/100.0) %>">
                                                   <%= property.value %>
