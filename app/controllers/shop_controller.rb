@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify]
+    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
     before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
@@ -500,7 +500,7 @@ class ShopController < ApplicationController
       if is_wechat_browser?
         
         weixin_get_user_info()
-        weixin_payment_init(@order)
+        # weixin_payment_init(@order)
         # weixin_payment_init(1)
         weixin_address_init()
         
@@ -569,6 +569,30 @@ class ShopController < ApplicationController
       
       end
 
+    end
+    
+    def weixin_payment_get_req
+      order = Order.find_by_id(params[:id])
+      
+      if order && !order.completed?
+        weixin_payment_init order
+        
+        if @weixin_init_success
+          render json: {appId: @js_app_id, 
+            timeStamp: @js_timestamp, 
+            nonceStr: @js_noncestr, 
+            package: @package,
+            signType: "MD5",
+            paySign: @js_pay_sign}.to_json and return
+        end
+      end
+      
+      render json: {appId: "", 
+        timeStamp: "", 
+        nonceStr: "", 
+        package: "",
+        signType: "MD5",
+        paySign: ""}.to_json and return
     end
     
     def weixin_payment_init(order)

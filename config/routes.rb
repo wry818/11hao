@@ -224,6 +224,7 @@ Raisy::Application.routes.draw do
     
     # match "checkout/weixin_notify" => "shop#weixin_notify", via: [:get, :post]
     # post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
+    get 'weixin_payment_get_req/:id', to: 'shop#weixin_payment_get_req', as: :weixin_payment_get_req
     get 'checkout/:id', to: 'shop#checkout', as: :checkout
     get 'checkout/:id/weixin_native_pay', to: 'shop#weixin_native_pay', as: :checkout_weixin_native_pay
     post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
