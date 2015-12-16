@@ -68,32 +68,9 @@
 												
 												<div style="color:#999; font-size:12px;">点击"我要支持"，即可将您的捐款转入您选择的公益活动筹款页面。</div>
 												
-												<% Campaign.isnot_destroy.active.real.order(:title).each do |campaign| %>
-												<hr/>
-												<div class="row">
-													<div class="col-xs-5" style="padding:0px 5px;">
-														<div class="image-container">
-								                            <%= cl_image_tag campaign.campaign_logo.image_id,
-																transformation: [{ 
-																		width: campaign.campaign_logo.crop_width,
-																		height: campaign.campaign_logo.crop_height,
-																		x: campaign.campaign_logo.crop_x,
-																		y: campaign.campaign_logo.crop_y,
-																		crop: :crop
-																	}],
-																style: 'width: 100%' if campaign.campaign_logo %>
-									
-									                        <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !campaign.campaign_logo %>
-														</div>
-													</div>
-													<div class="col-xs-7" style="padding:0px 5px 0px 10px;">
-														<div style="font-size:16px; max-height:44px; overflow:hidden;"><strong><%= campaign.title %></strong></div>
-														<div style="color:#888; font-size:14px; max-height:40px; overflow:hidden;"><%= campaign.organizer_quote %></div>
-														<div style="margin-top:10px; font-size:14px;">
-															<span style="display:inline-block; margin-bottom:5px;"><span class="glyphicon glyphicon-heart-empty" style="color:rgb(241, 141, 55);"></span>&nbsp;&nbsp;共&nbsp;<span style="color:rgb(241, 141, 55);"><%= campaign.completed %></span>&nbsp;人支持</span>&nbsp;&nbsp;&nbsp;<a href="<%= show_confirmation_path(campaign) %>" class="btn btn-orange" style="margin-top:0px;">我要支持</a></div>
-													</div>
+												<div id="checkout_support_result">
+													<%= render "checkout_support_page" %>
 												</div>
-												<% end %>
 
                     </div><!-- /.checkout-confirmation-container -->
 
@@ -104,12 +81,14 @@
     </div>
 </div>
 
-<script Language="javascript">
-	
+<script>
 $(document).ready(function() {
-	
 	$("#footer_cart").hide();
-									
+	
+	$("#checkout_support_result").jscroll({
+		autoTrigger: false,
+		nextSelector: "a.a-pager:last",
+		loadingHtml: "<div style='text-align:center; margin-top:20px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+	});
 });
-
 </script>
