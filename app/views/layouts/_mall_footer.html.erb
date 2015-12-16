@@ -2,27 +2,128 @@
 	<table style="width:100%;">
 		<tr>
 			<td style="text-align:center; width:20%;">
-				<span class="glyphicon glyphicon-home" style="color:#999; font-size:24px; padding:3px 3px;"></span>
-				<div style="color:#999; font-size:12px;">首页</div>
+				<a href="<%= mall_home_path %>">
+					<span class="glyphicon glyphicon-home" style="color:#999; font-size:24px; padding:3px 3px;"></span>
+					<div style="color:#999; font-size:12px;">首页</div>
+				</a>
 			</td>
-			<td style="text-align:center; width:20%;">
-				<span class="glyphicon glyphicon-th-list" style="color:#999; font-size:24px; padding:3px 3px;"></span>
-				<div style="color:#999; font-size:12px;">分类</div>
-			</td>
-			<td style="text-align:center; width:20%;">
-				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;">
-					<span class="glyphicon glyphicon-shopping-cart" style="color:white; font-size:32px;"></span>
-					<div style="position:absolute; top:-10px; right:0px; font-size:16px; font-weight:600; color:rgb(198, 1, 10); height:20px; min-width:20px; line-height:20px; background-color:whitesmoke; border:1px solid #eee; border-radius:20px; padding:0px 3px;">2</div>
+			<td id="td_categories" style="text-align:center; width:20%;">
+				<div class="dropup">
+					<div id="root_category_dropup" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="glyphicon glyphicon-th-list" style="color:#999; font-size:24px; padding:3px 3px;"></span>
+						<div style="color:#999; font-size:12px;">分类</div>
+					</div>
+					
+				  <ul id="root_category_menu" class="dropdown-menu" style="min-width:100px;">
+						<% root_idx=1 
+						@root_categories.each do |rc| %>
+						<li>
+							<% sub_categories=rc.product_categories.is_active.order(:sort_mark).all %>
+							
+							<% if sub_categories.length==0 %>
+								<a href="<%= mall_search_path + "?category_id=" + rc.id.to_s %>" style="color:#999; font-size:14px; padding:3px 5px;"><%= rc.name %></a>
+							<% else %>
+								<div class="dropup">
+									<div class="dropdown-toggle parent-category-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#999; font-size:14px; padding:3px 5px;">
+										<table style="width:100%;">
+											<tr>
+												<td><%= rc.name %></td>
+												<td style="text-align:right;"><span class="glyphicon glyphicon-chevron-right"></span></td>
+											</tr>
+										</table>
+									</div>
+									
+									<ul class="dropdown-menu" style="min-width:100px;">
+										<li><a href="<%= mall_search_path + "?category_id=" + rc.id.to_s %>" style="color:#999; font-size:14px; padding:3px 5px;">全部</a></li>
+										<li role="separator" class="divider"></li>
+										<% sub_idx=1 
+										sub_categories.each do |sub_rc| %>
+										<li>
+											<a href="<%= mall_search_path + "?category_id=" + rc.id.to_s + "&subcategory_id=" + sub_rc.id.to_s %>" style="color:#999; font-size:14px; padding:3px 5px;"><%= sub_rc.name %></a>
+										</li>
+										<% if sub_idx!=sub_categories.length %>
+										<li role="separator" class="divider"></li>
+										<% end %>
+										<% sub_idx+=1 
+										end %>
+									</ul>
+								</div>
+							<% end %>
+						</li>
+						<% if root_idx!=@root_categories.length %>
+						<li role="separator" class="divider"></li>
+						<% end %>
+						
+						<% root_idx+=1 
+						end %>
+						<!-- <li role="separator" class="divider"></li> -->
+				  </ul>
 				</div>
 			</td>
 			<td style="text-align:center; width:20%;">
+				<div style="background-color:rgb(198, 1, 10); border:5px solid white; border-radius:32px; width:62px; height:62px; box-shadow:1px 3px 3px #999; line-height:67px; margin:-30px auto 0px auto; position:relative;" onclick="$('#checkout-modal').modal('show');">
+					<span class="glyphicon glyphicon-shopping-cart" style="color:white; font-size:32px;"></span>
+					<div style="position:absolute; top:-10px; right:0px; font-size:16px; font-weight:600; color:rgb(198, 1, 10); height:20px; min-width:20px; line-height:20px; background-color:whitesmoke; border:1px solid #eee; border-radius:20px; padding:0px 3px;"><%= @order.num_items %></div>
+				</div>
+			</td>
+			<td style="text-align:center; width:20%;" onclick="triggerMallSearch()">
 				<span class="glyphicon glyphicon-search" style="color:#999; font-size:24px; padding:3px 3px;"></span>
 				<div style="color:#999; font-size:12px;">搜索</div>
 			</td>
 			<td style="text-align:center; width:20%;">
-				<span class="glyphicon glyphicon-user" style="color:#999; font-size:24px; padding:3px 3px;"></span>
-				<div style="color:#999; font-size:12px;">我的</div>
+				<a href="<%= mall_orders_path %>">
+					<span class="glyphicon glyphicon-user" style="color:#999; font-size:24px; padding:3px 3px;"></span>
+					<div style="color:#999; font-size:12px;">我的</div>
+				</a>
 			</td>
 		</tr>
 	</table>
 </div>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true" style="z-index:99999;">
+  <%= render 'shop/cart_modal', parent_page: :other %>
+</div>
+
+<script>
+$(document).ready(function(){
+	$("#root_category_dropup").dropdown();
+	
+	window.setInterval(setCategoryMenuPos, 5000);
+	
+	setCategoryMenuPos();
+
+	$(".parent-category-menu").click(function(e) {
+		var _left=$(this).width() + 10;
+		var _bottom=$(this).closest(".dropdown-menu").height() - $(this).closest("li").position().top;
+	
+		_bottom=0;
+		
+	  e.preventDefault();
+	  e.stopPropagation();
+		
+	  $('.parent-category-menu').parent().removeClass('open');
+	  $(this).parent().addClass('open');
+		$(this).siblings(".dropdown-menu").css({"left": _left.toString() + "px", "bottom": _bottom.toString() + "px"});
+	});
+});
+
+function setCategoryMenuPos() {
+	var td_offset=$("#td_categories").offset();
+	var td_width=$("#td_categories").width();
+	var menu_width=$("#root_category_menu").width();
+	var _left=td_offset.left+(td_width-menu_width)/2;
+	
+	$("#root_category_menu").css("left", _left.toString() + "px");
+}
+
+function triggerMallSearch() {
+	$('body').animate({scrollTop:0}, function(){
+		is_search_shown=true;
+		
+		$("#mall_logo").hide();
+		$("#mall_search_text").show().animate({width:200}, function(){$("#mall_search_text").focus();});
+		
+		is_search_shown=true;
+	});
+}
+</script>

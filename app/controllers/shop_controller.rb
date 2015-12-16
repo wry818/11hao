@@ -926,9 +926,15 @@ class ShopController < ApplicationController
       # puts price.to_s
       # puts format_order_time
       
+      if order.campaign.used_as_default?
+        msg="您的订单已经提交成功，感谢您的支持！\n\n简单公益，只因有你。\n"
+      else
+        msg="您的订单已经提交成功！\n感谢您的支持，您本次购买的商品将为" + group_name + "助力。\n\n简单公益，只因有你。\n"
+      end
+      
       data = {
         first: {
-          value:"您的订单已经提交成功！\n感谢您的支持，您本次购买的商品将为" + group_name + "助力。\n\n简单公益，只因有你。\n",
+          value:msg,
           color:"#000000"
         },
         keyword1: {

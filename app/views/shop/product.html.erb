@@ -13,7 +13,7 @@
 					<% end %>
 					
           <ol class="breadcrumb" style="padding: 20px; 30px 0px; background: white; margin: 0">
-            <li><a href="<%= shop_path(@campaign) %>">所有商品</a></li>
+            <li><a href="<%= @campaign.used_as_default? ? mall_home_path : shop_path(@campaign) %>">所有商品</a></li>
             <% if @category %>
                 <% @category.parents.each do |parent| %>
                     <li><%= link_to parent.name, shop_category_path([parent]) %></li>

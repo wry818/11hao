@@ -1,0 +1,39 @@
+<div style="padding:10px 0px; text-align:center; background-color:rgb(198, 1, 10); position:relative;">
+	<%= image_tag 'crown-white.png', id: "mall_logo", height: 40 %>
+	
+	<span style="display:inline-block; width:1px; height:40px; vertical-align:top;"></span>
+	
+	<div style="position:absolute; top:12px; right:6px; height:40px;">
+		<%= form_tag(mall_search_path, id: "mall_search_form") do %>
+		<input id="mall_search_text" name="mall_search_text" style="width:0px; height:30px; color:black; font-size:16px; border:1px solid #efefef; vertical-align:middle; display:none;" />&nbsp;<span id="mall_search_button" class="glyphicon glyphicon-search" style="color:white; font-size:24px; height:30px; vertical-align:middle;"></span>
+		<% end %>
+	</div>
+</div>
+
+<script>
+var is_search_shown=false;
+
+$(document).ready(function(){
+	$("#mall_search_button").click(function(){
+		if (is_search_shown) {
+			var txt=$.trim($("#mall_search_text").val() || "");
+			
+			if (txt=="") {
+				$("#mall_logo").show();
+				$("#mall_search_text").animate({width:0}, function(){$("#mall_search_text").hide();});
+				
+				is_search_shown=false;
+			}
+			else {
+				$("#mall_search_form").submit();
+			}
+		}
+		else {
+			$("#mall_logo").hide();
+			$("#mall_search_text").show().animate({width:200}, function(){$("#mall_search_text").focus();});
+			
+			is_search_shown=true;
+		}
+	});
+});
+</script>

@@ -50,7 +50,7 @@ class Admin::CampaignsController < Admin::ApplicationController
         @collection = Collection.find_by_id(params[:campaign][:collection_id])
         @campaign_images = CampaignImage.default_images.order(:id).all
 
-        session[:target_organization_id]=@campaign.organizer_id
+        # session[:target_organization_id]=params[:organization_name]
 
         if session[:target_organization_id]
           @target_organization = Organization.find_by_id(session[:target_organization_id])
@@ -103,7 +103,7 @@ class Admin::CampaignsController < Admin::ApplicationController
             end
         end
         
-        if @target_organization
+        if org
           # Change title back to origin
           @campaign.title = campaign_title
           @campaign.save

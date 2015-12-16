@@ -1,0 +1,78 @@
+<div id="collections" style="padding: 30px 0">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>标签</h3>
+      </div>
+    </div>
+    <div class="row" style="margin-top:30px;">
+      <%= render "criteria" %>
+    </div>
+  </div>
+
+  <div style="width:90%; max-width:1280px; margin:auto; margin-top: 15px;">
+
+    <div>  <%= link_to '添加标签', new_admin_tag_path, class: 'btn btn-primary' %></div>
+    <div class="all_report_loader" style="display:none; margin-top:10px; text-align:center;">
+      <h4>Loading data ...</h4><span class="loader loader-black"></span>
+    </div>
+    <div class="table-responsive" id="activity_tags_content" style="margin-top: 10px;">
+
+    </div>
+  </div>
+</div>
+<script language="javascript" type="text/javascript">
+  $(function () {
+
+    var ajax_load_url = '<%=admin_tags_page_ajax_path %>';
+    var loading = $("div.all_report_loader");
+    var data_content = $("#activity_tags_content");
+
+    function init_post_data() {
+      var name = $("#tag_name").val();
+      return {name: name}
+    }
+    bun_run_click();
+    $("#run_report").bind('click', function () {
+      bun_run_click();
+    });
+    //    替换默认的分页是分页变成异步发送
+    function bind_pager_click() {
+      var pagers = $("div#page_pager .pagination span a");
+      pagers.each(function () {
+        var url = this.href;
+        this.href = "javascript:void(0);";
+        $(this).off("click").on("click", function () {
+          $(loading).show();
+          $(data_content).html("");
+//          alert(url);
+          load_download_pagedata(url, init_post_data());
+        });
+      });
+    }
+
+//   绑定查询的执行方法
+
+    function bun_run_click() {
+      $(loading).show();
+      $(data_content).html("");
+      load_download_pagedata(ajax_load_url, init_post_data());
+    }
+
+//    异步加载分页数据
+    function load_download_pagedata(url, data_post) {
+//      alert(data_post)
+      $.post(url, data_post).success(function (data, textStatus, jqXHR) {
+        $(data_content).html(data);
+        bind_pager_click();
+      }).error(function () {
+        alert("请求已经结束但是可能发生了错误！");
+      }).complete(function () {
+        $(loading).hide();
+      });
+    }
+  });
+
+
+</script>

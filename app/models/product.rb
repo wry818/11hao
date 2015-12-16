@@ -1,7 +1,16 @@
 class Product < ActiveRecord::Base
     extend FriendlyId
     
-    friendly_id :name, use: :slugged
+    friendly_id :slug_candidates, use: :slugged
+
+    # Try building a slug based on the following fields in
+    # increasing order of specificity.
+    def slug_candidates
+      [
+          :name,
+          [:name, "#{Product.where(name: name).count + 1}"]
+      ]
+    end
 
     scope :isnot_destroy,->{where(is_destroy:false)}
 
@@ -11,6 +20,10 @@ class Product < ActiveRecord::Base
     has_many :option_groups
     has_many :product_images
     belongs_to :product_category,->{where(:is_destroy => false)},foreign_key: "product_category_id"
+    belongs_to :pro_cat_subclass,->{where(:is_destroy => false)},class_name: "ProductCategory",foreign_key: "pro_cat_subclass_id"
+
+    has_many :product_tagses,class_name: "ProductTags",foreign_key: "product_id"
+    has_many :tags,through: :product_tagses
 
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     

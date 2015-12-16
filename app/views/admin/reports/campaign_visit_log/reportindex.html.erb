@@ -25,13 +25,9 @@
 
 <script language="javascript" type="text/javascript">
 
-//$("#from_date").val($.datepicker.formatDate(ISO_8601, new Date(new Date().getTime()-6*86400000)));
-//  $("#to_date").val($.datepicker.formatDate('D, M d, yy', new Date()));
-//  $("#from_date").pickadate();
-//  $("#to_date").pickadate();
-
   $(function () {
     bind_pager_click();
+//    替换默认的分页是分页变成异步发送
     function bind_pager_click()
     {
       var pagers=$("div#page_pager .pagination span a");
@@ -45,7 +41,7 @@
         });
       });
     }
-
+//   绑定查询的执行方法
     $("#run_report").bind('click', function () {
 
       $("div.all_report_loader").show();
@@ -53,6 +49,7 @@
       var url='<%=admin_reports_campvisit_log_report_search_path %>';
       load_download_pagedata(url);
     });
+//    异步加载分页数据
     function  load_download_pagedata(url)
     {
       var campagin_id= $("#all_report_product_selector").val();
