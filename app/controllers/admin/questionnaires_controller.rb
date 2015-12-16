@@ -3,6 +3,6 @@ def index
 
   end
   def new
-
+         @questionnaire=Questionnaire.new
   end
 end
