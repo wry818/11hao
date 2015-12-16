@@ -500,8 +500,8 @@ class ShopController < ApplicationController
       if is_wechat_browser?
         
         weixin_get_user_info()
+        @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
         # weixin_payment_init(@order)
-        # weixin_payment_init(1)
         weixin_address_init()
         
       end
