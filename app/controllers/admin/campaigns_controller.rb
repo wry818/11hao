@@ -4,7 +4,11 @@ class Admin::CampaignsController < Admin::ApplicationController
 
         @campaigns = Campaign.isnot_destroy.order(:id)
     end
+    def ajax_pager_data
+      @campaigns=Campaign.isnot_destroy.order(:updated_at => :desc).page(params[:page]).per(Kaminari.config.default_per_page);
 
+      render partial: "table_show"
+    end
     def new
         @campaign = Campaign.new
         @collections = Collection.isnot_destroy.where("id>0").order(:id)

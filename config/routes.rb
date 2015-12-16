@@ -54,6 +54,7 @@ Raisy::Application.routes.draw do
         resources :campaigns do
             resources :orders
         end
+        post 'campaigns/ajax',to: 'campaigns#ajax_pager_data', as: :campaigns_page_ajax
         
         resources :settings
         resources :vendors
