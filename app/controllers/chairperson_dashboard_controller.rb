@@ -243,13 +243,18 @@ class ChairpersonDashboardController < ApplicationController
         @campaigns = Campaign.where(:organization_id=>org_ids).select("id,slug").all
         
         if @report == "activity"
-          @sellers = Seller.where(:campaign_id=>@campaigns.collect(&:id)).order(:campaign_id, :id)
-          
+          @sellers = Seller.where(:campaign_id=>@campaigns.collect(&:id)).order(:campaign_id, :id).page(params[:page]).per(1)
+          # @sellers.each do |seller|
+          #
+          # end
+          # @total_sales=@sellers.sum("total_sales")
+          # @total_raised=Seller.where(:campaign_id=>@campaigns.collect(&:id)).sum("total_raised")
+          # @total_orders=Seller.where(:campaign_id=>@campaigns.collect(&:id)).sum("total_orders")
           render partial: "activities_report_content" and return
         end
         
         if @report == "sales"
-          @orders = Order.completed.where(:campaign_id=>@campaigns.collect(&:id)).order(:id=>:desc)
+          @orders = Order.completed.where(:campaign_id=>@campaigns.collect(&:id)).order(:id=>:desc).page(params[:page]).per(1)
           
           render partial: "sales_report_content" and return
         end
