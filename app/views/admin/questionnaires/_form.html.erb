@@ -1,0 +1,210 @@
+<%= form_for(new_admin_questionnaire_path) do |f| %>
+    <fieldset>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">1、主要服务人群</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label for="">
+                  <%= check_box_tag "", "1" %>老人
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>儿童
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>残障
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>妇女
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>贫困
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>社区
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>青年
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>其他(请说明)
+                  <%= text_field_tag "", "", placeholder: '请说明' %>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label>2、主要服务区域</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                区：
+                <%= text_field_tag "", "", placeholder: '区' %>
+                街道：
+                <%= text_field_tag "", "", placeholder: '街道' %>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">3、志愿者来源以及稳定数量</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label for="">
+                  <%= check_box_tag "", "1" %>高中
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>大学
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>企事业单位
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>社团协会
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>其他(请说明)
+                </label>
+                <%= text_field_tag "", "", placeholder: '请说明' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 radio" style="margin-left: 5px;">
+                <label for="">
+                  <%= radio_button_tag "p_counts", "1" %>10人以内
+                </label>
+                <label for="">
+                  <%= radio_button_tag "p_counts", "1" %>50人以内
+                </label>
+                <label for="">
+                  <%= radio_button_tag "p_counts", "1" %>50人以上
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">4、主要资金来源渠道</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label for="">
+                  <%= check_box_tag "", "1" %>固定捐赠
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>自筹（政府、企业、基金会、社会募捐）
+                </label>
+                <label for="">
+                  <%= check_box_tag "", "1" %>营业收入
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">5、自有产品或者收费性服务</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label for="">
+                  <%= radio_button_tag "ismy", "1" %>无
+                </label>
+                <label for="">
+                  <%= radio_button_tag "ismy", "1" %>有(请说明)
+                </label>
+                <%= text_field_tag "ismy", "", placeholder: '请说明' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">6、是否愿意将产品或服务交由11号公益圈代理</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label for="">
+                  <%= radio_button_tag "agent", "1" %>愿意
+                </label>
+                <label for="">
+                  <%= radio_button_tag "agent", "1" %>不愿意
+                </label>
+                <label for="">
+                  <%= radio_button_tag "agent", "1" %>待考虑
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">7、是否愿意与11号公益圈合作筹资，并承担传播职责</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label for="">
+                  <%= radio_button_tag "cooperation", "1" %>愿意
+                </label>
+                <label for="">
+                  <%= radio_button_tag "cooperation", "1" %>不愿意
+                </label>
+                <label for="">
+                  <%= radio_button_tag "cooperation", "1" %>待考虑
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">8、对11号公益圈还有何建议</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <%= text_area_tag "","",class: "form-control", placeholder: "请输入建议..." %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
+        <span class="text">保存 </span> <span class="loader" style="display:none"></span>
+      </button>
+
+    </fieldset>
+
+    <div id="collection_modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="collection_modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+<% end %>
+
+

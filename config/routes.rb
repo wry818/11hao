@@ -88,6 +88,8 @@ Raisy::Application.routes.draw do
           get 'campvisit_log/report',to: 'campaign_visit_log#reportindex', as: :campvisit_log_report
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
         end
+
+      resources :questionnaires
     end
     
     # Mall
