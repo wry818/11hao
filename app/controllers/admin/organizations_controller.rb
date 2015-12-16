@@ -6,7 +6,13 @@ class Admin::OrganizationsController < Admin::ApplicationController
   def index
     @organizations = Organization.active.order(:id)
   end
-  
+
+  def ajax_pager_data
+    @organizations=Organization.active.order(:updated_at => :desc).page(params[:page]).per(Kaminari.config.default_per_page);
+
+    render partial: "table_show"
+  end
+
   def new
      @organization = Organization.new
   end

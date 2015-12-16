@@ -48,6 +48,7 @@ Raisy::Application.routes.draw do
         
         resources :invites
         resources :organizations
+        post 'organizations/ajax',to: 'organizations#ajax_pager_data', as: :organizations_page_ajax
         resources :users
         
         resources :campaigns do
