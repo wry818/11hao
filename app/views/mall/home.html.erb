@@ -57,49 +57,51 @@
 	</div>
 	
 	<div class="container">
+		<% @products.each_slice(2) do |arr| %>
 		<div class="row">
-			<% @products.each do |product|%>
-			<div class="col-xs-6" style="padding:0px 5px;">
-				<a href="<%= shop_product_path(@campaign, product) %>">
-					<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
-						<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
-					</div>
+			<% arr.each do |product| %>
+				<div class="col-xs-6" style="padding:0px 5px;">
+					<a href="<%= shop_product_path(@campaign, product) %>">
+						<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
+							<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
+						</div>
 					
-					<div style="font-size:14px; text-align:center; max-height:44px; overflow:hidden;"><%= product.name %></div>
+						<div style="font-size:14px; text-align:center; max-height:44px; overflow:hidden;"><%= product.name %></div>
 					
-					<% price_range=product.price_range(1) %>
+						<% price_range=product.price_range(1) %>
 					
-					<div style="font-size:14px; text-align:center; margin-top:10px;">
-						<span style="display:inline-block;">
-							<% if price_range[:is_discount] %>
-								<span style="color:gray; display:inline-block; text-decoration:line-through;">
+						<div style="font-size:14px; text-align:center; margin-top:10px;">
+							<span style="display:inline-block;">
+								<% if price_range[:is_discount] %>
+									<span style="color:gray; display:inline-block; text-decoration:line-through;">
+										<% if price_range[:same_price] %>
+										￥<%= long_price(price_range[:min]) %>
+									<% else %>
+										￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+									<% end %></span><br/>
+									<span style="color:rgb(210, 16, 16); display:inline-block;">
+									<% if price_range[:same_discount_price] %>
+										￥<%= long_price(price_range[:discount_min]) %>
+									<% else %>
+										￥<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
+									<% end %>
+									</span>
+								<% else %>
 									<% if price_range[:same_price] %>
-									￥<%= long_price(price_range[:min]) %>
-								<% else %>
-									￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
-								<% end %></span><br/>
-								<span style="color:rgb(210, 16, 16); display:inline-block;">
-								<% if price_range[:same_discount_price] %>
-									￥<%= long_price(price_range[:discount_min]) %>
-								<% else %>
-									￥<%= long_price(price_range[:discount_min]) %> - <%= long_price(price_range[:discount_max]) %>
+										￥<%= long_price(price_range[:min]) %>
+									<% else %>
+										￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
+									<% end %>
 								<% end %>
-								</span>
-							<% else %>
-								<% if price_range[:same_price] %>
-									￥<%= long_price(price_range[:min]) %>
-								<% else %>
-									￥<%= long_price(price_range[:min]) %> - <%= long_price(price_range[:max]) %>
-								<% end %>
-							<% end %>
-						</span>
-					</div>
-				</a>
+							</span>
+						</div>
+					</a>
 					
-				<div>&nbsp;</div>
-			</div>
+					<div>&nbsp;</div>
+				</div>
 			<% end %>
-		</div>
+			</div>
+		<% end %>
 		
 		<div style="text-align:center; padding-bottom:30px;"><a href="<%= mall_search_path %>" style="color:#333; font-size:14px; text-decoration:underline;">查看全部</a></div>
 	</div>
