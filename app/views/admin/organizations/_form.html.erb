@@ -86,7 +86,7 @@
 						<%= link_to '编辑筹款页面', new_admin_campaign_path + "?organization=" + f.object.id.to_s %>
 					<% end %>
 
-          <%= link_to "合作意向调查表",new_admin_questionnaire_path %>
+          <%= link_to "合作意向调查表",new_admin_questionnaire_path+"?organization=" + f.object.id.to_s %>
 				</div>
 				<% end %>
 			</div>

@@ -516,9 +516,9 @@ ActiveRecord::Schema.define(version: 20151216085540) do
   end
 
   create_table "questionnaire_answers", force: true do |t|
-    t.string   "key"
-    t.string   "type"
-    t.string   "value"
+    t.string   "keyname"
+    t.string   "typename"
+    t.string   "answervalue"
     t.string   "remark"
     t.integer  "questionnaire_id"
     t.datetime "created_at"
@@ -526,7 +526,7 @@ ActiveRecord::Schema.define(version: 20151216085540) do
   end
 
   create_table "questionnaires", force: true do |t|
-    t.integer  "Organization_id"
+    t.integer  "organization_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
