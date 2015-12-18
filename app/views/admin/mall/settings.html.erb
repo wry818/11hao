@@ -1,0 +1,61 @@
+<div id="mall_settings" style="padding: 30px 0">
+  <div class="container">
+		<h3>商城设置</h3>
+		
+		<div class="row">&nbsp;</div>
+		
+		<%= form_tag(admin_save_mall_settings_path, method: "post") do %>
+    <div class="row">
+      <div class="col-md-2">
+        <label>产品分类</label>
+			</div>
+			<div class="col-md-10">
+				<% @root_categories.each_slice(3) do |arr| %>
+				<div class="row" style="margin-bottom:15px;">
+					<% arr.each do |rc| %>
+					<div class="col-md-4">
+						<% tc = @top_categories.select{|x| x.product_category_id==rc.id}.first %>
+						<label><input type="checkbox" name="top_pc[]" value="<%= rc.id %>" <%= "checked" if tc %> /> <%= rc.name %></label>
+						<div><input type="hidden" name="top_pc_order[]" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+    </div>
+		
+		<div class="row">&nbsp;</div>
+		
+    <div class="row">
+      <div class="col-md-2">
+        <label>热卖商品</label>
+			</div>
+			<div class="col-md-10">
+				<% @all_products.each_slice(3) do |arr| %>
+				<div class="row" style="margin-bottom:15px;">
+					<% arr.each do |ap| %>
+					<div class="col-md-4">
+						<% hp = @hot_products.select{|x| x.product_id==ap.id}.first %>
+						<label><input type="checkbox" name="hot_prod[]" value="<%= ap.id %>" <%= "checked" if hp %> /> <%= ap.name %></label>
+						<div>排序编号: <input type="text" name="hot_prod_order[]" style="width:50px;" value="<%= hp ? hp.sort_order : '' %>" /></div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+    </div>
+		
+		<div class="row">&nbsp;</div>
+		
+    <div class="row">
+			<div class="col-md-2">
+			</div>
+      <div class="col-md-10">
+		    <button class="btn btn-primary" type="submit">
+		        <span class="text">保存</span>
+		    </button>
+			</div>
+		</div>
+		<% end %>
+  </div>
+</div>

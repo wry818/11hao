@@ -55,9 +55,6 @@ Raisy::Application.routes.draw do
         
         resources :settings
         resources :vendors
-
-
-
         
         get 'campaign_stories', to: 'campaigns#stories'
         get 'campaign_story/:id', to: 'campaigns#story'
@@ -78,13 +75,15 @@ Raisy::Application.routes.draw do
         patch 'campaign_bulkshippinginfo/:id', to: 'campaigns#update_bulkshippinginfo'
         
         get 'product_collections/:id', to: 'products#prod_collections', as: :product_collections
-
-
+        
         namespace :reports do
           root 'reportsboard#index'
           get 'campvisit_log/report',to: 'campaign_visit_log#reportindex', as: :campvisit_log_report
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
         end
+        
+        get 'mall_settings', to: 'mall#settings', as: :mall_settings
+        post 'save_mall_settings', to: 'mall#save_settings', as: :save_mall_settings
     end
     
     # Mall
