@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216085540) do
+ActiveRecord::Schema.define(version: 20151217071220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -319,6 +319,30 @@ ActiveRecord::Schema.define(version: 20151216085540) do
     t.string   "tracking_number"
   end
 
+  create_table "mall_hot_products", force: true do |t|
+    t.integer "product_id"
+    t.integer "sort_order"
+  end
+
+  create_table "mall_slider_images", force: true do |t|
+    t.string  "public_id"
+    t.string  "image_url"
+    t.integer "image_width"
+    t.integer "image_height"
+    t.integer "sort_order"
+    t.integer "crop_x"
+    t.integer "crop_y"
+    t.integer "crop_width"
+    t.integer "crop_height"
+    t.boolean "is_cropped",   default: false
+    t.boolean "active",       default: true
+  end
+
+  create_table "mall_top_categories", force: true do |t|
+    t.integer "product_category_id"
+    t.integer "sort_order"
+  end
+
   create_table "option_group_properties", force: true do |t|
     t.integer  "option_group_id"
     t.string   "value"
@@ -464,6 +488,7 @@ ActiveRecord::Schema.define(version: 20151216085540) do
     t.boolean  "is_destroy",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "picture"
   end
 
   create_table "product_images", force: true do |t|

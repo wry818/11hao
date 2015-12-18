@@ -22,7 +22,50 @@
             <label for="product_category_sort_mark" class="control-label">排序编号</label>
             <%= f.text_field :sort_mark, class: 'form-control' %>
           </div>
-
+					
+          <div class="well">
+              <div class="row">
+                  <div class="col-md-12">
+                      <label>图片 <span style="font-weight: normal">(最佳尺寸: 280*280像素)</span></label>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="image-uploader">
+                                  <div id="drop-zone" class="drop-zone">
+                                      <div class="row"><div class="col-md-6">
+                                          <div class="upload-button-holder" style="position: relative">
+                                              <a class="btn btn-default btn-block upload-button">Choose File</a>
+                                              <%= cl_image_upload_tag(:category_image, tags: Rails.env, html: { accept:"image/*"}) %>
+  <a href="#" class="remove-image" style="display:none">Remove picture</a>
+                                          </div>
+                                      </div><div class="col-md-6">
+                                          <p class="drop-text"></p>
+                                      </div></div>
+                                  </div>
+                                  <div class="progress progress-striped active" style="display: none;">
+                                      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                                      <span>0%</span>
+                                      </div>
+                                  </div>
+                                  <span class="status"></span>
+                                  <div class="preview">
+                                      <% if f.object.picture.present? %>
+                                          <%= cl_image_tag f.object.picture, width: 97, height: 94, crop: :limit, class: 'img-responsive' %>
+                                      <% else %>
+                                          <%= image_tag 'default_upload_logo.gif' %>
+                                      <% end %>
+                                  </div>
+							<div class="remove-preview" style="margin-top:10px; display:<%= f.object.picture.present? ? 'block' : 'none' %>;" data-default-url="<%=asset_path 'default_upload_logo.gif'%>">
+								<%= hidden_field_tag :remove_item_image, "no" %>
+							
+								<button class="btn btn-primary" type="button" style="width:94px;"><span class="text">删除</span></button>
+							</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+					
         </div>
       </div>
 
