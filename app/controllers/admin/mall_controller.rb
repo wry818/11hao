@@ -22,13 +22,13 @@ class Admin::MallController < Admin::ApplicationController
     
     if params[:top_pc].present? && params[:top_pc_order].present?
       params[:top_pc].each_with_index { |pc, idx| 
-        MallTopCategory.create product_category_id: pc, sort_order: params[:top_pc_order][idx]
+        MallTopCategory.create product_category_id: pc, sort_order: params[:top_pc_order][idx].to_i
       }
     end
     
     if params[:hot_prod].present? && params[:hot_prod_order].present?
       params[:hot_prod].each_with_index { |hp, idx| 
-        MallHotProduct.create product_id: hp, sort_order: params[:hot_prod_order][idx]
+        MallHotProduct.create product_id: hp, sort_order: params[:hot_prod_order][idx].to_i
       }
     end
     
