@@ -16,7 +16,7 @@
 					<div class="col-md-4">
 						<% tc = @top_categories.select{|x| x.product_category_id==rc.id}.first %>
 						<label><input type="checkbox" name="top_pc[]" value="<%= rc.id %>" <%= "checked" if tc %> /> <%= rc.name %></label>
-						<div><input type="hidden" name="top_pc_order[]" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
+						<div><input type="hidden" name="top_pc_order_<%= rc.id %>" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
 					</div>
 					<% end %>
 				</div>
@@ -37,7 +37,7 @@
 					<div class="col-md-4">
 						<% hp = @hot_products.select{|x| x.product_id==ap.id}.first %>
 						<label><input type="checkbox" name="hot_prod[]" value="<%= ap.id %>" <%= "checked" if hp %> /> <%= ap.name %></label>
-						<div>排序编号: <input type="text" name="hot_prod_order[]" style="width:50px;" value="<%= hp ? hp.sort_order : '' %>" /></div>
+						<div>排序编号: <input type="text" name="hot_prod_order_<%= ap.id %>" style="width:50px;" value="<%= hp ? hp.sort_order : '' %>" /></div>
 					</div>
 					<% end %>
 				</div>
