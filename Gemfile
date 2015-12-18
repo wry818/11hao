@@ -100,4 +100,3 @@ gem 'cancan'
 # gem 'paperclip-av-transcoder'
 
 gem 'bxslider-rails'
-gem 'protected_attributes'
