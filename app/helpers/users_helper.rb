@@ -38,7 +38,7 @@ module UsersHelper
     url="http://www.kuaidiapi.cn/rest/?uid=53100&key=#{key}&order=#{number}&id=#{express_id}&show=xml&ord=desc"
     logger.debug "1001"
     response = open(url).read
-    logger.debug response
+    # logger.debug response
     docresult = Nokogiri::XML(response)
     docresult.encoding = "utf-8"
     return docresult

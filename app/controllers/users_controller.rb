@@ -1233,7 +1233,10 @@ class UsersController < ApplicationController
         render :text => "0000" and return
       end
 
-      @status==get_status_text(@docresult.xpath('//xmlns:status').text)
+      # logger.debug @docresult.xpath('//xmlns:status').text
+      # logger.debug get_status_text(@docresult.xpath('//xmlns:status').text)
+      @exprss_status=get_status_text(@docresult.xpath('//xmlns:status').text)
+      # logger.debug @exprss_status
 
       @times= @docresult.xpath('//xmlns:data//xmlns:data//xmlns:time')
       @display=@docresult.xpath('//xmlns:data//xmlns:data//xmlns:content')
