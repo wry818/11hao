@@ -24,6 +24,8 @@ class MallController < ApplicationController
       
       @top_categories << tc.product_category if tc.product_category.active && !tc.product_category.is_destroy
     end
+    
+    @slider_images = MallSliderImage.order(:sort_order)
   end
   
   def search

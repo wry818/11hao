@@ -28,9 +28,21 @@
 <div id="mall_home">
 	<div class="bxslider-container">
 		<ul id="bxslider">
-		  <li><%= image_tag 'share.jpg' %></li>
-		  <li style="display:none;"><%= image_tag 'b1.jpg' %></li>
-		  <li style="display:none;"><%= image_tag 'share.jpg' %></li>
+			<% slider_idx=0
+			@slider_images.each do |image| 
+			slider_idx+=1	
+			%>
+			<li style="<%= slider_idx==1 ? '' : 'display:none;' %>">
+				<%= cl_image_tag image.public_id,
+				transformation: [{ 
+						width: image.crop_width,
+						height: image.crop_height,
+						x: image.crop_x,
+						y: image.crop_y,
+						crop: :crop
+					}]%>
+			</li>
+			<% end %>
 		</ul>
 	</div>
 	
