@@ -12,29 +12,44 @@
 .bx-pager-link.active {
 	background-color: rgb(198, 1, 10) !important;
 }
+
+.bxslider-container img {
+	max-width:100%;
+	max-height:150px;
+}
+
+@media all and (min-height: 768px){
+	.bxslider-container img {
+		max-height:300px;
+	}
+}
 </style>
 
 <div id="mall_home">
-	<div style="text-align:center;">
-		<ul id="bxslider" style="margin:0px auto;">
-		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+	<div class="bxslider-container">
+		<ul id="bxslider">
+		  <li><%= image_tag 'share.jpg' %></li>
+		  <li style="display:none;"><%= image_tag 'b1.jpg' %></li>
+		  <li style="display:none;"><%= image_tag 'share.jpg' %></li>
 		</ul>
 	</div>
 	
 	<% if @top_categories.count > 0 %>
-	<div style="padding:10px 0px;">
+	<div style="padding:10px 0px 10px 0px;">
 		<table style="width:100%;">
 			<tr>
 				<% @top_categories.each do |tc| %>
 					<td style="width:25%;">
-						<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>" style="color:#999; font-size:14px;">
-							<div style="width:48px; height:48px; text-align:center; margin:0px auto;">
-								<%= cl_image_tag tc.picture, width: 48, height: 48, crop: :fill, class: 'img-responsive' %>
-							</div>
-							<div style="margin-top:5px; text-align:center;"><%= tc.name %></div>
-						</a>
+						<div style="width:48px; height:48px; text-align:center; margin:0px auto;">
+							<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>">
+								<%= cl_image_tag tc.picture, width: 48, height: 48, crop: :fill, class: "img-responsive"  %>
+							</a>
+						</div>
+						<div style="margin-top:5px; text-align:center;">
+							<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>" style="color:#999; font-size:14px;">
+								<%= tc.name %>
+							</a>
+						</div>
 					</td>
 				<% end %>
 			</tr>
@@ -55,16 +70,20 @@
 		<div class="row">
 			<% arr.each do |product| %>
 				<div class="col-xs-6" style="padding:0px 5px;">
-					<a href="<%= shop_product_path(@campaign, product) %>">
-						<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
-							<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
-						</div>
-					
-						<div style="font-size:14px; text-align:center; max-height:44px; overflow:hidden;"><%= product.name %></div>
-					
-						<% price_range=product.price_range(1) %>
-					
-						<div style="font-size:14px; text-align:center; margin-top:5px;">
+					<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
+						<a href="<%= shop_product_path(@campaign, product) %>">
+							<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: "img-responsive" %>
+						</a>
+					</div>
+				
+					<div style="font-size:14px; text-align:center; max-height:44px; margin-top:5px; overflow:hidden;">
+						<a href="<%= shop_product_path(@campaign, product) %>"><%= product.name %></a>
+					</div>
+				
+					<% price_range=product.price_range(1) %>
+				
+					<div style="font-size:14px; text-align:center; margin-top:5px;">
+						<a href="<%= shop_product_path(@campaign, product) %>">
 							<span style="display:inline-block;">
 								<% if price_range[:is_discount] %>
 									<span style="color:gray; display:inline-block; text-decoration:line-through;">
@@ -88,10 +107,10 @@
 									<% end %>
 								<% end %>
 							</span>
-						</div>
-					</a>
-					
-					<div style="height:10px;"></div>
+						</a>
+					</div>
+						
+					<div style="height:15px;"></div>
 				</div>
 			<% end %>
 			</div>
