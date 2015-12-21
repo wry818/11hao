@@ -25,7 +25,7 @@
 								</div>
 							</td>
 							<td style="vertical-align:top; padding-left:10px;">
-								<button id="save_slider_image" type="button" class="btn btn-default">保存</button>
+								<button id="save_slider_image" type="button" class="btn btn-default">调整完毕</button>
 							</td>
 						</tr>
 					</table>
@@ -99,7 +99,7 @@
 							container.data("crop-width", _cropbox_result.crop_width);
 							container.data("crop-height", _cropbox_result.crop_height);
 							container.find("img").first().attr("src", url);
-							container.appendTo($("#all_slider_images")).show();
+							container.prependTo($("#all_slider_images")).show();
 							container.find(".remove-slider-image").first().click(function() {
 								$(this).closest(".slider-image-container").remove();
 							});
