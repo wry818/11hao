@@ -38,9 +38,10 @@ class Admin::MallController < Admin::ApplicationController
           img_hash = JSON.parse(si)
           
           MallSliderImage.create public_id: img_hash["public_id"], image_url: img_hash["secure_url"],
-            image_width: img_hash["image_width"], image_height: img_hash["image_height"], sort_order: img_hash["sort_order"],
+            image_width: img_hash["image_width"], image_height: img_hash["image_height"], 
+            sort_order: img_hash["sort_order"].to_i,
             crop_x: img_hash["crop_x"], crop_y: img_hash["crop_y"], crop_width: img_hash["crop_width"],
-            crop_height: img_hash["crop_height"], is_cropped: true
+            crop_height: img_hash["crop_height"], is_cropped: true, target_url: img_hash["target_url"]
         rescue
         end
       end

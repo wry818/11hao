@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217071220) do
+ActiveRecord::Schema.define(version: 20151221115156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 20151217071220) do
     t.integer "crop_height"
     t.boolean "is_cropped",   default: false
     t.boolean "active",       default: true
+    t.string  "target_url"
   end
 
   create_table "mall_top_categories", force: true do |t|

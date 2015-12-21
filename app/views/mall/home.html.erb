@@ -12,35 +12,43 @@
 .bx-pager-link.active {
 	background-color: rgb(198, 1, 10) !important;
 }
-
-.bxslider-container img {
-	max-width:100%;
-	max-height:150px;
-}
-
-@media all and (min-height: 768px){
-	.bxslider-container img {
-		max-height:300px;
-	}
-}
 </style>
 
 <div id="mall_home">
-	<div class="bxslider-container">
+	<div class="bxslider-container" style="max-width:900px; margin:0px auto;">
 		<ul id="bxslider">
 			<% slider_idx=0
 			@slider_images.each do |image| 
 			slider_idx+=1	
 			%>
 			<li style="<%= slider_idx==1 ? '' : 'display:none;' %>">
-				<%= cl_image_tag image.public_id,
+				<% if image.target_url %>
+					<a href="<%= image.target_url %>"><%= cl_image_tag image.public_id,
 				transformation: [{ 
 						width: image.crop_width,
 						height: image.crop_height,
 						x: image.crop_x,
 						y: image.crop_y,
 						crop: :crop
-					}]%>
+					}, {
+						width: 900,
+						height: 300,
+						crop: :fill
+					}], style: "width:100%;" %></a>
+				<% else %>
+					<%= cl_image_tag image.public_id,
+					transformation: [{ 
+							width: image.crop_width,
+							height: image.crop_height,
+							x: image.crop_x,
+							y: image.crop_y,
+							crop: :crop
+						}, {
+							width: 900,
+							height: 300,
+							crop: :fill
+						}], style: "width:100%;" %>
+				<% end %>
 			</li>
 			<% end %>
 		</ul>

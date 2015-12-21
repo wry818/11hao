@@ -7,7 +7,7 @@
 		<%= form_tag(admin_save_mall_settings_path, id: "mall_settings_form", method: "post") do %>
     <div class="row">
       <div class="col-md-2">
-        <label>滚动广告</label>
+        <label>滚动广告</br>(最佳尺寸: 900*300像素)</label>
 			</div>
 			<div class="col-md-10">
 				<div>
@@ -61,6 +61,7 @@
 							result.crop_width=container.data("crop-width");
 							result.crop_height=container.data("crop-height");
 							result.sort_order=container.find(".slider-image-order").first().val();
+							result.target_url=container.find(".slider-image-target-url").first().val();
 							
 							container.find(".slider-image-result").first().val(JSON.stringify(result));
 						});
@@ -167,7 +168,12 @@
 					<div style="margin-bottom:30px; position:relative;">
 						<img class="img-responsive" style="border:1px solid #ccc;">
 						
-						<div style="margin-top:5px; text-align:center;">
+						<div style="margin-top:5px;">
+							链接地址: 
+							<input type="text" style="width:100%;" class="slider-image-target-url" value="" />
+						</div>
+						
+						<div style="margin-top:5px;">
 							排序编号: <input type="text" class="slider-image-order" style="width:50px;" value="" />
 						
 							<input type="hidden" name="slider_images[]" class="slider-image-result" value="">
@@ -181,7 +187,7 @@
 				
 				<div id="all_slider_images" class="row">
 					<% @slider_images.each do |image| %>
-					<div class="col-md-4 slider-image-container" data-public-id="<%= image.public_id %>" data-secure-url="<%= image.image_url %>" data-image-width="<%= image.image_width %>" data-image-height="<%= image.image_height %>" data-crop-x="<%= image.crop_x %>" data-crop-y="<%= image.crop_y %>" data-crop-width="<%= image.crop_width %>" data-crop-height="<%= image.crop_height %>">
+					<div class="col-md-6 slider-image-container" data-public-id="<%= image.public_id %>" data-secure-url="<%= image.image_url %>" data-image-width="<%= image.image_width %>" data-image-height="<%= image.image_height %>" data-crop-x="<%= image.crop_x %>" data-crop-y="<%= image.crop_y %>" data-crop-width="<%= image.crop_width %>" data-crop-height="<%= image.crop_height %>">
 						<div style="margin-bottom:30px; position:relative;">
 							<%= cl_image_tag image.public_id,
 							transformation: [{ 
@@ -191,9 +197,14 @@
 									y: image.crop_y,
 									crop: :crop
 								}], class: "img-responsive", style: "border:1px solid #ccc;" %>
-								
-							<div style="margin-top:5px; text-align:center;">
-								排序编号: <input type="text" class="slider-image-order" style="width:50px;" value="<%= image.sort_order || 999 %>" />
+							
+							<div style="margin-top:5px;">
+								链接地址: 
+								<input type="text" style="width:100%;" class="slider-image-target-url" value="<%= image.target_url %>" />
+							</div>
+							
+							<div style="margin-top:5px;">
+								排序编号: <input type="text" class="slider-image-order" style="width:50px;" value="<%= image.sort_order %>" />
 								<input type="hidden" name="slider_images[]" class="slider-image-result" value="">
 							</div>
 							
@@ -217,7 +228,7 @@
 				<% @root_categories.each_slice(3) do |arr| %>
 				<div class="row" style="margin-bottom:15px;">
 					<% arr.each do |rc| %>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<% tc = @top_categories.select{|x| x.product_category_id==rc.id}.first %>
 						<label><input type="checkbox" name="top_pc[]" value="<%= rc.id %>" <%= "checked" if tc %> /> <%= rc.name %></label>
 						<div><input type="hidden" name="top_pc_order_<%= rc.id %>" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
