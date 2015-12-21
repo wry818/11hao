@@ -1,0 +1,71 @@
+<div id="order-show">
+  <div class="order_wrapper">
+    <div class="order_content">
+      <p>
+        承运公司:
+      </p>
+
+      <div class="right_content">
+        <div>
+          <div>
+            <%= @item.express %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="order_content">
+      <p>
+        运单编号:
+      </p>
+      <div class="right_content">
+        <div>
+          <div>
+            <%= @item.courier_number %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="express_detail_content" class="order_detail_content">
+      <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+        <h4>Loading data ...</h4><span class="loader loader-black"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+
+    document.title = "快递信息";
+
+//	$("body").css("background-color", "rgb(237, 237, 237)")
+    $("nav").remove();
+    $(".navbar-header").remove();
+    $("header").css("min-height", "0px").css("height", "0px");
+    $(".navbar-brand").addClass("navbar-brand-main");
+
+    $("div.all_report_loader").show();
+    var url="<%=user_order_express_ajax_path%>"
+    $.get(url).success(function (data, textStatus, jqXHR) {
+      if(data=="error")
+      {
+        $("#express_detail_content").html("数据请求失败...");
+      }
+      else if(data=="error")
+      {
+        $("#express_detail_content").html("数据请求失败...");
+      }
+      else
+      {
+        $("#express_detail_content").html(data);
+      }
+    }).error(function() {
+
+      alert("请求已经结束但是可能发生了错误！");
+    }).complete(function() {
+
+      $("div.all_report_loader").hide();
+    });
+  });
+</script>

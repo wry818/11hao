@@ -1,0 +1,11 @@
+<%= @status %>
+<% (0...@times.length).each do |temp| %>
+    <p>
+      <%= @times[temp].text %>
+    </p>
+    <div class="item_content">
+      <small>
+        <%= @display[temp].text %>
+      </small>
+    </div>
+<% end %>

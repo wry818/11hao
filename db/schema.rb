@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216085540) do
+ActiveRecord::Schema.define(version: 20151221030015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,6 +317,8 @@ ActiveRecord::Schema.define(version: 20151216085540) do
     t.integer  "origin_base_amount",     default: 0
     t.integer  "origin_donation_amount", default: 0
     t.string   "tracking_number"
+    t.string   "express"
+    t.string   "courier_number"
   end
 
   create_table "option_group_properties", force: true do |t|
