@@ -13,7 +13,7 @@
             <div class="row">
               <div class="col-md-12  checkbox" style="margin-left: 5px;">
                 <label>
-                  <%= check_box_tag "service_population[]", "1-1",@questionnaire.get_answer_check("service_population",'1-1')  %>老人
+                  <%= check_box_tag "service_population[]", "1-1",f.object.get_answer_check("service_population",'1-1')  %>老人
 
                 </label>
                 <label>
@@ -55,6 +55,8 @@
                 <%= select_tag "address_city",@questionnaire.get_answer_value("address_city"),class: "form-control city", placeholder: '城市' %>
                 区县：
                 <%= select_tag "address_county",@questionnaire.get_answer_value("address_county"),class: "form-control dist", placeholder: '区县' %>
+                详细地址：
+                <%= text_field_tag "address_details",@questionnaire.get_answer_value("address_details"),class: "form-control", placeholder: '详细地址' %>
               </div>
             </div>
           </div>
@@ -109,13 +111,13 @@
             <div class="row">
               <div class="col-md-12  checkbox" style="margin-left: 5px;">
                 <label >
-                  <%= check_box_tag "founds_source", "4-1" ,@questionnaire.get_answer_check("founds_source",'4-1')%>固定捐赠
+                  <%= check_box_tag "founds_source[]", "4-1" ,@questionnaire.get_answer_check("founds_source",'4-1')%>固定捐赠
                 </label>
                 <label >
-                  <%= check_box_tag "founds_source", "4-2" ,@questionnaire.get_answer_check("founds_source",'4-2')%>自筹（政府、企业、基金会、社会募捐）
+                  <%= check_box_tag "founds_source[]", "4-2" ,@questionnaire.get_answer_check("founds_source",'4-2')%>自筹（政府、企业、基金会、社会募捐）
                 </label>
                 <label >
-                  <%= check_box_tag "founds_source", "4-3",@questionnaire.get_answer_check("founds_source",'4-3') %>营业收入
+                  <%= check_box_tag "founds_source[]", "4-3",@questionnaire.get_answer_check("founds_source",'4-3') %>营业收入
                 </label>
               </div>
             </div>
