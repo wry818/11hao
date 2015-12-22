@@ -317,6 +317,8 @@ ActiveRecord::Schema.define(version: 20151221115156) do
     t.integer  "origin_base_amount",     default: 0
     t.integer  "origin_donation_amount", default: 0
     t.string   "tracking_number"
+    t.string   "express"
+    t.string   "courier_number"
   end
 
   create_table "mall_hot_products", force: true do |t|
