@@ -1225,6 +1225,7 @@ class UsersController < ApplicationController
       begin
         @docresult=get_doc(@item.express, @item.courier_number)
       rescue
+        logger.error "物流信息API调用发生错误！"
         render :text => "error" and return
       end
 

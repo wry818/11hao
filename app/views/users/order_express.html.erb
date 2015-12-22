@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div id="express_detail_content" class="order_detail_content">
+    <div id="express_detail_content" class="express_content">
       <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
         <h4>Loading data ...</h4><span class="loader loader-black"></span>
       </div>
@@ -45,6 +45,8 @@
     $("header").css("min-height", "0px").css("height", "0px");
     $(".navbar-brand").addClass("navbar-brand-main");
 
+
+
     $("div.all_report_loader").show();
     var url="<%=user_order_express_ajax_path%>"
     $.get(url).success(function (data, textStatus, jqXHR) {
@@ -52,14 +54,17 @@
       {
         $("#express_detail_content").html("数据请求失败...");
       }
-      else if(data=="error")
+      else if(data=="0000")
       {
         $("#express_detail_content").html("数据请求失败...");
       }
       else
       {
         $("#express_detail_content").html(data);
+        $(".item_content").first().css('color',"#3eaf0e");
+        $(".item_content").first().prev("p").css('color',"#3eaf0e");
       }
+
     }).error(function() {
 
       alert("请求已经结束但是可能发生了错误！");
