@@ -100,5 +100,6 @@ module Raisy
         # ENV['WEIXIN_APPID'] = 'wxbd2427d5c32cbff6'
         # ENV['WEIXIN_APP_SECRET'] = '5fe619dff86284d07b9e301aca4bd2f3'
         config.express_key='2c40a2e81f354f02b052e3ba58de615c'
+        config.express_uid='53100'
     end
 end

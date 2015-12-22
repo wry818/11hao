@@ -33,9 +33,10 @@ module UsersHelper
 
   def get_doc(express, number)
     # logger.debug @@result
+    uid=Rails.configuration.express_uid
     key=Rails.configuration.express_key
     express_id=get_express_key(express)
-    url="http://www.kuaidiapi.cn/rest/?uid=53100&key=#{key}&order=#{number}&id=#{express_id}&show=xml&ord=desc"
+    url="http://www.kuaidiapi.cn/rest/?uid=#{uid}&key=#{key}&order=#{number}&id=#{express_id}&show=xml&ord=desc"
     logger.debug "1001"
     response = open(url).read
     # logger.debug response

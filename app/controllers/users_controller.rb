@@ -1170,7 +1170,7 @@ class UsersController < ApplicationController
 
   def order_list
 
-    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     # return @orders = Order.all
     if session[:openid]
 
@@ -1186,7 +1186,7 @@ class UsersController < ApplicationController
 
   def order_detail
 
-    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     # return @order= Order.find_by_id(params[:order_id])
     # return @order = Order.find_by_id(params[:order_id])
     if session[:openid]
@@ -1202,7 +1202,7 @@ class UsersController < ApplicationController
   end
 
   def order_express
-    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     # return @order= Order.find_by_id(params[:order_id])
     # return @order = Order.find_by_id(params[:order_id])
     if session[:openid]
@@ -1215,7 +1215,7 @@ class UsersController < ApplicationController
 
   def order_express_ajax
 
-    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     # return @order= Order.find_by_id(params[:order_id])
     # return @order = Order.find_by_id(params[:order_id])
     if session[:openid]
