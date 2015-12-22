@@ -1,74 +1,112 @@
 <div style="display:none;">order_detail</div>
 <% if @items.count==0 %>
-	<div style="text-align:center;"><span>没有找到相关记录</span></div>
+    <div style="text-align:center;"><span>没有找到相关记录</span></div>
 <% else %>
-<div style="width:100%; overflow: auto;">
-	<table class="table table-hover table-bordered">
-	    <thead>
-	        <tr>
-	            <th>Quantity-Products</th>
-				<th>Paid</th>
-	            <th>Delivery Method</th>
-	            <th>Delivery Status</th>
-							<th>Tracking # / Access Code</th>
-							<% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
-							<th></th>
-							<% end %>
-	        </tr>
-	    </thead>
-	    <tbody>
-			<% @show_address=false %>
-			<% @items.each do |item| %>
-				<% 
-					if item.delivery_method==2 
-						@show_address=true 
-					end 
-				%>
-				<tr>
-					<td>
-		            	<%= item.quantity %>-<%= item.product.name if item.product %>
-			            <% item.options.each do |option| %>
-						<% if option.value.present? %>
-			                <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
-						<% end %>
-			            <% end %>
-					</td>
-					<td>$<%= long_price(item.total_price.to_f/100) %></td>
-					<td><%= item.delivery_method_text %></td>
-					<td id="item_<%= item.id %>_deliverystatustext"><%= item.delivery_status_text %></td>
-					<td id="item_<%= item.id %>_accesscode">
-						<% if item.delivery_method == 1 %>
-							<%= item.registration_codes.select(:reg_code).collect(&:reg_code).join(", ") %>
-						<% else %>
-							<%= item.tracking_number %>
-						<% end %>
-					</td>
-					<% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
-					<td>
-						<% if item.delivery_method == 1 %>
-							<button type="button" class="btn btn-default open-resend-button" data-email="<%= @order.email %>" data-item-id="<%= item.id %>"><span>Resend Code</span></button>
-						<% end %>
-					</td>
-					<% end %>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-	<% if @show_address %> 
+    <div style="width:100%; overflow: auto;">
+      <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+          <th>Quantity-Products</th>
+          <th>Paid</th>
+          <th>Delivery Method</th>
+          <th>Delivery Status</th>
+          <th>Tracking # / Access Code</th>
+          <% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
+              <th></th>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody>
+        <% @show_address=false %>
+        <% @items.each do |item| %>
+            <%
+               if item.delivery_method==2
+                 @show_address=true
+               end
+            %>
+            <tr>
+              <td>
+                <%= item.quantity %>-<%= item.product.name if item.product %>
+                <% item.options.each do |option| %>
+                    <% if option.value.present? %>
+                        <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+                    <% end %>
+                <% end %>
+              </td>
+              <td>$<%= long_price(item.total_price.to_f/100) %></td>
+              <td><%= item.delivery_method_text %></td>
+              <td id="item_<%= item.id %>_deliverystatustext"><%= item.delivery_status_text %></td>
+              <td id="item_<%= item.id %>_accesscode">
+                <% if item.delivery_method == 1 %>
+                    <%= item.registration_codes.select(:reg_code).collect(&:reg_code).join(", ") %>
+                <% else %>
+                    <%= item.express %>/<a href="javascript:void(0);"><span class="courier_number" data-id="<%= item.id %>"><%= item.courier_number %></span></a>
+                <% end %>
+              </td>
+              <% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
+                  <td>
+                    <% if item.delivery_method == 1 %>
+                        <button type="button" class="btn btn-default open-resend-button" data-email="<%= @order.email %>" data-item-id="<%= item.id %>">
+                          <span>Resend Code</span></button>
+                    <% end %>
+                  </td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% if @show_address %>
 		<span>
 			<strong>Recipient:&nbsp;&nbsp;</strong><%= @order.address_fullname if @order %><br/>
 			<strong>Delivery Address:&nbsp;&nbsp;</strong><%= @order.delivery_single_line_address if @order %><br/>
 		</span>
-	<% end %>
-</div>
+      <% end %>
+      <div id="express_detail_content" class="express_content" style="margin-top: 15px; text-align: center;">
 
-<script>
-$(".open-resend-button").click(function(){
-	$("#resend_email").val($(this).data("email") || "");
-	$("#send_accesscode").data("item-id", $(this).data("item-id") || "");
-	$("#send_accesscode_container").removeClass("has-error");
-	$("#resend_code_modal").modal("show");
-});
-</script>
+      </div>
+      <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+        <h4>Loading data ...</h4><span class="loader loader-black"></span>
+      </div>
+    </div>
+
+    <script>
+      $(".open-resend-button").click(function () {
+        $("#resend_email").val($(this).data("email") || "");
+        $("#send_accesscode").data("item-id", $(this).data("item-id") || "");
+        $("#send_accesscode_container").removeClass("has-error");
+        $("#resend_code_modal").modal("show");
+      });
+
+      $(function () {
+        $("span.courier_number").bind('click', function () {
+          $("#express_detail_content").html("");
+          $("div.all_report_loader").show();
+          var url = "<%=order_express_ajax_get_path%>"
+          var item_id=$(this).data("id");
+          $.get(url+"?item_id="+item_id).success(function (data, textStatus, jqXHR) {
+            if (data == "error") {
+              $("#express_detail_content").html("数据请求失败...");
+            }
+            else if (data == "0000") {
+              $("#express_detail_content").html("数据请求失败...");
+            }
+            else {
+              $("#express_detail_content").html(data);
+              $(".item_content").first().css('color', "#3eaf0e");
+              $(".item_content").first().prev("p").css('color', "#3eaf0e");
+            }
+
+          }).error(function () {
+
+            alert("请求已经结束但是可能发生了错误！");
+          }).complete(function () {
+
+            $("div.all_report_loader").hide();
+          });
+        });
+
+      });
+
+    </script>
 
 <% end %>

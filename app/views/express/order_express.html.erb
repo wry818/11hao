@@ -48,7 +48,7 @@
 
 
     $("div.all_report_loader").show();
-    var url="<%=user_order_express_ajax_path%>"
+    var url="<%=order_express_ajax_path(@item.id)%>"
     $.get(url).success(function (data, textStatus, jqXHR) {
       if(data=="error")
       {
