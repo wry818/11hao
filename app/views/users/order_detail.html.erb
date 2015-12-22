@@ -1,124 +1,145 @@
 <div id="order-show">
-	
-	<div class="order_wrapper">
-		
-		<div class="order_content">
-			<p>
-				<% if @order.campaign.campaign_logo %>
-                	<%= cl_image_tag @order.campaign.campaign_logo.image_id, 
-					transformation: [
-						{
-							width: @order.campaign.campaign_logo.crop_width, 
-							height: @order.campaign.campaign_logo.crop_height,
-							x: @order.campaign.campaign_logo.crop_x,
-							y: @order.campaign.campaign_logo.crop_y,
-							crop: :crop
-						}
-					], style: "width: 120px", class: 'campaign-logo'%>
-				<% else %>
-					<!--<div class="campaign-default-logo-box">-->
-						<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;width:120px;height:80px;" %>
-					<!--</div>-->
-				<% end %>
-				
-			</p>
-			<div class="right_content">
-				<div class="title">
-					<%= @order.campaign.title %>
-				</div>
-				<div class="detail">
-					<div>
-						数量：<%= @order.num_items %>
-					</div>
-					<div>
-						总价：￥<%= long_price(@order.grandtotal.to_f/100) %>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="order_content">
-			<p>
-				订单编号
-			</p>
-			<div class="right_content">
-				<div>
-					<div style="float: right">
-						<%= @order.out_trade_no %>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		
-		<div class="order_content">
-			<p>
-				下单时间
-			</p>
-			<div class="right_content">
-				<div>
-					<div style="float: right">
-						<%= @order.created_at.strftime('%Y-%-m-%-d %H:%M') %>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-		
-	</div>
-	
-	<div class="order_detail_content">
-		
-		<p>
-			订单明细
-		</p>
-		
-        <% @order.items.each do |item| %>
-		
-			<div class="item_content">
-				<small>
-					<%= item.quantity %>-<%= item.product.name %>
-				</small>
-				<div class="right_content">
-					<div>
-						<div style="float: right">
-							<small>
-								￥<%= long_price(item.total_price.to_f/100) %>
-							</small>
-						</div>
-					</div>
-				</div>
-			
-			</div>
-        	
+
+  <div class="order_wrapper">
+
+    <div class="order_content">
+      <p>
+        <% if @order.campaign.campaign_logo %>
+            <%= cl_image_tag @order.campaign.campaign_logo.image_id,
+                             transformation: [
+                                 {
+                                     width: @order.campaign.campaign_logo.crop_width,
+                                     height: @order.campaign.campaign_logo.crop_height,
+                                     x: @order.campaign.campaign_logo.crop_x,
+                                     y: @order.campaign.campaign_logo.crop_y,
+                                     crop: :crop
+                                 }
+                             ], style: "width: 120px", class: 'campaign-logo' %>
+        <% else %>
+            <!--<div class="campaign-default-logo-box">-->
+            <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;width:120px;height:80px;" %>
+            <!--</div>-->
         <% end %>
-		
-		<% if @order.needs_shipping %>
-		<p style="margin-top: 30px">
-			邮寄地址
-		</p>
-		
-		<small>
-			<%= @order.address_fullname %>  <%= @order.phone_number %>
-			<br />
-			<%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
-		</small>
-		<% end %>
-		
-	</div>
-	
+
+      </p>
+
+      <div class="right_content">
+        <div class="title">
+          <%= @order.campaign.title %>
+        </div>
+        <div class="detail">
+          <div>
+            数量：<%= @order.num_items %>
+          </div>
+          <div>
+            总价：￥<%= long_price(@order.grandtotal.to_f/100) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order_content">
+      <p>
+        订单编号
+      </p>
+
+      <div class="right_content">
+        <div>
+          <div style="float: right">
+            <%= @order.out_trade_no %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="order_content">
+      <p>
+        下单时间
+      </p>
+
+      <div class="right_content">
+        <div>
+          <div style="float: right">
+            <%= @order.created_at.strftime('%Y-%-m-%-d %H:%M') %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="order_detail_content">
+
+    <p>
+      订单明细
+    </p>
+
+    <% @order.items.each do |item| %>
+
+        <div class="item_content">
+          <small>
+            <%= item.quantity %>-<%= item.product.name %>
+          </small>
+          <div class="right_content">
+            <div>
+              <div style="float: right">
+                <small>
+                  ￥<%= long_price(item.total_price.to_f/100) %>
+                </small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+    <% end %>
+
+    <p>
+      物流单号
+    </p>
+    <% @order.items.each do |item| %>
+        <% if item.courier_number %>
+            <div class="item_content">
+              <small>
+                <%= item.express %> &nbsp;&nbsp;
+              </small>
+              <small style="float: right">
+                <%= link_to item.courier_number, user_order_express_path(item.id) %>
+              </small>
+            </div>
+        <% end %>
+    <% end %>
+
+
+  </div>
+  <% if @order.needs_shipping %>
+      <p style="margin-top: 30px">
+        邮寄地址
+      </p>
+
+      <small>
+        <%= @order.address_fullname %>  <%= @order.phone_number %>
+        <br/>
+        <%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
+      </small>
+  <% end %>
+
+</div>
+
 </div> <!-- /#campaign-show -->
 
 <script>
-$(document).ready(function() {
-	
-	document.title = "我的订单";
-	
+  $(document).ready(function () {
+
+    document.title = "我的订单";
+
 //	$("body").css("background-color", "rgb(237, 237, 237)")
-	$("nav").remove();
-	$(".navbar-header").remove();
-	$("header").css("min-height", "0px").css("height","0px");
-	$(".navbar-brand").addClass("navbar-brand-main");
-	
-});
+    $("nav").remove();
+    $(".navbar-header").remove();
+    $("header").css("min-height", "0px").css("height", "0px");
+    $(".navbar-brand").addClass("navbar-brand-main");
+
+  });
 </script>

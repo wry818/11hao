@@ -15,62 +15,99 @@
 </style>
 
 <div id="mall_home">
-	<div style="text-align:center;">
-		<ul id="bxslider" style="margin:0px auto;">
-		  <li><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
-		  <li style="display:none;"><%= image_tag 'b1.jpg', style: "max-width:100%;" %></li>
+	<div class="bxslider-container" style="max-width:900px; margin:0px auto;">
+		<ul id="bxslider">
+			<% slider_idx=0
+			@slider_images.each do |image| 
+			slider_idx+=1	
+			%>
+			<li style="<%= slider_idx==1 ? '' : '' %>">
+				<% if image.target_url %>
+					<a href="<%= image.target_url %>"><%= cl_image_tag image.public_id,
+				transformation: [{ 
+						width: image.crop_width,
+						height: image.crop_height,
+						x: image.crop_x,
+						y: image.crop_y,
+						crop: :crop
+					}, {
+						width: 900,
+						height: 300,
+						crop: :fill
+					}], style: "width:100%;" %></a>
+				<% else %>
+					<%= cl_image_tag image.public_id,
+					transformation: [{ 
+							width: image.crop_width,
+							height: image.crop_height,
+							x: image.crop_x,
+							y: image.crop_y,
+							crop: :crop
+						}, {
+							width: 900,
+							height: 300,
+							crop: :fill
+						}], style: "width:100%;" %>
+				<% end %>
+			</li>
+			<% end %>
 		</ul>
 	</div>
 	
-	<div style="padding:10px 0px;">
+	<% if @top_categories.count > 0 %>
+	<div style="padding:10px 0px 10px 0px;">
 		<table style="width:100%;">
 			<tr>
-				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-gift" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
-					<div style="color:#999; margin-top:5px; font-size:14px;">购物</div>
-				</td>
-				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
-					<div style="color:#999; margin-top:5px; font-size:14px;">推荐</div>
-				</td>
-				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-flash" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
-					<div style="color:#999; margin-top:5px; font-size:14px;">快购</div>
-				</td>
-				<td style="text-align:center; width:25%;">
-					<span class="glyphicon glyphicon-plane" style="border-radius:32px; color:rgb(198, 1, 10); font-size:20px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
-					<div style="color:#999; margin-top:5px; font-size:14px;">配送</div>
-				</td>
+				<% @top_categories.each do |tc| %>
+					<td style="width:25%;">
+						<div style="width:48px; height:48px; text-align:center; margin:0px auto;">
+							<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>">
+								<% if tc.picture %>
+									<%= cl_image_tag tc.picture, width: 48, height: 48, crop: :fill, class: "img-responsive" %>
+								<% else %>
+									<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(198, 1, 10); font-size:24px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+								<% end %>
+							</a>
+						</div>
+						<div style="margin-top:5px; text-align:center;">
+							<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>" style="color:#999; font-size:14px;">
+								<%= tc.name %>
+							</a>
+						</div>
+					</td>
+				<% end %>
 			</tr>
 		</table>
 	</div>
+	<% end %>
 	
-	<div>
-		<table style="width:100%;">
-			<tr>
-				<td style="text-align:center; width:33%;"><hr/></td>
-				<td style="text-align:center; width:33%;">热卖新品</td>
-				<td style="text-align:center; width:33%;"><hr/></td>
-			</tr>
-		</table>
-	</div>
+	<table style="width:100%;">
+		<tr>
+			<td style="text-align:center; width:33%;"><hr/></td>
+			<td style="text-align:center; width:33%;">热卖新品</td>
+			<td style="text-align:center; width:33%;"><hr/></td>
+		</tr>
+	</table>
 	
 	<div class="container">
 		<% @products.each_slice(2) do |arr| %>
 		<div class="row">
 			<% arr.each do |product| %>
 				<div class="col-xs-6" style="padding:0px 5px;">
-					<a href="<%= shop_product_path(@campaign, product) %>">
-						<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
-							<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: 'img-responsive' %>
-						</div>
-					
-						<div style="font-size:14px; text-align:center; max-height:44px; overflow:hidden;"><%= product.name %></div>
-					
-						<% price_range=product.price_range(1) %>
-					
-						<div style="font-size:14px; text-align:center; margin-top:10px;">
+					<div style="width:100px; height:100px; text-align:center; margin:0px auto; padding:5px 5px;">
+						<a href="<%= shop_product_path(@campaign, product) %>">
+							<%= cl_image_tag product.picture, width: 100, height: 100, crop: :fill, class: "img-responsive" %>
+						</a>
+					</div>
+				
+					<div style="font-size:14px; text-align:center; max-height:44px; margin-top:5px; overflow:hidden;">
+						<a href="<%= shop_product_path(@campaign, product) %>"><%= product.name %></a>
+					</div>
+				
+					<% price_range=product.price_range(1) %>
+				
+					<div style="font-size:14px; text-align:center; margin-top:5px;">
+						<a href="<%= shop_product_path(@campaign, product) %>">
 							<span style="display:inline-block;">
 								<% if price_range[:is_discount] %>
 									<span style="color:gray; display:inline-block; text-decoration:line-through;">
@@ -94,10 +131,10 @@
 									<% end %>
 								<% end %>
 							</span>
-						</div>
-					</a>
-					
-					<div>&nbsp;</div>
+						</a>
+					</div>
+						
+					<div style="height:15px;"></div>
 				</div>
 			<% end %>
 			</div>
@@ -113,9 +150,7 @@ $(document).ready(function(){
   	auto: true,
 		pager: false,
 		controls: false,
-		preloadImages: "all"
+		preloadImages: "visible"
   });
-	
-	$("#bxslider li").show();
 });
 </script>

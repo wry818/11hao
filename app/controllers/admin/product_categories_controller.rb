@@ -24,8 +24,17 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
       flash.now[:danger] = message[0...-2]
       render action: "new" and return
     end
+    
     @product_category.product_category_id=0
+    
     if @product_category.save
+      if params[:category_image].present? && params[:remove_item_image]=="no"
+          preloaded = Cloudinary::PreloadedFile.new(params[:category_image])
+          if preloaded.valid?
+              @product_category.update_attribute(:picture, preloaded.identifier)
+          end
+      end
+      
       redirect_to admin_product_categories_path,flash: { success: "商品类别已保存" }
     else
       render action: :new
@@ -45,6 +54,13 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     end
 
     if @product_category.save
+      if params[:category_image].present? && params[:remove_item_image]=="no"
+          preloaded = Cloudinary::PreloadedFile.new(params[:category_image])
+          if preloaded.valid?
+              @product_category.update_attribute(:picture, preloaded.identifier)
+          end
+      end
+      
       redirect_to admin_product_category_path(product_category),flash: { success: "子类别已保存" }
     else
       render action: :subclassnew
@@ -72,6 +88,17 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     end
 
     if @product_category.save
+      if params[:remove_item_image]=="yes"
+         @product_category.update_attribute(:picture, "")
+      else
+        if params[:category_image].present?
+            preloaded = Cloudinary::PreloadedFile.new(params[:category_image])
+            if preloaded.valid?
+                @product_category.update_attribute(:picture, preloaded.identifier)
+            end
+        end
+      end
+      
       redirect_to admin_product_categories_path,flash: { success: "商品类别已修改" }
     else
       render action: :edit
@@ -91,6 +118,17 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     end
 
     if @product_category.save
+      if params[:remove_item_image]=="yes"
+         @product_category.update_attribute(:picture, "")
+      else
+        if params[:category_image].present?
+            preloaded = Cloudinary::PreloadedFile.new(params[:category_image])
+            if preloaded.valid?
+                @product_category.update_attribute(:picture, preloaded.identifier)
+            end
+        end
+      end
+      
       redirect_to admin_product_category_path(@product_category.product_category),flash: { success: "子类别已修改" }
     else
       render action: :subclassnew
@@ -100,10 +138,9 @@ class Admin::ProductCategoriesController < Admin::ApplicationController
     if params.has_key?(:id)
       @product_category=ProductCategory.find(params[:id]) and return
     end
-    else if  params.has_key?(:product_category_id)
-         @product_category=ProductCategory.find(params[:product_category_id])
+    if params.has_key?(:product_category_id)
+      @product_category=ProductCategory.find(params[:product_category_id])
     end
-
   end
 
   def subclassshow

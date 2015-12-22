@@ -5,7 +5,27 @@ class MallController < ApplicationController
   before_filter :manage_session_order, only: [:home, :search, :search_page, :orders, :order_detail]
   
   def home
-    @products = Product.isnot_destroy.order(:id => :desc).limit(6)
+    @products = []
+    
+    MallHotProduct.order(:sort_order).each do |hp|
+      if @products.count >= 6
+        break
+      end
+      
+      @products << hp.product if !hp.product.is_destroy
+    end
+    
+    @top_categories = []
+    
+    MallTopCategory.order(:sort_order).each do |tc|
+      if @top_categories.count >= 4
+        break
+      end
+      
+      @top_categories << tc.product_category if tc.product_category.active && !tc.product_category.is_destroy
+    end
+    
+    @slider_images = MallSliderImage.order(:sort_order)
   end
   
   def search
@@ -70,7 +90,16 @@ class MallController < ApplicationController
     @products = Product.isnot_destroy
     
     if params[:mall_search_text].present?
-      @products = @products.where("name ilike :search", search: '%' + params[:mall_search_text] + '%')
+      tag_prod_ids = Tag.isnot_destroy.is_active.joins(:products).where(
+        "tags.name ilike :search", search: '%' + params[:mall_search_text] + '%').select(
+        "products.id as prod_id").collect(&:prod_id).uniq
+      
+      if tag_prod_ids.count > 0
+        @products = @products.where("name ilike :search or id in (:tag_prod_ids)", 
+          search: '%' + params[:mall_search_text] + '%', tag_prod_ids: tag_prod_ids)
+      else
+        @products = @products.where("name ilike :search", search: '%' + params[:mall_search_text] + '%')
+      end
     end
     
     if params[:category_id].present?

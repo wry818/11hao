@@ -1,0 +1,260 @@
+<%= form_for([:admin, @questionnaire]) do |f| %>
+    <fieldset>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label>1、主要服务人群</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label>
+                  <%= check_box_tag "service_population[]", "1-1",f.object.get_answer_check("service_population",'1-1')  %>老人
+
+                </label>
+                <label>
+                  <%= check_box_tag "service_population[]", "1-2",@questionnaire.get_answer_check("service_population",'1-2') %>儿童
+                </label>
+                <label>
+                  <%= check_box_tag "service_population[]", "1-3",@questionnaire.get_answer_check("service_population",'1-3') %>残障
+                </label>
+                <label>
+                  <%= check_box_tag "service_population[]", "1-4",@questionnaire.get_answer_check("service_population",'1-4') %>妇女
+                </label>
+                <label >
+                  <%= check_box_tag "service_population[]", "1-5",@questionnaire.get_answer_check("service_population",'1-5') %>贫困
+                </label>
+                <label >
+                  <%= check_box_tag "service_population[]", "1-6",@questionnaire.get_answer_check("service_population",'1-6') %>社区
+                </label>
+                <label >
+                  <%= check_box_tag "service_population[]", "1-7",@questionnaire.get_answer_check("service_population",'1-7') %>青年
+                </label>
+                <label >
+                  <%= check_box_tag "service_population[]", "1-8",@questionnaire.get_answer_check("service_population",'1-8'),class:"others" %>其他(请说明)
+                </label>
+                <%= text_field_tag "service_population_display",@questionnaire.get_answer_value("service_population_display"),class: "form-control", placeholder: '请说明' %>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label>2、主要服务区域</label>
+              </div>
+            </div>
+            <div class="row">
+              <div id="citylist" class="col-md-12 selected" style="margin-left: 5px;">
+                直辖市/省份：
+                <%= select_tag "address_pro",@questionnaire.get_answer_value("address_pro"),class: "form-control prov", placeholder: '直辖市/省份' %>
+                城市：
+                <%= select_tag "address_city",@questionnaire.get_answer_value("address_city"),class: "form-control city", placeholder: '城市' %>
+                区县：
+                <%= select_tag "address_county",@questionnaire.get_answer_value("address_county"),class: "form-control dist", placeholder: '区县' %>
+                详细地址：
+                <%= text_field_tag "address_details",@questionnaire.get_answer_value("address_details"),class: "form-control", placeholder: '详细地址' %>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">3、志愿者来源以及稳定数量</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label >
+                  <%= check_box_tag "volunteer_from[]", "3-1" ,@questionnaire.get_answer_check("volunteer_from",'3-1')%>高中
+                </label>
+                <label >
+                  <%= check_box_tag "volunteer_from[]", "3-2",@questionnaire.get_answer_check("volunteer_from",'3-2') %>大学
+                </label>
+                <label >
+                  <%= check_box_tag "volunteer_from[]", "3-3",@questionnaire.get_answer_check("volunteer_from",'3-3') %>企事业单位
+                </label>
+                <label >
+                  <%= check_box_tag "volunteer_from[]", "3-4",@questionnaire.get_answer_check("volunteer_from",'3-4') %>社团协会
+                </label>
+                <label >
+                  <%= check_box_tag "volunteer_from[]", "3-5",@questionnaire.get_answer_check("volunteer_from",'3-5'),class:"others" %>其他(请说明)
+                </label>
+                <%= text_field_tag "volunteer_from_display",@questionnaire.get_answer_value("volunteer_from_display"),class: "form-control", placeholder: '请说明' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 radio" style="margin-left: 5px;">
+                <label >
+                  <%= radio_button_tag "p_counts", "3-6",@questionnaire.get_answer_check("p_counts",'3-6')%>10人以内
+                </label>
+                <label >
+                  <%= radio_button_tag "p_counts", "3-7",@questionnaire.get_answer_check("p_counts",'3-7') %>50人以内
+                </label>
+                <label >
+                  <%= radio_button_tag "p_counts", "3-8",@questionnaire.get_answer_check("p_counts",'3-8') %>50人以上
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">4、主要资金来源渠道</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  checkbox" style="margin-left: 5px;">
+                <label >
+                  <%= check_box_tag "founds_source[]", "4-1" ,@questionnaire.get_answer_check("founds_source",'4-1')%>固定捐赠
+                </label>
+                <label >
+                  <%= check_box_tag "founds_source[]", "4-2" ,@questionnaire.get_answer_check("founds_source",'4-2')%>自筹（政府、企业、基金会、社会募捐）
+                </label>
+                <label >
+                  <%= check_box_tag "founds_source[]", "4-3",@questionnaire.get_answer_check("founds_source",'4-3') %>营业收入
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">5、自有产品或者收费性服务</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label >
+                  <%= radio_button_tag "ismy", "5-1",@questionnaire.get_answer_check("ismy",'5-1'),class:"rothers" %>无
+                </label>
+                <label >
+                  <%= radio_button_tag "ismy", "5-2" ,@questionnaire.get_answer_check("ismy",'5-2'),class:"rothers"%>有(请说明)
+                </label>
+                <%= text_field_tag "ismy_display",@questionnaire.get_answer_value("ismy_display"),class: "form-control", placeholder: '请说明' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">6、是否愿意将产品或服务交由11号公益圈代理</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label >
+                  <%= radio_button_tag "agent", "6-1",@questionnaire.get_answer_check("agent",'6-1') %>愿意
+                </label>
+                <label >
+                  <%= radio_button_tag "agent", "6-2",@questionnaire.get_answer_check("agent",'6-2') %>不愿意
+                </label>
+                <label >
+                  <%= radio_button_tag "agent", "6-3",@questionnaire.get_answer_check("agent",'6-3') %>待考虑
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">7、是否愿意与11号公益圈合作筹资，并承担传播职责</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12  radio" style="margin-left: 5px;">
+                <label >
+                  <%= radio_button_tag "cooperation", "7-1",@questionnaire.get_answer_check("cooperation",'7-1') %>愿意
+                </label>
+                <label >
+                  <%= radio_button_tag "cooperation", "7-2",@questionnaire.get_answer_check("cooperation",'7-2') %>不愿意
+                </label>
+                <label >
+                  <%= radio_button_tag "cooperation", "7-3",@questionnaire.get_answer_check("cooperation",'7-3') %>待考虑
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_name">8、对11号公益圈还有何建议</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <%= text_area_tag "suggestion",@questionnaire.get_answer_value("suggestion"),class: "form-control", placeholder: "请输入建议..." %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="collection-form-submit" class="btn btn-primary" name="commit" type="submit">
+        <span class="text">保存 </span> <span class="loader" style="display:none"></span>
+      </button>
+
+
+      <%= link_to "返回",edit_admin_organization_path(@questionnaire.organization_id),class: "btn btn-primary" %>
+    </fieldset>
+
+    <div id="collection_modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="collection_modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
+<% end %>
+<script language="JavaScript" type="text/javascript">
+  $(function(){
+    $("#citylist").citySelect({prov:"<%=@questionnaire.get_answer_value("address_pro")%>",
+      city:"<%=@questionnaire.get_answer_value("address_city")%>",
+      dist:"<%=@questionnaire.get_answer_value("address_county")%>"});
+
+
+    $("input.others").each(function(){
+      bind_others_textbox(this);
+      $(this).bind('click',function(){
+
+        bind_others_textbox(this);
+
+      });
+    });
+    $("input.rothers").each(function(){
+      bind_others_textbox(this);
+      $(this).bind('click',function(){
+        bind_others_textbox($("#ismy_5-2"));
+      });
+    });
+    function bind_others_textbox(ck)
+    {
+//      alert($(ck).val());
+      var  vtemp="";
+        if($(ck).is(":checked"))
+        {
+            $(ck).parent().next("input[type='text']").show();
+            if(vtemp!="")
+            {
+              $(ck).parent().next("input[type='text']").val(vtemp);
+            }
+        }
+       else
+        {
+          vtemp= $(ck).parent().next("input[type='text']").val();
+          $(ck).parent().next("input[type='text']").val("");
+          $(ck).parent().next("input[type='text']").hide();
+        }
+    }
+  });
+
+</script>
+
+

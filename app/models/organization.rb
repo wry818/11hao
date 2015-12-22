@@ -23,6 +23,8 @@ class Organization < ActiveRecord::Base
     has_and_belongs_to_many :users
     has_many :campaigns, -> { where(:is_destroy=>false) }
 
+    has_many :questionnaires
+
     def has_rep?
         self.legal_rep_first_name.present? && self.legal_rep_last_name.present? && self.legal_rep_phone.present?
     end

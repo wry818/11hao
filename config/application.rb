@@ -91,7 +91,7 @@ module Raisy
 
         # show error page set
         # ENV['ERRORPAGESHOW'] = 'true'
-        # config.error_page_ishow=true
+        config.error_page_ishow=true
         # Show full error reports and disable caching
         #defaults: true for development, false for production
         # config.action_controller.consider_all_requests_local = false
@@ -99,6 +99,7 @@ module Raisy
         config.exceptions_app = self.routes
         # ENV['WEIXIN_APPID'] = 'wxbd2427d5c32cbff6'
         # ENV['WEIXIN_APP_SECRET'] = '5fe619dff86284d07b9e301aca4bd2f3'
-                
+        config.express_key='2c40a2e81f354f02b052e3ba58de615c'
+        config.express_uid='53100'
     end
 end

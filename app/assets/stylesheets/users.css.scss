@@ -1,767 +1,795 @@
 .signup, .signin {
-    background-color: #ffffff;
+  background-color: #ffffff;
 
-    .container-box {
-        border: 1px solid gainsboro;
-        border-radius: 3px;
-        background: white;
-        margin: 40px 0px;
-        padding: 30px;
-		
-        //fieldset {
-//            @media (min-width: 992px) {
-//                padding: 30px 20px 30px 20px;
-//            }
-//        }
-		
-    }
-		
-	.seller-back-btn, .seller-continue-btn {
-		width: 180px;
-		height: 60px;
-	}
-	
-	.btn-seller-selector {
-		height: 60px;
-	}
-	
-	.upload-tooltip {
-		@include fontSize12px;
-		font-weight: normal; 
-	}
-	
-	.step-nav-bar
-	{
-		text-align:center;
-		height:18px;
-		width: 196px;
-		margin:0px auto;
-	}
-	
-	.step-nav-bar-seller
-	{
-		text-align:center;
-		height:18px;
-		width: 65px;
-		margin:0px auto;
-	}
-	
-	.step-nav-icon
-	{
-        border: 1px solid gainsboro;
-        border-radius: 16px;
-        background: gainsboro;
-		width: 16px;
-		height: 16px;
-		margin: 0px 8px;
-		padding: 0px;
-		float:left;
-	}
-	
-	.step-nav-icon-gray
-	{
-        border: 1px solid gray;
-        background: gray;
-	}
-	
-	.web-box {
-		display: block;
-	}
-	
-	.mobile-box {
-		display: none;
-	}
-	
-	.continue-btn, .back-btn, .skip-btn
-	{
-		width: 180px;
-		height:60px;
-	}
-	
+  .container-box {
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    background: white;
+    margin: 40px 0px;
+    padding: 30px;
+
+    //fieldset {
+    //            @media (min-width: 992px) {
+    //                padding: 30px 20px 30px 20px;
+    //            }
+    //        }
+
+  }
+
+  .seller-back-btn, .seller-continue-btn {
+    width: 180px;
+    height: 60px;
+  }
+
+  .btn-seller-selector {
+    height: 60px;
+  }
+
+  .upload-tooltip {
+    @include fontSize12px;
+    font-weight: normal;
+  }
+
+  .step-nav-bar {
+    text-align: center;
+    height: 18px;
+    width: 196px;
+    margin: 0px auto;
+  }
+
+  .step-nav-bar-seller {
+    text-align: center;
+    height: 18px;
+    width: 65px;
+    margin: 0px auto;
+  }
+
+  .step-nav-icon {
+    border: 1px solid gainsboro;
+    border-radius: 16px;
+    background: gainsboro;
+    width: 16px;
+    height: 16px;
+    margin: 0px 8px;
+    padding: 0px;
+    float: left;
+  }
+
+  .step-nav-icon-gray {
+    border: 1px solid gray;
+    background: gray;
+  }
+
+  .web-box {
+    display: block;
+  }
+
+  .mobile-box {
+    display: none;
+  }
+
+  .continue-btn, .back-btn, .skip-btn {
+    width: 180px;
+    height: 60px;
+  }
+
   .backbutton-box {
-      text-align: right;
+    text-align: right;
   }
 
   .continuebutton-box {
-      text-align: left;
+    text-align: left;
   }
-	
-	.step-title-container {
-		text-align:center;
-		
-		label {
-			font-size:24px;
-			font-weight:500;
-		}		
-	}
-	
-	.seller-step-qa-icon {
-		background:#00467f; 
-		cursor:pointer; 
-		font-size:14px; 
-		font-weight:600; 
-		display:inline-block; 
-		color:white; 
-		width:16px; 
-		height:16px; 
-		line-height:16px; 
-		border-radius:8px; 
-		vertical-align:middle;
-		text-align:center;
-	}
-	
-	.hide_seller_step_tips_container {
-		position:absolute; 
-		bottom:0px; 
-		right:5px;
-	}
-	
-	#seller_photo {
-		.upload-button, .use-button {
-			border:1px solid #ccc; 
-			cursor:pointer; 
-			text-align:center;
-			padding:8px 0px; 
-			width:200px;
-		}
-		
-		.upload-button {
-			float: right;
-		}
-	
-		.use-button {
-			float: left;
-		}
-		
-		.image-uploader {
-			margin-left: 30px; 
-			margin-top: 8px;
-			width: 102px;
-		}
-	
-		@media all and (max-width: 767px){
-		
-			.upload-button {
-				float: none;
-				margin: 0 auto 10px auto;
-			}
-			
-			.use-button {
-				float: none;
-				margin: 0 auto 0 auto;
-			}
-			
-			.image-uploader {
-				margin: 10px auto 0px auto;
-			}
-		
-		}
-	}
-	
-	.has-account-div {
-		margin:30px 0;
-		text-align:center;
-	}
-	
-	@media all and (min-width: 768px){
-		.has-account-div {
-			text-align:left;
-			white-space:nowrap;
-		}
-	}
-	
-	@media all and (min-width: 992px){
-		.has-account-div {
-			text-align:right;
-		}
-	}
-	
-	@media all and (max-width: 560px){
-		
-		.hide_seller_step_tips_container {
-			position: static;
-			margin-top:10px;
-		}
-		
-	}
-	
-	@media all and (min-width: 768px){
-		.control-div {
-			text-align: right;
-			line-height:30px;
-		}
-	}
-	
-	@media all and (max-width: 768px){
-		
-		.container-box {
-			
-			.descrption-box {
-				margin-left: -15px;
-				margin-right: -15px;
-			}
-			
-		    .backbutton-box {
-		        text-align: center;
-		    }
-			
-		    .continuebutton-box {
-					margin-top: 10px;
-					text-align: center;
-		    }
-			
-		}
-		
-		.web-box {
-			display: none;
-		}
-	
-		.mobile-box {
-			display: block;
-		}
-		
-		.control-div {
-			line-height: normal;
-			text-align:center;
-		}
-		
-	}
-	
+
+  .step-title-container {
+    text-align: center;
+
+    label {
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+
+  .seller-step-qa-icon {
+    background: #00467f;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    color: white;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .hide_seller_step_tips_container {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+  }
+
+  #seller_photo {
+    .upload-button, .use-button {
+      border: 1px solid #ccc;
+      cursor: pointer;
+      text-align: center;
+      padding: 8px 0px;
+      width: 200px;
+    }
+
+    .upload-button {
+      float: right;
+    }
+
+    .use-button {
+      float: left;
+    }
+
+    .image-uploader {
+      margin-left: 30px;
+      margin-top: 8px;
+      width: 102px;
+    }
+
+    @media all and (max-width: 767px) {
+
+      .upload-button {
+        float: none;
+        margin: 0 auto 10px auto;
+      }
+
+      .use-button {
+        float: none;
+        margin: 0 auto 0 auto;
+      }
+
+      .image-uploader {
+        margin: 10px auto 0px auto;
+      }
+
+    }
+  }
+
+  .has-account-div {
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  @media all and (min-width: 768px) {
+    .has-account-div {
+      text-align: left;
+      white-space: nowrap;
+    }
+  }
+
+  @media all and (min-width: 992px) {
+    .has-account-div {
+      text-align: right;
+    }
+  }
+
+  @media all and (max-width: 560px) {
+
+    .hide_seller_step_tips_container {
+      position: static;
+      margin-top: 10px;
+    }
+
+  }
+
+  @media all and (min-width: 768px) {
+    .control-div {
+      text-align: right;
+      line-height: 30px;
+    }
+  }
+
+  @media all and (max-width: 768px) {
+
+    .container-box {
+
+      .descrption-box {
+        margin-left: -15px;
+        margin-right: -15px;
+      }
+
+      .backbutton-box {
+        text-align: center;
+      }
+
+      .continuebutton-box {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+    }
+
+    .web-box {
+      display: none;
+    }
+
+    .mobile-box {
+      display: block;
+    }
+
+    .control-div {
+      line-height: normal;
+      text-align: center;
+    }
+
+  }
+
 }
 
 .auth-page {
-    padding: 30px;
-    background: whitesmoke;
-    .well {
-        margin: 0;
-        padding: 20px;
-        background: white;
-        h3 {
-            margin-top: 0px;
-        }
+  padding: 30px;
+  background: whitesmoke;
+  .well {
+    margin: 0;
+    padding: 20px;
+    background: white;
+    h3 {
+      margin-top: 0px;
     }
+  }
 }
 
 #settings {
-    .settings-header {
-        background: #ffffff;
-        border-bottom: 1px solid #dddddd;
-        .settings-header-box {
-            padding: 30px 0 60px;
-            h3 {
-                margin: 0;
-                padding: 4px;
-            }
-        }
-        .nav {
-            margin-bottom: -1px;
-        }
+  .settings-header {
+    background: #ffffff;
+    border-bottom: 1px solid #dddddd;
+    .settings-header-box {
+      padding: 30px 0 60px;
+      h3 {
+        margin: 0;
+        padding: 4px;
+      }
     }
-    .settings-content {
-			padding: 30px 0;
-			
-			.upload-tooltip {
-				@include fontSize11px;
-				font-weight: normal;
-			}
-		
+    .nav {
+      margin-bottom: -1px;
     }
-		
-		.upload-button, .use-button {
-			border:1px solid #ccc; 
-			cursor:pointer; 
-			text-align:center;
-			padding:8px 0px; 
-			width:150px;
-		}
+  }
+  .settings-content {
+    padding: 30px 0;
+
+    .upload-tooltip {
+      @include fontSize11px;
+      font-weight: normal;
+    }
+
+  }
+
+  .upload-button, .use-button {
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+    padding: 8px 0px;
+    width: 150px;
+  }
 }
 
 #contacts-show {
-	
-    background: whitesmoke;
-    padding-bottom: 80px;
-		
-	a.oauth {
-		display: inline-block;
-		margin: 5px 10px;
-	}
-	
-	.step-nav-bar
-	{
-		text-align:center;
-		height:18px;
-		width: 196px;
-		margin:0px auto;
-	}
-	.step-nav-icon
-	{
-        border: 1px solid gainsboro;
-        border-radius: 16px;
-        background: gainsboro;
-		width: 16px;
-		height: 16px;
-		margin: 0px 8px;
-		padding: 0px;
-		float:left;
-	}
-	.step-nav-icon-gray
-	{
-        border: 1px solid gray;
-        background: gray;
-	}
-	
-	.campaign-edit-header {
-        padding: 30px 0px;
-        h3 {
-            margin: 0px;
-			text-align: center;
-        }
+
+  background: whitesmoke;
+  padding-bottom: 80px;
+
+  a.oauth {
+    display: inline-block;
+    margin: 5px 10px;
+  }
+
+  .step-nav-bar {
+    text-align: center;
+    height: 18px;
+    width: 196px;
+    margin: 0px auto;
+  }
+  .step-nav-icon {
+    border: 1px solid gainsboro;
+    border-radius: 16px;
+    background: gainsboro;
+    width: 16px;
+    height: 16px;
+    margin: 0px 8px;
+    padding: 0px;
+    float: left;
+  }
+  .step-nav-icon-gray {
+    border: 1px solid gray;
+    background: gray;
+  }
+
+  .campaign-edit-header {
+    padding: 30px 0px;
+    h3 {
+      margin: 0px;
+      text-align: center;
     }
-	
+  }
+
+  .container-box {
+
+    padding: 30px;
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    background: white;
+    margin-bottom: 30px;
+
+    fieldset {
+      @media (min-width: 992px) {
+        padding: 30px 20px 30px 20px;
+      }
+    }
+
+    .search-contacts-box {
+      border: 1px solid gainsboro;
+      border-radius: 3px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .header {
+        border-bottom: 1px solid gainsboro;
+
+        .left-col {
+          width: 60%;
+        }
+
+        .right-col {
+          float: right;
+        }
+
+        .sub-header {
+          position: relative;
+
+          .select-all-box {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+          }
+
+        }
+
+      }
+
+      .item {
+        //padding-top: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid gainsboro;
+      }
+
+      .contacts-icon {
+        width: 48px;
+      }
+
+    }
+
+    .contacts-result-box, .manual-contacts-box {
+
+      border: 1px solid gainsboro;
+      border-radius: 3px;
+
+      .header {
+
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        .left-col {
+          width: 60%;
+        }
+
+        .right-col {
+          float: right;
+        }
+
+        .sub-header {
+          position: relative;
+
+          .select-all-box {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+          }
+
+        }
+
+      }
+
+      .contacts-item-box {
+
+        height: 560px;
+        overflow-y: scroll;
+
+      }
+
+      .item {
+
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-top: 1px solid gainsboro;
+        position: relative;
+
+        .select-box {
+          position: absolute;
+          right: 15px;
+          top: 15px;
+        }
+
+        .send-email-box {
+          position: absolute;
+          right: 15px;
+          bottom: 10px;
+        }
+      }
+
+      .manualemail-textbox {
+        width: 60%;
+
+        @media all and (max-width: 992px) {
+          width: 100%;
+        }
+
+      }
+
+      .footer {
+
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 25px;
+        padding-bottom: 15px;
+        position: relative;
+
+        .send-email-box {
+          position: absolute;
+          right: 15px;
+          bottom: 10px;
+        }
+      }
+
+      .contacts-icon {
+        width: 24px;
+      }
+
+    }
+
+    .continue-btn, .back-btn, .skip-btn {
+      width: 180px;
+      height: 60px;
+    }
+
+    .backbutton-box {
+      text-align: right;
+    }
+
+    .continuebutton-box {
+      text-align: left;
+    }
+
+    .contact-update-input {
+      display: none;
+      min-width: 100px;
+      max-width: 150px;
+    }
+
+    .contact-edit-cell, .contact-delete-cell {
+      span {
+        color: white;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        background: #00467F;
+        padding: 5px 5px;
+        border-radius: 2px;
+      }
+    }
+
+    .contact-update-cell, .contact-cancel-cell {
+      display: none;
+      vertical-align: middle;
+
+      span {
+        color: white;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        background: #00467F;
+        padding: 5px 5px;
+        border-radius: 2px;
+      }
+    }
+
+    .contact-edit-cell, .contact-update-cell {
+      width: 44px;
+    }
+
+    .contact-delete-cell, .contact-cancel-cell {
+      width: 40px;
+    }
+
+    .contact-loader-cell {
+      vertical-align: middle;
+      width: 20px;
+    }
+
+  }
+
+  .web-box {
+    display: block;
+  }
+
+  .mobile-box {
+    display: none;
+  }
+
+  .step-title-container {
+    text-align: center;
+
+    label {
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+
+  .seller-step-qa-icon {
+    background: #00467f;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    color: white;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .hide_seller_step_tips_container {
+    position: absolute;
+    bottom: 0px;
+    right: 5px;
+  }
+
+  @media all and (max-width: 560px) {
+
+    .hide_seller_step_tips_container {
+      position: static;
+      margin-top: 10px;
+    }
+
+  }
+
+  @media all and (max-width: 992px) {
+
     .container-box {
-		
-        padding: 30px;
-        border: 1px solid gainsboro;
-        border-radius: 3px;
-        background: white;
-        margin-bottom: 30px;
-		
-        fieldset {
-            @media (min-width: 992px) {
-                padding: 30px 20px 30px 20px;
-            }
-        }
-		
-		.search-contacts-box {
-			border: 1px solid gainsboro;
-			border-radius: 3px;
-			padding-left: 15px;
-			padding-right: 15px;
-			
-			.header {
-				border-bottom: 1px solid gainsboro;
-				
-				.left-col {
-					width: 60%;
-				}
-				
-				.right-col {
-					float: right;
-				}
-				
-				.sub-header {
-					position: relative;
-					
-					.select-all-box {
-						position: absolute;
-						right: 0px;
-						top: 0px;
-					}
-					
-				}
-				
-			}
-			
-			.item {
-				//padding-top: 15px;
-				padding-bottom: 10px;
-				border-bottom: 1px solid gainsboro;
-			}
-						
-			.contacts-icon {
-				width: 48px;
-			}
-			
-		}
-		
-		.contacts-result-box, .manual-contacts-box {
 
-			border: 1px solid gainsboro;
-			border-radius: 3px;
-	
-			.header {
-				
-				padding-top: 10px;
-				padding-left: 15px;
-				padding-right: 15px;
-		
-				.left-col {
-					width: 60%;
-				}
-		
-				.right-col {
-					float: right;
-				}
-		
-				.sub-header {
-					position: relative;
-			
-					.select-all-box {
-						position: absolute;
-						right: 0px;
-						top: 0px;
-					}
-			
-				}
-		
-			}
-			
-			.contacts-item-box {
-				
-				height: 560px;
-				overflow-y: scroll;
-				
-			}
-			
-			.item {
+      fieldset {
+        padding: 15px 0px;
+      }
 
-				padding-left: 15px;
-				padding-right: 15px;
-				padding-top: 15px;
-				padding-bottom: 15px;
-				border-top: 1px solid gainsboro;
-				position: relative;
-			
-				.select-box {
-					position: absolute;
-					right: 15px;
-					top: 15px;
-				}
-			
-				.send-email-box {
-					position: absolute;
-					right: 15px;
-					bottom: 10px;
-				}
-			}
-			
-			.manualemail-textbox {
-				width: 60%;
-				
-				@media all and (max-width: 992px){
-					width: 100%;	
-				}
-				
-			}
-			
-			.footer {
-
-				padding-left: 15px;
-				padding-right: 15px;
-				padding-top: 25px;
-				padding-bottom: 15px;
-				position: relative;
-				
-				.send-email-box {
-					position: absolute;
-					right: 15px;
-					bottom: 10px;
-				}
-			}
-				
-			.contacts-icon {
-				width: 24px;
-			}
-	
-		}
-				
-		.continue-btn, .back-btn, .skip-btn
-		{
-			width: 180px;
-			height:60px;
-		}
-		
-	    .backbutton-box {
-	        text-align: right;
-	    }
-		
-	    .continuebutton-box {
-	        text-align: left;
-	    }
-		
-		.contact-update-input {
-			display: none;
-			min-width: 100px;
-			max-width: 150px;
-		}
-		
-		.contact-edit-cell, .contact-delete-cell {
-			span {
-				color: white;
-				cursor: pointer;
-				width:24px;
-				height:24px;
-				background:#00467F;
-				padding:5px 5px; 
-				border-radius:2px;
-			}
-		}
-
-		.contact-update-cell, .contact-cancel-cell {
-			display: none;
-			vertical-align: middle;
-	
-			span {
-				color: white;
-				cursor: pointer;
-				width:24px;
-				height:24px;
-				background:#00467F;
-				padding:5px 5px; 
-				border-radius:2px;
-			}
-		}
-		
-		.contact-edit-cell, .contact-update-cell {
-			width: 44px;
-		}
-		
-		.contact-delete-cell, .contact-cancel-cell {
-			width: 40px;
-		}
-		
-		.contact-loader-cell {
-			vertical-align: middle;
-			width: 20px;
-		}
-		
     }
-	
-	.web-box {
-		display: block;
-	}
-	
-	.mobile-box {
-		display: none;
-	}
-	
-	.step-title-container {
-		text-align:center;
-		
-		label {
-			font-size:24px;
-			font-weight:500;
-		}		
-	}
-	
-	.seller-step-qa-icon {
-		background:#00467f; 
-		cursor:pointer; 
-		font-size:14px; 
-		font-weight:600; 
-		display:inline-block; 
-		color:white; 
-		width:16px; 
-		height:16px; 
-		line-height:16px; 
-		border-radius:8px; 
-		vertical-align:middle;
-		text-align:center;
-	}
-	
-	.hide_seller_step_tips_container {
-		position:absolute; 
-		bottom:0px; 
-		right:5px;
-	}
-	
-	@media all and (max-width: 560px){
-		
-		.hide_seller_step_tips_container {
-			position: static;
-			margin-top:10px;
-		}
-		
-	}
-	
-	@media all and (max-width: 992px){
-		
-	    .container-box {
-			
-	        fieldset {
-	            padding: 15px 0px;
-	        }
-			
-	    }
-		
-	}
-	
-	@media all and (max-width: 768px){
-		
-	    .container-box {
-			
-			.descrption-box {
-				margin-left: 0px;
-				margin-right: 0px;
-			}
-			
-		    .backbutton-box {
-		        text-align: center;
-		    }
-			
-		    .continuebutton-box {
-				margin-top: 10px;
-		        text-align: center;
-		    }
-			
-	    }
-		
-		.web-box {
-			display: none;
-		}
-	
-		.mobile-box {
-			display: block;
-		}
-		
-	}
-	
-	@media all and (max-width: 400px){
-		
-	    .container-box {
-	        padding: 30px 15px;
-	    }
-		
-	}
-	
+
+  }
+
+  @media all and (max-width: 768px) {
+
+    .container-box {
+
+      .descrption-box {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+
+      .backbutton-box {
+        text-align: center;
+      }
+
+      .continuebutton-box {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+    }
+
+    .web-box {
+      display: none;
+    }
+
+    .mobile-box {
+      display: block;
+    }
+
+  }
+
+  @media all and (max-width: 400px) {
+
+    .container-box {
+      padding: 30px 15px;
+    }
+
+  }
+
 }
 
 #my-contacts {
-	
-	margin-top: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
-	//height: 600px;
-//	overflow: auto;
-	
-	.table {
-		
-		border: 1px solid gainsboro;
-		border-radius: 3px;
-		margin-top: 30px;
-		
-		h4 {
-			margin: 0px;
-		}
-		
-		.normal {
-			font-weight: normal;
-		}
-		
-		.header {
-			border-bottom: 1px solid gainsboro;
-			
-			.left-col {
-				width: 60%;
-			}
-			
-			.right-col {
-				float: right;
-			}
-			
-			.sub-header {
-				position: relative;
-				
-				.select-all-box {
-					position: absolute;
-					right: 0px;
-					top: 0px;
-				}
-				
-			}
-			
-		}
-		
-		.item {
-			//padding-top: 15px;
-			padding-bottom: 10px;
-			border-bottom: 1px solid gainsboro;
-		}
-					
-		.contacts-icon {
-			width: 24px;
-		}
-		
-	}
-	
+
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  //height: 600px;
+  //	overflow: auto;
+
+  .table {
+
+    border: 1px solid gainsboro;
+    border-radius: 3px;
+    margin-top: 30px;
+
+    h4 {
+      margin: 0px;
+    }
+
+    .normal {
+      font-weight: normal;
+    }
+
+    .header {
+      border-bottom: 1px solid gainsboro;
+
+      .left-col {
+        width: 60%;
+      }
+
+      .right-col {
+        float: right;
+      }
+
+      .sub-header {
+        position: relative;
+
+        .select-all-box {
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+
+      }
+
+    }
+
+    .item {
+      //padding-top: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid gainsboro;
+    }
+
+    .contacts-icon {
+      width: 24px;
+    }
+
+  }
+
 }
 
 #order-show {
-	
-	.order_wrapper {
-	
-		background-color: white;
-	
-		.order_content {
-			
-			border-bottom: 1px solid #eeeeee;
-			padding: 10px;
-			//cursor: pointer;
-		
-			@media all and (max-width: 768px){
 
-				font-size: 14px;
+  .order_wrapper {
 
-			}
-			
-			.title {
-				font-size: 18px;
-			}
-			
-			p {
-				float:left; 
-				margin-bottom: 0px;
-			}
-	
-			.right_content {
-				margin-left: 130px;
-			
-				.detail {
-					color: rgb(150,150,150);
-				}
-			}
-	
-		}
+    background-color: white;
 
-		.order_content::after {
-			display: table; content: "";
-		}
-		.order_content::before {
-			display: table; content: "";
-		}
-		.order_content::after {
-			clear: both;
-		}
-	
-	}
+    .order_content {
 
-	.order_detail_content {
-	
-		padding: 10px;
-	
-		p {
-			color: rgb(150,150,150);
-		}
-	
-		.item_content {
-	
-			small {
-				float:left; 
-				margin-bottom: 0px;
-			}
-	
-		}
+      border-bottom: 1px solid #eeeeee;
+      padding: 10px;
+      //cursor: pointer;
 
-		.item_content::after {
-			display: table; content: "";
-		}
-		.item_content::before {
-			display: table; content: "";
-		}
-		.item_content::after {
-			clear: both;
-		}
-	
-	}
-	
+      @media all and (max-width: 768px) {
+
+        font-size: 14px;
+
+      }
+
+      .title {
+        font-size: 18px;
+      }
+
+      p {
+        float: left;
+        margin-bottom: 0px;
+      }
+
+      .right_content {
+        margin-left: 130px;
+
+        .detail {
+          color: rgb(150, 150, 150);
+        }
+      }
+
+    }
+
+    .order_content::after {
+      display: table;
+      content: "";
+    }
+    .order_content::before {
+      display: table;
+      content: "";
+    }
+    .order_content::after {
+      clear: both;
+    }
+
+  }
+
+  .order_detail_content {
+
+    padding: 10px;
+
+    p {
+      color: rgb(150, 150, 150);
+    }
+
+    .item_content {
+
+      small {
+        float: left;
+        margin-bottom: 0px;
+      }
+
+    }
+
+    .item_content::after {
+      display: table;
+      content: "";
+    }
+    .item_content::before {
+      display: table;
+      content: "";
+    }
+    .item_content::after {
+      clear: both;
+    }
+
+  }
+  .express_content {
+
+    padding-top: 10px;
+    padding-bottom:60px;
+    padding-left: 20px;
+
+    p {
+      margin-bottom: 5px;
+      margin-top: 10px;
+      color: rgb(150, 150, 150);
+    }
+
+    .item_content {
+      border-bottom: 1px solid #eeeeee;
+      small {
+        float: left;
+        margin-bottom: 0px;
+      }
+
+    }
+
+    .item_content::after {
+      display: table;
+      content: "";
+    }
+    .item_content::before {
+      display: table;
+      content: "";
+    }
+    .item_content::after {
+      clear: both;
+    }
+
+  }
 }

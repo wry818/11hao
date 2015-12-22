@@ -81,13 +81,17 @@ Raisy::Application.routes.draw do
         patch 'campaign_bulkshippinginfo/:id', to: 'campaigns#update_bulkshippinginfo'
         
         get 'product_collections/:id', to: 'products#prod_collections', as: :product_collections
-
-
+        
         namespace :reports do
           root 'reportsboard#index'
           get 'campvisit_log/report',to: 'campaign_visit_log#reportindex', as: :campvisit_log_report
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
         end
+        
+        resources :questionnaires
+      
+        get 'mall_settings', to: 'mall#settings', as: :mall_settings
+        post 'save_mall_settings', to: 'mall#save_settings', as: :save_mall_settings
     end
     
     # Mall
@@ -172,7 +176,8 @@ Raisy::Application.routes.draw do
     get 'user/order_list', to: 'users#order_list', as: :user_order_list
     get 'user/order_detail/:order_id', to: 'users#order_detail', as: :user_order_detail
     get 'seller/campaign_list', to: 'users#campaign_list', as: :seller_campaign_list
-    
+    get 'user/order_express/:item_id', to: 'users#order_express', as: :user_order_express
+    get 'user/order_express_ajax/:item_id', to: 'users#order_express_ajax', as: :user_order_express_ajax
     #SELLER DASHBOARD
     scope 'seller' do
         root 'seller_dashboard#index', as: :seller_dashboard

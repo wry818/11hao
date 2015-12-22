@@ -26,6 +26,7 @@
 //= require admin/campaigns
 //= require admin/products
 //= require admin/organizations
+//= require admin/pro_city_county.js
 //= require select2
 //= require jquery.cropbox
 //= require hammer

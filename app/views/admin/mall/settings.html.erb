@@ -1,0 +1,276 @@
+<div id="mall_settings" style="padding: 30px 0">
+  <div class="container">
+		<h3>商城设置</h3>
+		
+		<div class="row">&nbsp;</div>
+		
+		<%= form_tag(admin_save_mall_settings_path, id: "mall_settings_form", method: "post") do %>
+    <div class="row">
+      <div class="col-md-2">
+        <label>滚动广告</br>(最佳尺寸: 900*300像素)</label>
+			</div>
+			<div class="col-md-10">
+				<div>
+					<%= cl_image_upload_tag(:slider_image, tags: "slider-image", html: {accept:"image/*"}) %>
+				</div>
+				
+				<div style="margin-top:10px;">
+					<table>
+						<tr>
+							<td>
+								<%= image_tag 'default_upload_logo.gif', id: "default_upload_logo", style: "display:none; margin:0px auto; margin-top:50px;" %>
+								
+								<div id="slider_image_box" style="border:1px solid #ccc; width:602px; height:202px; background:#eee;">
+									<%= image_tag 'default_upload_logo.gif', style: "display:block; margin:0px auto; margin-top:50px;" %>
+								</div>
+							</td>
+							<td style="vertical-align:top; padding-left:10px;">
+								<button id="save_slider_image" type="button" class="btn btn-default">调整完毕</button>
+							</td>
+						</tr>
+					</table>
+					
+          <div class="progress progress-striped active" style="display:none; width:602px; height:18px; text-align:center;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                  <span>0%</span>
+              </div>
+          </div>
+					
+					<div style="width:602px; text-align:center;">
+						<span class="status"></span>
+					</div>
+				</div>
+				
+				<script>
+				_cropbox_result=null;
+				
+				$(document).ready(function() {
+					$("#mall_settings #save_mall_settings").click(function() {
+						$("#slider_image_template").remove();
+						
+						$("#mall_settings .slider-image-container").each(function() {
+							var result={};
+							var container=$(this);
+							
+							result.public_id=container.data("public-id");
+							result.secure_url=container.data("secure-url");
+							result.image_width=container.data("image-width");
+							result.image_height=container.data("image-height");
+							result.crop_x=container.data("crop-x");
+							result.crop_y=container.data("crop-y");
+							result.crop_width=container.data("crop-width");
+							result.crop_height=container.data("crop-height");
+							result.sort_order=container.find(".slider-image-order").first().val();
+							result.target_url=container.find(".slider-image-target-url").first().val();
+							
+							container.find(".slider-image-result").first().val(JSON.stringify(result));
+						});
+						
+						$("#mall_settings #mall_settings_form").submit();
+					});
+					
+					$("#mall_settings .remove-slider-image").click(function() {
+						$(this).closest(".slider-image-container").remove();
+					});
+					
+					$("#mall_settings #save_slider_image").click(function() {
+						if (_cropbox_result) {
+							var container=$("#slider_image_template").clone();
+						
+							container.removeAttr("id");
+							
+			        var params = {
+								x: _cropbox_result.crop_x,
+								y: _cropbox_result.crop_y,
+		            width: _cropbox_result.crop_width,
+		            height: _cropbox_result.crop_height,
+		            crop: "crop",
+								angle: "exif"
+			        };
+							
+							var url = $.cloudinary.url(_cropbox_result.public_id, params);
+							
+							container.data("public-id", _cropbox_result.public_id);
+							container.data("secure-url", _cropbox_result.secure_url);
+							container.data("image-width", _cropbox_result.width);
+							container.data("image-height", _cropbox_result.height);
+							container.data("crop-x", _cropbox_result.crop_x);
+							container.data("crop-y", _cropbox_result.crop_y);
+							container.data("crop-width", _cropbox_result.crop_width);
+							container.data("crop-height", _cropbox_result.crop_height);
+							container.find("img").first().attr("src", url);
+							container.prependTo($("#all_slider_images")).show();
+							container.find(".remove-slider-image").first().click(function() {
+								$(this).closest(".slider-image-container").remove();
+							});
+							
+							var box = $("#slider_image_box");
+							var img = box.find("img").first();
+							var crop = img.data('cropbox');
+
+							if (crop) crop.remove();
+							
+							img = $("#default_upload_logo").clone();
+							img.removeAttr("id").css("display", "block");
+					
+							box.html("");
+							img.appendTo(box);
+						}
+						
+						_cropbox_result=null;
+					});
+					
+					$("#mall_settings .cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", function(e, data) {
+						_cropbox_result={};
+						_cropbox_result.width=data.result.width;
+						_cropbox_result.height=data.result.height;
+						_cropbox_result.crop_x=0;
+						_cropbox_result.crop_y=0;
+						_cropbox_result.crop_width=600;
+						_cropbox_result.crop_height=200;
+						_cropbox_result.public_id=data.result.public_id;
+						_cropbox_result.secure_url=data.result.secure_url;
+						
+	        	$(".status").text("");
+	        	$(".progress").hide().find(".progress-bar").css("width", "0").find('span').text("");
+	        	$("#drop-zone").css("border-color", "#ccc");
+						
+	        	var params = {
+							angle: 'exif'
+	        	};
+	        	var html = $.cloudinary.image(data.result.public_id, params);
+						var box= $("#slider_image_box");
+					
+						box.html(html);
+						
+						var img = box.find("img").first();
+						var crop = img.data('cropbox');
+
+						if (crop) crop.remove();
+					
+						img.removeAttr("width").removeAttr("height").cropbox({
+							width: 600,
+					    height: 200,
+							showControls: 'always'
+					  }).on('cropbox', function(e, data) {
+							_cropbox_result.crop_x=data.cropX;
+							_cropbox_result.crop_y=data.cropY;
+							_cropbox_result.crop_width=data.cropW;
+							_cropbox_result.crop_height=data.cropH;
+					  });
+		    	});
+				});
+				</script>
+				
+				<div class="row">&nbsp;</div>
+				
+				<div id="slider_image_template" class="col-md-6 slider-image-container" style="display:none;">
+					<div style="margin-bottom:30px; position:relative;">
+						<img class="img-responsive" style="border:1px solid #ccc;">
+						
+						<div style="margin-top:5px;">
+							链接地址: 
+							<input type="text" style="width:100%;" class="slider-image-target-url" value="" />
+						</div>
+						
+						<div style="margin-top:5px;">
+							排序编号: <input type="text" class="slider-image-order" style="width:50px;" value="" />
+						
+							<input type="hidden" name="slider_images[]" class="slider-image-result" value="">
+						</div>
+						
+						<div class="remove-slider-image" style="position:absolute; top:1px; right:1px; cursor:pointer;">
+							<span class="glyphicon glyphicon-remove"></span>
+						</div>
+					</div>
+				</div>
+				
+				<div id="all_slider_images" class="row">
+					<% @slider_images.each do |image| %>
+					<div class="col-md-6 slider-image-container" data-public-id="<%= image.public_id %>" data-secure-url="<%= image.image_url %>" data-image-width="<%= image.image_width %>" data-image-height="<%= image.image_height %>" data-crop-x="<%= image.crop_x %>" data-crop-y="<%= image.crop_y %>" data-crop-width="<%= image.crop_width %>" data-crop-height="<%= image.crop_height %>">
+						<div style="margin-bottom:30px; position:relative;">
+							<%= cl_image_tag image.public_id,
+							transformation: [{ 
+									width: image.crop_width,
+									height: image.crop_height,
+									x: image.crop_x,
+									y: image.crop_y,
+									crop: :crop
+								}], class: "img-responsive", style: "border:1px solid #ccc;" %>
+							
+							<div style="margin-top:5px;">
+								链接地址: 
+								<input type="text" style="width:100%;" class="slider-image-target-url" value="<%= image.target_url %>" />
+							</div>
+							
+							<div style="margin-top:5px;">
+								排序编号: <input type="text" class="slider-image-order" style="width:50px;" value="<%= image.sort_order %>" />
+								<input type="hidden" name="slider_images[]" class="slider-image-result" value="">
+							</div>
+							
+							<div class="remove-slider-image" style="position:absolute; top:1px; right:1px; cursor:pointer;">
+								<span class="glyphicon glyphicon-remove"></span>
+							</div>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+    </div>
+		
+		<div class="row">&nbsp;</div>
+		
+    <div class="row">
+      <div class="col-md-2">
+        <label>分类标签</label>
+			</div>
+			<div class="col-md-10">
+				<% @root_categories.each_slice(3) do |arr| %>
+				<div class="row" style="margin-bottom:15px;">
+					<% arr.each do |rc| %>
+					<div class="col-md-4">
+						<% tc = @top_categories.select{|x| x.product_category_id==rc.id}.first %>
+						<label><input type="checkbox" name="top_pc[]" value="<%= rc.id %>" <%= "checked" if tc %> /> <%= rc.name %></label>
+						<div><input type="hidden" name="top_pc_order_<%= rc.id %>" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+    </div>
+		
+		<div class="row">&nbsp;</div>
+		
+    <div class="row">
+      <div class="col-md-2">
+        <label>热卖商品</label>
+			</div>
+			<div class="col-md-10">
+				<% @all_products.each_slice(3) do |arr| %>
+				<div class="row" style="margin-bottom:15px;">
+					<% arr.each do |ap| %>
+					<div class="col-md-4">
+						<% hp = @hot_products.select{|x| x.product_id==ap.id}.first %>
+						<label><input type="checkbox" name="hot_prod[]" value="<%= ap.id %>" <%= "checked" if hp %> /> <%= ap.name %></label>
+						<div>排序编号: <input type="text" name="hot_prod_order_<%= ap.id %>" style="width:50px;" value="<%= hp ? hp.sort_order : '' %>" /></div>
+					</div>
+					<% end %>
+				</div>
+				<% end %>
+			</div>
+    </div>
+		
+		<div class="row">&nbsp;</div>
+		
+    <div class="row">
+			<div class="col-md-2">
+			</div>
+      <div class="col-md-10">
+		    <button id="save_mall_settings" class="btn btn-primary" type="button">
+		        <span class="text">保存</span>
+		    </button>
+			</div>
+		</div>
+		<% end %>
+  </div>
+</div>
