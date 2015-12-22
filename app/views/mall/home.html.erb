@@ -21,7 +21,7 @@
 			@slider_images.each do |image| 
 			slider_idx+=1	
 			%>
-			<li style="<%= slider_idx==1 ? '' : 'display:none;' %>">
+			<li style="<%= slider_idx==1 ? '' : '' %>">
 				<% if image.target_url %>
 					<a href="<%= image.target_url %>"><%= cl_image_tag image.public_id,
 				transformation: [{ 
@@ -146,9 +146,7 @@ $(document).ready(function(){
   	auto: true,
 		pager: false,
 		controls: false,
-		preloadImages: "all"
+		preloadImages: "visible"
   });
-	
-	$("#bxslider li").show();
 });
 </script>

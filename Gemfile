@@ -64,7 +64,7 @@ gem 'select2-rails'
 
 gem 'stripe'
 
-gem 'font-awesome-rails'
+gem 'font-awesome-rails','~>4.4'
 
 gem 'omniauth-twitter'
 

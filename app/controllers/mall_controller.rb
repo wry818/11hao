@@ -90,7 +90,16 @@ class MallController < ApplicationController
     @products = Product.isnot_destroy
     
     if params[:mall_search_text].present?
-      @products = @products.where("name ilike :search", search: '%' + params[:mall_search_text] + '%')
+      tag_prod_ids = Tag.isnot_destroy.is_active.joins(:products).where(
+        "tags.name ilike :search", search: '%' + params[:mall_search_text] + '%').select(
+        "products.id as prod_id").collect(&:prod_id).uniq
+      
+      if tag_prod_ids.count > 0
+        @products = @products.where("name ilike :search or id in (:tag_prod_ids)", 
+          search: '%' + params[:mall_search_text] + '%', tag_prod_ids: tag_prod_ids)
+      else
+        @products = @products.where("name ilike :search", search: '%' + params[:mall_search_text] + '%')
+      end
     end
     
     if params[:category_id].present?

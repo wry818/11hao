@@ -36,7 +36,8 @@ Raisy::Application.routes.draw do
           resources :product_categories
         end
 
-
+        get 'products/ajax',to: 'products#show_pager_data', as: :load_products_show_pager_data
+        post 'products/ajax',to: 'products#show_pager_data', as: :products_show_pager_data
         resources :products do
           get '/option_group/edit', to: 'products#edit_option_group', as: :edit_option_group
           match '/option_group/save' => 'products#save_option_group', via: [:post, :patch], as: :save_option_group
@@ -55,6 +56,11 @@ Raisy::Application.routes.draw do
         
         resources :settings
         resources :vendors
+
+        resources :tags
+        post 'tags/ajax',to: 'tags#ajax_pager_data', as: :tags_page_ajax
+        post  'tags/search_ajax',to:"tags#search_ajax", as: :tags_search_ajax
+        post  'tags/ajax_delete',to: 'tags#ajax_delete', as: :tags_ajax_delete
         
         get 'campaign_stories', to: 'campaigns#stories'
         get 'campaign_story/:id', to: 'campaigns#story'
