@@ -164,7 +164,7 @@
 				
 				<div class="row">&nbsp;</div>
 				
-				<div id="slider_image_template" class="col-md-4 slider-image-container" style="display:none;">
+				<div id="slider_image_template" class="col-md-6 slider-image-container" style="display:none;">
 					<div style="margin-bottom:30px; position:relative;">
 						<img class="img-responsive" style="border:1px solid #ccc;">
 						
@@ -228,7 +228,7 @@
 				<% @root_categories.each_slice(3) do |arr| %>
 				<div class="row" style="margin-bottom:15px;">
 					<% arr.each do |rc| %>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<% tc = @top_categories.select{|x| x.product_category_id==rc.id}.first %>
 						<label><input type="checkbox" name="top_pc[]" value="<%= rc.id %>" <%= "checked" if tc %> /> <%= rc.name %></label>
 						<div><input type="hidden" name="top_pc_order_<%= rc.id %>" style="width:50px;" value="<%= rc.sort_mark || 999 %>" /></div>
