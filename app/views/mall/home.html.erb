@@ -62,7 +62,11 @@
 					<td style="width:25%;">
 						<div style="width:48px; height:48px; text-align:center; margin:0px auto;">
 							<a href="<%= mall_search_path + "?category_id=" + tc.id.to_s %>">
-								<%= cl_image_tag tc.picture, width: 48, height: 48, crop: :fill, class: "img-responsive"  %>
+								<% if tc.picture %>
+									<%= cl_image_tag tc.picture, width: 48, height: 48, crop: :fill, class: "img-responsive" %>
+								<% else %>
+									<span class="glyphicon glyphicon-tag" style="border-radius:32px; color:rgb(198, 1, 10); font-size:24px; border:1px solid rgb(198, 1, 10); padding:10px 10px;"></span>
+								<% end %>
 							</a>
 						</div>
 						<div style="margin-top:5px; text-align:center;">
