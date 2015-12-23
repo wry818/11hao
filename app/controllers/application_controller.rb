@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
               session[:access_token] = sns_info.result["access_token"]
               session[:expires_in] = sns_info.result["expires_in"]
               
-              if params[:is_test] == "1"
+              if params[:is_test]
                 url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
                 
                 redirect_to url and return
@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
           redirect_to url and return
         end
       else
-        if params[:is_test] == "1"
+        if params[:is_test]
           url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token]
           
           redirect_to url and return
