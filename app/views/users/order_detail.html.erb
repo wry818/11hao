@@ -99,14 +99,14 @@
     <p>
       物流单号
     </p>
-    <% @order.items.each do |item| %>
+    <% @items_express.values.each do |item| %>
         <% if item.courier_number %>
             <div class="item_content">
               <small>
                 <%= item.express %> &nbsp;&nbsp;
               </small>
               <small style="float: right">
-                <%= link_to item.courier_number, user_order_express_path(item.id) %>
+                <%= link_to item.courier_number, order_express_path(item.id) %>
               </small>
             </div>
         <% end %>

@@ -93,7 +93,12 @@ Raisy::Application.routes.draw do
         get 'mall_settings', to: 'mall#settings', as: :mall_settings
         post 'save_mall_settings', to: 'mall#save_settings', as: :save_mall_settings
     end
-    
+
+  #Express
+  get 'order_express/:item_id', to: 'express#order_express', as: :order_express
+  get 'order_express_ajax/:item_id', to: 'express#order_express_ajax', as: :order_express_ajax
+  get 'order_express_ajax', to: 'express#order_express_ajax', as: :order_express_ajax_get
+
     # Mall
     scope 'mall' do
       root 'mall#home', as: :mall_home
@@ -176,8 +181,6 @@ Raisy::Application.routes.draw do
     get 'user/order_list', to: 'users#order_list', as: :user_order_list
     get 'user/order_detail/:order_id', to: 'users#order_detail', as: :user_order_detail
     get 'seller/campaign_list', to: 'users#campaign_list', as: :seller_campaign_list
-    get 'user/order_express/:item_id', to: 'users#order_express', as: :user_order_express
-    get 'user/order_express_ajax/:item_id', to: 'users#order_express_ajax', as: :user_order_express_ajax
     #SELLER DASHBOARD
     scope 'seller' do
         root 'seller_dashboard#index', as: :seller_dashboard

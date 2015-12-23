@@ -50,7 +50,10 @@ class MallController < ApplicationController
   
   def order_detail
     @the_order = Order.where(:open_id => session[:openid] || "", :id => params[:id].to_i).first
-    
+    @items_express=Hash.new
+    @the_order.items.each do |item|
+      @items_express[item.courier_number]=item
+    end
     if !@the_order
       redirect_to mall_home_path and return
     end
