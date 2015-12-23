@@ -5,29 +5,6 @@ class WeixinController < ApplicationController
   def menu
     
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    # puts $client.is_valid?
-
-    # menu = {
-    #   button: [
-    #     {
-    #       type: "view",
-    #       name: "11号计划",
-    #       url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
-    #     },
-    #     {
-    #       type: "view",
-    #       name: "小伙伴招募",
-    #       url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200999358&idx=1&sn=f3f518181b1e0a13f03b840f23a4c316&scene=5#rd"
-    #     },
-    #     {
-    #       type: "view",
-    #       name: "关于我们",
-    #       url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=200862140&idx=1&sn=e9eccc2a24d5868026b121381e8701a4&scene=5#rd"
-    #     }
-    #   ]
-    # }.to_json
-    
-    # url: "http://eqxiu.com/s/CWK4Qndj?eqrcode=1&from=singlemessage&isappinstalled=0"
     
     menu = {
       button: [
@@ -39,30 +16,20 @@ class WeixinController < ApplicationController
               name: "威爱有你",
               url: "http://www.11haoonline.com/love-have-you"
             },
-            # {
-#               type: "view",
-#               name: "加油吧 “天使”！",
-#               url: "http://www.11haoonline.com/tswd"
-#             },
             {
               type: "view",
-              name: "助力无障碍电影院",
-              url: "http://www.11haoonline.com/0-2"
-            },
-            # {
-            #   type: "view",
-            #   name: "Smile, Change, Unplug",
-            #   url: "http://www.11haoonline.com/smile-change-unplug"
-            # },
-            {
-              type: "view",
-              name: "以物益物",
-              url: "http://www.11haoonline.com/0-4"
+              name: "聚力成石，铺就未来",
+              url: "http://www.11haoonline.com/1429755460"
             },
             {
               type: "view",
-              name: "融爱融乐，暖心暖情",
-              url: "http://www.11haoonline.com/0-7"
+              name: "加油吧“天使”",
+              url: "http://www.11haoonline.com/tswd"
+            },
+            {
+              type: "view",
+              name: "“特”立同行",
+              url: "http://www.11haoonline.com/TLTX"
             }
           ]
         },
