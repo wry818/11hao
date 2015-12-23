@@ -7,37 +7,79 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-hover" style="width:">
-                        <thead>
-                            <tr>
-                                <th>日期</th>
-                                <th>名称</th>
-																<th>组织代码</th>
-																<th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% @organizations.each do |organization| %>
-                            <tr>
-                                <td><%= organization.created_at.strftime('%b %-d, %Y') %></td>
-                                <td><%= link_to organization.name, edit_admin_organization_path(organization) %></td>
-																<td><%= organization.entertainment_customer_id %></td>
-																<td><%= link_to "删除", admin_organization_path(organization), method: :delete, data: { confirm: "您确定要删除该组织吗?" } %>
-																</td>
-                            </tr>
-                            <% end %>
-                        </tbody>
-                    </table>
-                </div>
-				
-				<!-- pager here -->
-            </div>
-        </div>
-		
-		<%= link_to '添加组织', new_admin_organization_path, class: 'btn btn-primary' %>
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<div class="table-responsive">-->
 
+                <!--</div>-->
+
+                <!--&lt;!&ndash; pager here &ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div style="width:90%; max-width:1280px; margin:auto; margin-top: 15px;">
+
+        <div>  <%= link_to '添加组织', new_admin_organization_path, class: 'btn btn-primary' %></div>
+        <div class="all_report_loader" style="display:none; margin-top:10px; text-align:center;">
+            <h4>Loading data ...</h4><span class="loader loader-black"></span>
+        </div>
+        <div class="table-responsive" id="activity_organizations_content" style="margin-top: 10px;">
+
+        </div>
     </div>
 </div>
+<script language="javascript" type="text/javascript">
+    $(function () {
+
+        var ajax_load_url = '<%=admin_organizations_page_ajax_path %>';
+        var loading = $("div.all_report_loader");
+        var data_content = $("#activity_organizations_content");
+
+        function init_post_data() {
+//            var name = $("#tag_name").val();
+//            return {name: name}
+            return {};
+        }
+        bun_run_click();
+        $("#run_report").bind('click', function () {
+            bun_run_click();
+        });
+        //    替换默认的分页是分页变成异步发送
+        function bind_pager_click() {
+            var pagers = $("div#page_pager .pagination span a");
+            pagers.each(function () {
+                var url = this.href;
+                this.href = "javascript:void(0);";
+                $(this).off("click").on("click", function () {
+                    $(loading).show();
+                    $(data_content).html("");
+//          alert(url);
+                    load_download_pagedata(url, init_post_data());
+                });
+            });
+        }
+
+//   绑定查询的执行方法
+
+        function bun_run_click() {
+            $(loading).show();
+            $(data_content).html("");
+            load_download_pagedata(ajax_load_url, init_post_data());
+        }
+
+//    异步加载分页数据
+        function load_download_pagedata(url, data_post) {
+//      alert(data_post)
+            $.post(url, data_post).success(function (data, textStatus, jqXHR) {
+                $(data_content).html(data);
+                bind_pager_click();
+            }).error(function () {
+                alert("请求已经结束但是可能发生了错误！");
+            }).complete(function () {
+                $(loading).hide();
+            });
+        }
+    });
+
+
+</script>

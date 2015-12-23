@@ -1,65 +1,68 @@
 <div style="display:none;">report_content</div>
 <table class="table">
-	<thead>
-          <th>志愿者姓名</th>
-          <th>Email</th>
-					<th>筹款团队</th>
-          <th>志愿者编号</th>
-          <th>销售总计</th>
-          <th>筹款总计</th>
-					<th>订单总数</th>
-					<th>登录次数</th>
-	</thead>
-	<tbody>
-		<% if @sellers 
-			total_rows=0 
-			total_sales=0 
-			total_raised=0 
-			total_orders=0 
-			total_signin=0 
-			total_emails=0 
-			total_fbs=0 
-			total_tws=0 
-			users=[]
-			
-			@sellers.each do |seller| 
-				total_rows+=1 
-				# social_histories=seller.social_share_histories.select("id, media_id").all
-				sales=seller.total_sales 
-				raised=seller.total_raised 
-				orders=seller.total_orders 
-				emails=0 # seller.email_share_histories.count
-				fbs=0	# social_histories.select{|h| h.media_id==1}.count
-				tws=0 # social_histories.select{|h| h.media_id==2}.count
-				total_sales+=sales 
-				total_raised+=raised 
-				total_orders+=orders 
-				total_emails+=emails 
-				total_fbs+=fbs 
-				total_tws+=tws 
-				users << seller.user_profile.user if !users.include?(seller.user_profile.user) %>
-                <tr>
-                    <td><%= seller.user_profile.fullname %></td>
-                    <td><%= seller.user_profile.user.email %></td>
-					<td><%= seller.campaign.title %></td>
-                    <td><%= seller.referral_code %></td>
-                    <td>￥<%= long_price(sales) %></td>
-                    <td>￥<%= long_price(raised) %></td>
-					<td><%= orders %></td>
-					<td><%= seller.user_profile.user.sign_in_count %></td>
-                </tr>
-              <% end %>
-			<% users.each do |user|  total_signin+= user.sign_in_count end %>
-			<tr>
-				<td></td>
-                <td></td>
-                <td></td>
-                <th style="text-align:right;">总计</th>
-                <th>￥<%= long_price(total_sales) %></th>
-                <th>￥<%= long_price(total_raised) %></th>
-				<th><%= total_orders %></th>
-				<th><%= total_signin %></th>
-			</tr>
-		<% end %>
-	</tbody>
+  <thead>
+  <th>志愿者姓名</th>
+  <th>Email</th>
+  <th>筹款团队</th>
+  <th>志愿者编号</th>
+  <th>销售总计</th>
+  <th>筹款总计</th>
+  <th>订单总数</th>
+  <th>登录次数</th>
+  </thead>
+  <tbody>
+  <% if @sellers
+       total_rows=0
+       total_sales=0
+       total_raised=0
+       total_orders=0
+       total_signin=0
+       total_emails=0
+       total_fbs=0
+       total_tws=0
+       users=[]
+
+       @sellers.each do |seller|
+         total_rows+=1
+         # social_histories=seller.social_share_histories.select("id, media_id").all
+         sales=seller.total_sales
+         raised=seller.total_raised
+         orders=seller.total_orders
+         emails=0 # seller.email_share_histories.count
+         fbs=0 # social_histories.select{|h| h.media_id==1}.count
+         tws=0 # social_histories.select{|h| h.media_id==2}.count
+         total_sales+=sales
+         total_raised+=raised
+         total_orders+=orders
+         total_emails+=emails
+         total_fbs+=fbs
+         total_tws+=tws
+         users << seller.user_profile.user if !users.include?(seller.user_profile.user) %>
+          <tr>
+            <td><%= seller.user_profile.fullname %></td>
+            <td><%= seller.user_profile.user.email %></td>
+            <td><%= seller.campaign.title %></td>
+            <td><%= seller.referral_code %></td>
+            <td>￥<%= long_price(sales) %></td>
+            <td>￥<%= long_price(raised) %></td>
+            <td><%= orders %></td>
+            <td><%= seller.user_profile.user.sign_in_count %></td>
+          </tr>
+      <% end %>
+      <% users.each do |user|
+        total_signin+= user.sign_in_count
+      end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th style="text-align:right;">总计</th>
+        <th>￥<%= long_price(@total_sales_all) %></th>
+        <th>￥<%= long_price(@total_raised_all) %></th>
+        <th><%= @total_orders_all %></th>
+        <th><%= @total_sigin_all %></th>
+      </tr>
+  <% end %>
+  </tbody>
 </table>
+<div class="page_pager" style="text-align:center;"><%= paginate @sellers if @sellers %></div>

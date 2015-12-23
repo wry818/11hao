@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>日期</th>
+    <th>筹款标题</th>
+    <th>组合</th>
+    <th>组织</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @campaigns.order(:id).each do |campaign| %>
+      <tr>
+        <td><%= campaign.created_at.strftime('%b %-d, %Y') %></td>
+        <td><%= link_to campaign.title, short_campaign_path(campaign) %></td>
+        <td><%= campaign.collection.name if campaign.collection %></td>
+        <td><%= campaign.organizer.profile.fullname if campaign.organizer %></td>
+        <td>
+          <%= link_to '编辑', edit_admin_campaign_path(campaign)%>
+        </td>
+        <td>
+          <%= link_to '删除', admin_campaign_path(campaign.id),:method => :delete,data:{confirm:'是否确定删除？'}%>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div id="page_pager" style="text-align:center;"><%= paginate @campaigns if @campaigns %></div>

@@ -154,9 +154,10 @@ $(document).ready(function() {
 	});
 	
 	window.setTimeout(function(){
-		Raisy.chairperson_dashboard.load_sales_report_content("activity", "");
+    var org = $("#all_report_org_selector").select2("val");
+		Raisy.chairperson_dashboard.load_sales_report_content("activity", org);
 		$("#sales_report_tabs li.active a").data("loaded", "loaded");
 	}, 200);
-	
+
 });
 </script>

@@ -26,13 +26,13 @@
         <label class="control-label">开始时间</label>
       </div>
       <div class="col-xs-4">
-        <input id="from_date" name="from_date"  placeholder="Select date" value="" class="datepicker form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+        <input id="from_date" name="from_date" placeholder="Select date" value="<%=@fromdate%>" data-value="<%=@fromdate%>" class="datepicker form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
       </div>
       <div class="col-xs-2" style="text-align:right;">
         <label class="control-label">结束时间</label>
       </div>
       <div class="col-xs-4">
-        <input id="to_date" name="to_date"  placeholder="Select date" value="" class="datepicker form-control" style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+        <input id="to_date" name="to_date" placeholder="Select date" value="<%= @todate %>" data-value="<%= @todate %>" class="datepicker form-control" style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
       </div>
     </div>
   </div>
@@ -46,9 +46,24 @@
   </div>
 </div>
 <script language="javascript" type="text/javascript">
+   $("#from_date").pickadate({
+      // Escape any “rule” characters with an exclamation mark (!).
+      format: 'dd mmm, yyyy',
+      formatSubmit: 'yyyy-mm-dd'
+    });
 
-  $("#from_date").val($.datepicker.formatDate("yy-mm-dd",new Date('<%=@fromdate%>')));
-  $("#from_date").pickadate();
-   $("#to_date").val($.datepicker.formatDate('yy-mm-dd',new Date( '<%=@todate%>' )));
-   $("#to_date").pickadate();
+    $("#to_date").pickadate({
+      // Escape any “rule” characters with an exclamation mark (!).
+      format: 'dd mmm, yyyy',
+      formatSubmit: 'yyyy-mm-dd'
+    });
+
+//   $(function(){
+//     $("#from_date").attr("data-value",'<%=@fromdate%>');
+//     $("#from_date").attr("value",'<%=@fromdate%>');
+//     $("#to_date").data("value",'<%=@todate%>');
+//   });
+  //  $("#from_date").pickadate();
+  //   $("#to_date").val($.datepicker.formatDate('yy-mm-dd',new Date( '<%=@todate%>' )));
+  //   $("#to_date").pickadate();
 </script>

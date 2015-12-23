@@ -1,0 +1,23 @@
+<table class="table table-hover" style="">
+  <thead>
+  <tr>
+    <th>日期</th>
+    <th>名称</th>
+    <th>组织代码</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @organizations.each do |organization| %>
+      <tr>
+        <td><%= organization.created_at.strftime('%b %-d, %Y') %></td>
+        <td><%= link_to organization.name, edit_admin_organization_path(organization) %></td>
+        <td><%= organization.entertainment_customer_id %></td>
+        <td><%= link_to "删除", admin_organization_path(organization), method: :delete, data: {
+            confirm: "您确定要删除该组织吗?" } %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<div id="page_pager" style="text-align:center;"><%= paginate @organizations if @organizations %></div>
