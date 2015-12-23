@@ -97,22 +97,6 @@
 		
 		<% if @the_order.needs_shipping %>
 	    <p style="margin-top:20px">
-	      物流单号
-	    </p>
-	    <% @items_express.values.each do |item| %>
-	        <% if item.courier_number %>
-	            <div class="item_content">
-	              <small>
-	                <%= item.express %> &nbsp;&nbsp;
-	              </small>
-	              <small style="float: right">
-	                <%= link_to item.courier_number, order_express_path(item.id) %>
-	              </small>
-	            </div>
-	        <% end %>
-	    <% end %>
-		
-	    <p style="margin-top:20px">
 	      邮寄地址
 	    </p>
 
@@ -121,6 +105,23 @@
 	      <br/>
 	      <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
 	    </small>
+        <p style="margin-top:20px">
+          物流信息
+        </p>
+        <% @items_express.values.each do |item| %>
+            <% if item.courier_number %>
+                <div class="item_content">
+                  <small>
+                    承运来源：<%= item.express %>
+                    <br/>
+                    运单编号：<%= item.courier_number %>
+                  </small>
+                  <small style="float: right; margin-top: 5px;">
+                    <%= link_to "查看物流", order_express_path(item.id),class: "btn btn-default btn-sm" %>
+                  </small>
+                </div>
+            <% end %>
+        <% end %>
 		<% end %>
 
   </div>
