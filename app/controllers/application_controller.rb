@@ -69,74 +69,54 @@ class ApplicationController < ActionController::Base
     end
     
     def get_wechat_sns
+      need_auth = false
       
       if session[:openid].blank?
-      
         if Rails.env.test? && params[:openid].present?
-          
-          logger.info "bbbbbbbbbbb"
-          logger.info params[:openid]
-          logger.info params[:access_token]
-          
           session[:openid] = params[:openid]
           session[:access_token] = params[:access_token]
-          return
           
+          return
         end
         
         if params[:code].present?
-        
-          logger.info "cccccccccccc"
-        
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
-        
-          Rails.logger.debug("Weixin oauth2 response: #{sns_info.result}")
-      
-          # 重复使用相同一个code调用时：
+          
           if sns_info.result["errcode"] != "40029"
               session[:openid] = sns_info.result["openid"]
               session[:access_token] = sns_info.result["access_token"]
               session[:expires_in] = sns_info.result["expires_in"]
+          else
+              need_auth = true
           end
           
           if params[:is_test]
-            
-            logger.info "ddddddddddddd"
-            
             url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
             redirect_to url and return
-            
           end
-          
         else
+          need_auth = true
+        end
         
-          # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-          # url = $wechat_client.authorize_url(request.original_url)
-          # redirect_to url
-          
+        if need_auth
           redirect_uri = ERB::Util.url_encode(request.original_url)
 
           if Rails.env.test?
-            
             if request.path == "/"
               redirect_uri = "http://www.11haoonline.com?is_test=1"
             else
               redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
             end
-            
           else
             redirect_uri = ERB::Util.url_encode(request.original_url)
           end
-                
+              
           url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
-          logger.info url
-          redirect_to url
-        
+
+          redirect_to url and return
         end
-      
       end
-      
     end
         
     def set_defaults
