@@ -90,6 +90,7 @@ class ApplicationController < ActionController::Base
               
               if params[:is_test] == "1"
                 url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
+                
                 redirect_to url and return
               end
           else
@@ -114,6 +115,12 @@ class ApplicationController < ActionController::Base
               
           url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
 
+          redirect_to url and return
+        end
+      else
+        if params[:is_test] == "1"
+          url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token]
+          
           redirect_to url and return
         end
       end
