@@ -249,13 +249,28 @@ class ChairpersonDashboardController < ApplicationController
           # end
           # @total_sales=@sellers.sum("total_sales")
           # @total_raised=Seller.where(:campaign_id=>@campaigns.collect(&:id)).sum("total_raised")
-          # @total_orders=Seller.where(:campaign_id=>@campaigns.collect(&:id)).sum("total_orders")
+
+          logger.debug "1001"
+          seller_ids=Seller.where(:campaign_id=>@campaigns.collect(&:id)).collect(&:id)
+          orders=Order.where(:seller_id=>seller_ids).completed
+          @total_orders_all=orders.count
+          @total_sales_all=(orders.joins(:items).sum('items.quantity * (items.base_amount + items.donation_amount)') + orders.sum('direct_donation') )/ 100.0
+          @total_raised_all= (orders.joins(:items).sum('items.quantity * items.donation_amount') + orders.sum('direct_donation') )/ 100.0
+
+          user_profile_ids=Seller.where(:campaign_id=>@campaigns.collect(&:id)).collect(&:user_profile_id)
+          user_ids=UserProfile.where(:id=>user_profile_ids).collect(&:user_id)
+          @total_sigin_all=User.where(:id=>user_ids).sum("sign_in_count")
+
           render partial: "activities_report_content" and return
         end
         
         if @report == "sales"
           @orders = Order.completed.where(:campaign_id=>@campaigns.collect(&:id)).order(:id=>:desc).page(params[:page])
           
+          seller_ids=Seller.where(:campaign_id=>@campaigns.collect(&:id)).collect(&:id)
+          orders=Order.where(:seller_id=>seller_ids).completed
+          @total_paid_all=0
+          orders.each { |order| @total_paid_all+=order.grandtotal.to_f }
           render partial: "sales_report_content" and return
         end
       else

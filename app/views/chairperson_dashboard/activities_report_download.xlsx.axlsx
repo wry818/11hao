@@ -50,15 +50,13 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 
 			sheet.add_row [
 				seller.user_profile.fullname,
-				seller.user_profile.parent_fullname,
 				seller.user_profile.user.email,
 				seller.campaign.title,
 				seller.referral_code,
 				"￥" + long_price(sales),
 				"￥" + long_price(raised),
 				orders,
-				seller.user_profile.user.sign_in_count,
-				emails, fbs, tws 
+				seller.user_profile.user.sign_in_count
 			], :style => wrap_text
 		end
 
@@ -79,5 +77,5 @@ wb.add_worksheet(name: "Seller Activity Report") do |sheet|
 			footer_text, footer_text, footer_text, footer_text]
 	end
 	
-	sheet.column_widths 15, 15, 15, 15, 15
+	sheet.column_widths 15, 30, 15, 15, 15
 end

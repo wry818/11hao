@@ -1,68 +1,66 @@
 <div style="display:none;">report_content</div>
 <table class="table">
-    <thead>
-        <tr>
-			<th>订单编号</th>
-            <th>订单日期</th>
-            <th>购买人姓名</th>
-            <th>Email</th>
-            <th>数量-商品</th>
-            <th>支付金额</th>
-            <th>志愿者</th>
-        </tr>
-    </thead>
-	<tbody>
-		<% if @campaigns && @orders %>
-			<% total_rows=0 %>
-			<% total_paid=0 %>
-			
-			 
-			<% @orders.each do |order| %>
-					<% total_rows+=1 %>
-					<% paid=order.grandtotal.to_f %>
-					<% total_paid+=paid %>
-	        <tr>
-						<td>
-							<% if order.donation_only? %>
-								<%= order.id %>
-							<% else %>
-								<a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(@campaigns[@campaigns.index{|campaign| campaign.id==order.campaign_id}], order.id) %>" style="cursor:pointer;">
-									<%= order.id %></a>
-							<% end %>
-						</td>
-            <td style="white-space:nowrap;">
-							<%= order.created_at.strftime('%b %-d, %Y') %>
-						</td>
-	          <td><%= order.fullname %></td>
-	          <td><%= order.email %></td>
-	          <td>
-							<ul style="list-style-type:none;padding:0px;margin:0px;">
-								<% order.items.each do |item| %>
-									<li style="margin-bottom:5px;">
-										<%= item.quantity %>-<%= item.product.name if item.product %>
-										<% item.options.each do |option| %>
-											<% if option.value.present? %>
-												<p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
-											<% end %>
-										<% end %>
-									</li>
-								<% end %>
-							</ul>
+  <thead>
+  <tr>
+    <th>订单编号</th>
+    <th>订单日期</th>
+    <th>购买人姓名</th>
+    <th>Email</th>
+    <th>数量-商品</th>
+    <th>支付金额</th>
+    <th>志愿者</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @campaigns && @orders %>
+      <% total_rows=0 %>
+      <% total_paid=0 %>
+      <% @orders.each do |order| %>
+          <% total_rows+=1 %>
+          <% paid=order.grandtotal.to_f %>
+          <% total_paid+=paid %>
+          <tr>
+            <td>
+              <% if order.donation_only? %>
+                  <%= order.id %>
+              <% else %>
+                  <a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(@campaigns[@campaigns.index { |campaign| campaign.id==order.campaign_id }], order.id) %>" style="cursor:pointer;">
+                    <%= order.id %></a>
+              <% end %>
             </td>
-	          <td>￥<%= long_price(paid/100) %></td>
-	          <td><%= order.seller.user_profile.fullname if order.seller %></td>
-	        </tr>
-		  <% end %>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<th style="text-align:right;">总计</th>
-				<th>￥<%= long_price(total_paid/100) %></th>
-				<td></td>
-			</tr>
-		<% end %>
-	</tbody>
+            <td style="white-space:nowrap;">
+              <%= order.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+            </td>
+            <td><%= order.fullname %></td>
+            <td><%= order.email %></td>
+            <td>
+              <ul style="list-style-type:none;padding:0px;margin:0px;">
+                <% order.items.each do |item| %>
+                    <li style="margin-bottom:5px;">
+                      <%= item.quantity %>-<%= item.product.name if item.product %>
+                      <% item.options.each do |option| %>
+                          <% if option.value.present? %>
+                              <p style="margin:0;"><i><%= "#{option.option_group.name}: #{option.value}" %></i></p>
+                          <% end %>
+                      <% end %>
+                    </li>
+                <% end %>
+              </ul>
+            </td>
+            <td>￥<%= long_price(paid/100) %></td>
+            <td><%= order.seller.user_profile.fullname if order.seller %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th style="text-align:right;">总计</th>
+        <th>￥<%= long_price(@total_paid_all/100) %></th>
+        <td></td>
+      </tr>
+  <% end %>
+  </tbody>
 </table>
 <div class="page_pager" style="text-align:center;"><%= paginate @orders if @orders %></div>
