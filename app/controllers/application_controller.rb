@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
               redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
             end
           else
-            redirect_uri = ERB::Util.url_encode(request.original_url)
+            redirect_uri = ERB::Util.url_encode(request.original_url).gsub(/code=/, "")
           end
               
           url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
