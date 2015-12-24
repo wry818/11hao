@@ -266,9 +266,8 @@ class ChairpersonDashboardController < ApplicationController
         
         if @report == "sales"
           @orders = Order.completed.where(:campaign_id=>@campaigns.collect(&:id)).order(:id=>:desc).page(params[:page])
-          
-          seller_ids=Seller.where(:campaign_id=>@campaigns.collect(&:id)).collect(&:id)
-          orders=Order.where(:seller_id=>seller_ids).completed
+
+          orders=Order.completed.where(:campaign_id=>@campaigns.collect(&:id))
           @total_paid_all=0
           orders.each { |order| @total_paid_all+=order.grandtotal.to_f }
           render partial: "sales_report_content" and return

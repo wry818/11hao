@@ -1194,7 +1194,9 @@ class UsersController < ApplicationController
       @order = Order.find_by_id(params[:order_id])
       @items_express=Hash.new
       @order.items.each do |item|
-        @items_express[item.courier_number]=item
+        if item.courier_number&&item.courier_number.length>0
+          @items_express[item.courier_number]=item
+        end
       end
     else
 

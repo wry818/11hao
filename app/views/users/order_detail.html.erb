@@ -107,9 +107,11 @@
         <%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
       </small>
 
-        <p style="margin-top:20px">
-          物流信息
-        </p>
+        <% if @items_express.values.count>0 %>
+            <p style="margin-top:20px">
+              物流信息
+            </p>
+
         <% @items_express.values.each do |item| %>
             <% if item.courier_number %>
                 <div class="item_content">
@@ -123,6 +125,7 @@
                   </small>
                 </div>
             <% end %>
+        <% end %>
         <% end %>
 	  <% end %>
 		
