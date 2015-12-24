@@ -57,14 +57,14 @@
 				</div>
 			  <% end %>
 			  <% if @campaign.campaign_photos.length == 0 %>
-			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 10px 0px 10px; margin:0px 0px;">
+			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:15px 10px 0px 10px; margin:0px 0px;">
 	  			  <% if @campaign.description %>
 	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
 				  <% end %>
 				</div>
 			  <% else %>
 			  
-			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 10px 0px 10px; margin:0px 0px;">
+			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:15px 10px 0px 10px; margin:0px 0px;">
   	  			  <% if @campaign.description %>
   	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
   				  <% end %>
