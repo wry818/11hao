@@ -783,6 +783,12 @@
 		
 	}
 	
+	@media all and (min-width: 992px){
+		.image-wrapper {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+	}
 	
 } // end of campaign-show
 

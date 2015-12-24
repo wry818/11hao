@@ -13,13 +13,13 @@
 
       <%= render 'shop/campaign_nav' %>
 
-      <div class="row" style="padding: 30px">
+      <div class="row">
 		  <div class="col-md-12">
         	  <% if @campaign.campaign_photos.length > 0 %>
 			  	<div class="image-wrapper">
 					<div class="image-section">
 						<% if @campaign.campaign_photos.length>1 %>
-						                    	<div id="slides" class="slides" style="margin-top:3px;">
+						                    	<div id="slides" class="slides" style="margin-top:15px;">
 						                     	   <div class="slides_container">
 						                        	   <% @campaign.campaign_photos.each do |photo| %>
 													   		<%= cl_image_tag photo.image_id,
@@ -57,14 +57,14 @@
 				</div>
 			  <% end %>
 			  <% if @campaign.campaign_photos.length == 0 %>
-			  	<div class="col-md-12" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 30px 0px 30px;">
+			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 10px 0px 10px; margin:0px 0px;">
 	  			  <% if @campaign.description %>
 	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
 				  <% end %>
 				</div>
 			  <% else %>
 			  
-			  	<div class="description-wrapper" style="word-wrap:break-word;">
+			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;text-align:center;padding:30px 10px 0px 10px; margin:0px 0px;">
   	  			  <% if @campaign.description %>
   	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
   				  <% end %>
