@@ -1,0 +1,79 @@
+<div id="products" style="padding: 30px 0">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h3>物流数据导入</h3>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="well">
+        <div class="row">
+          <div class="col-md-12">
+            <label>上传物流信息 </label>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="image-uploader">
+                  <div id="drop-zone" class="drop-zone">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="upload-button-holder" style="position: relative">
+                          <a id="express_upload" class="btn btn-default btn-block upload-button">上传物流信息</a>
+                          <a href="#" class="remove-image" style="display:none">Remove picture</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="progress progress-striped active" style="display: none;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                      <span>0%</span>
+                    </div>
+                  </div>
+                  <span class="status"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= form_tag({:action => 'create'}, :multipart => true) %>
+       
+          <%= file_field("upload", "datafile",:accept=>"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel") %>
+          <%= submit_tag '提交' %></p>
+      </form>
+    </div>
+
+
+    <!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+
+    <!--</div>-->
+    <!--</div>-->
+  </div>
+  <div style="width:90%; max-width:1280px; margin:auto;">
+    <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+      <h4>Loading data ...</h4><span class="loader loader-black"></span>
+    </div>
+    <div class="table-responsive" id="activity_products_content" style="margin-top: 10px;">
+       <%= render "table_show" %>
+    </div>
+  </div>
+</div>
+<script language="JavaScript" type="text/javascript">
+$(function(){
+  $("#express_upload").bind("click",function(){
+      $("#upload_datafile").click();
+  });
+  $('#upload_datafile').fileupload({
+    done: function (e, data) {
+      alert(data.result);
+//      $.each(data.result, function (index, file) {
+////        $('<p/>').text(file.name + ' uploaded').appendTo($("body"));
+//        alert(file.name);
+//      });
+    }
+  });
+
+});
+
+</script>

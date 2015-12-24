@@ -1,0 +1,23 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>订单详情号</th>
+    <th>快递公司</th>
+    <th>快递编号</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @results.each do |r| %>
+      <tr>
+        <td><%= r[0] %></td>
+        <td><%= r[1] %></td>
+        <td>
+          <%= r[2] %>
+        </td>
+        <td>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
