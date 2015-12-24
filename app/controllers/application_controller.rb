@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
           
-          if sns_info && sns_info.result && (!sns_info.result["errcode"] || (sns_info.result["errcode"] && sns_info.result["errcode"] != "40029"))
+          if (sns_info.result["errcode"] && sns_info.result["errcode"] != "40029") || !sns_info.result["errcode"]
               session[:openid] = sns_info.result["openid"]
               session[:access_token] = sns_info.result["access_token"]
               session[:expires_in] = sns_info.result["expires_in"]
