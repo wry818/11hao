@@ -83,6 +83,8 @@ class ApplicationController < ActionController::Base
           $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
           sns_info = $wechat_client.get_oauth_access_token(params[:code])
           
+          redirect_to "http://www.baidu.com?code=" + sns_info.result["errcode"] and return
+          
           if sns_info.result["errcode"] != "40029"
               session[:openid] = sns_info.result["openid"]
               session[:access_token] = sns_info.result["access_token"]
