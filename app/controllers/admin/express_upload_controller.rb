@@ -68,6 +68,12 @@ class Admin::ExpressUploadController < Admin::ApplicationController
 
     name= UUIDTools::UUID.timestamp_create.to_s.gsub('-', '')
     fullname= "/tmp/#{name}.xlsx"
+
+    if ((params[:upload]['datafile'].read.length)>(1024*1024*1))
+      logger.debug "1001:"+params[:upload]['datafile'].read.length.to_s
+      render :text => "max" and return
+    end
+
     post = save(params[:upload], fullname)
     session[:express_import]=fullname
 
@@ -113,6 +119,7 @@ class Admin::ExpressUploadController < Admin::ApplicationController
   end
 
   def save(upload, filename)
+
     # name =  upload['datafile'].original_filename
     name=filename
     directory = ""

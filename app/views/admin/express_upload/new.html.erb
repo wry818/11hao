@@ -65,8 +65,12 @@
     });
     $('#upload_datafile').fileupload({
       done: function (e, data) {
-        $(loading_text).text("文件上传完成正在准备解析...");
-        load_excle();
+        if (data.result== "max") {
+          $(loading_text).text("不能上传过大的文件（1M）...");
+        }else {
+          $(loading_text).text("文件上传完成正在准备解析...");
+          load_excle();
+        }
       },
       progressall: function (e, data) {//设置上传进度事件的回调函数
         $(loading_text).text("文件正在上传...");
@@ -81,7 +85,7 @@
 
         if (data == "error") {
           $(loading_text).text("文件解析失败请上传符合要求的文件...");
-        } else {
+        }else {
           $(loading_text).text("文件解析完成...");
           $(data_content).html(data);
           validate_check();
@@ -94,6 +98,7 @@
 
       });
     }
+
     //validate data from excel
     function validate_check() {
       var url = "<%= admin_express_validate_ajax_path%>"
@@ -118,6 +123,7 @@
       });
 
     }
+
     //update import  data
     function update_data() {
       var url = "<%= admin_express_update_ajax_path%>"
