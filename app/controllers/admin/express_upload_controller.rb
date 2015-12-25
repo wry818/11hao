@@ -70,7 +70,7 @@ class Admin::ExpressUploadController < Admin::ApplicationController
     fullname= "/tmp/#{name}.xlsx"
 
     if ((params[:upload]['datafile'].size)>(1024*1024*1))
-      logger.debug "1001:"+params[:upload]['datafile'].read.length.to_s
+      logger.debug "1001:"+params[:upload]['datafile'].size.to_s
       render :text => "max" and return
     end
 
