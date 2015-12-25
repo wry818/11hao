@@ -60,7 +60,7 @@
       <div class="right_content">
         <div>
           <div style="float: right">
-            <%= @the_order.created_at.strftime('%Y-%-m-%-d %H:%M') %>
+            <%= @the_order.created_at.localtime.strftime('%Y-%-m-%-d %H:%M') %>
           </div>
         </div>
       </div>
@@ -94,17 +94,37 @@
         </div>
 
     <% end %>
-
+		
 		<% if @the_order.needs_shipping %>
-    <p style="margin-top: 30px">
-      邮寄地址
-    </p>
+	    <p style="margin-top:20px">
+	      邮寄地址
+	    </p>
 
-    <small>
-      <%= @the_order.address_fullname %>  <%= @the_order.phone_number %>
-      <br/>
-      <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
-    </small>
+	    <small>
+	      <%= @the_order.address_fullname %>  <%= @the_order.phone_number %>
+	      <br/>
+	      <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
+	    </small>
+        <% if @items_express.values.count>0 %>
+        <p style="margin-top:20px">
+          物流信息
+        </p>
+
+        <% @items_express.values.each do |item| %>
+            <% if item.courier_number %>
+                <div class="item_content">
+                  <small>
+                    承运来源：<%= item.express %>
+                    <br/>
+                    运单编号：<%= item.courier_number %>
+                  </small>
+                  <small style="float: right; margin-top: 5px;">
+                    <%= link_to "查看物流", order_express_path(item.id),class: "btn btn-default btn-sm" %>
+                  </small>
+                </div>
+            <% end %>
+        <% end %>
+        <% end %>
 		<% end %>
 
   </div>
