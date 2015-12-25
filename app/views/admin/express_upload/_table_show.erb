@@ -8,16 +8,19 @@
   </tr>
   </thead>
   <tbody>
-  <% @results.each do |r| %>
-      <tr>
-        <td><%= r[0] %></td>
-        <td><%= r[1] %></td>
-        <td>
-          <%= r[2] %>
-        </td>
-        <td>
-        </td>
-      </tr>
+  <% if @results
+       @results.each do |r| %>
+          <tr>
+            <td style="width: 100px;"><%= r[0] %></td>
+            <td><%= r[1] %></td>
+            <td>
+              <%= r[2] %>
+            </td>
+            <td>
+            </td>
+          </tr>
+      <% end %>
   <% end %>
   </tbody>
 </table>
+<input type="hidden" id="hid_results_count" value="<%=@results.count if @results %>">
