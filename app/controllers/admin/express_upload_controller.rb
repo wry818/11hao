@@ -23,8 +23,8 @@ class Admin::ExpressUploadController < Admin::ApplicationController
       results=load_data_from_excel()
 
       results.each do |result|
-        logger.debug result[0]
-        item_id=result[0].to_s
+        logger.debug result[1]
+        item_id=result[1].to_s
         logger.debug "1003"+item_id
         item=Item.where(:id => item_id).first
         if item
@@ -47,13 +47,13 @@ class Admin::ExpressUploadController < Admin::ApplicationController
       results=load_data_from_excel()
       Item.transaction do
         results.each do |result|
-          logger.debug result[0]
-          item_id=result[0].to_s
-          logger.debug "1003"+item_id
+          logger.debug result[1]
+          item_id=result[1].to_s
+          logger.debug "1003："+item_id
           item=Item.where(:id => item_id).first
           if item
-            item.update(:express => result[1])
-            item.update(:courier_number => result[2])
+            item.update(:express => result[2])
+            item.update(:courier_number => result[3])
           end
         end
       end
@@ -82,6 +82,10 @@ class Admin::ExpressUploadController < Admin::ApplicationController
 
 
     render :text => "ok"
+  end
+
+  def donload
+    send_file "#{Rails.root}/public/express_import.xlsx"
   end
 
   private
@@ -114,6 +118,8 @@ class Admin::ExpressUploadController < Admin::ApplicationController
             express_indexs[1]=$int;
           elsif worksheet.sheet_data[0][$int].value=="物流单号"
             express_indexs[2]=$int;
+          elsif worksheet.sheet_data[0][$int].value=="订单号"
+            express_indexs[3]=$int;
           end
           $int +=1;
         end
@@ -128,6 +134,7 @@ class Admin::ExpressUploadController < Admin::ApplicationController
             break
           end
           express=Array.new
+          express<<worksheet.sheet_data[$i][express_indexs[3].to_i].value
           express<<worksheet.sheet_data[$i][express_indexs[0].to_i].value
           express<<worksheet.sheet_data[$i][express_indexs[1].to_i].value
           express<<worksheet.sheet_data[$i][express_indexs[2].to_i].value

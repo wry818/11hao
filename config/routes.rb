@@ -99,6 +99,7 @@ Raisy::Application.routes.draw do
         get 'express/load_excle',to: 'express_upload#load_excle',as: :express_load_excle_ajax
         get 'express/validate',to: 'express_upload#validate_check',as: :express_validate_ajax
         get 'express/update',to: 'express_upload#update_data',as: :express_update_ajax
+        get 'express/donload',to: 'express_upload#donload',as: :express_donload
     end
 
   #Express
