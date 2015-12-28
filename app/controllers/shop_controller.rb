@@ -18,7 +18,14 @@ class ShopController < ApplicationController
             image: @campaign.logo,
             url: @seller ? short_campaign_url(@campaign, seller: @seller.referral_code) : short_campaign_url(@campaign)
         }
-        
+
+        logger.debug request.url
+        logger.debug Rails.configuration.url_host + short_campaign_path(@campaign)
+
+        qr = RQRCode::QRCode.new(request.url, :size => 10, :level => :h)
+
+        @qr_url = qr.to_img.resize(200, 200).to_data_url
+
         weixin_jssdk_init()
         
     end
