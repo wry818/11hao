@@ -16,7 +16,7 @@ class ExpressController < ApplicationController
     # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     # return @order= Order.find_by_id(params[:order_id])
     # return @order = Order.find_by_id(params[:order_id])
-    if session[:openid]
+    # if session[:openid]
       @item = Item.find(params[:item_id])
       # @docresult = Nokogiri::XML(open('http://www.kuaidiapi.cn/rest/?uid=53100&key=2c40a2e81f354f02b052e3ba58de615c&order=710093138324&id=yuantong&show=xml&ord=desc'))
       # @docresult.encoding = "utf-8"
@@ -43,8 +43,8 @@ class ExpressController < ApplicationController
       #  logger.debug @times[0]
       # end
       render :partial => "express"
-    else
-      redirect_to root_path and return
-    end
+    # else
+    #   redirect_to root_path and return
+    # end
   end
 end
