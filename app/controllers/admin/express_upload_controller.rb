@@ -73,9 +73,13 @@ class Admin::ExpressUploadController < Admin::ApplicationController
       logger.debug "1001:"+params[:upload]['datafile'].size.to_s
       render :text => "max" and return
     end
+    begin
+      post = save(params[:upload], fullname)
+      session[:express_import]=fullname
+    rescue
+      render :text => "error" and return
+    end
 
-    post = save(params[:upload], fullname)
-    session[:express_import]=fullname
 
     render :text => "ok"
   end
@@ -95,6 +99,27 @@ class Admin::ExpressUploadController < Admin::ApplicationController
         # @results= Express_import.import(path)
         workbook = RubyXL::Parser.parse(path)
         worksheet = workbook[0]
+
+        express_indexs=Array.new
+        $int=0
+        while true do
+
+          if !worksheet.sheet_data[0]||!worksheet.sheet_data[0][$int]||worksheet.sheet_data[0][$int].value.length<1
+            break
+          end
+          # logger.debug worksheet.sheet_data[0][$int].value
+          if worksheet.sheet_data[0][$int].value.to_s=="订单详情号"
+            express_indexs[0]=$int;
+          elsif worksheet.sheet_data[0][$int].value=="物流公司"
+            express_indexs[1]=$int;
+          elsif worksheet.sheet_data[0][$int].value=="物流单号"
+            express_indexs[2]=$int;
+          end
+          $int +=1;
+        end
+
+        logger.debug express_indexs.inspect
+
         results=Array.new
         $i=1
         while true do
@@ -103,9 +128,9 @@ class Admin::ExpressUploadController < Admin::ApplicationController
             break
           end
           express=Array.new
-          express<<worksheet.sheet_data[$i][2].value
-          express<<worksheet.sheet_data[$i][11].value
-          express<<worksheet.sheet_data[$i][12].value
+          express<<worksheet.sheet_data[$i][express_indexs[0].to_i].value
+          express<<worksheet.sheet_data[$i][express_indexs[1].to_i].value
+          express<<worksheet.sheet_data[$i][express_indexs[2].to_i].value
           if express[0].to_s.length>0
             results<<express
           end
