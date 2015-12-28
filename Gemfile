@@ -101,3 +101,7 @@ gem 'cancan'
 
 gem 'bxslider-rails'
 
+# gem 'importex'
+gem 'rubyXL'
+gem 'uuidtools'
+

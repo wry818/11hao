@@ -94,12 +94,18 @@ Raisy::Application.routes.draw do
       
         get 'mall_settings', to: 'mall#settings', as: :mall_settings
         post 'save_mall_settings', to: 'mall#save_settings', as: :save_mall_settings
+
+        resources :express_upload
+        get 'express/load_excle',to: 'express_upload#load_excle',as: :express_load_excle_ajax
+        get 'express/validate',to: 'express_upload#validate_check',as: :express_validate_ajax
+        get 'express/update',to: 'express_upload#update_data',as: :express_update_ajax
     end
 
   #Express
   get 'order_express/:item_id', to: 'express#order_express', as: :order_express
   get 'order_express_ajax/:item_id', to: 'express#order_express_ajax', as: :order_express_ajax
   get 'order_express_ajax', to: 'express#order_express_ajax', as: :order_express_ajax_get
+
 
     # Mall
     scope 'mall' do
