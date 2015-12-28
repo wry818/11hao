@@ -124,7 +124,7 @@ class Admin::ExpressUploadController < Admin::ApplicationController
         $i=1
         while true do
           # logger.debug $i
-          if !worksheet.sheet_data[$i]||worksheet.sheet_data[$i][0].value.length<1
+          if !worksheet.sheet_data[$i]||worksheet.sheet_data[$i][0].value.to_s.length<1
             break
           end
           express=Array.new
