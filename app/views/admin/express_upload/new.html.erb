@@ -35,13 +35,13 @@
           </div>
         </div>
         <div class="col-lg-12">
-          <a class="text-muted pull-right" href="<%=admin_express_donload_path%>" target="_blank" >数据导入模板下载</a>
+          <a id="upload_button" class="text-muted pull-right" href="<%=admin_express_donload_path%>" target="_blank" >数据导入模板下载</a>
         </div>
       </div>
       <div style="width: 0px; height: 0px; overflow: hidden;">
         <%= form_tag({:action => 'create'}, :multipart => true) %>
-            <%= file_field("upload", "datafile", :accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel") %>
-            <%= submit_tag '提交' %></p>
+            <%= file_field("upload", "datafile", :accept => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel", :style=> "position:absolute;left:0;top:0;width:0px;height:0px;z-index:999;opacity:0;") %>
+           
         </form>
       </div>
     </div>
@@ -61,8 +61,12 @@
     var data_content = $("#activity_express_content");
     var loading_text = $("#loading_text");
 
-    $("#express_upload").bind("click", function () {
-      $("#upload_datafile").click();
+    $("#express_upload").bind("mouseover", function () {
+
+      $("#upload_datafile").css("left",$("#express_upload").offset().left-300)
+      $("#upload_datafile").css("top",$("#express_upload").offset().top)
+      $("#upload_datafile").css("width",2000)
+      $("#upload_datafile").css("height",$("#express_upload").css("height"))
     });
     $('#upload_datafile').fileupload({
       done: function (e, data) {
