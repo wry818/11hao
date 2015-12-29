@@ -1,0 +1,32 @@
+#personal_story_header
+{
+    /*background-image: url("/images/personals/p_11.jpg");*/
+    background-color: white;
+    /*background-size: cover;*/
+    /*height: 400px;*/
+}
+#personal_story_header div
+{
+    /*position:absolute;*/
+    /*z-index: 1000;*/
+    /*left:expression(eval(document.documentElement.clientLeft));*/
+    /*_left:expression(eval(document.documentElement.clientLeft));*/
+    /*background-color: white;*/
+    /*opacity: 0.5;*/
+}
+#personal_story_content
+{
+    background-color: white;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    line-height: 1.5;
+
+}
+#personal_story_content span {
+    text-align:left;
+    margin-left:20px;
+    color: #333333;
+}
+#personal_story_content img {
+    margin: 5px auto;
+}

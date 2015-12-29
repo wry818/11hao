@@ -121,7 +121,9 @@ Raisy::Application.routes.draw do
     resources :collections
     resources :organizations
     resources :campaigns, except: [:show]
-    
+
+    resources :personal_story
+
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup
     
