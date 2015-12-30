@@ -1,6 +1,6 @@
 <div id="personal_story_header" class="container">
   <div class="row">
-    <img src="/images/personals/p_11.jpg" class="img-responsive img-rounded" alt="Responsive image">
+    <img id="head_img" src="/images/personals/p_11.jpg" class="img-responsive img-rounded" alt="Responsive image">
 
     <div class="title">
       <h3>我只是想走路</h3>
@@ -311,10 +311,15 @@
 
   //ui  辅助
   $(function () {
+
     on_change();
     $(window).resize(function () {
       on_change();
     });
+    document.getElementById("head_img").onload=function(){
+      on_change();
+    };
+
     function on_change() {
       var img_head = $("#personal_story_header img");
       var title_head = $("#personal_story_header .title");
@@ -330,6 +335,8 @@
       $(title_head).css("top", img_top + (img_height - title_height));
       $(title_head).css("left", img_left);
     }
+
+    $(window).width= $(window).width+1;
   });
 
 
