@@ -123,7 +123,7 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
     resources :personal_story
-
+    post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup
     

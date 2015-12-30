@@ -7,13 +7,36 @@ class PersonalStoryController < ApplicationController
     @is_wechat_browser = is_wechat_browser?
     if is_wechat_browser?
 
-      weixin_get_user_info()
+      # weixin_get_user_info()
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       # weixin_payment_init(@order)
-      weixin_address_init()
+      # weixin_address_init()
 
     end
   end
+
+  def checkout_confirmation
+    @campaign=Campaign.find(1)
+    @order=@campaign.orders.new
+
+    @order.direct_donation=params[:direct_donation].to_f * 100
+    @order.save
+    if  @order.direct_donation<=0
+      redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
+    end
+    if !@order.valid?
+      message = ''
+      @order.errors.each do |key, error|
+        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      end
+      redirect_to personal_story_index_path, flash: { danger: message[0...-2] } and return
+    end
+    session[:order_id]=@order.id
+
+    redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
+  end
+
+
   def weixin_get_user_info()
 
     @nickname = ""
