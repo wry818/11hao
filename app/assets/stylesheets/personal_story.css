@@ -60,12 +60,16 @@
 }
 #personal_modalbody a
 {
+    color: red;
    font-weight: bold;
     text-align: center;
+    background-color: white;
 }
 #personal_modalbody a span
 {
     font-weight:normal;
+    color: black;
+    padding-left: 2px;
 }
 #personal_modalbody input
 {
