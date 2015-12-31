@@ -104,10 +104,10 @@ class PersonalStoryController < ApplicationController
   def weixin_payment_get_req
     
     puts "aaaaaaaaaaaaaaaaaaaaaa"
-    puts donation_amount
     
     donation_amount = params[:direct_donation]
-    
+
+    puts donation_amount
     weixin_payment_init donation_amount
     
     if @weixin_init_success
