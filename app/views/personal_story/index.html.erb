@@ -318,52 +318,6 @@
 			}).complete(function () {
 				$('#wechat').prop('disabled', false);
 			});
-			
-			// $.ajax('/ajax/personal_story_weixin_payment_get_req', {
-// 				type: 'GET',
-// 				cache: false,
-// 		        data: {
-// 					direct_donation: direct_donation
-// 				},
-// 	            beforeSend: function(jqXHR, settings) {
-// 	                jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-// 	            },
-// 	            success: function(d) {
-//
-// 					if (d) {
-// 						WeixinJSBridge.invoke('getBrandWCPayRequest', {
-// 							"appId" : d.appId,     //公众号名称，由商户传入
-// 							"timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
-// 							"nonceStr" : d.nonceStr, //随机串
-// 							"package" : d.package,
-// 							"signType" : "MD5",         //微信签名方式:
-// 							"paySign" : d.paySign //微信签名
-// 						}, function(res) {
-// 							if(res.err_msg == "get_brand_wcpay_request:ok" ) {
-// 								$.post(url, {direct_donation: direct_donation}).success(function (data, textStatus, jqXHR) {
-// 									$("#weixin_onbridgeread").html(data);
-// 									weixin_load();
-// 								}).error(function () {
-// 									alert("请求已经结束但是可能发生了错误！");
-// 								}).complete(function () {
-// 									$('#wechat').prop('disabled', false);
-// 								});
-// 							} else {
-// 								$('#wechat').prop('disabled', false);
-// 							}
-// 						});
-//
-// 					} else {
-// 						$('#wechat').prop('disabled', false);
-// 					}
-// 	            },
-// 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-// 					alert("请求已经结束但是可能发生了错误！");
-// 	            },
-// 				complete: function () {
-// 					$('#wechat').prop('disabled', false);
-// 				}
-// 			});
 
         });
 
