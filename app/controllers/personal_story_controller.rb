@@ -116,6 +116,13 @@ class PersonalStoryController < ApplicationController
         paySign: @js_pay_sign}.to_json and return
     end
     
+    render json: {appId: "", 
+      timeStamp: "", 
+      nonceStr: "", 
+      package: "",
+      signType: "MD5",
+      paySign: ""}.to_json and return
+      
   end
   
   def weixin_payment_init(donation_amount)
