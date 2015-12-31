@@ -103,11 +103,11 @@ class PersonalStoryController < ApplicationController
   
   def weixin_payment_get_req
     
-    puts "aaaaaaaaaaaaaaaaaaaaaa"
+    logger.info "aaaaaaaaaaaaaaaaaaaaaa"
     
     donation_amount = params[:direct_donation]
 
-    puts donation_amount
+    logger.info donation_amount
     weixin_payment_init donation_amount
     
     if @weixin_init_success
@@ -130,7 +130,7 @@ class PersonalStoryController < ApplicationController
   
   def weixin_payment_init(donation_amount)
     
-    puts "xxxxxxxxxxxxxxxxxxx"
+    logger.info "xxxxxxxxxxxxxxxxxxx"
     
     session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     if session[:openid]
@@ -156,7 +156,8 @@ class PersonalStoryController < ApplicationController
       
       @weixin_init_success = false
       
-      puts r["return_code"]
+      logger.info r
+      logger.info r["return_code"]
       
       if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
 
