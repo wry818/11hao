@@ -133,7 +133,7 @@ class PersonalStoryController < ApplicationController
     logger.info "xxxxxxxxxxxxxxxxxxx"
     logger.info donation_amount
     
-    donation_amount = donation_amount * 100.0
+    donation_amount = donation_amount.to_i * 100
     logger.info donation_amount
     # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     
