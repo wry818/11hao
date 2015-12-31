@@ -1,8 +1,8 @@
-<div id="personal_story_header" class="container">
+<div id="personal_story_header" class="container" style="font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
   <div class="row">
-    <img id="head_img" src="/images/personals/p_11.jpg" style="width: 100%;" class="img-responsive img-rounded" alt="Responsive image">
+    <img id="head_img" src="/images/personals/p_11.jpg" style="width: 100%;" class="img-responsive" alt="Responsive image">
 
-    <div class="title">
+    <div class="title" style="letter-spacing:2px;">
       <h4>我只是想走路</h4>
     </div>
   </div>
@@ -155,9 +155,9 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12" style="text-align: center">
-        <div style="padding-top: 5px;padding-bottom: 2px;">
-          <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary">
-            <span class="text">我要捐款</span>
+        <div style="padding:5px 0px;">
+          <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
+            <span class="text" style="font-size:16px; letter-spacing:1px;">我要捐款</span>
           </button>
         </div>
       </div>
@@ -197,14 +197,14 @@
         <!--data-dismiss="modal">关闭-->
         <!--</button>-->
 
-        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="微信捐赠">
+        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
+                                                        <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">
                                                              微信捐赠
                                                         </span>
           <span class="loader" style="display:none"></span>
         </button>
 
-        <%= link_to "微信捐赠", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block' %>
+        <%= link_to "微信捐赠", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block', style:  "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;" %>
         <!--<button id="btn_submit" type="button" class="btn btn-primary">-->
         <!--确认捐款-->
         <!--</button>-->
