@@ -169,30 +169,33 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <%= form_tag(personal_story_checkout_confirmation_path, method: "post", id: "payment_form") %>
-      <div class="modal-header">
+      <div class="modal-header" style="padding: 10px;">
         <button type="button" class="close"
                 data-dismiss="modal" aria-hidden="true">
           &times;
         </button>
-        <h4 class="modal-title" id="myModalLabel">
-          捐款
-        </h4>
+        <h5 class="modal-title" id="myModalLabel">
+          请输入捐款金额
+        </h5>
       </div>
       <div class="modal-body">
-        <div>
+        <div id="personal_modalbody" class="container" style="width: 100%;">
+          <div class="row" style="">
+            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="20" class="list-group-item">20元</a></div>
+            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="50" class="list-group-item">50元</a></div>
+            <div class="col-xs-4">  <a href="javascript:void(0);" data-value="100" class="list-group-item">100元</a></div>
+          </div>
           <div class="row">
-            <div class="col-md-12">
-
-              <label for="product_name">捐款金额</label>
-							
-							<div style="margin-top:5px;">
-              	<%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %>
-							</div>
-            </div>
+            <div class="col-md-12" style="margin-top:15px;">
+              <div class="input-group">
+                <%= text_field_tag :direct_donation, "20", class: 'form-control', placeholder: '输入捐款金额' %>
+                <span class="input-group-addon">元</span>
+              </div>
+          </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="text-align: center;">
 
 
         <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
@@ -200,14 +203,14 @@
         <!--data-dismiss="modal">关闭-->
         <!--</button>-->
 
-        <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
+        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
                                                         <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">
-                                                             微信捐赠
+                                                             立即捐款
                                                         </span>
           <span class="loader" style="display:none"></span>
         </button>
 
-        <%= link_to "微信捐赠", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block', style:  "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;" %>
+        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style:  "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
         <!--<button id="btn_submit" type="button" class="btn btn-primary">-->
         <!--确认捐款-->
         <!--</button>-->
@@ -339,6 +342,17 @@
     $("#direct_donation").numeral(true);
 
   });
+
+    $(function(){
+       $("#personal_modalbody a").bind('click',function(){
+          $("#direct_donation").val($(this).data("value"));
+         $("#personal_modalbody a").each(function(){
+           $(this).css('border',"");
+         });
+         $(this).css('border',"solid 1px red");
+
+       });
+    });
 </script>
 
 
