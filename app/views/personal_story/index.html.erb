@@ -258,7 +258,7 @@
 		};
 		
     function onBridgeReady() {
-		alert(1);
+
 			// 发送给好友
 			WeixinJSBridge.on('menu:share:appmessage', function(argv){
 				WeixinJSBridge.invoke('sendAppMessage',{
@@ -295,7 +295,7 @@
 			});
 			
       if ("<%= @weixin_init_success %>" == "true") {
-		  alert(2);
+
         var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
         var direct_donation = $("#direct_donation").val();
         if (direct_donation.length <= 0) {
@@ -303,7 +303,7 @@
         }
 		
         $('#wechat').click(function () {
-
+alert("aaaaa");
 	        $('#wechat').prop('disabled', true);
 			
 	        $.ajax({
@@ -315,6 +315,7 @@
 				},
 	            cache: false,
 	            success: function (d) {
+							alert(1);
 					if (d) {
 						WeixinJSBridge.invoke('getBrandWCPayRequest', {
 							"appId" : d.appId,     //公众号名称，由商户传入
@@ -342,11 +343,11 @@
 						$('#wechat').prop('disabled', false);
 					}
 	            },
-				error: function() {
-					$('#wechat').prop('disabled', false);
-				},
+		        error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert(2);
+		        },
 				complete: function() {
-					
+					$('#wechat').prop('disabled', false);
 				}
 	        });
 
