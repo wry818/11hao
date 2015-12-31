@@ -246,38 +246,49 @@
     } else {
       onBridgeReady();
     }
+		
+		window.shareData = {
+			appid: "<%= ENV['WEIXIN_APPID'] %>",
+			link: "<%= request.url %>",
+			img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_05.jpg' %>",
+			img_width: "621",
+			img_height: "556",
+			desc: "我只是想走路!",
+			title: "我只是想走路"
+		};
+		
     function onBridgeReady() {
 			// 发送给好友
 			WeixinJSBridge.on('menu:share:appmessage', function(argv){
 				WeixinJSBridge.invoke('sendAppMessage',{
-	        "appid": "<%= ENV['WEIXIN_APPID'] %>",
-	        "img_url": "<%= request.host_with_port %>" + "/images/personals/p_05.jpg",
-	        "img_width": "621",
-	        "img_height": "556",
-	        "link": "<%= request.url %>",
-	        "desc": "我只是想走路!",
-	        "title": "我只是想走路"
+	        "appid": shareData.appid,
+	        "img_url": shareData.img_url,
+	        "img_width": shareData.img_width,
+	        "img_height": shareData.img_height,
+	        "link": shareData.link,
+	        "desc": shareData.desc,
+	        "title": shareData.title
         }, function(res) {
         });
 			});
 			// 分享到朋友圈
 			WeixinJSBridge.on('menu:share:timeline', function(argv){
 				WeixinJSBridge.invoke('shareTimeline', {
-	        "appid": "<%= ENV['WEIXIN_APPID'] %>",
-	        "img_url": "<%= request.host_with_port %>" + "/images/personals/p_05.jpg",
-	        "img_width": "621",
-	        "img_height": "556",
-	        "link": "<%= request.url %>",
-	        "desc": "我只是想走路!",
-	        "title": "我只是想走路"
+	        "appid": shareData.appid,
+	        "img_url": shareData.img_url,
+	        "img_width": shareData.img_width,
+	        "img_height": shareData.img_height,
+	        "link": shareData.link,
+	        "desc": shareData.desc,
+	        "title": shareData.title
 				}, function (res) {
 				});
 			});
 			// 分享到微博
 			WeixinJSBridge.on('menu:share:weibo', function(argv){
 				WeixinJSBridge.invoke('shareWeibo',{
-					"content": "我只是想走路!",
-					"url": "<%= request.url %>",
+					"content": shareData.desc,
+					"url": shareData.link,
 				}, function(res) {
 				});
 			});
