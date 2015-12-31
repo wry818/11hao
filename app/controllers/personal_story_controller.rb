@@ -108,7 +108,7 @@ class PersonalStoryController < ApplicationController
     donation_amount = params[:direct_donation]
 
     logger.info donation_amount
-    weixin_payment_init donation_amount
+    weixin_payment_init(donation_amount)
     
     if @weixin_init_success
       render json: {appId: @js_app_id, 
@@ -131,7 +131,7 @@ class PersonalStoryController < ApplicationController
   def weixin_payment_init(donation_amount)
     
     logger.info "xxxxxxxxxxxxxxxxxxx"
-    
+    logger.info donation_amount
     session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     if session[:openid]
       
@@ -143,7 +143,7 @@ class PersonalStoryController < ApplicationController
         body: '11号公益圈订单',
         out_trade_no: out_trade_no,
         # total_fee: 1,
-        total_fee: donation_amount * 100,
+        total_fee: donation_amount,
         spbill_create_ip: '127.0.0.1',
         notify_url: root_url + 'checkout/weixin_notify',
         trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
