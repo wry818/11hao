@@ -132,7 +132,11 @@ class PersonalStoryController < ApplicationController
     
     logger.info "xxxxxxxxxxxxxxxxxxx"
     logger.info donation_amount
-    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+    
+    donation_amount = donation_amount * 100.0
+    logger.info donation_amount
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+    
     if session[:openid]
       
       r = Random.new

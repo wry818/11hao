@@ -320,9 +320,7 @@
 	                jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
 	            },
 	            success: function(d) {
-					alert(1);
-					alert(d);
-					alert(d.paySign);
+					
 					if (d) {
 						WeixinJSBridge.invoke('getBrandWCPayRequest', {
 							"appId" : d.appId,     //公众号名称，由商户传入
@@ -351,8 +349,7 @@
 					}					
 	            },
 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-					alert(2);
-					alert(XMLHttpRequest.responseText);
+					alert("请求已经结束但是可能发生了错误！");
 	            },
 				complete: function () {
 					$('#wechat').prop('disabled', false);
