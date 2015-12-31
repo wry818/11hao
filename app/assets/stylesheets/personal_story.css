@@ -11,7 +11,7 @@
     z-index: 1000;
     background-color: silver;
 
-    background:rgba(192, 192, 192, 0.25) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
     filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
 }
 #personal_story_header h4
@@ -44,7 +44,7 @@
     /*left: 0px;*/
     /*background:black;*/
     width: 100%;
-    background:rgba(192, 192, 192, 0.25) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
     filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
 
 }
