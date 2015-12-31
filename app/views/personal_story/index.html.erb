@@ -220,6 +220,8 @@
 <div id="weixin_onbridgeread" style="width: 0px;height: 0px;overflow: hidden;"></div>
 <script language="javascript" type="text/javascript">
   $(function () {
+		
+		document.title = "我只是想走路";
 
     if (<%= @is_wechat_browser %> == false
     )
@@ -245,6 +247,41 @@
       onBridgeReady();
     }
     function onBridgeReady() {
+			// 发送给好友
+			WeixinJSBridge.on('menu:share:appmessage', function(argv){
+				WeixinJSBridge.invoke('sendAppMessage',{
+	        "appid": "<%= ENV['WEIXIN_APPID'] %>",
+	        "img_url": "<%= request.host_with_port %>" + "/images/personals/p_05.jpg",
+	        "img_width": "621",
+	        "img_height": "556",
+	        "link": "<%= request.url %>",
+	        "desc": "我只是想走路!",
+	        "title": "我只是想走路"
+        }, function(res) {
+        });
+			});
+			// 分享到朋友圈
+			WeixinJSBridge.on('menu:share:timeline', function(argv){
+				WeixinJSBridge.invoke('shareTimeline', {
+	        "appid": "<%= ENV['WEIXIN_APPID'] %>",
+	        "img_url": "<%= request.host_with_port %>" + "/images/personals/p_05.jpg",
+	        "img_width": "621",
+	        "img_height": "556",
+	        "link": "<%= request.url %>",
+	        "desc": "我只是想走路!",
+	        "title": "我只是想走路"
+				}, function (res) {
+				});
+			});
+			// 分享到微博
+			WeixinJSBridge.on('menu:share:weibo', function(argv){
+				WeixinJSBridge.invoke('shareWeibo',{
+					"content": "我只是想走路!",
+					"url": "<%= request.url %>",
+				}, function(res) {
+				});
+			});
+			
       if ("<%= @weixin_init_success %>" == "true") {
 
         $('#wechat').prop('disabled', false);
