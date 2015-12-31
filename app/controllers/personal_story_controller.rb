@@ -13,7 +13,7 @@ class PersonalStoryController < ApplicationController
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       # weixin_payment_init(@order)
       weixin_address_init()
-
+      
     end
   end
 
@@ -100,4 +100,107 @@ class PersonalStoryController < ApplicationController
     end
 
   end
+  
+  def weixin_payment_get_req
+    
+    donation_amount = params[:direct_donation]
+    
+    weixin_payment_init donation_amount
+    
+    if @weixin_init_success
+      render json: {appId: @js_app_id, 
+        timeStamp: @js_timestamp, 
+        nonceStr: @js_noncestr, 
+        package: @package,
+        signType: "MD5",
+        paySign: @js_pay_sign}.to_json and return
+    end
+    
+  end
+  
+  def weixin_payment_init(donation_amount)
+  
+    if session[:openid]
+      
+      r = Random.new
+      num = r.rand(1000...9999)
+      out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s #生产随机订单号，这里用当前时间加随机数，保证唯一
+      
+      params = {
+        body: '11号公益圈订单',
+        out_trade_no: out_trade_no,
+        # total_fee: 1,
+        total_fee: donation_amount * 100,
+        spbill_create_ip: '127.0.0.1',
+        notify_url: root_url + 'checkout/weixin_notify',
+        trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
+        # openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
+        # openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
+        openid: session[:openid]
+      }
+
+      r = WxPay::Service.invoke_unifiedorder params
+      
+      @weixin_init_success = false
+      
+      if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
+
+        @js_noncestr = SecureRandom.uuid.tr('-', '')
+        @js_timestamp = Time.now.getutc.to_i.to_s
+        @js_app_id = r["appid"]
+        @package = "prepay_id=" + r["prepay_id"]
+
+        params_pre_pay_js = {
+          appId: @js_app_id,
+          nonceStr: @js_noncestr,
+          package: @package,
+          timeStamp: @js_timestamp,
+          signType: 'MD5'
+        }
+
+        @js_pay_sign = WxPay::Sign.generate(params_pre_pay_js)
+        @weixin_init_success = true
+        
+      end
+
+    end
+    
+  end
+  
+  def weixin_notify
+    
+    # logger.info "hahahahahahahahahahahahahahahaha"
+    
+    result = Hash.from_xml(request.body.read)["xml"]
+    
+    if WxPay::Sign.verify?(result)
+      
+      open_id = result["openid"]
+      out_trade_no = result["out_trade_no"]
+      logger.info out_trade_no
+      
+      order = Order.where(:out_trade_no => out_trade_no).first
+      
+      if order
+        
+        if open_id.present?
+          order.open_id = open_id
+        end
+        
+        order.status = 3
+        order.save
+        
+      end
+      
+      # find your order and process the post-paid logic.
+      render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
+
+    else
+      
+      render :xml => {return_code: "SUCCESS", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
+      
+    end
+
+  end
+  
 end

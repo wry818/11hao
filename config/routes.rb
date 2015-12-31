@@ -124,6 +124,7 @@ Raisy::Application.routes.draw do
 
     get 'supportlanlan', to: 'personal_story#index', as: :personal_story_index
     resources :personal_story
+    get 'ajax/personal_story_weixin_payment_get_req', to: 'personal_story#weixin_payment_get_req', as: :personal_story_weixin_payment_get_req
     post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
     post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
     # CAMPAIGNS
