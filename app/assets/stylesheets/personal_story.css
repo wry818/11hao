@@ -61,6 +61,11 @@
 #personal_modalbody a
 {
    font-weight: bold;
+    text-align: center;
+}
+#personal_modalbody a span
+{
+    font-weight:normal;
 }
 #personal_modalbody input
 {

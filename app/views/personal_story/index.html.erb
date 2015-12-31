@@ -181,14 +181,15 @@
       <div class="modal-body">
         <div id="personal_modalbody" class="container" style="width: 100%;">
           <div class="row" style="">
-            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="20" class="list-group-item">20元</a></div>
-            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="50" class="list-group-item">50元</a></div>
-            <div class="col-xs-4" style="padding-left: 5px;">  <a href="javascript:void(0);" data-value="100" class="list-group-item">100元</a></div>
+            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="20" class="list-group-item">20<span>元</span></a></div>
+            <div class="col-xs-4"> <a href="javascript:void(0);" data-value="50" class="list-group-item">50<span>元</span></a></div>
+            <div class="col-xs-4" style="padding-left: 5px;">  <a href="javascript:void(0);" data-value="100" class="list-group-item">100<span>元</span></a></div>
           </div>
           <div class="row">
             <div class="col-md-12" style="margin-top:15px;">
               <div class="input-group">
-                <%= text_field_tag :direct_donation, "20", class: 'form-control', placeholder: '输入捐款金额' %>
+                <span class="input-group-addon">其他</span>
+                <%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %>
                 <span class="input-group-addon">元</span>
               </div>
           </div>
