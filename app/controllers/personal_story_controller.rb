@@ -2,8 +2,10 @@ class PersonalStoryController < ApplicationController
 
   layout "story"
   def index
-    @order=Order.find(1)
-    @campaign=@order.campaign
+
+    @campaign=Campaign.find(1)
+
+
     @is_wechat_browser = is_wechat_browser?
     if is_wechat_browser?
 
@@ -14,6 +16,48 @@ class PersonalStoryController < ApplicationController
 
     end
   end
+
+  def checkout_confirmation
+    @campaign=Campaign.find(1)
+    @order=@campaign.orders.new
+
+    @order.direct_donation=params[:direct_donation].to_f * 100
+    @order.save
+    if  @order.direct_donation<=0
+      redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
+    end
+    if !@order.valid?
+      message = ''
+      @order.errors.each do |key, error|
+        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      end
+      redirect_to personal_story_index_path, flash: { danger: message[0...-2] } and return
+    end
+    session[:order_id]=@order.id
+
+    redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
+  end
+  def checkout_confirmation_weixin
+    @campaign=Campaign.find(1)
+    @order=@campaign.orders.new
+
+    @order.direct_donation=params[:direct_donation].to_f * 100
+    @order.save
+    if  @order.direct_donation<=0
+      redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
+    end
+    if !@order.valid?
+      message = ''
+      @order.errors.each do |key, error|
+        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      end
+      redirect_to personal_story_index_path, flash: { danger: message[0...-2] } and return
+    end
+    session[:order_id]=@order.id
+
+    render :text => "#{weixin_payment_get_req_path @order}"
+  end
+
   def weixin_get_user_info()
 
     @nickname = ""
