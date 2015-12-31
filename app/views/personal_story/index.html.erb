@@ -3,7 +3,7 @@
     <img id="head_img" src="/images/personals/p_11.jpg" style="width: 100%;" class="img-responsive img-rounded" alt="Responsive image">
 
     <div class="title">
-      <h3>我只是想走路</h3>
+      <h4>我只是想走路</h4>
     </div>
   </div>
 </div>
@@ -150,31 +150,16 @@
       </span>
     </div>
   </div>
-
-  <!--<div class="row">-->
-  <!--<div class="col-md-8">-->
-  <!--<div class="payment-submit">-->
-  <!--<button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">-->
-  <!--<span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">-->
-  <!--<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>-->
-  <!--</span>-->
-  <!--<span class="loader" style="display:none"></span>-->
-  <!--</button>-->
-  <!--<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block' %>-->
-  <!--</div>-->
-  <!--<p style="margin-top: 10px;">-->
-  <!--需要支付-->
-  <!--<span id="button_total">￥<%= long_price(@order.grandtotal/100.0) %></span>-->
-  <!--</p>-->
-  <!--</div>-->
 </div>
 <div id="personal_story_footer" class="footer navbar-fixed-bottom">
   <div class="container">
     <div class="row">
       <div class="col-xs-12" style="text-align: center">
-        <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary btn-block">
-          <span class="text">我要捐款</span>
-        </button>
+        <div style="padding-top: 5px;padding-bottom: 2px;">
+          <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary">
+            <span class="text">我要捐款</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -197,6 +182,7 @@
         <div>
           <div class="row">
             <div class="col-md-12">
+
               <label for="product_name">捐款金额</label>
               <%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %>
             </div>
@@ -206,14 +192,14 @@
       <div class="modal-footer">
 
 
-        <input type="hidden" id="order_id" name="order_id" value="<%= @order.id %>"/>
+        <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
         <!--<button type="button" class="btn btn-default"-->
         <!--data-dismiss="modal">关闭-->
         <!--</button>-->
 
         <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">
-                                                            <%= @order.donation_only? ? "微信捐赠" : "微信支付" %>
+                                                        <span class="text" data-text="微信捐赠">
+                                                             微信捐赠
                                                         </span>
           <span class="loader" style="display:none"></span>
         </button>
@@ -229,6 +215,8 @@
   </div><!-- /.modal -->
 </div>
 <script language="javascript" type="text/javascript">
+
+  var order_id = -1;
   $(function () {
 
     if (<%= @is_wechat_browser %> == false
@@ -242,9 +230,7 @@
       $("#payment-form-submit").hide();
       $('#wechat').show();
     }
-    $("#personal-modal button#btn_submit").bind("click", function (e) {
-      alert("支付捐款");
-    });
+
 
     if (typeof WeixinJSBridge == "undefined") {
       if (document.addEventListener) {
@@ -254,48 +240,65 @@
         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
       }
     } else {
-//      onBridgeReady();
+      onBridgeReady();
     }
     function onBridgeReady() {
       if ("<%= @weixin_init_success %>" == "true") {
 
         $('#wechat').prop('disabled', false);
+
+        var get_req_paht = "";
         $('#wechat').click(function () {
           $('#wechat').prop('disabled', true);
-          $.ajax({
-            method: "get",
-            url: "<%= weixin_payment_get_req_path @order %>",
-            dataType: "json",
-            cache: false,
-            success: function (d) {
-              if (d) {
-                WeixinJSBridge.invoke('getBrandWCPayRequest', {
-                  "appId": d.appId,     //公众号名称，由商户传入
-                  "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
-                  "nonceStr": d.nonceStr, //随机串
-                  "package": d.package,
-                  "signType": "MD5",         //微信签名方式:
-                  "paySign": d.paySign //微信签名
-                }, function (res) {
-                  if (res.err_msg == "get_brand_wcpay_request:ok") {
-                    alert("ok");
-//                    ComfirmOrder();
-                  } else {
+          var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
+          var direct_donation = $("#direct_donation").val();
+          if (direct_donation.length <= 0) {
+            return;
+          }
+          $.post(url, {direct_donation: direct_donation}).success(function (data, textStatus, jqXHR) {
+            if (data != "error") {
+              get_req_paht = data;
+              $.ajax({
+                method: "get",
+                url: get_req_paht,
+                dataType: "json",
+                cache: false,
+                success: function (d) {
+                  if (d) {
+                    WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                      "appId": d.appId,     //公众号名称，由商户传入
+                      "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+                      "nonceStr": d.nonceStr, //随机串
+                      "package": d.package,
+                      "signType": "MD5",         //微信签名方式:
+                      "paySign": d.paySign //微信签名
+                    }, function (res) {
+                      if (res.err_msg == "get_brand_wcpay_request:ok") {
+//                            alert("ok");
+                        ComfirmOrder();
+                      } else {
+                        $('#wechat').prop('disabled', false);
+                      }
+                    });
+                  }
+                  else {
                     $('#wechat').prop('disabled', false);
                   }
-                });
-              }
-              else {
-                $('#wechat').prop('disabled', false);
-              }
-            },
-            error: function () {
-              $('#wechat').prop('disabled', false);
-            },
-            complete: function () {
+                },
+                error: function () {
+                  $('#wechat').prop('disabled', false);
+                },
+                complete: function () {
 
+                }
+              });
             }
+          }).error(function () {
+            alert("请求已经结束但是可能发生了错误！");
+          }).complete(function () {
+
           });
+
 
         });
 
@@ -308,6 +311,50 @@
     }
   });
 
+  function ComfirmOrder() {
+
+    var order_make_anonymous = false;
+    var fullName = $("#fullname").val();
+
+    if (fullName == "") {
+      fullName = "匿名";
+      order_make_anonymous = true;
+    }
+
+    var avatar_url = $("#avatar_url").val();
+
+    var order_time = new Date();
+    var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
+    var data;
+
+    data = {
+      order_id: order_id,
+      order_make_anonymous: order_make_anonymous,
+      format_order_time: format_order_time,
+      fullName: fullName,
+      avatar_url: avatar_url
+    };
+
+    $.ajax('/ajax/update-order', {
+      type: 'POST',
+      data: data,
+      beforeSend: function (jqXHR, settings) {
+        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function (data) {
+        <% if @campaign.used_as_default? %>
+        window.location.href = "/" + "<%= @campaign.slug %>" + "/checkout_support";
+        <% else %>
+        window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+        <% end %>
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+      }
+    });
+
+  }
 
   //ui  辅助
   $(function () {
@@ -316,7 +363,7 @@
     $(window).resize(function () {
       on_change();
     });
-    document.getElementById("head_img").onload=function(){
+    document.getElementById("head_img").onload = function () {
       on_change();
     };
 
@@ -336,20 +383,20 @@
       $(title_head).css("left", img_left);
     }
 
-    $(window).width= $(window).width+1;
+    $(window).width = $(window).width + 1;
   });
 
+  //限定输入框为数字
+  $(function () {
 
-  $(function(){
-
-    $.fn.numeral=function(bl){//限制金额输入、兼容浏览器、屏蔽粘贴拖拽等
-      $(this).keypress(function(e){
-        var keyCode=e.keyCode?e.keyCode:e.which;
-        if(bl){//浮点数
-          if((this.value.length==0 || this.value.indexOf(".")!=-1) && keyCode==46) return false;
-          return keyCode>=48&&keyCode<=57||keyCode==46||keyCode==8;
-        }else{//整数
-          return  keyCode>=48&&keyCode<=57||keyCode==8;
+    $.fn.numeral = function (bl) {//限制金额输入、兼容浏览器、屏蔽粘贴拖拽等
+      $(this).keypress(function (e) {
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+        if (bl) {//浮点数
+          if ((this.value.length == 0 || this.value.indexOf(".") != -1) && keyCode == 46) return false;
+          return keyCode >= 48 && keyCode <= 57 || keyCode == 46 || keyCode == 8;
+        } else {//整数
+          return keyCode >= 48 && keyCode <= 57 || keyCode == 8;
         }
       });
       $(this).bind("copy cut paste", function (e) { // 通过空格连续添加复制、剪切、粘贴事件
@@ -358,9 +405,11 @@
         else
           event.preventDefault();
       });
-      $(this).bind("dragenter",function(){return false;});
-      $(this).css("ime-mode","disabled");
-      $(this).bind("focus", function() {
+      $(this).bind("dragenter", function () {
+        return false;
+      });
+      $(this).css("ime-mode", "disabled");
+      $(this).bind("focus", function () {
         if (this.value.lastIndexOf(".") == (this.value.length - 1)) {
           this.value = this.value.substr(0, this.value.length - 1);
         } else if (isNaN(this.value)) {

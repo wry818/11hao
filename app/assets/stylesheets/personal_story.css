@@ -14,7 +14,7 @@
     background:rgba(255, 255, 255, 0.3) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
     filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
 }
-#personal_story_header h3
+#personal_story_header h4
 {
     color: white;
     text-align: left;
@@ -23,7 +23,7 @@
 #personal_story_content
 {
     background-color: white;
-    padding-top: 60px;
+    padding-top: 10px;
     padding-bottom: 60px;
     line-height: 1.5;
 
@@ -44,7 +44,7 @@
     /*left: 0px;*/
     /*background:black;*/
     width: 100%;
-    background:rgba(88,87,86, 0.4) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    background:rgba(255,255,255, 0.75) none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
     filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
 
 }

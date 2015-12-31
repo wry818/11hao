@@ -122,8 +122,10 @@ Raisy::Application.routes.draw do
     resources :organizations
     resources :campaigns, except: [:show]
 
+    get 'supportlanlan', to: 'personal_story#index', as: :personal_story_index
     resources :personal_story
     post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
+    post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup
     
