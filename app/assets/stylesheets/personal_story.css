@@ -48,3 +48,9 @@
     filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
 
 }
+#personal_story_footer button
+{
+    width: 40%;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -3,7 +3,7 @@ class PersonalStoryController < ApplicationController
   layout "story"
   def index
 
-    @campaign=Campaign.find(1)
+    @campaign=Campaign.find_by_slug("support-lanlan");
 
 
     @is_wechat_browser = is_wechat_browser?
@@ -18,7 +18,7 @@ class PersonalStoryController < ApplicationController
   end
 
   def checkout_confirmation
-    @campaign=Campaign.find(1)
+    @campaign=Campaign.find_by_slug("support-lanlan");
     @order=@campaign.orders.new
 
     @order.direct_donation=params[:direct_donation].to_f * 100
@@ -55,7 +55,7 @@ class PersonalStoryController < ApplicationController
     end
     session[:order_id]=@order.id
 
-    render :text => "#{weixin_payment_get_req_path @order}"
+    render partial: "weixin_onBridgeReady"
   end
 
   def weixin_get_user_info()
