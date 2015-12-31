@@ -295,15 +295,18 @@
 			});
 			
       if ("<%= @weixin_init_success %>" == "true") {
-alert("cccccc");
-        var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
-        var direct_donation = $("#direct_donation").val();
-        if (direct_donation.length <= 0) {
-          return;
-        }
-		alert("bbbbb");
+		  
         $('#wechat').click(function () {
-alert("aaaaa");
+
+			alert("aaaaa");
+
+			var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
+			var direct_donation = $("#direct_donation").val();
+			if (direct_donation.length <= 0) {
+				alert("请输入捐款金额。");
+				return;
+			}
+
 	        $('#wechat').prop('disabled', true);
 			
 	        $.ajax({
