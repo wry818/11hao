@@ -103,6 +103,9 @@ class PersonalStoryController < ApplicationController
   
   def weixin_payment_get_req
     
+    puts "aaaaaaaaaaaaaaaaaaaaaa"
+    puts donation_amount
+    
     donation_amount = params[:direct_donation]
     
     weixin_payment_init donation_amount
@@ -126,7 +129,10 @@ class PersonalStoryController < ApplicationController
   end
   
   def weixin_payment_init(donation_amount)
-  
+    
+    puts "xxxxxxxxxxxxxxxxxxx"
+    
+    session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
     if session[:openid]
       
       r = Random.new
@@ -149,6 +155,8 @@ class PersonalStoryController < ApplicationController
       r = WxPay::Service.invoke_unifiedorder params
       
       @weixin_init_success = false
+      
+      puts r["return_code"]
       
       if r["return_code"] == 'SUCCESS' && r["result_code"] == 'SUCCESS'
 
