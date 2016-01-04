@@ -1,8 +1,5 @@
 <script language="JavaScript" type="text/javascript">
   function weixin_load() {
-    alert("start");
-
-    alert("<%= weixin_payment_get_req_path @order %>");
     $(function () {
       $.ajax({
         method: "get",
@@ -10,8 +7,6 @@
         dataType: "json",
         cache: false,
         success: function (d) {
-          alert("start WeixinJSBridge.invoke");
-          alert(":"+d.appId+":"+d.timeStamp+":"+d.nonceStr+":"+d.package+":"+d.paySign);
           if (d) {
             WeixinJSBridge.invoke('getBrandWCPayRequest', {
               "appId": d.appId,     //公众号名称，由商户传入
@@ -21,9 +16,7 @@
               "signType": "MD5",         //微信签名方式:
               "paySign": d.paySign //微信签名
             }, function (res) {
-              alert(res.err_msg);
               if (res.err_msg == "get_brand_wcpay_request:ok") {
-                alert("start order");
                 ComfirmOrder();
               } else {
                 $('#wechat').prop('disabled', false);
@@ -70,7 +63,6 @@
       avatar_url: avatar_url
     };
 
-    alert("start update order");
     $.ajax('/ajax/update-order', {
       type: 'POST',
       data: data,
@@ -78,10 +70,8 @@
         jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
       },
       success: function (data) {
-        alert("start update order success");
         if(data=="success_lanlan")
         {
-          alert("start update order success lanlan ");
 //            alert(data)
           window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal";
           return;
