@@ -13,6 +13,11 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
+              name: "太阳花盛放",
+              url: "http://www.11haoonline.com/tyhsf"
+            },
+            {
+              type: "view",
               name: "威爱有你",
               url: "http://www.11haoonline.com/love-have-you"
             },
