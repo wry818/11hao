@@ -22,7 +22,10 @@ class PersonalStoryController < ApplicationController
     @order=@campaign.orders.new
 
     @order.direct_donation=params[:direct_donation].to_f * 100
+    @order.fullname=params[:fullname]
+    @order.avatar_url=params[:avatar_url]
     @order.save
+    
     if  @order.direct_donation<=0
       redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
     end
@@ -42,7 +45,10 @@ class PersonalStoryController < ApplicationController
     @order=@campaign.orders.new
 
     @order.direct_donation=params[:direct_donation].to_f * 100
+    @order.fullname=params[:fullname]
+    @order.avatar_url=params[:avatar_url]
     @order.save
+    
     if  @order.direct_donation<=0
       redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
     end
