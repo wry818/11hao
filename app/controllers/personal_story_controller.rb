@@ -90,6 +90,8 @@ class PersonalStoryController < ApplicationController
         @nickname = user_info.result["nickname"]
         @avatar_url = user_info.result["headimgurl"]
       end
+      
+      @sign_package = $wechat_client.get_jssign_package(request.original_url)
 
     end
 

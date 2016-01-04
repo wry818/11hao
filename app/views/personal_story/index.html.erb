@@ -1,7 +1,3 @@
-<div style="display:none;">
-	<img src="/images/personals/p_20.jpg" class="img-responsive" style="margin:0px auto;">
-</div>
-
 <div style="text-align:center;">
 	<img src="/images/personals/p_11.jpg" class="img-responsive" style="margin:0px auto;">
 </div>
@@ -181,52 +177,7 @@
       onBridgeReady();
     }
 		
-		window.shareData = {
-			appid: "<%= ENV['WEIXIN_APPID'] %>",
-			link: "<%= request.url %>",
-			img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_05.jpg' %>",
-			img_width: "621",
-			img_height: "556",
-			desc: "为幼儿瘫母撑起希望!",
-			title: "为幼儿瘫母撑起希望"
-		};
-		
     function onBridgeReady() {
-			// 发送给好友
-			WeixinJSBridge.on('menu:share:appmessage', function(argv){
-				WeixinJSBridge.invoke('sendAppMessage',{
-	        "appid": "",
-	        "img_url": shareData.img_url,
-	        "img_width": shareData.img_width,
-	        "img_height": shareData.img_height,
-	        "link": shareData.link,
-	        "desc": shareData.desc,
-	        "title": shareData.title
-        }, function(res) {
-        });
-			});
-			// 分享到朋友圈
-			WeixinJSBridge.on('menu:share:timeline', function(argv){
-				WeixinJSBridge.invoke('shareTimeline', {
-	        "appid": "",
-	        "img_url": shareData.img_url,
-	        "img_width": shareData.img_width,
-	        "img_height": shareData.img_height,
-	        "link": shareData.link,
-	        "desc": shareData.desc,
-	        "title": shareData.title
-				}, function (res) {
-				});
-			});
-			// 分享到微博
-			WeixinJSBridge.on('menu:share:weibo', function(argv){
-				WeixinJSBridge.invoke('shareWeibo',{
-					"content": shareData.desc,
-					"url": shareData.link,
-				}, function(res) {
-				});
-			});
-			
       if ("<%= @weixin_init_success %>" == "true") {
         $('#wechat').click(function () {
 					var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
@@ -300,3 +251,100 @@
 		});
   });
 </script>
+
+<% if @sign_package %>
+<script>
+window.shareData = {
+	appid: "<%= ENV['WEIXIN_APPID'] %>",
+	link: "<%= request.original_url %>",
+	img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_20.jpg' %>",
+	img_width: "415",
+	img_height: "399",
+	desc: "一个是只有'头'和'胳膊'可以活动的高位截瘫的母亲, 一个是22个月大的嗷嗷待哺的孩子, 他们正倔强的活着...",
+	title: "为幼儿瘫母撑起希望"
+};
+
+wx.config({
+	debug: false,
+    appId: "<%= @sign_package['appId'] %>",
+    timestamp: "<%= @sign_package['timestamp'] %>",
+    nonceStr: "<%= @sign_package['nonceStr'] %>",
+    signature: "<%= @sign_package['signature'] %>",
+    jsApiList: [
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo'
+	] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+wx.ready(function(){
+	
+	var title = shareData.title;
+	var desc = shareData.desc;
+	var link = shareData.link;
+	var imgUrl = shareData.img_url
+	
+	wx.onMenuShareTimeline({
+	    title: title, // 分享标题
+	    link: link, // 分享链接
+	    imgUrl: imgUrl, // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+	
+	wx.onMenuShareAppMessage({
+	    title: title, // 分享标题
+	    desc: desc, // 分享描述
+	    link: link, // 分享链接
+	    imgUrl: imgUrl, // 分享图标
+	    // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () { 
+			// alert("分享成功！");
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+	
+	wx.onMenuShareQQ({
+	    title: title, // 分享标题
+	    desc: desc, // 分享描述
+	    link: link, // 分享链接
+	    imgUrl: imgUrl, // 分享图标
+	    success: function () { 
+	       // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	       // 用户取消分享后执行的回调函数
+	    }
+	});
+	
+	wx.onMenuShareWeibo({
+	    title: title, // 分享标题
+	    desc: desc, // 分享描述
+	    link: link, // 分享链接
+	    imgUrl: imgUrl, // 分享图标
+	    success: function () { 
+	       // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+	
+});
+
+wx.error(function(res){
+
+    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+	alert(res.errMsg);
+});
+</script>
+<% end %>
