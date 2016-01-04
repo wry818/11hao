@@ -7,16 +7,23 @@
 
         <div class="container-box checkout" style="margin-top: 0px; padding-bottom: 100px;">
 
-          <%= render 'shop/campaign_header' %>
+          <div style="">
+            <img src="/images/personals/p_11.jpg" class="img-responsive" style="margin:0px auto;">
+            <h3>为幼儿瘫母撑起希望</h3>
+          </div>
+          <div class="caption">
 
+            </p>
+          </div>
           <div class="checkout-confirmation-container">
 
             <div class="row checkout-confirmation-box">
               <div class="col-sm-12">
                 <h2>捐款完成</h2>
 
-                <p>感谢您的支持，你已成功为“<%= @campaign.organization.name %>”捐助
-                  <span style="font-weight: bold;">￥<%= long_price(@order.grandtotal/100.0) %></span>元
+                <p>
+                  感谢您献出爱心，您已成功捐助“为幼儿瘫母撑起希望”。
+                  简单公益，只因有你！
                 </p>
 
                 <p>简单公益，只因有你。</p>

@@ -542,9 +542,14 @@ class ShopController < ApplicationController
       @weixin_init_success = false
       @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
       @notify_url = root_url + 'checkout/weixin_notify'
-    
+
+      bodytxt="11号公益圈订单"
+      if order.campaign.slug=="support-lanlan"
+        bodytxt="为幼儿瘫母撑起希望"
+      end
+
       params = {
-        body: '11号公益圈订单',
+        body: bodytxt,
         out_trade_no: @out_trade_no,
         # total_fee: 1,
         total_fee: order.grandtotal,
