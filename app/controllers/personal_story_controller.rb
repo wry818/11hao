@@ -3,7 +3,7 @@ class PersonalStoryController < ApplicationController
   layout "story"
   def index
 
-    @campaign=Campaign.find_by_slug("support-lanlan");
+    @campaign=Campaign.find_by_slug("support-lanlan")
 
 
     @is_wechat_browser = is_wechat_browser?
@@ -18,7 +18,7 @@ class PersonalStoryController < ApplicationController
   end
 
   def checkout_confirmation
-    @campaign=Campaign.find_by_slug("support-lanlan");
+    @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
 
     @order.direct_donation=params[:direct_donation].to_f * 100
@@ -38,7 +38,7 @@ class PersonalStoryController < ApplicationController
     redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
   end
   def checkout_confirmation_weixin
-    @campaign=Campaign.find(1)
+    @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
 
     @order.direct_donation=params[:direct_donation].to_f * 100
