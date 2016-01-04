@@ -11,7 +11,8 @@
         cache: false,
         success: function (d) {
           alert("start WeixinJSBridge.invoke");
-          alert("start WeixinJSBridge.invoke"+d);
+          alert("start WeixinJSBridge.invoke"+ d.toJSON());
+          alert(":"+d.appId+":"+d.timeStamp+":"+d.nonceStr+":"+d.package+":"+d.paySign);
           if (d) {
             WeixinJSBridge.invoke('getBrandWCPayRequest', {
               "appId": d.appId,     //公众号名称，由商户传入
