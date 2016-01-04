@@ -1,0 +1,61 @@
+<div id="campaign-show" style="padding-bottom: 0px;">
+  <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+  <div class="container container-background">
+    <div class="row">
+      <div class="col-md-12" style="padding-left: 0px;padding-right:0px;">
+
+        <div class="container-box checkout" style="margin-top: 0px; padding-bottom: 100px;">
+
+          <%= render 'shop/campaign_header' %>
+
+          <div class="checkout-confirmation-container">
+
+            <div class="row checkout-confirmation-box">
+              <div class="col-sm-12">
+                <h2>捐款完成</h2>
+
+                <p>感谢您的支持，你已成功为“<%= @campaign.organization.name %>”捐助
+                  <span style="font-weight: bold;">￥<%= long_price(@order.grandtotal/100.0) %></span>元
+                </p>
+
+                <p>简单公益，只因有你。</p>
+
+                <!--<p>如果您有任何疑问, 请联系11号公益圈。</p>-->
+
+                <p style="margin-top:30px;">
+                  <%= link_to "返回捐款页面", personal_story_index_path, class: 'btn btn-primary' %>
+                </p>
+              </div>
+
+              <!--<div class="col-sm-5">-->
+                <!--<div class="well well-default confirmation_sidebar">-->
+
+                  <!--<h3 style="margin-top: 0px">捐款详情</h3>-->
+
+                  <!--<p>-->
+                    <!--&lt;!&ndash;<strong>捐款金额:</strong><br/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;￥<%= long_price(@order.grandtotal/100.0) %><br/><br/>&ndash;&gt;-->
+                  <!--</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div style="height:200px;"></div>-->
+            </div>
+
+          </div><!-- /.checkout-confirmation-container -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script Language="javascript">
+
+  $(document).ready(function () {
+
+    $("#footer_cart").hide();
+
+  });
+
+</script>

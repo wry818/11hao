@@ -57,7 +57,25 @@ class PersonalStoryController < ApplicationController
 
     render partial: "weixin_onBridgeReady"
   end
+  def show_confirmation
 
+    if session[:confirm_order_id]
+      @order = Order.find_by_id(session[:confirm_order_id])
+      @campaign=@order.campaign
+      if @order.campaign.used_as_default?
+        @order.campaign_id = @campaign.id
+        @order.save
+      end
+
+      unless @order && @order.completed? && @order.valid_order?
+        redirect_to(personal_story_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+      end
+    else
+      redirect_to(personal_story_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+    end
+
+    render "checkout_confirmation" and return
+  end
   def weixin_get_user_info()
 
     @nickname = ""
