@@ -71,6 +71,12 @@
         jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
       },
       success: function (data) {
+        if(data=="success_lanlan")
+        {
+//            alert(data)
+          window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal";
+          return;
+        }
         <% if @campaign.used_as_default? %>
         window.location.href = "/" + "<%= @campaign.slug %>" + "/checkout_support";
         <% else %>

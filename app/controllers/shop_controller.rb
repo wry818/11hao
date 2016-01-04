@@ -859,14 +859,18 @@ class ShopController < ApplicationController
             url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
           }
         ]
-
-        $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
-
+        if !(order.campaign.slug=="support-lanlan")
+          $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
+        end
       end
             
       session[:confirm_order_id] = order.id
       session[:order_id] = nil
-      
+
+      if (order.campaign.slug=="support-lanlan")
+        render text: "success_lanlan" and return
+      end
+
       render text: "success"
       
     end

@@ -126,6 +126,9 @@ Raisy::Application.routes.draw do
     resources :personal_story
     post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
     post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
+    get ':id/confirmation_personal', to: 'personal_story#show_confirmation', as: :show_confirmation_personal
+
+
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup
     
