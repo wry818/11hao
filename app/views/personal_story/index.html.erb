@@ -11,7 +11,7 @@
 		<div class="col-xs-12">
 			<div style="padding:10px 0px 60px 0px;">
 				<% if !@campaign.goal.nil? %>
-					<table style="font-size:14px; width:100%; margin:0px auto;">
+					<table style="width:100%; margin:0px auto;">
 						<tr>
 							<td style="width:90%;">
 				        <div class="progress" style="height:10px; margin:0px 0px;">
@@ -24,17 +24,17 @@
 						</tr>
 					</table>
 				<% end %>
-				<table style="color:#888; font-size:14px; width:100%; margin:0px auto;">
+				<table style="color:#888; width:100%; margin:5px auto 0px auto;">
 					<tr>
 						<td style="border-right:1px solid #ddd; width:50%;">
-							<span>目标 <%= short_price @campaign.goal.nil? ? 0 : @campaign.goal %> 元</span>
+							<span>目标&nbsp;&nbsp;<%= short_price @campaign.goal.nil? ? 0 : @campaign.goal %>&nbsp;元</span>
 							<br/>
-							已筹 <span style="color:#f0ad4e;"><%= short_price @campaign.raised %> 元</span>
+							已筹&nbsp;&nbsp;<span style="color:#f0ad4e;"><strong><%= short_price @campaign.raised %>&nbsp;元</strong></span>
 						</td>
 						<td style="text-align:center; width:50%;">
 							<span>捐款人数</span>
 							<br/>
-							<span style="color:#f0ad4e;"><%= @campaign.supporters %> </span>人
+							<span style="color:#f0ad4e;"><strong><%= @campaign.supporters %>&nbsp;</strong></span>人
 						</td>
 					</tr>
 				</table>
@@ -88,7 +88,7 @@
 				<p><img src="/images/personals/p_18.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
 
 				<div style="margin-top:10px;">
-					<p ><strong>联系方式</strong></p>
+					<p><strong>联系方式</strong></p>
 					<p>Email: 277275431@qq.com</p>
 					<p><strong>捐赠账号</strong></p>
 					<p>支付宝: 277275431@qq.com</p>
@@ -117,43 +117,38 @@
         </h5>
       </div>
       <div class="modal-body">
-        <div id="personal_modalbody" class="container" style="width: 100%;">
-          <div class="row">
-            <div class="col-xs-4"><a href="javascript:void(0);" data-value="0.1" class="list-group-item">20<span>元</span></a></div>
-            <div class="col-xs-4"><a href="javascript:void(0);" data-value="0.2" class="list-group-item">50<span>元</span></a></div>
-            <div class="col-xs-4"><a href="javascript:void(0);" data-value="0.3" class="list-group-item">100<span>元</span></a></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12" style="margin-top:15px;">
-              <div class="input-group">
-                <span class="input-group-addon">其他</span>
-                <%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %>
-                <span class="input-group-addon">元</span>
-              </div>
-          	</div>
-          </div>
+        <div id="personal_modalbody">
+					<table style="width:100%;">
+						<tr>
+							<td style="padding:0px 5px; text-align:center; width:33%;">
+								<a href="javascript:void(0);" data-value="0.1" class="list-group-item">20<span>元</span></a>
+							</td>
+							<td style="padding:0px 5px; text-align:center; width:33%;">
+								<a href="javascript:void(0);" data-value="0.2" class="list-group-item">50<span>元</span></a>
+							</td>
+							<td style="padding:0px 5px; text-align:center; width:34%;">
+								<a href="javascript:void(0);" data-value="0.3" class="list-group-item">100<span>元</span></a>
+							</td>
+						</tr>
+					</table>
+          <div style="margin-top:15px; padding:0px 5px;">
+            <div class="input-group">
+              <span class="input-group-addon">金额</span>
+              <%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %>
+              <span class="input-group-addon">元</span>
+            </div>
+        	</div>
         </div>
       </div>
       <div class="modal-footer" style="text-align: center;">
-
-
-        <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
-        <!--<button type="button" class="btn btn-default"-->
-        <!--data-dismiss="modal">关闭-->
-        <!--</button>-->
-
+        <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>" />
+				
         <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
-                                                        <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">
-                                                             立即捐款
-                                                        </span>
+        	<span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
           <span class="loader" style="display:none"></span>
         </button>
-
+				
         <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style:  "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
-        <!--<button id="btn_submit" type="button" class="btn btn-primary">-->
-        <!--确认捐款-->
-        <!--</button>-->
-
       </div>
       </form>
     </div><!-- /.modal-content -->
@@ -298,15 +293,10 @@
 			$("#direct_donation").val($(this).data("value"));
 			
 			$("#personal_modalbody a").each(function(){
-				$(this).css('border',"");
+				$(this).css('border', "1px solid #dddddd");
 			});
 			
 			$(this).css('border',"solid 2px red");
 		});
   });
 </script>
-
-
-
-
-
