@@ -1,9 +1,13 @@
-<div style="text-align:center;">
-  <img src="/images/personals/p_11.jpg" class="img-responsive" style="margin:0px auto;">
-</div>
-
-<div class="container" style="background-color:white; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
-  <div class="row">
+<div class="container" style="color:#333; background-color:#ededed; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
+	<div class="row" style="text-align:center; position:relative">
+	  <img src="/images/personals/p_11.jpg" style="width:100%;">
+		
+		<div style="position:absolute; left:10px; bottom:10px;">
+			<span style="color:#f0f0f0; font-size:18px; letter-spacing:1px;"><%= @campaign.title %></span>
+		</div>
+	</div>
+	
+  <div class="row" style="background-color:white;">
     <div class="col-xs-12">
       <div style="padding:10px 0px 60px 0px;">
         <% if !@campaign.goal.nil? %>
