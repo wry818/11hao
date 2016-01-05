@@ -51,7 +51,7 @@
 				
         <hr style="margin:15px 0px;"/>
 
-        <p>一个是只有“头”和“胳膊”可以活动的高位截瘫的母亲，一个是22个月大的嗷嗷待哺的孩子，他们正倔强的活着……</p>
+        <p>一个是只有“头”和“胳膊”可以活动的高位截瘫的母亲，一个是22个月大的嗷嗷待哺的孩子，他们正艰难地活着……</p>
 
         <p><img src="/images/personals/p_20.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
 
@@ -204,10 +204,10 @@
         <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
       </div>
 			
-			<%= text_field_tag :fullname, @nickname %>
-			<%= text_field_tag :avatar_url, @avatar_url %>
+			<%= hidden_field_tag :fullname, @nickname %>
+			<%= hidden_field_tag :avatar_url, @avatar_url %>
 			
-			<!-- hidden_field_tag -->
+			<!-- hidden_field_tag text_field_tag -->
       </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
@@ -341,7 +341,7 @@
         img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_20.jpg' %>",
         img_width: "415",
         img_height: "399",
-        desc: "一个是只有'头'和'胳膊'可以活动的高位截瘫的母亲, 一个是22个月大的嗷嗷待哺的孩子, 他们正倔强的活着...",
+        desc: "一个是只有'头'和'胳膊'可以活动的高位截瘫的母亲, 一个是22个月大的嗷嗷待哺的孩子, 他们正艰难地活着...",
         title: "为幼儿瘫母撑起希望"
       };
 
