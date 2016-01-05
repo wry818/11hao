@@ -1,12 +1,11 @@
 class PersonalStoryController < ApplicationController
 
   layout "story"
+  
   def index
-
-    @campaign=Campaign.find_by_slug("support-lanlan")
-
-
+    @campaign = Campaign.find_by_slug("support-lanlan")
     @is_wechat_browser = is_wechat_browser?
+    
     if is_wechat_browser?
 
       weixin_get_user_info()
@@ -15,6 +14,8 @@ class PersonalStoryController < ApplicationController
       weixin_address_init()
       
     end
+    
+    @avatars = @campaign.orders.where("avatar_url is not null and avatar_url<>''").last(5)
   end
 
   def checkout_confirmation

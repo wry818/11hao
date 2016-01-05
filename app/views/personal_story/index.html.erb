@@ -38,8 +38,18 @@
             </td>
           </tr>
         </table>
-
-        <hr/>
+				
+				<% if @avatars.count>0 %>
+				<p style="color:#888; margin:10px 0px;">感谢所有的爱心朋友</p>
+				<div style="overflow:hidden; height:48px; text-align:center;">
+					<% @avatars.each do |a| %>
+						<img src="<%= a.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
+					<% end %>
+					<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+				</div>
+				<% end %>
+				
+        <hr style="margin:15px 0px;"/>
 
         <p>一个是只有“头”和“胳膊”可以活动的高位截瘫的母亲，一个是22个月大的嗷嗷待哺的孩子，他们正倔强的活着……</p>
 
