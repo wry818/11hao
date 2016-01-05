@@ -3,7 +3,7 @@
 	text-align: left;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 560px) {
 	.avatar-container {
 		text-align: center;
 	}
@@ -11,7 +11,7 @@
 </style>
 
 <div class="container" style="color:#333; background-color:#ededed; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
-	<div class="row" style="text-align:center; position:relative">
+	<div id="banner" class="row" style="text-align:center; position:relative">
 	  <img src="/images/personals/p_11.jpg" style="width:100%;">
 		
 		<div style="position:absolute; left:10px; bottom:5px;">
@@ -21,7 +21,9 @@
 	
   <div class="row" style="background-color:white;">
     <div class="col-xs-12">
-      <div style="padding:10px 0px 60px 0px;">
+			<div id="supporters" style="padding:10px 0px 60px 0px; display:none;"></div>
+			
+      <div id="content" style="padding:10px 0px 60px 0px;">
         <% if !@campaign.goal.nil? %>
             <table style="width:100%; margin:0px auto;">
               <tr>
@@ -51,11 +53,11 @@
           </tr>
         </table>
 				
-				<% if @avatars.count>0 %>
-				<p style="color:#888; margin:10px 0px;">感谢所有的爱心朋友</p>
+				<% if @supporters.count>0 %>
+				<p style="color:#888; margin:10px 0px;">感谢所有朋友的爱心</p>
 				<div class="avatar-container" style="overflow:hidden; height:48px; position:relative;">
-					<% @avatars.each do |a| %>
-						<img src="<%= a.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
+					<% @supporters.each do |s| %>
+						<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
 					<% end %>
 					
 					<div style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
@@ -68,78 +70,78 @@
 
         <p>一个是只有“头”和“胳膊”可以活动的高位截瘫的母亲，一个是22个月大的嗷嗷待哺的孩子，他们正艰难地活着……</p>
 
-        <p><img src="/images/personals/p_20.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_20.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <h3><strong>儿时的梦想</strong></h3>
 
         <p>我叫孙兰兰，女，1986年7月出生，现年29岁，住在湖北一个贫困的小山村，去趟集市要走十几里山路。母亲十五年前病逝，家里弟兄姊妹五个，全靠爸爸一人抚养。从小我就有个梦想，长大了，要出去看看外面的世界……</p>
 
-        <p><img src="/images/personals/p_01.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_01.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>我拼命读书，功夫不负有心人，终于在2008年6月拿到“中南财经政法大学”毕业证书和学位证书。随后在“上海达丰电脑”工作，我以为，美好的人生从此拉开序幕……</p>
 				
-				<p><img src="/images/personals/p_02.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+				<p><img data-original="/images/personals/p_02.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <h3><strong>病魔无情</strong></h3>
 
         <p>谁知天有不测风云，人有旦夕祸福，自2012年2月中旬开始，我持续头痛发晕，四肢无力，辗转三四家医院，一直没有查到病因，吃了无数药，输了各种液，我的双腿却渐渐的再也抬不起来……同年3-6月，先后在“上海复旦大学附属中山医院”、“上海市公共卫生临床中心”和“中国人民解放军第三0九医院（北京）”被诊断为“结核性脑脊膜脊髓炎、截瘫、白细胞减少、泌尿系感染、电解质紊乱”等病症，并造成高位截瘫、大小便失禁后遗症，只能常年插导尿管……</p>
 
-        <p><img src="/images/personals/p_03.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_03.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
-        <p><img src="/images/personals/p_04.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_04.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>从北京309出院回家后，我又出现“高烧”、“癫痫”等症状，先后又在南阳，武汉等地治疗，一直持续到2013年12月，前后花费约50万余元，病情始终无好转迹象。从此，我的视力所及仅限卧室，出行只能轮椅为伴。当别人说走就走的时候，我却连喝口水都需要帮忙，过着可怜的寄生虫似的生活。不能决定吃什么，穿什么，没法洗澡，甚至连翻身都不能；没有爱好的权利，没有人格尊严，大多数时候只能忍气吞声，逆来顺受，别人享受天伦之乐的时候，我却觉得孤独难耐，羡慕的心疼，此生了无盼望，甚至想寻死……</p>
 
-        <p><img src="/images/personals/p_05.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_05.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
-        <p><img src="/images/personals/p_06.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_06.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <h3><strong>万般无奈，接受现实</strong></h3>
 
         <p>对于我，活着比死更需要勇气！我绝食过，绝望过，成为所有人的拖累，是我一千个一万个不愿意。曾经，我有很多的梦想，但是此刻，我却连走路都不能！可是看到家人的关爱，操劳，我连死的勇气都没有，只能在这个世界上苟延残喘……
           2013年8月家人在县残联帮我办理了一级残疾证，一级！！！</p>
 
-        <p><img src="/images/personals/p_07.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_07.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>家人和老公都很爱我，让我有勇气活了下来！</p>
 
         <p>下图为2013年7月，轮椅上的生日……</p>
 
-        <p><img src="/images/personals/p_08.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_08.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>我每天只能趴着吃饭……</p>
 
-        <p><img src="/images/personals/p_09.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_09.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <h3><strong>爱子降生，甜蜜负担</strong></h3>
 
         <p>感谢上天眷顾，虽然高位截瘫，但是上帝赐给我一个健康的孩子，2014.2.21，我的儿子“依凡”降生，从此，他就是我此生的盼望……</p>
 
-        <p><img src="/images/personals/p_10.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_10.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>由于我胸口以下完全没有知觉，剖腹产，十几厘米的口子，一滴麻药都没打，宝宝平安出生，真是奇迹！</p>
 
-        <p><img src="/images/personals/p_11.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_11.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>但是难题来了，我自己坐不起来，甚至连翻身都不能，只能老公和姐姐扶着喂奶，有点吃力，对不起宝宝，要跟我们一起受苦了……</p>
 
-        <p><img src="/images/personals/p_12.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_12.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>虽然历经种种难处，怀孕时无法锻炼，营养不足，药物反应，宝宝生下来时大脑缺氧，心脏有个缺口没有长好，经过治疗，宝宝还是健康的长大了。感谢姐姐、婆婆和老公，经历无数个不眠之夜，把我的儿子抚养长大，而我，却只能躺着，在他哭的时候，陪着揪心……</p>
 
-        <p><img src="/images/personals/p_13.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_13.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>夏天，老公在院子里给宝宝洗澡，我看着他们，觉得心里甜甜的……</p>
 
-        <p><img src="/images/personals/p_14.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_14.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>宝宝很听话，自己吃饭的时候不忘去看看爸爸饭做好了没有？妈妈还没有吃饭呢。我的老公，就这样日复一日，年复一年，为我和儿子做饭，很辛苦……</p>
 
-        <p><img src="/images/personals/p_15.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_15.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <p>终于，儿子会跑了，作为母亲，我很欣慰！图为下雨了，他向我躺着的床跑来。</p>
 
-        <p><img src="/images/personals/p_17.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_17.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <h3><strong>火灾无情，雪上加霜</strong></h3>
 
@@ -147,7 +149,7 @@
 
         <p>目前，我能想到的办法都用过了。为了我不到2岁的儿子，我也必须活下去。走投无路之下，我请求社会有心人士能伸出援手，帮帮我们！</p>
 
-        <p><img src="/images/personals/p_18.jpg" class="img-responsive img-rounded" style="margin:0px auto;"></p>
+        <p><img data-original="/images/personals/p_18.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>
 
         <div style="margin-top:10px;">
           <p><strong>联系方式</strong></p>
@@ -165,10 +167,12 @@
   </div>
 </div>
 
-<div class="navbar-fixed-bottom" style="padding:5px 0px; text-align:center;">
+<div class="navbar-fixed-bottom" style="padding:5px 0px 10px 0px; text-align:center;">
   <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
     <span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">我要捐款</span>
   </button>
+	
+	<button id="btn_supporters" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">查看原文</span></button>
 </div>
 
 <!-- 模态框（Modal） -->
@@ -199,7 +203,7 @@
           </table>
           <div style="margin-top:15px; padding:0px 5px;">
             <div class="input-group">
-              <span class="input-group-addon">金额</span>
+              <span class="input-group-addon">其他</span>
               <input class="form-control" id="direct_donation_input" placeholder="输入捐款金额" type="text" value="">
               <span class="input-group-addon">元</span>
             </div>
@@ -231,10 +235,34 @@
 <div id="weixin_onbridgeread" style="width: 0px;height: 0px;overflow: hidden;"></div>
 
 <script language="javascript" type="text/javascript">
+var body_scrollTop=0;
+
+function showContent() {
+	$("#btn_supporters").hide();
+	$("#supporters").hide();
+	$("#content").show();
+	$("body").scrollTop(body_scrollTop);
+}
+
+function showSupporters(d) {
+	body_scrollTop=$("body").scrollTop();
+	
+	$("#content").hide();
+	$("#supporters").html(d).show();
+	$("#supporters .lazy-image").lazyload();
+	$("#btn_supporters").show();
+	$("body").scrollTop($("#banner").height());
+}
+
   $(function () {
     document.title = "为幼儿瘫母撑起希望";
-
-
+		
+		$("#content .lazy-image").lazyload();
+		
+		$(".avatar-container").click(function() {
+			$.get("<%= personal_story_supporters_path %>", showSupporters);
+		});
+		
     if (<%= @is_wechat_browser %> == false
     )
     {

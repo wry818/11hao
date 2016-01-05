@@ -123,6 +123,7 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
+    get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
     resources :personal_story
     post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
     post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin

@@ -15,7 +15,16 @@ class PersonalStoryController < ApplicationController
       
     end
     
-    @avatars = @campaign.orders.where("avatar_url is not null and avatar_url<>''").last(10)
+    @supporters = @campaign.orders.completed.where("avatar_url is not null and avatar_url<>''").select(
+      "id,avatar_url").last(10)
+  end
+  
+  def supporters
+    @campaign = Campaign.find_by_slug("support-lanlan")
+    @supporters = @campaign.orders.completed.select(
+      "id,avatar_url,fullname,direct_donation").order(:id=>:desc)
+      
+    render partial: "supporters" and return
   end
 
   def checkout_confirmation

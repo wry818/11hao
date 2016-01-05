@@ -36,3 +36,4 @@
 //= require dataTables.bootstrap
 //= require bxslider
 //= require jquery.jscroll.min
+//= require jquery.lazyload.min
