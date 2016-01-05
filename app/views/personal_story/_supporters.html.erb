@@ -1,0 +1,17 @@
+<p style="color:#888; font-size:18px;">感谢所有朋友的爱心</p>
+
+<table class="table" style="margin-top:10px;">
+<% @supporters.each do |s| %>
+	<tr>
+		<td>
+			<div style="text-align:center; width:48px;">
+				<% if s.avatar_url %>
+					<img data-original="<%= s.avatar_url %>" class="img-rounded lazy-image" style="border-radius:24px; width:48px; height:48px;"/>
+				<% end %>
+			</div>
+		</td>
+		<td style="vertical-align:middle;"><%= s.fullname %></td>
+		<td style="text-align:right; vertical-align:middle;">￥<%= short_price s.direct_donation/100.0 %></td>
+	</tr>
+<% end %>
+</table>

@@ -113,7 +113,12 @@
 
 
 $(document).ready(function() {
-	
+  if("<%=@order.campaign.slug%>"=="support-lanlan")
+  {
+        $(".header-box").hide();
+       $(".pay_msg_t").text("捐款成功");
+//    alert(0);
+  }
 	var order_time = new Date();
 	var format_order_time =  order_time.getFullYear() + "-" + (order_time.getMonth() + 1) + "-" + order_time.getDate();
 	$("#order_time").text(format_order_time);
@@ -207,6 +212,12 @@ function ComfirmOrder() {
             jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
+          if(data=="success_lanlan")
+          {
+//            alert(data)
+             window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal";
+            return;
+          }
 					<% if @campaign.used_as_default? %>
 					window.location.href = "/" + "<%= @campaign.slug %>" + "/checkout_support";
 					<% else %>

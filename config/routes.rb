@@ -94,12 +94,19 @@ Raisy::Application.routes.draw do
       
         get 'mall_settings', to: 'mall#settings', as: :mall_settings
         post 'save_mall_settings', to: 'mall#save_settings', as: :save_mall_settings
+
+        resources :express_upload
+        get 'express/load_excle',to: 'express_upload#load_excle',as: :express_load_excle_ajax
+        get 'express/validate',to: 'express_upload#validate_check',as: :express_validate_ajax
+        get 'express/update',to: 'express_upload#update_data',as: :express_update_ajax
+        get 'express/donload',to: 'express_upload#donload',as: :express_donload
     end
 
   #Express
   get 'order_express/:item_id', to: 'express#order_express', as: :order_express
   get 'order_express_ajax/:item_id', to: 'express#order_express_ajax', as: :order_express_ajax
   get 'order_express_ajax', to: 'express#order_express_ajax', as: :order_express_ajax_get
+
 
     # Mall
     scope 'mall' do
@@ -114,7 +121,15 @@ Raisy::Application.routes.draw do
     resources :collections
     resources :organizations
     resources :campaigns, except: [:show]
-    
+
+    get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
+    get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
+    resources :personal_story
+    post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
+    post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
+    get ':id/confirmation_personal', to: 'personal_story#show_confirmation', as: :show_confirmation_personal
+
+
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup
     

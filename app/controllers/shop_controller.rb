@@ -542,9 +542,14 @@ class ShopController < ApplicationController
       @weixin_init_success = false
       @out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
       @notify_url = root_url + 'checkout/weixin_notify'
-    
+
+      bodytxt="11号公益圈订单"
+      if order.campaign.slug=="support-lanlan"
+        bodytxt="为幼儿瘫母撑起希望"
+      end
+
       params = {
-        body: '11号公益圈订单',
+        body: bodytxt,
         out_trade_no: @out_trade_no,
         # total_fee: 1,
         total_fee: order.grandtotal,
@@ -602,9 +607,12 @@ class ShopController < ApplicationController
         r = Random.new
         num = r.rand(1000...9999)
         out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s #生产随机订单号，这里用当前时间加随机数，保证唯一
-        
+        bodytxt="11号公益圈订单"
+        if order.campaign.slug=="support-lanlan"
+          bodytxt="为幼儿瘫母撑起希望"
+        end
         params = {
-          body: '11号公益圈订单',
+          body: bodytxt,
           out_trade_no: out_trade_no,
           # total_fee: 1,
           total_fee: order.grandtotal,
@@ -839,7 +847,9 @@ class ShopController < ApplicationController
       if session[:openid]
        
        openid = session[:openid]
-       send_template_message(openid, order, format_order_time)
+       if !(order.campaign.slug=="support-lanlan")
+         send_template_message(openid, order, format_order_time)
+       end
        
         # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #         $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
@@ -859,14 +869,18 @@ class ShopController < ApplicationController
             url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
           }
         ]
-
-        $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
-
+        if !(order.campaign.slug=="support-lanlan")
+          $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
+        end
       end
             
       session[:confirm_order_id] = order.id
       session[:order_id] = nil
-      
+
+      if (order.campaign.slug=="support-lanlan")
+        render text: "success_lanlan" and return
+      end
+
       render text: "success"
       
     end

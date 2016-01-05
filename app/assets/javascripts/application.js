@@ -42,3 +42,4 @@
 //= require jquery.timer
 //= require bxslider
 //= require jquery.jscroll.min
+//= require jquery.lazyload.min

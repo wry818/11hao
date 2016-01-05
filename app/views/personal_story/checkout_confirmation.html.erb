@@ -1,0 +1,99 @@
+<div id="campaign-show" style="padding-bottom: 0px;">
+  <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
+
+  <div class="container container-background">
+    <div class="row">
+      <div class="col-md-12" style="padding-left: 0px;padding-right:0px;">
+
+        <div class="container-box checkout" style="margin-top: 0px; padding-bottom: 100px; border: none;">
+
+          <div id="personal_story_header" style="">
+            <img id="head_img" src="/images/personals/p_11.jpg" class="img-responsive" style="margin:0px auto;">
+            <div class="title">
+              <h4>为幼儿瘫母撑起希望</h4>
+            </div>
+          </div>
+          <div class="caption">
+
+            </p>
+          </div>
+          <div class="checkout-confirmation-container">
+
+            <div class="row checkout-confirmation-box">
+              <div class="col-sm-12">
+                <h2>捐款完成</h2>
+
+                <p>
+                  感谢您献出爱心，您已成功捐助“为幼儿瘫母撑起希望”。
+                  简单公益，只因有你！
+                </p>
+
+                <!--<p>简单公益，只因有你。</p>-->
+
+                <!--<p>如果您有任何疑问, 请联系11号公益圈。</p>-->
+
+                <p style="margin-top:30px;">
+                  <%= link_to "返回捐款页面", personal_story_index_path, class: 'btn btn-primary' %>
+                </p>
+              </div>
+
+              <!--<div class="col-sm-5">-->
+                <!--<div class="well well-default confirmation_sidebar">-->
+
+                  <!--<h3 style="margin-top: 0px">捐款详情</h3>-->
+
+                  <!--<p>-->
+                    <!--&lt;!&ndash;<strong>捐款金额:</strong><br/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;￥<%= long_price(@order.grandtotal/100.0) %><br/><br/>&ndash;&gt;-->
+                  <!--</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div style="height:200px;"></div>-->
+            </div>
+
+          </div><!-- /.checkout-confirmation-container -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script Language="javascript">
+
+  $(document).ready(function () {
+
+    $("#footer_cart").hide();
+
+  });
+  //ui  辅助
+  $(function () {
+
+    on_change();
+    $(window).resize(function () {
+      on_change();
+    });
+    document.getElementById("head_img").onload = function () {
+      on_change();
+    };
+
+    function on_change() {
+      var img_head = $("#personal_story_header img");
+      var title_head = $("#personal_story_header .title");
+      var title_height = $("#personal_story_header .title").outerHeight();
+
+      var img_height = $(img_head).outerHeight();
+      var img_top = $(img_head).offset().top;
+      var img_left = $(img_head).offset().left;
+
+      var img_widht = $("#personal_story_header").outerWidth();
+      $(title_head).css("width", img_widht);
+
+      $(title_head).css("top", img_top + (img_height - title_height));
+      $(title_head).css("left", img_left);
+    }
+
+    $(window).width = $(window).width + 1;
+  });
+
+</script>

@@ -1,0 +1,28 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>订单号</th>
+    <th>订单详情号</th>
+    <th>快递公司</th>
+    <th>快递编号</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% if @results
+       @results.each do |r| %>
+          <tr>
+            <td style="width: 100px;"><%= r[0] %></td>
+            <td style="width: 100px;"><%= r[1] %></td>
+            <td><%= r[2] %></td>
+            <td>
+              <%= r[3] %>
+            </td>
+            <td>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<input type="hidden" id="hid_results_count" value="<%=@results.count if @results %>">

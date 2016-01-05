@@ -1,0 +1,77 @@
+#personal_story_header
+{
+    /*background-image: url("/images/personals/p_11.jpg");*/
+    background-color: white;
+    /*background-size: cover;*/
+    /*height: 400px;*/
+}
+#personal_story_header .title
+{
+    position:absolute;
+    z-index: 1000;
+    background-color: silver;
+
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
+}
+#personal_story_header h4
+{
+    color: white;
+    text-align: left;
+    padding-left: 5px;
+}
+#personal_story_content
+{
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    line-height: 1.5;
+
+}
+#personal_story_content span {
+    text-align:left;
+    margin-left:20px;
+    color: #333333;
+}
+#personal_story_content img {
+    margin: 5px auto;
+}
+
+#personal_story_footer
+{
+    /*position: fixed;*/
+    /*top: 100%;*/
+    /*left: 0px;*/
+    /*background:black;*/
+    width: 100%;
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
+
+}
+#personal_story_footer button
+{
+    width: 40%;
+    font-size: 16px;
+    font-weight: bold;
+}
+#personal_modalbody
+{
+    font-weight: bold;
+}
+#personal_modalbody a
+{
+    color: red;
+   font-weight: bold;
+    text-align: center;
+    background-color: white;
+}
+#personal_modalbody a span
+{
+    font-weight:normal;
+    color: black;
+    padding-left: 2px;
+}
+#personal_modalbody input
+{
+    height: 45px;
+}
