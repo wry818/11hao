@@ -90,5 +90,5 @@ Raisy::Application.configure do
     config.log_formatter = ::Logger::Formatter.new
     
     # show error page set
-    config.error_page_ishow=true
+    config.error_page_ishow=false
 end
