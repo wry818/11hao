@@ -1,3 +1,15 @@
+<style>
+.avatar-container {
+	text-align: left;
+}
+
+@media (min-width: 640px) {
+	.avatar-container {
+		text-align: center;
+	}
+}
+</style>
+
 <div class="container" style="color:#333; background-color:#ededed; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
 	<div class="row" style="text-align:center; position:relative">
 	  <img src="/images/personals/p_11.jpg" style="width:100%;">
@@ -41,11 +53,14 @@
 				
 				<% if @avatars.count>0 %>
 				<p style="color:#888; margin:10px 0px;">感谢所有的爱心朋友</p>
-				<div style="overflow:hidden; height:48px; text-align:center;">
+				<div class="avatar-container" style="overflow:hidden; height:48px; position:relative;">
 					<% @avatars.each do |a| %>
 						<img src="<%= a.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
 					<% end %>
-					<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+					
+					<div style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
+						<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+					</div>
 				</div>
 				<% end %>
 				

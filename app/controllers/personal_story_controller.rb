@@ -15,7 +15,7 @@ class PersonalStoryController < ApplicationController
       
     end
     
-    @avatars = @campaign.orders.where("avatar_url is not null and avatar_url<>''").last(5)
+    @avatars = @campaign.orders.where("avatar_url is not null and avatar_url<>''").last(10)
   end
 
   def checkout_confirmation
