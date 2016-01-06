@@ -15,7 +15,7 @@ class PersonalStoryController < ApplicationController
       
     end
     
-    @supporters = @campaign.orders.completed.where("avatar_url is not null and avatar_url<>''").select(
+    @supporters = @campaign.orders.completed.select(
       "id,avatar_url").last(10)
   end
   
