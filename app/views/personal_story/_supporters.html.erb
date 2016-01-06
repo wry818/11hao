@@ -1,17 +1,19 @@
 <p style="color:#888; font-size:18px;">感谢所有朋友的爱心</p>
-
+<hr class="divider"></hr>
 <table class="table" style="margin-top:10px;">
 <% @supporters.each do |s| %>
-	<tr>
-		<td>
+	<tr >
+		<td style="border-top-style: none; border-top-width: 0px;">
 			<div style="text-align:center; width:48px;">
 				<% if s.avatar_url %>
 					<img data-original="<%= s.avatar_url %>" class="img-rounded lazy-image" style="border-radius:24px; width:48px; height:48px;"/>
+        <%else %>
+            <img data-original="/assets/weixin_default.jpg" class="img-rounded lazy-image" style="border-radius:24px; width:48px; height:48px;"/>
 				<% end %>
 			</div>
 		</td>
-		<td style="vertical-align:middle;"><%= s.fullname %></td>
-		<td style="text-align:right; vertical-align:middle;">￥<%= short_price s.direct_donation/100.0 %></td>
+		<td style="vertical-align:middle;border-top-style: none; border-top-width: 0px;"><%= s.fullname %></td>
+		<td style="text-align:right; vertical-align:middle;border-top-style: none; border-top-width: 0px;">￥<%= short_price s.direct_donation/100.0 %></td>
 	</tr>
 <% end %>
 </table>
