@@ -60,7 +60,7 @@
 						<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
 					<% end %>
 					
-					<div style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
+					<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
 						<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
 					</div>
 				</div>
@@ -172,7 +172,7 @@
     <span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">我要捐款</span>
   </button>
 	
-	<button id="btn_supporters" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">查看原文</span></button>
+	<button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span></button>
 </div>
 
 <!-- 模态框（Modal） -->
@@ -238,7 +238,7 @@
 var body_scrollTop=0;
 
 function showContent() {
-	$("#btn_supporters").hide();
+	$("#btn_view_content").hide();
 	$("#supporters").hide();
 	$("#content").show();
 	$("body").scrollTop(body_scrollTop);
@@ -250,7 +250,7 @@ function showSupporters(d) {
 	$("#content").hide();
 	$("#supporters").html(d).show();
 	$("#supporters .lazy-image").lazyload();
-	$("#btn_supporters").show();
+	$("#btn_view_content").show();
 	$("body").scrollTop($("#banner").height());
 }
 
@@ -259,7 +259,7 @@ function showSupporters(d) {
 		
 		$("#content .lazy-image").lazyload();
 		
-		$(".avatar-container").click(function() {
+		$("#btn_view_supporters").click(function() {
 			$.get("<%= personal_story_supporters_path %>", showSupporters);
 		});
 		
