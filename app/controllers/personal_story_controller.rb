@@ -15,15 +15,14 @@ class PersonalStoryController < ApplicationController
       
     end
     
-    @supporters = @campaign.orders.completed.select(
-      "id,avatar_url").last(10)
+    load_supporters
   end
   
   def supporters
     @campaign = Campaign.find_by_slug("support-lanlan")
-    @supporters = @campaign.orders.completed.select(
-      "id,avatar_url,fullname,direct_donation").order(:id=>:desc)
-      
+    
+    load_supporters
+    
     render partial: "supporters" and return
   end
 
@@ -50,6 +49,7 @@ class PersonalStoryController < ApplicationController
 
     redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
   end
+  
   def checkout_confirmation_weixin
     @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
@@ -73,6 +73,7 @@ class PersonalStoryController < ApplicationController
 
     render partial: "weixin_onBridgeReady"
   end
+  
   def show_confirmation
 
     if session[:confirm_order_id]
@@ -92,6 +93,7 @@ class PersonalStoryController < ApplicationController
 
     render "checkout_confirmation" and return
   end
+  
   def weixin_get_user_info()
 
     @nickname = ""
@@ -135,6 +137,24 @@ class PersonalStoryController < ApplicationController
 
     end
 
+  end
+  
+  private
+  
+  def load_supporters
+    @page = params[:page].to_i
+    @page = 1 if @page == 0
+    @show_pager = false
+    @supporters = @campaign.orders.completed.select(
+      "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+      
+    if @supporters.total_pages > 0 && @supporters.total_pages > @page
+      @show_pager = true
+  
+      query = "?" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+  
+      @page_url = personal_story_supporters_path + query
+    end
   end
   
 end
