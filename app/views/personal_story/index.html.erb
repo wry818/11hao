@@ -21,7 +21,13 @@
 	
   <div class="row" style="background-color:white;">
     <div class="col-xs-12">
-			<div id="supporters" style="padding:10px 0px 60px 0px; display:none;"></div>
+			<div id="supporters" style="padding:10px 0px 60px 0px; display:none;">
+				<p style="color:#888; font-size:18px;">感谢所有朋友的爱心</p>
+				<hr class="divider"></hr>
+				<div id="supporters_content" >
+					<%= render "supporters" %>
+				</div>
+			</div>
 			
       <div id="content" style="padding:10px 0px 60px 0px;">
         <% if !@campaign.goal.nil? %>
@@ -257,12 +263,11 @@ function showContent() {
 	$("body").scrollTop(body_scrollTop);
 }
 
-function showSupporters(d) {
+function showSupporters() {
 	body_scrollTop=$("body").scrollTop();
 	
 	$("#content").hide();
-	$("#supporters").html(d).show();
-	$("#supporters .lazy-image").lazyload();
+	$("#supporters").show();
 	$("#btn_view_content").show();
 	$("body").scrollTop($("#banner").height());
 }
@@ -272,8 +277,18 @@ function showSupporters(d) {
 		
 		$("#content .lazy-image").lazyload();
 		
+		$("#supporters_content").jscroll({
+			autoTrigger: false,
+			nextSelector: "a.a-pager:last",
+			callback: function() {
+			},
+			loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+		});
+		
 		$("#btn_view_supporters").click(function() {
-			$.get("<%= personal_story_supporters_path %>", showSupporters);
+			// $.get("<%= personal_story_supporters_path %>", showSupporters);
+			
+			showSupporters();
 		});
 		
     if (<%= @is_wechat_browser %> == false
