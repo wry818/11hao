@@ -62,13 +62,12 @@
 				<% if @supporters.count>0 %>
 				<p style="color:#888; margin:10px 0px;">感谢所有朋友的爱心</p>
 				<div class="avatar-container" style="overflow:hidden; height:48px; position:relative;">
-					<% (0..(@supporters.count-1)).each do |i| %>
-              <%s=@supporters[@supporters.count-1-i] %>
-              <% if s.avatar_url&&s.avatar_url.to_s.gsub(' ','').length>0 %>
-                  <img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
-              <%else %>
-                  <%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
-              <% end %>
+					<% @supporters.each do |s| %>
+	          <% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+	              <img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
+	          <%else %>
+	              <%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
+	          <% end %>
 					<% end %>
 					
 					<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
