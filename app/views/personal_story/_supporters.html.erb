@@ -1,7 +1,7 @@
 <table class="table" style="margin:0;">
 <% @supporters.each do |s| %>
 	<tr>
-		<td style="border:0px solid white; width:80px;">
+		<td class="td-avatar" style="border:0px solid white;">
 			<div style="text-align:center; width:48px;">
 				<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
 					<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
@@ -11,7 +11,7 @@
 			</div>
 		</td>
 		<td style="border:0px solid white; vertical-align:middle;"><%= s.fullname %></td>
-		<td style="border:0px solid white; text-align:right; vertical-align:middle; width:80px;">￥<%= short_price s.direct_donation/100.0 %></td>
+		<td class="td-donation" style="border:0px solid white; text-align:right; vertical-align:middle;">￥<%= short_price s.direct_donation/100.0 %></td>
 	</tr>
 <% end %>
 </table>
