@@ -251,12 +251,12 @@
       <div class="modal-footer" style="text-align: center;">
         <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
 
-        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
+        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; display:none;">
           <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
           <span class="loader" style="display:none"></span>
         </button>
 
-        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
+        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto; display:none;" %>
       </div>
 			
 			<%= hidden_field_tag :fullname, @nickname %>
@@ -308,8 +308,7 @@ function showSupporters() {
 			showSupporters();
 		});
 		
-    if (<%= @is_wechat_browser %> == false
-    )
+    if (<%= @is_wechat_browser %> == false)
     {
       $("#payment-form-submit").show();
       $('#wechat').hide();

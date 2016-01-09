@@ -80,7 +80,8 @@ class PersonalStoryController < ApplicationController
 
     if session[:confirm_order_id]
       @order = Order.find_by_id(session[:confirm_order_id])
-      @campaign=@order.campaign
+      @campaign=Campaign.find_by_slug("support-lanlan")
+      
       if @order.campaign.used_as_default?
         @order.campaign_id = @campaign.id
         @order.save
