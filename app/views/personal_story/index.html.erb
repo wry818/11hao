@@ -251,12 +251,12 @@
       <div class="modal-footer" style="text-align: center;">
         <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
 
-        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
+        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; display:none;">
           <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
           <span class="loader" style="display:none"></span>
         </button>
 
-        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
+        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto; display:none;" %>
       </div>
 			
 			<%= hidden_field_tag :fullname, @nickname %>
@@ -308,8 +308,7 @@ function showSupporters() {
 			showSupporters();
 		});
 		
-    if (<%= @is_wechat_browser %> == false
-    )
+    if (<%= @is_wechat_browser %> == false)
     {
       $("#payment-form-submit").show();
       $('#wechat').hide();
@@ -333,7 +332,7 @@ function showSupporters() {
 
     function onBridgeReady() {
       if ("<%= @weixin_init_success %>" == "true") {
-        $('#wechat').click(function () {
+				$('#wechat').off("click").on("click", function () {
           var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
           var direct_donation = $("#direct_donation_input").val();
           if(direct_donation.length<1)
@@ -352,8 +351,10 @@ function showSupporters() {
             weixin_load();
           }).error(function () {
             alert("请求已经结束但是可能发生了错误！");
+						
+						$('#wechat').prop('disabled', false);
           }).complete(function () {
-            $('#wechat').prop('disabled', false);
+            
           });
         });
       } else {
@@ -399,17 +400,23 @@ function showSupporters() {
   $(function () {
 
     $("#payment-form-submit").bind("click", function () {
-      if($("#direct_donation_input").val().length>0)
-      {
+      if($("#direct_donation_input").val().length>0) {
         $("#direct_donation").val($("#direct_donation_input").val());
       }
+			
+			if ($("#direct_donation").val().length<=0) {
+        alert("请输入捐款金额。");
+        return;
+			}
+			
+			$("#payment_form").submit();
     });
     $("#direct_donation_input").bind("blur", function () {
-//      alert(1);
       if ($(this).val().length > 0) {
+				$("#direct_donation").val("");
+				
         $("#personal_modalbody a").each(function () {
           $(this).css('border', "1px solid #dddddd");
-          $("#direct_donation").val("");
         });
       }
     });
