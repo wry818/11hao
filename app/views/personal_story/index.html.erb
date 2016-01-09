@@ -251,7 +251,7 @@
       <div class="modal-footer" style="text-align: center;">
         <input type="hidden" id="order_id" name="campagin_id" value="<%= @campaign.id %>"/>
 
-        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
+        <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto;">
           <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
           <span class="loader" style="display:none"></span>
         </button>
@@ -352,8 +352,10 @@ function showSupporters() {
             weixin_load();
           }).error(function () {
             alert("请求已经结束但是可能发生了错误！");
+						
+						$('#wechat').prop('disabled', false);
           }).complete(function () {
-            $('#wechat').prop('disabled', false);
+            
           });
         });
       } else {
@@ -403,9 +405,10 @@ function showSupporters() {
       {
         $("#direct_donation").val($("#direct_donation_input").val());
       }
+			
+			$("#payment_form").submit();
     });
     $("#direct_donation_input").bind("blur", function () {
-//      alert(1);
       if ($(this).val().length > 0) {
         $("#personal_modalbody a").each(function () {
           $(this).css('border', "1px solid #dddddd");

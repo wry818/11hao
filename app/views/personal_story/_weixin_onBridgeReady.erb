@@ -47,22 +47,17 @@
     }
 
     var avatar_url = $("#avatar_url").val();
-
     var order_time = new Date();
     var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
-
-
-    var data;
-
-
-    data = {
+		
+		var data = {
       order_id:order_id,
       order_make_anonymous: order_make_anonymous,
       format_order_time: format_order_time,
       fullName: fullName,
       avatar_url: avatar_url
     };
-
+		
     $.ajax('/ajax/update-order', {
       type: 'POST',
       data: data,
@@ -72,7 +67,6 @@
       success: function (data) {
         if(data=="success_lanlan")
         {
-//            alert(data)
           window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal";
           return;
         }

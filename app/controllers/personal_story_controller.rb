@@ -29,15 +29,16 @@ class PersonalStoryController < ApplicationController
   def checkout_confirmation
     @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
-
-    @order.direct_donation=params[:direct_donation].to_f * 100
-    @order.fullname=params[:fullname]
-    @order.avatar_url=params[:avatar_url]
-    @order.save
     
-    if  @order.direct_donation<=0
+    donation=params[:direct_donation].to_f * 100
+    
+    if donation<=0
       redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
     end
+
+    @order.direct_donation=donation
+    @order.save
+    
     if !@order.valid?
       message = ''
       @order.errors.each do |key, error|
@@ -53,15 +54,16 @@ class PersonalStoryController < ApplicationController
   def checkout_confirmation_weixin
     @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
-
-    @order.direct_donation=params[:direct_donation].to_f * 100
-    @order.fullname=params[:fullname]
-    @order.avatar_url=params[:avatar_url]
-    @order.save
     
-    if  @order.direct_donation<=0
+    donation=params[:direct_donation].to_f * 100
+    
+    if donation<=0
       redirect_to personal_story_index_path, flash: { danger:"请输入正确的金额" } and return
     end
+    
+    @order.direct_donation=donation
+    @order.save
+    
     if !@order.valid?
       message = ''
       @order.errors.each do |key, error|
@@ -71,7 +73,7 @@ class PersonalStoryController < ApplicationController
     end
     session[:order_id]=@order.id
 
-    render partial: "weixin_onBridgeReady"
+    render partial: "weixin_onBridgeReady" and return
   end
   
   def show_confirmation
