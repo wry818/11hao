@@ -115,8 +115,6 @@ class PersonalStoryController < ApplicationController
 
     end
     
-    @nickname=session[:openid]
-    @avatar_url=session[:access_token]
   end
 
   def weixin_address_init()
