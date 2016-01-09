@@ -115,8 +115,6 @@ class PersonalStoryController < ApplicationController
 
     end
 
-    @nickname
-
   end
 
   def weixin_address_init()

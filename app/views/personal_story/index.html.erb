@@ -259,8 +259,8 @@
         <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto;" %>
       </div>
 			
-			<%= hidden_field_tag :fullname, @nickname %>
-			<%= hidden_field_tag :avatar_url, @avatar_url %>
+			<%= text_field_tag :fullname, @nickname %>
+			<%= text_field_tag :avatar_url, @avatar_url %>
 			
 			<!-- hidden_field_tag text_field_tag -->
       </form>
