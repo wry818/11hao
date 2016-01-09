@@ -332,7 +332,7 @@ function showSupporters() {
 
     function onBridgeReady() {
       if ("<%= @weixin_init_success %>" == "true") {
-        $('#wechat').click(function () {
+				$('#wechat').off("click").on("click", function () {
           var url = "<%=personal_story_checkout_confirmation__weixin_path%>";
           var direct_donation = $("#direct_donation_input").val();
           if(direct_donation.length<1)
