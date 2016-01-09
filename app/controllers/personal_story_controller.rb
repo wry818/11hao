@@ -111,12 +111,12 @@ class PersonalStoryController < ApplicationController
         @avatar_url = user_info.result["headimgurl"]
       end
       
-      @avatar_url=user_info.result.to_s
-      
       @sign_package = $wechat_client.get_jssign_package(request.original_url)
 
     end
-
+    
+    @nickname=session[:openid]
+    @avatar_url=session[:access_token]
   end
 
   def weixin_address_init()
