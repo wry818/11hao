@@ -400,18 +400,23 @@ function showSupporters() {
   $(function () {
 
     $("#payment-form-submit").bind("click", function () {
-      if($("#direct_donation_input").val().length>0)
-      {
+      if($("#direct_donation_input").val().length>0) {
         $("#direct_donation").val($("#direct_donation_input").val());
       }
+			
+			if ($("#direct_donation").val().length<=0) {
+        alert("请输入捐款金额。");
+        return;
+			}
 			
 			$("#payment_form").submit();
     });
     $("#direct_donation_input").bind("blur", function () {
       if ($(this).val().length > 0) {
+				$("#direct_donation").val("");
+				
         $("#personal_modalbody a").each(function () {
           $(this).css('border', "1px solid #dddddd");
-          $("#direct_donation").val("");
         });
       }
     });
