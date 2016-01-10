@@ -7,6 +7,8 @@ namespace :eleven do
     orders = Order.completed.where(:campaign_id=>campaign_id).where("seller_id is null")
     
     orders.each do |order|
+      puts order.id
+      
       params_sign = {
         appid: "wxc2251da36f59ced4",
         mch_id:  "10019709",
@@ -31,8 +33,6 @@ namespace :eleven do
         if r["return_code"] == 'SUCCESS' && r["result_code"] == "SUCCESS"
           order.seller_id = (r["trade_state"] == 'SUCCESS' ? 1 : 0)
           order.save
-          
-          puts r.to_s
         end
       end
     end
