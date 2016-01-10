@@ -675,7 +675,6 @@ class ShopController < ApplicationController
             order.open_id = open_id
           end
           
-          order.address_fullname = "weixin_notify"
           order.status = 3
           order.save
           
