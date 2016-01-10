@@ -1,42 +1,40 @@
 namespace :eleven do
+  task :test => :environment do
+    campaign_id = Rails.env.test? ? 18 : 65
+    
+    puts campaign_id
+    
+    orders = Order.completed.where(:campaign_id=>campaign_id).where("seller_id is null")
+    
+    orders.each do |order|
+      params_sign = {
+        appid: "wxc2251da36f59ced4",
+        mch_id:  "10019709",
+        out_trade_no: order.out_trade_no || "",
+        nonce_str: SecureRandom.uuid.tr('-', '')
+      }
 
-    # To run this rake task, make sure the necessary SFTP credentials are in .env
-    # foreman run rake membership_activation:import_access_code
+      p = WxPay::Service.make_payload(params_sign)
 
-    desc "Update stripe subscription quantity"
-    task :test => :environment do
-        
-        require "mail"
-        
-        defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
-        defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.schema_search_path = ENV['DB_SCHEMA']
-        
-        if defined?(Rails) && (Rails.env == 'development')
-          Rails.logger = Logger.new(STDOUT)
-        end
-        
-        aa = 'sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
-        bb = 'postmaster@sandboxf6264257eeaf4129a4fb02ac4e7e987e.mailgun.org'
-        cc = '7q7vmclgby93'
-        
-        # Send file to vendor via email
-        Mail.defaults do
-          delivery_method :smtp, {
-            :address=> "smtp.mailgun.org",
-            :port=> 587,
-            :domain=> aa,
-            :user_name=> bb,
-            :password=> cc,
-            :authentication=> 'plain' }
-        end
+      x = RestClient::Request.execute(
+        {
+          method: :post,
+          url: "https://api.mch.weixin.qq.com/pay/orderquery",
+          payload: p,
+          headers: { content_type: 'application/xml' }
+        }.merge(WxPay.extra_rest_client_options)
+      )
 
-        Mail.deliver do
-          from     'admin@11hao.com'
-          to       'rwen@dowelltech.cn'
-          subject  '11号公益圈订单'
-          body     "无订单"
+      if x
+        r = WxPay::Result.new Hash.from_xml x
+
+        if r["return_code"] == 'SUCCESS' && r["result_code"] == "SUCCESS"
+          order.seller_id = (r["trade_state"] == 'SUCCESS' ? 1 : 0)
+          order.save
+          
+          puts r.to_s
         end
-        
+      end
     end
-
+  end
 end
