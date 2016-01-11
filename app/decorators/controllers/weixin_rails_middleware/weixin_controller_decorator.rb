@@ -81,7 +81,11 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 #
 #         $wechat_client.send_news_custom(open_id, articles)
 
-        generate_article "11号公益圈粉丝专享福利", "", request.protocol + request.host + "/images/hongbao.jpg", "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"
+        articles = generate_article "11号公益圈粉丝专享福利", "", 
+          request.protocol + request.host + "/images/hongbao.jpg", 
+          "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"
+
+        reply_news_message articles
           
       else
         
