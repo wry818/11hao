@@ -70,16 +70,18 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         
       elsif content == "11"
         
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        articles = [
-          {
-            title: "11号公益圈粉丝专享福利",
-            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
-            picurl: request.protocol + request.host + "/images/hongbao.jpg"
-          }
-        ]
+        # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+#         articles = [
+#           {
+#             title: "11号公益圈粉丝专享福利",
+#             url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+#             picurl: request.protocol + request.host + "/images/hongbao.jpg"
+#           }
+#         ]
+#
+#         $wechat_client.send_news_custom(open_id, articles)
 
-        $wechat_client.send_news_custom(open_id, articles)
+        generate_article "11号公益圈粉丝专享福利", "", request.protocol + request.host + "/images/hongbao.jpg", "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"
           
       else
         
