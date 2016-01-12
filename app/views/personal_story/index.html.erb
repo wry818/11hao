@@ -255,8 +255,11 @@
           <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
           <span class="loader" style="display:none"></span>
         </button>
-
-        <%= link_to "立即捐款", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-sm btn-block', style: "letter-spacing:1px; border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%;margin: 0px auto; display:none;" %>
+				
+				<button id="wechat" class="btn btn-primary btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; display:none;">
+          <span class="text" data-text="微信捐赠" style="letter-spacing:1px;">立即捐款</span>
+          <span class="loader" style="display:none"></span>
+				</button>
       </div>
 			
 			<%= hidden_field_tag :fullname, @nickname %>
@@ -346,14 +349,14 @@ function showSupporters() {
 
           $('#wechat').prop('disabled', true);
 
-          $.post(url, {direct_donation: direct_donation}).success(function (data, textStatus, jqXHR) {
+          $.post(url, {direct_donation: direct_donation}).done(function (data, textStatus, jqXHR) {
             $("#weixin_onbridgeread").html(data);
             weixin_load();
-          }).error(function () {
+          }).fail(function () {
             alert("请求已经结束但是可能发生了错误！");
 						
 						$('#wechat').prop('disabled', false);
-          }).complete(function () {
+          }).always(function () {
             
           });
         });
