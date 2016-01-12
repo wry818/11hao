@@ -52,8 +52,6 @@ class PersonalStoryController < ApplicationController
   end
   
   def checkout_confirmation_weixin
-    sleep 3
-    
     @campaign=Campaign.find_by_slug("support-lanlan")
     @order=@campaign.orders.new
     
