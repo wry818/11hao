@@ -346,14 +346,14 @@ function showSupporters() {
 
           $('#wechat').prop('disabled', true);
 
-          $.post(url, {direct_donation: direct_donation}).success(function (data, textStatus, jqXHR) {
+          $.post(url, {direct_donation: direct_donation}).done(function (data, textStatus, jqXHR) {
             $("#weixin_onbridgeread").html(data);
             weixin_load();
-          }).error(function () {
+          }).fail(function () {
             alert("请求已经结束但是可能发生了错误！");
 						
 						$('#wechat').prop('disabled', false);
-          }).complete(function () {
+          }).always(function () {
             
           });
         });
