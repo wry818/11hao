@@ -83,7 +83,17 @@ class Campaign < ActiveRecord::Base
       if self.goal.nil? || self.goal == 0 
         0 
       else
-        ((self.raised / self.goal) * 100).ceil
+        p = (self.raised / self.goal) * 100
+        
+        if p == 0
+          0
+        else
+          if p > 1
+            p.to_i
+          else
+            p.ceil
+          end
+        end
       end
     end
 
