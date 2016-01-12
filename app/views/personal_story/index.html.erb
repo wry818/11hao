@@ -53,11 +53,11 @@
               <tr>
                 <td style="width:90%;">
                   <div class="progress" style="height:10px; margin:0px 0px;">
-                    <div class="progress-bar progress-bar-warning" style="height:100%; width:<%= @campaign.progress_percent > 100 ? 100 : @campaign.progress_percent  %>%;"></div>
+                    <div class="progress-bar progress-bar-warning" style="height:100%; width:<%= @progress_percent > 100 ? 100 : @progress_percent %>%;"></div>
                   </div>
                 </td>
                 <td style="width:10%; text-align:center;">
-                  <span style="color:#f0ad4e;">&nbsp;&nbsp;<%= @campaign.progress_percent %>%</span>
+                  <span style="color:#f0ad4e;">&nbsp;&nbsp;<%= @progress_percent > 100 ? 100 : @progress_percent %>%</span>
                 </td>
               </tr>
             </table>
@@ -204,9 +204,15 @@
 </div>
 
 <div class="navbar-fixed-bottom" style="padding:5px 0px 10px 0px; text-align:center;">
+	<% if @progress_percent >= 100 %>
+  <button id="btn_thanks" type="button" class="btn btn-primary" style="border-radius:4px;">
+    <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">筹款已结束, 感谢您的支持!</span>
+  </button>
+	<% else %>
   <button type="button" data-toggle="modal" data-target="#personal-modal" class="btn btn-primary" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
     <span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">我要捐款</span>
   </button>
+	<% end %>
 	
 	<button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span></button>
 </div>
@@ -280,6 +286,7 @@ function showContent() {
 	$("#btn_view_content").hide();
 	$("#supporters").hide();
 	$("#content").show();
+	$("#btn_thanks").show();
 	$("body").scrollTop(body_scrollTop);
 }
 
@@ -287,6 +294,7 @@ function showSupporters() {
 	body_scrollTop=$("body").scrollTop();
 	
 	$("#content").hide();
+	$("#btn_thanks").hide();
 	$("#supporters").show();
 	$("#btn_view_content").show();
 	$("body").scrollTop($("#banner").height());
