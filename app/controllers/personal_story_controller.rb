@@ -5,6 +5,7 @@ class PersonalStoryController < ApplicationController
   def index
     @campaign = Campaign.find_by_slug("support-lanlan")
     @is_wechat_browser = is_wechat_browser?
+    @progress_percent = @campaign.progress_percent
     
     if is_wechat_browser?
 
