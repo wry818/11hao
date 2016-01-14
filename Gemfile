@@ -105,3 +105,6 @@ gem 'bxslider-rails'
 gem 'rubyXL'
 gem 'uuidtools'
 
+gem "rails_kindeditor"
+# gem "simditor"
+
