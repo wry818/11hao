@@ -209,12 +209,18 @@
                     <div class="col-md-8">
                       <div class="payment-submit">
                         <button id="payment-form-submit" class="btn btn-primary btn-lg btn-block" type="submit">
-                                                        <span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">
-                                                            <%= @order.donation_only? ? "微信捐赠" : "微信支付" %>
-                                                        </span>
+                          <span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">
+                              <%= @order.donation_only? ? "微信捐赠" : "微信支付" %>
+                          </span>
                           <span class="loader" style="display:none"></span>
                         </button>
-						<%= link_to @order.donation_only? ? "微信捐赠" : "微信支付", "javascript:void(0)", :id => 'wechat', :class => 'btn btn-primary btn-lg btn-block'  %>
+												
+												<button id="wechat" type="button" class="btn btn-primary btn-lg btn-block">
+                          <span class="text" data-text="<%= @order.donation_only? ? "微信捐赠" : "微信支付" %>">
+                              <%= @order.donation_only? ? "微信捐赠" : "微信支付" %>
+                          </span>
+                          <span class="loader" style="display:none"></span>
+												</button>
                       </div>
                       <p style="margin-top: 10px;">
                         需要支付
@@ -374,16 +380,17 @@ function onBridgeReady(){
 		$('#wechat').prop('disabled', false);
 		
 		$('#wechat').click(function(){
-		
-			$('#wechat').prop('disabled', true);
+			var $button=$(this);
+			var btn_text=$button.find('span.text').data("text");
 			
-      $.ajax({
-          method: "get",
-          url: "<%= weixin_payment_get_req_path @order %>",
-          dataType: "json",
-          cache: false,
-          success: function (d) {
-						if (d) {
+			$button.prop('disabled', true).find('span.text').text('处理中，请稍候...').siblings('span.loader').show(200, function(){
+	      $.ajax({
+	        method: "get",
+	        url: "<%= weixin_payment_get_req_path @order %>",
+	        dataType: "json",
+	        cache: false,
+	        success: function (d) {
+						if (d && d.paySign!="") {
 						  WeixinJSBridge.invoke('getBrandWCPayRequest', {
 								"appId" : d.appId,     //公众号名称，由商户传入
 								"timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
@@ -395,23 +402,23 @@ function onBridgeReady(){
 								if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 									ComfirmOrder();
 								} else {
-									$('#wechat').prop('disabled', false);
+									$button.prop('disabled', false).find('span.text').text(btn_text).siblings('span.loader').hide();
 								}
 						  });
 						}
 						else {
-							$('#wechat').prop('disabled', false);
+							$button.prop('disabled', false).find('span.text').text(btn_text).siblings('span.loader').hide();
 						}
-          },
+	        },
 					error: function() {
-						$('#wechat').prop('disabled', false);
+						$button.prop('disabled', false).find('span.text').text(btn_text).siblings('span.loader').hide();
 					},
 					complete: function() {
-						
+				
 					}
-      });
-		
-		});	
+	      });
+			});
+		});
 		
 	} else {
 		
