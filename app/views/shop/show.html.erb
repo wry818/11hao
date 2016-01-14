@@ -2,11 +2,11 @@
   <div id="campaign_slug" data-slug="<%= @campaign.slug %>"></div>
 
   <div class="container container-background">
-	
-	<% if @seller %>
-		<%= render 'shop/seller_header' %>
-	<% end %>
-	
+
+    <% if @seller %>
+        <%= render 'shop/seller_header' %>
+    <% end %>
+
     <div class="container-box top-section">
 
       <%= render 'shop/campaign_header' %>
@@ -14,67 +14,67 @@
       <%= render 'shop/campaign_nav' %>
 
       <div class="row">
-		  <div class="col-md-12">
-        	  <% if @campaign.campaign_photos.length > 0 %>
-			  	<div class="image-wrapper">
-					<div class="image-section">
-						<% if @campaign.campaign_photos.length>1 %>
-						                    	<div id="slides" class="slides" style="margin-top:15px;">
-						                     	   <div class="slides_container">
-						                        	   <% @campaign.campaign_photos.each do |photo| %>
-													   		<%= cl_image_tag photo.image_id,
-															transformation: [{
-																width: photo.crop_width,
-																height: photo.crop_height,
-																x: photo.crop_x,
-																y: photo.crop_y,
-																crop: :crop
-															}, {
-																width: 280,
-																height: 280,
-																crop: :fill
-															}], class: "img-responsive" %>
-														<% end %>
-													</div>
-												 </div>
-											  <% else %>
-											  	<% @campaign.campaign_photos.each do |photo| %>
-											  		<%= cl_image_tag photo.image_id,
-														transformation: [{
-															width: photo.crop_width,
-															height: photo.crop_height,
-															x: photo.crop_x,
-															y: photo.crop_y,
-															crop: :crop
-														}, {
-															width: 280,
-															height: 280,
-															crop: :fill
-														}], class: "img-responsive" %>
-												<% end %>
-											  <% end %>
-					</div>
-				</div>
-			  <% end %>
-			  <% if @campaign.campaign_photos.length == 0 %>
-			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
-	  			  <% if @campaign.description %>
-	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
-				  <% end %>
-				</div>
-			  <% else %>
-			  
-			  	<div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
-  	  			  <% if @campaign.description %>
-  	  			  	<%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
-  				  <% end %>
-				</div>
-			 <% end %>
-		 </div>		
+        <div class="col-md-12">
+          <% if @campaign.campaign_photos.length > 0 %>
+              <div class="image-wrapper">
+                <div class="image-section">
+                  <% if @campaign.campaign_photos.length>1 %>
+                      <div id="slides" class="slides" style="margin-top:15px;">
+                        <div class="slides_container">
+                          <% @campaign.campaign_photos.each do |photo| %>
+                              <%= cl_image_tag photo.image_id,
+                                               transformation: [{
+                                                                    width: photo.crop_width,
+                                                                    height: photo.crop_height,
+                                                                    x: photo.crop_x,
+                                                                    y: photo.crop_y,
+                                                                    crop: :crop
+                                                                }, {
+                                                                    width: 280,
+                                                                    height: 280,
+                                                                    crop: :fill
+                                                                }], class: "img-responsive" %>
+                          <% end %>
+                        </div>
+                      </div>
+                  <% else %>
+                      <% @campaign.campaign_photos.each do |photo| %>
+                          <%= cl_image_tag photo.image_id,
+                                           transformation: [{
+                                                                width: photo.crop_width,
+                                                                height: photo.crop_height,
+                                                                x: photo.crop_x,
+                                                                y: photo.crop_y,
+                                                                crop: :crop
+                                                            }, {
+                                                                width: 280,
+                                                                height: 280,
+                                                                crop: :fill
+                                                            }], class: "img-responsive" %>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+          <% end %>
+          <% if @campaign.campaign_photos.length == 0 %>
+              <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
+                <% if @campaign.description %>
+                    <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+                <% end %>
+              </div>
+          <% else %>
+
+              <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
+                <% if @campaign.description %>
+                    <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
       </div>
-			
-			<hr/>
-			
+
+      <hr/>
+
       <div class="row">
         <div class="col-md-4">
           <%= render 'shop/campaign_sidebar' %>
@@ -108,21 +108,21 @@
                                               </div>
                                               <p style="text-align: center">
                                                 <%= truncate(product.name, length: 50) %><br/>
-                                                <% price_range=product.price_range(@campaign.is_discount? ? (100-((@campaign.discount==nil)?0:@campaign.discount))/100.0 : 1) %>
+                                                <% price_range=product.price_range(@campaign.is_discount? ? (100-((@campaign.discount==nil) ? 0 : @campaign.discount))/100.0 : 1) %>
                                                 <% if price_range[:is_discount] %>
 															<span style="color:gray; display:inline-block; text-decoration:line-through;">
 																<% if price_range[:same_price] %>
 																￥<%= long_price(price_range[:min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:min]) %>
-                                                                  - <%= long_price(price_range[:max]) %>
+                                    - <%= long_price(price_range[:max]) %>
 															<% end %></span><br/>
 															<span style="color:rgb(210, 16, 16); display:inline-block;">
 															<% if price_range[:same_discount_price] %>
 																￥<%= long_price(price_range[:discount_min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:discount_min]) %>
-                                                                  - <%= long_price(price_range[:discount_max]) %>
+                                    - <%= long_price(price_range[:discount_max]) %>
 															<% end %>
 															</span>
                                                 <% else %>
@@ -153,14 +153,14 @@
 																￥<%= long_price(price_range[:min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:min]) %>
-                                                                  - $<%= short_price(price_range[:max]) %>
+                                    - $<%= short_price(price_range[:max]) %>
 															<% end %></span><br/>
 															<span style="color:rgb(210, 16, 16); display:inline-block;">
 															<% if price_range[:same_discount_price] %>
 																￥<%= long_price(price_range[:discount_min]) %>
 															<% else %>
 																￥<%= long_price(price_range[:discount_min]) %>
-                                                                  - <%= long_price(price_range[:discount_max]) %>
+                                    - <%= long_price(price_range[:discount_max]) %>
 															<% end %>
 															</span>
                                                 <% else %>
@@ -190,34 +190,48 @@
 
 
 
-  <% if @campaign.organizer %>
-  		<hr />
-      <div class="organizer">
-        <div class="clearfix">
-          <h3 class="pull-left" style="margin-top: 0px">组织者</h3>
-          <% if @campaign.organizer == current_user %>
-              <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span>
-                编辑</a>
-          <% end %>
-        </div>
-        <div class="row">
-          <div class="col-xs-4">
-            <% if @campaign.organizer.profile.picture.present? %>
-                <%= cl_image_tag @campaign.organizer.profile.picture, width: 100, height: 100, crop: :limit, class: 'img-thumbnail' %>
-            <% else %>
-                <%= image_tag 'default_avatar.png', width: 100, height: 100, class: 'img-thumbnail' %>
-            <% end %>
-          </div>
-          <div class="col-xs-8">
-            <p>
-              <%= @campaign.organizer.profile.fullname %><br/>
-              <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
-            </p>
-          </div>
-        </div>
-      </div>
-  <% end %>
-  
+                  <% if @campaign.organizer %>
+                      <hr/>
+                      <div class="organizer">
+                        <div class="clearfix">
+                          <h3 class="pull-left" style="margin-top: 0px">组织者</h3>
+                          <% if @campaign.organizer == current_user %>
+                              <a href="<%= settings_profile_path %>" class="pull-right"><span class="glyphicon glyphicon-pencil"></span>
+                                编辑</a>
+                          <% end %>
+                        </div>
+                        <div class="row">
+                          <div class="col-xs-4">
+                            <% if @campaign.organizer.profile.picture.present? %>
+                                <%= cl_image_tag @campaign.organizer.profile.picture, width: 100, height: 100, crop: :limit, class: 'img-thumbnail' %>
+                            <% else %>
+                                <%= image_tag 'default_avatar.png', width: 100, height: 100, class: 'img-thumbnail' %>
+                            <% end %>
+                          </div>
+                          <div class="col-xs-8">
+                            <p>
+                              <%= @campaign.organizer.profile.fullname %><br/>
+                              <span style="color: gray"><%= @campaign.organizer.profile.title if @campaign.organizer.profile.title.present? %></span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+
+                  <hr/>
+                  <div class="qr_code">
+                    <div class="row">
+                      <div class="col-xs-12" style="text-align: center;" >
+
+                        <%= image_tag @qr_url %>
+
+                      </div>
+                      <div class="col-xs-12" style="text-align: center;">
+                        <label>微信扫描上方的二维码<br>并分享您的筹款页面</label>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
                 <!-- /.main-content -->
               </div>
@@ -314,139 +328,139 @@
 <!-- Pop up to prompt user to join the campaign -->
 <script>
 
-wx.config({
-	debug: false,
+  wx.config({
+    debug: false,
     appId: "<%= @sign_package['appId'] %>",
     timestamp: "<%= @sign_package['timestamp'] %>",
     nonceStr: "<%= @sign_package['nonceStr'] %>",
     signature: "<%= @sign_package['signature'] %>",
     jsApiList: [
-		'onMenuShareTimeline',
-		'onMenuShareAppMessage',
-		'onMenuShareQQ',
-		'onMenuShareWeibo'
-	] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-});
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo'
+    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
 
-wx.ready(function(){
-	
-	var title = "<%= @campaign.title %>";
-	var desc = "<%= @campaign.organizer_quote %>";
-	var link = "<%= request.url %>";
-	var imgUrl = $(".campaign-logo").attr("src");
-	
-	wx.onMenuShareTimeline({
-	    title: title, // 分享标题
-	    link: link, // 分享链接
-	    imgUrl: imgUrl, // 分享图标
-	    success: function () { 
-	        // 用户确认分享后执行的回调函数
-	    },
-	    cancel: function () { 
-	        // 用户取消分享后执行的回调函数
-	    }
-	});
-	
-	wx.onMenuShareAppMessage({
-	    title: title, // 分享标题
-	    desc: desc, // 分享描述
-	    link: link, // 分享链接
-	    imgUrl: imgUrl, // 分享图标
-	    // type: 'link', // 分享类型,music、video或link，不填默认为link
+  wx.ready(function () {
+
+    var title = "<%= @campaign.title %>";
+    var desc = "<%= @campaign.organizer_quote %>";
+    var link = "<%= request.url %>";
+    var imgUrl = $(".campaign-logo").attr("src");
+
+    wx.onMenuShareTimeline({
+      title: title, // 分享标题
+      link: link, // 分享链接
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        // 用户确认分享后执行的回调函数
+      },
+      cancel: function () {
+        // 用户取消分享后执行的回调函数
+      }
+    });
+
+    wx.onMenuShareAppMessage({
+      title: title, // 分享标题
+      desc: desc, // 分享描述
+      link: link, // 分享链接
+      imgUrl: imgUrl, // 分享图标
+      // type: 'link', // 分享类型,music、video或link，不填默认为link
 // 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-	    success: function () { 
-			// alert("分享成功！");
-	        // 用户确认分享后执行的回调函数
-	    },
-	    cancel: function () { 
-	        // 用户取消分享后执行的回调函数
-	    }
-	});
-	
-	wx.onMenuShareQQ({
-	    title: title, // 分享标题
-	    desc: desc, // 分享描述
-	    link: link, // 分享链接
-	    imgUrl: imgUrl, // 分享图标
-	    success: function () { 
-	       // 用户确认分享后执行的回调函数
-	    },
-	    cancel: function () { 
-	       // 用户取消分享后执行的回调函数
-	    }
-	});
-	
-	wx.onMenuShareWeibo({
-	    title: title, // 分享标题
-	    desc: desc, // 分享描述
-	    link: link, // 分享链接
-	    imgUrl: imgUrl, // 分享图标
-	    success: function () { 
-	       // 用户确认分享后执行的回调函数
-	    },
-	    cancel: function () { 
-	        // 用户取消分享后执行的回调函数
-	    }
-	});
-	
-});
+      success: function () {
+        // alert("分享成功！");
+        // 用户确认分享后执行的回调函数
+      },
+      cancel: function () {
+        // 用户取消分享后执行的回调函数
+      }
+    });
 
-wx.error(function(res){
+    wx.onMenuShareQQ({
+      title: title, // 分享标题
+      desc: desc, // 分享描述
+      link: link, // 分享链接
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        // 用户确认分享后执行的回调函数
+      },
+      cancel: function () {
+        // 用户取消分享后执行的回调函数
+      }
+    });
+
+    wx.onMenuShareWeibo({
+      title: title, // 分享标题
+      desc: desc, // 分享描述
+      link: link, // 分享链接
+      imgUrl: imgUrl, // 分享图标
+      success: function () {
+        // 用户确认分享后执行的回调函数
+      },
+      cancel: function () {
+        // 用户取消分享后执行的回调函数
+      }
+    });
+
+  });
+
+  wx.error(function (res) {
 
     // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-	alert(res.errMsg);
-});
+    alert(res.errMsg);
+  });
 
 </script>
-				
+
 <% if current_user %>
     <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_seller?(@campaign) && !current_user.admin? && !current_user.is_sales? && !@campaign.expired? && @campaign.active %>
         <script>
-            $(document).ready(function () {
-                if (document.referrer.indexOf("/search?") >= 0) {
-                    window.setTimeout(function () {
-                        // $("#join_campaign_modal").modal("show");
-                    }, 200);
-                }
-            });
+          $(document).ready(function () {
+            if (document.referrer.indexOf("/search?") >= 0) {
+              window.setTimeout(function () {
+                // $("#join_campaign_modal").modal("show");
+              }, 200);
+            }
+          });
         </script>
     <% end %>
 
     <% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active && @seller %>
         <script>
-            $(document).ready(function () {
-                window.setTimeout(function () {
-                    // $("#help_text_modal").modal("show");
-                }, 200);
-            });
+          $(document).ready(function () {
+            window.setTimeout(function () {
+              // $("#help_text_modal").modal("show");
+            }, 200);
+          });
         </script>
     <% end %>
 <% else %>
     <% if @campaign && !@campaign.id.nil? && !@campaign.expired? && @campaign.active %>
         <script>
-            $(document).ready(function () {
-                if (document.referrer.indexOf("/search?") >= 0) {
-                    window.setTimeout(function () {
-                        // $("#join_campaign_modal").modal("show");
-                    }, 200);
-                }
+          $(document).ready(function () {
+            if (document.referrer.indexOf("/search?") >= 0) {
+              window.setTimeout(function () {
+                // $("#join_campaign_modal").modal("show");
+              }, 200);
+            }
 
-                <% if @seller %>
-                window.setTimeout(function () {
-                    // $("#help_text_modal").modal("show");
-                }, 200);
-                <% end %>
-            });
+            <% if @seller %>
+            window.setTimeout(function () {
+              // $("#help_text_modal").modal("show");
+            }, 200);
+            <% end %>
+          });
         </script>
     <% end %>
 <% end %>    <!-- Pop up to prompt -->
 
 <% if @campaign && @campaign.expired? && @organization_campaign %>
     <script>
-        $(document).ready(function () {
-            window.setTimeout(function () {
-                $("#campaign_expire_modal").modal("show");
-            }, 200);
-        });
+      $(document).ready(function () {
+        window.setTimeout(function () {
+          $("#campaign_expire_modal").modal("show");
+        }, 200);
+      });
     </script>
 <% end %>
