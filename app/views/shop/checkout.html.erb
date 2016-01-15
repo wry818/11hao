@@ -358,14 +358,14 @@ function onBridgeReady(){
 			
 			if (res && res.userName) {
 				SaveAddress(res);
-				// alert("success");
+				// Raisy.alert("success");
 			
 			}
 			
 			else {
 				
 				if (res.err_msg != "edit_address:fail") {
-					alert("系统忙，请稍候再试。" + res.err_msg);
+					Raisy.alert("系统忙，请稍候再试。" + res.err_msg);
 				}
 			
 			}
@@ -379,14 +379,18 @@ function onBridgeReady(){
 		
 		$('#wechat').prop('disabled', false);
 		
-		sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress, null);
+		if (<%= Rails.env.test? %>) {
+		} 
+		else {
+			sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress, null);
+		}
 		
 		$('#wechat').click(function(){
 			if ("<%= @order.needs_shipping %>" == "true") {
 				var addr = window.Raisy.GetCurrentShippingAddress();
 			
 				if (addr==null) {
-					alert("请选择收货地址。");
+					Raisy.alert("请选择收货地址。");
 					return;
 				}
 			}
@@ -433,7 +437,7 @@ function onBridgeReady(){
 		
 	} else {
 		
-		alert("系统忙，请刷新页面再试。");
+		Raisy.alert("系统忙，请刷新页面再试。");
 		
 	}
     
@@ -552,7 +556,7 @@ function ComfirmOrder() {
 					<% end %>
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-			alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+			Raisy.alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
         }
     });
 	
@@ -574,7 +578,7 @@ function Validate() {
 	}
 	
 	if (error) {
-		alert(error);
+		Raisy.alert(error);
 		return false;
 	} else {
 		return true;
