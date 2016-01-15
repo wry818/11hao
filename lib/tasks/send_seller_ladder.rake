@@ -40,7 +40,7 @@ namespace :eleven do
               if row["uid"] && row["uid"].length > 0
 
                 url = ""
-                if defined?(Rails) && (Rails.env == 'development')
+                if defined?(Rails) && (Rails.env == 'production')
                   url = "http://www.11haoonline.com"
                 else
                   url = "http://test.11haoonline.com"
