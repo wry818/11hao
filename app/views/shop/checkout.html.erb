@@ -380,11 +380,13 @@ function onBridgeReady(){
 		$('#wechat').prop('disabled', false);
 		
 		$('#wechat').click(function(){
-			var addr = window.Raisy.GetCurrentShippingAddress();
+			if ("<%= @order.needs_shipping %>" == "true") {
+				var addr = window.Raisy.GetCurrentShippingAddress();
 			
-			if (addr==null) {
-				alert("请选择收货地址。");
-				return;
+				if (addr==null) {
+					alert("请选择收货地址。");
+					return;
+				}
 			}
 			
 			var $button=$(this);
