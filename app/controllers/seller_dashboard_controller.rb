@@ -108,6 +108,17 @@ class SellerDashboardController < ApplicationController
     
     def seller_ladder
       
+      Rails.logger.info request.host
+      Rails.logger.info request.path
+      
+      if request.host == "test.11haoonline.com"
+        
+        url = "http://www.11haoonline.com" + request.path
+        
+        redirect_to url and return
+        
+      end
+      
       @seller = Seller.where(referral_code: params[:seller_referral_code]).first
       @campaign = @seller.campaign
       @current_rank = 0
