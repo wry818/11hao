@@ -379,6 +379,8 @@ function onBridgeReady(){
 		
 		$('#wechat').prop('disabled', false);
 		
+		sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress, null);
+		
 		$('#wechat').click(function(){
 			if ("<%= @order.needs_shipping %>" == "true") {
 				var addr = window.Raisy.GetCurrentShippingAddress();
