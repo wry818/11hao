@@ -108,8 +108,8 @@ class SellerDashboardController < ApplicationController
     
     def seller_ladder
       
-      Rails.logger.info request.host
-      Rails.logger.info request.path
+      # Rails.logger.info request.host
+      # Rails.logger.info request.path
       
       if request.host == "test.11haoonline.com"
         

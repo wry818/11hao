@@ -865,20 +865,22 @@ class ShopController < ApplicationController
       
       if order.seller_id
 
-        seller = Seller.find_by_id(order.seller_id)
-
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-
-        articles = [
-          {
-            title: "有顾客购买了您的商品！",
-            description: "点击查看当前的筹款排名。",
-            url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
-          }
-        ]
-        if !(order.campaign.slug=="support-lanlan")
-          $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
-        end
+        # seller = Seller.find_by_id(order.seller_id)
+        #
+        # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        #
+        # articles = [
+        #   {
+        #     title: "有顾客购买了您的商品！",
+        #     description: "点击查看当前的筹款排名。",
+        #     url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
+        #   }
+        # ]
+        #
+        # if !(order.campaign.slug=="support-lanlan")
+        #   $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
+        # end
+        
       end
             
       session[:confirm_order_id] = order.id
