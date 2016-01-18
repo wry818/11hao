@@ -49,6 +49,7 @@ class ShopController < ApplicationController
     end
 
     def product
+       logger.debug "1001product"
         @product = Product.friendly.find(params[:product_id])
         redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
 
@@ -132,6 +133,7 @@ class ShopController < ApplicationController
     end
     
     def ajax_update_cart
+      logger.debug "1001ajax_update_cart"
       render text: 'fail' and return unless params[:item] && params[:item][:order_id] && params[:item][:quantity] && params[:item][:campaign_id]
 
       @order = Order.find_by_id(params[:item][:order_id].to_i)

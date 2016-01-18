@@ -1,0 +1,386 @@
+<style>
+  .avatar-container {
+    text-align: left;
+  }
+
+  .td-avatar {
+    width: 80px;
+  }
+
+  .td-donation {
+    width: 80px;
+  }
+
+  @media (min-width: 560px) {
+    .avatar-container {
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 400px) {
+    .td-avatar {
+      width: 100px;
+    }
+
+    .td-donation {
+      width: 100px;
+    }
+  }
+</style>
+
+<div class="container" style="color:#333; background-color:#ededed; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif;">
+  <div id="banner" class="row" style="text-align:center; position:relative">
+    <img src="/images/jujube/p_01.jpg" style="width:100%;">
+
+    <div style="position:absolute; left:10px; bottom:5px;">
+      <span style="color:white; font-size:18px; letter-spacing:1px;"><%= @campaign.title %></span>
+    </div>
+  </div>
+
+  <div class="row" style="background-color:white;">
+    <div class="col-xs-12">
+      <div id="supporters" style="padding:10px 0px 60px 0px; display:none;">
+        <p style="color:#888; font-size:18px;">感谢所有朋友的爱心</p>
+        <hr class="divider"></hr>
+        <div id="supporters_content">
+          <%= render "supporters" %>
+        </div>
+      </div>
+
+      <div id="content" style="padding:10px 0px 60px 0px;">
+        <% if !@campaign.goal.nil? %>
+            <table style="width:100%; margin:0px auto;">
+              <tr>
+                <td style="width:90%;">
+                  <div class="progress" style="height:10px; margin:0px 0px;">
+                    <div class="progress-bar progress-bar-warning" style="height:100%; width:<%= @progress_percent > 100 ? 100 : @progress_percent %>%;"></div>
+                  </div>
+                </td>
+                <td style="width:10%; text-align:center;">
+                  <span style="color:#f0ad4e;">&nbsp;&nbsp;<%= @progress_percent > 100 ? 100 : @progress_percent %>
+                    %</span>
+                </td>
+              </tr>
+            </table>
+        <% end %>
+        <table style="color:#888; width:100%; margin:5px auto 0px auto;">
+          <tr>
+            <td style="border-right:1px solid #ddd; width:50%;">
+              <span>目标&nbsp;&nbsp;<%= short_price @campaign.goal.nil? ? 0 : @campaign.goal %>&nbsp;元</span>
+              <br/>
+              已筹&nbsp;&nbsp;<span style="color:#f0ad4e;"><strong><%= short_price @campaign.raised %>&nbsp;元</strong></span>
+            </td>
+            <td style="text-align:center; width:50%;">
+              <span>支持人数</span>
+              <br/>
+              <span style="color:#f0ad4e;"><strong><%= @campaign.supporters %>&nbsp;</strong></span>人
+            </td>
+          </tr>
+        </table>
+
+        <% if @supporters.count>0 %>
+            <p style="color:#888; margin:10px 0px;">感谢所有朋友的爱心</p>
+            <div class="avatar-container" style="overflow:hidden; height:48px; position:relative;">
+              <% @supporters.each do |s| %>
+                  <% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+                      <img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
+                  <%else %>
+                      <%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
+                  <% end %>
+              <% end %>
+
+              <div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
+                <span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+              </div>
+            </div>
+        <% end %>
+
+        <hr style="margin:15px 0px;"/>
+
+        <p>买红枣，就是买爱心，不仅仅是实惠，更是一份心意……</p>
+
+        <!--<p><img data-original="/images/jujube/p_02.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;"></p>-->
+
+        <h3><strong>红枣滞销</strong></h3>
+
+        <p>据中新网报道，山西省吕梁市临县红枣滞销，因丰收量大、当地红枣遭新疆红枣竞争、交通不便、灌溉不便等造成临县红枣滞销。图为散落一地的红枣……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_02.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>深秋，树叶都落完，枣子都熟透的时候，是咱们临县人收枣的季节……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_03.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <!--<h3><strong>病魔无情</strong></h3>-->
+
+        <p>咱们临县80万亩枣园，都是这种沿黄河两岸的黄土坡地上生长。枣都是在山上生长……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_04.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>咱们这边的枣子表面也会有灰尘，但是相比新疆枣要干净很多，但是还是建议亲们吃的时候冲洗一下……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_05.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>山西人爱吃酸的东西，山西长出来的黄河滩枣也是酸甜口味的。</p>
+
+        <p>
+          <img data-original="/images/jujube/p_06.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>每一颗都是我们捡起来的，小时候最愁捡枣了，现在想想那会的自己才是每天都开心的自己。</p>
+
+        <p>
+          <img data-original="/images/jujube/p_07.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>枣秋天如画，小时候最喜欢的季节也就是这个季节。当然那个时候只是为了吃和玩……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_08.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>亲还在吗？点击支持我们农民哈。点出爱心，收获实惠……</p>
+
+        <p>
+          <img data-original="/images/jujube/p_09.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+        <p>
+          <img data-original="/images/jujube/p_10.jpg" class="img-responsive img-rounded lazy-image" style="margin:0px auto;">
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="navbar-fixed-bottom" style="padding:5px 0px 10px 0px; text-align:center;">
+  <% if @progress_percent >= 100 %>
+      <button id="btn_thanks" type="button" class="btn btn-primary" style="border-radius:4px;">
+        <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">义卖已结束, 感谢您的支持!</span>
+      </button>
+  <% else %>
+      <button type="button" class="btn btn-primary add-to-order" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
+        <span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">立即购买 </span>
+        <span class="loader" style="display:none"></span>
+      </button>
+      <input type="hidden" id="is_add_to_cart" name="is_add_to_cart" value="1">
+  <% end %>
+
+  <button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;">
+    <span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span></button>
+</div>
+
+
+<div id="weixin_onbridgeread" style="width: 0px;height: 0px;overflow: hidden;"></div>
+
+
+<%= hidden_field_tag :fullname, @nickname %>
+<%= hidden_field_tag :avatar_url, @avatar_url %>
+<form id="form-post-cart">
+<input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
+<input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
+<input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+<input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
+</form>
+
+<div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
+  <!--<%= render 'shop/cart_modal', parent_page: :product %>-->
+</div>
+<script language="javascript" type="text/javascript">
+
+  $('.add-to-order').on('click', function (e) {
+    $("#is_add_to_cart").val("0");
+
+    addOrderItem(this);
+  });
+  function addOrderItem(btn) {
+    var errors = false;
+    var $this = $(btn);
+    var $form=$("#form-post-cart");
+//    var $form = $this.parents('form.product-form');
+//    $form.find('.required').each(function (index, element) {
+//      $element = $(element)
+//      if ($element.val().length == 0) {
+//        $element.parents('.form-group').addClass('has-error');
+//        errors = true;
+//      }
+//    });
+//    alert($form.serialize());
+    if (!errors) {
+      $this.prop('disabled', true).find('span.text').siblings('span.loader').show();
+      $.ajax('/ajax/update-cart', {
+        type: 'POST',
+        data: $form.serialize(),
+        beforeSend: function (jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+          if (data != 'fail') {
+            $this.parents('.modal').modal('hide');
+            $('#checkout-modal').html(data);
+
+            $("#item_order_id").val($("#order_id").val());
+
+            Raisy.shop.attachCartEvents();
+
+            if (data.indexOf("-!-js-!-") < 0) {
+              $('#checkout-modal').modal('show');
+            }
+          }
+        },
+        complete: function () {
+          $this.prop('disabled', false).find('span.text').siblings('span.loader').hide();
+        }
+      });
+    }
+  }
+
+
+  var body_scrollTop = 0;
+
+  function showContent() {
+    $("#btn_view_content").hide();
+    $("#supporters").hide();
+    $("#content").show();
+    $("#btn_thanks").show();
+    $("body").scrollTop(body_scrollTop);
+  }
+
+  function showSupporters() {
+    body_scrollTop = $("body").scrollTop();
+
+    $("#content").hide();
+    $("#btn_thanks").hide();
+    $("#supporters").show();
+    $("#btn_view_content").show();
+    $("body").scrollTop($("#banner").height());
+  }
+
+  $(function () {
+    document.title = "紧急救助大山枣农， 纯天然有机黄河滩枣，源头低价义卖！";
+
+    $("#content .lazy-image").lazyload();
+
+    $("#supporters_content").jscroll({
+      autoTrigger: false,
+      nextSelector: "a.a-pager:last",
+      callback: function () {
+      },
+      loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+    });
+
+    $("#btn_view_supporters").click(function () {
+      // $.get("<%= personal_story_supporters_path %>", showSupporters);
+
+      showSupporters();
+    });
+
+  });
+</script>
+
+<% if @sign_package %>
+    <script>
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: "<%= request.original_url %>",
+        img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_20.jpg' %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "一个是只有'头'和'胳膊'可以活动的高位截瘫的母亲, 一个是22个月大的嗷嗷待哺的孩子, 他们正艰难地活着...",
+        title: "为幼儿瘫母撑起希望"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          success: function () {
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          success: function () {
+            // alert("分享成功！");
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          success: function () {
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          success: function () {
+            // 用户确认分享后执行的回调函数
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>
