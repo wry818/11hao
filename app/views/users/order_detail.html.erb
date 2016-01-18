@@ -96,39 +96,41 @@
 
     <% end %>
 
-		<% if @order.needs_shipping %>
-      <p style="margin-top:20px">
-        邮寄地址
-      </p>
+    <% if @order.needs_shipping %>
+        <p style="margin-top:20px">
+          邮寄地址
+        </p>
 
-      <small>
-        <%= @order.address_fullname %>  <%= @order.phone_number %>
-        <br/>
-        <%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
-      </small>
+        <small>
+          <%= @order.address_fullname %>  <%= @order.phone_number %>
+          <br/>
+          <%= @order.address_state %> <%= @order.address_city %> <%= @order.address_city_area %> <%= @order.address_line_one %> <%= @order.address_postal_code %>
+        </small>
 
         <% if @items_express.values.count>0 %>
             <p style="margin-top:20px">
               物流信息
             </p>
 
-        <% @items_express.values.each do |item| %>
-            <% if item.courier_number %>
-                <div class="item_content">
-                    <small>
-                      承运来源：<%= item.express %>
-                   <br/>
-                      运单编号：<%= item.courier_number %>
-                    </small>
-                  <small style="float: right; margin-top: 5px;">
-                    <%= link_to "查看物流", order_express_path(item.id),class: "btn btn-default btn-sm" %>
-                  </small>
-                </div>
+            <% @items_express.values.each do |item| %>
+                <% if item.courier_number %>
+                    <% item.courier_numbers.each do |n| %>
+                        <div class="item_content">
+                          <small>
+                            承运来源：<%= item.express %>
+                            <br/>
+                            运单编号：<%= n %>
+                          </small>
+                          <small style="float: right; margin-top: 5px;">
+                            <%= link_to "查看物流", order_express_path(item.id, n), class: "btn btn-default btn-sm" %>
+                          </small>
+                        </div>
+                    <% end %>
+                <% end %>
             <% end %>
         <% end %>
-        <% end %>
-	  <% end %>
-		
+    <% end %>
+
   </div>
 
 </div>

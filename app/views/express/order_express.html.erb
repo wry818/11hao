@@ -21,7 +21,7 @@
       <div class="right_content">
         <div>
           <div>
-            <%= @item.courier_number %>
+            <%= @courier_number %>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
 
 
     $("div.all_report_loader").show();
-    var url="<%=order_express_ajax_path(@item.id)%>"
+    var url="<%=order_express_ajax_path(@item.id,@courier_number)%>"
     $.get(url).success(function (data, textStatus, jqXHR) {
       if(data=="error")
       {

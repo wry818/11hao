@@ -103,8 +103,8 @@ Raisy::Application.routes.draw do
     end
 
   #Express
-  get 'order_express/:item_id', to: 'express#order_express', as: :order_express
-  get 'order_express_ajax/:item_id', to: 'express#order_express_ajax', as: :order_express_ajax
+  get 'order_express/:item_id/:courier_number', to: 'express#order_express', as: :order_express
+  get 'order_express_ajax/:item_id/:courier_number', to: 'express#order_express_ajax', as: :order_express_ajax
   get 'order_express_ajax', to: 'express#order_express_ajax', as: :order_express_ajax_get
 
 

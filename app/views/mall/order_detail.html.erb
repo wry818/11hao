@@ -2,40 +2,40 @@
 
   <div class="order_wrapper">
 
-		<% if !@the_order.campaign.used_as_default? %>
-    <div class="order_content">
-      <p>
-        <% if @the_order.campaign.campaign_logo %>
-            <%= cl_image_tag @the_order.campaign.campaign_logo.image_id,
-                             transformation: [
+    <% if !@the_order.campaign.used_as_default? %>
+        <div class="order_content">
+          <p>
+            <% if @the_order.campaign.campaign_logo %>
+                <%= cl_image_tag @the_order.campaign.campaign_logo.image_id,
+                                 transformation: [
                                      {
-                                             width: @the_order.campaign.campaign_logo.crop_width,
-                                             height: @the_order.campaign.campaign_logo.crop_height,
-                                             x: @the_order.campaign.campaign_logo.crop_x,
-                                             y: @the_order.campaign.campaign_logo.crop_y,
-                                             crop: :crop
+                                         width: @the_order.campaign.campaign_logo.crop_width,
+                                         height: @the_order.campaign.campaign_logo.crop_height,
+                                         x: @the_order.campaign.campaign_logo.crop_x,
+                                         y: @the_order.campaign.campaign_logo.crop_y,
+                                         crop: :crop
                                      }
-                             ], style: "max-width:120px; max-height:100px;" %>
-        <% else %>
-            <%= image_tag 'crown.png', style: "width:120px;" %>
-        <% end %>
-      </p>
+                                 ], style: "max-width:120px; max-height:100px;" %>
+            <% else %>
+                <%= image_tag 'crown.png', style: "width:120px;" %>
+            <% end %>
+          </p>
 
-      <div class="right_content">
-        <div class="title" style="font-size:16px; max-height:44px; overflow:hidden;">
-          <%= @the_order.campaign.title %>
-        </div>
-        <div class="detail" style="margin-top:5px;">
-          <div>
-            数量：<%= @the_order.num_items %>
+          <div class="right_content">
+            <div class="title" style="font-size:16px; max-height:44px; overflow:hidden;">
+              <%= @the_order.campaign.title %>
+            </div>
+            <div class="detail" style="margin-top:5px;">
+              <div>
+                数量：<%= @the_order.num_items %>
+              </div>
+              <div>
+                总价：￥<%= long_price(@the_order.grandtotal.to_f/100) %>
+              </div>
+            </div>
           </div>
-          <div>
-            总价：￥<%= long_price(@the_order.grandtotal.to_f/100) %>
-          </div>
         </div>
-      </div>
-    </div>
-		<% end %>
+    <% end %>
 
     <div class="order_content">
       <p>
@@ -94,45 +94,47 @@
         </div>
 
     <% end %>
-		
-		<% if @the_order.needs_shipping %>
-	    <p style="margin-top:20px">
-	      邮寄地址
-	    </p>
 
-	    <small>
-	      <%= @the_order.address_fullname %>  <%= @the_order.phone_number %>
-	      <br/>
-	      <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
-	    </small>
-        <% if @items_express.values.count>0 %>
+    <% if @the_order.needs_shipping %>
         <p style="margin-top:20px">
-          物流信息
+          邮寄地址
         </p>
 
-        <% @items_express.values.each do |item| %>
-            <% if item.courier_number %>
-                <div class="item_content">
-                  <small>
-                    承运来源：<%= item.express %>
-                    <br/>
-                    运单编号：<%= item.courier_number %>
-                  </small>
-                  <small style="float: right; margin-top: 5px;">
-                    <%= link_to "查看物流", order_express_path(item.id),class: "btn btn-default btn-sm" %>
-                  </small>
-                </div>
+        <small>
+          <%= @the_order.address_fullname %>  <%= @the_order.phone_number %>
+          <br/>
+          <%= @the_order.address_state %> <%= @the_order.address_city %> <%= @the_order.address_city_area %> <%= @the_order.address_line_one %> <%= @the_order.address_postal_code %>
+        </small>
+        <% if @items_express.values.count>0 %>
+            <p style="margin-top:20px">
+              物流信息
+            </p>
+
+            <% @items_express.values.each do |item| %>
+                <% if item.courier_number %>
+                    <% item.courier_numbers.each do |n| %>
+                        <div class="item_content">
+                          <small>
+                            承运来源：<%= item.express %>
+                            <br/>
+                            运单编号：<%= n %>
+                          </small>
+                          <small style="float: right; margin-top: 5px;">
+                            <%= link_to "查看物流", order_express_path(item.id, n), class: "btn btn-default btn-sm" %>
+                          </small>
+                        </div>
+                    <% end %>
+                <% end %>
             <% end %>
         <% end %>
-        <% end %>
-		<% end %>
+    <% end %>
 
   </div>
 
 </div>
 
 <script>
-$(document).ready(function () {
-	document.title = "我的订单";
-});
+  $(document).ready(function () {
+    document.title = "我的订单";
+  });
 </script>

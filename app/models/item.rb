@@ -18,7 +18,11 @@ class Item < ActiveRecord::Base
             ''
       end
     end
-    
+
+    def courier_numbers
+      self.courier_number.split(/[,，]/)
+    end
+
     def delivery_method_text
       case self.delivery_method
         when 1
