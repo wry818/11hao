@@ -20,7 +20,11 @@ class Item < ActiveRecord::Base
     end
 
     def courier_numbers
-      self.courier_number.split(/[,，]/)
+      if self.courier_number
+        self.courier_number.split(/[,，]/)
+      else
+        Array.new
+      end
     end
 
     def delivery_method_text
