@@ -222,7 +222,6 @@
         type: 'POST',
         data: $form.serialize(),
         beforeSend: function (jqXHR, settings) {
-          alert(111);
           jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
