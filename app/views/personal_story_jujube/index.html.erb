@@ -80,12 +80,13 @@
 
         <% if @supporters.count>0 %>
             <p style="color:#888; margin:10px 0px;">感谢所有朋友的爱心</p>
+
             <div class="avatar-container" style="overflow:hidden; height:48px; position:relative;">
               <% @supporters.each do |s| %>
-                  <% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+                  <% if s.avatar_url && s.avatar_url.to_s.gsub(' ', '').length>0 %>
                       <img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;"/>
-                  <%else %>
-                      <%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
+                  <% else %>
+                      <%= image_tag 'weixin_default.jpg', :class => "img-rounded", :style => "border-radius:24px; width:48px; height:48px;" %>
                   <% end %>
               <% end %>
 
@@ -168,7 +169,7 @@
         <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">义卖已结束, 感谢您的支持!</span>
       </button>
   <% else %>
-      <button type="button" class="btn btn-primary add-to-order" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
+      <button type="button" id="buy_now" class="btn btn-primary" style="border-radius:4px; box-shadow: 1px 1px 1px #888;">
         <span class="glyphicon glyphicon-heart-empty"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">立即购买 </span>
         <span class="loader" style="display:none"></span>
       </button>
@@ -186,18 +187,18 @@
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>
 <form id="form-post-cart">
-<input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
-<input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
-<input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
-<input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
+  <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
+  <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
+  <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+  <input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
 </form>
 
 <div id="checkout-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="checkout-modal" aria-hidden="true">
-  <!--<%= render 'shop/cart_modal', parent_page: :product %>-->
+
 </div>
 <script language="javascript" type="text/javascript">
 
-  $('.add-to-order').on('click', function (e) {
+  $('#buy_now').on('click', function (e) {
     $("#is_add_to_cart").val("0");
 
     addOrderItem(this);
@@ -205,7 +206,7 @@
   function addOrderItem(btn) {
     var errors = false;
     var $this = $(btn);
-    var $form=$("#form-post-cart");
+    var $form = $("#form-post-cart");
 //    var $form = $this.parents('form.product-form');
 //    $form.find('.required').each(function (index, element) {
 //      $element = $(element)
@@ -221,6 +222,7 @@
         type: 'POST',
         data: $form.serialize(),
         beforeSend: function (jqXHR, settings) {
+          alert(111);
           jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
@@ -292,11 +294,11 @@
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
         link: "<%= request.original_url %>",
-        img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_20.jpg' %>",
+        img_url: "<%= request.protocol + request.host_with_port + '/images/jujube/p_11.jpg' %>",
         img_width: "415",
         img_height: "399",
-        desc: "一个是只有'头'和'胳膊'可以活动的高位截瘫的母亲, 一个是22个月大的嗷嗷待哺的孩子, 他们正艰难地活着...",
-        title: "为幼儿瘫母撑起希望"
+        desc: "买红枣，就是买爱心，不仅仅是实惠，更是一份心意……",
+        title: "紧急救助大山枣农， 纯天然有机黄河滩枣，源头低价义卖！"
       };
 
       wx.config({

@@ -5,16 +5,17 @@ class PersonalStoryJujubeController < ApplicationController
   def index
     @is_wechat_browser = is_wechat_browser?
     @progress_percent = @campaign.progress_percent
-
+    session[:is_personal]=true
     if is_wechat_browser?
 
       weixin_get_user_info()
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       # weixin_payment_init(@order)
-      #weixin_address_init()
+      weixin_address_init()
 
     end
     load_supporters
+
   end
   def weixin_get_user_info()
 
@@ -67,8 +68,11 @@ class PersonalStoryJujubeController < ApplicationController
   def manage_session_order
     @campaign = Campaign.find_by_slug("jjjzdszn-ctryjhhtz-ytdjym")
     @product=@campaign.collection.products.first
+    @order = Order.find_by_id(session[:order_id])
+
     unless @order && @order.campaign_id == @campaign.id && @order.status == 0
       @order = Order.new
+      session[:order_id] = @order.id
     end
   end
 

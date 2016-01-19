@@ -18,7 +18,11 @@
 								<p>简单公益，只因有你。</p>
                                 <p>如果您有任何疑问, 请联系11号公益圈。</p>
                                 <p style="margin-top:30px;">
-                                    <%= link_to "返回筹款团队首页", short_campaign_path(@campaign), class: 'btn btn-primary' %>
+                                  <% if @is_personal%>
+                                    <%= link_to "返回支持页面",personal_story_jujube_index_path, class: 'btn btn-primary' %>
+                                  <%else%>
+                                      <%= link_to "返回筹款团队首页", short_campaign_path(@campaign), class: 'btn btn-primary' %>
+                                  <% end %>
                                 </p>
                             </div>
 
