@@ -122,6 +122,7 @@ Raisy::Application.routes.draw do
     resources :organizations
     resources :campaigns, except: [:show]
 
+    #personal_story
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
     get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
     get 'personal_story/refresh', to: 'personal_story#refresh', as: :personal_story_refresh
@@ -130,6 +131,7 @@ Raisy::Application.routes.draw do
     post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
     get ':id/confirmation_personal', to: 'personal_story#show_confirmation', as: :show_confirmation_personal
 
+    get 'checkout/supportjujube', to: 'personal_story_jujube#index', as: :personal_story_jujube_index
 
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup

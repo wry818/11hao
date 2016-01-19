@@ -485,7 +485,11 @@ class ShopController < ApplicationController
     end
 
     def checkout
-      
+      if session[:is_personal]
+        @is_personal=session[:is_personal]
+      else
+        @is_personal=false
+      end
       if params[:direct_donation]
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
@@ -1034,6 +1038,12 @@ class ShopController < ApplicationController
     end
     
     def show_confirmation
+      if session[:is_personal]
+        @is_personal=session[:is_personal]
+      else
+        @is_personal=false
+      end
+
       if session[:confirm_order_id]
         @order = Order.find_by_id(session[:confirm_order_id])
         
