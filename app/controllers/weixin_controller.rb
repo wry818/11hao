@@ -13,7 +13,7 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
-              name: "紧急救助大山枣农， 纯天然有机黄河滩枣，源头低价义卖！",
+              name: "紧急救助大山枣农， 纯天然...",
               url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
             },
             {
