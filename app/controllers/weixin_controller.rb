@@ -5,12 +5,17 @@ class WeixinController < ApplicationController
   def menu
     
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    
+   
     menu = {
       button: [
         {
           name: "筹款活动",
           sub_button: [
+            {
+              type: "view",
+              name: "紧急救助大山枣农， 纯天然有机黄河滩枣，源头低价义卖！",
+              url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
+            },
             {
               type: "view",
               name: "太阳花盛放",
@@ -25,11 +30,6 @@ class WeixinController < ApplicationController
               type: "view",
               name: "聚力成石，铺就未来",
               url: "http://www.11haoonline.com/1429755460"
-            },
-            {
-              type: "view",
-              name: "加油吧“天使”",
-              url: "http://www.11haoonline.com/tswd"
             },
             {
               type: "view",
