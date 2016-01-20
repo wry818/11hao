@@ -13,6 +13,11 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
+              name: "紧急救助大山枣农， 纯天然...",
+              url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
+            },
+            {
+              type: "view",
               name: "太阳花盛放",
               url: "http://www.11haoonline.com/tyhsf"
             },
@@ -25,11 +30,6 @@ class WeixinController < ApplicationController
               type: "view",
               name: "聚力成石，铺就未来",
               url: "http://www.11haoonline.com/1429755460"
-            },
-            {
-              type: "view",
-              name: "加油吧“天使”",
-              url: "http://www.11haoonline.com/tswd"
             },
             {
               type: "view",
