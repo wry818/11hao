@@ -2377,7 +2377,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     animation: 1s ease 1s normal forwards 1 running slideup;
     margin: 0 auto;
     top: 5%;
-    background-color: white;
 }
 .main_personal_red_pack .coupon-img, .coupon-inner . {
 
@@ -2389,7 +2388,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     height: auto;
     bottom: 14%;
     z-index: 13;
-    opacity: 0.75;
+    opacity: 1;
 }
 .main_personal_red_pack .expired-img, .over-img, .used-img {
     top: 2.7rem;

@@ -1,17 +1,16 @@
 <article class="main_personal_red_pack">
   <div class="bg">
-    <img class="bg-img" src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/ambassador/bg-2.jpg?s=1431504207">
+    <%= image_tag "bg-2.jpg",:class => "bg-img" %>
   </div>
   <header class="promo clearfix">
     <div class="sender-info">
       <div class="sender-avatar">
-        <img  src="http://wx.qlogo.cn/mmopen/5dI1tod3IzjjRXIbzU3JNnhCuUtd9pFYswicojM22xjdEdvBBdmOf9p6xy3B56Ny0HEclRfg0y7fwt9pHjbBqpWMk39qNAXT0/0">
+        <%= image_tag "yqj_icon_head.jpg" %>
       </div>
-      <div class="sender-name">雪夜</div>
+      <div style="text-align: center;color: #9f7533;">雪夜</div>
     </div>
     <div class="bubble">
-      <img src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/redpacket/bubble.png?s=1433230425">
-
+      <%= image_tag "bubble.png" %>
       <div class="promo-text">
         我从小红书领到<em class="bonus">10</em>个大礼包<br>
         送给你~可免费兑换一次<br>
@@ -21,12 +20,9 @@
   </header>
 
   <section class="coupon-anime">
-    <img class="coupon-pocket" src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/redpacket/envelope-1.png?s=1449892017">
-
+    <%= image_tag "envelope-1.png",:class => "coupon-pocket"%>
     <div class="coupon-inner">
-      <img class="coupon-img" src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/redpacket/coupon.png?s=1433230425">
-      <img class="over-img" id="over_img" src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/redpacket/over.png?s=1433230425" style="display:none;">
-
+      <%= image_tag "coupon.png",:class => "coupon-img"%>
       <div class="coupon j_coupon">
         <div  style="text-align: center;">?元</div>
         <div style="text-align: center;">现金</div>
@@ -39,6 +35,6 @@
     </div>
   </section>
   <div class="cloud">
-    <img class="cloud-img" src="http://s4.xiaohongshu.com/gw/static/public/img/mobile/ambassador/cloud.png?s=1430293786">
+    <%= image_tag "cloud.png",:class => "cloud-img"%>
   </div>
 </article>
