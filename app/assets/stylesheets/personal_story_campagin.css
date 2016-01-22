@@ -2400,7 +2400,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 .main_personal_red_pack .use-coupon {
      position: relative;
-     width: 20rem;
+     width: 400px;
      height: 4.4rem;
      line-height: 4.4rem;
      margin: 0 auto;
@@ -2410,4 +2410,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
  }
 .main_personal_red_pack .use-coupon .btn-text {
   text-align: center;
+    color: white;
+    font-family: sans-serif;
 }
