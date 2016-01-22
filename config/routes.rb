@@ -125,6 +125,9 @@ Raisy::Application.routes.draw do
     #personal_story
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
     post 'ajax/personal_campagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
+
+    get 'checkout/supportcampagin_red', to: 'personal_story_campagin#index_red_pack', as: :personal_story_campagin_index_red_pack
+
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
     get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
     get 'personal_story/refresh', to: 'personal_story#refresh', as: :personal_story_refresh
