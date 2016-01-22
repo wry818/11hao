@@ -1,0 +1,2 @@
+module PersonalStoryCampaginHelper
+end
