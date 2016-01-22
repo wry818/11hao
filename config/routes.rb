@@ -123,8 +123,8 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
     #personal_story
-    get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
-    post 'ajax/personal_campagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
+    get 'checkout/supportnycampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
+    post 'ajax/supportnycampagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
 
     get 'checkout/supportcampagin_red', to: 'personal_story_campagin#index_red_pack', as: :personal_story_campagin_index_red_pack
 
