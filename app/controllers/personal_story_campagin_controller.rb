@@ -3,6 +3,10 @@ class PersonalStoryCampaginController < ApplicationController
   def index
 
   end
+
+  def index_red_pack
+
+  end
   # ajax_supporters
   def supporters
 
