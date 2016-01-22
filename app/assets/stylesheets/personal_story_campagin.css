@@ -89,7 +89,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .cpm-dialog .icon-load, .cpm-dialog .i-delete:before {
-    background: url("/assets/images/loading.gif") no-repeat
+    background: url("loading.gif") no-repeat
 }
 
 .cpm-dialog-load .dialog-bd {
@@ -2200,7 +2200,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     display: inline-block;
     width: 47px;
     height: 14px;
-    background: url(null.png) no-repeat;
+
     background-size: 47px 14px;
     vertical-align: middle;
 }
