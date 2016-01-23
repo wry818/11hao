@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "redpack" %>
 <article class="main_personal_red_pack">
   <div class="bg">
-    <%= image_tag "bg-2.jpg",:class => "bg-img" %>
+    <%= image_tag "bg-2.jpg", :class => "bg-img" %>
   </div>
   <header class="promo clearfix">
     <div class="sender-info">
@@ -14,17 +14,17 @@
       <%= image_tag "bubble.png" %>
       <div class="promo-text">
         谢谢支持，你的红包可以通过11号公益圈公众账号->
-       “我的红包”<br> 领取
+        “我的红包” 领取
       </div>
     </div>
   </header>
 
   <section class="coupon-anime">
-    <%= image_tag "envelope-1.png",:class => "coupon-pocket"%>
+    <%= image_tag "envelope-1.png", :class => "coupon-pocket" %>
     <div class="coupon-inner">
-      <%= image_tag "coupon.png",:class => "coupon-img"%>
+      <%= image_tag "coupon.png", :class => "coupon-img" %>
       <div class="coupon j_coupon">
-        <div  style="text-align: center;">?元</div>
+        <div style="text-align: center;">?元</div>
         <div style="text-align: center;">现金</div>
       </div>
     </div>
@@ -35,7 +35,16 @@
     </div>
   </section>
   <div class="cloud">
-    <%= image_tag "cloud.png",:class => "cloud-img"%>
+    <%= image_tag "cloud.png", :class => "cloud-img" %>
   </div>
 </article>
 <%= render "redpack" %>
+<%= render "yqj_result_share" %>
+
+<script type="text/javascript">
+  $(function () {
+    $("div.btn-text").bind('click', function () {
+      $("#yqj_result_shareModal").modal('show');
+    });
+  });
+</script>
