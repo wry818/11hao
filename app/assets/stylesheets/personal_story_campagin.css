@@ -317,7 +317,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .detail .time_info .title {
     font-size: 18px;
-    color: # #f26123;
+    color: #f26123;
     margin-bottom: 8px;
     font-family: "Microsoft Yahei";
 }
@@ -2095,12 +2095,12 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .detail .profile .pro_tit strong {
     font-weight: normal;
-    color: # #f26123;
+    color: #f26123;
 }
 
 .detail .profile .pro_tit_left {
     float: left;
-    color: # #f26123;
+    color: #f26123;
 }
 
 .detail .profile .pro_tit_right {
@@ -2114,7 +2114,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 
 .detail .profile strong {
     font-weight: normal;
-    color: # #f26123;
+    color: #f26123;
 }
 
 .detail .profile .eqj_ongoing h4 {
@@ -2159,7 +2159,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     float: right;
     text-align: right;
     font-size: 12px;
-    color: # #f26123;
+    color: #f26123;
     margin-top: 3px;
 }
 
