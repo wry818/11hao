@@ -131,7 +131,7 @@ button{border: none;}
     position: relative;
     width: 17.1rem;
     height: 19.3rem;
-    animation: 1s ease 1s normal forwards 1 running;
+    /*animation: 1s ease 1s normal forwards 1 running;*/
     margin: 0 auto;
     top: 5%;
 }
