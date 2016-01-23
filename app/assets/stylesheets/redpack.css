@@ -12,8 +12,8 @@ button{border: none;}
 /*按钮*/
 .t-btn{padding: 10px;text-align: center;}
 .t-btn>button{width: 60%; margin: 0px auto; background: #ff4242; border-radius: 5px; color: #fff; line-height: 40px; font-size: 14px;}
-.redpack{background-image: url("red-w.png");}
-.redpacky{background-image: url("red-y.png");}
+.redpack{background-image: url(red-w.png);}
+.redpacky{background-image: url(red-y.png);}
 .modal-content {
      border:none;
      -webkit-box-shadow:none;
@@ -131,14 +131,10 @@ button{border: none;}
     position: relative;
     width: 17.1rem;
     height: 19.3rem;
-    animation: 1s ease 1s normal forwards 1 running slideup;
+    animation: 1s ease 1s normal forwards 1 running;
     margin: 0 auto;
     top: 5%;
 }
-.main_personal_red_pack .coupon-img, .coupon-inner . {
-
-}
-
 .main_personal_red_pack .coupon-img, .coupon-inner .coupon {
     position: absolute;
     width: 100%;
