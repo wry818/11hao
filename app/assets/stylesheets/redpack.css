@@ -19,3 +19,154 @@ button{border: none;}
      -webkit-box-shadow:none;
      box-shadow:none;
 }
+
+/*redpack*/
+.main_personal_red_pack{
+    position: relative;
+    overflow: hidden;
+}
+.main_personal_red_pack .bg {
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+.main_personal_red_pack .promo {
+    position: relative;
+    height: auto;
+    padding-top: 57px;
+    margin: 0 28px;
+}
+.main_personal_red_pack .promo .bubble {
+    position: relative;
+    float: right;
+    width: 20.4rem;
+    height: 8.2rem;
+}
+.main_personal_red_pack .clearfix:after {
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+.main_personal_red_pack .promo .sender-info {
+    position: relative;
+    float: left;
+    width: 6.8rem;
+}
+.main_personal_red_pack .promo .sender-avatar {
+    position: relative;
+    margin: 0 auto .6rem;
+    width: 5.6rem;
+    height: 5.6rem;
+    background-color: #fff;
+    border-radius: 2.8rem;
+}
+.main_personal_red_pack .promo .sender-avatar img {
+    display: block;
+    position: absolute;
+    width: 83px;
+    height: 83px;
+    top: .2rem;
+    left: .2rem;
+    border-radius: 41px;
+}
+.main_personal_red_pack .bubble {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dddddd;
+    border-radius: 5px;
+}
+.main_personal_red_pack .coupon-anime {
+    position: relative;
+    width: 100%;
+    height: 26.3rem;
+    margin-top: 1rem;
+    z-index: 10;
+}
+.main_personal_red_pack .bubble .promo-text {
+    position: relative;
+    margin: .6rem 0 0 1.5rem;
+    font-size: 18px;
+    line-height: 150%;
+    color: #363636;
+    z-index: 10;
+}
+.main_personal_red_pack .promo .bubble img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 5px;
+    top: 3px;
+}
+.main_personal_red_pack .bubble .promo-text .bonus {
+    color: #f14567;
+}
+.main_personal_red_pack .coupon-anime {
+    position: relative;
+    width: 100%;
+    height: 26.3rem;
+    margin-top: 1rem;
+    z-index: 10;
+}
+.main_personal_red_pack .coupon-anime .coupon-pocket {
+    position: absolute;
+    width: 18.3rem;
+    height: 11.9rem;
+    left: 50%;
+    -webkit-transform: translate3D(-50%,0,0);
+    -ms-transform: translate3D(-50%,0,0);
+    transform: translate3D(-50%,0,0);
+    bottom: .6rem;
+    z-index: 15;
+}
+.main_personal_red_pack .coupon-img, .coupon-inner {
+    position: relative;
+    width: 17.1rem;
+    height: 19.3rem;
+    animation: 1s ease 1s normal forwards 1 running slideup;
+    margin: 0 auto;
+    top: 5%;
+}
+.main_personal_red_pack .coupon-img, .coupon-inner . {
+
+}
+
+.main_personal_red_pack .coupon-img, .coupon-inner .coupon {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 14%;
+    z-index: 13;
+    opacity: 1;
+}
+.main_personal_red_pack .expired-img, .over-img, .used-img {
+    top: 2.7rem;
+    transform: translate3d(-50%,0,0);
+    width: 8rem;
+    height: 2.5rem;
+    z-index: 12;
+    opacity: 0;
+}
+.main_personal_red_pack .use-coupon {
+    position: relative;
+    width: 400px;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    background-color: #f14567;
+    border-radius: .5rem;
+}
+.main_personal_red_pack .use-coupon .btn-text {
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+}

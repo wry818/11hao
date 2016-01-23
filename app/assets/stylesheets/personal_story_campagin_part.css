@@ -1,0 +1,1023 @@
+
+.donation_bg_wrap {
+    display: block;
+    height: 267px
+}
+
+.donation_bg {
+    display: block;
+    width: 280px;
+    height: 267px;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    margin-left: -160px;
+    top: 0;
+
+    background-color: white;
+    background-size: 280px 267px
+}
+
+.people_wrap {
+    position: absolute;
+    display: block;
+    width: 280px;
+    top: 85px;
+    left: 0
+}
+
+.people_wrap .person {
+    display: block;
+    height: 103px;
+    width: 37px;
+
+    background-color: white;
+    background-size: 238px 228px;
+    position: absolute;
+    z-index: 1
+}
+
+.people_wrap .person_1 {
+    height: 103px;
+    width: 37px;
+    left: 100px;
+    top: 1px;
+    z-index: 2
+}
+
+.people_wrap .person_2 {
+    height: 84px;
+    width: 30px;
+    left: 44px;
+    top: 36px;
+    background-size: 210px 190px;
+    background-position: 0 -105px;
+    -webkit-transform: rotate(-6deg);
+    -webkit-transform-origin: 0 0
+}
+
+.people_wrap .person_3 {
+    height: 103px;
+    width: 37px;
+    left: 202px;
+    top: 3px;
+    -webkit-transform: rotate(5deg);
+    -webkit-transform-origin: 50% 0;
+    z-index: 2
+}
+
+.people_wrap .person_4 {
+    height: 84px;
+    width: 30px;
+    left: 254px;
+    top: 36px;
+    background-size: 210px 190px;
+    background-position: 0 -105px;
+    -webkit-transform: rotate(14deg);
+    -webkit-transform-origin: 50% 0
+}
+
+.people_wrap .person_5 {
+    height: 90px;
+    width: 34px;
+    opacity: .6;
+    left: 68px;
+    top: 14px;
+    background-size: 220px 200px;
+    background-position: 0 -110px;
+    -webkit-transform: rotate(-2deg);
+    -webkit-transform-origin: 0 0
+}
+
+.people_wrap .person_6 {
+    height: 90px;
+    width: 34px;
+    opacity: .6;
+    left: 126px;
+    top: 0;
+    background-size: 220px 200px;
+    background-position: 0 -110px
+}
+
+.people_wrap .person_7 {
+    height: 90px;
+    width: 34px;
+    opacity: .6;
+    left: 179px;
+    top: 0;
+    background-size: 220px 200px;
+    background-position: 0 -110px
+}
+
+.people_wrap .person_8 {
+    height: 90px;
+    width: 34px;
+    opacity: .6;
+    left: 230px;
+    top: 14px;
+    background-size: 220px 200px;
+    background-position: 0 -110px;
+    -webkit-transform: rotate(2deg);
+    -webkit-transform-origin: 0 0
+}
+
+@-webkit-keyframes a_person {
+    0% {
+        -webkit-transform: translate(0, 0)
+    }
+    25% {
+        -webkit-transform: translate(2px, 1px)
+    }
+    50% {
+        -webkit-transform: translate(0px, 0px)
+    }
+    75% {
+        -webkit-transform: translate(-2, -2px)
+    }
+    100% {
+        -webkit-transform: translate(0, 0)
+    }
+}
+
+@-webkit-keyframes a_person_1 {
+    0% {
+        -webkit-transform: rotate(5deg) translate(0, 0)
+    }
+    25% {
+        -webkit-transform: rotate(5deg) translate(2px, 1px)
+    }
+    50% {
+        -webkit-transform: rotate(5deg) translate(0px, 0px)
+    }
+    75% {
+        -webkit-transform: rotate(5deg) translate(-2, -2px)
+    }
+    100% {
+        -webkit-transform: rotate(5deg) translate(0, 0)
+    }
+}
+
+.donation_box {
+    display: block;
+    width: 126px;
+    height: 96px;
+    background: url(yqj_anim_sprite_24.png) no-repeat 0 -66px;
+    background-size: 130px 95px;
+    position: absolute;
+    left: 100px;
+    top: 135px;
+    z-index: 3;
+    -webkit-animation: a_donation_box 2s linear infinite;
+    -webkit-transform-origin: 50% 100%
+}
+
+.donation_box:after {
+    content: "";
+    display: block;
+    height: 68px;
+    width: 126px;
+    background: #c7220e;
+    position: absolute;
+    left: 0;
+    top: 27px;
+    z-index: 1
+}
+
+@-webkit-keyframes a_donation_box {
+    0% {
+        -webkit-transform: scale(1, 1)
+    }
+    50% {
+        -webkit-transform: scale(1, 1)
+    }
+    55% {
+        -webkit-transform: scale(1.02, 0.97)
+    }
+    60% {
+        -webkit-transform: scale(0.98, 1)
+    }
+    65% {
+        -webkit-transform: scale(1.02, 1)
+    }
+    70% {
+        -webkit-transform: scale(1, 1)
+    }
+    100% {
+        -webkit-transform: scale(1, 1)
+    }
+}
+
+.box_shadow {
+    display: block;
+    height: 42px;
+    width: 165px;
+    background: #e3ddce;
+    border-radius: 82px/21px;
+    position: absolute;
+    left: 80px;
+    top: 204px;
+    z-index: 2;
+    -webkit-animation: a_donation_box 2.6s linear infinite
+}
+
+.donation_box .heart {
+    display: block;
+    height: 61px;
+    width: 85px;
+    background: url(yqj_anim_sprite_8.png) no-repeat -96px -125px;
+    background-size: 238px 228px;
+    position: absolute;
+    left: 20px;
+    top: 32px;
+    z-index: 2
+}
+
+.donation_box .heart:before {
+    content: "";
+    display: block;
+    height: 61px;
+    width: 85px;
+    background: url(yqj_anim_sprite_8.png) no-repeat -96px -125px;
+    background-size: 238px 228px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    -webkit-animation: a_box_heart 1.6s linear infinite;
+    z-index: 2
+}
+
+@-webkit-keyframes a_box_heart {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(1)
+    }
+    40% {
+        opacity: 0;
+        -webkit-transform: scale(1)
+    }
+    60% {
+        opacity: .5;
+        -webkit-transform: scale(1)
+    }
+    80% {
+        opacity: .5;
+        -webkit-transform: scale(1.2)
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(1.2)
+    }
+}
+
+.donation_box .donation_txt {
+    display: block;
+    height: 21px;
+    width: 68px;
+    background: url(yqj_anim_sprite_24.png) no-repeat 0 -42px;
+    background-size: 130px 95px;
+    position: absolute;
+    left: 27px;
+    top: 48px;
+    text-indent: -9999px;
+    overflow: hidden;
+    z-index: 3
+}
+
+.main_person .person_body {
+    display: block;
+    height: 10px;
+    width: 29px;
+    background: #f9c29c;
+    position: absolute;
+    left: 153px;
+    top: 132px;
+    z-index: 1
+}
+
+.main_person .person {
+    display: block;
+    height: 67px;
+    width: 54px;
+    background: url(yqj_anim_sprite_8.png) no-repeat -39px -125px;
+    background-size: 238px 228px;
+    position: absolute;
+    left: 137px;
+    top: 68px;
+    z-index: 3
+}
+
+.main_person .person .donation_heart {
+    display: block;
+    height: 44px;
+    width: 45px;
+    position: absolute;
+    left: 4px;
+    top: 40px;
+    overflow: hidden;
+    -webkit-transition: opacity .3s linear;
+    opacity: 1
+}
+
+.main_person .person .donation_heart .heart {
+    display: block;
+    height: 44px;
+    width: 45px;
+    background: url(yqj_anim_sprite_24.png) no-repeat -85px 0;
+    background-size: 130px 95px;
+    position: absolute;
+    left: 0;
+    top: 6px;
+    -webkit-animation: a_person_heart 2s linear infinite;
+    -webkit-transform-origin: 50% 0
+}
+
+@-webkit-keyframes a_person_heart {
+    0% {
+        -webkit-transform: rotate(-20deg) scale(0.24) translate(14px, -20px);
+        opacity: 0
+    }
+    20% {
+        -webkit-transform: translate(0, 0);
+        opacity: 1
+    }
+    30% {
+        -webkit-transform: translate(0, -2px)
+    }
+    80% {
+        -webkit-transform: translate(0, 100px);
+        opacity: 0
+    }
+    100% {
+        -webkit-transform: rotate(-20deg) scale(0.24) translate(52px, -80px);
+        opacity: 0
+    }
+}
+
+.main_person .person .hand_1 {
+    display: block;
+    height: 10px;
+    width: 30px;
+    background: #f9c29c;
+    box-shadow: -1px 0 1px rgba(0, 0, 0, 0.2);
+    border-radius: 15px/5px;
+    position: absolute;
+    left: -13px;
+    top: 30px;
+    -webkit-transform: rotate(-50deg);
+    -webkit-transform: rotate(-117deg) scale(0.75, 1);
+    -webkit-transform-origin: 100% 50%;
+    -webkit-animation: a_hand_1 2s linear infinite
+}
+
+.main_person .person .hand_2 {
+    display: block;
+    height: 10px;
+    width: 30px;
+    background: #f9c29c;
+    box-shadow: -1px 0 1px rgba(0, 0, 0, 0.2);
+    border-radius: 15px/5px;
+    position: absolute;
+    left: 14px;
+    top: 30px;
+    -webkit-transform: rotate(-95deg);
+    -webkit-transform: rotate(-63deg) scale(0.75, 1);
+    -webkit-transform-origin: 100% 50%;
+    -webkit-animation: a_hand_2 2s linear infinite
+}
+
+@-webkit-keyframes a_hand_1 {
+    0% {
+        -webkit-transform: rotate(-117deg) scale(0.75, 1)
+    }
+    20% {
+        -webkit-transform: rotate(-50deg) scale(1, 1)
+    }
+}
+
+@-webkit-keyframes a_hand_2 {
+    0% {
+        -webkit-transform: rotate(-63deg) scale(0.75, 1)
+    }
+    20% {
+        -webkit-transform: rotate(-95deg) scale(1, 1)
+    }
+}
+
+.donation_con {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -160px;
+    z-index: 1;
+    text-align: center;
+    width: 280px;
+    color: #ff6713;
+    font-size: 16px;
+    -webkit-transition: top .15s ease
+}
+
+.donation_con .sub_txt {
+    color: #6a6561;
+    margin-top: 3px;
+    -webkit-transition: opacity .3s linear
+}
+
+.donated_wrap .donation_box .donation_txt {
+    display: block;
+    height: 40px;
+    width: 82px;
+    background: url(yqj_anim_sprite_24.png) no-repeat 0 0;
+    background-size: 130px 95px;
+    position: absolute;
+    left: 24px;
+    top: 40px;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+@-webkit-keyframes a_donation_txt {
+    0% {
+        -webkit-transform: scale(5);
+        opacity: .2
+    }
+    98% {
+        -webkit-transform: scale(0.6);
+        opacity: 1
+    }
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1
+    }
+}
+
+.donated_wrap .donation_con {
+    top: 16px
+}
+
+.donated_wrap .donation_con .sub_txt {
+    opacity: 0
+}
+
+.donated_wrap .donation_box {
+    -webkit-animation: none
+}
+
+.donated_wrap .box_shadow {
+    -webkit-animation: none
+}
+
+.donated_wrap .main_person .person .donation_heart .heart {
+    opacity: 0;
+    -webkit-animation: none
+}
+
+.donated_wrap .main_person .person .hand_1 {
+    left: -13px;
+    top: 32px;
+    -webkit-animation: a_donated_hand_1 2.6s linear infinite
+}
+
+.donated_wrap .main_person .person .hand_2 {
+    left: 14px;
+    top: 32px;
+    -webkit-animation: a_donated_hand_2 2.6s linear infinite
+}
+
+@-webkit-keyframes a_donated_hand_1 {
+    0% {
+        -webkit-transform: rotate(-117deg) scale(0.75, 1)
+    }
+    20% {
+        -webkit-transform: rotate(-340deg) scale(1, 1)
+    }
+    40% {
+        -webkit-transform: rotate(-117deg) scale(0.75, 1)
+    }
+}
+
+@-webkit-keyframes a_donated_hand_2 {
+    0% {
+        -webkit-transform: rotate(-63deg) scale(0.75, 1)
+    }
+    20% {
+        -webkit-transform: rotate(180deg) scale(1, 1)
+    }
+    40% {
+        -webkit-transform: rotate(-63deg) scale(0.75, 1)
+    }
+}
+
+.donated_wrap .main_person .person .salvo_wrap .salvo_1 {
+    display: block;
+    height: 60px;
+    width: 238px;
+    background: url(yqj_anim_sprite_8.png) no-repeat 0 0;
+    background-size: 238px 228px;
+    position: absolute;
+    left: -90px;
+    top: -16px;
+    -webkit-transform-origin: 50% 100%;
+    -webkit-animation: a_salvo_1 2.6s linear infinite;
+    opacity: 0
+}
+
+.donated_wrap .main_person .person .salvo_wrap .salvo_2 {
+    display: block;
+    height: 60px;
+    width: 238px;
+    background: url(yqj_anim_sprite_8.png) no-repeat 0 -62px;
+    background-size: 238px 228px;
+    position: absolute;
+    left: -90px;
+    top: -16px;
+    -webkit-transform-origin: 50% 100%;
+    -webkit-animation: a_salvo_1 2.6s .15s linear infinite;
+    opacity: 0
+}
+
+@-webkit-keyframes a_salvo_1 {
+    0% {
+        -webkit-transform: scale(0.1);
+        opacity: 0
+    }
+    20% {
+        -webkit-transform: scale(1) translate(0, 0);
+        opacity: 1
+    }
+    30% {
+        -webkit-transform: scale(1) translate(-2px, 3px);
+        opacity: 1
+    }
+    40% {
+        -webkit-transform: scale(1) translate(2px, 6px);
+        opacity: 1
+    }
+    50% {
+        -webkit-transform: scale(1) translate(-2px, 9px);
+        opacity: 1
+    }
+    60% {
+        -webkit-transform: scale(1) translate(2px, 12px);
+        opacity: .8
+    }
+    70% {
+        -webkit-transform: scale(1) translate(-1px, 15px);
+        opacity: .8
+    }
+    80% {
+        -webkit-transform: scale(1) translate(0, 20px);
+        opacity: .6
+    }
+    100% {
+        -webkit-transform: scale(1) translate(0, 30px);
+        opacity: 0
+    }
+}
+
+.donated_wrap .main_person .person {
+    height: 63px;
+    width: 86px;
+    left: 124px;
+    top: 72px;
+    background-image: url(yqj_anim_human.png);
+    background-position: 0 0;
+    background-size: 86px 128px;
+    -webkit-animation: a_person_step 2.6s step-end infinite
+}
+
+@-webkit-keyframes a_person_step {
+    0% {
+        background-position: 0 0
+    }
+    5% {
+        background-position: 0 -65px
+    }
+    10% {
+        background-position: 0 -65px
+    }
+    75% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: 0 0
+    }
+}
+
+.donated_wrap .main_person .person .hand {
+    display: none
+}
+
+.donated_wrap .main_person .person_body {
+    display: none
+}
+
+.donated_wrap .main_person .person .salvo_wrap .salvo_1 {
+    left: -75px
+}
+
+.donated_wrap .main_person .person .salvo_wrap .salvo_2 {
+    left: -75px
+}
+
+.eqj_hd {
+    position: relative;
+    overflow: hidden
+}
+
+.eqj_hd .mask_area {
+    z-index: 11;
+    width: 100%;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    height: 100px;
+    background: url(mask_bg.png) no-repeat;
+    background-size: 100%
+}
+
+.eqj_hd .eqj_logo {
+    width: 72px;
+    height: 22px;
+    background: url(yqj_logo.png) no-repeat;
+    background-size: 72px 22px;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.eqj_hd .banner_area {
+    overflow: hidden;
+    padding-bottom: 8px
+}
+
+.eqj_hd .banner_area img {
+    width: 100%;
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+}
+
+.eqj_hd .thx_text {
+    z-index: 11;
+    width: 100%;
+    position: absolute;
+    top: 82px;
+    color: #fff;
+    left: 0
+}
+
+.eqj_hd .thx_text p {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 5px
+}
+
+.eqj_hd .thx_text strong {
+    color: #ff6b0b;
+    font-weight: bold
+}
+
+.eqj_hd .thx_text .txt_des {
+    font-size: 15px
+}
+
+.eqj_hd .thx_text .txt_des strong {
+    font-weight: normal
+}
+
+.eqj_hd .thx_text .txt_des .icon_left {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border: 2px solid #fff;
+    border-color: #fff transparent transparent #fff;
+    position: relative;
+    top: -7px;
+    left: 3px;
+}
+
+.eqj_hd .thx_text .txt_des .icon_right {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border: 2px solid #fff;
+    border-color: transparent #fff #fff transparent;
+    position: relative;
+    top: 3px;
+    left: -3px;
+}
+
+.thx_area {
+    z-index: 12;
+    position: absolute;
+    background: url(thx_bg.png) no-repeat;
+    left: 50%;
+    bottom: 0;
+    margin-left: -25px;
+    background-size: 100%;
+    width: 90px;
+    height: 70px
+}
+
+.avatar_area {
+    z-index: 11;
+    width: 52px;
+    height: 52px;
+    position: absolute;
+    left: 50%;
+    top: 15px;
+    margin-left: -30px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 4px;
+    border-radius: 100%
+}
+
+.avatar_area .avatar {
+    border-radius: 100%;
+    overflow: hidden
+}
+
+.avatar_area .avatar img {
+    width: 100%
+}
+
+.mask_bg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 0;
+    top: 0
+}
+
+@media all and (min-width: 414px) {
+    .eqj_hd .mask_area {
+        height: 120px
+    }
+
+    .avatar_area {
+        top: 25px
+    }
+
+    .eqj_hd .thx_text {
+        top: 100px
+    }
+}
+
+@media all and (min-width: 375px) and (max-width: 400px) {
+    .eqj_hd .mask_area {
+        height: 110px
+    }
+
+    .avatar_area {
+        top: 25px
+    }
+
+    .eqj_hd .thx_text {
+        top: 100px
+    }
+}
+
+.eqj_main {
+    text-align: center;
+    color: #656565;
+    line-height: 24px;
+    font-size: 15px;
+    margin: 10px 0;
+}
+
+.eqj_main strong {
+    font-weight: normal;
+    color: #ff6b0b;
+}
+
+.eqj_btn_area {
+    text-align: center;
+}
+
+.eqj_btn_area .eqj_link {
+    display: inline-block;
+    background: #fff;
+    color: #c50100;
+    border: 1px solid #c50100;
+    height: 30px;
+    line-height: 30px;
+    width: 130px;
+    border-radius: 15px;
+}
+
+.eqj_btn_area .eqj_btn_dir {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #c50100;
+    -webkit-transform: rotate(45deg);
+    border-color: #c50100 #c50100 transparent transparent;
+}
+
+.detail .pay_result .btn_area {
+    margin-top: 5px;
+}
+
+.detail .pay_result .coutwork {
+    font-weight: normal;
+    font-size: 12px;
+    color: #b0a7a2;
+}
+
+.detail .pay_result .coutwork strong {
+    font-weight: normal;
+    color: #c50100;
+}
+
+.detail .pay_result .msg_btn {
+    width: 60px;
+    height: 25px;
+    background: #ff6b0b;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.detail .profile .pro_tit {
+    overflow: hidden;
+    background: #f3f2f1;
+    padding: 0 10px;
+    line-height: 28px;
+    font-size: 13px;
+}
+
+.detail .profile .pro_tit strong {
+    font-weight: normal;
+    color: # #f26123;
+}
+
+.detail .profile .pro_tit_left {
+    float: left;
+    color: # #f26123;
+}
+
+.detail .profile .pro_tit_right {
+    float: right;
+}
+
+.detail .profile .eqj_ongoing {
+    padding: 15px;
+    overflow: hidden;
+}
+
+.detail .profile strong {
+    font-weight: normal;
+    color: # #f26123;
+}
+
+.detail .profile .eqj_ongoing h4 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.detail .profile .eqj_ongoing_img {
+    width: 70px;
+    height: 65px;
+    float: left;
+    margin-right: 15px;
+}
+
+.detail .profile .eqj_ongoing_text {
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.detail .profile .eqj_target {
+    padding: 0 15px;
+}
+
+.detail .profile .eqj_progress_area .eqj_progress_line {
+    width: 90%;
+    background: #d5cfcc;
+    height: 5px;
+    float: left;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+
+.detail .profile .eqj_progress_area .eqj_progress_long {
+    background: #ff6b0b;
+    height: 5px;
+}
+
+.detail .profile .eqj_progress_area .eqj_percent {
+    width: 10%;
+    float: right;
+    text-align: right;
+    font-size: 12px;
+    color: # #f26123;
+    margin-top: 3px;
+}
+
+.yqj_edit_icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background: url(yqj_edit_icon.png) no-repeat;
+    background-size: 100%;
+    position: relative;
+    top: 5px;
+}
+
+.yqj_success {
+    width: 150px;
+    height: 27px;
+    background: url(yqj_success_new.png) no-repeat;
+    background-size: 100%;
+    margin: 10px auto;
+}
+
+.yqj_send_friend {
+    width: 211px;
+    height: 12px;
+    background: url(yqj_send_friend.png) no-repeat;
+    background-size: 100%;
+    margin: 10px auto 0 auto;
+}
+
+.detail_link {
+    display: inline-block;
+    margin-right: 13px;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.detail_logo {
+    display: inline-block;
+    width: 47px;
+    height: 14px;
+
+    background-size: 47px 14px;
+    vertical-align: middle;
+}
+
+.detail_box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    padding: 0px 18px 0px 15px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid #c60603;
+    border-radius: 10px;
+    z-index: 1100;
+    font-size: 12px;
+    color: #5d5652;
+    display: none;
+}
+
+.detail_box .detail_box_header {
+    position: relative;
+    width: 100%;
+    padding: 14px 0px 5px;
+    margin-bottom: 17px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.detail_box .detail_box_header img {
+    width: 85px;
+    height: auto;
+}
+
+.detail_box .detail_box_header .detail_box_close {
+    position: absolute;
+    top: 3px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: url(detail_close.png) no-repeat;
+    background-size: 30px 30px;
+}
+
+.detail_box .detail_box_body p {
+    line-height: 17px;
+    margin-bottom: 27px;
+    font-size: 14px;
+}
+
+.mask_level {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none;
+}
+
