@@ -12,9 +12,10 @@
 
   <link rel="apple-touch-icon" href="<%= image_url 'apple-touch-icon.png?v=3' %>" />
 
-  <%= javascript_include_tag "application" %>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= stylesheet_link_tag "personal_story_campagin" %>
+  <%= javascript_include_tag "application" %>
+
 </head>
 <body style="background-color: #ededed;">
 <% flash.each do |key, value| %>
