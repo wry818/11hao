@@ -36,12 +36,12 @@ button{border: none;}
     position: relative;
     height: auto;
     padding-top: 57px;
-    margin: 0 28px;
+    margin: 0 5px;
 }
 .main_personal_red_pack .promo .bubble {
     position: relative;
     float: right;
-    width: 20.4rem;
+    width: 60%;
     height: 8.2rem;
 }
 .main_personal_red_pack .clearfix:after {
@@ -54,11 +54,12 @@ button{border: none;}
 .main_personal_red_pack .promo .sender-info {
     position: relative;
     float: left;
-    width: 6.8rem;
+    width: 100px;
+    height: 100px;
 }
 .main_personal_red_pack .promo .sender-avatar {
     position: relative;
-    margin: 0 auto .6rem;
+    margin: 0 auto 3px;
     width: 5.6rem;
     height: 5.6rem;
     background-color: #fff;
@@ -153,7 +154,7 @@ button{border: none;}
 }
 .main_personal_red_pack .use-coupon {
     position: relative;
-    width: 400px;
+    width: 65%;
     height: 4.4rem;
     line-height: 4.4rem;
     margin: 0 auto;
@@ -165,4 +166,21 @@ button{border: none;}
     text-align: center;
     color: white;
     font-family: sans-serif;
+    font-size: 17px;
+}
+.main_personal_red_pack .cloud-img
+{
+    width: 100%;
+}
+.yqj_result_share
+{
+    background-image: url("yqj_result_share.png");
+    background-repeat: no-repeat;
+    background-size: 100% 200px;
+    position: absolute;
+    z-index: 1001;
+    width:80%;
+    height: 200px;
+    top: 1px;
+    left: 20%;
 }

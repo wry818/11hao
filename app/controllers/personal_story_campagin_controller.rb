@@ -1,13 +1,13 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story"
   def index
-    if is_wechat_browser?
-
-      weixin_get_user_info()
-      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
-      weixin_address_init()
-
-    end
+    # if is_wechat_browser?
+    #
+    #   weixin_get_user_info()
+    #   @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+    #   weixin_address_init()
+    #
+    # end
   end
 
   def index_red_pack
