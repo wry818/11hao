@@ -1,5 +1,5 @@
 class PersonalStoryCampaginController < ApplicationController
-  layout "story_personal"
+  layout "story"
   def index
     if is_wechat_browser?
 
