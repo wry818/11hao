@@ -1,18 +1,126 @@
 class PersonalStoryCampaginController < ApplicationController
-  layout "story"
+  layout "story_personal"
+  before_filter :manage_session_order, only: [:index,:confirmation,:confirmation_weixin,:share]
   def index
-    # if is_wechat_browser?
-    #
-    #   weixin_get_user_info()
-    #   @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
-    #   weixin_address_init()
-    #
-    # end
+    @is_wechat_browser = is_wechat_browser?
+
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
+    end
+    if params[:id]
+      @sellerreferral=SellerReferral.find(params[:id])
+      @sellser=@sellerreferral.seller
+    end
+
   end
 
+  def confirmation
+    @order.direct_donation=1 * 100
+    @order.save
+
+    if !@order.valid?
+      message = ''
+      @order.errors.each do |key, error|
+        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      end
+      redirect_to personal_story_campagin_index_path, flash: { danger: message[0...-2] } and return
+    end
+    session[:order_id]=@order.id
+
+    render json: @order.id and return
+    redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
+  end
+
+  def confirmation_weixin
+    @order = Order.find_by_id(session[:order_id])
+    @order.direct_donation=1 * 100
+    @order.save
+
+    if !@order.valid?
+      message = ''
+      @order.errors.each do |key, error|
+        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      end
+      redirect_to personal_story_index_path, flash: { danger: message[0...-2] } and return
+    end
+    session[:order_id]=@order.id
+    session[:confirm_order_id]
+
+    render json: @order.id and return
+  end
+  def show_confirmation
+
+    if session[:confirm_order_id]
+      @order = Order.find_by_id(session[:confirm_order_id])
+      @campaign=@order.campaign
+
+      if @order.campaign.used_as_default?
+        @order.campaign_id = @campaign.id
+        @order.save
+      end
+
+      unless @order && @order.completed? && @order.valid_order?
+        redirect_to(personal_story_campagin_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+      end
+    else
+      redirect_to(personal_story_campagin_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+    end
+
+    render "checkout_confirmation" and return
+  end
   def index_red_pack
+    if is_wechat_browser?
 
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
+    end
   end
+
+  def share
+    session[:open_id]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    if session[:open_id]
+      @seller=@campaign.sellers.where(:open_id =>session[:open_id]).first
+      if !@seller
+        @seller=@campaign.sellers.new
+        @seller.open_id=session[:open_id]
+        @seller.save
+      end
+      if params[:id]&&params[:id]!="-1"
+        logger.debug "1001"
+        logger.debug params[:id]
+
+        @sellerreferral=SellerReferral.find(params[:id])
+        @sellerretemp=SellerReferral.new
+        @sellerretemp.seller_id=@seller.id
+        @sellerretemp.sellerreferral_id=@sellerreferral.id
+        @sellerretemp.save
+      else
+        @sellerreferral=@seller.sellerreferral
+        logger.debug "1001"
+        logger.debug  @sellerreferral
+        if @sellerreferral
+          @sellerretemp=@seller.seller_referrals.new
+          @sellerretemp.sellerreferral_id=@sellerreferral.id
+          @sellerretemp.save
+        else
+          logger.debug "1002"
+          @sellerretemp=@seller.seller_referrals.new
+          @sellerretemp.save
+          @sellerretemp.sellerreferral_id=@sellerretemp.id
+          @sellerretemp.save
+        end
+      end
+    end
+
+    render text: @sellerretemp.id
+  end
+
   # ajax_supporters
   def supporters
 
@@ -60,5 +168,18 @@ class PersonalStoryCampaginController < ApplicationController
 
     end
 
+  end
+
+  private
+  def manage_session_order
+    @campaign = Campaign.find_by_slug("jjjzdszn-ctryjhhtz-ytdjym")
+
+    @order = Order.find_by_id(session[:order_id])
+
+    unless @order && @order.campaign_id == @campaign.id && @order.status == 0
+      @order = @campaign.orders.new
+      logger.debug '1001 @campaign.orders.new'
+      logger.debug @order.id
+    end
   end
 end
