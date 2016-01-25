@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221115156) do
+ActiveRecord::Schema.define(version: 20160125055850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -570,6 +570,13 @@ ActiveRecord::Schema.define(version: 20151221115156) do
     t.datetime "updated_at"
   end
 
+  create_table "seller_referrals", force: true do |t|
+    t.integer  "seller_id"
+    t.integer  "sellerreferral_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sellers", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -581,6 +588,7 @@ ActiveRecord::Schema.define(version: 20151221115156) do
     t.text     "email_text"
     t.string   "video_file"
     t.text     "description"
+    t.string   "open_id"
   end
 
   add_index "sellers", ["campaign_id", "user_profile_id"], name: "index_sellers_on_campaign_id_and_user_profile_id", using: :btree

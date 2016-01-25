@@ -124,9 +124,13 @@ Raisy::Application.routes.draw do
 
     #personal_story
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
+    get 'checkout/supportcampagin/:id', to: 'personal_story_campagin#index', as: :personal_story_campagin_share_index
+    post 'personal_story_campagin/confirmation', to: 'personal_story_campagin#confirmation', as: :personal_story_campagin_checkout_confirmation
+    post 'personal_story_campagin/confirmation_weixin', to: 'personal_story_campagin#confirmation_weixin', as: :personal_story_campagin_checkout_confirmation_weixin
+    get ':id/confirmation_personal_campagin', to: 'personal_story_campagin#confirmation_personal_campagin', as: :show_confirmation_personal_campagin
     post 'ajax/supportcampagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
-
     get 'checkout/supportcampagin_red', to: 'personal_story_campagin#index_red_pack', as: :personal_story_campagin_index_red_pack
+    post 'ajax/checkout/supportcampagin/share', to: 'personal_story_campagin#share', as: :personal_story_campagin_share
 
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
     get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
