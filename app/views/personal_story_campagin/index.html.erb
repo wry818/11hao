@@ -246,9 +246,10 @@
     <div class="btns">
       <%= form_tag(personal_story_campagin_checkout_confirmation_path, method: "post", id: "payment_form") %>
       <div style="margin:10px; text-align: center;">
-        <div id="btn_submit1" href="javascript:void(0)">
-          <div class="btn" style="padding-top: 0px;">我要捐款</div>
-        </div>
+        <button id="btn_submit1" class="btn btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
+          <span class="text" style="letter-spacing:1px;">我要捐款</span>
+          <span class="loader" style="display:none"></span>
+        </button>
         <button id="payment-form-submit" class="btn btn-sm btn-block" type="submit" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
           <span class="text" style="letter-spacing:1px;">我要捐款</span>
           <span class="loader" style="display:none"></span>

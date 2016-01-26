@@ -32,13 +32,13 @@ class PersonalStoryCampaginController < ApplicationController
     end
     session[:order_id]=@order.id
 
-    render json: @order.id and return
     redirect_to(checkout_weixin_native_pay_url(@campaign)) and return
   end
 
   def confirmation_weixin
     check_seller()
 
+    @order.seller_id=@seller.id
     @order.direct_donation=1
     @order.save
 
@@ -180,7 +180,7 @@ class PersonalStoryCampaginController < ApplicationController
       @sellerreferral.is_success=true
       @sellerreferral.save
     end
-    render text: "success"
+    render text: "success:"+@sellerreferral.is_success.to_s
   end
 
   # ajax_supporters
