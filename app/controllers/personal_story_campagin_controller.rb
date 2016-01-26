@@ -20,6 +20,7 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def confirmation
+    @order = @campaign.orders.new
     @order.direct_donation=1 * 100
     @order.save
 
@@ -36,6 +37,7 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def confirmation_weixin
+    @order = @campaign.orders.new
     check_seller()
 
     @order.seller_id=@seller.id
@@ -235,13 +237,5 @@ class PersonalStoryCampaginController < ApplicationController
   private
   def manage_session_order
     @campaign = Campaign.find_by_slug("hbzjsj")
-
-    @order = Order.find_by_id(session[:order_id])
-
-    unless @order && @order.campaign_id == @campaign.id && @order.status == 0
-      @order = @campaign.orders.new
-      logger.debug '1001 @campaign.orders.new'
-      logger.debug @order.id
-    end
   end
 end
