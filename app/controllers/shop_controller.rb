@@ -632,7 +632,7 @@ class ShopController < ApplicationController
           trade_type: 'JSAPI', # could be "JSAPI" or "NATIVE",
           # openid: 'oaR9aswmRKvGhMdb6kJCgIFKBpeg' # required when trade_type is `JSAPI`
           # openid: 'oaR9as940svyxuTEuKZgeibjC7ng'
-          openid: session[:openid]
+          openid: "oaR9as9LCc7KFlh1dih3uXEy_5-w"
         }
 
         r = WxPay::Service.invoke_unifiedorder params
