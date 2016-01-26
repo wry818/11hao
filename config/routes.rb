@@ -131,6 +131,7 @@ Raisy::Application.routes.draw do
     post 'ajax/supportcampagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
     get 'checkout/supportcampagin_red', to: 'personal_story_campagin#index_red_pack', as: :personal_story_campagin_index_red_pack
     post 'ajax/checkout/supportcampagin/share', to: 'personal_story_campagin#share', as: :personal_story_campagin_share
+    post 'ajax/checkout/supportcampagin/share_success', to: 'personal_story_campagin#share_result', as: :personal_story_campagin_share_result
 
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
     get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
