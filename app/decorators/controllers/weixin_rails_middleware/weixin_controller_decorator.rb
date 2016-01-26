@@ -243,7 +243,25 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     # 点击菜单拉取消息时的事件推送
     def handle_click_event
-      reply_text_message("你点击了: #{@keyword}")
+      content = "#{@keyword}"
+      
+      if content == "new_year_event"
+        
+        articles = [
+          {
+            title: "用你的红包拯救世界",
+            description: "1人1块钱, 拯救世界",
+            url: "http://www.11haoonline.com",
+            picurl: "http://www.11haoonline.com/images/hongbao.jpg"
+            
+          }
+        ]
+        
+        reply_news_message articles
+        
+      else
+        reply_text_message("你点击了: #{@keyword}")
+      end
     end
 
     # 点击菜单跳转链接时的事件推送
