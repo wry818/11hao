@@ -57,11 +57,6 @@ class WeixinController < ApplicationController
           name: "关于我们",
           sub_button: [
             {
-              type: "click",
-              name: "新年红包",
-              key: "new_year_event"
-            },
-            {
               type: "view",
               name: "11号计划",
               url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=206174662&idx=1&sn=2c8fb51a94197eae2a6817cc87235b76#rd"
