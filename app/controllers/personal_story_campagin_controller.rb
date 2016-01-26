@@ -1,6 +1,7 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index,:confirmation,:confirmation_weixin,:share]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share]
+
   def index
     @is_wechat_browser = is_wechat_browser?
 
@@ -27,7 +28,7 @@ class PersonalStoryCampaginController < ApplicationController
       @order.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
-      redirect_to personal_story_campagin_index_path, flash: { danger: message[0...-2] } and return
+      redirect_to personal_story_campagin_index_path, flash: {danger: message[0...-2]} and return
     end
     session[:order_id]=@order.id
 
@@ -36,8 +37,7 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def confirmation_weixin
-    @order = Order.find_by_id(session[:order_id])
-    @order.direct_donation=1 * 100
+    @order.direct_donation=1
     @order.save
 
     if !@order.valid?
@@ -45,13 +45,14 @@ class PersonalStoryCampaginController < ApplicationController
       @order.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
-      redirect_to personal_story_index_path, flash: { danger: message[0...-2] } and return
+      redirect_to personal_story_index_path, flash: {danger: message[0...-2]} and return
     end
     session[:order_id]=@order.id
     session[:confirm_order_id]
 
     render json: @order.id and return
   end
+
   def show_confirmation
 
     if session[:confirm_order_id]
@@ -64,14 +65,15 @@ class PersonalStoryCampaginController < ApplicationController
       end
 
       unless @order && @order.completed? && @order.valid_order?
-        redirect_to(personal_story_campagin_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+        redirect_to(personal_story_campagin_index_path, flash: {warning: "捐款失败请刷新后重试"}) and return
       end
     else
-      redirect_to(personal_story_campagin_index_path, flash: { warning: "捐款失败请刷新后重试" }) and return
+      redirect_to(personal_story_campagin_index_path, flash: {warning: "捐款失败请刷新后重试"}) and return
     end
 
     render "checkout_confirmation" and return
   end
+
   def index_red_pack
     if is_wechat_browser?
 
@@ -83,14 +85,55 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def share
-    session[:open_id]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+     # session[:open_id]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     if session[:open_id]
-      @seller=@campaign.sellers.where(:open_id =>session[:open_id]).first
-      if !@seller
-        @seller=@campaign.sellers.new
-        @seller.open_id=session[:open_id]
-        @seller.save
+      @nick_name = params[:nickname]==nil ? "匿名" : params[:nickname]
+      @avatar_url=params[:avatar_url]==nil ? "" : params[:avatar_url]
+      @user = User.find_by uid: session[:open_id], provider: "wx_seller"
+
+      if !@user
+        @user = User.new
+        @user.password = "temp1234"
+        @user.email = "seller"+SecureRandom.hex(2) + Time.now.to_i.to_s + "@11hao.com"
+        @user.account_type = 1
+        @user.uid = session[:open_id]
+        @user.provider = "wx_seller"
+
+        unless @user.save
+          redirect_to root_path and return
+        end
+        @user.update(email:"seller_"+@user.id.to_s+"@11hao.com")
       end
+
+      @user_profile = @user.profile
+      logger.debug "1001"
+
+      if !@user_profile
+        @user_profile = UserProfile.new
+        @user_profile.user_id=@user.id
+        @user_profile.first_name=@nick_name
+        @user_profile.child_profile=false
+        logger.debug "1002"
+        logger.debug @user_profile
+      else
+        @user_profile.first_name = @nick_name
+      end
+      @user_profile.picture=@avatar_url
+      logger.debug @user_profile.save
+
+      logger.debug "1001"
+      logger.debug @user_profile.id
+
+      @seller = @user_profile.seller(@campaign)
+      if @seller
+        # @seller.video_file = params[:video_file]
+        # @seller.save
+      else
+        @seller = Seller.create user_profile: @user_profile, campaign: @campaign
+      end
+      @seller.open_id=session[:open_id]
+      @seller.save
+
       if params[:id]&&params[:id]!="-1"
         logger.debug "1001"
         logger.debug params[:id]
@@ -99,18 +142,21 @@ class PersonalStoryCampaginController < ApplicationController
         @sellerretemp=SellerReferral.new
         @sellerretemp.seller_id=@seller.id
         @sellerretemp.sellerreferral_id=@sellerreferral.id
+        @sellerretemp.is_success=false
         @sellerretemp.save
       else
         @sellerreferral=@seller.sellerreferral
         logger.debug "1001"
-        logger.debug  @sellerreferral
+        logger.debug @sellerreferral
         if @sellerreferral
           @sellerretemp=@seller.seller_referrals.new
           @sellerretemp.sellerreferral_id=@sellerreferral.id
+          @sellerretemp.is_success=false
           @sellerretemp.save
         else
           logger.debug "1002"
           @sellerretemp=@seller.seller_referrals.new
+          @sellerretemp.is_success=false
           @sellerretemp.save
           @sellerretemp.sellerreferral_id=@sellerretemp.id
           @sellerretemp.save
@@ -121,6 +167,14 @@ class PersonalStoryCampaginController < ApplicationController
     render text: @sellerretemp.id
   end
 
+  def share_result
+    if params[:referall_id]
+        @sellerreferral=SellerReferral.find(params[:referall_id])
+        @sellerreferral.is_success=true
+        @sellerreferral.save
+    end
+    render text: "success"
+  end
   # ajax_supporters
   def supporters
 
@@ -172,7 +226,7 @@ class PersonalStoryCampaginController < ApplicationController
 
   private
   def manage_session_order
-    @campaign = Campaign.find_by_slug("jjjzdszn-ctryjhhtz-ytdjym")
+    @campaign = Campaign.find_by_slug("hbzjsj")
 
     @order = Order.find_by_id(session[:order_id])
 
