@@ -35,11 +35,6 @@ class WeixinController < ApplicationController
               type: "view",
               name: "“特”立同行",
               url: "http://www.11haoonline.com/TLTX"
-            },
-            {
-              type: "click",
-              name: "新年红包",
-              key: "new_year_event"
             }
           ]
         },
@@ -61,6 +56,11 @@ class WeixinController < ApplicationController
         {
           name: "关于我们",
           sub_button: [
+            {
+              type: "click",
+              name: "新年红包",
+              key: "new_year_event"
+            },
             {
               type: "view",
               name: "11号计划",
