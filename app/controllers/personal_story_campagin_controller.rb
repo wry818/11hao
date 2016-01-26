@@ -37,6 +37,8 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def confirmation_weixin
+    check_seller()
+
     @order.direct_donation=1
     @order.save
 
@@ -84,25 +86,24 @@ class PersonalStoryCampaginController < ApplicationController
     end
   end
 
-  def share
-     # session[:open_id]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-    if session[:open_id]
+  def check_seller
+    if session[:openid]
       @nick_name = params[:nickname]==nil ? "匿名" : params[:nickname]
       @avatar_url=params[:avatar_url]==nil ? "" : params[:avatar_url]
-      @user = User.find_by uid: session[:open_id], provider: "wx_seller"
+      @user = User.find_by uid: session[:openid], provider: "wx_seller"
 
       if !@user
         @user = User.new
         @user.password = "temp1234"
         @user.email = "seller"+SecureRandom.hex(2) + Time.now.to_i.to_s + "@11hao.com"
         @user.account_type = 1
-        @user.uid = session[:open_id]
+        @user.uid = session[:openid]
         @user.provider = "wx_seller"
 
         unless @user.save
           redirect_to root_path and return
         end
-        @user.update(email:"seller_"+@user.id.to_s+"@11hao.com")
+        @user.update(email: "seller_"+@user.id.to_s+"@11hao.com")
       end
 
       @user_profile = @user.profile
@@ -131,9 +132,15 @@ class PersonalStoryCampaginController < ApplicationController
       else
         @seller = Seller.create user_profile: @user_profile, campaign: @campaign
       end
-      @seller.open_id=session[:open_id]
+      @seller.open_id=session[:openid]
       @seller.save
+    end
+  end
 
+  def share
+    # session[:openid]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    if session[:openid]
+      check_seller()
       if params[:id]&&params[:id]!="-1"
         logger.debug "1001"
         logger.debug params[:id]
@@ -169,12 +176,13 @@ class PersonalStoryCampaginController < ApplicationController
 
   def share_result
     if params[:referall_id]
-        @sellerreferral=SellerReferral.find(params[:referall_id])
-        @sellerreferral.is_success=true
-        @sellerreferral.save
+      @sellerreferral=SellerReferral.find(params[:referall_id])
+      @sellerreferral.is_success=true
+      @sellerreferral.save
     end
     render text: "success"
   end
+
   # ajax_supporters
   def supporters
 
