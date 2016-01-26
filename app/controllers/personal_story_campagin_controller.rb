@@ -154,22 +154,22 @@ class PersonalStoryCampaginController < ApplicationController
         @sellerretemp.is_success=false
         @sellerretemp.save
       else
-        @sellerreferral=@seller.sellerreferral
-        logger.debug "1001"
-        logger.debug @sellerreferral
-        if @sellerreferral
-          @sellerretemp=@seller.seller_referrals.new
-          @sellerretemp.sellerreferral_id=@sellerreferral.id
-          @sellerretemp.is_success=false
-          @sellerretemp.save
-        else
-          logger.debug "1002"
-          @sellerretemp=@seller.seller_referrals.new
-          @sellerretemp.is_success=false
-          @sellerretemp.save
-          @sellerretemp.sellerreferral_id=@sellerretemp.id
-          @sellerretemp.save
-        end
+        # @sellerreferral=@seller.sellerreferral
+        # logger.debug "1001"
+        # logger.debug @sellerreferral
+        # if @sellerreferral
+        #   @sellerretemp=@seller.seller_referrals.new
+        #   @sellerretemp.sellerreferral_id=@sellerreferral.id
+        #   @sellerretemp.is_success=false
+        #   @sellerretemp.save
+        # else
+        logger.debug "1002"
+        @sellerretemp=@seller.seller_referrals.new
+        @sellerretemp.is_success=false
+        @sellerretemp.save
+        @sellerretemp.sellerreferral_id=@sellerretemp.id
+        @sellerretemp.save
+        # end
       end
     end
 
