@@ -247,6 +247,7 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content == "new_year_event"
         
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
         articles = [
           {
             title: "用你的红包拯救世界",
@@ -256,8 +257,8 @@ WeixinRailsMiddleware::WeixinController.class_eval do
             
           }
         ]
-        
-        reply_news_message articles
+
+        $wechat_client.send_news_custom(open_id, articles)
         
       else
         reply_text_message("你点击了: #{@keyword}")
