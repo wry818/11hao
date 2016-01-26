@@ -72,7 +72,7 @@
       },
       success: function (data) {
         newshare_id = data;
-        window.shareData.link = window.shareData.link + '/' + newshare_id;
+        window.shareData.link =campagin_share_link + '/' + newshare_id;
         alert(window.shareData.link);
         share_success();
       },
@@ -109,10 +109,10 @@
 
 <% if @sign_package %>
     <script>
-
+      var campagin_share_link="<%= personal_story_checkout_confirmation_url %>";
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
-        link: "<%= personal_story_campagin_index_path %>",
+        link: "",
         img_url: "<%= request.protocol + request.host_with_port + '/images/personals/p_20.jpg' %>",
         img_width: "415",
         img_height: "399",
