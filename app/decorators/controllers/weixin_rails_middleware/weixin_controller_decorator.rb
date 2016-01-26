@@ -86,7 +86,22 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         #   "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"]
         #
         # reply_news_message articles
-          
+        
+      elsif content == "new_year_event"
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        articles = [
+          {
+            title: "用你的红包拯救世界",
+            description: "1人1块钱, 拯救世界",
+            url: "http://www.11haoonline.com",
+            picurl: "http://www.11haoonline.com/images/hongbao.jpg"
+            
+          }
+        ]
+
+        $wechat_client.send_news_custom(open_id, articles)
+        
       else
         
         reply_transfer_customer_service_message()
