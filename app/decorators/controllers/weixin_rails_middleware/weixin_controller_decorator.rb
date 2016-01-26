@@ -247,18 +247,21 @@ WeixinRailsMiddleware::WeixinController.class_eval do
       
       if content == "new_year_event"
         
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        articles = [
-          {
-            title: "用你的红包拯救世界",
-            description: "1人1块钱, 拯救世界",
-            url: "http://www.11haoonline.com",
-            picurl: "http://www.11haoonline.com/images/hongbao.jpg"
-            
-          }
-        ]
-
-        $wechat_client.send_news_custom(open_id, articles)
+        # articles = [
+        #   {
+        #     title: "用你的红包拯救世界",
+        #     description: "1人1块钱, 拯救世界",
+        #     url: "http://www.11haoonline.com",
+        #     picurl: "http://www.11haoonline.com/images/hongbao.jpg"
+        #
+        #   }
+        # ]
+        
+        articles = [ generate_article("用你的红包拯救世界", "1人1块钱, 拯救世界", 
+          "http://www.11haoonline.com/images/hongbao.jpg", 
+          "http://www.11haoonline.com") ]
+        
+        reply_news_message articles
         
       else
         reply_text_message("你点击了: #{@keyword}")
