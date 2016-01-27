@@ -16,7 +16,7 @@ class PersonalStoryCampaginController < ApplicationController
       @sellerreferral=SellerReferral.find(params[:id])
       @sellser=@sellerreferral.seller
     end
-    # log_ip()
+    log_ip()
   end
 
   def confirmation
@@ -270,7 +270,7 @@ class PersonalStoryCampaginController < ApplicationController
 
         @visit_log.open_id = session[:openid]
         @visit_log.remote_ip = request.remote_ip
-        @visit_log.nickname = weixin_get_user_info
+        @visit_log.nickname = @nickname
         @visit_log.save
       end
     end
