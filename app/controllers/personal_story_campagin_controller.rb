@@ -275,7 +275,7 @@ class PersonalStoryCampaginController < ApplicationController
 
         @visit_log.open_id = session[:openid]
         @visit_log.remote_ip = request.remote_ip
-        @visit_log.nickname = @seller.user_profile.first_name
+        @visit_log.nickname = @nickname
         @visit_log.save
       end
     end
