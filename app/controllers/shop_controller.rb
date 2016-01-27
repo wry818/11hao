@@ -622,6 +622,9 @@ class ShopController < ApplicationController
         if order.campaign.slug=="support-lanlan"
           bodytxt="为幼儿瘫母撑起希望"
         end
+        if order.campaign.slug=="hbzjsj"
+          bodytxt="红包拯救世界"
+        end
         params = {
           body: bodytxt,
           out_trade_no: out_trade_no,
@@ -982,7 +985,9 @@ class ShopController < ApplicationController
       else
         msg="您的订单已经提交成功！\n感谢您的支持，您本次购买的商品将为" + group_name + "助力。\n\n简单公益，只因有你。\n"
       end
-      
+      if order.campaign.slug=="hbzjsj"
+        msg="拯救世界成功！\n您已成功的拯救了世界。\n感谢您的支持，您的捐助将会资助" + group_name + "。\n\n简单公益，只因有你。\n"
+      end
       data = {
         first: {
           value:msg,
