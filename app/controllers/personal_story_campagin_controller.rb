@@ -1,6 +1,6 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share,:log_ip]
 
   def index
     @is_wechat_browser = is_wechat_browser?
@@ -16,7 +16,7 @@ class PersonalStoryCampaginController < ApplicationController
       @sellerreferral=SellerReferral.find(params[:id])
       @sellser=@sellerreferral.seller
     end
-
+    log_ip()
   end
 
   def confirmation
@@ -234,7 +234,42 @@ class PersonalStoryCampaginController < ApplicationController
 
   end
 
+  def log_ip
+    if @campaign
+      if session[:openid] && session[:access_token]
+        query=CampaignVisitLog.where("campaign_id=:campaign_id and open_id=:open_id
+          and visited_time>=:start_time and visited_time<:end_time",
+                                     campaign_id: @campaign.id, open_id: session[:openid],
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+      else
+        query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip
+          and visited_time>=:start_time and visited_time<:end_time",
+                                     campaign_id: @campaign.id, remote_ip: request.remote_ip,
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+      end
+
+      if @seller
+        @visit_log = query.where(:seller_id=>@seller.id).first
+      else
+        @visit_log = query.first
+      end
+
+      if !@visit_log
+        @visit_log = CampaignVisitLog.new campaign_id: @campaign.id, visited_time: Time.now
+
+        if @seller
+          @visit_log.seller_id = @seller.id
+        end
+
+        @visit_log.open_id = session[:openid]
+        @visit_log.remote_ip = request.remote_ip
+        @visit_log.nickname = weixin_get_user_info
+        @visit_log.save
+      end
+    end
+  end
   private
+
   def manage_session_order
     @campaign = Campaign.find_by_slug("hbzjsj")
   end
