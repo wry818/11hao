@@ -14,7 +14,7 @@ class PersonalStoryCampaginController < ApplicationController
     end
     if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
-      @sellser=@sellerreferral.seller
+      @seller=@sellerreferral.seller
     end
     log_ip()
   end
@@ -40,10 +40,10 @@ class PersonalStoryCampaginController < ApplicationController
     @order = @campaign.orders.new
     if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
-      @sellser=@sellerreferral.seller
+      @seller=@sellerreferral.seller
     end
 
-    if !@sellser
+    if !@seller
       check_seller()
     end
 
