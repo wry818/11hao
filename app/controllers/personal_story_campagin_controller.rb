@@ -15,6 +15,9 @@ class PersonalStoryCampaginController < ApplicationController
     if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
       @seller=@sellerreferral.seller
+      if @sellerreferral
+        session[:seller_referral_id]=@sellerreferral.id
+      end
     end
     log_ip()
   end
@@ -91,7 +94,9 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_get_user_info()
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       weixin_address_init()
-
+    end
+    if session[:seller_referral_id]
+      @sellerreferral=SellerReferral.find(session[:seller_referral_id])
     end
   end
 
