@@ -182,6 +182,7 @@
           },
           success: function (data) {
             newshare_id = data;
+            alert(newshare_id);
             window.shareData.link = campagin_share_link + '/' + newshare_id + '/';
             alert(window.shareData.link);
           },
