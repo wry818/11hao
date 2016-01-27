@@ -16,7 +16,7 @@ class PersonalStoryCampaginController < ApplicationController
       @sellerreferral=SellerReferral.find(params[:id])
       @sellser=@sellerreferral.seller
     end
-    log_ip()
+    # log_ip()
   end
 
   def confirmation
