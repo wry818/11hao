@@ -12,7 +12,7 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
-    if params[:id]
+    if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
       @sellser=@sellerreferral.seller
     end
@@ -38,7 +38,7 @@ class PersonalStoryCampaginController < ApplicationController
 
   def confirmation_weixin
     @order = @campaign.orders.new
-    if params[:id]
+    if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
       @sellser=@sellerreferral.seller
     end
