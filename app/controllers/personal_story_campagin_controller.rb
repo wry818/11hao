@@ -38,7 +38,14 @@ class PersonalStoryCampaginController < ApplicationController
 
   def confirmation_weixin
     @order = @campaign.orders.new
-    check_seller()
+    if params[:id]
+      @sellerreferral=SellerReferral.find(params[:id])
+      @sellser=@sellerreferral.seller
+    end
+
+    if !@sellser
+      check_seller()
+    end
 
     @order.seller_id=@seller.id
     @order.direct_donation=1

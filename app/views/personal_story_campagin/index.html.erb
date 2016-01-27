@@ -342,8 +342,8 @@
         $('#btn_submit1').off("click").on("click", function () {
           var url = "<%=personal_story_campagin_checkout_confirmation_weixin_path%>";
           $('#btn_submit1').prop('disabled', true);
-
-          $.post(url, {direct_donation: 1}).done(function (data, textStatus, jqXHR) {
+          var shareid = $("#share_id").val();
+          $.post(url, {direct_donation: 1,id:shareid}).done(function (data, textStatus, jqXHR) {
             weixin_load(data);
           }).fail(function () {
             alert("请求已经结束但是可能发生了错误！");
