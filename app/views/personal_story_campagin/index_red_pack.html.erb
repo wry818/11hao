@@ -41,7 +41,7 @@
 
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>
-<%= hidden_field_tag :share_id, @sellerreferral %>
+<%= hidden_field_tag :share_id, @sellerreferral==nil ? "" : @sellerreferral.id %>
 <script type="text/javascript">
   $(function () {
     $("div.btn-text").bind('click', function () {
