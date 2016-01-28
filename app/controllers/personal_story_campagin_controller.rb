@@ -335,6 +335,16 @@ class PersonalStoryCampaginController < ApplicationController
         
         session[:seller_referral_id] = @sellerreferral.id
         
+        @seller_referral_count = 0
+        seller_referrals = SellerReferral.where(:sellerreferral_id => @seller.id)
+        puts seller_referrals
+        if seller_referrals
+          seller_referrals.each do |seller_referral|
+            @seller_referral_count += @campaign.orders.completed.where(:seller_id => seller_referral.seller_id).count
+          end
+
+        end
+        
       end
       
     end
@@ -347,19 +357,25 @@ class PersonalStoryCampaginController < ApplicationController
     @page = 1 if @page == 0
     @show_pager = false
     
-    @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
-    # @supporters = @seller.orders.completed.select(
-    #   "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(2)
-    @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
-      "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+    if @seller
       
-      if @supporters.total_pages > 0 && @supporters.total_pages > @page
-        @show_pager = true
 
-        query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+    
+      @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
+      # @supporters = @seller.orders.completed.select(
+      #   "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(2)
+      @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
+        "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+      
+        if @supporters.total_pages > 0 && @supporters.total_pages > @page
+          @show_pager = true
 
-        @page_url = personal_story_campagin_supporters_path + query
-      end      
+          query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+
+          @page_url = personal_story_campagin_supporters_path + query
+        end  
+        
+    end    
 
   end
   

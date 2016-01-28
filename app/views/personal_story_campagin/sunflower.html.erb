@@ -65,6 +65,10 @@
 	max-width: 100%;
 }
 
+.avatar-container {
+	text-align: left;
+}
+
 @media (min-width: 640px) {
 	.img-avatar {
 		border-radius:54px;
@@ -86,6 +90,11 @@
 }
 
 @media (min-width: 480px) {
+	
+	.avatar-container {
+		text-align: center;
+	}
+	
 	.digit-container {
 		width:290px;
 	}
@@ -105,6 +114,7 @@
 </style>
 
 <div style="background:transparent url('/2016/bg.jpg') no-repeat center top; background-size:cover; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+	<% if @seller %>
 	<div id="banner" style="padding-top:40%;">
 			<table style="margin:0px auto;">
 				<tr>
@@ -146,13 +156,13 @@
 			<div id="supporters_content" style="display:none;">
 				<%= render "supporters" %>
 			</div>
-			<div class="avatar-container" style="overflow: hidden; height: 48px; position: relative; text-align: center; margin-top: 10px">
+			<div class="avatar-container" style="overflow: hidden; height: 48px; position: relative; margin-top: 10px">
 				<% if @supporters.count>0 %>
 					<% @supporters.each_with_index do |s, index| %>
           		  		<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
               		  		<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;" />
 						<%else %>
-							<img src="/2016/monkey-1.png" class="img-friend-avatar img-rounded" style="border-radius:24px; width:48px; height:48px;" />
+							<%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
 						<% end %>
 					
 						<% if index == 4 %>
@@ -171,7 +181,11 @@
 			
 			<div id="indirect_influence">
 				<div style="margin-top:30px; text-align:center;">
-					<span>间接影响了</span>&nbsp;<span style="color:#fa0000;">100</span>&nbsp;<span>人</span>
+					<span>间接影响了</span>
+					&nbsp;
+					<span style="color:#fa0000;"><%= @seller_referral_count %></span>
+					&nbsp;
+					<span>人</span>
 				</div>
 				<div style="margin-top:15px; text-align:center;">
 					<img src="/2016/friends_map.png" style="max-width:80%; max-height:300px;" />
@@ -182,6 +196,7 @@
 			</div>
 		</div>
 	</div>
+	<% end %>
 	<div class="detail" style="position:relative; padding:15px 15px 0px 15px;">
 		<div class="project well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:0px;">
 			<table style="background-color:rgb(197,169,77); width:100%;">
@@ -193,12 +208,13 @@
 			</table>
 			
 	        <div class="ctx">
-	          <img class="pimg" src="/images/jujube/p_01.jpg">
-	          <span class="ptt">关注自闭症儿童康</span>
+	          <img class="pimg" src="/images/sunflower/p_01.png">
+	          <span class="ptt">关注外来务工子女教育</span>
 
 	          <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri %></div>
-	          <div class="pdd">小明召集了 <span style="color:red;">10</span> 个红包， 可以帮助
-	            <span style="color:red;">自闭症儿童康复治疗10小时</span></div>
+	          <div class="pdd">
+				  <span style="color:red;">1</span>元钱，可以帮助<span style="color:red;">1个流动儿童参加1天的太阳花晚托班</span>
+			  </div>
 	          <div class="summary none">
 	            <div class="st">项目详情</div>
 	            <div class="desc">
@@ -240,7 +256,7 @@
 				</div>
 	          </div>
 	        </div>
-	        <div class="bt"><b>善款接收：</b>上海闵行区吴泾太阳花社区儿童服务中心 <br> <b>项目总筹款：</b> 18764.66元 &nbsp;&nbsp; 421人捐款</div>
+	        <div class="bt"><b>善款接收：</b>吴泾太阳花社区儿童服务中心 <br> <b>项目总筹款：</b> 50000.00元 &nbsp;&nbsp; 421人捐款</div>
 			
 			<!-- <% secs_remaining = @campaign.seconds_remaining
 			days = (secs_remaining / 86400)
