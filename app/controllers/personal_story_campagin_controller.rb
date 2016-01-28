@@ -379,7 +379,7 @@ class PersonalStoryCampaginController < ApplicationController
       
       @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
       @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
-        "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(2)
+        "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
       
         if @supporters.total_pages > 0 && @supporters.total_pages > @page
           
