@@ -1,0 +1,147 @@
+<style type="text/css">
+  html body {
+    font-family: "Microsoft Yahei", "Helvetica Neue", Hiragino, Sans, GB, W3, Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+  }
+
+  .img-avatar {
+    width: 96px;
+    height: 62px;
+  }
+
+  .support_content p {
+    font-size: 14px;
+    color: #6a6561;
+    overflow: hidden;
+  }
+
+  p.count_num {
+    font-size: 25px;
+    font-weight: bolder;
+    color: coral;
+  }
+
+  div.line_width {
+    height: 10px;
+    background-color: rgb(240, 240, 240);
+  }
+</style>
+
+<div id="banner" style="text-align:center; position:relative">
+  <% if @campaign_first.campaign_logo %>
+      <%= cl_image_tag @campaign_first.campaign_logo.image_id, style: "width:100%; max-height:600px", class: 'campaign-logo' %>
+  <% else %>
+      <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+  <% end %>
+  <div style="position:absolute; left:10px; bottom:5px;">
+    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;">“<%= @campaign_first.title.to_s.length>8 ? @campaign_first.title.to_s[0..8]+"..." : @campaign_first.title %>
+      ”占领了封面</span>
+  </div>
+</div>
+<div id="campaign-show" style="background-color: white;">
+  <div>
+    <div class="container-box top-section" style="margin-top: 0px; border-bottom: none;">
+      <div class="row" style="margin-left: 0px; margin-right: 0px;">
+        <div class="col-md-12">
+          <div class="left-column" style="padding: 10px;">
+            <div class="support_wrapper">
+              <div class="support_content" style="border-bottom: none;">
+                <p>
+                  &nbsp
+                  &nbsp
+                  <% if @campaign_top.campaign_logo %>
+                      <%= cl_image_tag @campaign_top.campaign_logo.image_id, class: 'img-avatar lazy-image' %>
+                  <% else %>
+                      <%= image_tag 'default_upload_logo.gif', class: 'img-avatar lazy-image' %>
+                  <% end %>
+
+                </p>
+                  <p style="font-size: 15px;color: black;margin-left: 5px;">
+                  <%= @seller_today_top["title"].to_s.length>8 ? @seller_today_top["title"].to_s[0..8]+"..." : @seller_today_top["title"] %>
+                  <br/>
+                    <span style=" font-size: 13px;color: gray;">
+                    当日冠军
+                    </span>
+                  </p>
+
+                <div class="right_content">
+                  <div>
+                    <div style="float: right; margin-top: 10px; margin-right: 10px;">
+                      <p class="count_num"><%= @seller_today_top["all_count"] %></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- /.left-column -->
+        </div>
+      </div> <!-- /.row -->
+      <div class="row line_width" style="margin-left: 0px; margin-right: 0px;">
+
+      </div>
+      <div class="row" style="margin-left: 0px; margin-right: 0px;">
+        <div class="col-md-12">
+          <div class="left-column">
+            <div class="support_wrapper">
+
+              <div style="margin-top:10px">
+                NGO总排名
+              </div>
+              <hr style="margin-bottom: 0px"/>
+              <% if @seller_ladder_result && @seller_ladder_result.count > 0 %>
+                  <% @seller_ladder_result.each do |seller_ladder| %>
+                      <div class="support_content">
+                        <p>
+                          <%= seller_ladder["rank"] %>&nbsp;
+                          <% @campaign=Campaign.find(seller_ladder["id"])
+                             if @campaign.campaign_logo
+                          %>
+                              <%= cl_image_tag @campaign.campaign_logo.image_id, class: 'img-avatar lazy-image' %>
+                          <% else %>
+                              <%= image_tag 'default_upload_logo.gif', class: 'img-avatar lazy-image' %>
+                          <% end %>
+                          <%= seller_ladder["title"].to_s.length>8 ? seller_ladder["title"].to_s[0..8]+"..." : seller_ladder["title"] %>
+                        </p>
+
+                        <div class="right_content">
+                          <div>
+                            <div style="float: right; margin-top: 10px;">
+                              <p class="count_num"><%= seller_ladder["all_count"] %></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
+
+              <% else %>
+
+                  <div style="margin-top: 10px">
+                    尚无记录
+                  </div>
+
+              <% end %>
+            </div>
+          </div> <!-- /.left-column -->
+        </div>
+      </div> <!-- /.row -->
+
+    </div> <!--/.top-section -->
+  </div> <!--/.container-background -->
+
+</div> <!-- /#campaign-show -->
+<script>
+  $(function () {
+    document.title = "用红包拯救世界";
+    $("#footer").remove();
+    var counts= $("p.count_num");
+    for(i=0;i<=counts.length;i++)
+    {
+      if (i<2)
+      {
+        $(counts[i]).css("color","coral");
+      }else
+      {
+        $(counts[i]).css("color","YellowGreen");
+      }
+    }
+  });
+</script>

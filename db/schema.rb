@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126051414) do
+ActiveRecord::Schema.define(version: 20160128021520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20160126051414) do
     t.integer  "campaign_mode"
     t.integer  "seller_compassion_goal"
     t.boolean  "is_destroy",                        default: false
+    t.integer  "fundraising_event_id"
   end
 
   add_index "campaigns", ["entertainment_group_id"], name: "index_campaigns_on_entertainment_group_id", unique: true, using: :btree
@@ -279,6 +280,12 @@ ActiveRecord::Schema.define(version: 20160126051414) do
   end
 
   add_index "ent_orders", ["entertainment_order_id"], name: "index_ent_orders_on_entertainment_order_id", unique: true, using: :btree
+
+  create_table "fundraising_events", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "inventory_ship_order_files", force: true do |t|
     t.string   "file_source"
