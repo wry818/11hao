@@ -92,10 +92,10 @@
                       <div class="support_content">
                         <p>
                           <%= seller_ladder["rank"] %>&nbsp;
-                          <% @campaign=Campaign.find(seller_ladder["id"])
-                             if @campaign.campaign_logo
+                          <% @campaign_temp=Campaign.find(seller_ladder["id"])
+                             if @campaign_temp.campaign_logo
                           %>
-                              <%= cl_image_tag @campaign.campaign_logo.image_id, class: 'img-avatar lazy-image' %>
+                              <%= cl_image_tag @campaign_temp.campaign_logo.image_id, class: 'img-avatar lazy-image' %>
                           <% else %>
                               <%= image_tag 'default_upload_logo.gif', class: 'img-avatar lazy-image' %>
                           <% end %>
@@ -130,9 +130,8 @@
 </div> <!-- /#campaign-show -->
 <script>
   $(function () {
-
+    document.title = "用红包拯救世界";
     $("#footer").remove();
-    $.title("用红包拯救世界");
     var counts= $("p.count_num");
     for(i=0;i<=counts.length;i++)
     {
