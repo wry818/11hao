@@ -1,6 +1,8 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share, :log_ip, :index_old]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share, :log_ip, :index_old, :sunflower, :supporters]
+  before_filter :load_seller, only: [:index, :index_old, :sunflower, :supporters]
+  before_filter :load_supporters, only: [:index, :index_old, :sunflower, :supporters]
 
   def index
     @is_wechat_browser = is_wechat_browser?
@@ -13,17 +15,8 @@ class PersonalStoryCampaginController < ApplicationController
 
     end
     
-    if params[:id]&&params[:id].to_s.length>0
-      @sellerreferral=SellerReferral.find(params[:id])
-      
-      if @sellerreferral
-        @seller=@sellerreferral.seller
-        
-        session[:seller_referral_id]=@sellerreferral.id
-      end
-    end
-    
     log_ip()
+    
   end
   
   def index_old
@@ -37,19 +30,31 @@ class PersonalStoryCampaginController < ApplicationController
 
     end
     
-    if params[:id]&&params[:id].to_s.length>0
-      @sellerreferral=SellerReferral.find(params[:id])
-      
-      if @sellerreferral
-        @seller=@sellerreferral.seller
-        
-        session[:seller_referral_id]=@sellerreferral.id
-      end
+    log_ip()
+  end
+  
+  def sunflower
+
+    @is_wechat_browser = is_wechat_browser?
+
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
     end
     
     log_ip()
+    
   end
-
+  
+  def supporters
+    
+    render partial: "supporters" and return
+    
+  end
+  
   def confirmation
     @order = @campaign.orders.new
     @order.direct_donation=1
@@ -318,4 +323,44 @@ class PersonalStoryCampaginController < ApplicationController
   def manage_session_order
     @campaign = Campaign.find_by_slug("hbzjsj")
   end
+  
+  def load_seller
+    
+    if params[:id] && params[:id].to_s.length > 0
+      
+      @sellerreferral = SellerReferral.find_by_id(params[:id])
+      
+      if @sellerreferral
+        @seller = @sellerreferral.seller
+        
+        session[:seller_referral_id] = @sellerreferral.id
+        
+      end
+      
+    end
+    
+  end
+  
+  def load_supporters
+    
+    @page = params[:page].to_i
+    @page = 1 if @page == 0
+    @show_pager = false
+    
+    @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
+    # @supporters = @seller.orders.completed.select(
+    #   "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(2)
+    @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
+      "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+      
+      if @supporters.total_pages > 0 && @supporters.total_pages > @page
+        @show_pager = true
+
+        query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+
+        @page_url = personal_story_campagin_supporters_path + query
+      end      
+
+  end
+  
 end

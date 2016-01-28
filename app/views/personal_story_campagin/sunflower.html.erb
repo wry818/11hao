@@ -1,0 +1,631 @@
+<style>
+.img-avatar {
+	background-color: rgb(255,249,233);
+	border:2px solid rgb(197,169,77);
+	border-radius:32px;
+	width:64px;
+	height:64px;
+}
+
+.img-friend-avatar {
+	background-color: rgb(255,249,233);
+	border:1px solid rgb(197,169,77);
+	border-radius:24px;
+	margin-right:3px;
+	width:48px;
+	height:48px;
+}
+
+.img-bubble {
+	max-width:90%;
+	max-height:100px;
+}
+
+.digit-container {
+	margin:0px auto;
+	position:relative;
+	width:275px;
+	height:40px;
+}
+
+.digit-sub-container {
+	float:left;
+	width:64px;
+	height:40px;
+}
+
+.digit-sub-margin-container {
+	width:69px;
+}
+
+.digit-box {
+	background:transparent url('/2016/digit_box.png') no-repeat center top;
+	background-size:100% auto;
+	color:#eee;
+	float:left;
+	font-size:24px;
+	line-height:40px;
+	text-align:center;
+	width:32px;
+	height:40px;
+}
+
+.digit-margin-box {
+	margin-left:5px;
+}
+
+.digit-text-box {
+	float:left;
+	padding-left:5px;
+	text-align:center;
+	width:100%;
+}
+
+.ctx img {
+	max-width: 100%;
+}
+
+@media (min-width: 640px) {
+	.img-avatar {
+		border-radius:54px;
+		width:108px;
+		height:108px;
+	}
+	
+	.img-friend-avatar {
+		border-radius:32px;
+		margin-right:6px;
+		width:64px;
+		height:64px;
+	}
+	
+	.img-bubble {
+		max-width:100%;
+		max-height:150px;
+	}
+}
+
+@media (min-width: 480px) {
+	.digit-container {
+		width:290px;
+	}
+	
+	.digit-sub-margin-container {
+		width:74px;
+	}
+	
+	.digit-margin-box {
+		margin-left:10px;
+	}
+	
+	.digit-text-box {
+		padding-left:10px;
+	}
+}
+</style>
+
+<div style="background:transparent url('/2016/bg.jpg') no-repeat center top; background-size:cover; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+	<div id="banner" style="padding-top:40%;">
+			<table style="margin:0px auto;">
+				<tr>
+					<td style="text-align:center; vertical-align:top;">
+						<% if @seller && @seller.user_profile %>
+							<% if @seller.user_profile.picture %>
+								<%= cl_image_tag @seller.user_profile.picture, width: 100, height: 100, crop: :limit, class: 'img-avatar img-rounded' %>
+							<% else %>
+								<img src="/2016/monkey-1.png" class="img-avatar img-rounded" />
+							<% end %>
+							
+							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.first_name %></span></div>
+						<% end %>
+					</td>
+					<td style="padding-left:3%; vertical-align:top;">
+						<img src="/2016/bubble.png" class="img-bubble">
+					</td>
+				</tr>
+			</table>
+	</div>
+	<div style="position:relative; padding:25px 15px 0px 15px;">
+		<div style="position:absolute; top:0px; right:0px;">
+			<img src="/2016/monkey-2.png" style="width:80px;">
+		</div>
+		<div class="well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:15px 5px;">
+			<div style="text-align:center;">
+				<span>
+					<%= @seller.user_profile.fullname if @seller && @seller.user_profile %>直接影响了
+				</span>
+				&nbsp;
+				<span style="color:#fa0000;">
+					<%= @supporters_count %>
+				</span>
+				&nbsp;
+				<span>
+					人
+				</span>
+			</div>
+			<div id="supporters_content" style="display:none;">
+				<%= render "supporters" %>
+			</div>
+			<div class="avatar-container" style="overflow: hidden; height: 48px; position: relative; text-align: center; margin-top: 10px">
+				<% if @supporters.count>0 %>
+					<% @supporters.each_with_index do |s, index| %>
+          		  		<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+              		  		<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;" />
+						<%else %>
+							<img src="/2016/monkey-1.png" class="img-friend-avatar img-rounded" style="border-radius:24px; width:48px; height:48px;" />
+						<% end %>
+					
+						<% if index == 4 %>
+							<% break %>
+						<% end %>
+					
+					<% end %>
+				
+					<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
+						<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+					</div>
+				<%else %>
+					暂无支持者
+				<% end %>
+			</div>
+			
+			<div id="indirect_influence">
+				<div style="margin-top:30px; text-align:center;">
+					<span>间接影响了</span>&nbsp;<span style="color:#fa0000;">100</span>&nbsp;<span>人</span>
+				</div>
+				<div style="margin-top:15px; text-align:center;">
+					<img src="/2016/friends_map.png" style="max-width:80%; max-height:300px;" />
+				</div>
+				<div style="margin-top:15px; text-align:center;">
+					<span>可以帮助</span>&nbsp;<span style="color:#fa0000;"><%= @campaign.organization.name %></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="detail" style="position:relative; padding:15px 15px 0px 15px;">
+		<div class="project well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:0px;">
+			<table style="background-color:rgb(197,169,77); width:100%;">
+				<tr>
+					<td style="padding:5px 15px; text-align:center;">
+						<span style="color:#eee; display:inline-block; margin-right:20px;"><%= @campaign.title %></span>
+						<span style="display:inline-block; margin-right:20px;"><span style="color:#eee;">筹款目标</span>&nbsp;<span style="color:#fa0000;"><%= short_price @campaign.goal.nil? ? 0 : @campaign.goal %></span>&nbsp;<span style="color:#eee;">元</span></span>
+					</td>
+			</table>
+			
+	        <div class="ctx">
+	          <img class="pimg" src="/images/jujube/p_01.jpg">
+	          <span class="ptt">关注自闭症儿童康</span>
+
+	          <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri %></div>
+	          <div class="pdd">小明召集了 <span style="color:red;">10</span> 个红包， 可以帮助
+	            <span style="color:red;">自闭症儿童康复治疗10小时</span></div>
+	          <div class="summary none">
+	            <div class="st">项目详情</div>
+	            <div class="desc">
+	              <div id="proj_content">
+					  <p>
+						  1元钱，可以帮助1个流动儿童参加1天的太阳花晚托班，得到志愿者亲切细致的照顾和辅导。
+5万元钱，可以帮助支持闵行太阳花半年的机构运营费用，让至少100多名流动儿童在这半年里得到更好的社区教育服务。
+</p>
+
+	                <p>上海闵行区吴泾太阳花社区儿童服务中心成立于2014年11月。我们致力于扎根上海的流动人口社区，为以来沪随迁子女为主体的社区儿童及其家长提供长期、稳定、多元、优质的公益社区教育服务。我们期望通过我们的努力，可以让流动儿童感受到上海这座城市的包容和接纳；同时，通过多元化教育资源的提供，帮助每一位在这里学习、玩耍的孩子，发现自己的潜力所在，成长为“最好的自己”。</p>
+
+	                <p>
+	                  <img src="/images/sunflower/p_01.png">
+	                </p>
+
+	                <p>我们的常规公益项目包括：</p>
+
+	                <p>(1) 晚托班。为孩子提供托管和作业辅导。</p>
+
+	                <p>
+	                  <img src="/images/sunflower/p_02.png">
+	                </p>
+					<p>(2) 入户辅导。为孩子提供更有针对性的一对一的家庭课业辅导。</p>
+	                <p>
+	                  <img src="/images/sunflower/p_03.png">
+	                </p>
+					<p>(3) 周末兴趣课堂。为孩子提供多元的兴趣课程，培养孩子的兴趣，发掘孩子的潜能。</p>
+	                <p>
+	                  <img src="/images/sunflower/p_04.png">
+	                </p>
+					<p>(4) 寒暑假营会。每年暑假寒假进行，通过举办多种多样的兴趣课程和户外活动，丰富孩子们的寒暑假生活。</p>
+					<p>(5) 图书借阅。培养孩子的阅读兴趣。</p>
+	                <p>
+	                  <img src="/images/sunflower/p_05.png">
+	                </p>
+					<p>(6) 户外拓展。不定期地带孩子走出去看看，开阔眼界，增长见识。</p>
+					<p>(7) 家长学堂。面向流动儿童家长开设，培养他们与孩子有效亲子沟通的意识和能力。</p>				  
+				  </div>
+				</div>
+	          </div>
+	        </div>
+	        <div class="bt"><b>善款接收：</b>上海闵行区吴泾太阳花社区儿童服务中心 <br> <b>项目总筹款：</b> 18764.66元 &nbsp;&nbsp; 421人捐款</div>
+			
+			<!-- <% secs_remaining = @campaign.seconds_remaining
+			days = (secs_remaining / 86400)
+			hours = ((secs_remaining % 86400) / 3600)
+			mins = (((secs_remaining % 86400) % 3600) / 60)
+			secs = ((secs_remaining % 86400) % 3600) % 60
+			%>
+
+			<div style="padding:20px 0px 35px; 0px;">
+				<div class="digit-container">
+					<div class="digit-sub-container">
+						<div class="digit-box"><%= ("00" + days.to_s)[-2] %></div>
+						<div class="digit-box"><%= ("00" + days.to_s)[-1] %></div>
+						<div style="float:left; text-align:center; width:100%;">天</div>
+					</div>
+
+					<div class="digit-sub-container digit-sub-margin-container">
+						<div class="digit-box digit-margin-box"><%= ("00" + hours.to_s)[-2] %></div>
+						<div class="digit-box"><%= ("00" + hours.to_s)[-1] %></div>
+						<div class="digit-text-box">小时</div>
+					</div>
+
+					<div class="digit-sub-container digit-sub-margin-container">
+						<div class="digit-box digit-margin-box"><%= ("00" + mins.to_s)[-2] %></div>
+						<div class="digit-box"><%= ("00" + mins.to_s)[-1] %></div>
+						<div class="digit-text-box">分钟</div>
+					</div>
+
+					<div class="digit-sub-container digit-sub-margin-container">
+						<div class="digit-box digit-margin-box"><%= ("00" + secs.to_s)[-2] %></div>
+						<div class="digit-box"><%= ("00" + secs.to_s)[-1] %></div>
+						<div class="digit-text-box">秒</div>
+					</div>
+				</div>
+
+				<div style="clear:both;"></div>
+			</div> -->
+		</div>
+	</div>
+	<div style="position:relative; padding-top:20px;">
+    <%= form_tag(personal_story_campagin_checkout_confirmation_path, method: "post", id: "payment_form") %>
+			<div id="btn_submit1" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
+				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
+			</div>
+		
+			<div id="payment-form-submit" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
+				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
+			</div>
+    </form>
+		
+		<%= hidden_field_tag :fullname, @nickname %>
+		<%= hidden_field_tag :avatar_url, @avatar_url %>
+		<%= hidden_field_tag :share_id, @sellerreferral==nil ? "" : @sellerreferral.id %>
+	</div>
+</div>
+
+<div class="navbar-fixed-bottom" style="padding:5px 0px 10px 0px; text-align:center;">
+	<button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span></button>
+</div>
+
+<script language="javascript" type="text/javascript">
+var body_scrollTop = 0;
+
+function showContent() {
+	
+	$(".avatar-container").show();
+	$("#indirect_influence").show();
+	$(".detail").show();
+	$("#payment_form").show();
+	
+	$("#supporters_content").hide();
+	$("#btn_view_content").hide();
+	
+	$("body").scrollTop(body_scrollTop);
+}
+
+function showSupporters() {
+	body_scrollTop = $("body").scrollTop();
+	
+	$(".avatar-container").hide();
+	$("#indirect_influence").hide();
+	$(".detail").hide();
+	$("#payment_form").hide();
+	
+	$("#supporters_content").show();
+	$("#btn_view_content").show();
+	$("body").scrollTop($("#banner").height());
+}
+
+  $(function () {
+	
+	$("#supporters_content").jscroll({
+		autoTrigger: false,
+		nextSelector: "a.a-pager:last",
+		callback: function() {
+		},
+		loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+	});
+	
+	$("#btn_view_supporters").click(function() {
+		showSupporters();
+	});
+	  
+    //展开详情
+    $("img.arri").bind('click', function () {
+      var $arri = $("div.arri");
+      var $summary = $("div.summary");
+      if ($arri.hasClass("arriup")) {
+        $arri.removeClass("arriup");
+        $summary.addClass("none");
+      }
+      else {
+        $arri.addClass("arriup");
+        $summary.removeClass("none");
+      }
+    });
+    //展示更多
+    $("div.more").bind('click', function () {
+      alert("展示更多");
+      $.ajax({
+        type: "post",
+        url: "<%= ajax_personal_story_campagin_supporters_path%>",
+        data: {},
+        success: function (data) {
+//          $('#resText').empty();   //清空resText里面的所有内容
+          alert(data);
+//          $('#resText').html();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+          this; // 调用本次AJAX请求时传递的options参数
+        }
+      });
+
+    });
+
+    if (<%= @is_wechat_browser %> == false)
+    {
+      $("#payment-form-submit").show();
+      $('#btn_submit1').hide();
+    }
+    else
+    {
+      $("#payment-form-submit").hide();
+      $('#btn_submit1').show();
+    }
+		
+		$("#payment-form-submit").off("click").on("click", function() {
+			$(this).prop('disabled', true);
+			$("#payment_form").submit();
+		});
+
+    if (typeof WeixinJSBridge == "undefined") {
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+      }
+    } else {
+      onBridgeReady();
+    }
+
+    function onBridgeReady() {
+      if ("<%= @weixin_init_success %>" == "true") {
+        $('#btn_submit1').off("click").on("click", function () {
+          var url = "<%=personal_story_campagin_checkout_confirmation_weixin_path%>";
+          $('#btn_submit1').prop('disabled', true);
+          var shareid = $("#share_id").val();
+          $.post(url, {direct_donation: 1,id:shareid}).done(function (data, textStatus, jqXHR) {
+            weixin_load(data);
+          }).fail(function () {
+            alert("请求已经结束但是可能发生了错误！");
+
+            $('#btn_submit1').prop('disabled', false);
+          }).always(function () {
+
+          });
+        });
+      } else {
+        alert("系统忙，请刷新页面再试。");
+      }
+    }
+
+    function weixin_load(order_id) {
+      $(function () {
+        $.ajax({
+          method: "get",
+          url: "/weixin_payment_get_req/" + order_id,
+          dataType: "json",
+          cache: false,
+          success: function (d) {
+            if (d) {
+              // alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
+              WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                "appId": d.appId,     //公众号名称，由商户传入
+                "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+                "nonceStr": d.nonceStr, //随机串
+                "package": d.package,
+                "signType": "MD5",         //微信签名方式:
+                "paySign": d.paySign //微信签名
+              }, function (res) {
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                  ComfirmOrder(order_id);
+                } else {
+                  $('#wechat').prop('disabled', false);
+                }
+              });
+            }
+            else {
+              $('#wechat').prop('disabled', false);
+            }
+          },
+          error: function () {
+            $('#wechat').prop('disabled', false);
+          },
+          complete: function () {
+
+          }
+        });
+      });
+    }
+
+    function ComfirmOrder(order_id) {
+
+      var order_make_anonymous = false;
+      var fullName = $("#fullname").val();
+
+      if (fullName == "") {
+        fullName = "匿名";
+        order_make_anonymous = true;
+      }
+
+      var avatar_url = $("#avatar_url").val();
+      var order_time = new Date();
+      var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
+      var data = {
+        order_id: order_id,
+        order_make_anonymous: order_make_anonymous,
+        format_order_time: format_order_time,
+        fullName: fullName,
+        avatar_url: avatar_url
+      };
+
+      $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: data,
+        beforeSend: function (jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+//          window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal_campagin";
+
+          window.location.href = "<%=personal_story_campagin_index_red_pack_path%>"
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+        }
+      });
+
+    }
+
+  });
+</script>
+
+<% if @sign_package %>
+    <script>
+      var campagin_share_link = "<%= personal_story_campagin_index_url %>";
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: campagin_share_link,
+        img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
+        title: "用红包拯救世界，你也来试试？"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+
+      $(function () {
+        var shareid = $("#share_id").val();
+        if (shareid.length == 0) {
+          window.shareData.link = campagin_share_link;
+        } else {
+          window.shareData.link = campagin_share_link + '?id=' + shareid;
+        }
+      });
+    </script>
+	  
+<% end %>
