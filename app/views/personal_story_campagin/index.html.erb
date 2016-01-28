@@ -195,14 +195,14 @@
 			</div>
 		</div>
 	</div>
-	<div style="margin-top:20px;">
+	<div style="position:relative; padding-top:20px;">
     <%= form_tag(personal_story_campagin_checkout_confirmation_path, method: "post", id: "payment_form") %>
 			<div id="btn_submit1" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
-				<img src="/2016/pay_one.png" style="height:100px;"/>
+				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
 			</div>
 		
 			<div id="payment-form-submit" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
-				<img src="/2016/pay_one.png" style="height:100px;"/>
+				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
 			</div>
     </form>
 		
@@ -262,8 +262,7 @@
 		
 		$("#payment-form-submit").off("click").on("click", function() {
 			$(this).prop('disabled', true);
-			console.log("submit");
-			// $("#payment_form").submit();
+			$("#payment_form").submit();
 		});
 
     if (typeof WeixinJSBridge == "undefined") {
