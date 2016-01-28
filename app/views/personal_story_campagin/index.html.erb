@@ -106,10 +106,10 @@
 				<tr>
 					<td style="text-align:center; vertical-align:top;">
 						<% if @seller && @seller.user_profile %>
-							<% if @seller.user_profile.picture %>
+							<% if @seller.user_profile.picture && @seller.user_profile.picture!="" && @seller.user_profile.picture.to_s.gsub(' ','').length>0 %>
 								<img src="<%= @seller.user_profile.picture %>" class="img-avatar img-rounded" />
 							<% else %>
-								<img src="/2016/monkey-1.png" class="img-avatar img-rounded" />
+								<%= image_tag 'weixin_default.jpg', :class => "img-avatar img-rounded" %>
 							<% end %>
 							
 							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.fullname %></span></div>
