@@ -220,7 +220,7 @@
 	            <div class="desc">
 	              <div id="proj_content">
 					  <p>
-						  1元钱，可以帮助1个流动儿童参加1天的太阳花晚托班，得到志愿者亲切细致的照顾和辅导。
+						  1元钱，可以帮助1个流动儿童参加1天的太阳花晚托班，得到志愿者亲切细致的照顾和辅导。<br />
 5万元钱，可以帮助支持闵行太阳花半年的机构运营费用，让至少100多名流动儿童在这半年里得到更好的社区教育服务。
 </p>
 
@@ -256,7 +256,7 @@
 				</div>
 	          </div>
 	        </div>
-	        <div class="bt"><b>善款接收：</b>吴泾太阳花社区儿童服务中心 <br> <b>项目总筹款：</b> 50000.00元 &nbsp;&nbsp; 421人捐款</div>
+	        <div class="bt"><b>善款接收：</b>吴泾太阳花社区儿童服务中心 <br> <b>项目总筹款：</b> 50000.00元 &nbsp;&nbsp; <%= @campaign_total_count %>人捐款</div>
 			
 			<!-- <% secs_remaining = @campaign.seconds_remaining
 			days = (secs_remaining / 86400)
@@ -347,7 +347,7 @@ function showSupporters() {
 }
 
   $(function () {
-	
+		
 	$("#supporters_content").jscroll({
 		autoTrigger: false,
 		nextSelector: "a.a-pager:last",
@@ -373,6 +373,11 @@ function showSupporters() {
         $summary.removeClass("none");
       }
     });
+	
+	if (<%= @has_seller %> == false) {
+		$("img.arri").trigger('click');
+	}
+	
     //展示更多
     $("div.more").bind('click', function () {
       alert("展示更多");
