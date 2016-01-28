@@ -1,8 +1,32 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share,:log_ip]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share, :log_ip, :index_old]
 
   def index
+    @is_wechat_browser = is_wechat_browser?
+
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
+    end
+    
+    if params[:id]&&params[:id].to_s.length>0
+      @sellerreferral=SellerReferral.find(params[:id])
+      
+      if @sellerreferral
+        @seller=@sellerreferral.seller
+        
+        session[:seller_referral_id]=@sellerreferral.id
+      end
+    end
+    
+    log_ip()
+  end
+  
+  def index_old
     @is_wechat_browser = is_wechat_browser?
 
     if is_wechat_browser?
