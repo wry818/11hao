@@ -12,13 +12,17 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
+    
     if params[:id]&&params[:id].to_s.length>0
       @sellerreferral=SellerReferral.find(params[:id])
-      @seller=@sellerreferral.seller
+      
       if @sellerreferral
+        @seller=@sellerreferral.seller
+        
         session[:seller_referral_id]=@sellerreferral.id
       end
     end
+    
     log_ip()
   end
 
