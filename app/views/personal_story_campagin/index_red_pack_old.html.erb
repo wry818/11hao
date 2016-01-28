@@ -1,131 +1,42 @@
-<style>
-.img-avatar {
-	background-color: rgb(255,249,233);
-	border:2px solid rgb(197,169,77);
-	border-radius:32px;
-	width:64px;
-	height:64px;
-}
+<article class="main_personal_red_pack">
+  <div class="bg">
+    <%= image_tag "bg-2.jpg", :class => "bg-img" %>
+  </div>
+  <header class="promo clearfix">
+    <div class="sender-info">
+      <div class="sender-avatar">
+        <%= image_tag "yqj_icon_head.jpg" %>
+      </div>
+      <div style="text-align: center;color: #9f7533;">雪夜</div>
+    </div>
+    <div class="bubble">
+      <%= image_tag "bubble.png" %>
+      <div class="promo-text">
+        谢谢支持，你的红包可以通过11号公益圈公众账号->
+        “我的红包” 领取
+      </div>
+    </div>
+  </header>
 
-.img-friend-avatar {
-	background-color: rgb(255,249,233);
-	border:1px solid rgb(197,169,77);
-	border-radius:24px;
-	margin-right:3px;
-	width:48px;
-	height:48px;
-}
-
-.img-bubble {
-	max-width:100%;
-	max-height:100px;
-}
-
-.digit-container {
-	margin:0px auto;
-	position:relative;
-	width:275px;
-	height:40px;
-}
-
-.digit-sub-container {
-	float:left;
-	width:64px;
-	height:40px;
-}
-
-.digit-sub-margin-container {
-	width:69px;
-}
-
-.digit-box {
-	background:transparent url('/2016/digit_box.png') no-repeat center top;
-	background-size:100% auto;
-	color:#eee;
-	float:left;
-	font-size:24px;
-	line-height:40px;
-	text-align:center;
-	width:32px;
-	height:40px;
-}
-
-.digit-margin-box {
-	margin-left:5px;
-}
-
-.digit-text-box {
-	float:left;
-	padding-left:5px;
-	text-align:center;
-	width:100%;
-}
-
-@media (min-width: 640px) {
-	.img-avatar {
-		border-radius:54px;
-		width:108px;
-		height:108px;
-	}
-	
-	.img-friend-avatar {
-		border-radius:32px;
-		margin-right:6px;
-		width:64px;
-		height:64px;
-	}
-	
-	.img-bubble {
-		max-width:100%;
-		max-height:150px;
-	}
-}
-
-@media (min-width: 480px) {
-	.digit-container {
-		width:290px;
-	}
-	
-	.digit-sub-margin-container {
-		width:74px;
-	}
-	
-	.digit-margin-box {
-		margin-left:10px;
-	}
-	
-	.digit-text-box {
-		padding-left:10px;
-	}
-}
-</style>
-
-<div style="background:transparent url('/2016/bg-1.jpg') no-repeat center top; background-size:100% auto; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
-	<div style="padding-top:20%;">
-			<table style="margin:0px auto;">
-				<tr>
-					<td style="text-align:center; vertical-align:top;">
-						<% if @seller && @seller.user_profile %>
-							<% if @seller.user_profile.picture %>
-								<img src="<%= @seller.user_profile.picture %>" class="img-avatar img-rounded" />
-							<% else %>
-								<img src="/2016/monkey-1.png" class="img-avatar img-rounded" />
-							<% end %>
-							
-							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.fullname %></span></div>
-						<% end %>
-					</td>
-					<td style="padding-left:3%; vertical-align:top;">
-						<img src="/2016/bubble-1.png" class="img-bubble">
-					</td>
-				</tr>
-			</table>
-	</div>
-	<div class="btn-text" style="padding-top:90%; text-align:center;">
-		<img src="/2016/collect_pack.png" style="max-width:100%; max-height:100px;">
-	</div>
-</div>
-
+  <section class="coupon-anime">
+    <%= image_tag "envelope-1.png", :class => "coupon-pocket" %>
+    <div class="coupon-inner">
+      <%= image_tag "coupon.png", :class => "coupon-img" %>
+      <div class="coupon j_coupon">
+        <div style="text-align: center;">?元</div>
+        <div style="text-align: center;">现金</div>
+      </div>
+    </div>
+  </section>
+  <section class="actions">
+    <div class="use-coupon" id="get_btn" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+      <div class="btn-text">我也要收集红包， 拯救世界</div>
+    </div>
+  </section>
+  <div class="cloud">
+    <%= image_tag "cloud.png", :class => "cloud-img" %>
+  </div>
+</article>
 <%= render "yqj_result_share" %>
 
 <%= hidden_field_tag :fullname, @nickname %>
@@ -135,10 +46,6 @@
   $(function () {
     $("div.btn-text").bind('click', function () {
       $("#yqj_result_shareModal").modal('show');
-			
-			$(".yqj_result_share").click(function() {
-				$("#yqj_result_shareModal").modal('hide');
-			});
     });
   });
 </script>

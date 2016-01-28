@@ -52,7 +52,7 @@ class PersonalStoryCampaginController < ApplicationController
 
   def confirmation
     @order = @campaign.orders.new
-    @order.direct_donation=1 * 100
+    @order.direct_donation=1
     @order.save
 
     if !@order.valid?
@@ -123,8 +123,13 @@ class PersonalStoryCampaginController < ApplicationController
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       weixin_address_init()
     end
+    
     if session[:seller_referral_id]
       @sellerreferral=SellerReferral.find(session[:seller_referral_id])
+      
+      if @sellerreferral
+        @seller=@sellerreferral.seller
+      end
     end
   end
 
