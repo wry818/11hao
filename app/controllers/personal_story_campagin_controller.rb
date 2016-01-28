@@ -1,6 +1,7 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share,:log_ip]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share, :log_ip, :index_old]
+  before_filter :load_seller, only: [:index, :index_old]
 
   def index
     @is_wechat_browser = is_wechat_browser?
@@ -12,19 +13,63 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
-    if params[:id]&&params[:id].to_s.length>0
-      @sellerreferral=SellerReferral.find(params[:id])
-      @seller=@sellerreferral.seller
-      if @sellerreferral
-        session[:seller_referral_id]=@sellerreferral.id
-      end
+    
+    log_ip()
+    
+  end
+  
+  def index_old
+    @is_wechat_browser = is_wechat_browser?
+
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
     end
+    
     log_ip()
   end
+  
+  def sunflower
+    
+    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign_total_count = @campaign.orders.completed.count
+    path = personal_story_campagin_sunflower_supporters_path
+    
+    @is_wechat_browser = is_wechat_browser?
 
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+      weixin_address_init()
+
+    end
+    
+    load_seller()
+    load_supporters(path)
+    
+    log_ip()
+    
+  end
+  
+  def sunflower_supporters
+    
+    @campaign = Campaign.find_by_slug("hbzjsj")
+    path = personal_story_campagin_sunflower_supporters_path
+    
+    load_seller()
+    load_supporters(path)
+    
+    render partial: "supporters" and return
+    
+  end
+  
   def confirmation
     @order = @campaign.orders.new
-    @order.direct_donation=1 * 100
+    @order.direct_donation=1
     @order.save
 
     if !@order.valid?
@@ -95,8 +140,13 @@ class PersonalStoryCampaginController < ApplicationController
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       weixin_address_init()
     end
+    
     if session[:seller_referral_id]
       @sellerreferral=SellerReferral.find(session[:seller_referral_id])
+      
+      if @sellerreferral
+        @seller=@sellerreferral.seller
+      end
     end
   end
 
@@ -283,6 +333,66 @@ class PersonalStoryCampaginController < ApplicationController
   private
 
   def manage_session_order
+    
     @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign_total_count = @campaign.orders.completed.count
+    
   end
+  
+  def load_seller
+    
+    @has_seller = false
+    if params[:id] && params[:id].to_s.length > 0
+      
+      @sellerreferral = SellerReferral.find_by_id(params[:id])
+      
+      if @sellerreferral
+        @seller = @sellerreferral.seller
+        @has_seller = true
+        
+        session[:seller_referral_id] = @sellerreferral.id
+        
+        @seller_referral_count = 0
+        
+        seller_referrals = SellerReferral.where(:sellerreferral_id => @seller.id)
+        puts seller_referrals
+        if seller_referrals
+          seller_referrals.each do |seller_referral|
+            @seller_referral_count += @campaign.orders.completed.where(:seller_id => seller_referral.seller_id).count
+          end
+
+        end
+        
+      end
+      
+    end
+    
+  end
+  
+  def load_supporters(path)
+    
+    @page = params[:page].to_i
+    @page = 1 if @page == 0
+    @show_pager = false
+    
+    if @seller
+      
+      @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
+      @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
+        "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+      
+        if @supporters.total_pages > 0 && @supporters.total_pages > @page
+          
+          @show_pager = true
+
+          query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+
+          @page_url = path + query
+          
+        end  
+        
+    end    
+
+  end
+  
 end
