@@ -190,20 +190,15 @@ class PersonalStoryCampaginController < ApplicationController
         @user_profile.user_id=@user.id
         @user_profile.first_name=@nick_name
         @user_profile.child_profile=false
-      else
-        @user_profile.first_name = @nick_name
+        @user_profile.picture=@avatar_url
+        @user_profile.save
       end
-      
-      @user_profile.picture=@avatar_url
 
       @seller = @user_profile.seller(@campaign)
       
       if !@seller
-        @seller = Seller.create user_profile: @user_profile, campaign: @campaign
+        @seller = Seller.create user_profile: @user_profile, campaign: @campaign, open_id: session[:openid]
       end
-      
-      @seller.open_id=session[:openid]
-      @seller.save
     end
   end
 
