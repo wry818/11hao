@@ -324,7 +324,7 @@ class PersonalStoryCampaginController < ApplicationController
         
         referral_ids = SellerReferral.where(:sellerreferral_id => @seller.id).pluck(:seller_id)
         
-        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count
+        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count + @campaign.orders.completed.where(:seller_id => @seller.id).count
         
         session[:referral_seller_id] = @seller.id
       end
