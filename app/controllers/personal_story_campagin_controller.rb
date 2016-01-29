@@ -153,7 +153,7 @@ class PersonalStoryCampaginController < ApplicationController
       if session[:referral_seller_id]
         @referral_seller = Seller.find_by_id(params[:referral_seller_id])
       
-        if @seller && @referral_seller
+        if @seller && @referral_seller && @seller.id != @referral_seller.id
           seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
           
           if !seller_referral
@@ -188,22 +188,17 @@ class PersonalStoryCampaginController < ApplicationController
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
-        @user_profile.first_name=@nick_name
+        @user_profile.first_name=@nick_name || '匿名'
         @user_profile.child_profile=false
-      else
-        @user_profile.first_name = @nick_name
+        @user_profile.picture=@avatar_url
+        @user_profile.save
       end
-      
-      @user_profile.picture=@avatar_url
 
       @seller = @user_profile.seller(@campaign)
       
       if !@seller
-        @seller = Seller.create user_profile: @user_profile, campaign: @campaign
+        @seller = Seller.create user_profile: @user_profile, campaign: @campaign, open_id: session[:openid]
       end
-      
-      @seller.open_id=session[:openid]
-      @seller.save
     end
   end
 
