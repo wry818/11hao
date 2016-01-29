@@ -147,7 +147,7 @@ class PersonalStoryCampaginController < ApplicationController
       
       # @share_link relies on slug, hbzjsj and so on
       if @seller
-        if @campaign.slug == "hbzjsj" 
+        if @campaign.slug == "1454046936"
           @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
         end
       end
