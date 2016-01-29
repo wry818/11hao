@@ -48,7 +48,7 @@
                   &nbsp
                   &nbsp
                   <% if @campaign_top.campaign_logo %>
-                      <%= cl_image_tag @campaign_top.campaign_logo.image_id, class: 'img-avatar lazy-image' %>
+                      <%= cl_image_tag @campaign_top.campaign_logo.image_id, class: 'img-avatar lazy-image tody_top' %>
                   <% else %>
                       <%= image_tag 'default_upload_logo.gif', class: 'img-avatar lazy-image' %>
                   <% end %>
@@ -262,7 +262,7 @@
         alert(res.errMsg);
       });
       $(function(){
-        window.shareData.img_url=$("img.campaign-logo").attr("src");
+        window.shareData.img_url=$("img.tody_top").attr("src");
       });
     </script>
 <% end %>
