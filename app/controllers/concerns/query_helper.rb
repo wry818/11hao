@@ -51,8 +51,7 @@ class QueryHelper
           from
           (
             SELECT campaigns.id,COALESCE (sum(o.id), 0),count(o.id) as all_count FROM (SELECT * from orders where status=3 and direct_donation>0"+where_time+") o
-            INNER JOIN sellers s on o.seller_id=s.id
-            RIGHT JOIN campaigns  on campaigns.id=s.campaign_id
+            RIGHT JOIN campaigns  on campaigns.id=o.campaign_id
             where campaigns.id in ("+campagin_ids+")
             GROUP BY campaigns.id
           ) a
