@@ -117,7 +117,9 @@ class ApplicationController < ActionController::Base
                 redirect_uri = "http://www.11haoonline.com" + request.fullpath + "?is_test=1"
               end
             end
-            
+            logger.info "aaaaaaaaaaaaaaaa"
+            logger.info redirect_uri
+            logger.info "bbbbbbbbbbbbbbbb"
           else
             # In case callback url contains code which will trigger re-auth
             redirect_uri = ERB::Util.url_encode(request.original_url.gsub(/code=/, "_code="))
