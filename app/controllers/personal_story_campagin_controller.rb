@@ -34,7 +34,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     @campaign_total_count = @campaign.orders.completed.count
     path = personal_story_campagin_sunflower_supporters_path
     
@@ -57,7 +57,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower_supporters
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     path = personal_story_campagin_sunflower_supporters_path
     
     load_seller()
@@ -147,7 +147,7 @@ class PersonalStoryCampaginController < ApplicationController
       
       # @share_link relies on slug, hbzjsj and so on
       if @seller
-        if @campaign.slug == "hbzjsj"
+        if @campaign.slug == "hbzjsj" 
           @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
         end
       end
