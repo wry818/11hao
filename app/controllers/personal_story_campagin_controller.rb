@@ -153,7 +153,7 @@ class PersonalStoryCampaginController < ApplicationController
       if session[:referral_seller_id]
         @referral_seller = Seller.find_by_id(params[:referral_seller_id])
       
-        if @seller && @referral_seller
+        if @seller && @referral_seller && @seller.id != @referral_seller.id
           seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
           
           if !seller_referral
