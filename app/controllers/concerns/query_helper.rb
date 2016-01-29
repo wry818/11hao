@@ -59,83 +59,20 @@ class QueryHelper
           inner JOIN   campaigns on a.ID=campaigns.id"
   end
 
-  def self.get_seller_ladder_campaign(campagin_ids)
-    query="select rank() over (order by sum desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
-    (
-						SELECT
-						w. ID,
-						w.user_profile_id,
-						SUM (
-							COALESCE (o.direct_donation, 0)
-						) ,
-						COUNT (o. ID)
-					FROM
-						 sellers w
-					LEFT JOIN (
-						SELECT o1.id id,o1.direct_donation,o1.seller_id FROM orders o1
-		where o1.status=3
-						UNION ALL
-						(
-							SELECT o2.id id,o2.direct_donation,w.id as seller_id FROM orders o2
-							INNER JOIN
-							(
-							SELECT DISTINCT t1.id,t3.seller_id as seller_id from sellers t1
-							INNER JOIN seller_referrals t2 on t1.id=t2.seller_id
-							INNER join seller_referrals t3 on t2.id=t3.sellerreferral_id
-							WHERE t1.campaign_id in("+campagin_ids+") and t1.id!=t3.seller_id
-							)w on o2.seller_id=w.seller_id and o2.status=3
-						)
-					) o ON w.ID = o.seller_id
-					WHERE
-						w.campaign_id IN ("+campagin_ids+")
-					GROUP BY
-						w.ID,
-						w.user_profile_id
-         limit 1000
-    ) a
-    inner join user_profiles on a.user_profile_id = user_profiles.id
-    inner join users on user_profiles.user_id = users.id
-    inner join sellers on a.id = sellers.id"
+  def self.get_page_orders_countmax(campagin_id)
+    query="SELECT MAX(count) from
+          (
+            SELECT  count(o.seller_id) FROM
+            (
+                  SELECT * from orders where orders.campaign_id = "+campagin_id+"
+                  AND orders.status IN (1, 3)
+                  and COALESCE(orders.seller_id,-1)>0
+
+            ) o
+            GROUP BY o.seller_id
+          ) w
+          "
   end
 
-  def self.get_seller_ladder_campaign_today(campagin_ids)
-    query="select rank() over (order by sum desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
-    (
-						SELECT
-						w. ID,
-						w.user_profile_id,
-						SUM (
-							COALESCE (o.direct_donation, 0)
-						) ,
-						COUNT (o. ID)
-					FROM
-					 sellers w
-					LEFT JOIN (
-						SELECT o1.id id,o1.direct_donation,o1.seller_id FROM orders o1
-          where o1.updated_at >'"+Time.now.to_date.to_s+"' and o1.status=3
-						UNION ALL
-						(
-							SELECT o2.id id,o2.direct_donation,w.id as seller_id FROM orders o2
-							INNER JOIN
-							(
-							SELECT DISTINCT t1.id,t3.seller_id as seller_id from sellers t1
-							INNER JOIN seller_referrals t2 on t1.id=t2.seller_id
-							INNER join seller_referrals t3 on t2.id=t3.sellerreferral_id
-							WHERE t1.campaign_id in("+campagin_ids+") and t1.id!=t3.seller_id
 
-							)w on o2.seller_id=w.seller_id and o2.status=3
-            where o2.updated_at >'"+Time.now.to_date.to_s+"'
-						)
-					) o ON w.ID = o.seller_id
-					WHERE
-						w.campaign_id IN ("+campagin_ids+")
-					GROUP BY
-						w.ID,
-						w.user_profile_id
-          limit 100
-    ) a
-    inner join user_profiles on a.user_profile_id = user_profiles.id
-    inner join users on user_profiles.user_id = users.id
-    inner join sellers on a.id = sellers.id"
-  end
 end

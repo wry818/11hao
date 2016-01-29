@@ -89,4 +89,97 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     render :partial=>"report_content"
   end
 
+  def visit_share_donation
+    if params[:from_date]
+      fromdate=Time.parse(params[:from_date]).strftime("%Y-%m-%d")
+    else
+      fromdate=(Time.now-+ (60 * 60 * 24*7)).strftime("%Y-%m-%d")
+    end
+
+    if params[:to_date]
+      endate=Time.parse(params[:to_date]).strftime("%Y-%m-%d")
+    else
+      endate= Time.now.strftime("%Y-%m-%d")
+    end
+
+    @fromdate=fromdate
+    @todate=endate
+    endate+=" 23:59:59"
+  end
+  def visit_share_donation_ajax
+    campagin_id=params[:campagin_id];
+    from_date=params[:from_date];
+    to_date=params[:to_date];
+
+
+    if from_date.length>0
+      from_date=Time.parse(from_date).strftime("%Y-%m-%d")
+    end
+    if to_date.length>0
+      to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
+    end
+
+    @campaigns=Campaign.order(:id=>:desc)
+    if campagin_id.to_i>=0
+      @campaigns=@campaigns.where(:campaign_id => campagin_id)
+    end
+    # if from_date.length>0
+    #   @results=@results.where("visited_time >= ?",from_date)
+    # end
+    # if to_date.length>0
+    #   @results=@results.where("visited_time < ?",to_date)
+    # end
+    @results=Array.new
+
+    @campaigns.each do |campaign_temp|
+      # log
+      @result_item=Hash.new
+      @count_log=CampaignVisitLog.where(:campaign_id => campaign_temp.id)
+      if from_date.length>0
+        @count_log=@count_log.where("visited_time >= ?",from_date)
+      end
+      if to_date.length>0
+        @count_log=@count_log.where("visited_time < ?",to_date)
+      end
+      @result_item["id"]=campaign_temp.id
+      @result_item["title"]=campaign_temp.title
+      @result_item["log_count"]=@count_log.count
+      # share
+
+      seller_ids=campaign_temp.sellers.collect(&:id)
+      @share_log=SellerReferral.where(:is_success => true,:seller_id => seller_ids)
+      if from_date.length>0
+        @share_log=@share_log.where("updated_at >= ?",from_date)
+      end
+      if to_date.length>0
+        @share_log=@share_log.where("updated_at < ?",to_date)
+      end
+      @result_item["share_count"]=@share_log.count
+      # ordrs
+      @order_log=Order.where(:campaign_id => campaign_temp.id).completed
+      if from_date.length>0
+        @order_log=@order_log.where("updated_at >= ?",from_date)
+      end
+      if to_date.length>0
+        @order_log=@order_log.where("updated_at < ?",to_date)
+      end
+      @result_item["order_count"]=@order_log.count
+
+      # max orders page  orders.count
+
+     logger.debug "2002"
+     # @page_orders_max=Order.select("count(seller_id)").having(:campaign_id => campaign_temp.id,:status=>[1,3]).group("seller_id")
+
+      # avg orders
+
+
+
+      @results<<@result_item
+    end
+
+
+
+
+    render :partial=>"visit_share_donation_content"
+  end
 end

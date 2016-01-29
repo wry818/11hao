@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-2" style="text-align:right;">
+        <label class="control-label">筹款团队</label>
+      </div>
+      <div class="col-xs-4">
+        <select id="all_report_product_selector" class="form-control input-small" style="width:100%;">
+          <option value="-1">All</option>
+          <% Campaign.isnot_destroy.each do |c| %>
+              <option value="<%= c.id %>"><%= c.title %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-xs-2" style="text-align:right;">
+
+      </div>
+      <div class="col-xs-4">
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-2" style="text-align:right;">
+        <label class="control-label">开始时间</label>
+      </div>
+      <div class="col-xs-4">
+        <input id="from_date" name="from_date" placeholder="Select date" value="<%=@fromdate%>" data-value="<%=@fromdate%>" class="datepicker form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+      </div>
+      <div class="col-xs-2" style="text-align:right;">
+        <label class="control-label">结束时间</label>
+      </div>
+      <div class="col-xs-4">
+        <input id="to_date" name="to_date" placeholder="Select date" value="<%= @todate %>" data-value="<%= @todate %>" class="datepicker form-control" style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" style="position:relative;">
+    <div style="text-align:center; margin-top:30px;">
+      <button id="run_report" class="btn btn-primary" style="width:100px;"><span>查询</span></button>
+    </div>
+    <div style="position:absolute; top:0px; right:0px; display:none;">
+      <a id="view_history" href="javascript:open_download_history();"><span>View Download History</span></a>
+    </div>
+  </div>
+</div>
+<script language="javascript" type="text/javascript">
+  $("#from_date").pickadate({
+    // Escape any “rule” characters with an exclamation mark (!).
+    format: 'dd mmm, yyyy',
+    formatSubmit: 'yyyy-mm-dd'
+  });
+
+  $("#to_date").pickadate({
+    // Escape any “rule” characters with an exclamation mark (!).
+    format: 'dd mmm, yyyy',
+    formatSubmit: 'yyyy-mm-dd'
+  });
+
+  //   $(function(){
+  //     $("#from_date").attr("data-value",'<%=@fromdate%>');
+  //     $("#from_date").attr("value",'<%=@fromdate%>');
+  //     $("#to_date").data("value",'<%=@todate%>');
+  //   });
+  //  $("#from_date").pickadate();
+  //   $("#to_date").val($.datepicker.formatDate('yy-mm-dd',new Date( '<%=@todate%>' )));
+  //   $("#to_date").pickadate();
+</script>

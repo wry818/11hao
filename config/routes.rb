@@ -88,6 +88,8 @@ Raisy::Application.routes.draw do
           root 'reportsboard#index'
           get 'campvisit_log/report',to: 'campaign_visit_log#reportindex', as: :campvisit_log_report
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
+          get 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation', as: :campvisit_log_report_visit_share_donation
+          post 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation_ajax', as: :ajax_campvisit_log_report_visit_share_donation
         end
         
         resources :questionnaires

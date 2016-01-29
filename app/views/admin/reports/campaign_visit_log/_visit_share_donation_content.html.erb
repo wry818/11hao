@@ -1,0 +1,21 @@
+<div style="display:none;">报表内容</div>
+<table class="table">
+  <thead>
+  <th>编号</th>
+  <th>筹款团队</th>
+  <th>总访问记录</th>
+  <th>总分享记录</th>
+  <th>总订单记录</th>
+  </thead>
+  <tbody>
+  <%@results.each do |r| %>
+      <tr>
+        <td><%=	 r["id"] %></td>
+        <td><%=	 r["title"] %></td>
+        <td><%=	 r["log_count"] %></td>
+        <td><%=	 r["share_count"] %></td>
+        <td><%=	 r["order_count"] %></td>
+      </tr>
+  <%	 end %>
+  </tbody>
+</table>
