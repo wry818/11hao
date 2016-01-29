@@ -33,8 +33,7 @@
       <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
   <% end %>
   <div style="position:absolute; left:10px; bottom:5px;">
-    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;">“<%= @campaign_first.title.to_s.length>8 ? @campaign_first.title.to_s[0..8]+"..." : @campaign_first.title %>
-      ”占领了封面</span>
+    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;"><%=@campaign_first.title %>占领了封面</span>
   </div>
 </div>
 <div id="campaign-show" style="background-color: white;">
@@ -55,13 +54,14 @@
                   <% end %>
 
                 </p>
-                  <p style="font-size: 15px;color: black;margin-left: 5px;">
-                  <%= @seller_today_top["title"].to_s.length>8 ? @seller_today_top["title"].to_s[0..8]+"..." : @seller_today_top["title"] %>
+
+                <p style="font-size: 15px;color: black;margin-left: 5px;">
+                  <%= @seller_today_top["title"].to_s.length>20 ? @seller_today_top["title"].to_s[0..19]+"..." : @seller_today_top["title"] %>
                   <br/>
                     <span style=" font-size: 13px;color: gray;">
                     当日冠军
                     </span>
-                  </p>
+                </p>
 
                 <div class="right_content">
                   <div>
@@ -91,7 +91,6 @@
                   <% @seller_ladder_result.each do |seller_ladder| %>
                       <div class="support_content">
                         <p>
-                          <%= seller_ladder["rank"] %>&nbsp;
                           <% @campaign_temp=Campaign.find(seller_ladder["id"])
                              if @campaign_temp.campaign_logo
                           %>
@@ -99,7 +98,17 @@
                           <% else %>
                               <%= image_tag 'default_upload_logo.gif', class: 'img-avatar lazy-image' %>
                           <% end %>
-                          <%= seller_ladder["title"].to_s.length>8 ? seller_ladder["title"].to_s[0..8]+"..." : seller_ladder["title"] %>
+
+                        </p>
+
+                        <p style="font-size: 15px;color: black;margin-left: 5px; width:51%">
+                          <span>
+                          <%= seller_ladder["title"].to_s.length>20 ? seller_ladder["title"].to_s[0..19]+".." : seller_ladder["title"] %>
+                          </span>
+                            <br/>
+                    <span style=" font-size: 13px;color: gray;">
+                    第<%= seller_ladder["rank"] %>名
+                    </span>
                         </p>
 
                         <div class="right_content">
@@ -132,15 +141,12 @@
   $(function () {
     document.title = "用红包拯救世界";
     $("#footer").remove();
-    var counts= $("p.count_num");
-    for(i=0;i<=counts.length;i++)
-    {
-      if (i<2)
-      {
-        $(counts[i]).css("color","coral");
-      }else
-      {
-        $(counts[i]).css("color","YellowGreen");
+    var counts = $("p.count_num");
+    for (i = 0; i <= counts.length; i++) {
+      if (i < 2) {
+        $(counts[i]).css("color", "coral");
+      } else {
+        $(counts[i]).css("color", "YellowGreen");
       }
     }
   });
