@@ -130,7 +130,7 @@
 
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>
-<%= hidden_field_tag :share_id, @sellerreferral==nil ? "" : @sellerreferral.id %>
+<%= hidden_field_tag :share_id, @seller ? @seller.id : "" %>
 <script type="text/javascript">
   $(function () {
     $("div.btn-text").bind('click', function () {
@@ -144,14 +144,14 @@
 </script>
 <% if @sign_package %>
     <script>
-      var campagin_share_link = "<%= personal_story_campagin_index_url %>";
+      var campagin_share_link = "<%= @share_link %>";
 
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
-        link: "",
-        img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
-        img_width: "415",
-        img_height: "399",
+        link: campagin_share_link,
+        img_url: "<%= request.protocol + request.host_with_port + '/2016/thumbnail.jpg' %>",
+        img_width: "400",
+        img_height: "400",
         desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
         title: "用红包拯救世界，你也来试试？"
       };
@@ -250,45 +250,13 @@
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         alert(res.errMsg);
       });
-
-      var newshare_id = 0;
-      function share() {
-        var shareid = $("#share_id").val();
-        if (shareid.length == 0) {
-          shareid = -1;
-        }
-        var fullName = $("#fullname").val();
-        if (fullName == "") {
-          fullName = "匿名";
-        }
-        var avatar_url = $("#avatar_url").val();
-        var data = {
-          id: shareid,
-          nickname: fullName,
-          avatar_url: avatar_url
-        };
-        $.ajax('<%=personal_story_campagin_share_path%>', {
-          type: 'POST',
-          data: data,
-          beforeSend: function (jqXHR, settings) {
-            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-          },
-          success: function (data) {
-            newshare_id = data;
-            window.shareData.link = campagin_share_link + '?id=' + newshare_id;
-          },
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("抱歉，分享信息出了问题，请联系我们帮您解决。");
-          }
-        });
-      }
+			
       function share_success() {
-        if (newshare_id <= 0) {
-          alert("newshare_id:" + newshare_id);
-          return;
-        }
+				// Not used and will remove later
+				return;
+				
         var data = {
-          referall_id: newshare_id,
+          referall_id: "",
         };
         $.ajax('<%=personal_story_campagin_share_result_path%>', {
           type: 'POST',
@@ -299,13 +267,8 @@
           success: function (data) {
           },
           error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("抱歉，分享信息出了问题，请联系我们帮您解决。");
           }
         });
       }
-
-      $(function () {
-        share();
-      });
     </script>
 <% end %>

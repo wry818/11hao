@@ -86,16 +86,13 @@ class PersonalStoryCampaginController < ApplicationController
 
   def confirmation_weixin
     @order = @campaign.orders.new
-    if params[:id]&&params[:id].to_s.length>0
-      @sellerreferral=SellerReferral.find(params[:id])
-      @seller=@sellerreferral.seller
+    
+    if params[:seller_id]
+      @seller = Seller.find_by_id(params[:seller_id])
+      
+      @order.seller_id=@seller.id if @seller
     end
-
-    if !@seller
-      check_seller()
-    end
-
-    @order.seller_id=@seller.id
+    
     @order.direct_donation=1
     @order.save
 
@@ -104,8 +101,9 @@ class PersonalStoryCampaginController < ApplicationController
       @order.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
-      redirect_to personal_story_index_path, flash: {danger: message[0...-2]} and return
+      redirect_to personal_story_campagin_index_path, flash: {danger: message[0...-2]} and return
     end
+    
     session[:order_id]=@order.id
     session[:confirm_order_id]
 
@@ -141,110 +139,84 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
     end
     
-    if session[:seller_referral_id]
-      @sellerreferral=SellerReferral.find(session[:seller_referral_id])
+    @campaign = Campaign.find_by_id(params[:campaign_id])
+    @share_link = request.original_url
+    
+    if @campaign
+      check_seller
       
-      if @sellerreferral
-        @seller=@sellerreferral.seller
+      # @share_link relies on slug, hbzjsj and so on
+      if @campaign.slug == "hbzjsj"
+        @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
+      end
+      
+      if session[:referral_seller_id]
+        @referral_seller = Seller.find_by_id(params[:referral_seller_id])
+      
+        if @seller && @referral_seller
+          seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
+          
+          if !seller_referral
+            SellerReferral.create seller_id: @seller.id, sellerreferral_id: @referral_seller.id
+          end
+        end
       end
     end
   end
 
   def check_seller
     if session[:openid]
-      @nick_name = params[:nickname]==nil ? "匿名" : params[:nickname]
-      @avatar_url=params[:avatar_url]==nil ? "" : params[:avatar_url]
-      @user = User.find_by uid: session[:openid], provider: "wx_seller"
+      @user = User.find_by uid: session[:openid], provider: "wx"
 
       if !@user
         @user = User.new
         @user.password = "temp1234"
-        @user.email = "seller"+SecureRandom.hex(2) + Time.now.to_i.to_s + "@11hao.com"
+        @user.email = "seller_" + SecureRandom.hex(2) + Time.now.to_i.to_s + "@11hao.com"
         @user.account_type = 1
         @user.uid = session[:openid]
-        @user.provider = "wx_seller"
+        @user.provider = "wx"
 
         unless @user.save
           redirect_to root_path and return
         end
+        
         @user.update(email: "seller_"+@user.id.to_s+"@11hao.com")
       end
 
       @user_profile = @user.profile
-      logger.debug "1001"
 
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
         @user_profile.first_name=@nick_name
         @user_profile.child_profile=false
-        logger.debug "1002"
-        logger.debug @user_profile
       else
         @user_profile.first_name = @nick_name
       end
+      
       @user_profile.picture=@avatar_url
-      logger.debug @user_profile.save
-
-      logger.debug "1001"
-      logger.debug @user_profile.id
 
       @seller = @user_profile.seller(@campaign)
-      if @seller
-        # @seller.video_file = params[:video_file]
-        # @seller.save
-      else
+      
+      if !@seller
         @seller = Seller.create user_profile: @user_profile, campaign: @campaign
       end
+      
       @seller.open_id=session[:openid]
       @seller.save
     end
   end
 
   def share
-    # session[:openid]="oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-    if session[:openid]
-      check_seller()
-      if params[:id]&&params[:id]!="-1"
-        logger.debug "1001"
-        logger.debug params[:id]
-
-        @sellerreferral=SellerReferral.find(params[:id])
-        @sellerretemp=SellerReferral.new
-        @sellerretemp.seller_id=@seller.id
-        @sellerretemp.sellerreferral_id=@sellerreferral.id
-        @sellerretemp.is_success=false
-        @sellerretemp.save
-      else
-        # @sellerreferral=@seller.sellerreferral
-        # logger.debug "1001"
-        # logger.debug @sellerreferral
-        # if @sellerreferral
-        #   @sellerretemp=@seller.seller_referrals.new
-        #   @sellerretemp.sellerreferral_id=@sellerreferral.id
-        #   @sellerretemp.is_success=false
-        #   @sellerretemp.save
-        # else
-        logger.debug "1002"
-        @sellerretemp=@seller.seller_referrals.new
-        @sellerretemp.is_success=false
-        @sellerretemp.save
-        @sellerretemp.sellerreferral_id=@sellerretemp.id
-        @sellerretemp.save
-        # end
-      end
-    end
-
-    render text: @sellerretemp.id
+    # Not used and will remove later
+    
+    render text: ""
   end
 
   def share_result
-    if params[:referall_id]
-      @sellerreferral=SellerReferral.find(params[:referall_id])
-      @sellerreferral.is_success=true
-      @sellerreferral.save
-    end
-    render text: "success:"+@sellerreferral.is_success.to_s
+    # Not used and will remove later
+    
+    render text: ""
   end
 
   # ajax_supporters
@@ -271,7 +243,8 @@ class PersonalStoryCampaginController < ApplicationController
       @sign_package = $wechat_client.get_jssign_package(request.original_url)
 
     end
-
+    
+    @nickname
   end
 
   def weixin_address_init()
@@ -342,29 +315,20 @@ class PersonalStoryCampaginController < ApplicationController
   def load_seller
     
     @has_seller = false
-    if params[:id] && params[:id].to_s.length > 0
+    @seller_referral_count = 0
+    
+    if params[:seller_id]
+      @seller = Seller.find_by_id(params[:seller_id])
       
-      @sellerreferral = SellerReferral.find_by_id(params[:id])
-      
-      if @sellerreferral
-        @seller = @sellerreferral.seller
+      if @seller
         @has_seller = true
         
-        session[:seller_referral_id] = @sellerreferral.id
+        referral_ids = SellerReferral.where(:sellerreferral_id => @seller.id).pluck(:seller_id)
         
-        @seller_referral_count = 0
+        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count
         
-        seller_referrals = SellerReferral.where(:sellerreferral_id => @seller.id)
-        puts seller_referrals
-        if seller_referrals
-          seller_referrals.each do |seller_referral|
-            @seller_referral_count += @campaign.orders.completed.where(:seller_id => seller_referral.seller_id).count
-          end
-
-        end
-        
+        session[:referral_seller_id] = @seller.id
       end
-      
     end
     
   end

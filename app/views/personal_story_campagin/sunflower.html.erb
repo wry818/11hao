@@ -309,7 +309,7 @@
 		
 		<%= hidden_field_tag :fullname, @nickname %>
 		<%= hidden_field_tag :avatar_url, @avatar_url %>
-		<%= hidden_field_tag :share_id, @sellerreferral==nil ? "" : @sellerreferral.id %>
+		<%= hidden_field_tag :share_id, @seller ? @seller.id : "" %>
 	</div>
 </div>
 
@@ -433,7 +433,7 @@ function showSupporters() {
           var url = "<%=personal_story_campagin_checkout_confirmation_weixin_path%>";
           $('#btn_submit1').prop('disabled', true);
           var shareid = $("#share_id").val();
-          $.post(url, {direct_donation: 1,id:shareid}).done(function (data, textStatus, jqXHR) {
+          $.post(url, {direct_donation:1, seller_id:shareid}).done(function (data, textStatus, jqXHR) {
             weixin_load(data);
           }).fail(function () {
             alert("请求已经结束但是可能发生了错误！");
@@ -516,9 +516,7 @@ function showSupporters() {
           jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
-//          window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_personal_campagin";
-
-          window.location.href = "<%=personal_story_campagin_index_red_pack_path%>"
+          window.location.href = "<%=personal_story_campagin_index_red_pack_path + "?campaign_id=#{@campaign.id}" %>"
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
@@ -532,13 +530,14 @@ function showSupporters() {
 
 <% if @sign_package %>
     <script>
-      var campagin_share_link = "<%= personal_story_campagin_index_url %>";
+      var campagin_share_link = "<%= request.original_url %>";
+			
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
         link: campagin_share_link,
-        img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
-        img_width: "415",
-        img_height: "399",
+        img_url: "<%= request.protocol + request.host_with_port + '/2016/thumbnail.jpg' %>",
+        img_width: "400",
+        img_height: "400",
         desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
         title: "用红包拯救世界，你也来试试？"
       };
@@ -638,15 +637,10 @@ function showSupporters() {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         alert(res.errMsg);
       });
-
-      $(function () {
-        var shareid = $("#share_id").val();
-        if (shareid.length == 0) {
-          window.shareData.link = campagin_share_link;
-        } else {
-          window.shareData.link = campagin_share_link + '?id=' + shareid;
-        }
-      });
+			
+			function share_success() {
+				
+			}
     </script>
 	  
 <% end %>
