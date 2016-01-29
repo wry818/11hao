@@ -34,7 +34,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower
     
-    @campaign = Campaign.find_by_slug("1454046936")
+    @campaign = Campaign.find_by_slug("hbzjsj")
     @campaign_total_count = @campaign.orders.completed.count
     path = personal_story_campagin_sunflower_supporters_path
     
@@ -57,7 +57,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower_supporters
     
-    @campaign = Campaign.find_by_slug("1454046936")
+    @campaign = Campaign.find_by_slug("hbzjsj")
     path = personal_story_campagin_sunflower_supporters_path
     
     load_seller()
@@ -188,7 +188,7 @@ class PersonalStoryCampaginController < ApplicationController
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
-        @user_profile.first_name=@nick_name
+        @user_profile.first_name=@nick_name || '匿名'
         @user_profile.child_profile=false
         @user_profile.picture=@avatar_url
         @user_profile.save
