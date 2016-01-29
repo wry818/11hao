@@ -214,7 +214,7 @@
 		<!-- <div style="position:absolute; top:0px; right:0px;">
 			<img src="/2016/monkey-2.png" style="width:80px;">
 		</div> -->
-		<div id="indirect_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin-top:15px; padding:0px 5px 15px 5px; margin-bottom: 0px">
+		<div id="indirect_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin-top:15px; padding:0px 3px 15px 3px; margin-bottom: 0px">
 			<div class="seller_referral_title" style="margin-top:5px; text-align:center;">
 				<%= @seller.user_profile.first_name %>
 				的公益传播能量值为
@@ -398,11 +398,11 @@
 			<!-- <div style="position:relative; padding-top:0px; background-color: red; max-width: 750px; margin: 0 auto">
 			</div> -->
 			<div id="btn_submit1" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
-				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
+				<img class="payment-image" src="/2016/pay_one.png" style="width:148px; height:100px;"/>
 			</div>
 		
 			<div id="payment-form-submit" style="margin:0px auto; text-align:center; width:148px; height:100px; display:none;">
-				<img src="/2016/pay_one.png" style="width:148px; height:100px;"/>
+				<img class="payment-image" src="/2016/pay_one.png" style="width:148px; height:100px;"/>
 			</div>
     	</form>
 		
@@ -548,6 +548,7 @@ function executeAnimation() {
     }
 		
 		$("#payment-form-submit").off("click").on("click", function() {
+			// $('.payment-image').css("opacity", 0.7);
 			$(this).prop('disabled', true);
 			$("#payment_form").submit();
 		});
@@ -566,6 +567,9 @@ function executeAnimation() {
     function onBridgeReady() {
       if ("<%= @weixin_init_success %>" == "true") {
         $('#btn_submit1').off("click").on("click", function () {
+			
+			$('.payment-image').css("opacity", 0.7);
+			
           var url = "<%=personal_story_campagin_checkout_confirmation_weixin_path%>";
           $('#btn_submit1').prop('disabled', true);
           var shareid = $("#share_id").val();
@@ -575,6 +579,7 @@ function executeAnimation() {
             alert("请求已经结束但是可能发生了错误！");
 
             $('#btn_submit1').prop('disabled', false);
+			$('.payment-image').css("opacity", 1);
           }).always(function () {
 
           });
@@ -606,15 +611,18 @@ function executeAnimation() {
                   ComfirmOrder(order_id);
                 } else {
                   $('#wechat').prop('disabled', false);
+				  $('.payment-image').css("opacity", 1);
                 }
               });
             }
             else {
               $('#wechat').prop('disabled', false);
+			  $('.payment-image').css("opacity", 1);
             }
           },
           error: function () {
             $('#wechat').prop('disabled', false);
+			$('.payment-image').css("opacity", 1);
           },
           complete: function () {
 
