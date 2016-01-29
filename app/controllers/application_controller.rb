@@ -89,8 +89,11 @@ class ApplicationController < ActionController::Base
               session[:expires_in] = sns_info.result["expires_in"]
               
               if params[:is_test]
-                url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
-                
+                if request.fullpath.include? "?"
+                  url = "http://test.11haoonline.com" + request.fullpath + "&openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
+                else
+                  url = "http://test.11haoonline.com" + request.fullpath + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
+                end
                 redirect_to url and return
               end
           else
@@ -104,11 +107,17 @@ class ApplicationController < ActionController::Base
           redirect_uri = ERB::Util.url_encode(request.original_url)
 
           if Rails.env.test?
-            if request.path == "/"
+            
+            if request.fullpath == "/"
               redirect_uri = "http://www.11haoonline.com?is_test=1"
             else
-              redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
+              if request.fullpath.include? "?"
+                redirect_uri = "http://www.11haoonline.com" + request.fullpath + "&is_test=1"
+              else
+                redirect_uri = "http://www.11haoonline.com" + request.fullpath + "?is_test=1"
+              end
             end
+            
           else
             # In case callback url contains code which will trigger re-auth
             redirect_uri = ERB::Util.url_encode(request.original_url.gsub(/code=/, "_code="))
@@ -120,7 +129,12 @@ class ApplicationController < ActionController::Base
         end
       else
         if params[:is_test]
-          url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token]
+          
+          if request.fullpath.include? "?"
+            url = "http://test.11haoonline.com" + request.fullpath + "&openid=" + session[:openid] + "&access_token=" + session[:access_token]
+          else
+            url = "http://test.11haoonline.com" + request.fullpath + "?openid=" + session[:openid] + "&access_token=" + session[:access_token]
+          end
           
           redirect_to url and return
         end
