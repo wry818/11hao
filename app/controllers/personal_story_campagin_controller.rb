@@ -226,19 +226,31 @@ class PersonalStoryCampaginController < ApplicationController
 
     @nickname = ""
     @avatar_url = ""
+    
+    if session[:nickname] && session[:avatar_url]
+      @nickname = session[:nickname]
+      @avatar_url = session[:avatar_url]
+    else
+      if session[:openid] && session[:access_token]
 
-    if session[:openid] && session[:access_token]
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
 
-      $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-      user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+        if user_info.result["errcode"] != "40003"
+          @nickname = user_info.result["nickname"]
+          @avatar_url = user_info.result["headimgurl"]
+          
+          session[:nickname] = @nickname
+          session[:avatar_url] = @avatar_url
+        end
 
-      if user_info.result["errcode"] != "40003"
-        @nickname = user_info.result["nickname"]
-        @avatar_url = user_info.result["headimgurl"]
       end
-
+    end
+    
+    if session[:openid] && session[:access_token]
+      $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+      
       @sign_package = $wechat_client.get_jssign_package(request.original_url)
-
     end
     
     @nickname
