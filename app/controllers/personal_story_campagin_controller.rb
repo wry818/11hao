@@ -34,7 +34,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     @campaign_total_count = @campaign.orders.completed.count
     path = personal_story_campagin_sunflower_supporters_path
     
@@ -57,7 +57,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower_supporters
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     path = personal_story_campagin_sunflower_supporters_path
     
     load_seller()

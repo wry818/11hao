@@ -365,15 +365,18 @@ function showSupporters() {
 
 function executeAnimation() {
 	
-	$("#seller_info").animate({opacity:'1'},"slow", function() {
-		$("#seller_influence").animate({opacity:'1'}, "slow", function() {
-			$("#campaign_detail").animate({opacity:'1'},"slow", function() {
-				$("#supporter_avatar_0").animate({opacity:'1'},"fast", function() {
-					$("#supporter_avatar_1").animate({opacity:'1'},"fast", function() {
-						$("#supporter_avatar_2").animate({opacity:'1'},"fast", function() {
-							$("#supporter_avatar_3").animate({opacity:'1'},"fast", function() {
-								$("#supporter_avatar_4").animate({opacity:'1'},"fast", function() {
+	if (<%= @has_seller %> == true) {
+		
+		$("#seller_info").animate({opacity:'1'},"slow", function() {
+			$("#seller_influence").animate({opacity:'1'}, "slow", function() {
+				$("#campaign_detail").animate({opacity:'1'},"slow", function() {
+					$("#supporter_avatar_0").animate({opacity:'1'},"fast", function() {
+						$("#supporter_avatar_1").animate({opacity:'1'},"fast", function() {
+							$("#supporter_avatar_2").animate({opacity:'1'},"fast", function() {
+								$("#supporter_avatar_3").animate({opacity:'1'},"fast", function() {
+									$("#supporter_avatar_4").animate({opacity:'1'},"fast", function() {
 
+									});
 								});
 							});
 						});
@@ -381,7 +384,13 @@ function executeAnimation() {
 				});
 			});
 		});
-	});
+	
+	} else {
+		
+		$("#campaign_detail").animate({opacity:'1'},"slow", function() {
+		});
+		
+	}
 	
 }
 
