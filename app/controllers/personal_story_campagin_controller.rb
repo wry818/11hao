@@ -190,7 +190,7 @@ class PersonalStoryCampaginController < ApplicationController
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
-        @user_profile.first_name=@nickname
+        @user_profile.first_name=@nickname || '匿名'
         @user_profile.child_profile=false
         @user_profile.picture=@avatar_url
         @user_profile.save
