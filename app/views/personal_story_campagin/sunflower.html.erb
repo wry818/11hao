@@ -21,6 +21,10 @@
 	opacity: 0;
 }
 
+.img_super_monkey {
+	max-width: 150px;
+}
+
 .img-avatar {
 	background-color: rgb(255,249,233);
 	border:2px solid rgb(197,169,77);
@@ -42,6 +46,14 @@
 	width: 90%;
 	padding: 10px;
 	font-size: 14px;
+}
+
+.seller_referral_title {
+	font-size: 14px;
+}
+
+.seller_referral_count {
+	font-size: 20px;
 }
 
 .digit-container {
@@ -93,7 +105,11 @@
 }
 
 #banner {
-	padding-top:65%;
+	padding-top: 60px;
+}
+
+.project table {
+	font-size: 14px;
 }
 
 @media (min-width: 640px) {
@@ -114,11 +130,19 @@
 @media (min-width: 480px) {
 
 	#banner {
-		padding-top:55%;
+		padding-top: 100px;
+	}
+	
+	.img_super_monkey {
+		max-width: 348px;
 	}
 	
 	.img-bubble {
 		width: 90%;
+		font-size: 16px;
+	}
+	
+	.seller_referral_title {
 		font-size: 16px;
 	}
 	
@@ -141,10 +165,18 @@
 	.digit-text-box {
 		padding-left:10px;
 	}
+	
+	.project table {
+		font-size: 16px;
+	}
+	
 }
 </style>
 
 <div style="background:transparent url('/2016/bg.jpg') no-repeat center top; background-size:cover; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+	<div style="text-align: center">
+		<img src="/2016/super_monkey.png" style="margin-top: 20px" class="img_super_monkey" />
+	</div>
 	<% if @seller %>
 	<div id="banner">
 		<table id="seller_info" style="margin:0px auto;">
@@ -159,7 +191,7 @@
 							<% else %>
 								<img src="/2016/monkey-1.png" class="img-avatar img-rounded" />
 							<% end %>
-					
+
 							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.first_name %></span></div>
 						</div>
 					<% end %>
@@ -167,23 +199,26 @@
 					<td style="padding-left: 15px; vertical-align:top">
 					    <div class="img-bubble bubble">
 					      <div class="promo-text">
-							  一块钱红包就可以
-							  <span style="color:red;"><%= @campaign.organizer_quote %></span>，你也来参与吧！
+							  一块钱红包就可以<span style="color:#fa0000;"><%= @campaign.organizer_quote %></span>，你也来参与吧！
 					      </div>
 					    </div>
 					</td>
 				</tr>
 			</table>
+
+			<!-- <div style="color: yellow; padding: 15px; text-align: center">
+			  一块钱红包就<%= @campaign.organizer_quote %>！
+			</div> -->
 	</div>
 	<div id="seller_influence" style="position:relative; padding:15px 15px 0px 15px;">
 		<!-- <div style="position:absolute; top:0px; right:0px;">
 			<img src="/2016/monkey-2.png" style="width:80px;">
 		</div> -->
 		<div id="indirect_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin-top:15px; padding:15px 5px; margin-bottom: 0px">
-			<div style="margin-top:15px; text-align:center;">
+			<div class="seller_referral_title" style="margin-top:15px; text-align:center;">
 				<%= @seller.user_profile.first_name %>
 				的公益传播能量值为
-				<span style="color:#fa0000;"><%= @seller_referral_count %></span>
+				<span class="seller_referral_count" style="color:#fa0000;"><%= @seller_referral_count %></span>
 			</div>
 			<div style="margin-top:15px; text-align:center;">
 				<% if @seller_referral_count > 0 %>
@@ -289,7 +324,29 @@
 					<% end %>
 				
 				<% end %>
-			
+				
+				<% if @supporters.count == 1 %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+				<% end %>
+				
+				<% if @supporters.count == 2 %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+				<% end %>
+				
+				<% if @supporters.count == 3 %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+				<% end %>
+				
+				<% if @supporters.count == 4 %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+				<% end %>
+				
 				<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
 					<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
 				</div>
@@ -299,6 +356,8 @@
 					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_0", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				</div>
 				
 			<% end %>
