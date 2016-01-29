@@ -146,8 +146,10 @@ class PersonalStoryCampaginController < ApplicationController
       check_seller
       
       # @share_link relies on slug, hbzjsj and so on
-      if @campaign.slug == "hbzjsj"
-        @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
+      if @seller
+        if @campaign.slug == "hbzjsj"
+          @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
+        end
       end
       
       if session[:referral_seller_id]
@@ -312,6 +314,8 @@ class PersonalStoryCampaginController < ApplicationController
     @has_seller = false
     @seller_referral_count = 0
     
+    session[:referral_seller_id] = nil
+    
     if params[:seller_id]
       @seller = Seller.find_by_id(params[:seller_id])
       
@@ -344,7 +348,7 @@ class PersonalStoryCampaginController < ApplicationController
           
           @show_pager = true
 
-          query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+          query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
 
           @page_url = path + query
           
