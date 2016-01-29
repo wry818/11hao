@@ -307,6 +307,10 @@
 
 	<% if @seller %>
 	<div id="direct_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin:15px; padding:15px 5px;">
+		<div style="text-align: right">
+			<span id="btn_view_content" class="glyphicon glyphicon-chevron-left" style="color:#888; font-size:18px; display: none"></span>
+		</div>
+		
 		<div id="supporters_content" style="display:none;">
 			<%= render "supporters" %>
 		</div>
@@ -326,25 +330,25 @@
 				<% end %>
 				
 				<% if @supporters.count == 1 %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				<% end %>
 				
 				<% if @supporters.count == 2 %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				<% end %>
 				
 				<% if @supporters.count == 3 %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				<% end %>
 				
 				<% if @supporters.count == 4 %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				<% end %>
 				
 				<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
@@ -353,16 +357,16 @@
 			<%else %>
 				
 				<div style="text-align: center">
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_0", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_3", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_4", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_0", :class => "img-rounded support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar img-friend-avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 				</div>
 				
 			<% end %>
 		</div>
-		<div style="text-align:center; margin-top: 10px">
+		<div style="font-size: 14px; text-align:center; margin-top: 10px">
 			<% if @supporters.count>0 %>
 				<span>
 					共有
@@ -387,8 +391,8 @@
 </div>
 
 <div class="navbar-fixed-bottom" style="padding:5px 0px 0px 0px; text-align:center;">
-	<button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span>
-	</button>
+	<!-- <button id="btn_view_content" type="button" class="btn btn-default" onclick="showContent();" style="border-radius:4px; box-shadow: 1px 1px 1px #888; margin-left:20px; display:none;"><span style="font-size:16px; letter-spacing:1px;">&nbsp;查看原文&nbsp;</span>
+	</button> -->
 	<div style="position:relative; padding-top:0px">
     	<%= form_tag(personal_story_campagin_checkout_confirmation_path, method: "post", id: "payment_form") %>
 			<!-- <div style="position:relative; padding-top:0px; background-color: red; max-width: 750px; margin: 0 auto">
@@ -416,7 +420,7 @@ function showContent() {
 	$(".avatar-container").show();
 	$("#indirect_influence").show();
 	$(".detail").show();
-	$("#payment_form").show();
+	// $("#payment_form").show();
 	
 	$("#supporters_content").hide();
 	$("#btn_view_content").hide();
@@ -430,7 +434,7 @@ function showSupporters() {
 	$(".avatar-container").hide();
 	$("#indirect_influence").hide();
 	$(".detail").hide();
-	$("#payment_form").hide();
+	// $("#payment_form").hide();
 	
 	$("#supporters_content").show();
 	$("#btn_view_content").show();
@@ -485,7 +489,11 @@ function executeAnimation() {
 	$("#btn_view_supporters").click(function() {
 		showSupporters();
 	});
-	  
+	 
+	$("#btn_view_content").click(function() {
+		showContent();
+	});
+	 
     //展开详情
     $("img.arri").bind('click', function () {
       var $arri = $("div.arri");
