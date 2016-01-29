@@ -40,7 +40,7 @@
 
 .img-bubble {
 	width: 90%;
-	padding: 20px;
+	padding: 10px;
 	font-size: 14px;
 }
 
@@ -118,8 +118,7 @@
 	}
 	
 	.img-bubble {
-		width: 60%;
-		padding: 20px;
+		width: 90%;
 		font-size: 16px;
 	}
 	
@@ -148,8 +147,7 @@
 <div style="background:transparent url('/2016/bg.jpg') no-repeat center top; background-size:cover; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
 	<% if @seller %>
 	<div id="banner">
-		
-			<table id="seller_info" style="margin:0px auto;">
+		<table id="seller_info" style="margin:0px auto;">
 				<tr>
 					<td style="text-align:center; vertical-align:top;">
 
@@ -169,83 +167,30 @@
 					<td style="padding-left: 15px; vertical-align:top">
 					    <div class="img-bubble bubble">
 					      <div class="promo-text">
-							  亲，就等你了。
-							  <br />
-							  <span style="color:red;"><%= @campaign.organizer_quote %></span>，还能赢新年暖心红包。
+							  一块钱红包就可以
+							  <span style="color:red;"><%= @campaign.organizer_quote %></span>，你也来参与吧！
 					      </div>
 					    </div>
 					</td>
 				</tr>
 			</table>
 	</div>
-	<div id="seller_influence" style="position:relative; padding:25px 15px 0px 15px;">
+	<div id="seller_influence" style="position:relative; padding:15px 15px 0px 15px;">
 		<!-- <div style="position:absolute; top:0px; right:0px;">
 			<img src="/2016/monkey-2.png" style="width:80px;">
 		</div> -->
-		<div id="direct_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin:0px; padding:15px 5px;">
-			<div id="supporters_content" style="display:none;">
-				<%= render "supporters" %>
+		<div id="indirect_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin-top:15px; padding:15px 5px; margin-bottom: 0px">
+			<div style="margin-top:15px; text-align:center;">
+				<%= @seller.user_profile.first_name %>
+				的公益传播能量值为
+				<span style="color:#fa0000;"><%= @seller_referral_count %></span>
 			</div>
-			<div class="avatar-container" style="overflow: hidden; height: 48px; position: relative">
-				<% if @supporters.count>0 %>
-					<% @supporters.each_with_index do |s, index| %>
-          		  		<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
-              		  		<img id="supporter_avatar_<%=index%>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;" />
-						<%else %>
-							<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-						<% end %>
-					
-						<% if index == 4 %>
-							<% break %>
-						<% end %>
-					
-					<% end %>
-				
-					<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
-						<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
-					</div>
-				<%else %>
-					
-					<div style="text-align: center">
-						<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_0", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-						<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-						<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
-					</div>
-					
-				<% end %>
-			</div>
-			<div style="text-align:center; margin-top: 10px">
-				<% if @supporters.count>0 %>
-					<span>
-						共有
-					</span>
-					&nbsp;
-					<span style="color:#fa0000;">
-						<%= @supporters_count %>
-					</span>
-					&nbsp;
-					<span>
-						位小伙伴一起参与
-					</span>
-				<%else %>
-					暂无小伙伴参与
-				<% end %>
-			</div>
-		</div>
-		
-		<div id="indirect_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin-top:15px; padding:15px 5px;">
 			<div style="margin-top:15px; text-align:center;">
 				<% if @seller_referral_count > 0 %>
 					<img src="/2016/friends_map.png" style="max-width:95%; max-height:300px;" />
 				<%else %>
 					<img src="/2016/no_friends_map.png" style="max-width:95%; max-height:300px;" />
 				<% end %>
-			</div>
-			<div style="margin-top:15px; text-align:center;">
-				<%= @seller.user_profile.first_name %>
-				带动了
-				<span style="color:#fa0000;"><%= @seller_referral_count %></span>
-				位爱心传播者
 			</div>
 		</div>
 		
@@ -324,6 +269,60 @@
 			</div>
 		</div>
 	</div>
+
+	<% if @seller %>
+	<div id="direct_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin:15px; padding:15px 5px;">
+		<div id="supporters_content" style="display:none;">
+			<%= render "supporters" %>
+		</div>
+		<div class="avatar-container" style="overflow: hidden; height: 48px; position: relative">
+			<% if @supporters.count>0 %>
+				<% @supporters.each_with_index do |s, index| %>
+      		  		<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+          		  		<img id="supporter_avatar_<%=index%>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;" />
+					<%else %>
+						<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<% end %>
+				
+					<% if index == 4 %>
+						<% break %>
+					<% end %>
+				
+				<% end %>
+			
+				<div id="btn_view_supporters" style="position:absolute; top:2px; right:2px; height:48px; line-height:48px;">
+					<span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span>
+				</div>
+			<%else %>
+				
+				<div style="text-align: center">
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_0", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_1", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+					<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_2", :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
+				</div>
+				
+			<% end %>
+		</div>
+		<div style="text-align:center; margin-top: 10px">
+			<% if @supporters.count>0 %>
+				<span>
+					共有
+				</span>
+				&nbsp;
+				<span style="color:#fa0000;">
+					<%= @supporters_count %>
+				</span>
+				&nbsp;
+				<span>
+					位小伙伴一起参与
+				</span>
+			<%else %>
+				暂无小伙伴参与
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+	
 	<div style="height: 100px;">
 	</div>
 </div>
@@ -384,9 +383,9 @@ function executeAnimation() {
 	if (<%= @has_seller %> == true) {
 		
 		$("#seller_info").animate({opacity:'1'},1000, function() {
-			$("#direct_influence").animate({opacity:'1'}, 1000, function() {
-				$("#indirect_influence").animate({opacity:'1'}, 1000, function() {
-					$("#campaign_detail").animate({opacity:'1'}, 1000, function() {
+			$("#indirect_influence").animate({opacity:'1'}, 1000, function() {
+				$("#campaign_detail").animate({opacity:'1'}, 1000, function() {
+					$("#direct_influence").animate({opacity:'1'}, 1000, function() {
 						$("#supporter_avatar_0").animate({opacity:'1'},"fast", function() {
 							$("#supporter_avatar_1").animate({opacity:'1'},"fast", function() {
 								$("#supporter_avatar_2").animate({opacity:'1'},"fast", function() {
