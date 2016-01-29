@@ -89,7 +89,16 @@ class ApplicationController < ActionController::Base
               session[:expires_in] = sns_info.result["expires_in"]
         
               if params[:is_test]
-                url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"]
+                
+                param_url = ""
+                request.query_parameters.each do |key, value|
+                  param_url += "&" + "#{key}=" + "#{value}"
+                end
+                
+                logger.info "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                logger.info param_url
+          
+                url = "http://test.11haoonline.com" + request.path + "?openid=" + sns_info.result["openid"] + "&access_token=" + sns_info.result["access_token"] + param_url
           
                 redirect_to url and return
               end
@@ -109,6 +118,16 @@ class ApplicationController < ActionController::Base
             else
               redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
             end
+            
+            param_url = ""
+            request.query_parameters.each do |key, value|
+              param_url += "&" + "#{key}=" + "#{value}"
+            end
+            
+            logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            logger.info param_url
+            redirect_uri = redirect_uri + param_url
+            
           else
             # In case callback url contains code which will trigger re-auth
             redirect_uri = ERB::Util.url_encode(request.original_url.gsub(/code=/, "_code="))
@@ -120,7 +139,16 @@ class ApplicationController < ActionController::Base
         end
       else
         if params[:is_test]
-          url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token]
+          
+          param_url = ""
+          request.query_parameters.each do |key, value|
+            param_url += "&" + "#{key}=" + "#{value}"
+          end
+          
+          logger.info "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          logger.info param_url
+          
+          url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token] + param_url
     
           redirect_to url and return
         end
