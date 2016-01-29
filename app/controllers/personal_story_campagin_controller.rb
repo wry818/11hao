@@ -304,8 +304,8 @@ class PersonalStoryCampaginController < ApplicationController
 
   def manage_session_order
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
-    @campaign_total_count = @campaign.orders.completed.count
+    @campaign = Campaign.find_by_slug("1454046936")
+    @campaign_total_count = 0
     
   end
   
