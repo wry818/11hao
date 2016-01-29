@@ -1,4 +1,21 @@
 <style>
+
+#seller_info {
+	opacity: 0;
+}
+
+#seller_influence {
+	opacity: 0;
+}
+
+#campaign_detail {
+	opacity: 0;
+}
+
+.support_avatar {
+	opacity: 0;
+}
+
 .img-avatar {
 	background-color: rgb(255,249,233);
 	border:2px solid rgb(197,169,77);
@@ -117,7 +134,7 @@
 	<% if @seller %>
 	<div id="banner" style="padding-top:40%;">
 			<table style="margin:0px auto;">
-				<tr>
+				<tr id="seller_info">
 					<td style="text-align:center; vertical-align:top;">
 						<% if @seller && @seller.user_profile %>
 							<% if @seller.user_profile.picture %>
@@ -135,11 +152,11 @@
 				</tr>
 			</table>
 	</div>
-	<div style="position:relative; padding:25px 15px 0px 15px;">
+	<div id="seller_influence" style="position:relative; padding:25px 15px 0px 15px;">
 		<div style="position:absolute; top:0px; right:0px;">
 			<img src="/2016/monkey-2.png" style="width:80px;">
 		</div>
-		<div class="well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:15px 5px;">
+		<div class="well" style="background-color: white; border-color:rgb(197,169,77); margin:0px; padding:15px 5px;">
 			<div style="text-align:center;">
 				<span>
 					<%= @seller.user_profile.fullname if @seller && @seller.user_profile %>直接影响了
@@ -160,9 +177,9 @@
 				<% if @supporters.count>0 %>
 					<% @supporters.each_with_index do |s, index| %>
           		  		<% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
-              		  		<img src="<%= s.avatar_url %>" class="img-rounded" style="border-radius:24px; width:48px; height:48px;" />
+              		  		<img id="supporter_avatar_<%=index%>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;" />
 						<%else %>
-							<%= image_tag 'weixin_default.jpg',:class => "img-rounded",:style => "border-radius:24px; width:48px; height:48px;" %>
+							<%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar",:style => "border-radius:24px; width:48px; height:48px;" %>
 						<% end %>
 					
 						<% if index == 4 %>
@@ -197,7 +214,7 @@
 		</div>
 	</div>
 	<% end %>
-	<div class="detail" style="position:relative; padding:15px 15px 0px 15px;">
+	<div id="campaign_detail" class="detail" style="position:relative; padding:15px 15px 0px 15px;">
 		<div class="project well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:0px;">
 			<table style="background-color:rgb(197,169,77); width:100%;">
 				<tr>
@@ -346,8 +363,32 @@ function showSupporters() {
 	$("body").scrollTop($("#banner").height());
 }
 
-  $(function () {
-		
+function executeAnimation() {
+	
+	$("#seller_info").animate({opacity:'1'},"slow", function() {
+		$("#seller_influence").animate({opacity:'1'}, "slow", function() {
+			$("#campaign_detail").animate({opacity:'1'},"slow", function() {
+				$("#supporter_avatar_0").animate({opacity:'1'},"fast", function() {
+					$("#supporter_avatar_1").animate({opacity:'1'},"fast", function() {
+						$("#supporter_avatar_2").animate({opacity:'1'},"fast", function() {
+							$("#supporter_avatar_3").animate({opacity:'1'},"fast", function() {
+								$("#supporter_avatar_4").animate({opacity:'1'},"fast", function() {
+
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+	
+}
+
+  $(document).ready(function() {
+	
+	executeAnimation();
+	  	
 	$("#supporters_content").jscroll({
 		autoTrigger: false,
 		nextSelector: "a.a-pager:last",
@@ -366,12 +407,14 @@ function showSupporters() {
       var $summary = $("div.summary");
       if ($arri.hasClass("arriup")) {
         $arri.removeClass("arriup");
-        $summary.addClass("none");
+        // $summary.addClass("none");
       }
       else {
         $arri.addClass("arriup");
-        $summary.removeClass("none");
+        // $summary.removeClass("none");
       }
+	  
+	  $summary.slideToggle("slow");
     });
 	
 	if (<%= @has_seller %> == false) {
