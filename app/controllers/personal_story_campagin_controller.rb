@@ -190,7 +190,7 @@ class PersonalStoryCampaginController < ApplicationController
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
-        @user_profile.first_name=@nickname || '匿名'
+        @user_profile.first_name=@nickname
         @user_profile.child_profile=false
         @user_profile.picture=@avatar_url
         @user_profile.save
@@ -227,9 +227,9 @@ class PersonalStoryCampaginController < ApplicationController
     @nickname = ""
     @avatar_url = ""
     
-    if session[:nickname] && session[:avatar_url]
+    if session[:nickname] && session[:avatarurl]
       @nickname = session[:nickname]
-      @avatar_url = session[:avatar_url]
+      @avatar_url = session[:avatarurl]
     else
       if session[:openid] && session[:access_token]
 
@@ -241,7 +241,7 @@ class PersonalStoryCampaginController < ApplicationController
           @avatar_url = user_info.result["headimgurl"]
           
           session[:nickname] = @nickname
-          session[:avatar_url] = @avatar_url
+          session[:avatarurl] = @avatar_url
         end
 
       end
