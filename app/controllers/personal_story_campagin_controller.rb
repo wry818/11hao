@@ -34,7 +34,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     @campaign_total_count = @campaign.orders.completed.count
     path = personal_story_campagin_sunflower_supporters_path
     
@@ -57,7 +57,7 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower_supporters
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
+    @campaign = Campaign.find_by_slug("1454046936")
     path = personal_story_campagin_sunflower_supporters_path
     
     load_seller()
@@ -146,12 +146,14 @@ class PersonalStoryCampaginController < ApplicationController
       check_seller
       
       # @share_link relies on slug, hbzjsj and so on
-      if @campaign.slug == "hbzjsj"
-        @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
+      if @seller
+        if @campaign.slug == "1454046936"
+          @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
+        end
       end
       
       if session[:referral_seller_id]
-        @referral_seller = Seller.find_by_id(params[:referral_seller_id])
+        @referral_seller = Seller.find_by_id(session[:referral_seller_id])
       
         if @seller && @referral_seller && @seller.id != @referral_seller.id
           seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
@@ -302,8 +304,8 @@ class PersonalStoryCampaginController < ApplicationController
 
   def manage_session_order
     
-    @campaign = Campaign.find_by_slug("hbzjsj")
-    @campaign_total_count = @campaign.orders.completed.count
+    @campaign = Campaign.find_by_slug("1454046936")
+    @campaign_total_count = 0
     
   end
   
@@ -311,6 +313,8 @@ class PersonalStoryCampaginController < ApplicationController
     
     @has_seller = false
     @seller_referral_count = 0
+    
+    session[:referral_seller_id] = nil
     
     if params[:seller_id]
       @seller = Seller.find_by_id(params[:seller_id])
@@ -344,7 +348,7 @@ class PersonalStoryCampaginController < ApplicationController
           
           @show_pager = true
 
-          query = "?id=" + params[:id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+          query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
 
           @page_url = path + query
           
