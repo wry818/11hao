@@ -1013,7 +1013,11 @@ class ShopController < ApplicationController
         }
       }
       
+      send_dianping = false
+      
       if ["1454046936"].include?(order.campaign.slug)
+        send_dianping = true
+        
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
         msg="感谢您的支持，您的红包将会资助#{campaign_name}。\n\n简单公益，只因有你。\n";
@@ -1041,7 +1045,17 @@ class ShopController < ApplicationController
       $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
       response = $client.send_template_msg(touser, template_id, url, topcolor, data)
     
-      # render text: response.result.to_s
+      if send_dianping
+        articles = [
+          {
+            title: "55元大众点评红包爱心专享",
+            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+            picurl: request.protocol + request.host + "/images/redpack.jpg"
+          }
+        ]
+
+        $client.send_news_custom(touser, articles)
+      end
     
     end
     
