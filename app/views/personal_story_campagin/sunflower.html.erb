@@ -682,7 +682,7 @@ function executeAnimation() {
         img_url: "<%= request.protocol + request.host_with_port + '/2016/thumbnail.jpg' %>",
         img_width: "400",
         img_height: "400",
-        desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
+        desc: '<%=j raw @seller && @seller.user_profile ? "#{@seller.user_profile.first_name} 参加了红包拯救世界行动，你快来试试!" : "亲，就等你了。1人1块钱拯救世界，还能赢新年暖心红包..." %>',
         title: "用红包拯救世界，你也来试试？"
       };
 

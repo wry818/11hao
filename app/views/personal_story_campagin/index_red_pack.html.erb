@@ -61,6 +61,11 @@
 	width:100%;
 }
 
+div.btn-text {
+	padding-top:82%;
+	text-align:center;
+}
+
 @media (min-width: 640px) {
 	.img-avatar {
 		border-radius:54px;
@@ -97,11 +102,15 @@
 	.digit-text-box {
 		padding-left:10px;
 	}
+	
+	div.btn-text {
+		padding-top:86%;
+	}
 }
 </style>
 
 <div style="background:transparent url('/2016/bg-1.jpg') no-repeat center top; background-size:100% auto; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
-	<div style="padding-top:20%;">
+	<div style="padding-top:13%;">
 			<table style="margin:0px auto;">
 				<tr>
 					<td style="text-align:center; vertical-align:top;">
@@ -121,8 +130,8 @@
 				</tr>
 			</table>
 	</div>
-	<div class="btn-text" style="padding-top:90%; text-align:center;">
-		<img src="/2016/collect_pack.png" style="max-width:100%; max-height:100px;">
+	<div class="btn-text">
+		<img src="/2016/collect_pack.png" style="max-width:40%;">
 	</div>
 </div>
 
@@ -133,7 +142,7 @@
 <%= hidden_field_tag :share_id, @seller ? @seller.id : "" %>
 <script type="text/javascript">
   $(function () {
-    $("div.btn-text").bind('click', function () {
+    $("div.btn-text img").bind('click', function () {
       $("#yqj_result_shareModal").modal('show');
 			
 			$(".yqj_result_share").click(function() {
@@ -152,7 +161,7 @@
         img_url: "<%= request.protocol + request.host_with_port + '/2016/thumbnail.jpg' %>",
         img_width: "400",
         img_height: "400",
-        desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
+        desc: '<%=j raw @seller && @seller.user_profile ? "#{@seller.user_profile.first_name} 参加了红包拯救世界行动，你快来试试!" : "亲，就等你了。1人1块钱拯救世界，还能赢新年暖心红包..." %>',
         title: "用红包拯救世界，你也来试试？"
       };
 
