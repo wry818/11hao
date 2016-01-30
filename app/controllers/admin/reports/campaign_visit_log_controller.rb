@@ -135,10 +135,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       @result_item=Hash.new
       @count_log=CampaignVisitLog.where(:campaign_id => campaign_temp.id)
       if from_date.length>0
-        @count_log=@count_log.where("visited_time >= ?",from_date)
+        @count_log=@count_log.where("visited_time  AT TIME ZONE 'CCT' >= ?",from_date)
       end
       if to_date.length>0
-        @count_log=@count_log.where("visited_time < ?",to_date)
+        @count_log=@count_log.where("visited_time  AT TIME ZONE 'CCT' < ?",to_date)
       end
       @result_item["id"]=campaign_temp.id
       @result_item["title"]=campaign_temp.title
@@ -146,19 +146,19 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # share-----------------------------------------------------------------
       @share_log=SellerReferral.joins(:seller).where(:sellers=>{:campaign_id =>campaign_temp.id })
       if from_date.length>0
-        @share_log=@share_log.where("seller_referrals.updated_at >= ?",from_date)
+        @share_log=@share_log.where("seller_referrals.updated_at  AT TIME ZONE 'CCT' >= ?",from_date)
       end
       if to_date.length>0
-        @share_log=@share_log.where("seller_referrals.updated_at < ?",to_date)
+        @share_log=@share_log.where("seller_referrals.updated_at  AT TIME ZONE 'CCT' < ?",to_date)
       end
       @result_item["share_count"]=@share_log.count
       # ordrs-----------------------------------------------------------------------
       @order_log=Order.where(:campaign_id => campaign_temp.id).where("direct_donation>0").completed
       if from_date.length>0
-        @order_log=@order_log.where("updated_at >= ?",from_date)
+        @order_log=@order_log.where("updated_at  AT TIME ZONE 'CCT' >= ?",from_date)
       end
       if to_date.length>0
-        @order_log=@order_log.where("updated_at < ?",to_date)
+        @order_log=@order_log.where("updated_at  AT TIME ZONE 'CCT' < ?",to_date)
       end
       @result_item["order_count"]=@order_log.count
 
@@ -182,10 +182,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # 100 1000 10000visit_log--------------------------------------------------------------
       @log_time_offset=CampaignVisitLog.where(:campaign_id => campaign_temp.id)
       if from_date.length>0
-        @log_time_offset=@log_time_offset.where("visited_time >= ?",from_date)
+        @log_time_offset=@log_time_offset.where("visited_time  AT TIME ZONE 'CCT' >= ?",from_date)
       end
       if to_date.length>0
-        @log_time_offset=@log_time_offset.where("visited_time < ?",to_date)
+        @log_time_offset=@log_time_offset.where("visited_time  AT TIME ZONE 'CCT' < ?",to_date)
       end
        @log_time_offsettemp=@log_time_offset.order("visited_time").limit(1).offset(100).first
        if @log_time_offsettemp
@@ -202,10 +202,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # 100 1000 10000 order time---------------------------------------------------------
       @log_orders_offset=Order.where(:campaign_id => campaign_temp.id).completed
       if from_date.length>0
-        @log_orders_offset=@log_orders_offset.where("updated_at >= ?",from_date)
+        @log_orders_offset=@log_orders_offset.where("updated_at AT TIME ZONE 'CCT' >= ?",from_date)
       end
       if to_date.length>0
-        @log_orders_offset=@log_orders_offset.where("updated_at < ?",to_date)
+        @log_orders_offset=@log_orders_offset.where("updated_at AT TIME ZONE 'CCT' < ?",to_date)
       end
       @log_orders_offsettemp=@log_orders_offset.order("updated_at").limit(1).offset(100).first
       if @log_orders_offsettemp
@@ -224,5 +224,54 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     end
 
     render :partial=>"visit_share_donation_content"
+  end
+
+  def report_visit_log
+    if params[:from_date]
+      fromdate=Time.parse(params[:from_date]).strftime("%Y-%m-%d")
+    else
+      fromdate=(Time.now-+ (60 * 60 * 24*1)).strftime("%Y-%m-%d")
+    end
+
+    if params[:to_date]
+      endate=Time.parse(params[:to_date]).strftime("%Y-%m-%d")
+    else
+      endate= Time.now.strftime("%Y-%m-%d")
+    end
+
+    @fromdate=fromdate
+    @todate=endate
+    endate+=" 23:59:59"
+  end
+  def report_visit_log_ajax
+    campagin_id=params[:campagin_id];
+    from_date=params[:from_date];
+    to_date=params[:to_date];
+    event_id=params[:event_id];
+
+    if from_date.length>0
+      from_date=Time.parse(from_date).strftime("%Y-%m-%d")
+    end
+    if to_date.length>0
+      to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
+    end
+    query=""
+
+    if event_id=="1"
+      query = QueryHelper.get_visit_log_reort(campagin_id,from_date,to_date,"YYYY-MM-DD HH24")
+    end
+    if event_id=="2"
+      query = QueryHelper.get_visit_log_reort(campagin_id,from_date,to_date,"YYYY-MM-DD")
+    end
+    if event_id=="3"
+      query = QueryHelper.get_visit_log_reort(campagin_id,from_date,to_date,"YYYY-MM")
+    end
+    if event_id=="4"
+      query = QueryHelper.get_visit_log_reort(campagin_id,from_date,to_date,"YYYY")
+    end
+
+    @results = ActiveRecord::Base.connection.execute(query)
+    @total=0
+    render :partial=>"report_visit_log_content"
   end
 end

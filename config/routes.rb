@@ -90,6 +90,8 @@ Raisy::Application.routes.draw do
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
           get 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation', as: :campvisit_log_report_visit_share_donation
           post 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation_ajax', as: :ajax_campvisit_log_report_visit_share_donation
+          get 'campvisit_log/report_visit_log',to: 'campaign_visit_log#report_visit_log', as: :campvisit_log_report_visit_log
+          post 'campvisit_log/report_visit_log',to: 'campaign_visit_log#report_visit_log_ajax', as: :ajax_campvisit_log_report_visit_log
         end
         
         resources :questionnaires
