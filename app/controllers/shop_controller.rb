@@ -985,9 +985,7 @@ class ShopController < ApplicationController
       else
         msg="您的订单已经提交成功！\n感谢您的支持，您本次购买的商品将为" + group_name + "助力。\n\n简单公益，只因有你。\n"
       end
-      if order.campaign.slug=="hbzjsj"
-        msg="拯救世界成功！\n您已成功的拯救了世界。\n感谢您的支持，您的捐助将会资助" + group_name + "。\n\n简单公益，只因有你。\n"
-      end
+      
       data = {
         first: {
           value:msg,
@@ -1014,6 +1012,31 @@ class ShopController < ApplicationController
           color:"#000000"
         }
       }
+      
+      if ["1454046936"].include?(order.campaign.slug)
+        template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
+        
+        msg="感谢您的支持，您的红包将会资助#{campaign_name}。\n\n简单公益，只因有你。\n";
+        
+        data = {
+          first: {
+            value:msg,
+            color:"#000000"
+          },
+          keyword1: {
+            value:"用红包拯救世界!",
+            color:"#000000"
+          },
+          keyword2: {
+            value:format_order_time,
+            color:"#000000"
+          },
+          remark: {
+            value:"",
+            color:"#000000"
+          }
+        }
+      end
 
       $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
       response = $client.send_template_msg(touser, template_id, url, topcolor, data)
