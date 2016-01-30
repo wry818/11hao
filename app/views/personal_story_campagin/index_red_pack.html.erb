@@ -62,8 +62,10 @@
 }
 
 div.btn-text {
-	padding-top:82%;
+	bottom:3%;
+	position:absolute;
 	text-align:center;
+	width:100%;
 }
 
 @media (min-width: 640px) {
@@ -101,15 +103,11 @@ div.btn-text {
 	.digit-text-box {
 		padding-left:10px;
 	}
-	
-	div.btn-text {
-		padding-top:86%;
-	}
 }
 </style>
 
-<div style="background:transparent url('/2016/bg-1.jpg') no-repeat center top; background-size:100% auto; color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
-	<div style="padding-top:13%;">
+<div style="color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+	<div style="margin-top:12%;">
 			<table style="margin:0px auto;">
 				<tr>
 					<td style="padding-left:15px; text-align:center; vertical-align:top;">
@@ -133,8 +131,12 @@ div.btn-text {
 				</tr>
 			</table>
 	</div>
-	<div class="btn-text">
-		<img src="/2016/collect_pack.png" style="max-width:40%;">
+	<div style="margin-top:15%; position:relative;" >
+		<img src="/2016/red_pack.jpg" style="max-width:100%;">
+		
+		<div class="btn-text">
+			<img src="/2016/collect_pack.png" style="max-width:40%;">
+		</div>
 	</div>
 </div>
 
@@ -143,8 +145,14 @@ div.btn-text {
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>
 <%= hidden_field_tag :share_id, @seller ? @seller.id : "" %>
+
 <script type="text/javascript">
   $(function () {
+		$("body").css({
+			"background": "transparent url('/2016/bg-1.jpg') repeat-y center top",
+			"background-size": "100% auto"
+		});
+		
     $("div.btn-text img").bind('click', function () {
       $("#yqj_result_shareModal").modal('show');
 			
@@ -154,6 +162,7 @@ div.btn-text {
     });
   });
 </script>
+
 <% if @sign_package %>
     <script>
       var campagin_share_link = "<%= @share_link %>";
