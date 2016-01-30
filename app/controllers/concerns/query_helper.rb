@@ -64,7 +64,7 @@ class QueryHelper
           (
             SELECT  count(o.seller_id) FROM
             (
-                  SELECT * from orders where orders.campaign_id = "+campagin_id+"
+                  SELECT * from orders where orders.campaign_id = "+campagin_id.to_s+"
                   AND orders.status IN (1, 3)
                   and COALESCE(orders.seller_id,-1)>0
 
@@ -74,5 +74,18 @@ class QueryHelper
           "
   end
 
+  def self.get_page_orders_countavg(campagin_id)
+    query="SELECT avg(count) from
+          (
+            SELECT  count(o.seller_id) FROM
+            (
+                  SELECT * from orders where orders.campaign_id = "+campagin_id.to_s+"
+                  AND orders.status IN (1, 3)
+                  and COALESCE(orders.seller_id,-1)>0
 
+            ) o
+            GROUP BY o.seller_id
+          ) w
+          "
+  end
 end

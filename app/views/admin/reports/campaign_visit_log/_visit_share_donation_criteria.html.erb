@@ -13,10 +13,16 @@
         </select>
       </div>
       <div class="col-xs-2" style="text-align:right;">
+        <label class="control-label">活动</label>
 
       </div>
       <div class="col-xs-4">
-
+        <select id="all_report_event_selector" class="form-control input-small" style="width:100%;">
+          <option value="-1">All</option>
+          <% Fundraising_event.all.each do |c| %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+          <% end %>
+        </select>
       </div>
     </div>
   </div>

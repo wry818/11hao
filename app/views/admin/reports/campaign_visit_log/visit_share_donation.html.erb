@@ -1,11 +1,11 @@
 <div id="all_report_container" style="padding-bottom:80px;">
   <div style="width:90%; max-width:1280px; margin:auto;">
     <div class="container">
-      <h3>分享统计报表</h3>
+      <h3>分享总计报表</h3>
     </div>
 
     <div style="margin-top:30px;">
-      <%= render "report_criteria" %>
+      <%= render "visit_share_donation_criteria" %>
     </div>
 
     <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
@@ -49,13 +49,15 @@
       var url='<%=admin_reports_ajax_campvisit_log_report_visit_share_donation_path %>';
       load_download_pagedata(url);
     });
+    $("#run_report").click();
 //    异步加载分页数据
     function  load_download_pagedata(url)
     {
       var campagin_id= $("#all_report_product_selector").val();
       var from_date=$("#from_date").val();
       var to_date=$("#to_date").val();
-      $.post(url,{ campagin_id:campagin_id, from_date:from_date, to_date:to_date }).success(function (data, textStatus, jqXHR) {
+      var event_id=$("#all_report_event_selector").val();
+      $.post(url,{ campagin_id:campagin_id, from_date:from_date, to_date:to_date,event_id:event_id }).success(function (data, textStatus, jqXHR) {
         $("#activity_report_content").html(data);
         bind_pager_click();
       }).error(function() {
