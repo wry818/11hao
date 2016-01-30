@@ -197,10 +197,11 @@ div.btn-text {
         var desc = shareData.desc;
         var link = shareData.link;
         var imgUrl = shareData.img_url
-
+				
+				// 朋友圈只显示标题, title desc交换
         wx.onMenuShareTimeline({
-          title: title, // 分享标题
-          desc: desc, // 分享描述
+          title: desc, // 分享标题
+          desc: title, // 分享描述
           link: link, // 分享链接
           imgUrl: imgUrl, // 分享图标
           trigger: function () {
