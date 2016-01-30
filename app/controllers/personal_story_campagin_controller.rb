@@ -132,7 +132,7 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def index_red_pack
-    @seller=Seller.find_by_id(1)
+    # @seller=Seller.find_by_id(1)
     
     if is_wechat_browser?
 
