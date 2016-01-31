@@ -91,27 +91,56 @@ class QueryHelper
 
   def self.get_visit_log_reort(campaign_id,time_start,time_end,group_type)
     where_temp=""
+    where_temp_order=""
     if campaign_id&&campaign_id.length>0&&campaign_id!="-1"
       where_temp+=" and campaign_visit_logs.campaign_id="+campaign_id
+      where_temp_order+=" and orders.campaign_id="+campaign_id
     end
     if time_start&&time_start.length>0
       where_temp+=" and campaign_visit_logs.visited_time AT TIME ZONE 'CCT'>='"+time_start+"'"
+      where_temp_order+=" and orders.updated_at AT TIME ZONE 'CCT'>='"+time_start+"'"
     end
     if time_end&&time_end.length>0
       where_temp+=" and campaign_visit_logs.visited_time AT TIME ZONE 'CCT'<'"+time_end+"'"
+      where_temp_order+=" and orders.updated_at AT TIME ZONE 'CCT'<'"+time_end+"'"
     end
      query="SELECT
-              to_char(
-                campaign_visit_logs.visited_time AT TIME ZONE 'CCT',
-                '"+group_type+"'
-              ) AS d,
-              COUNT(1) as log_count
-            FROM
-              campaign_visit_logs
-            WHERE 1=1 "+where_temp+"
-            GROUP BY
-              d
-            ORDER BY
-              d desc"
+           CASE when v.d is NULL then w.d ELSE v.d end as d,
+           COALESCE(v.log_count,0) log_count,
+           COALESCE(w.order_count,0) order_count
+           FROM
+          (
+            SELECT
+             to_char(
+             campaign_visit_logs.visited_time AT TIME ZONE 'CCT',
+             '"+group_type+"'
+             ) AS d,
+             COUNT(1) as log_count
+             FROM
+             campaign_visit_logs
+             WHERE 1=1 "+where_temp+"
+             GROUP BY
+             d
+             ORDER BY
+             d desc
+          ) v
+          FULL JOIN
+          (
+            SELECT
+             to_char(
+             orders.updated_at AT TIME ZONE 'CCT',
+             '"+group_type+"'
+             ) AS d,
+             COUNT(1) as order_count
+             FROM
+             orders
+             WHERE 1=1 "+where_temp_order+"
+             GROUP BY
+             d
+             ORDER BY
+             d desc
+          ) w  on  v.d=w.d
+
+"
   end
 end

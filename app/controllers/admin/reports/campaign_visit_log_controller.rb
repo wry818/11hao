@@ -271,7 +271,8 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     end
 
     @results = ActiveRecord::Base.connection.execute(query)
-    @total=0
+    @total_log=0
+    @total_order=0
     render :partial=>"report_visit_log_content"
   end
 end
