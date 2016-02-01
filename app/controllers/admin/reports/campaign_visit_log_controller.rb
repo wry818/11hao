@@ -39,20 +39,23 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
     @todate=endate
     endate+=" 23:59:59"
 
-    @results=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
+    @results=CampaignVisitLog.where("visited_time +'8 H' >= :start_date AND visited_time +'8 H' < :end_date",
                                     {start_date:fromdate,
                                      end_date:endate}).includes(:campaign).order(:id=>:desc).page(params[:page])
 
     # logger.debug @results.to_yaml
     # ids=@results.collect(&:campaign_id)
     # @campagins=Campaign.all.where(id:ids)
-    @total=CampaignVisitLog.where("visited_time >= :start_date AND visited_time < :end_date",
+    @total=CampaignVisitLog.where("visited_time +'8 H' >= :start_date AND visited_time +'8 H' < :end_date",
                                   {start_date:fromdate,
                                    end_date:endate}).count
 
   end
 
   def reportsearch
+
+    logger.debug "1001...................:"
+    logger.debug Time.zone
 
     campagin_id=params[:campagin_id];
     from_date=params[:from_date];
@@ -76,10 +79,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       @results=@results.where(:campaign_id => campagin_id)
     end
     if from_date.length>0
-      @results=@results.where("visited_time >= ?",from_date)
+      @results=@results.where("visited_time +'8 H' >= ?",from_date)
     end
     if to_date.length>0
-      @results=@results.where("visited_time < ?",to_date)
+      @results=@results.where("visited_time +'8 H' < ?",to_date)
     end
 
     logger.debug 1002
@@ -135,10 +138,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       @result_item=Hash.new
       @count_log=CampaignVisitLog.where(:campaign_id => campaign_temp.id)
       if from_date.length>0
-        @count_log=@count_log.where("visited_time  AT TIME ZONE 'CCT' >= ?",from_date)
+        @count_log=@count_log.where("visited_time+'8 H' >= ?",from_date)
       end
       if to_date.length>0
-        @count_log=@count_log.where("visited_time  AT TIME ZONE 'CCT' < ?",to_date)
+        @count_log=@count_log.where("visited_time +'8 H' < ?",to_date)
       end
       @result_item["id"]=campaign_temp.id
       @result_item["title"]=campaign_temp.title
@@ -146,19 +149,19 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # share-----------------------------------------------------------------
       @share_log=SellerReferral.joins(:seller).where(:sellers=>{:campaign_id =>campaign_temp.id })
       if from_date.length>0
-        @share_log=@share_log.where("seller_referrals.updated_at  AT TIME ZONE 'CCT' >= ?",from_date)
+        @share_log=@share_log.where("seller_referrals.updated_at+'8 H' >= ?",from_date)
       end
       if to_date.length>0
-        @share_log=@share_log.where("seller_referrals.updated_at  AT TIME ZONE 'CCT' < ?",to_date)
+        @share_log=@share_log.where("seller_referrals.updated_at+'8 H' < ?",to_date)
       end
       @result_item["share_count"]=@share_log.count
       # ordrs-----------------------------------------------------------------------
       @order_log=Order.where(:campaign_id => campaign_temp.id).where("direct_donation>0").completed
       if from_date.length>0
-        @order_log=@order_log.where("updated_at  AT TIME ZONE 'CCT' >= ?",from_date)
+        @order_log=@order_log.where("updated_at+'8 H' >= ?",from_date)
       end
       if to_date.length>0
-        @order_log=@order_log.where("updated_at  AT TIME ZONE 'CCT' < ?",to_date)
+        @order_log=@order_log.where("updated_at+'8 H' < ?",to_date)
       end
       @result_item["order_count"]=@order_log.count
 
@@ -182,10 +185,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # 100 1000 10000visit_log--------------------------------------------------------------
       @log_time_offset=CampaignVisitLog.where(:campaign_id => campaign_temp.id)
       if from_date.length>0
-        @log_time_offset=@log_time_offset.where("visited_time  AT TIME ZONE 'CCT' >= ?",from_date)
+        @log_time_offset=@log_time_offset.where("visited_time+'8 H' >= ?",from_date)
       end
       if to_date.length>0
-        @log_time_offset=@log_time_offset.where("visited_time  AT TIME ZONE 'CCT' < ?",to_date)
+        @log_time_offset=@log_time_offset.where("visited_time+'8 H' < ?",to_date)
       end
        @log_time_offsettemp=@log_time_offset.order("visited_time").limit(1).offset(100).first
        if @log_time_offsettemp
@@ -202,10 +205,10 @@ class Admin::Reports::CampaignVisitLogController < Admin::Reports::ApplicationCo
       # 100 1000 10000 order time---------------------------------------------------------
       @log_orders_offset=Order.where(:campaign_id => campaign_temp.id).completed
       if from_date.length>0
-        @log_orders_offset=@log_orders_offset.where("updated_at AT TIME ZONE 'CCT' >= ?",from_date)
+        @log_orders_offset=@log_orders_offset.where("updated_at+'8 H' >= ?",from_date)
       end
       if to_date.length>0
-        @log_orders_offset=@log_orders_offset.where("updated_at AT TIME ZONE 'CCT' < ?",to_date)
+        @log_orders_offset=@log_orders_offset.where("updated_at+'8 H' < ?",to_date)
       end
       @log_orders_offsettemp=@log_orders_offset.order("updated_at").limit(1).offset(100).first
       if @log_orders_offsettemp

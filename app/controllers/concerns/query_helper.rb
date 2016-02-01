@@ -97,12 +97,12 @@ class QueryHelper
       where_temp_order+=" and orders.campaign_id="+campaign_id
     end
     if time_start&&time_start.length>0
-      where_temp+=" and campaign_visit_logs.visited_time AT TIME ZONE 'CCT'>='"+time_start+"'"
-      where_temp_order+=" and orders.updated_at AT TIME ZONE 'CCT'>='"+time_start+"'"
+      where_temp+=" and campaign_visit_logs.visited_time+'8 H'>='"+time_start+"'"
+      where_temp_order+=" and orders.updated_at +'8 H'>='"+time_start+"'"
     end
     if time_end&&time_end.length>0
-      where_temp+=" and campaign_visit_logs.visited_time AT TIME ZONE 'CCT'<'"+time_end+"'"
-      where_temp_order+=" and orders.updated_at AT TIME ZONE 'CCT'<'"+time_end+"'"
+      where_temp+=" and campaign_visit_logs.visited_time +'8 H'<'"+time_end+"'"
+      where_temp_order+=" and orders.updated_at +'8 H'<'"+time_end+"'"
     end
      query="SELECT
            CASE when v.d is NULL then w.d ELSE v.d end as d,
@@ -112,7 +112,7 @@ class QueryHelper
           (
             SELECT
              to_char(
-             campaign_visit_logs.visited_time AT TIME ZONE 'CCT',
+             campaign_visit_logs.visited_time+'8 H',
              '"+group_type+"'
              ) AS d,
              COUNT(1) as log_count
@@ -128,7 +128,7 @@ class QueryHelper
           (
             SELECT
              to_char(
-             orders.updated_at AT TIME ZONE 'CCT',
+             orders.updated_at +'8 H',
              '"+group_type+"'
              ) AS d,
              COUNT(1) as order_count
