@@ -9,7 +9,11 @@
   }
 
   /*
-
+  
+  #indirect_influence_quote {
+	opacity: 0;
+  }
+  
   #direct_influence {
     opacity: 0;
   }
@@ -57,10 +61,6 @@
 
   .seller_referral_count {
     font-size: 26px;
-  }
-  
-  #indirect_influence_quote {
-	opacity: 0;
   }
   
   .indirect_influence_quote_number {
@@ -445,7 +445,8 @@
 
 <script language="javascript" type="text/javascript">
   var body_scrollTop = 0;
-
+  var indirect_influence_quote_nubmer = 0;
+  
   function showContent() {
 
     $(".avatar-container").show();
@@ -481,7 +482,6 @@
       $("#seller_info").animate({opacity: '1'}, 1000, function () {
         $("#indirect_influence").animate({opacity: '1'}, 1000, function () {
 
-
 			var options = {
 				useEasing : false, 
 				useGrouping : false, 
@@ -490,15 +490,16 @@
 				prefix : '', 
 				suffix : '' 
 			};
-	
+
 		  var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %>, 0, 0.5, options);
-		  seller_referral_count.start(function () {
-		  
-			  $("#indirect_influence_quote").animate({opacity: '1'}, 1000, function () {
-			  });
-			  
-		  }); 
-			  		
+		  seller_referral_count.start();
+	  
+		  var indirect_influence_quote_count = new CountUp("indirect_influence_quote_count", 0, indirect_influence_quote_nubmer, 0, 0.5, options);
+		  indirect_influence_quote_count.start();
+	  
+		  $("#indirect_influence_quote").animate({opacity: '1'}, 1000, function () {
+		  });
+		  	  		
           // $("#campaign_detail").animate({opacity: '1'}, 1000, function () {
           //   $("#direct_influence").animate({opacity: '1'}, 1000, function () {
           //     $("#supporter_avatar_0").animate({opacity: '1'}, "fast", function () {
@@ -565,8 +566,10 @@
 				  new_organizer_quote = organizer_quote.substring(0, start) + 1 * parseInt(the_num) + organizer_quote.substring(end + 1, organizer_quote.length);
 				  $("#campaign_organizer_quote").text(new_organizer_quote);
 				  
-				  indirect_influence_quote = organizer_quote.substring(0, start) + "<span class='indirect_influence_quote_number'>&nbsp;" + <%= @seller_referral_count %> * parseInt(the_num) + "&nbsp;</span>" + organizer_quote.substring(end + 1, organizer_quote.length);
+				  indirect_influence_quote = "可以" + organizer_quote.substring(0, start) + "&nbsp;<span id='indirect_influence_quote_count' class='indirect_influence_quote_number'>" + "</span>&nbsp;" + organizer_quote.substring(end + 1, organizer_quote.length);
 				  $("#indirect_influence_quote").html(indirect_influence_quote);
+				  
+				  indirect_influence_quote_nubmer = <%= @seller_referral_count %> * parseInt(the_num);
 			  }
 			  
 		  }
