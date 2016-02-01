@@ -62,10 +62,14 @@
 }
 
 div.btn-text {
-	bottom:-2%;
-	position:absolute;
+	position: absolute;
+	bottom: -2%;
 	text-align:center;
 	width:100%;
+}
+
+#red_pack_info {
+	text-align:center;
 }
 
 @media (min-width: 640px) {
@@ -106,39 +110,41 @@ div.btn-text {
 }
 </style>
 
-<div style="color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
-	<div style="margin-top:12%;">
-			<table style="margin:0px auto;">
-				<tr>
-					<td style="padding-left:15px; text-align:center; vertical-align:top;">
-						<% if @seller && @seller.user_profile %>
-							<% if @seller.user_profile.picture && @seller.user_profile.picture!="" && @seller.user_profile.picture.to_s.gsub(' ','').length>0 %>
-								<img src="<%= @seller.user_profile.picture %>" class="img-avatar img-rounded" />
-							<% else %>
-								<%= image_tag 'weixin_default.jpg', :class => "img-avatar img-rounded" %>
-							<% end %>
+<div style="position: relative">
+	<div style="color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+		<div style="margin-top:12%;">
+				<table style="margin:0px auto;">
+					<tr>
+						<td style="padding-left:15px; text-align:center; vertical-align:top;">
+							<% if @seller && @seller.user_profile %>
+								<% if @seller.user_profile.picture && @seller.user_profile.picture!="" && @seller.user_profile.picture.to_s.gsub(' ','').length>0 %>
+									<img src="<%= @seller.user_profile.picture %>" class="img-avatar img-rounded" />
+								<% else %>
+									<%= image_tag 'weixin_default.jpg', :class => "img-avatar img-rounded" %>
+								<% end %>
 							
-							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.fullname %></span></div>
-            <%else%>
-                <%= image_tag 'sunflowerlogo.jpg', :class => "img-avatar img-rounded" %>
-                <div style="margin-top:3px;"><span style="color:#eee; font-size:14px;">太阳花</span></div>
-						<% end %>
-					</td>
-					<td style="padding:0px 15px; vertical-align:top;">
-				    <div class="img-bubble bubble" style="min-height:60px;">
-				      <div class="promo-text">
-								你的红包就可以<span style="color:#fa0000;"><%= @campaign.organizer_quote %></span>，谢谢支持！
-							</div>
-				    </div>
-					</td>
-				</tr>
-			</table>
-	</div>
-	<div style="margin-top:15%; position:relative;" >
-		<img src="/2016/red_pack.jpg" style="max-width:100%;">
-		
-		<div class="btn-text">
-			<img src="/2016/collect_pack.png" style="max-width:50%;">
+								<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.fullname %></span></div>
+	            <%else%>
+	                <%= image_tag 'sunflowerlogo.jpg', :class => "img-avatar img-rounded" %>
+	                <div style="margin-top:3px;"><span style="color:#eee; font-size:14px;">太阳花</span></div>
+							<% end %>
+						</td>
+						<td style="padding:0px 15px; vertical-align:top;">
+					    <div class="img-bubble bubble" style="min-height:60px;">
+					      <div class="promo-text">
+									您的红包可以<span id="campaign_organizer_quote" style="color:#fa0000;"></span>，谢谢支持！
+								</div>
+					    </div>
+						</td>
+					</tr>
+				</table>
+		</div>
+		<div id="red_pack_info" style="margin-top:15%; position:relative;" >
+			<img src="/2016/red_pack.jpg" style="max-width:100%;">
+			<div class="btn-text">
+				<img src="/2016/collect_pack.png" style="max-width:50%;">
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -151,11 +157,41 @@ div.btn-text {
 
 <script type="text/javascript">
   $(function () {
+	  
 		$("body").css({
 			"background": "transparent url('/2016/bg-1.jpg') repeat-y center top",
 			"background-size": "100% auto"
 		});
-		
+	  
+  	  var organizer_quote = "<%= @campaign.organizer_quote %>";
+  	  var new_organizer_quote = "";	
+  	  var indices = window.Raisy.get_all_occurence_from_string(organizer_quote);
+	  
+  	  if (indices.length > 1) {
+		  
+  		  var start = 0;
+  		  var end = 0;
+  		  var number_string = "";
+  		  for (var i = 0; i < indices.length; i++) {
+		  	  
+  			  if (i % 2 == 0) {
+  				  start = indices[i];
+  			  } else {
+  			  	  end = indices[i];
+  				  var number_string = organizer_quote.substring(start + 1, end);
+  				  var the_num = number_string.replace( /^\D+/g, '');
+  				  new_organizer_quote = organizer_quote.substring(0, start) + 1 * parseInt(the_num) + organizer_quote.substring(end + 1, organizer_quote.length);
+  				  $("#campaign_organizer_quote").text(new_organizer_quote);
+  			  }
+			  
+  		  }
+		  
+  	  } else {
+		  
+  		  $("#campaign_organizer_quote").text(organizer_quote);
+		  
+  	  }
+	  
     $("div.btn-text img").bind('click', function () {
       $("#yqj_result_shareModal").modal('show');
 			
