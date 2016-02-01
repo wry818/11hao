@@ -46,7 +46,7 @@ class QueryHelper
     where_time=""
     limit_line=""
     if date_time.length>0
-      where_time=" and updated_at at time zone 'CCT'>'"+date_time+"'"
+      where_time=" and updated_at>'"+date_time+"'"
       limit_line=" LIMIT 1"
     end
     query="select rank() over (order by all_count desc) as rank, a.*,campaigns.*
