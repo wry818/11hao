@@ -176,7 +176,7 @@
   <div style="text-align: center">
     <img src="/2016/super_monkey.png" style="margin-top: 20px" class="img_super_monkey"/>
   </div>
-  <% if @seller %>
+
     <div id="banner">
       <table id="seller_info" style="margin:0px auto;">
         <tr>
@@ -194,6 +194,14 @@
                 <div style="margin-top:3px;">
                   <span style="color:#eee; font-size:14px;"><%= @seller.user_profile.first_name %></span></div>
               </div>
+            <%else%>
+                <div>
+                  <%= image_tag 'sunflowerlogo.jpg', :class => "img-avatar img-rounded" %>
+
+
+                  <div style="margin-top:3px;">
+                    <span style="color:#eee; font-size:14px;">太阳花</span></div>
+                </div>
             <% end %>
           </td>
           <td style="padding-left: 15px; vertical-align:top">
@@ -206,10 +214,8 @@
         </tr>
       </table>
 
-      <!-- <div style="color: yellow; padding: 15px; text-align: center">
-			  一块钱红包就<%= @campaign.organizer_quote %>！
-			</div> -->
     </div>
+  <% if @seller %>
     <div id="seller_influence" style="position:relative; padding:0px 15px 0px 15px;">
       <!-- <div style="position:absolute; top:0px; right:0px;">
           <img src="/2016/monkey-2.png" style="width:80px;">
@@ -314,7 +320,7 @@
     </div>
   </div>
 
-  <% if @seller %>
+
     <div id="direct_influence" class="well" style="background-color: white; border-color:rgb(197,169,77); margin:15px; padding:15px 5px;">
       <div style="text-align: right">
         <span id="btn_view_content" class="glyphicon glyphicon-chevron-left" style="color:#888; font-size:18px; display: none"></span>
@@ -393,6 +399,7 @@
         <% end %>
       </div>
     </div>
+  <% if @seller %>
   <% end %>
 
   <div style="height: 100px;">
@@ -481,8 +488,22 @@
     {
 
       $("#campaign_detail").animate({opacity: '1'}, "slow", function () {
-      });
+        $("#seller_info").animate({opacity: '1'}, "slow", function () {
+          $("#direct_influence").animate({opacity: '1'}, 1000, function () {
+            $("#supporter_avatar_0").animate({opacity: '1'}, "fast", function () {
+              $("#supporter_avatar_1").animate({opacity: '1'}, "fast", function () {
+                $("#supporter_avatar_2").animate({opacity: '1'}, "fast", function () {
+                  $("#supporter_avatar_3").animate({opacity: '1'}, "fast", function () {
+                    $("#supporter_avatar_4").animate({opacity: '1'}, "fast", function () {
 
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
     }
 
   }
@@ -531,7 +552,7 @@
     if (<%= @has_seller %> == false
     )
     {
-      $("img.arri").trigger('click');
+//      $("img.arri").trigger('click');
     }
 
     //展示更多

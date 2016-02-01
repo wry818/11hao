@@ -367,7 +367,21 @@ class PersonalStoryCampaginController < ApplicationController
           @page_url = path + query
           
         end  
-        
+
+    else
+      @supporters_count = @campaign.orders.completed.count
+      @supporters = @campaign.orders.completed.select(
+          "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+
+      if @supporters.total_pages > 0 && @supporters.total_pages > @page
+
+        @show_pager = true
+
+        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+
+        @page_url = path + query
+
+      end
     end    
 
   end
