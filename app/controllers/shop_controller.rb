@@ -1048,7 +1048,7 @@ class ShopController < ApplicationController
       if send_dianping
         articles = [
           {
-            title: "55元大众点评红包爱心专享",
+            title: "【爱心专享】55元大众点评新年红包",
             url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
             picurl: request.protocol + request.host + "/images/redpack.jpg"
           }
