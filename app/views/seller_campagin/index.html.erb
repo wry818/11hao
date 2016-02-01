@@ -41,9 +41,16 @@
   <% else %>
       <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
   <% end %>
-  <div style="position:absolute; left:10px; bottom:5px;">
-    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;"><%= @campaign_first.title %>
-      占领了封面</span>
+  <div style="position:absolute; left:0px; bottom:0px; width: 100%; background-color: rgba(1,1,1,0.5)">
+    <p style=" text-align: left; margin-bottom: 0px; margin-left: 5px;">
+    <span style="color:white; font-size:16px;">
+        <%= @campaign_first.organization.name %>
+      </span>
+      <br/>
+       <span style="color:white; font-size:12px; letter-spacing:1px;">
+         <%= @campaign_first.title %>
+       </span>
+    </p>
   </div>
 </div>
 <div id="campaign-show" style="background-color: white;">
@@ -182,8 +189,7 @@
     $all_slugs.bind('click', function () {
       $obj = $(this);
       var url_temp = "";
-      switch($obj.data("slug"))
-      {
+      switch ($obj.data("slug")) {
         case 1454046936:
           url_temp = url + "/checkout/sunflower";
           break;
@@ -234,8 +240,7 @@
           break;
         default:
       }
-      if(url_temp!="")
-      {
+      if (url_temp != "") {
         window.location.href = url_temp;
       }
 
