@@ -1142,6 +1142,18 @@ window.Raisy = {
 		address = province + " " + city + " " + cityArea + " " + addressLine + " (" + receiveName + "收 手机：" + cellPhone + ") "
 		
 		return address;
+	},
+	get_all_occurence_from_string: function (string) {
+		
+		var regex = /#/gi;
+		var result;
+		var indices = [];
+		
+		while ( (result = regex.exec(string)) ) {
+			indices.push(result.index);
+		}
+		
+		return indices;
 	}
 			
 }

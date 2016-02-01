@@ -4,14 +4,16 @@
     width: 90%;
   }
 
-  #direct_influence {
-    opacity: 0;
-  }
-
   #indirect_influence {
     opacity: 0;
   }
 
+  /*
+
+  #direct_influence {
+    opacity: 0;
+  }
+  
   #campaign_detail {
     opacity: 0;
   }
@@ -19,6 +21,8 @@
   .support_avatar {
     opacity: 0;
   }
+  
+  */
 
   .img_super_monkey {
     max-width: 150px;
@@ -54,7 +58,16 @@
   .seller_referral_count {
     font-size: 26px;
   }
-
+  
+  #indirect_influence_quote {
+	opacity: 0;
+  }
+  
+  .indirect_influence_quote_number {
+    font-size: 26px;
+	color: #fa0000;
+  }
+  
   .digit-container {
     margin: 0px auto;
     position: relative;
@@ -207,7 +220,7 @@
           <td style="padding-left: 15px; vertical-align:top">
             <div class="img-bubble bubble" style="min-height:60px;">
               <div class="promo-text">
-                一元钱红包就可以<span style="color:#fa0000;"><%= @campaign.organizer_quote %></span>，你也来参与吧！
+                一元钱红包就可以<span id="campaign_organizer_quote" style="color:#fa0000;"></span>，你也来参与吧！
               </div>
             </div>
           </td>
@@ -224,7 +237,9 @@
         <div class="seller_referral_title" style="margin-top:5px; text-align:center;">
           <%= @seller.user_profile.first_name %>
           的公益传播能量值为
-          <span class="seller_referral_count" style="color:#fa0000;"><%= @seller_referral_count %></span>
+          <span id="seller_referral_count" class="seller_referral_count" style="color:#fa0000;"></span>
+        </div>
+        <div id="indirect_influence_quote" style="margin-top:5px; text-align:center;">
         </div>
         <div style="margin-top:15px; text-align:center;">
           <% if @seller_referral_count > 0 %>
@@ -465,21 +480,40 @@
 
       $("#seller_info").animate({opacity: '1'}, 1000, function () {
         $("#indirect_influence").animate({opacity: '1'}, 1000, function () {
-          $("#campaign_detail").animate({opacity: '1'}, 1000, function () {
-            $("#direct_influence").animate({opacity: '1'}, 1000, function () {
-              $("#supporter_avatar_0").animate({opacity: '1'}, "fast", function () {
-                $("#supporter_avatar_1").animate({opacity: '1'}, "fast", function () {
-                  $("#supporter_avatar_2").animate({opacity: '1'}, "fast", function () {
-                    $("#supporter_avatar_3").animate({opacity: '1'}, "fast", function () {
-                      $("#supporter_avatar_4").animate({opacity: '1'}, "fast", function () {
 
-                      });
-                    });
-                  });
-                });
-              });
-            });
-          });
+
+			var options = {
+				useEasing : false, 
+				useGrouping : false, 
+				separator : ',', 
+				decimal : '.', 
+				prefix : '', 
+				suffix : '' 
+			};
+	
+		  var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %>, 0, 0.5, options);
+		  seller_referral_count.start(function () {
+		  
+			  $("#indirect_influence_quote").animate({opacity: '1'}, 1000, function () {
+			  });
+			  
+		  }); 
+			  		
+          // $("#campaign_detail").animate({opacity: '1'}, 1000, function () {
+          //   $("#direct_influence").animate({opacity: '1'}, 1000, function () {
+          //     $("#supporter_avatar_0").animate({opacity: '1'}, "fast", function () {
+          //       $("#supporter_avatar_1").animate({opacity: '1'}, "fast", function () {
+          //         $("#supporter_avatar_2").animate({opacity: '1'}, "fast", function () {
+          //           $("#supporter_avatar_3").animate({opacity: '1'}, "fast", function () {
+          //             $("#supporter_avatar_4").animate({opacity: '1'}, "fast", function () {
+          //
+          //             });
+          //           });
+          //         });
+          //       });
+          //     });
+          //   });
+          // });
         });
       });
 
@@ -510,13 +544,46 @@
 
   $(document).ready(function () {
 		
+	  var organizer_quote = "<%= @campaign.organizer_quote %>";
+	  var new_organizer_quote = "";
+	  var indirect_influence_quote = "";
+	  var indices = window.Raisy.get_all_occurence_from_string(organizer_quote);
+	  
+	  if (indices.length > 1) {
+		  
+		  var start = 0;
+		  var end = 0;
+		  var number_string = "";
+		  for (var i = 0; i < indices.length; i++) {
+		  	  
+			  if (i % 2 == 0) {
+				  start = indices[i];
+			  } else {
+			  	  end = indices[i];
+				  var number_string = organizer_quote.substring(start + 1, end);
+				  var the_num = number_string.replace( /^\D+/g, '');
+				  new_organizer_quote = organizer_quote.substring(0, start) + 1 * parseInt(the_num) + organizer_quote.substring(end + 1, organizer_quote.length);
+				  $("#campaign_organizer_quote").text(new_organizer_quote);
+				  
+				  indirect_influence_quote = organizer_quote.substring(0, start) + "<span class='indirect_influence_quote_number'>&nbsp;" + <%= @seller_referral_count %> * parseInt(the_num) + "&nbsp;</span>" + organizer_quote.substring(end + 1, organizer_quote.length);
+				  $("#indirect_influence_quote").html(indirect_influence_quote);
+			  }
+			  
+		  }
+		  
+	  } else {
+		  
+		  $("#campaign_organizer_quote").text(organizer_quote);
+		  
+	  }
+	  
 		$("body").css({
 			"background": "transparent url('/2016/bg.jpg') repeat-y center top",
 			"background-size": "100% auto"
 		});
 
     executeAnimation();
-
+	
     $("#supporters_content").jscroll({
       autoTrigger: false,
       nextSelector: "a.a-pager:last",
@@ -539,14 +606,15 @@
       var $summary = $("div.summary");
       if ($arri.hasClass("arriup")) {
         $arri.removeClass("arriup");
-        // $summary.addClass("none");
+        $summary.addClass("none");
       }
       else {
         $arri.addClass("arriup");
-        // $summary.removeClass("none");
+        $summary.removeClass("none");
       }
 
-      $summary.slideToggle("slow");
+      // $summary.slideToggle("slow");
+	  
     });
 
     if (<%= @has_seller %> == false
