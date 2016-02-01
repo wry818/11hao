@@ -29,9 +29,22 @@ class SellerCampaginController < ApplicationController
     @seller_ladder_today_result = ActiveRecord::Base.connection.execute(query)
 
     if @seller_ladder_today_result&&@seller_ladder_today_result.count>0
+      all_count=0
+      @seller_ladder_today_result.each do |d|
+        logger.debug d["all_count"].to_i
+        logger.debug d
+        if d["all_count"].to_i>all_count
+          all_count=d["all_count"].to_i
+          @seller_today_top=d
+        end
+
+      end
       @seller_today_top=@seller_ladder_today_result[0]
       @campaign_top=Campaign.find(@seller_today_top["id"])
     end
+
+
+
 
     # if !@campaign_top
     #   if @seller_ladder_result&&@seller_ladder_result.count>0
