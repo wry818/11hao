@@ -1,4 +1,6 @@
 <style>
+
+  
   #seller_info {
     opacity: 0;
     width: 90%;
@@ -52,11 +54,6 @@
   .img-bubble {
     width: 90%;
     padding: 10px;
-    font-size: 14px;
-  }
-
-  .seller_referral_title {
-    font-size: 14px;
   }
 
   .seller_referral_count {
@@ -151,11 +148,6 @@
 
     .img-bubble {
       width: 90%;
-      font-size: 16px;
-    }
-
-    .seller_referral_title {
-      font-size: 16px;
     }
 
     .avatar-container {
@@ -185,7 +177,7 @@
   }
 </style>
 
-<div style="color:#333; font-family:'Microsoft YaHei', '微软雅黑', arial, sans-serif; max-width:750px; margin:0px auto; padding:0px 0px 20px 0px;">
+<div id="personal_story_campaign">
   <div style="text-align: center">
     <img src="/2016/super_monkey.png" style="margin-top: 20px" class="img_super_monkey"/>
   </div>
@@ -256,29 +248,61 @@
     <div class="project well" style="background-color:white; border-color:rgb(197,169,77); margin:0px; padding:0px;">
       <table style="background-color:rgb(197,169,77); width:100%;">
         <tr>
-          <td style="width: 60%; padding: 5px 0px 5px 0px; text-align:left;">
+          <td style="padding: 5px 0px 5px 0px; text-align:left;">
 						<span style="color: white; display:inline-block; margin-left:5px;">
-							<%= @campaign.title %>
+							支持项目
 						</span>
           </td>
-          <td style="width: 40%; padding: 5px 0px 5px 0px; text-align:right;">
+          <td style="padding: 5px 0px 5px 0px; text-align:right;">
 						<span style="display:inline-block; margin-right:5px;">
 							<span style="color: white">感谢</span>
 							<span style="color: #fa0000"><%= @campaign_total_count %></span>
-							<span style="color: white">位<br/>爱心伙伴</span>
+							<span style="color: white">位爱心伙伴</span>
 						</span>
           </td>
         </tr>
       </table>
-
+      <div class="row">
+          <div class="col-md-12">
+              <div style="position:relative">
+  				<% if @campaign.campaign_logo %>
+  					<div style="text-align:center;">
+                      <%= cl_image_tag @campaign.campaign_logo.image_id, 
+  					transformation: [
+  						{
+  							width: @campaign.campaign_logo.crop_width, 
+  							height: @campaign.campaign_logo.crop_height,
+  							x: @campaign.campaign_logo.crop_x,
+  							y: @campaign.campaign_logo.crop_y,
+  							crop: :crop
+  						}
+  					], style: "width:100%; max-height:626px", class: 'campaign-logo'%>
+  				</div>
+  				<% else %>
+  					<div class="campaign-default-logo-box">
+  						<%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+  					</div>
+  				<% end %>
+				<div class="campaign-header-title-box"> 
+					<div class="campaign-header-logo-title">
+						<span style="color: white"><%= @campaign.title %></span>
+					</div>
+				</div>
+              </div>
+          </div>
+      </div>
+	  
       <div class="ctx">
-        <img class="pimg" src="/images/sunflower/p_01.png">
+		  <span class="bt" style="padding-left:0px"> <b>善款接收：</b>吴泾太阳花社区儿童服务中心</span>
+		  <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri %></div>
+		  
+        <!-- <img class="pimg" src="/images/sunflower/p_01.png">
         <span class="ptt">关注外来务工子女教育</span>
 
         <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri %></div>
         <div class="pdd">
           <span style="color:red;">1</span>元钱，可以帮助<span style="color:red;">1个流动儿童参加1天的太阳花晚托班</span>
-        </div>
+        </div> -->
         <div class="summary none">
           <div class="st">项目详情</div>
           <div class="desc">
@@ -328,9 +352,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bt">
-        <b>善款接收：</b>吴泾太阳花社区儿童服务中心
       </div>
     </div>
   </div>
