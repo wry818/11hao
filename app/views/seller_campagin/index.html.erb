@@ -37,12 +37,13 @@
                                y: @campaign_first.campaign_logo.crop_y,
                                crop: :crop
                            }
-                       ],  style: "width:100%; max-height:600px", class: 'campaign-logo' %>
+                       ], style: "width:100%; max-height:600px", class: 'campaign-logo' %>
   <% else %>
       <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
   <% end %>
   <div style="position:absolute; left:10px; bottom:5px;">
-    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;"><%=@campaign_first.title %>占领了封面</span>
+    <span style="color:white; font-size:20px; font-weight: bolder; letter-spacing:1px;"><%= @campaign_first.title %>
+      占领了封面</span>
   </div>
 </div>
 <div id="campaign-show" style="background-color: white;">
@@ -52,7 +53,7 @@
         <div class="col-md-12">
           <div class="left-column" style="padding: 10px;">
             <div class="support_wrapper">
-              <div class="support_content" style="border-bottom: none;">
+              <div class="support_content" data-slug="<%= @seller_today_top["slug"] %>" style="border-bottom: none;">
                 <p>
                   &nbsp
                   &nbsp
@@ -60,8 +61,8 @@
                       <%= cl_image_tag @campaign_top.campaign_logo.image_id,
                                        transformation: [
                                            {
-                                               width:192,
-                                               height:124,
+                                               width: 192,
+                                               height: 124,
                                                crop: :fill
                                            }
                                        ], class: 'img-avatar lazy-image tody_top' %>
@@ -107,7 +108,7 @@
               <hr style="margin-bottom: 0px"/>
               <% if @seller_ladder_result && @seller_ladder_result.count > 0 %>
                   <% @seller_ladder_result.each do |seller_ladder| %>
-                      <div class="support_content">
+                      <div class="support_content" data-slug="<%= seller_ladder["slug"] %>">
                         <p>
                           <% @campaign_temp=Campaign.find(seller_ladder["id"])
                              if @campaign_temp.campaign_logo
@@ -115,8 +116,8 @@
                               <%= cl_image_tag @campaign_temp.campaign_logo.image_id,
                                                transformation: [
                                                    {
-                                                       width:192,
-                                                       height:124,
+                                                       width: 192,
+                                                       height: 124,
                                                        crop: :fill
                                                    }
                                                ], class: 'img-avatar lazy-image' %>
@@ -130,7 +131,7 @@
                           <span>
                           <%= seller_ladder["title"].to_s.length>19 ? seller_ladder["title"].to_s[0..18]+".." : seller_ladder["title"] %>
                           </span>
-                            <br/>
+                          <br/>
                     <span style=" font-size: 13px;color: gray;">
                     第<%= seller_ladder["rank"] %>名
                     </span>
@@ -174,6 +175,71 @@
         $(counts[i]).css("color", "YellowGreen");
       }
     }
+  });
+  $(function () {
+    var $all_slugs = $(".support_content");
+    var url = "<%=request.protocol+request.host_with_port%>";
+    $all_slugs.bind('click', function () {
+      $obj = $(this);
+      var url_temp = "";
+      switch($obj.data("slug"))
+      {
+        case 1454046936:
+          url_temp = url + "/checkout/sunflower";
+          break;
+        case 1450070083:
+          url_temp = url + "/checkout/sunflower";
+          break;
+        case 1454041189:
+          url_temp = url + "/checkout/pulushi";
+          break;
+        case 1429755460:
+          url_temp = url + "/checkout/pulushi";
+          break;
+        case 1454040291:
+          url_temp = url + "/checkout/mtyg";
+          break;
+        case 1449033862:
+          url_temp = url + "/checkout/mtyg";
+          break;
+        case 1454046268:
+          url_temp = url + "/checkout/handonhand";
+          break;
+        case 1453430970:
+          url_temp = url + "/checkout/handonhand";
+          break;
+        case 1454046097:
+          url_temp = url + "/checkout/qnpjs";
+          break;
+        case 1454297408:
+          url_temp = url + "/checkout/qnpjs";
+          break;
+        case 1454047162:
+          url_temp = url + "/checkout/xgy";
+          break;
+        case 1454297766:
+          url_temp = url + "/checkout/xgy";
+          break;
+        case 1454309232:
+          url_temp = url + "/checkout/lzgy";
+          break;
+        case 1450162303:
+          url_temp = url + "/checkout/lzgy";
+          break;
+        case 1454310248:
+          url_temp = url + "/checkout/bjlyr";
+          break;
+        case 1454304921:
+          url_temp = url + "/checkout/bjlyr";
+          break;
+        default:
+      }
+      if(url_temp!="")
+      {
+        window.location.href = url_temp;
+      }
+
+    });
   });
 </script>
 <% if @sign_package %>
@@ -284,8 +350,8 @@
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         alert(res.errMsg);
       });
-      $(function(){
-        window.shareData.img_url=$("img.tody_top").attr("src");
+      $(function () {
+        window.shareData.img_url = $("img.tody_top").attr("src");
       });
     </script>
 <% end %>
