@@ -45,7 +45,7 @@ class QueryHelper
   def self.get_ladder_campaign(campagin_ids,date_time)
     where_time=""
     if date_time.length>0
-      where_time=" and updated_at>'"+date_time+"'"
+      where_time=" and updated_at at time zone 'CCT'>'"+date_time+"'"
     end
     query="select rank() over (order by all_count desc) as rank, a.*,campaigns.*
           from
