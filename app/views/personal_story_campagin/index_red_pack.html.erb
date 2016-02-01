@@ -119,6 +119,9 @@ div.btn-text {
 							<% end %>
 							
 							<div style="margin-top:3px;"><span style="color:#eee; font-size:14px;"><%= @seller.user_profile.fullname %></span></div>
+            <%else%>
+                <%= image_tag 'sunflowerlogo.jpg', :class => "img-avatar img-rounded" %>
+                <div style="margin-top:3px;"><span style="color:#eee; font-size:14px;">太阳花</span></div>
 						<% end %>
 					</td>
 					<td style="padding:0px 15px; vertical-align:top;">
