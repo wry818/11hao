@@ -118,7 +118,7 @@ div.btn-text {
 						<td style="padding-left:15px; text-align:center; vertical-align:top;">
 							<% if @seller && @seller.user_profile %>
 								<% if @seller.user_profile.picture && @seller.user_profile.picture!="" && @seller.user_profile.picture.to_s.gsub(' ','').length>0 %>
-									<img src="<%= @seller.user_profile.picture %>" class="img-avatar img-rounded" />
+									<%= cl_image_tag @seller.user_profile.picture, width: 100, height: 100, crop: :limit, class: 'img-avatar img-rounded' %>
 								<% else %>
 									<%= image_tag 'weixin_default.jpg', :class => "img-avatar img-rounded" %>
 								<% end %>
