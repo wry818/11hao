@@ -49,7 +49,7 @@ class QueryHelper
       where_time=" and (updated_at+ '8 H')>'"+date_time+"'"
       limit_line=" LIMIT 1"
     end
-    query="select rank() over (order by all_count desc) as rank, a.*,campaigns.*
+    query="select rank() over (order by all_count desc) as rank, a.*,campaigns.*,organizations.name
           from
           (
             SELECT campaigns.id,COALESCE (sum(o.id), 0),count(o.id) as all_count FROM (SELECT * from orders where status=3 and direct_donation>0"+where_time+") o
@@ -58,7 +58,9 @@ class QueryHelper
             GROUP BY campaigns.id
             order  by all_count DESC,id DESC
           ) a
-          inner JOIN   campaigns on a.ID=campaigns.id "
+          inner JOIN   campaigns on a.ID=campaigns.id
+left join organizations on campaigns.organization_id=organizations.id
+"
   end
 
   def self.get_seller_ladder_campaign(campagin_ids)
