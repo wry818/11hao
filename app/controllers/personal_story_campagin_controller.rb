@@ -1,6 +1,6 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :share, :log_ip, :index_old]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin,:index_old]
   before_filter :load_seller, only: [:index, :index_old]
 
   def index
@@ -35,6 +35,7 @@ class PersonalStoryCampaginController < ApplicationController
   def sunflower
     
     campaign_slug = "1450070083"
+    session[:personal_campaign_slug]=campaign_slug
     path = personal_story_campagin_sunflower_supporters_path
     
     load_personal_story_campaign_page(campaign_slug, path)
@@ -53,6 +54,7 @@ class PersonalStoryCampaginController < ApplicationController
   def pulushi
     
     campaign_slug = "1429755460"
+    session[:personal_campaign_slug]=campaign_slug
     path = personal_story_campagin_sunflower_supporters_path
     
     load_personal_story_campaign_page(campaign_slug, path)
@@ -360,10 +362,10 @@ class PersonalStoryCampaginController < ApplicationController
   private
 
   def manage_session_order
-    
-    @campaign = Campaign.find_by_slug("1450070083")
+    logger.debug "1001"
+    logger.debug session[:personal_campaign_slug]
+    @campaign = Campaign.find_by_slug(session[:personal_campaign_slug])
     @campaign_total_count = 0
-    
   end
   
   def load_seller
