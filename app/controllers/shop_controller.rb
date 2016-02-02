@@ -883,7 +883,6 @@ class ShopController < ApplicationController
         #     url: request.protocol + request.host + "/seller/" + seller.referral_code + "/seller_ladder"
         #   }
         # ]
-        #
         # if !(order.campaign.slug=="support-lanlan")
         #   $wechat_client.send_news_custom(seller.user_profile.user.uid, articles)
         # end
