@@ -1,6 +1,6 @@
 class PersonalStoryCampaginController < ApplicationController
   layout "story_personal"
-  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin,:index_old]
+  before_filter :manage_session_order, only: [:index, :confirmation, :confirmation_weixin, :index_old]
   before_filter :load_seller, only: [:index, :index_old]
 
   def index
@@ -13,11 +13,11 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
-    
+
     log_ip()
-    
+
   end
-  
+
   def index_old
     @is_wechat_browser = is_wechat_browser?
 
@@ -28,46 +28,46 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
-    
+
     log_ip()
   end
-  
+
   def sunflower
-    
+
     campaign_slug = "1450070083"
     session[:personal_campaign_slug]=campaign_slug
     path = personal_story_campagin_sunflower_supporters_path
-    
+
     load_personal_story_campaign_page(campaign_slug, path)
-    
+
   end
-  
+
   def sunflower_supporters
-    
+
     campaign_slug = "1450070083"
     path = personal_story_campagin_sunflower_supporters_path
-    
+
     load_personal_story_campaign_supporter(campaign_slug, path)
-    
+
   end
 
   def pulushi
-    
+
     campaign_slug = "1429755460"
     session[:personal_campaign_slug]=campaign_slug
     path = personal_story_campagin_sunflower_supporters_path
-    
+
     load_personal_story_campaign_page(campaign_slug, path)
-    
+
   end
 
   def pulushi_supporters
-    
+
     campaign_slug = "1429755460"
     path = personal_story_campagin_sunflower_supporters_path
-    
+
     load_personal_story_campaign_supporter(campaign_slug, path)
-    
+
   end
 
   def mtyg
@@ -88,6 +88,7 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+
   def handonhand
 
     campaign_slug = "1453430970"
@@ -106,6 +107,7 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+
   def qnpjs
 
     campaign_slug = "1454297408"
@@ -124,6 +126,7 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+
   def xgy
 
     campaign_slug = "1454297766"
@@ -142,11 +145,50 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+
+  def lzgy
+
+    campaign_slug = "1450162303"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_lzgy_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def lzgy_supporters
+
+    campaign_slug = "1450162303"
+    path = personal_story_campagin_lzgy_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
+
+  def bjlyr
+
+    campaign_slug = "1454304921"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_bjlyr_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def bjlyr_supporters
+
+    campaign_slug = "1454304921"
+    path = personal_story_campagin_bjlyr_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
+
   def load_personal_story_campaign_page(campaign_slug, path)
-    
+
     @campaign = Campaign.find_by_slug(campaign_slug)
     @campaign_total_count = @campaign.orders.completed.count
-    
+
     @is_wechat_browser = is_wechat_browser?
 
     if is_wechat_browser?
@@ -156,25 +198,25 @@ class PersonalStoryCampaginController < ApplicationController
       weixin_address_init()
 
     end
-    
+
     load_seller()
     load_supporters(path)
-    
+
     log_ip()
-    
+
   end
-  
+
   def load_personal_story_campaign_supporter(campaign_slug, path)
-    
+
     @campaign = Campaign.find_by_slug(campaign_slug)
-    
+
     load_seller()
     load_supporters(path)
-    
+
     render partial: "supporters" and return
-    
+
   end
-  
+
   def confirmation
     @order = @campaign.orders.new
     @order.direct_donation=1
@@ -194,13 +236,13 @@ class PersonalStoryCampaginController < ApplicationController
 
   def confirmation_weixin
     @order = @campaign.orders.new
-    
+
     if params[:seller_id]
       @seller = Seller.find_by_id(params[:seller_id])
-      
+
       @order.seller_id=@seller.id if @seller
     end
-    
+
     @order.direct_donation=1
     @order.save
 
@@ -211,7 +253,7 @@ class PersonalStoryCampaginController < ApplicationController
       end
       redirect_to personal_story_campagin_index_path, flash: {danger: message[0...-2]} and return
     end
-    
+
     session[:order_id]=@order.id
     session[:confirm_order_id]
 
@@ -241,73 +283,77 @@ class PersonalStoryCampaginController < ApplicationController
 
   def index_red_pack
     # @seller=Seller.find_by_id(1)
-    
+
     if is_wechat_browser?
 
       weixin_get_user_info()
       @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
       weixin_address_init()
     end
-    
+
     @campaign = Campaign.find_by_id(params[:campaign_id])
     @share_link = request.original_url
-    
+
     if @campaign
       check_seller
-      
+
       # @share_link relies on slug, hbzjsj and so on
       if @seller
         if @campaign.slug == "1450070083"
           @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
-        end
-        if @campaign.slug == "1429755460"
+        elsif @campaign.slug == "1429755460"
           @share_link = request.protocol + request.host_with_port + "/checkout/pulushi?seller_id=" + @seller.id.to_s
-        end
-        if @campaign.slug == "1449033862"
+        elsif @campaign.slug == "1449033862"
           @share_link = request.protocol + request.host_with_port + "/checkout/mtyg?seller_id=" + @seller.id.to_s
-        end
-        if @campaign.slug == "1453430970"
+        elsif @campaign.slug == "1453430970"
           @share_link = request.protocol + request.host_with_port + "/checkout/handonhand?seller_id=" + @seller.id.to_s
-        end
-        if @campaign.slug == "1454297408"
+        elsif @campaign.slug == "1454297408"
           @share_link = request.protocol + request.host_with_port + "/checkout/qnpjs?seller_id=" + @seller.id.to_s
-        end
-        if @campaign.slug == "1454297766"
+        elsif @campaign.slug == "1454297766"
           @share_link = request.protocol + request.host_with_port + "/checkout/xgy?seller_id=" + @seller.id.to_s
+        elsif @campaign.slug == "1450162303"
+          @share_link = request.protocol + request.host_with_port + "/checkout/lzgy?seller_id=" + @seller.id.to_s
+        elsif @campaign.slug == "1454304921"
+          @share_link = request.protocol + request.host_with_port + "/checkout/bjlyr?seller_id=" + @seller.id.to_s
+        else
         end
       else
+        @default_logo=""
+        @defult_name=""
         if @campaign.slug == "1450070083"
           @default_logo="sunflowerlogo.jpg"
           @defult_name="太阳花"
-        end
-        if @campaign.slug == "1429755460"
+        elsif @campaign.slug == "1429755460"
           @default_logo="pls_logo.jpg"
           @defult_name="铺路石"
-        end
-        if @campaign.slug == "1449033862"
+        elsif @campaign.slug == "1449033862"
           @default_logo="mtyg_logo.jpg"
           @defult_name="美庭阳光"
-        end
-        if @campaign.slug == "1453430970"
+        elsif @campaign.slug == "1453430970"
           @default_logo="handonhand_logo.jpg"
           @defult_name="手牵手"
-        end
-        if @campaign.slug == "1454297408"
+        elsif @campaign.slug == "1454297408"
           @default_logo="pjs_logo.jpg"
-          @defult_name="帕金森之家"
-        end
-        if @campaign.slug == "1454297766"
+          @defult_name="青年帕金森之家"
+        elsif @campaign.slug == "1454297766"
           @default_logo="xgy_logo.jpg"
           @defult_name="心公艺"
+        elsif @campaign.slug == "1450162303"
+          @default_logo="lzgy_logo.jpg"
+          @defult_name="绿洲公益"
+        elsif @campaign.slug == "1454304921"
+          @default_logo="bjlyr_logo.jpg"
+          @defult_name="领养日"
+        else
         end
       end
-      
+
       if session[:referral_seller_id]
         @referral_seller = Seller.find_by_id(session[:referral_seller_id])
-      
+
         if @seller && @referral_seller && @seller.id != @referral_seller.id
           seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
-          
+
           if !seller_referral
             SellerReferral.create seller_id: @seller.id, sellerreferral_id: @referral_seller.id
           end
@@ -331,12 +377,12 @@ class PersonalStoryCampaginController < ApplicationController
         unless @user.save
           redirect_to root_path and return
         end
-        
+
         @user.update(email: "seller_"+@user.id.to_s+"@11hao.com")
       end
 
       @user_profile = @user.profile
-      
+
       if !@user_profile
         @user_profile = UserProfile.new
         @user_profile.user_id=@user.id
@@ -347,7 +393,7 @@ class PersonalStoryCampaginController < ApplicationController
       end
 
       @seller = @user_profile.seller(@campaign)
-      
+
       if !@seller
         @seller = Seller.create user_profile: @user_profile, campaign: @campaign, open_id: session[:openid]
       end
@@ -356,13 +402,13 @@ class PersonalStoryCampaginController < ApplicationController
 
   def share
     # Not used and will remove later
-    
+
     render text: ""
   end
 
   def share_result
     # Not used and will remove later
-    
+
     render text: ""
   end
 
@@ -376,7 +422,7 @@ class PersonalStoryCampaginController < ApplicationController
 
     @nickname = ""
     @avatar_url = ""
-    
+
     if session[:nickname] && session[:avatarurl]
       @nickname = session[:nickname]
       @avatar_url = session[:avatarurl]
@@ -389,20 +435,20 @@ class PersonalStoryCampaginController < ApplicationController
         if user_info.result["errcode"] != "40003"
           @nickname = user_info.result["nickname"]
           @avatar_url = user_info.result["headimgurl"]
-          
+
           session[:nickname] = @nickname
           session[:avatarurl] = @avatar_url
         end
 
       end
     end
-    
+
     if session[:openid] && session[:access_token]
       $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-      
+
       @sign_package = $wechat_client.get_jssign_package(request.original_url)
     end
-    
+
     @nickname
   end
 
@@ -443,7 +489,7 @@ class PersonalStoryCampaginController < ApplicationController
       end
 
       if @seller
-        @visit_log = query.where(:seller_id=>@seller.id).first
+        @visit_log = query.where(:seller_id => @seller.id).first
       else
         @visit_log = query.first
       end
@@ -462,6 +508,7 @@ class PersonalStoryCampaginController < ApplicationController
       end
     end
   end
+
   private
 
   def manage_session_order
@@ -470,68 +517,68 @@ class PersonalStoryCampaginController < ApplicationController
     @campaign = Campaign.find_by_slug(session[:personal_campaign_slug])
     @campaign_total_count = 0
   end
-  
+
   def load_seller
-    
+
     @has_seller = false
     @seller_referral_count = 0
-    
+
     session[:referral_seller_id] = nil
-    
+
     if params[:seller_id]
       @seller = Seller.find_by_id(params[:seller_id])
-      
+
       if @seller
         @has_seller = true
-        
+
         referral_ids = SellerReferral.where(:sellerreferral_id => @seller.id).pluck(:seller_id)
-        
+
         @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count + @campaign.orders.completed.where(:seller_id => @seller.id).count
-        
+
         session[:referral_seller_id] = @seller.id
       end
     end
-    
+
   end
-  
+
   def load_supporters(path)
-    
+
     @page = params[:page].to_i
     @page = 1 if @page == 0
     @show_pager = false
-    
+
     if @seller
-      
+
       @supporters_count = @campaign.orders.completed.where(:seller_id => @seller.id).count
       @supporters = @campaign.orders.completed.where(:seller_id => @seller.id).select(
-        "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
-      
-        if @supporters.total_pages > 0 && @supporters.total_pages > @page
-          
-          @show_pager = true
-
-          query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
-
-          @page_url = path + query
-          
-        end  
-
-    else
-      @supporters_count = @campaign.orders.completed.count
-      @supporters = @campaign.orders.completed.select(
-          "id,avatar_url,fullname,direct_donation").order(:id=>:desc).page(@page).per(10)
+          "id,avatar_url,fullname,direct_donation").order(:id => :desc).page(@page).per(10)
 
       if @supporters.total_pages > 0 && @supporters.total_pages > @page
 
         @show_pager = true
 
-        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map{|k,v| "#{k}=#{CGI::escape(v.to_s)}"}.join("&")
+        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
 
         @page_url = path + query
 
       end
-    end    
+
+    else
+      @supporters_count = @campaign.orders.completed.count
+      @supporters = @campaign.orders.completed.select(
+          "id,avatar_url,fullname,direct_donation").order(:id => :desc).page(@page).per(10)
+
+      if @supporters.total_pages > 0 && @supporters.total_pages > @page
+
+        @show_pager = true
+
+        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
+
+        @page_url = path + query
+
+      end
+    end
 
   end
-  
+
 end
