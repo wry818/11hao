@@ -70,6 +70,42 @@ class PersonalStoryCampaginController < ApplicationController
     
   end
 
+  def mtyg
+
+    campaign_slug = "1449033862"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_mtyg_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def mtyg_supporters
+
+    campaign_slug = "1449033862"
+    path = personal_story_campagin_mtyg_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
+  def handonhand
+
+    campaign_slug = "1453430970"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_handonhand_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def handonhand_supporters
+
+    campaign_slug = "1453430970"
+    path = personal_story_campagin_handonhand_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
   def load_personal_story_campaign_page(campaign_slug, path)
     
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -188,6 +224,15 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1450070083"
           @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
         end
+        if @campaign.slug == "1429755460"
+          @share_link = request.protocol + request.host_with_port + "/checkout/pulushi?seller_id=" + @seller.id.to_s
+        end
+        if @campaign.slug == "1449033862"
+          @share_link = request.protocol + request.host_with_port + "/checkout/mtyg?seller_id=" + @seller.id.to_s
+        end
+        if @campaign.slug == "1453430970"
+          @share_link = request.protocol + request.host_with_port + "/checkout/handonhand?seller_id=" + @seller.id.to_s
+        end
       else
         if @campaign.slug == "1450070083"
           @default_logo="sunflowerlogo.jpg"
@@ -196,6 +241,14 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1429755460"
           @default_logo="pls_logo.jpg"
           @defult_name="铺路石"
+        end
+        if @campaign.slug == "1449033862"
+          @default_logo="mtyg_logo.jpg"
+          @defult_name="美庭阳光"
+        end
+        if @campaign.slug == "1453430970"
+          @default_logo="handonhand_logo.jpg"
+          @defult_name="手牵手"
         end
       end
       
