@@ -106,6 +106,24 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+  def qnpjs
+
+    campaign_slug = "1454297408"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_qnpjs_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def qnpjs_supporters
+
+    campaign_slug = "1454297408"
+    path = personal_story_campagin_qnpjs_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
   def load_personal_story_campaign_page(campaign_slug, path)
     
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -233,6 +251,9 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1453430970"
           @share_link = request.protocol + request.host_with_port + "/checkout/handonhand?seller_id=" + @seller.id.to_s
         end
+        if @campaign.slug == "1454297408"
+          @share_link = request.protocol + request.host_with_port + "/checkout/qnpjs?seller_id=" + @seller.id.to_s
+        end
       else
         if @campaign.slug == "1450070083"
           @default_logo="sunflowerlogo.jpg"
@@ -249,6 +270,10 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1453430970"
           @default_logo="handonhand_logo.jpg"
           @defult_name="手牵手"
+        end
+        if @campaign.slug == "1454297408"
+          @default_logo="pjs_logo.jpg"
+          @defult_name="帕金森之家"
         end
       end
       
