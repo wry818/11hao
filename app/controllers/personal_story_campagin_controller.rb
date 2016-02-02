@@ -361,7 +361,7 @@ class PersonalStoryCampaginController < ApplicationController
 
   def manage_session_order
     
-    @campaign = Campaign.find_by_slug("1454046936")
+    @campaign = Campaign.find_by_slug("1450070083")
     @campaign_total_count = 0
     
   end
