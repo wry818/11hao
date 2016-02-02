@@ -334,7 +334,7 @@ class PersonalStoryCampaginController < ApplicationController
           @defult_name="手牵手"
         elsif @campaign.slug == "1454297408"
           @default_logo="pjs_logo.jpg"
-          @defult_name="帕金森之家"
+          @defult_name="青年帕金森之家"
         elsif @campaign.slug == "1454297766"
           @default_logo="xgy_logo.jpg"
           @defult_name="心公艺"
@@ -343,7 +343,7 @@ class PersonalStoryCampaginController < ApplicationController
           @defult_name="绿洲公益"
         elsif @campaign.slug == "1454304921"
           @default_logo="bjlyr_logo.jpg"
-          @defult_name="北京领养日"
+          @defult_name="领养日"
         else
         end
       end
