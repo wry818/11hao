@@ -1022,7 +1022,7 @@ class ShopController < ApplicationController
         
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
-        msg="感谢您的支持，您的红包将会资助#{campaign_name}。\n\n简单公益，只因有你。\n";
+        msg="感谢您的支持，您的红包将会资助#{group_name}。\n\n简单公益，只因有你。\n";
         
         data = {
           first: {
