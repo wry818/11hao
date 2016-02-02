@@ -44,11 +44,11 @@
   <div style="position:absolute; left:0px; bottom:0px; width: 100%; background-color: rgba(1,1,1,0.5)">
     <p style=" text-align: left; margin-bottom: 0px; margin-left: 5px;">
     <span style="color:white; font-size:16px;">
-        <%= @campaign_first.organization.name %>
+      <%= @campaign_first.title %>
       </span>
       <br/>
        <span style="color:white; font-size:12px; letter-spacing:1px;">
-         <%= @campaign_first.title %>
+         <%= @campaign_first.organization.name %>
        </span>
     </p>
   </div>
@@ -81,7 +81,7 @@
 
                 <p style="font-size: 14px;color: black;margin-left: 5px;width:50%;">
 <span>
-                  <%= @seller_today_top["title"].to_s.length>19 ? @seller_today_top["title"].to_s[0..18]+"..." : @seller_today_top["title"] %>
+                  <%= @seller_today_top["name"].to_s.length>19 ? @seller_today_top["name"].to_s[0..18]+"..." : @seller_today_top["name"] %>
                </span>
                   <br/>
                     <span style=" font-size: 13px;color: gray;">
@@ -136,7 +136,7 @@
 
                         <p style="font-size: 14px;color: black;margin-left: 5px; width:48%;">
                           <span>
-                          <%= seller_ladder["title"].to_s.length>19 ? seller_ladder["title"].to_s[0..18]+".." : seller_ladder["title"] %>
+                          <%= seller_ladder["name"].to_s.length>19 ? seller_ladder["name"].to_s[0..18]+".." : seller_ladder["name"] %>
                           </span>
                           <br/>
                     <span style=" font-size: 13px;color: gray;">
