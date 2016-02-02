@@ -7,13 +7,18 @@ class Seller < ActiveRecord::Base
     has_many :ent_orders
     has_many :email_share_histories
     has_many :social_share_histories
-    
+    has_many :seller_referrals
+
     before_create :set_referral_code
 
     scope :sorted, -> { joins(:user_profile).order('user_profiles.first_name') }
 
     def supporters
         orders.completed.online.count
+    end
+
+    def sellerreferral
+        SellerReferral.find_by_seller_id(self.id)
     end
 
     def total_orders

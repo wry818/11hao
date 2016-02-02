@@ -1,0 +1,55 @@
+
+
+<div style="width: 0px;height: 0px;overflow: hidden;">
+  <%= image_tag "red-w.png"%>
+  <%= image_tag "red-y.png"%>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="redpackModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" style="background-color: rgba(0,0,0,0.6);">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width:100%; margin: 0px auto;margin-top:10%;background-color: rgba(0, 0, 0, 0.0)">
+      <!-- 红包 -->
+      <div class="red"><!-- shake-chunk -->
+        <span class="redpack" ></span>
+        <button class="redbutton" style="outline:none;" type="领取红包">拆红包</button>
+        <div class="red-jg">
+          <h1>恭喜您！</h1>
+          <h5>恭喜获得大众点评10元红包！</h5>
+        </div>
+      </div>
+      <div class="t-btn">
+        <button>下一步</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#redpackModal").modal('show');
+
+    $("div.t-btn").bind("click",function(){
+      $("#redpackModal").modal('hide');
+    });
+  });
+  $(document).ready(function() {
+    // 点击redbutton按钮时执行以下全部
+    $('.redbutton').click(function(){
+      // 在带有red样式的div中添加shake-chunk样式
+      $('.red').addClass('shake-chunk');
+      // 点击按钮2000毫秒后执行以下操作
+      setTimeout(function(){
+        // 在带有red样式的div中删除shake-chunk样式
+        $('.red').removeClass('shake-chunk');
+        // 将redbutton按钮隐藏
+        $('.redbutton').css("display" , "none");
+        // 修改red 下 span   背景图
+        $('.red > span').removeClass().addClass("redpacky");
+        // 修改red-jg的css显示方式为块
+        $('.red-jg').css("display" , "block");
+      },2000);
+    });
+  });
+
+</script>

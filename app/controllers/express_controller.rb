@@ -6,7 +6,10 @@ class ExpressController < ApplicationController
     # return @order = Order.find_by_id(params[:order_id])
     if session[:openid]
       @item = Item.find(params[:item_id])
-
+      @courier_number=params[:courier_number]
+      if @courier_number==nil
+        @courier_number=@item.courier_number
+      end
     else
       redirect_to root_path and return
     end
@@ -18,10 +21,14 @@ class ExpressController < ApplicationController
     # return @order = Order.find_by_id(params[:order_id])
     # if session[:openid]
       @item = Item.find(params[:item_id])
+      @courier_number=params[:courier_number]
+      if @courier_number==nil
+        @courier_number=@item.courier_number
+      end
       # @docresult = Nokogiri::XML(open('http://www.kuaidiapi.cn/rest/?uid=53100&key=2c40a2e81f354f02b052e3ba58de615c&order=710093138324&id=yuantong&show=xml&ord=desc'))
       # @docresult.encoding = "utf-8"
       begin
-        @docresult=get_doc(@item.express, @item.courier_number)
+        @docresult=get_doc(@item.express, @courier_number)
       rescue
         logger.error "物流信息API调用发生错误！"
         render :text => "error" and return

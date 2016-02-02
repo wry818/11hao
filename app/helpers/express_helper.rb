@@ -14,7 +14,7 @@ module ExpressHelper
     # 9	签收失败
     dic=Hash.new
     dic['-1']="还没有进行任何更新"
-    dic['1']="查询异常"
+    dic['1']="暂无快件信息"
     dic['2']="在途中"
     dic['3']="派送中"
     dic['4']="已签收"

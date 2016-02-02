@@ -40,7 +40,10 @@
                 <% if item.delivery_method == 1 %>
                     <%= item.registration_codes.select(:reg_code).collect(&:reg_code).join(", ") %>
                 <% else %>
-                    <%= item.express %>/<a href="javascript:void(0);"><span class="courier_number" data-id="<%= item.id %>"><%= item.courier_number %></span></a>
+                    <%= item.express %>
+                    <% item.courier_numbers.each do |n| %>
+                    /<a href="javascript:void(0);"><span class="courier_number" data-id="<%= item.id %>" data-number="<%=n%>"><%= n %></span></a>
+                <% end %>
                 <% end %>
               </td>
               <% if @show_resend && (current_user.admin? || current_user.is_crs? || current_user.is_sales? || current_user.id==@order.campaign.organizer_id) %>
@@ -83,7 +86,8 @@
           $("div.all_report_loader").show();
           var url = "<%=order_express_ajax_get_path%>"
           var item_id=$(this).data("id");
-          $.get(url+"?item_id="+item_id).success(function (data, textStatus, jqXHR) {
+          var number=$(this).data("number");
+          $.get(url+"?item_id="+item_id+"&courier_number="+number).success(function (data, textStatus, jqXHR) {
             if (data == "error") {
               $("#express_detail_content").html("数据请求失败...");
             }

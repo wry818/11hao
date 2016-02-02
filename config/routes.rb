@@ -103,8 +103,8 @@ Raisy::Application.routes.draw do
     end
 
   #Express
-  get 'order_express/:item_id', to: 'express#order_express', as: :order_express
-  get 'order_express_ajax/:item_id', to: 'express#order_express_ajax', as: :order_express_ajax
+  get 'order_express/:item_id/:courier_number', to: 'express#order_express', as: :order_express
+  get 'order_express_ajax/:item_id/:courier_number', to: 'express#order_express_ajax', as: :order_express_ajax
   get 'order_express_ajax', to: 'express#order_express_ajax', as: :order_express_ajax_get
 
 
@@ -122,14 +122,36 @@ Raisy::Application.routes.draw do
     resources :organizations
     resources :campaigns, except: [:show]
 
+    #personal_story
+    get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
+    get 'checkout/supportcampagin_old', to: 'personal_story_campagin#index_old', as: :personal_story_campagin_index_old
+    get 'checkout/supportcampagin/:id', to: 'personal_story_campagin#index', as: :personal_story_campagin_share_index
+    get 'checkout/sunflower', to: 'personal_story_campagin#sunflower', as: :personal_story_campagin_sunflower
+    get 'personal_story_campagin/sunflower_supporters', to: 'personal_story_campagin#sunflower_supporters', as: :personal_story_campagin_sunflower_supporters
+  get 'checkout/pulushi', to: 'personal_story_campagin#pulushi', as: :personal_story_campagin_pulushi
+  get 'personal_story_campagin/pulushi_supporters', to: 'personal_story_campagin#pulushi_supporters', as: :personal_story_campagin_pulushi_supporters
+
+
+    post 'personal_story_campagin/confirmation', to: 'personal_story_campagin#confirmation', as: :personal_story_campagin_checkout_confirmation
+    post 'personal_story_campagin/confirmation_weixin', to: 'personal_story_campagin#confirmation_weixin', as: :personal_story_campagin_checkout_confirmation_weixin
+    get ':id/confirmation_personal_campagin', to: 'personal_story_campagin#confirmation_personal_campagin', as: :show_confirmation_personal_campagin
+    post 'ajax/supportcampagin/supporters', to: 'personal_story_campagin#supporters', as: :ajax_personal_story_campagin_supporters
+    get 'checkout/supportcampagin_red', to: 'personal_story_campagin#index_red_pack', as: :personal_story_campagin_index_red_pack
+    post 'ajax/checkout/supportcampagin/share', to: 'personal_story_campagin#share', as: :personal_story_campagin_share
+    post 'ajax/checkout/supportcampagin/share_success', to: 'personal_story_campagin#share_result', as: :personal_story_campagin_share_result
+    get '1rmb/ranking', to: 'seller_campagin#index', as: :personal_story_seller_ladder
+
     get 'checkout/supportlanlan', to: 'personal_story#index', as: :personal_story_index
     get 'personal_story/supporters', to: 'personal_story#supporters', as: :personal_story_supporters
     get 'personal_story/refresh', to: 'personal_story#refresh', as: :personal_story_refresh
+
+
     resources :personal_story
     post 'personal_story/confirmation', to: 'personal_story#checkout_confirmation', as: :personal_story_checkout_confirmation
     post 'personal_story/confirmation_weixin', to: 'personal_story#checkout_confirmation_weixin', as: :personal_story_checkout_confirmation__weixin
     get ':id/confirmation_personal', to: 'personal_story#show_confirmation', as: :show_confirmation_personal
 
+    get 'checkout/supportjujube', to: 'personal_story_jujube#index', as: :personal_story_jujube_index
 
     # CAMPAIGNS
     get "ajax/campsteppopup", to: "campaigns#ajax_camp_step_popup", as: :ajax_camp_step_popup

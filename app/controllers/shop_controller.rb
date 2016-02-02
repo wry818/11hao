@@ -18,7 +18,14 @@ class ShopController < ApplicationController
             image: @campaign.logo,
             url: @seller ? short_campaign_url(@campaign, seller: @seller.referral_code) : short_campaign_url(@campaign)
         }
-        
+
+        logger.debug request.url
+        logger.debug Rails.configuration.url_host + short_campaign_path(@campaign)
+
+        qr = RQRCode::QRCode.new(request.url, :size => 10, :level => :h)
+
+        @qr_url = qr.to_img.resize(200, 200).to_data_url
+
         weixin_jssdk_init()
         
     end
@@ -478,7 +485,11 @@ class ShopController < ApplicationController
     end
 
     def checkout
-      
+      if session[:is_personal]
+        @is_personal=session[:is_personal]
+      else
+        @is_personal=false
+      end
       if params[:direct_donation]
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
@@ -610,6 +621,9 @@ class ShopController < ApplicationController
         bodytxt="11号公益圈订单"
         if order.campaign.slug=="support-lanlan"
           bodytxt="为幼儿瘫母撑起希望"
+        end
+        if order.campaign.slug=="hbzjsj"
+          bodytxt="红包拯救世界"
         end
         params = {
           body: bodytxt,
@@ -997,11 +1011,53 @@ class ShopController < ApplicationController
           color:"#000000"
         }
       }
+      
+      send_dianping = false
+      
+      story_campaign_ids = ["1454046936","1450070083","1454041189","1429755460","1454040291","1449033862","1454046268",
+      "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921"]
+        
+      if story_campaign_ids.include?(order.campaign.slug)
+        send_dianping = true
+        
+        template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
+        
+        msg="感谢您的支持，您的红包将会资助#{campaign_name}。\n\n简单公益，只因有你。\n";
+        
+        data = {
+          first: {
+            value:msg,
+            color:"#000000"
+          },
+          keyword1: {
+            value:"用红包拯救世界!",
+            color:"#000000"
+          },
+          keyword2: {
+            value:format_order_time,
+            color:"#000000"
+          },
+          remark: {
+            value:"",
+            color:"#000000"
+          }
+        }
+      end
 
       $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
       response = $client.send_template_msg(touser, template_id, url, topcolor, data)
     
-      # render text: response.result.to_s
+      if send_dianping
+        articles = [
+          {
+            title: "【爱心专享】55元大众点评新年红包",
+            url: "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi",
+            picurl: request.protocol + request.host + "/images/redpack.jpg"
+          }
+        ]
+
+        $client.send_news_custom(touser, articles)
+      end
     
     end
     
@@ -1026,6 +1082,12 @@ class ShopController < ApplicationController
     end
     
     def show_confirmation
+      if session[:is_personal]
+        @is_personal=session[:is_personal]
+      else
+        @is_personal=false
+      end
+
       if session[:confirm_order_id]
         @order = Order.find_by_id(session[:confirm_order_id])
         

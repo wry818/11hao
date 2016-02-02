@@ -60,7 +60,17 @@ class Campaign < ActiveRecord::Base
     end
 
     def expired?
-        (self.end_date.present? && self.end_date < Time.current)
+      # end_date is the time in local zone but saved to db in UTC
+      # subtract the offset from it then compare to Time.current (UTC)
+        (self.end_date.present? && (self.end_date - (8*3600)) < Time.current)
+    end
+    
+    def seconds_remaining
+      if !self.end_date.present? || self.expired?
+        0
+      else
+        ((self.end_date - (8*3600)) - Time.current).ceil
+      end
     end
 
     def supporters

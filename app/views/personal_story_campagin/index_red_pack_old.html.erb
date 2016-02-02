@@ -1,0 +1,218 @@
+<article class="main_personal_red_pack">
+  <div class="bg">
+    <%= image_tag "bg-2.jpg", :class => "bg-img" %>
+  </div>
+  <header class="promo clearfix">
+    <div class="sender-info">
+      <div class="sender-avatar">
+        <%= image_tag "yqj_icon_head.jpg" %>
+      </div>
+      <div style="text-align: center;color: #9f7533;">雪夜</div>
+    </div>
+    <div class="bubble">
+      <%= image_tag "bubble.png" %>
+      <div class="promo-text">
+        谢谢支持，你的红包可以通过11号公益圈公众账号->
+        “我的红包” 领取
+      </div>
+    </div>
+  </header>
+
+  <section class="coupon-anime">
+    <%= image_tag "envelope-1.png", :class => "coupon-pocket" %>
+    <div class="coupon-inner">
+      <%= image_tag "coupon.png", :class => "coupon-img" %>
+      <div class="coupon j_coupon">
+        <div style="text-align: center;">?元</div>
+        <div style="text-align: center;">现金</div>
+      </div>
+    </div>
+  </section>
+  <section class="actions">
+    <div class="use-coupon" id="get_btn" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+      <div class="btn-text">我也要收集红包， 拯救世界</div>
+    </div>
+  </section>
+  <div class="cloud">
+    <%= image_tag "cloud.png", :class => "cloud-img" %>
+  </div>
+</article>
+<%= render "yqj_result_share" %>
+
+<%= hidden_field_tag :fullname, @nickname %>
+<%= hidden_field_tag :avatar_url, @avatar_url %>
+<%= hidden_field_tag :share_id, @sellerreferral==nil ? "" : @sellerreferral.id %>
+<script type="text/javascript">
+  $(function () {
+    $("div.btn-text").bind('click', function () {
+      $("#yqj_result_shareModal").modal('show');
+    });
+  });
+</script>
+<% if @sign_package %>
+    <script>
+      var campagin_share_link = "<%= personal_story_campagin_index_url %>";
+
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: "",
+        img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
+        title: "用红包拯救世界，你也来试试？"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share_success();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+
+      var newshare_id = 0;
+      function share() {
+        var shareid = $("#share_id").val();
+        if (shareid.length == 0) {
+          shareid = -1;
+        }
+        var fullName = $("#fullname").val();
+        if (fullName == "") {
+          fullName = "匿名";
+        }
+        var avatar_url = $("#avatar_url").val();
+        var data = {
+          id: shareid,
+          nickname: fullName,
+          avatar_url: avatar_url
+        };
+        $.ajax('<%=personal_story_campagin_share_path%>', {
+          type: 'POST',
+          data: data,
+          beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+          },
+          success: function (data) {
+            newshare_id = data;
+            window.shareData.link = campagin_share_link + '?id=' + newshare_id;
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("抱歉，分享信息出了问题，请联系我们帮您解决。");
+          }
+        });
+      }
+      function share_success() {
+        if (newshare_id <= 0) {
+          alert("newshare_id:" + newshare_id);
+          return;
+        }
+        var data = {
+          referall_id: newshare_id,
+        };
+        $.ajax('<%=personal_story_campagin_share_result_path%>', {
+          type: 'POST',
+          data: data,
+          beforeSend: function (jqXHR, settings) {
+            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+          },
+          success: function (data) {
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("抱歉，分享信息出了问题，请联系我们帮您解决。");
+          }
+        });
+      }
+
+      $(function () {
+        share();
+      });
+    </script>
+<% end %>

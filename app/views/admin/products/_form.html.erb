@@ -89,7 +89,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label>商品描述</label>
-                <%= f.text_area :description, class: 'tinymce', placeholder: '描述' %>
+                <%= f.kindeditor :description, :simple_mode => true  %>
               </div>
             </div>
           </div>
