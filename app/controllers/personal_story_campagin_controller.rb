@@ -34,9 +34,44 @@ class PersonalStoryCampaginController < ApplicationController
   
   def sunflower
     
-    @campaign = Campaign.find_by_slug("1450070083")
-    @campaign_total_count = @campaign.orders.completed.count
+    campaign_slug = "1450070083"
     path = personal_story_campagin_sunflower_supporters_path
+    
+    load_personal_story_campaign_page(campaign_slug, path)
+    
+  end
+  
+  def sunflower_supporters
+    
+    campaign_slug = "1450070083"
+    path = personal_story_campagin_sunflower_supporters_path
+    
+    load_personal_story_campaign_supporter(campaign_slug, path)
+    
+  end
+
+  def pulushi
+    
+    campaign_slug = "1429755460"
+    path = personal_story_campagin_sunflower_supporters_path
+    
+    load_personal_story_campaign_page(campaign_slug, path)
+    
+  end
+
+  def pulushi_supporters
+    
+    campaign_slug = "1429755460"
+    path = personal_story_campagin_sunflower_supporters_path
+    
+    load_personal_story_campaign_supporter(campaign_slug, path)
+    
+  end
+
+  def load_personal_story_campaign_page(campaign_slug, path)
+    
+    @campaign = Campaign.find_by_slug(campaign_slug)
+    @campaign_total_count = @campaign.orders.completed.count
     
     @is_wechat_browser = is_wechat_browser?
 
@@ -55,10 +90,9 @@ class PersonalStoryCampaginController < ApplicationController
     
   end
   
-  def sunflower_supporters
+  def load_personal_story_campaign_supporter(campaign_slug, path)
     
-    @campaign = Campaign.find_by_slug("1450070083")
-    path = personal_story_campagin_sunflower_supporters_path
+    @campaign = Campaign.find_by_slug(campaign_slug)
     
     load_seller()
     load_supporters(path)
@@ -66,39 +100,7 @@ class PersonalStoryCampaginController < ApplicationController
     render partial: "supporters" and return
     
   end
-
-  def pulushi
-    @campaign = Campaign.find_by_slug("1429755460")
-    @campaign_total_count = @campaign.orders.completed.count
-    path = personal_story_campagin_pulushi_supporters_path
-
-    @is_wechat_browser = is_wechat_browser?
-
-    if is_wechat_browser?
-
-      weixin_get_user_info()
-      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
-      weixin_address_init()
-
-    end
-
-    load_seller()
-    load_supporters(path)
-
-    log_ip()
-  end
-
-  def pulushi_supporters
-    @campaign = Campaign.find_by_slug("1429755460")
-    path = personal_story_campagin_pulushi_supporters_path
-
-    load_seller()
-    load_supporters(path)
-
-    render partial: "supporters" and return
-  end
-
-
+  
   def confirmation
     @order = @campaign.orders.new
     @order.direct_donation=1
