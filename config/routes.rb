@@ -136,6 +136,8 @@ Raisy::Application.routes.draw do
   get 'personal_story_campagin/handonhand_supporters', to: 'personal_story_campagin#handonhand_supporters', as: :personal_story_campagin_handonhand_supporters
   get 'checkout/qnpjs', to: 'personal_story_campagin#qnpjs', as: :personal_story_campagin_qnpjs
   get 'personal_story_campagin/qnpjs_supporters', to: 'personal_story_campagin#qnpjs_supporters', as: :personal_story_campagin_qnpjs_supporters
+  get 'checkout/xgy', to: 'personal_story_campagin#xgy', as: :personal_story_campagin_xgy
+  get 'personal_story_campagin/xgy_supporters', to: 'personal_story_campagin#xgy_supporters', as: :personal_story_campagin_xgy_supporters
 
 
     post 'personal_story_campagin/confirmation', to: 'personal_story_campagin#confirmation', as: :personal_story_campagin_checkout_confirmation

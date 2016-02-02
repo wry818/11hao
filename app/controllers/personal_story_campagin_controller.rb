@@ -124,6 +124,24 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+  def xgy
+
+    campaign_slug = "1454297766"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_xgy_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def xgy_supporters
+
+    campaign_slug = "1454297766"
+    path = personal_story_campagin_xgy_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
   def load_personal_story_campaign_page(campaign_slug, path)
     
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -254,6 +272,9 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1454297408"
           @share_link = request.protocol + request.host_with_port + "/checkout/qnpjs?seller_id=" + @seller.id.to_s
         end
+        if @campaign.slug == "1454297766"
+          @share_link = request.protocol + request.host_with_port + "/checkout/xgy?seller_id=" + @seller.id.to_s
+        end
       else
         if @campaign.slug == "1450070083"
           @default_logo="sunflowerlogo.jpg"
@@ -274,6 +295,10 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1454297408"
           @default_logo="pjs_logo.jpg"
           @defult_name="帕金森之家"
+        end
+        if @campaign.slug == "1454297766"
+          @default_logo="xgy_logo.jpg"
+          @defult_name="心公艺"
         end
       end
       
