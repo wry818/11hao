@@ -186,6 +186,15 @@ class PersonalStoryCampaginController < ApplicationController
         if @campaign.slug == "1450070083"
           @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
         end
+      else
+        if @campaign.slug == "1450070083"
+          @default_logo="sunflowerlogo.jpg"
+          @defult_name="太阳花"
+        end
+        if @campaign.slug == "1429755460"
+          @default_logo="pls_logo.jpg"
+          @defult_name="铺路石"
+        end
       end
       
       if session[:referral_seller_id]
