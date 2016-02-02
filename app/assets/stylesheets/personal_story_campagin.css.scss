@@ -459,12 +459,12 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     top: 12px;
     width: 18px;
     height: 18px;
-    background: url(arr_down.png) no-repeat;
+    background: image-url('arr_down.png') no-repeat;
     background-size: 18px 18px;
 }
 
 .detail .project .ctx .arriup img {
-    background: url(arr_up.png) no-repeat;
+    background: image-url('arr_up.png') no-repeat;
     background-size: 18px 18px;
 }
 
@@ -492,7 +492,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .detail .project .ctx .arrib img {
     margin-top: -4px;
     right: 8px;
-    background: url(arr_up.png) no-repeat;
+    background: image-url('arr_up.png') no-repeat;
     background-size: 18px 18px;
 }
 
@@ -517,7 +517,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
     height: 14px;
     float: right;
     margin: 5px 10px 0 0;
-    background: url(arr_up.png) no-repeat;
+    background: image-url('arr_up.png') no-repeat;
     background-size: 15px 15px;
 }
 
