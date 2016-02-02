@@ -1015,7 +1015,10 @@ class ShopController < ApplicationController
       
       send_dianping = false
       
-      if ["1454046936"].include?(order.campaign.slug)
+      story_campaign_ids = ["1454046936","1450070083","1454041189","1429755460","1454040291","1449033862","1454046268",
+      "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921"]
+        
+      if story_campaign_ids.include?(order.campaign.slug)
         send_dianping = true
         
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
