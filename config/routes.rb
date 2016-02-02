@@ -142,6 +142,12 @@ Raisy::Application.routes.draw do
   get 'personal_story_campagin/lzgy_supporters', to: 'personal_story_campagin#lzgy_supporters', as: :personal_story_campagin_lzgy_supporters
   get 'checkout/bjlyr', to: 'personal_story_campagin#bjlyr', as: :personal_story_campagin_bjlyr
   get 'personal_story_campagin/bjlyr_supporters', to: 'personal_story_campagin#bjlyr_supporters', as: :personal_story_campagin_bjlyr_supporters
+  get 'checkout/xlzh', to: 'personal_story_campagin#xlzh', as: :personal_story_campagin_xlzh
+  get 'personal_story_campagin/xlzh_supporters', to: 'personal_story_campagin#xlzh_supporters', as: :personal_story_campagin_xlzh_supporters
+  get 'checkout/ydw', to: 'personal_story_campagin#ydw', as: :personal_story_campagin_ydw
+  get 'personal_story_campagin/ydw_supporters', to: 'personal_story_campagin#ydw_supporters', as: :personal_story_campagin_ydw_supporters
+  get 'checkout/chq', to: 'personal_story_campagin#chq', as: :personal_story_campagin_chq
+  get 'personal_story_campagin/chq_supporters', to: 'personal_story_campagin#chq_supporters', as: :personal_story_campagin_chq_supporters
 
 
     post 'personal_story_campagin/confirmation', to: 'personal_story_campagin#confirmation', as: :personal_story_campagin_checkout_confirmation
