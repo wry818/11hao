@@ -70,11 +70,13 @@
             suffix: ''
           };
 
-          var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %>, 0, 0.5, options);
+          var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %> + 1, 0, 0.5, options);
           seller_referral_count.start();
-
-          var indirect_influence_quote_count = new CountUp("indirect_influence_quote_count", 0, indirect_influence_quote_nubmer, 0, 0.5, options);
-          indirect_influence_quote_count.start();
+		  
+		  if (indirect_influence_quote_nubmer > 0) {
+	          var indirect_influence_quote_count = new CountUp("indirect_influence_quote_count", 0, indirect_influence_quote_nubmer, 0, 0.5, options);
+	          indirect_influence_quote_count.start();
+		  }
 
           $("#indirect_influence_quote").animate({opacity: '1'}, 1000, function () {
           });
@@ -151,15 +153,16 @@
           indirect_influence_quote = "可以" + organizer_quote.substring(0, start) + "&nbsp;<span id='indirect_influence_quote_count' class='indirect_influence_quote_number'>" + "</span>&nbsp;" + organizer_quote.substring(end + 1, organizer_quote.length);
           $("#indirect_influence_quote").html(indirect_influence_quote);
 
-          indirect_influence_quote_nubmer =
-          <%= @seller_referral_count %> *
-          parseInt(the_num);
+          indirect_influence_quote_nubmer = (<%= @seller_referral_count %> + 1) * parseInt(the_num);
+		  
         }
 
       }
 
     } else {
-
+	  
+	  indirect_influence_quote = organizer_quote;
+	  $("#indirect_influence_quote").html(indirect_influence_quote);
       $("#campaign_organizer_quote").text(organizer_quote);
 
     }
@@ -248,6 +251,27 @@
       $(this).off("click");
 
       $("#payment_form").submit();
+      
+	  // var url = "<%=personal_story_campagin_checkout_confirmation_weixin_path%>";
+	  //       var shareid = $("#share_id").val();
+	  //
+	  //       $.post(url, {
+	  //         direct_donation: 1,
+	  //         seller_id: shareid
+	  //       }).done(function (data, textStatus, jqXHR) {
+	  // 		  if (data.error_msg != "") {
+	  // 		  	alert(data.error_msg);
+	  // 		  } else {
+	  // 		  	weixin_load(data.order_id);
+	  // 		  }
+	  //       }).fail(function () {
+	  //         alert("请求已经结束但是可能发生了错误！");
+	  //         is_paying = false;
+	  //         $('.payment-image').css("opacity", 1);
+	  //       }).always(function () {
+	  //
+	  //       });
+	  
     });
 
     if (typeof WeixinJSBridge == "undefined") {
@@ -281,7 +305,11 @@
             direct_donation: 1,
             seller_id: shareid
           }).done(function (data, textStatus, jqXHR) {
-            weixin_load(data);
+			  if (data.error_msg != "") {
+			  	alert(data.error_msg);
+			  } else {
+			  	weixin_load(data.order_id);
+			  }
           }).fail(function () {
             alert("请求已经结束但是可能发生了错误！");
             is_paying = false;

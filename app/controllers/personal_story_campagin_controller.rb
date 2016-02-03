@@ -288,6 +288,13 @@ class PersonalStoryCampaginController < ApplicationController
   end
 
   def confirmation_weixin
+    
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+    @order_count = @campaign.orders.completed.where(:open_id => session[:openid]).count
+    if @order_count >= 10
+      render json: {order_id:"", error_msg:"您发的红包已超最大数量，请支持其他机构的小伙伴！"}.to_json and return
+    end
+        
     @order = @campaign.orders.new
 
     if params[:seller_id]
@@ -309,8 +316,9 @@ class PersonalStoryCampaginController < ApplicationController
 
     session[:order_id]=@order.id
     session[:confirm_order_id]
-
-    render json: @order.id and return
+    
+    render json: {order_id:@order.id, error_msg:""}.to_json and return
+    
   end
 
   def show_confirmation
