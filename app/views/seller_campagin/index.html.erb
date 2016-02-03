@@ -27,14 +27,14 @@
 </style>
 
 <div id="banner" style="text-align:center; position:relative">
-  <% if @campaign_first.campaign_logo %>
-      <%= cl_image_tag @campaign_first.campaign_logo.image_id,
+  <% if @campaign_top.campaign_logo %>
+      <%= cl_image_tag @campaign_top.campaign_logo.image_id,
                        transformation: [
                            {
-                               width: @campaign_first.campaign_logo.crop_width,
-                               height: @campaign_first.campaign_logo.crop_height,
-                               x: @campaign_first.campaign_logo.crop_x,
-                               y: @campaign_first.campaign_logo.crop_y,
+                               width: @campaign_top.campaign_logo.crop_width,
+                               height: @campaign_top.campaign_logo.crop_height,
+                               x: @campaign_top.campaign_logo.crop_x,
+                               y: @campaign_top.campaign_logo.crop_y,
                                crop: :crop
                            }
                        ], style: "width:100%; max-height:600px", class: 'campaign-logo' %>
@@ -44,11 +44,11 @@
   <div style="position:absolute; left:0px; bottom:0px; width: 100%; background-color: rgba(1,1,1,0.5)">
     <p style=" text-align: left; margin-bottom: 0px; margin-left: 5px;">
     <span style="color:white; font-size:16px;">
-      <%= @campaign_first.title %>
+      <%= @campaign_top.title %>
       </span>
       <br/>
        <span style="color:white; font-size:12px; letter-spacing:1px;">
-         <%= @campaign_first.organization.name %>
+         <%= @campaign_top.organization.name %>
        </span>
     </p>
   </div>
@@ -84,7 +84,7 @@
                   <%= @seller_today_top["name"].to_s.length>19 ? @seller_today_top["name"].to_s[0..18]+"..." : @seller_today_top["name"] %>
                </span>
                   <br/>
-                    <span style=" font-size: 13px;color: gray;">
+                    <span style=" font-size: 15px;color: gray;">
                     当日冠军
                     </span>
                 </p>
