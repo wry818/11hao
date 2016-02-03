@@ -1015,14 +1015,15 @@ class ShopController < ApplicationController
       send_dianping = false
       
       story_campaign_ids = ["1454046936","1450070083","1454041189","1429755460","1454040291","1449033862","1454046268",
-      "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921"]
+      "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921",
+      "1450162262","1437020617","1454383538"]
         
       if story_campaign_ids.include?(order.campaign.slug)
         send_dianping = true
         
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
-        msg="感谢您的支持，您的红包将会资助#{campaign_name}。\n\n简单公益，只因有你。\n";
+        msg="感谢您的支持，您的红包将会资助#{group_name}。\n\n简单公益，只因有你。\n";
         
         data = {
           first: {

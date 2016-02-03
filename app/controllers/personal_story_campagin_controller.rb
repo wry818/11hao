@@ -183,7 +183,60 @@ class PersonalStoryCampaginController < ApplicationController
     load_personal_story_campaign_supporter(campaign_slug, path)
 
   end
+  def xlzh
 
+    campaign_slug = "1450162262"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_xlzh_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def xlzh_supporters
+
+    campaign_slug = "1450162262"
+    path = personal_story_campagin_xlzh_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
+  def ydw
+
+    campaign_slug = "1437020617"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_ydw_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def ydw_supporters
+
+    campaign_slug = "1437020617"
+    path = personal_story_campagin_ydw_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
+  def chq
+
+    campaign_slug = "1454383538"
+    session[:personal_campaign_slug]=campaign_slug
+    path = personal_story_campagin_chq_supporters_path
+
+    load_personal_story_campaign_page(campaign_slug, path)
+
+  end
+
+  def chq_supporters
+
+    campaign_slug = "1454383538"
+    path = personal_story_campagin_chq_supporters_path
+
+    load_personal_story_campaign_supporter(campaign_slug, path)
+
+  end
   def load_personal_story_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -315,6 +368,12 @@ class PersonalStoryCampaginController < ApplicationController
           @share_link = request.protocol + request.host_with_port + "/checkout/lzgy?seller_id=" + @seller.id.to_s
         elsif @campaign.slug == "1454304921"
           @share_link = request.protocol + request.host_with_port + "/checkout/bjlyr?seller_id=" + @seller.id.to_s
+        elsif @campaign.slug == "1450162262"
+          @share_link = request.protocol + request.host_with_port + "/checkout/xlzh?seller_id=" + @seller.id.to_s
+        elsif @campaign.slug == "1437020617"
+          @share_link = request.protocol + request.host_with_port + "/checkout/ydw?seller_id=" + @seller.id.to_s
+        elsif @campaign.slug == "1454383538"
+          @share_link = request.protocol + request.host_with_port + "/checkout/chq?seller_id=" + @seller.id.to_s
         else
         end
       else
@@ -344,6 +403,15 @@ class PersonalStoryCampaginController < ApplicationController
         elsif @campaign.slug == "1454304921"
           @default_logo="bjlyr_logo.jpg"
           @defult_name="领养日"
+        elsif @campaign.slug == "1450162262"
+          @default_logo="xlzh_logo.jpg"
+          @defult_name="雪莲之花"
+        elsif @campaign.slug == "1437020617"
+          @default_logo="ydw_logo.jpg"
+          @defult_name="颛桥有的玩社区"
+        elsif @campaign.slug == "1454383538"
+          @default_logo="chq_logo.jpg"
+          @defult_name="彩虹桥"
         else
         end
       end
