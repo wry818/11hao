@@ -26,17 +26,18 @@ namespace :eleven do
           Axlsx::Package.new do |p|
             p.workbook.add_worksheet(:name => "订单") do |sheet|
               sheet.add_row ["订单日期", "订单号", "订单详情号", "货品名称", "数量", "收货人姓名",
-                "省份", "城市", "收货地址", "邮编", "联系电话"]
+                "省份", "区县", "城市", "收货地址", "邮编", "联系电话"]
                 
                 items.each do |item|
                   order=orders.select{|o| o.id==item.order_id}.first
                   
-                  sheet.add_row [item.created_at.strftime("%Y-%m-%d"),
+                  sheet.add_row [item.created_at.localtime.strftime('%Y-%m-%d %H:%M:%S'),
                     item.order_id.to_s, item.id.to_s,
                     products.select{|p| p.id==item.product_id}.first.name,
                     item.quantity.to_s,
                     (order.address_fullname || ""),
                     (order.address_state || ""),
+                    (order.address_city_area || ""),
                     (order.address_city || ""),
                     (order.address_line_one || ""),
                     (order.address_postal_code || ""),

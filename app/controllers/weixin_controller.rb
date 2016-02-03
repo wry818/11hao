@@ -5,7 +5,7 @@ class WeixinController < ApplicationController
   def menu
     
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-    
+   
     menu = {
       button: [
         {

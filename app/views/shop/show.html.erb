@@ -14,63 +14,63 @@
       <%= render 'shop/campaign_nav' %>
 
       <div class="row">
-        <div class="col-md-12">
-          <% if @campaign.campaign_photos.length > 0 %>
-              <div class="image-wrapper">
-                <div class="image-section">
-                  <% if @campaign.campaign_photos.length>1 %>
-                      <div id="slides" class="slides" style="margin-top:15px;">
-                        <div class="slides_container">
-                          <% @campaign.campaign_photos.each do |photo| %>
-                              <%= cl_image_tag photo.image_id,
-                                               transformation: [{
-                                                                    width: photo.crop_width,
-                                                                    height: photo.crop_height,
-                                                                    x: photo.crop_x,
-                                                                    y: photo.crop_y,
-                                                                    crop: :crop
-                                                                }, {
-                                                                    width: 280,
-                                                                    height: 280,
-                                                                    crop: :fill
-                                                                }], class: "img-responsive" %>
-                          <% end %>
+          <div class="col-md-12">
+            <% if @campaign.campaign_photos.length > 0 %>
+                <div class="image-wrapper">
+                  <div class="image-section">
+                    <% if @campaign.campaign_photos.length>1 %>
+                        <div id="slides" class="slides" style="margin-top:15px;">
+                          <div class="slides_container">
+                            <% @campaign.campaign_photos.each do |photo| %>
+                                <%= cl_image_tag photo.image_id,
+                                                 transformation: [{
+                                                                      width: photo.crop_width,
+                                                                      height: photo.crop_height,
+                                                                      x: photo.crop_x,
+                                                                      y: photo.crop_y,
+                                                                      crop: :crop
+                                                                  }, {
+                                                                      width: 280,
+                                                                      height: 280,
+                                                                      crop: :fill
+                                                                  }], class: "img-responsive" %>
+                            <% end %>
+                          </div>
                         </div>
-                      </div>
-                  <% else %>
-                      <% @campaign.campaign_photos.each do |photo| %>
-                          <%= cl_image_tag photo.image_id,
-                                           transformation: [{
-                                                                width: photo.crop_width,
-                                                                height: photo.crop_height,
-                                                                x: photo.crop_x,
-                                                                y: photo.crop_y,
-                                                                crop: :crop
-                                                            }, {
-                                                                width: 280,
-                                                                height: 280,
-                                                                crop: :fill
-                                                            }], class: "img-responsive" %>
-                      <% end %>
+                    <% else %>
+                        <% @campaign.campaign_photos.each do |photo| %>
+                            <%= cl_image_tag photo.image_id,
+                                             transformation: [{
+                                                                  width: photo.crop_width,
+                                                                  height: photo.crop_height,
+                                                                  x: photo.crop_x,
+                                                                  y: photo.crop_y,
+                                                                  crop: :crop
+                                                              }, {
+                                                                  width: 280,
+                                                                  height: 280,
+                                                                  crop: :fill
+                                                              }], class: "img-responsive" %>
+                        <% end %>
+                    <% end %>
+                  </div>
+                </div>
+            <% end %>
+            <% if @campaign.campaign_photos.length == 0 %>
+                <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
+                  <% if @campaign.description %>
+                      <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
                   <% end %>
                 </div>
-              </div>
-          <% end %>
-          <% if @campaign.campaign_photos.length == 0 %>
-              <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
-                <% if @campaign.description %>
-                    <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
-                <% end %>
-              </div>
-          <% else %>
+            <% else %>
 
-              <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
-                <% if @campaign.description %>
-                    <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
-                <% end %>
-              </div>
-          <% end %>
-        </div>
+                <div class="description-wrapper" style="word-wrap:break-word;overflow:hidden;padding:30px 10px 0px 10px; margin:0px 0px;">
+                  <% if @campaign.description %>
+                      <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
       </div>
 
       <hr/>

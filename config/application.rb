@@ -91,7 +91,7 @@ module Raisy
 
         # show error page set
         # ENV['ERRORPAGESHOW'] = 'true'
-        config.error_page_ishow=true
+        # config.error_page_ishow=true
         # Show full error reports and disable caching
         #defaults: true for development, false for production
         # config.action_controller.consider_all_requests_local = false

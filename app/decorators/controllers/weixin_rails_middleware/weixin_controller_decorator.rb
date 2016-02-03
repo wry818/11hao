@@ -80,7 +80,28 @@ WeixinRailsMiddleware::WeixinController.class_eval do
         ]
 
         $wechat_client.send_news_custom(open_id, articles)
-          
+
+        # articles = [generate_article "11号公益圈粉丝专享福利", "",
+        #   request.protocol + request.host + "/images/hongbao.jpg",
+        #   "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi"]
+        #
+        # reply_news_message articles
+        
+      elsif content == "new_year_event"
+        
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        articles = [
+          {
+            title: "用你的红包拯救世界",
+            description: "1人1块钱, 拯救世界",
+            url: "http://www.11haoonline.com",
+            picurl: "http://www.11haoonline.com/images/hongbao.jpg"
+            
+          }
+        ]
+
+        $wechat_client.send_news_custom(open_id, articles)
+        
       else
         
         reply_transfer_customer_service_message()
@@ -222,7 +243,29 @@ WeixinRailsMiddleware::WeixinController.class_eval do
 
     # 点击菜单拉取消息时的事件推送
     def handle_click_event
-      reply_text_message("你点击了: #{@keyword}")
+      content = "#{@keyword}"
+      
+      if content == "new_year_event"
+        
+        # articles = [
+        #   {
+        #     title: "用你的红包拯救世界",
+        #     description: "1人1块钱, 拯救世界",
+        #     url: "http://www.11haoonline.com",
+        #     picurl: "http://www.11haoonline.com/images/hongbao.jpg"
+        #
+        #   }
+        # ]
+        
+        articles = [ generate_article("用你的红包拯救世界", "1人1块钱, 拯救世界", 
+          "http://www.11haoonline.com/images/hongbao.jpg", 
+          "http://www.11haoonline.com") ]
+        
+        reply_news_message articles
+        
+      else
+        reply_text_message("你点击了: #{@keyword}")
+      end
     end
 
     # 点击菜单跳转链接时的事件推送
