@@ -376,9 +376,22 @@ class PersonalStoryCampaginController < ApplicationController
           @share_link = request.protocol + request.host_with_port + "/checkout/chq?seller_id=" + @seller.id.to_s
         else
         end
+      end
+
+      if session[:referral_seller_id]
+        @referral_seller = Seller.find_by_id(session[:referral_seller_id])
+
+        if @seller && @referral_seller && @seller.id != @referral_seller.id
+          seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
+
+          if !seller_referral
+            SellerReferral.create seller_id: @seller.id, sellerreferral_id: @referral_seller.id
+          end
+        end
+
       else
         @default_logo=""
-        @defult_name=""
+        @defult_name="匿名"
         if @campaign.slug == "1450070083"
           @default_logo="sunflowerlogo.jpg"
           @defult_name="太阳花"
@@ -413,18 +426,6 @@ class PersonalStoryCampaginController < ApplicationController
           @default_logo="chq_logo.jpg"
           @defult_name="彩虹桥"
         else
-        end
-      end
-
-      if session[:referral_seller_id]
-        @referral_seller = Seller.find_by_id(session[:referral_seller_id])
-
-        if @seller && @referral_seller && @seller.id != @referral_seller.id
-          seller_referral = SellerReferral.where(:seller_id => @seller.id, :sellerreferral_id => @referral_seller.id).first
-
-          if !seller_referral
-            SellerReferral.create seller_id: @seller.id, sellerreferral_id: @referral_seller.id
-          end
         end
       end
     end
