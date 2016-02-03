@@ -55,7 +55,7 @@ class PersonalStoryCampaginController < ApplicationController
 
     campaign_slug = "1429755460"
     session[:personal_campaign_slug]=campaign_slug
-    path = personal_story_campagin_sunflower_supporters_path
+    path = personal_story_campagin_pulushi_supporters_path
 
     load_personal_story_campaign_page(campaign_slug, path)
 
@@ -64,7 +64,7 @@ class PersonalStoryCampaginController < ApplicationController
   def pulushi_supporters
 
     campaign_slug = "1429755460"
-    path = personal_story_campagin_sunflower_supporters_path
+    path = personal_story_campagin_pulushi_supporters_path
 
     load_personal_story_campaign_supporter(campaign_slug, path)
 
