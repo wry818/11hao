@@ -34,7 +34,7 @@ class WeixinController < ApplicationController
           ]
         },
         {
-          name: "红包拯救世界",
+          name: "拯救世界",
           sub_button: [
             {
               type: "view",
