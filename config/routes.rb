@@ -124,6 +124,7 @@ Raisy::Application.routes.draw do
 
     #personal_story
     get 'personal_story_campagin/my_influence', to: 'personal_story_campagin#my_influence', as: :personal_story_campagin_my_influence
+    get 'personal_story_campagin/get_red_pack', to: 'personal_story_campagin#get_red_pack', as: :personal_story_campagin_get_red_pack
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
     get 'checkout/supportcampagin_old', to: 'personal_story_campagin#index_old', as: :personal_story_campagin_index_old
     get 'checkout/supportcampagin/:id', to: 'personal_story_campagin#index', as: :personal_story_campagin_share_index
