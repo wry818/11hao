@@ -360,30 +360,7 @@ class PersonalStoryCampaginController < ApplicationController
 
       # @share_link relies on slug, hbzjsj and so on
       if @seller
-        if @campaign.slug == "1450070083"
-          @share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1429755460"
-          @share_link = request.protocol + request.host_with_port + "/checkout/pulushi?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1449033862"
-          @share_link = request.protocol + request.host_with_port + "/checkout/mtyg?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1453430970"
-          @share_link = request.protocol + request.host_with_port + "/checkout/handonhand?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1454297408"
-          @share_link = request.protocol + request.host_with_port + "/checkout/qnpjs?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1454297766"
-          @share_link = request.protocol + request.host_with_port + "/checkout/xgy?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1450162303"
-          @share_link = request.protocol + request.host_with_port + "/checkout/lzgy?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1454304921"
-          @share_link = request.protocol + request.host_with_port + "/checkout/bjlyr?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1450162262"
-          @share_link = request.protocol + request.host_with_port + "/checkout/xlzh?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1437020617"
-          @share_link = request.protocol + request.host_with_port + "/checkout/ydw?seller_id=" + @seller.id.to_s
-        elsif @campaign.slug == "1454383538"
-          @share_link = request.protocol + request.host_with_port + "/checkout/chq?seller_id=" + @seller.id.to_s
-        else
-        end
+        @share_link = get_share_link(@campaign.slug, @seller.id)
       end
 
       if session[:referral_seller_id]
@@ -438,7 +415,39 @@ class PersonalStoryCampaginController < ApplicationController
       end
     end
   end
+  
+  def my_influence
 
+    # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
+
+    if session[:openid]
+
+      @seller = Seller.where(:open_id => session[:openid]).first
+
+      unless @seller
+        redirect_to root_path and return
+      end
+      
+      @share_link = ""
+      @campaign = Campaign.find_by_id(@seller.campaign_id)
+      
+      @share_link = get_share_link(@campaign.slug, @seller.id)
+      
+      if @share_link != ""
+        redirect_to @share_link and return
+      else
+        redirect_to root_path and return
+      end
+      
+    else
+
+      redirect_to root_path and return
+
+    end
+
+  end
+  
+  
   def check_seller
     if session[:openid]
       @user = User.find_by uid: session[:openid], provider: "wx"
@@ -656,6 +665,39 @@ class PersonalStoryCampaginController < ApplicationController
       end
     end
 
+  end
+  
+  def get_share_link(campaign_slug, seller_id)
+    
+    share_link = ""
+    
+    if campaign_slug == "1450070083"
+      share_link = request.protocol + request.host_with_port + "/checkout/sunflower?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1429755460"
+      share_link = request.protocol + request.host_with_port + "/checkout/pulushi?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1449033862"
+      share_link = request.protocol + request.host_with_port + "/checkout/mtyg?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1453430970"
+      share_link = request.protocol + request.host_with_port + "/checkout/handonhand?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1454297408"
+      share_link = request.protocol + request.host_with_port + "/checkout/qnpjs?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1454297766"
+      share_link = request.protocol + request.host_with_port + "/checkout/xgy?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1450162303"
+      share_link = request.protocol + request.host_with_port + "/checkout/lzgy?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1454304921"
+      share_link = request.protocol + request.host_with_port + "/checkout/bjlyr?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1450162262"
+      share_link = request.protocol + request.host_with_port + "/checkout/xlzh?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1437020617"
+      share_link = request.protocol + request.host_with_port + "/checkout/ydw?seller_id=" + seller_id.to_s
+    elsif campaign_slug == "1454383538"
+      share_link = request.protocol + request.host_with_port + "/checkout/chq?seller_id=" + seller_id.to_s
+    else
+    end
+    
+    share_link
+      
   end
 
 end

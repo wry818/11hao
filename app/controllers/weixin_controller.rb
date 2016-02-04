@@ -13,7 +13,7 @@ class WeixinController < ApplicationController
           sub_button: [
             {
               type: "view",
-              name: "紧急救助大山枣农， 纯天然...",
+              name: "紧急救助大山枣农",
               url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
             },
             {
@@ -28,28 +28,24 @@ class WeixinController < ApplicationController
             },
             {
               type: "view",
-              name: "聚力成石，铺就未来",
-              url: "http://www.11haoonline.com/1429755460"
-            },
-            {
-              type: "view",
               name: "“特”立同行",
               url: "http://www.11haoonline.com/TLTX"
             }
           ]
         },
         {
-          name: "我的11号",
+          name: "红包拯救世界",
           sub_button: [
             {
               type: "view",
-              name: "我的订单",
-              url: "http://www.11haoonline.com/user/order_list"
+              name: "排行榜",
+              url: "http://www.11haoonline.com/1rmb/ranking"
             },
             {
               type: "view",
-              name: "我的筹款页面",
-              url: "http://www.11haoonline.com/seller/campaign_list"
+              name: "我的影响力",
+              url: "http://www.11haoonline.com/personal_story_campagin/my_influence"
+              # url: "http://www.11haoonline.com/seller/campaign_list"
             }
           ]
         },

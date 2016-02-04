@@ -123,6 +123,7 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
     #personal_story
+    get 'personal_story_campagin/my_influence', to: 'personal_story_campagin#my_influence', as: :personal_story_campagin_my_influence
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
     get 'checkout/supportcampagin_old', to: 'personal_story_campagin#index_old', as: :personal_story_campagin_index_old
     get 'checkout/supportcampagin/:id', to: 'personal_story_campagin#index', as: :personal_story_campagin_share_index
@@ -239,6 +240,7 @@ Raisy::Application.routes.draw do
     get 'user/order_list', to: 'users#order_list', as: :user_order_list
     get 'user/order_detail/:order_id', to: 'users#order_detail', as: :user_order_detail
     get 'seller/campaign_list', to: 'users#campaign_list', as: :seller_campaign_list
+    
     #SELLER DASHBOARD
     scope 'seller' do
         root 'seller_dashboard#index', as: :seller_dashboard
