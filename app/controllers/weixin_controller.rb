@@ -48,7 +48,7 @@ class WeixinController < ApplicationController
             },
             {
               type: "view",
-              name: "领取红包",
+              name: "新年红包",
               url: "http://www.11haoonline.com/personal_story_campagin/get_red_pack"
             }
           ]
