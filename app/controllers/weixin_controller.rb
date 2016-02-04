@@ -45,7 +45,11 @@ class WeixinController < ApplicationController
               type: "view",
               name: "我的影响力",
               url: "http://www.11haoonline.com/personal_story_campagin/my_influence"
-              # url: "http://www.11haoonline.com/seller/campaign_list"
+            },
+            {
+              type: "view",
+              name: "领取红包",
+              url: "http://www.11haoonline.com/personal_story_campagin/get_red_pack"
             }
           ]
         },
