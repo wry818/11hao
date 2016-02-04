@@ -419,24 +419,31 @@ class PersonalStoryCampaginController < ApplicationController
   def my_influence
 
     # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
-
+    has_campaign = false
+    
     if session[:openid]
 
       @seller = Seller.where(:open_id => session[:openid]).first
-
-      unless @seller
-        redirect_to root_path and return
+      
+      if @seller
+        
+        @share_link = ""
+        @campaign = Campaign.find_by_id(@seller.campaign_id)
+      
+        @share_link = get_share_link(@campaign.slug, @seller.id)
+      
+        if @share_link != ""
+          redirect_to @share_link and return
+        else
+          redirect_to root_path and return
+        end
+        
       end
       
-      @share_link = ""
-      @campaign = Campaign.find_by_id(@seller.campaign_id)
-      
-      @share_link = get_share_link(@campaign.slug, @seller.id)
-      
-      if @share_link != ""
+      if has_campaign
         redirect_to @share_link and return
       else
-        redirect_to root_path and return
+        render "no_donation"
       end
       
     else
@@ -447,6 +454,45 @@ class PersonalStoryCampaginController < ApplicationController
 
   end
   
+  def get_red_pack
+    
+    has_donated = false
+    
+    if session[:openid]
+
+      @sellers = Seller.where(:open_id => session[:openid])
+      
+      if @sellers
+        
+        @sellers.each do |seller|
+          
+          campaign = Campaign.find_by_id(seller.campaign_id)
+          story_campaign_ids = ["1454046936","1450070083","1454041189","1429755460","1454040291","1449033862","1454046268",
+          "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921",
+          "1450162262","1437020617","1454383538"]
+        
+          if story_campaign_ids.include?(campaign.slug)
+            has_donated = true
+            break
+          end
+          
+        end
+        
+      end
+      
+      if has_donated
+        redirect_to "http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi" and return
+      else
+        render "no_donation"
+      end
+    
+    else
+      
+      redirect_to root_path and return
+      
+    end
+    
+  end
   
   def check_seller
     if session[:openid]
