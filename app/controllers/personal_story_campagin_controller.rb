@@ -406,7 +406,7 @@ class PersonalStoryCampaginController < ApplicationController
           @defult_name="雪莲之花"
         elsif @campaign.slug == "1437020617"
           @default_logo="ydw_logo.jpg"
-          @defult_name="颛桥有的玩社区"
+          @defult_name="有的玩公益体育"
         elsif @campaign.slug == "1454383538"
           @default_logo="chq_logo.jpg"
           @defult_name="彩虹桥"
