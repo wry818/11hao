@@ -265,7 +265,7 @@
         img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
         img_width: "415",
         img_height: "399",
-        desc: " <%=@campaign_top.organization.name%>今天成功收集了<%= @seller_today_top["all_count"] %>个红包，成为当日冠军！",
+        desc: " <%=@campaign_top.organization.name%>今天成功收集了<%= @seller_today_top["all_count"].to_i / 100 %>个红包，成为当日冠军！",
         title: "活动排行榜"
       };
 
