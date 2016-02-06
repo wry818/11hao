@@ -329,7 +329,7 @@
             var shareid = $("#share_id").val();
 
             $.post(url, {
-              direct_donation: 1,
+              direct_donation: 100,
               seller_id: shareid
             }).done(function (data, textStatus, jqXHR) {
               if (data.error_msg != "") {
