@@ -52,7 +52,7 @@ class QueryHelper
     query="select rank() over (order by all_count desc) as rank, a.*,campaigns.*,organizations.name
           from
           (
-            SELECT campaigns.id,COALESCE (sum(o.id), 0),count(o.id) as all_count FROM (SELECT * from orders where status=3 and direct_donation>0"+where_time+") o
+            SELECT campaigns.id,COALESCE (sum(o.id), 0),COALESCE(sum(o.direct_donation),0) as all_count FROM (SELECT * from orders where status=3 and direct_donation>0"+where_time+") o
             RIGHT JOIN campaigns  on campaigns.id=o.campaign_id
             where campaigns.id in ("+campagin_ids+")
             GROUP BY campaigns.id

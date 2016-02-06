@@ -291,7 +291,7 @@ class PersonalStoryCampaginController < ApplicationController
     
     # session[:openid] = "oaR9aswmRKvGhMdb6kJCgIFKBpeg1"
     @order_count = @campaign.orders.completed.where(:open_id => session[:openid]).count
-    if @order_count >= 10
+    if @order_count >= 2
       render json: {order_id:"", error_msg:"您发的红包已超最大数量，请支持其他机构的小伙伴！"}.to_json and return
     end
         
@@ -665,8 +665,9 @@ class PersonalStoryCampaginController < ApplicationController
 
         referral_ids = SellerReferral.where(:sellerreferral_id => @seller.id).pluck(:seller_id)
 
-        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count + @campaign.orders.completed.where(:seller_id => @seller.id).count
-
+        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).sum("direct_donation") + @campaign.orders.completed.where(:seller_id => @seller.id).sum("direct_donation")
+        # @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count + @campaign.orders.completed.where(:seller_id => @seller.id).count
+        
         session[:referral_seller_id] = @seller.id
       end
     end
