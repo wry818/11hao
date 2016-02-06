@@ -665,7 +665,7 @@ class PersonalStoryCampaginController < ApplicationController
 
         referral_ids = SellerReferral.where(:sellerreferral_id => @seller.id).pluck(:seller_id)
 
-        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).sum("direct_donation") + @campaign.orders.completed.where(:seller_id => @seller.id).sum("direct_donation")
+        @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).sum("direct_donation") / 100.0 + @campaign.orders.completed.where(:seller_id => @seller.id).sum("direct_donation") / 100.0
         # @seller_referral_count = @campaign.orders.completed.where(:seller_id => referral_ids).count + @campaign.orders.completed.where(:seller_id => @seller.id).count
         
         session[:referral_seller_id] = @seller.id
