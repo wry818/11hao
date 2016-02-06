@@ -303,7 +303,7 @@ class PersonalStoryCampaginController < ApplicationController
       @order.seller_id=@seller.id if @seller
     end
 
-    @order.direct_donation=1
+    @order.direct_donation = 100
     @order.save
 
     if !@order.valid?
