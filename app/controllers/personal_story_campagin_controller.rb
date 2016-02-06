@@ -303,7 +303,7 @@ class PersonalStoryCampaginController < ApplicationController
       @order.seller_id=@seller.id if @seller
     end
 
-    @order.direct_donation = 100
+    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_i : 500
     @order.save
 
     if !@order.valid?
