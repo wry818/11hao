@@ -130,7 +130,7 @@
               suffix: ''
             };
 
-            var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %> +1, 0, 0.5, options);
+            var seller_referral_count = new CountUp("seller_referral_count", 0, <%= @seller_referral_count %>, 0, 0.5, options);
             seller_referral_count.start();
 
             if (indirect_influence_quote_nubmer > 0) {
@@ -213,7 +213,7 @@
             indirect_influence_quote = "可以" + organizer_quote.substring(0, start) + "&nbsp;<span id='indirect_influence_quote_count' class='indirect_influence_quote_number'>" + "</span>&nbsp;" + organizer_quote.substring(end + 1, organizer_quote.length);
             $("#indirect_influence_quote").html(indirect_influence_quote);
 
-            indirect_influence_quote_nubmer = (<%= @seller_referral_count %> +1) * parseInt(the_num);
+            indirect_influence_quote_nubmer = (<%= @seller_referral_count %>) * parseInt(the_num);
 
           }
 
