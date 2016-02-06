@@ -15,7 +15,7 @@
   }
 
   p.count_num {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bolder;
     color: coral;
   }
@@ -57,7 +57,7 @@
   <div>
     <div class="container-box top-section" style="margin-top: 0px; border-bottom: none;">
       <div class="row" style="margin-left: 0px; margin-right: 0px;">
-        <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
+        <div class="col-md-12" style="padding-left: 10px;padding-right: 10px;">
           <div class="left-column" style="padding: 5px;">
             <div class="support_wrapper">
               <div class="support_content" data-slug="<%= @seller_today_top["slug"] %>" style="border-bottom: none;">
@@ -79,7 +79,7 @@
 
                 </p>
 
-                <p style="font-size: 14px;color: black;margin-left: 5px;width:50%;">
+                <p style="font-size: 14px;color: black;margin-left: 5px;width:40%;">
 <span>
                   <%= @seller_today_top["name"].to_s.length>19 ? @seller_today_top["name"].to_s[0..18]+"..." : @seller_today_top["name"] %>
                </span>
@@ -92,7 +92,7 @@
                 <div class="right_content">
                   <div>
                     <div style="float: right; margin-top: 10px; margin-right: 0px; margin-right: 10px;">
-                      <p class="count_num"><%= @seller_today_top["all_count"].to_i / 100.0 %></p>
+                      <p class="count_num"><%= @seller_today_top["all_count"].to_i / 100 %></p>
                     </div>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
       <div class="row line_width" style="margin-left: 0px; margin-right: 0px;">
 
       </div>
-      <div class="row" style="margin-left: -10px; margin-right: -10px;">
+      <div class="row" style="margin-left: 0px; margin-right: 0px;">
         <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
           <div class="left-column">
             <div class="support_wrapper">
@@ -134,7 +134,7 @@
 
                         </p>
 
-                        <p style="font-size: 14px;color: black;margin-left: 5px; width:48%;">
+                        <p style="font-size: 14px;color: black;margin-left: 5px; width:38%;">
                           <span>
                           <%= seller_ladder["name"].to_s.length>19 ? seller_ladder["name"].to_s[0..18]+".." : seller_ladder["name"] %>
                           </span>
@@ -147,7 +147,7 @@
                         <div class="right_content">
                           <div>
                             <div style="float: right; margin-top: 10px;">
-                              <p class="count_num"><%= seller_ladder["all_count"].to_i / 100.0 %></p>
+                              <p class="count_num"><%= seller_ladder["all_count"].to_i / 100 %></p>
                             </div>
                           </div>
                         </div>
