@@ -423,7 +423,7 @@ class PersonalStoryCampaginController < ApplicationController
     
     if session[:openid]
 
-      @seller = Seller.where(:open_id => session[:openid]).first
+      @seller = Seller.where(:open_id => session[:openid]).order(:id=>:desc).first
       
       if @seller
         
