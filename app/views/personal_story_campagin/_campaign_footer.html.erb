@@ -27,11 +27,11 @@
       <%= form_tag(personal_story_campagin_checkout_confirmation_path, method: "post", id: "payment_form") %>
       <div class="modal-header" style="padding: 10px;">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h5 class="modal-title">发红包</h5>
+        <h4 class="modal-title">发红包</h4>
       </div>
       <div class="modal-body">
         <div id="personal_modalbody">
-          <table style="width:100%;">
+          <table style="font-size:18px; width:100%;">
             <tr>
               <td style="padding:0px 5px; text-align:center; width:33%;">
                 <a href="javascript:void(0);" data-value="100" class="list-group-item">1<span>元</span></a>
@@ -51,12 +51,12 @@
         <input type="hidden" id="campagin_id" name="campagin_id" value="<%= @campaign.id %>"/>
 
         <button id="payment-form-submit" class="btn btn-primary btn-sm btn-block payment-image" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 70%; margin: 0px auto; display:none;">
-          <span class="text" data-text="拯救世界" style="letter-spacing:1px;">拯救世界</span>
+          <span class="text" data-text="拯救世界" style="letter-spacing:2px; font-size:18px;">拯救世界</span>
           <span class="loader" style="display:none"></span>
         </button>
 				
 				<button id="btn_submit" class="btn btn-primary btn-sm btn-block payment-image" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 70%; margin: 0px auto; display:none;">
-          <span class="text" data-text="拯救世界" style="letter-spacing:1px;">拯救世界</span>
+          <span class="text" data-text="拯救世界" style="letter-spacing:2px; font-size:18px; ">拯救世界</span>
           <span class="loader" style="display:none"></span>
 				</button>
       </div>
