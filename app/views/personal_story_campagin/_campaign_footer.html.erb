@@ -11,9 +11,15 @@
     <div style="position:relative; padding-top:0px">
       <!-- <div style="position:relative; padding-top:0px; background-color: red; max-width: 750px; margin: 0 auto">
       </div> -->
-      <div style="margin:0px auto; text-align:center; width:148px; height:100px;">
+      <!-- <div style="margin:0px auto; text-align:center; width:148px; height:100px;">
         <img src="/2016/pay_some.png" style="width:148px; height:100px;" onclick="$('#personal-modal').modal('show');" />
-      </div>
+      </div> -->
+			
+			<div style="text-align:center;">
+			  <button id="btn_thanks" type="button" class="btn btn-primary" style="border-radius:4px;">
+			    <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span class="text" style="font-size:16px; letter-spacing:1px;">活动已结束, 感谢您的关注!</span>
+			  </button>
+			</div>
 
       <%= hidden_field_tag :fullname, @nickname %>
       <%= hidden_field_tag :avatar_url, @avatar_url %>
