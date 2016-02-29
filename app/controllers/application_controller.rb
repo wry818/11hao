@@ -119,14 +119,14 @@ class ApplicationController < ActionController::Base
               redirect_uri = "http://www.11haoonline.com" + request.path + "?is_test=1"  
             end
       
-            # param_url = ""
-#             request.query_parameters.each do |key, value|
-#               param_url += "&" + "#{key}=" + "#{value}"
-#             end
-#
-#             # logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-#             # logger.info param_url
-#             redirect_uri = redirect_uri + param_url
+            param_url = ""
+            request.query_parameters.each do |key, value|
+              param_url += "&" + "#{key}=" + "#{value}"
+            end
+
+            # logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            # logger.info param_url
+            redirect_uri = redirect_uri + param_url
       
           else
             # In case callback url contains code which will trigger re-auth
