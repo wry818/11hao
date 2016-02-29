@@ -22,7 +22,7 @@ class ShopController < ApplicationController
         logger.debug request.url
         logger.debug Rails.configuration.url_host + short_campaign_path(@campaign)
 
-        qr = RQRCode::QRCode.new(request.url, :size => 10, :level => :h)
+        qr = RQRCode::QRCode.new(request.url.split('?').first, :size => 10, :level => :h)
 
         @qr_url = qr.to_img.resize(200, 200).to_data_url
 
@@ -712,13 +712,13 @@ class ShopController < ApplicationController
         
       if session[:openid] && session[:access_token]
         
-        # $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        # user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
-        #
-        # if user_info.result["errcode"] != "40003"
-        #     @nickname = user_info.result["nickname"]
-        #     @avatar_url = user_info.result["headimgurl"]
-        # end
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+
+        if user_info.result["errcode"] != "40003"
+            @nickname = user_info.result["nickname"]
+            @avatar_url = user_info.result["headimgurl"]
+        end
         
       end
       
