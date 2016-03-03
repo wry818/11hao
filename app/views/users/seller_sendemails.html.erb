@@ -3,7 +3,10 @@
 		<%= hidden_field_tag 'hidsellerid', @seller.id, id: "hidsellerid" %>
 		
         <div class="campaign-edit-header">
-			<h3>加入筹款团队<strong><%= @seller.campaign.title %></strong></h3>
+			<h3>
+				<!-- 加入筹款团队 -->
+				<strong><%= @seller.campaign.title %></strong>
+			</h3>
         </div>
 		
         <div class="container-box top-section">
