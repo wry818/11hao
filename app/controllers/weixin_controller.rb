@@ -33,23 +33,38 @@ class WeixinController < ApplicationController
             }
           ]
         },
+        # {
+        #   name: "拯救世界",
+        #   sub_button: [
+        #     {
+        #       type: "view",
+        #       name: "排行榜",
+        #       url: "http://www.11haoonline.com/1rmb/ranking"
+        #     },
+        #     {
+        #       type: "view",
+        #       name: "我的影响力",
+        #       url: "http://www.11haoonline.com/personal_story_campagin/my_influence"
+        #     },
+        #     {
+        #       type: "view",
+        #       name: "新年红包",
+        #       url: "http://www.11haoonline.com/personal_story_campagin/get_red_pack"
+        #     }
+        #   ]
+        # },
         {
-          name: "拯救世界",
+          name: "我的11号",
           sub_button: [
             {
               type: "view",
-              name: "排行榜",
-              url: "http://www.11haoonline.com/1rmb/ranking"
+              name: "我的订单",
+              url: "http://www.11haoonline.com/user/order_list"
             },
             {
               type: "view",
-              name: "我的影响力",
-              url: "http://www.11haoonline.com/personal_story_campagin/my_influence"
-            },
-            {
-              type: "view",
-              name: "新年红包",
-              url: "http://www.11haoonline.com/personal_story_campagin/get_red_pack"
+              name: "我的筹款页面",
+              url: "http://www.11haoonline.com/seller/campaign_list"
             }
           ]
         },
