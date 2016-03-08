@@ -123,6 +123,12 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
     #personal_story
+  get 'checkout/campaginngo', to: 'campaign_ngo#lzds', as: :campagin_ngo_lzds
+  get 'campaginngo/lzds_supporters', to: 'campaign_ngo#lzds_supporters', as: :campagin_ngo_lzds_supporters
+
+  post 'campaginngo/confirmation', to: 'campaign_ngo#confirmation', as: :campaign_ngo_checkout_confirmation
+  post 'campaginngo/confirmation_weixin', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin
+
     get 'personal_story_campagin/my_influence', to: 'personal_story_campagin#my_influence', as: :personal_story_campagin_my_influence
     get 'personal_story_campagin/get_red_pack', to: 'personal_story_campagin#get_red_pack', as: :personal_story_campagin_get_red_pack
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
