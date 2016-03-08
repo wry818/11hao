@@ -87,6 +87,12 @@
     $("#btn_view_content").click(function () {
       showContent();
     });
+    <% if @isback  %>
+    $("#campaign_detail").hide();
+    $("#direct_influence").hide();
+    $(".btns").hide();
+    $(".footer").hide();
+    <% end%>
 
     $("img.arri").bind('click', function () {
       var $arri = $("div.arri");
@@ -153,18 +159,18 @@
       if ("<%= @weixin_init_success %>" == "true") {
         $('#btn_submit1').off("click").on("click", function () {
           var url = "<%=campaign_ngo_confirmation_weixin_path%>";
-//          var direct_donation = $("#direct_donation_input").val();
-//          if(direct_donation.length<1)
-//          {
-//            direct_donation = $("#direct_donation").val();
-//          }
-//          if (direct_donation.length <= 0) {
-//            alert("请输入捐款金额。");
-//            return;
-//          }
+          var direct_donation = $("#direct_donation_input").val();
+          if(direct_donation.length<1)
+          {
+            direct_donation = $("#direct_donation").val();
+          }
+          if (direct_donation.length <= 0) {
+            alert("请输入捐款金额。");
+            return;
+          }
 
           $('#btn_submit1').prop('disabled', true);
-          $.post(url, {direct_donation:1}).done(function (data, textStatus, jqXHR) {
+          $.post(url, {direct_donation:direct_donation}).done(function (data, textStatus, jqXHR) {
 //            alert(data);
             if (data.error_msg != "") {
               alert(data.error_msg);
@@ -261,7 +267,7 @@
         },
         success: function (data) {
 
-          window.location.href = "<%=campagin_ngo_lzds_path%>"
+          window.location.href = "<%=campagin_ngo_lzds_path%>"+"?order_id="+order_id;
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
@@ -309,14 +315,14 @@
   $(function () {
 
     $("#payment-form-submit").bind("click", function () {
-//      if($("#direct_donation_input").val().length>0) {
-//        $("#direct_donation").val($("#direct_donation_input").val());
-//      }
-//
-//      if ($("#direct_donation").val().length<=0) {
-//        alert("请输入捐款金额。");
-//        return;
-//      }
+      if($("#direct_donation_input").val().length>0) {
+        $("#direct_donation").val($("#direct_donation_input").val());
+      }
+
+      if ($("#direct_donation").val().length<=0) {
+        alert("请输入捐款金额。");
+        return;
+      }
 
       $("#payment_form").submit();
     });
@@ -338,20 +344,21 @@
 
       $(this).css('border', "solid 2px red");
     });
+
+    $("#personal_modalbody a")[1].click();
   });
 </script>
 
 <% if @sign_package %>
     <script>
-      var campagin_share_link = "<%= campagin_ngo_lzds_url %>";
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
-        link: campagin_share_link,
+        link: "<%= request.original_url %>",
         img_url: "<%= request.protocol + request.host_with_port + '/images/hongbao.jpg' %>",
         img_width: "415",
         img_height: "399",
-        desc: "亲，就等你了。 1人1块钱拯救世界， 还能赢新年暖心红包...",
-        title: "用红包拯救世界，你也来试试？"
+        desc: "守护绿色，有我...",
+        title: "守护绿色，有我"
       };
 
       wx.config({
@@ -385,7 +392,7 @@
           },
           success: function () {
             // 用户确认分享后执行的回调函数
-            share_success();
+
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数
@@ -403,7 +410,7 @@
           },
           success: function () {
             // 用户确认分享后执行的回调函数
-            share_success();
+
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数
@@ -419,7 +426,7 @@
           },
           success: function () {
             // 用户确认分享后执行的回调函数
-            share_success();
+
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数
@@ -435,7 +442,7 @@
           },
           success: function () {
             // 用户确认分享后执行的回调函数
-            share_success();
+
           },
           cancel: function () {
             // 用户取消分享后执行的回调函数
@@ -448,15 +455,6 @@
 
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
         alert(res.errMsg);
-      });
-
-      $(function () {
-        var shareid = $("#share_id").val();
-        if (shareid.length == 0) {
-          window.shareData.link = campagin_share_link;
-        } else {
-          window.shareData.link = campagin_share_link + '?id=' + shareid;
-        }
       });
     </script>
 <% end %>

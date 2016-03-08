@@ -3,6 +3,14 @@ class CampaignNgoController < ApplicationController
   before_filter :manage_session_order, only: [ :confirmation, :confirmation_weixin]
   def lzds
 
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
     campaign_slug = "1454297766"
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_lzds_supporters_path
@@ -51,7 +59,7 @@ class CampaignNgoController < ApplicationController
 
   def confirmation
     @order = @campaign.orders.new
-    @order.direct_donation=1
+    @order.direct_donation=params[:direct_donation].present? ? params[:direct_donation].to_i : 100
     @order.save
 
     if !@order.valid?
@@ -82,7 +90,7 @@ class CampaignNgoController < ApplicationController
       @order.seller_id=@seller.id if @seller
     end
 
-    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_i : 1
+    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_i : 100
     @order.save
 
     if !@order.valid?
