@@ -186,6 +186,7 @@
     }
 
     function weixin_load(order_id) {
+      alert(order_id);
       $(function () {
         $.ajax({
           method: "get",
@@ -337,7 +338,7 @@
 
 <% if @sign_package %>
     <script>
-      var campagin_share_link = "<%= personal_story_campagin_index_url %>";
+      var campagin_share_link = "<%= campagin_ngo_lzds_url %>";
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
         link: campagin_share_link,
