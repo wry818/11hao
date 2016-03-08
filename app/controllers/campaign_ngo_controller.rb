@@ -11,7 +11,7 @@ class CampaignNgoController < ApplicationController
     end
 
 
-    campaign_slug = "1454297766"
+    campaign_slug = "zs1001"
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_lzds_supporters_path
 
@@ -20,7 +20,7 @@ class CampaignNgoController < ApplicationController
   end
   def lzds_supporters
 
-    campaign_slug = "1454297766"
+    campaign_slug = "zs1001"
     path = campagin_ngo_lzds_supporters_path
 
     load_personal_story_campaign_supporter(campaign_slug, path)
