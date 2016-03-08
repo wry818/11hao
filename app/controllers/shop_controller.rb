@@ -861,7 +861,7 @@ class ShopController < ApplicationController
       if session[:openid]
        
        openid = session[:openid]
-       if !(order.campaign.slug=="support-lanlan")
+       if !(order.campaign.slug=="zs1001")
          send_template_message(openid, order, format_order_time)
        end
        
