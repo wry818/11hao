@@ -87,12 +87,6 @@
     $("#btn_view_content").click(function () {
       showContent();
     });
-    <% if @isback  %>
-    $("#campaign_detail").hide();
-    $("#direct_influence").hide();
-    $(".btns").hide();
-    $(".footer").hide();
-    <% end%>
 
     $("img.arri").bind('click', function () {
       var $arri = $("div.arri");

@@ -20,15 +20,18 @@
           <div class="dd" >
             <p style="margin-top:20px;">简单公益，只因有你！</p>
 
-            <p style="margin-top:30px; margin-bottom:30px;">
+            <p style="margin-top:15px; margin-bottom:15px;">
               <%= link_to "返回捐款页面", campagin_ngo_lzds_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;" %>
+
+            </p>
+            <p style="margin-top:15px; margin-bottom:15px;">
 
               <%= link_to "  点击领取55元大众点评红包  ", 'http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi', class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;" %>
             </p>
           </div>
       <% end%>
     </div>
-
+    <% if !@isback  %>
     <div id="campaign_detail" class="campagin_detail" style="position:relative; padding: 15px 5px 0px 5px">
       <div class="project well" style="background-color:white; border-color:#e3e3e3; margin:0px; padding:0px;">
         <table style=" width:100%;">
@@ -304,6 +307,9 @@
     <div style="background:rgba(0,0,0,0.7);position:absolute;width:100%;top:0;z-index:900;display:none" id="tips">
 
     </div>
+    <% end%>
   </div>
 </div>
+<% if !@isback  %>
 <%= render "campaign_footer" %>
+<% end%>
