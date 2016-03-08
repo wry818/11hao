@@ -185,15 +185,18 @@
       }
     }
 
+    weixin_load(619);
+
     function weixin_load(order_id) {
       alert(order_id);
-      $(function () {
-        $.ajax({
+
+      $.ajax({
           method: "get",
           url: "/weixin_payment_get_req/" + order_id,
           dataType: "json",
           cache: false,
           success: function (d) {
+            alert(33333);
             alert(d);
             if (d) {
               alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
@@ -224,10 +227,10 @@
             $('#wechat').prop('disabled', false);
           },
           complete: function () {
-
+            alert(1111);
           }
         });
-      });
+
     }
 
     function ComfirmOrder(order_id) {
