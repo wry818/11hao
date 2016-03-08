@@ -217,7 +217,10 @@
               $('#wechat').prop('disabled', false);
             }
           },
-          error: function () {
+          error:function(XMLHttpRequest, textStatus, errorThrown) {
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.readyState);
+            alert(textStatus);
             $('#wechat').prop('disabled', false);
           },
           complete: function () {
