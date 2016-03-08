@@ -194,6 +194,7 @@
           dataType: "json",
           cache: false,
           success: function (d) {
+            alert(d);
             if (d) {
               alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
               WeixinJSBridge.invoke('getBrandWCPayRequest', {
