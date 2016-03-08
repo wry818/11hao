@@ -104,26 +104,12 @@
 
     });
 
-    //展示更多
-    $("div.more").bind('click', function () {
-      alert("展示更多");
-      $.ajax({
-        type: "post",
-        url: "<%= ajax_personal_story_campagin_supporters_path%>",
-        data: {},
-        success: function (data) {
-//          $('#resText').empty();   //清空resText里面的所有内容
-          alert(data);
-//          $('#resText').html();
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-        },
-        complete: function (XMLHttpRequest, textStatus) {
-          this; // 调用本次AJAX请求时传递的options参数
-        }
-      });
-
+    $("#supporters_content").jscroll({
+      autoTrigger: false,
+      nextSelector: "a.a-pager:last",
+      callback: function () {
+      },
+      loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
     });
 
     if (<%= @is_wechat_browser %> == false

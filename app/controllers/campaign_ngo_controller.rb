@@ -23,7 +23,7 @@ class CampaignNgoController < ApplicationController
     campaign_slug = "zs1001"
     path = campagin_ngo_lzds_supporters_path
 
-    load_personal_story_campaign_supporter(campaign_slug, path)
+    load_campaign_supporter(campaign_slug, path)
 
   end
 
