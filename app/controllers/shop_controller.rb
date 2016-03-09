@@ -861,9 +861,9 @@ class ShopController < ApplicationController
       if session[:openid]
        
        openid = session[:openid]
-       if !(order.campaign.slug=="zs1001")
-         send_template_message(openid, order, format_order_time)
-       end
+
+       send_template_message(openid, order, format_order_time)
+
        
         # $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
 #         $client.send_text_custom(session[:openid], "支付成功！订单编号" + order.id.to_s.rjust(8,'0') + "。11号公益圈感谢您的支持！")
@@ -1016,14 +1016,14 @@ class ShopController < ApplicationController
       
       story_campaign_ids = ["1454046936","1450070083","1454041189","1429755460","1454040291","1449033862","1454046268",
       "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921",
-      "1450162262","1437020617","1454383538"]
+      "1450162262","1437020617","1454383538","zs1001","zs1002","zs1003"]
         
       if story_campaign_ids.include?(order.campaign.slug)
-        send_dianping = true
+        send_dianping = false
         
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
-        msg="感谢您的支持，您的红包将会资助#{group_name}。\n\n简单公益，只因有你。\n";
+        msg="感谢您的支持，您的捐赠将会资助#{group_name}。\n\n简单公益，只因有你。\n";
         
         data = {
           first: {
@@ -1031,7 +1031,7 @@ class ShopController < ApplicationController
             color:"#000000"
           },
           keyword1: {
-            value:"用红包拯救世界!",
+            value:"守护绿色，有我!",
             color:"#000000"
           },
           keyword2: {

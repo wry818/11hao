@@ -27,6 +27,58 @@ class CampaignNgoController < ApplicationController
 
   end
 
+  def lovehb
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "zs1002"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_lovehb_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def lovehb_supporters
+
+    campaign_slug = "zs1002"
+    path = campagin_ngo_lovehb_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+
+  def xgst
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "zs1003"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_xgst_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def xgst_supporters
+
+    campaign_slug = "zs1003"
+    path = campagin_ngo_xgst_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+
   def load_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -43,7 +95,7 @@ class CampaignNgoController < ApplicationController
     end
 
     load_supporters(path)
-
+    log_ip()
   end
   def load_campaign_supporter(campaign_slug, path)
 
@@ -55,7 +107,38 @@ class CampaignNgoController < ApplicationController
 
   end
 
+  def log_ip
+    if @campaign
+      if session[:openid] && session[:access_token]
+        query=CampaignVisitLog.where("campaign_id=:campaign_id and open_id=:open_id
+          and visited_time>=:start_time and visited_time<:end_time",
+                                     campaign_id: @campaign.id, open_id: session[:openid],
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+      else
+        query=CampaignVisitLog.where("campaign_id=:campaign_id and remote_ip=:remote_ip
+          and visited_time>=:start_time and visited_time<:end_time",
+                                     campaign_id: @campaign.id, remote_ip: request.remote_ip,
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+      end
 
+
+      @visit_log = query.first
+
+
+      if !@visit_log
+        @visit_log = CampaignVisitLog.new campaign_id: @campaign.id, visited_time: Time.now
+
+        if @seller
+          @visit_log.seller_id = @seller.id
+        end
+
+        @visit_log.open_id = session[:openid]
+        @visit_log.remote_ip = request.remote_ip
+        @visit_log.nickname = @nickname
+        @visit_log.save
+      end
+    end
+  end
 
   def confirmation
     @order = @campaign.orders.new
