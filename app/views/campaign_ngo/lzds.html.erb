@@ -1,0 +1,380 @@
+
+<div style="padding-bottom: 100px;" id="pageContainer">
+  <div class="detail">
+    <div class="top">
+      <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
+      <div class="hd">
+        <img src="/images/lzds/p_logo.jpg">
+      </div>
+    </div>
+    <div class="named">
+      <div class="tt">上海闵行区颛桥绿洲读书服务中心</div>
+      <div class="dd" >
+        <% if @isback  %>
+
+        <%else%>
+            10元能够订制两本个性化“阅读护照”，帮助两个亲子家庭开展可持续性亲子阅读计划。
+        <% end%>
+      </div>
+      <% if @isback  %>
+          <div class="dd" >
+            <h3>感谢您的支持</h3>
+
+            <p style="margin-top:20px;">简单公益，只因有你！</p>
+
+            <p style="margin-top:15px; margin-bottom:15px;">
+
+              <a id="btn_share" class="btn btn-success" href="javascript:void(0);" style="background-color: #99CC33;border-color: #99CC33;">邀请好友</a>
+
+
+              <%= link_to "返回捐款页面", campagin_ngo_lzds_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;" %>
+
+            </p>
+          </div>
+      <% end%>
+    </div>
+    <% if !@isback  %>
+    <div id="campaign_detail" class="campagin_detail" style="position:relative; padding: 15px 5px 0px 5px">
+      <div class="project well" style="background-color:white; border-color:#e3e3e3; margin:0px; padding:0px;">
+        <table style=" width:100%;">
+          <tr>
+            <!-- <td style="padding: 5px 0px 5px 0px; text-align:left;">
+              <span style="color: white; display:inline-block; margin-left:5px;">
+                支持项目
+              </span>
+            </td> -->
+            <td style="text-align:right;">
+              <div class="ttbg">
+                <div class="tt">捐助的项目</div>
+                <div class="nmoney">已筹款:<%= short_price(@campaign.raised) %>元</div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div class="row" style="margin-left: -5px; margin-right: -5px;">
+          <div class="col-md-12" style="padding-left: 5px;padding-right: 5px;">
+            <div style="position:relative">
+              <% if @campaign.campaign_logo %>
+                  <div style="text-align:center;">
+                    <%= cl_image_tag @campaign.campaign_logo.image_id,
+                                     transformation: [
+                                         {
+                                             width: @campaign.campaign_logo.crop_width,
+                                             height: @campaign.campaign_logo.crop_height,
+                                             x: @campaign.campaign_logo.crop_x,
+                                             y: @campaign.campaign_logo.crop_y,
+                                             crop: :crop
+                                         }
+                                     ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
+                  </div>
+              <% else %>
+                  <div class="campaign-default-logo-box">
+                    <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+                  </div>
+              <% end %>
+              <div class="campaign-header-title-box">
+                <div class="campaign-header-logo-title">
+                  <span style="color: white"><%= @campaign.title %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ctx">
+          <span class="bt" style="padding-left:0px"> <b>善款接收：</b>上海闵行区颛桥绿洲读书服务中心</span>
+          <br/>
+          <!--<span class="bt" style="padding-left:0px"> <b>重要荣誉：</b>荣获中国友谊促进会、财经杂志等联合颁发的第二届中国公益行动奖第一名</span>-->
+          <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri ,:style=>"right:10px;" %></div>
+
+          <!-- <img class="pimg" src="/images/sunflower/p_01.png">
+        <span class="ptt">关注外来务工子女教育</span>
+
+        <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri %></div>
+        <div class="pdd">
+          <span style="color:red;">1</span>元钱，可以帮助<span style="color:red;">1个流动儿童参加1天的太阳花晚托班</span>
+        </div> -->
+          <div class="summary none">
+            <div class="st">项目详情</div>
+            <div class="desc">
+              <div id="proj_content">
+                <p>10元能够订制两本个性化“阅读护照”，帮助两个亲子家庭开展可持续性亲子阅读计划。
+                  在2016年4月23日世界阅读日到来之际，将作为一份特殊的礼物送给亲子家庭。</p>
+
+                <p>上海闵行区颛桥绿洲读书服务中心是一家以面向低龄幼儿、少年儿童、年轻父母、老年人等各年龄层为对象，倡导终身互动阅读的公益机构。</p>
+                <p>
+                  <img src="/images/lzds/p_01.jpg">
+                </p>
+
+                <p>
+                  在信息化高度发达的今天，进一步继承中华传统文化精华，绿洲读书服务中心以互动阅读即读书会的方式，
+                  引领全民回归翰墨书香。读书会不是专业讲授，而是营造开放自主的氛围，激发人们从学习旁观者变成积极参与者。
+                </p>
+
+                <p>
+                  <img src="/images/lzds/p_02.jpg">
+                </p>
+
+                <p>
+                  实践证明，读书会这种互动的阅读方式，有助于形成认真阅读、耐心倾听、独立思考和平等讨论的终身习惯，对于汲取人类知识精华、
+                  完善人文素养、丰富审美情趣、培养人际交往能力、提升写作和演说能力，都是极其高效的方法和门径。
+                </p>
+                <p>
+                  <img src="/images/lzds/p_03.jpg">
+                </p>
+
+                <p>2015年起，绿洲读书服务中心开始在颛桥镇文体中心、莘闵荣顺苑小区、颛桥中心小学、华星小学、颛桥幼儿园等，
+                  成功开展了家长家庭教育读书会、亲子读书沙龙、全职妈妈成长营，青少年读书会活动。</p>
+
+                <p>
+                  <img src="/images/lzds/p_04.jpg">
+                </p>
+
+                <p>
+                  机构宗旨：共读经典，互动分享；汲取营养，结伴益友。
+                </p>
+                <p>
+                  机构愿景：让读书会伴随人一生的成长。
+                </p>
+                <p>
+                  <img src="/images/lzds/p_logo.jpg" style="width: 45%;">
+                  <img src="/images/lzds/p_qrcode.jpg" style="width: 45%;">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="direct_influence" class="well" style="background-color: white; border-color:#e3e3e3; margin:15px 5px 0px 5px;  padding: 15px 5px 0px 5px;">
+      <div style="text-align: right">
+        <!-- <span id="btn_view_content" class="glyphicon glyphicon-chevron-left" style="color:#888; font-size:18px; display: none"></span> -->
+        <%= image_tag "arr_right.png", :id => 'btn_view_content', :width => 18, :height => 18, :style => "display: none" %>
+      </div>
+
+      <div id="supporters_content" style="display:none;">
+        <%= render "supporters" %>
+      </div>
+      <div class="avatar-container" style="overflow: hidden; height: 48px; position: relative">
+        <% if @supporters.count>0 %>
+            <% @supporters.each_with_index do |s, index| %>
+                <% if s.avatar_url && s.avatar_url.to_s.gsub(' ', '').length>0 %>
+                    <img id="supporter_avatar_<%= index %>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;"/>
+                <% else %>
+                    <%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if index == 4 %>
+                    <% break %>
+                <% end %>
+
+            <% end %>
+
+            <% if @supporters.count == 1 %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+            <% end %>
+
+            <% if @supporters.count == 2 %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+            <% end %>
+
+            <% if @supporters.count == 3 %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+            <% end %>
+
+            <% if @supporters.count == 4 %>
+                <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+            <% end %>
+
+            <div id="btn_view_supporters">
+              <%= image_tag "arr_left.png", :width => 18, :height => 18 %>
+              <!-- <span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span> -->
+            </div>
+        <% else %>
+
+            <div style="text-align: center">
+              <%= image_tag 'empty_user.png', :id => "supporter_avatar_0", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+              <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+              <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+              <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+              <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+            </div>
+
+        <% end %>
+      </div>
+      <div style="font-size: 14px; text-align:center; margin-top: 10px">
+        <% if @supporters.count>0 %>
+				<span>
+					您有
+				</span>
+            &nbsp;
+				<span style="color:#fa0000;">
+					<%= @supporters_count %>
+				</span>
+            &nbsp;
+				<span>
+					位小伙伴一起参与
+				</span>
+        <% else %>
+            暂无小伙伴参与
+        <% end %>
+      </div>
+
+    </div>
+
+<%=render 'dialog_pay' %>
+    <!--Footer-->
+    <div class="footer">
+      <div id="btn_agreement" style="display: block;">
+        <span>服务协议</span>
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,0.7);position:absolute;width:100%;top:0;z-index:900;display:none" id="tips">
+
+    </div>
+    <% end%>
+  </div>
+</div>
+<% if !@isback  %>
+<%= render "campaign_footer" %>
+<% end%>
+<%= render "share" %>
+
+<script>
+  var local_url='<%=campagin_ngo_lzds_url%>'';
+  $(function(){
+    $("#btn_share").bind('click', function () {
+      $("#yqj_result_shareModal").modal('show');
+
+      $(".yqj_result_share").click(function() {
+        $("#yqj_result_shareModal").modal('hide');
+      });
+    });
+  });
+</script>
+<% if @sign_package %>
+    <script>
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: "<%= request.original_url %>",
+        img_url: "<%= cl_image_path @campaign.campaign_logo.image_id,
+                        transformation: [
+                            {
+                                width: @campaign.campaign_logo.crop_width,
+                                height: @campaign.campaign_logo.crop_height,
+                                x: @campaign.campaign_logo.crop_x,
+                                y: @campaign.campaign_logo.crop_y,
+                                crop: :crop
+                            }
+                        ] %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "让读书会伴随人一生的成长",
+        title: "守护绿色，@我"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>

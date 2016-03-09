@@ -1,0 +1,2 @@
+module CampaignNgoHelper
+end
