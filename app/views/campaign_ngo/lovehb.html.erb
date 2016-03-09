@@ -206,74 +206,7 @@
         </div>
 
 
-        <div class="btns">
-          <div style="margin:10px; text-align: center;">
-            <% if 9 >= 100 %>
-                <button  class="btn btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
-                  <span class="text" style="letter-spacing:1px;">筹款已结束, 感谢您的支持!</span>
-                </button>
-            <% else %>
-                <div style="margin:10px; text-align: center;">
-                  <button  class="btn btn-sm btn-block" data-toggle="modal" data-target="#personal-modal" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
-                    <span class="text" style="letter-spacing:1px;">我要捐款</span>
-                  </button>
-                </div>
-            <% end %>
-          </div>
-        </div>
-
-        <!--捐款弹框-->
-        <div class="modal fade" id="personal-modal" tabindex="-1" role="dialog" aria-labelledby="personal-modal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <%= form_tag(campaign_ngo_checkout_confirmation_path, method: "post", id: "payment_form") %>
-              <div class="modal-header" style="padding: 10px;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h5 class="modal-title">
-                  捐款金额
-                </h5>
-              </div>
-              <div class="modal-body">
-                <div id="personal_modalbody">
-                  <table style="width:100%;">
-                    <tr>
-                      <td style="padding:0px 5px; text-align:center; width:33%;">
-                        <a href="javascript:void(0);" data-value="5" class="list-group-item">5<span>元</span></a>
-                      </td>
-                      <td style="padding:0px 5px; text-align:center; width:33%;">
-                        <a href="javascript:void(0);" data-value="10" class="list-group-item">10<span>元</span></a>
-                      </td>
-                      <td style="padding:0px 5px; text-align:center; width:34%;">
-                        <a href="javascript:void(0);" data-value="20" class="list-group-item">20<span>元</span></a>
-                      </td>
-                    </tr>
-                  </table>
-                  <div style="margin-top:15px; padding:0px 5px;">
-                    <div class="input-group" style="display: none;">
-                      <span class="input-group-addon">其他</span>
-                      <input class="form-control" id="direct_donation_input" placeholder="输入捐款金额" type="text" value="5">
-                      <span class="input-group-addon">元</span>
-                    </div>
-                    <div style="display: none;"> <%= text_field_tag :direct_donation, "", class: 'form-control', placeholder: '输入捐款金额' %></div>
-
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer btns" style="text-align: center; position:relative;">
-                <button id="btn_submit1" class="btn btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
-                  <span class="text" style="letter-spacing:1px;">我要捐款</span>
-                  <span class="loader" style="display:none"></span>
-                </button>
-                <button id="payment-form-submit" class="btn btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
-                  <span class="text" style="letter-spacing:1px;">我要捐款</span>
-                  <span class="loader" style="display:none"></span>
-                </button>
-              </div>
-              <!-- hidden_field_tag text_field_tag -->
-              </form>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal -->
-        </div>
+        <%=render 'dialog_pay' %>
 
         <!--Footer-->
         <div class="footer">
