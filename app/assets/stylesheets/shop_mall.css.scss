@@ -1,0 +1,253 @@
+// Place all the styles related to the shop_mall controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+html {
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-family: Helvetica,"STHeiti STXihei","Microsoft JhengHei","Microsoft YaHei",Tohoma,Arial;
+  font-size: 12px;
+}
+body
+{
+  margin: 0px;
+  padding: 0px;
+}
+a, body {
+  color: #333;
+}
+.shop_mall {
+
+  padding-bottom: 100px;
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+  }
+  hr {
+    margin: 0;
+    border: 0px none;
+    border-top: 1px solid #eee;
+  }
+  #divSmallBox {
+    overflow: hidden;
+    *display: inline;
+    *zoom: 1;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+  .playbox {
+    width: 500px;
+    height: 409px;
+    //margin: 20px auto;
+    background: #333;
+    position: relative;
+    overflow: hidden;
+  }
+  .playbox .oUlplay {
+    width: 99999px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .playbox .oUlplay li {
+    float: left;
+    height: 100%;
+  }
+  .playbox .oUlplay li img{
+    width: 100%;
+    height: 100%;
+  }
+  .playbox .pre {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 190px;
+    left: 10px;
+    z-index: 10;
+  }
+  .playbox .next {
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 190px;
+    right: 10px;
+    z-index: 10;
+  }
+  .playbox .smalltitle {
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    bottom: 15px;
+    z-index: 10
+  }
+  .playbox .smalltitle ul {
+    width: 120px;
+    margin: 0 auto;
+  }
+  .playbox .smalltitle ul li {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background: #CCCCCC;
+    float: left;
+    overflow: hidden;
+    *display: inline;
+    *zoom: 1;
+    cursor: pointer;
+  }
+  .playbox .smalltitle .thistitle {
+    background: #69aaec;
+  }
+
+  .goods-header {
+    height: auto;
+    padding: 8px 0 6px;
+    overflow: hidden;
+    border-top: 1px solid #f2f2f2;
+    background-color: #fff;
+  }
+  .goods-header .title {
+    font-weight: 400;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: left;
+  }
+  .goods-price {
+    padding: 5px 10px 2px;
+    text-align: left;
+  }
+  .current-price {
+    color: #f60;
+    display: inline-block;
+    font-size: 14px;
+  }
+  .current-price>span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: small;
+  }
+  .current-price .price {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+  }
+  .goods-price i {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 20px;
+    vertical-align: baseline;
+  }
+  .original-price {
+    text-decoration: line-through;
+    vertical-align: middle;
+    color: #999;
+    font-size: 14px;
+    display: inline-block;
+  }
+  .sku-detail {
+    position: relative;
+    margin-bottom: 5px;
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .sku-detail .sku-detail-inner {
+    padding: 1px 10px;
+  }
+  .sku-detail .sku-group {
+    position: relative;
+    padding-top: 1px;
+    margin-top: -1px;
+  }
+  .sku-detail dt {
+    float: left;
+    color: #999;
+  }
+  .sku-detail dl {
+    margin: 8px 0;
+    zoom: 1;
+  }
+  .sku-detail .sku-group .sku-item {
+    padding-right: 15px;
+  }
+  .sku-detail .sku-group:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    width: 6px;
+    height: 11px;
+    background: url("") no-repeat;
+    background-position: -40px -18px;
+    background-size: 58px 48px;
+  }
+  .custom-store
+  {
+    font-size: small;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .goods-content
+  {
+     height: 300px;
+    background-color: #f8f8f8;
+  }
+  .goods-footer
+  {
+
+  }
+  .goods-footer a
+  {
+    text-decoration: none;
+  }
+  .goods-footer p
+  {
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    padding-left: 5px;
+  }
+  .goods-bottom
+  {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 1;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    padding: 5px 0px 5px 0px;
+  }
+  .goods-bottom p
+  {
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    border-color: #f15a0c;
+    background-color: #f15a0c;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    padding: 10px 15px 10px 15px;
+    width: 40%;
+
+  }
+  .goods-bottom p a{
+     color: white;
+    text-decoration: none;
+  }
+}
