@@ -9,29 +9,47 @@ class WeixinController < ApplicationController
     menu = {
       button: [
         {
-          name: "筹款活动",
-          sub_button: [
-            {
-              type: "view",
-              name: "紧急救助大山枣农",
-              url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
-            },
-            {
-              type: "view",
-              name: "太阳花盛放",
-              url: "http://www.11haoonline.com/tyhsf"
-            },
-            {
-              type: "view",
-              name: "威爱有你",
-              url: "http://www.11haoonline.com/love-have-you"
-            },
-            {
-              type: "view",
-              name: "“特”立同行",
-              url: "http://www.11haoonline.com/TLTX"
-            }
-          ]
+            name: "守护绿色",
+            sub_button: [
+                {
+                    type: "view",
+                    name: "昕耕工坊",
+                    url: "http://www.11haoonline.com/checkout/xgst"
+                },
+                {
+                    type: "view",
+                    name: "爱芬环保",
+                    url: "http://www.11haoonline.com/checkout/lovehb"
+                },
+                {
+                    type: "view",
+                    name: "绿洲读书会",
+                    url: "http://www.11haoonline.com/checkout/lzds"
+                }
+            ]
+          # name: "筹款活动",
+          # sub_button: [
+          #   {
+          #     type: "view",
+          #     name: "紧急救助大山枣农",
+          #     url: "http://www.11haoonline.com/jjjzdszn-ctryjhhtz-ytdjym"
+          #   },
+          #   {
+          #     type: "view",
+          #     name: "太阳花盛放",
+          #     url: "http://www.11haoonline.com/tyhsf"
+          #   },
+          #   {
+          #     type: "view",
+          #     name: "威爱有你",
+          #     url: "http://www.11haoonline.com/love-have-you"
+          #   },
+          #   {
+          #     type: "view",
+          #     name: "“特”立同行",
+          #     url: "http://www.11haoonline.com/TLTX"
+          #   }
+          # ]
         },
         # {
         #   name: "拯救世界",
