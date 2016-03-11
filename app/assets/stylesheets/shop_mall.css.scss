@@ -1,21 +1,7 @@
 // Place all the styles related to the shop_mall controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-html {
-  line-height: 1;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  font-family: Helvetica,"STHeiti STXihei","Microsoft JhengHei","Microsoft YaHei",Tohoma,Arial;
-  font-size: 12px;
-}
-body
-{
-  margin: 0px;
-  padding: 0px;
-}
-a, body {
-  color: #333;
-}
+@import "main_weixin";
 .shop_mall {
 
   padding-bottom: 100px;
@@ -25,6 +11,10 @@ a, body {
     list-style: none;
 
   }
+  a{
+    color: #333;
+  }
+
   hr {
     margin: 0;
     border: 0px none;
@@ -42,7 +32,8 @@ a, body {
   }
   .playbox {
     width: 500px;
-    height: 409px;
+    min-height: 300px;
+    max-height: 600px;
     //margin: 20px auto;
     background: #333;
     position: relative;
@@ -64,29 +55,31 @@ a, body {
     height: 100%;
   }
   .playbox .pre {
+    background: image-url("l.png");
     cursor: pointer;
     width: 45px;
     height: 45px;
     position: absolute;
     top: 190px;
     left: 10px;
-    z-index: 10;
+    z-index: 1;
   }
   .playbox .next {
+    background: image-url("r.png");
     cursor: pointer;
     width: 45px;
     height: 45px;
     position: absolute;
     top: 190px;
     right: 10px;
-    z-index: 10;
+    z-index: 1;
   }
   .playbox .smalltitle {
     width: 100%;
     height: 10px;
     position: absolute;
     bottom: 15px;
-    z-index: 10
+    z-index: 1;
   }
   .playbox .smalltitle ul {
     width: 120px;
@@ -191,7 +184,7 @@ a, body {
     margin-top: -5px;
     width: 6px;
     height: 11px;
-    background: url("") no-repeat;
+    background: image-url('mallico.png');
     background-position: -40px -18px;
     background-size: 58px 48px;
   }
@@ -205,8 +198,8 @@ a, body {
   }
   .goods-content
   {
-     height: 300px;
-    background-color: #f8f8f8;
+    background-color:white;
+    padding: 15px 5px 15px 5px;
   }
   .goods-footer
   {
@@ -232,6 +225,7 @@ a, body {
     text-align: center;
     border-top: 1px solid #e5e5e5;
     padding: 5px 0px 5px 0px;
+    background-color: white;
   }
   .goods-bottom p
   {
@@ -250,4 +244,107 @@ a, body {
      color: white;
     text-decoration: none;
   }
+
+  .weui_mask_transition
+  {
+
+  }
+  .orders
+  {
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    padding: 5px 10px 0px 10px;
+  }
+  .orders .orders_ico
+  {
+    width: 10%;
+    float: left;
+  }
+  .orders .orders_ico img
+  {
+    width: 100%;
+    height: 100%;
+  }
+  .orders .orders_des
+  {
+    width: 89%;
+    float: left;
+  }
+  .orders .cancel-img
+  {
+
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top:10px;
+    right: 5px;
+    background: image-url('buyicon.png');
+    background-position: 0 -108px;
+    background-size: 40px auto;
+  }
+  .orders-type
+  {
+    height: 80px;
+    padding: 5px 0px 10px 10px;
+  }
+  .orders-type p
+  {
+    padding-left: 10px;
+  }
+  .orders-type ul
+  {
+    margin-top: 10px;
+
+  }
+  .orders-type li
+  {
+
+  }
+  .orders-type .tag
+  {
+    background-color: transparent;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 32px;
+    float: left;
+    padding: 5px;
+    margin-left: 5px;
+  }
+
+  .orders-count
+  {
+    height: 30px;
+    padding: 10px;
+
+  }
+  .orders-count p
+  {
+    height: 30px;
+    vertical-align: top;
+  }
+  .orders-count button{
+    width: 37px;
+    height: 29px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+  .orders-count input
+  {
+    width: 33px;
+    height: 25px;
+    padding: 1px;
+    border: 1px solid #999;
+    border-width: 1px 0;
+    vertical-align: top;
+    text-align: center;
+    margin-left: -3px;
+    margin-right: -3px;
+  }
+}
+
+.product_pay
+{
+    background-color: rgb(238, 238, 238);
 }

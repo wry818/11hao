@@ -123,6 +123,7 @@ Raisy::Application.routes.draw do
     resources :campaigns, except: [:show]
 
   get 'shopmall/product', to: 'shop_mall#product', as: :shop_mall_product
+  get 'shopmall/pay', to: 'shop_mall#pay', as: :shop_mall_product_pay
     #personal_story
   get 'checkout/lzds', to: 'campaign_ngo#lzds', as: :campagin_ngo_lzds
   get 'campaginngo/lzds_supporters', to: 'campaign_ngo#lzds_supporters', as: :campagin_ngo_lzds_supporters

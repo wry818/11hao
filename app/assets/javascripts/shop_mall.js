@@ -60,45 +60,55 @@ window.shopmall = {
         var _this=this;
         function tab() {
             for (var i = 0; i < aLiSmall.length; i++) {
-                aLiSmall[i].className = '';
+                $(aLiSmall[i]).removeClass();
             }
-            aLiSmall[now].className = 'thistitle'
+            $(aLiSmall[now]).addClass('thistitle');
             _this.startMove(oUlBig, 'left', -(now * aBigLi[0].offsetWidth));
         }
 
         var now = 0;
         for (var i = 0; i < aLiSmall.length; i++) {
             aLiSmall[i].index = i;
-            aLiSmall[i].onclick = function () {
+
+            $(aLiSmall[i]).click(function () {
                 now = this.index;
                 tab();
-            }
+            });
         }
-        oPre.onclick = function () {
-            now--
+        function _click()
+        {
+            now--;
             if (now == -1) {
-                now = aBigLi.length;
+                now = aBigLi.length-1;
             }
             tab();
         }
-        oNext.onclick = function () {
-            now++
+        oPre.click(function () {
+            _click();
+        });
+        function __click()
+        {
+            now++;
             if (now == aBigLi.length) {
                 now = 0;
             }
             tab();
         }
-        var timer = setInterval(oNext.onclick, 3000) //滚动间隔时间设置
-        $oDiv.onmouseover = function () {
+        oNext.click(function () {
+            __click();
+        });
+        var timer = setInterval(_click, 3000) //滚动间隔时间设置
+        $oDiv.mouseover(function() {
             clearInterval(timer)
-        }
-        $oDiv.onmouseout = function () {
-            timer = setInterval(oNext.onclick, 3000) //滚动间隔时间设置
-        }
+        });
+        $oDiv.mouseout(function (){
+            timer = setInterval(__click, 3000) //滚动间隔时间设置
+        });
     },
 
     showbug:function () {
-        $("#showActionSheet").click(function(){
+        $(".js-showActionBuy").click(function(){
+            $this=$(this);
             var mask = $('#mask');
             var weuiActionsheet = $('#weui_actionsheet');
             weuiActionsheet.addClass('weui_actionsheet_toggle');
@@ -109,7 +119,6 @@ window.shopmall = {
                 hideActionSheet(weuiActionsheet, mask);
             });
             weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
-
             function hideActionSheet(weuiActionsheet, mask) {
                 weuiActionsheet.removeClass('weui_actionsheet_toggle');
                 mask.removeClass('weui_fade_toggle');
@@ -118,6 +127,15 @@ window.shopmall = {
                 }).on('webkitTransitionEnd', function () {
                     mask.hide();
                 })
+            }
+            //alert($this.prop("id"));
+            if($this.prop("id")=="showActionBuy")
+            {
+                $("#btn_buy_next").css("display",'');
+                $("#btn_buy_box").css("display",'none');
+            } else {
+                $("#btn_buy_next").css("display",'none');
+                $("#btn_buy_box").css("display",'');
             }
         });
 

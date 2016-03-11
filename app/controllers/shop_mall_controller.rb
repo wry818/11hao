@@ -5,4 +5,8 @@ class ShopMallController < ApplicationController
 
     
   end
+
+  def pay
+
+  end
 end
