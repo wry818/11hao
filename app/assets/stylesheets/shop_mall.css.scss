@@ -258,7 +258,7 @@
   }
   .orders .orders_ico
   {
-    width: 10%;
+    height: 90%;
     float: left;
   }
   .orders .orders_ico img
@@ -341,6 +341,20 @@
     text-align: center;
     margin-left: -3px;
     margin-right: -3px;
+    background-color: white;
+  }
+  #footer_cart{
+
+    color:#f15a0c;
+    position: fixed;
+    font-size: 16px;
+    bottom: 50px;
+    right: 12px;
+    font-weight: bold;
+    text-align: right;
+    width: 38px;
+    z-index: 1;
+    zoom: 1;
   }
 }
 

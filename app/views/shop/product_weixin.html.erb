@@ -1,3 +1,4 @@
+<input type="hidden" id="campaign_slug"  value="<%= @campaign.slug %>"/>
 <div class="shop_mall">
   <div id="playBox" class="playbox">
     <div class="pre"></div>
@@ -112,6 +113,9 @@
       <a href="javascript:;" style="color: #0c0c0c">加入购物车</a>
     </p>
   </div>
+  <form class="product-form">
+    <input id="add_discount" type="hidden" name="add_discount" value="<%= @campaign.is_discount? ? 1 : 0 %>"/>
+
   <div id="actionSheet_wrap">
     <div class="weui_mask_transition" id="mask"></div>
     <div class="weui_actionsheet" id="weui_actionsheet">
@@ -120,7 +124,7 @@
           <div class="orders_ico">
 
             <% if (photos&&photos.length>0) %>
-                <%= cl_image_tag photos.first.public_id, width: 100, height: 100, crop: :fill %>
+                <%= cl_image_tag photos.first.public_id, width: 50, height: 50, crop: :fill %>
             <% end %>
           </div>
 
@@ -147,14 +151,15 @@
             <%= option_group.name.capitalize %>：
           </p>
 
-          <ul class="">
+          <ul class="js-options-select">
             <% if @option_group_properties
                  @option_group_properties.each do |property| %>
-                    <li class="tag"><%= property.value %></li>
+                    <li class="tag" data-id="<%= property.id %>"><%= property.value %></li>
                 <% end
                    end %>
           </ul>
-
+          <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
+          <input type="hidden" name="item[options][][value]" />
         </div>
             <% end %>
         <hr class="with-margin">
@@ -162,18 +167,24 @@
           <p>
             <span style="float: left;margin-top: 5px;margin-left: 10px;">数量：</span>
             <span style="float: right;">
-               <button class="minus" type="button" disabled="true"><span>-</span></button>
-              <input type="text" class="txt" value="1">
-              <button class="plus" type="button"><span>+</span></button>
+               <button id="btn-count-minus" class="minus" type="button" ><span>-</span></button>
+              <input id="btn-count-value" type="text" class="txt" disabled="disabled" value="1">
+              <button id="btn-count-plus" class="plus" type="button"><span>+</span></button>
             </span>
           </p>
+          <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
         </div>
         <hr>
+
+        <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
+        <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+        <input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
+
         <div id="btn_buy_next" style="padding: 10px;">
-          <a href="<%= shop_mall_product_pay_path %>" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">下一步</a>
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">下一步</a>
         </div>
         <div id="btn_buy_box" style="padding: 10px;">
-          <a href="<%= shop_mall_product_pay_path %>" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">加入购物车</a>
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">加入购物车</a>
         </div>
       </div>
       <!--<div class="weui_actionsheet_menu">-->
@@ -185,6 +196,15 @@
       <!--<div class="weui_actionsheet_action">-->
       <!--<div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>-->
       <!--</div>-->
+    </div>
+  </div>
+  </form>
+
+  <div id="footer_cart" data-count="<%=  @order.num_items if @order.items %>" style="display: block;">
+    <div style="position:relative; text-align:right;">
+      <%= image_tag "float-cart.png",:style => "height:40px;" %>
+      <div style="position:absolute; top:-10px; right:0px; width:60px; text-align:center;">
+        <span class="badge cart-count"><%= @order.num_items if @order.items %></span></div>
     </div>
   </div>
 </div>
