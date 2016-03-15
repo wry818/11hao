@@ -225,7 +225,7 @@
     }
 
     function ComfirmOrder() {
-
+      alert(1111);
       var order_make_anonymous = false;
       var fullName = $("#fullname").val();
 
@@ -239,6 +239,7 @@
       var order_time = new Date();
       var format_order_time =  order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
 
+      alert(Validate());
       if (!Validate()) return;
 
       var data;
@@ -293,7 +294,6 @@
           alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
         }
       });
-
     }
 
     function Validate() {
