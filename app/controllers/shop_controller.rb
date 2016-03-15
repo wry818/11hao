@@ -120,6 +120,7 @@ class ShopController < ApplicationController
         end
     end
     def product_weixin
+      weixin_jssdk_init()
       @product = Product.friendly.find(params[:product_id])
       redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
 
