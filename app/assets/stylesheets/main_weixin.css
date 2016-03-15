@@ -1,0 +1,13 @@
+html {
+    line-height: 1;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-family:'Helvetica Neue',Helvetica,"STHeiti STXihei","Microsoft JhengHei","Microsoft YaHei",Tohoma,Arial;
+    font-size: 12px;
+}
+body
+{
+    margin: 0px;
+    padding: 0px;
+    color: #333;
+}

@@ -1,0 +1,195 @@
+<div class="shop_mall">
+  <div id="playBox" class="playbox">
+    <div class="pre"></div>
+    <div class="next"></div>
+    <ul class="oUlplay">
+      <% photos=@product.all_photo.all %>
+      <% if (photos&&photos.length>0)
+           photos.each do |photo| %>
+              <li>
+                <a href="javascript:void(0);" target="_blank">  <%= cl_image_tag photo.public_id, width: 400, height: 280, crop: :fill %></a>
+              </li>
+          <% end
+             else %>
+          <li><a href="#" target="_blank"><img src="/images/test/sp01.jpg"/></a></li>
+      <% end %>
+    </ul>
+    <div class="smalltitle">
+      <ul>
+        <% photos=@product.all_photo.all %>
+        <% if (photos&&photos.length>0)
+             photos.each do |photo| %>
+                <li></li>
+            <% end
+               end %>
+        <!--<li class="thistitle"></li>-->
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="goods-header">
+    <h2 class="title"><%= @product.name %></h2>
+
+    <div class="goods-price ">
+      <div class="current-price">
+        <span>￥&nbsp;</span><i class="js-goods-price price">
+        <span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+      </i>
+      </div>
+      <div class="original-price">
+      </div>
+    </div>
+  </div>
+  <hr class="with-margin">
+
+  <div class="sku-detail adv-opts" style="border-top:none;">
+    <div class="sku-detail-inner adv-opts-inner">
+      <% option_group=@option_group %>
+      <% if option_group %>
+          <div class="sku-group">
+            <dl class="js-select-sku sku-item">
+
+              <dt> <%= option_group.name.capitalize %>：</dt>
+              <dd>
+                <% if @option_group_properties
+                     @option_group_properties.each do |property| %>
+                        <%= property.value %>、
+                    <% end
+                       end %>
+              </dd>
+            </dl>
+            <hr>
+          </div>
+      <% end %>
+      <dl>
+        <dt>运费：</dt>
+        <dd>免运费</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="custom-store">
+
+                        <span class="weui_icon_success_no_circle">
+
+            </span>
+    <span class="rz-name font-size-12 c-gray-darker">企业认证</span>
+                        <span class="weui_icon_success_no_circle">
+
+            </span>
+    <span class="rz-name font-size-12 c-gray-darker">担保交易</span>
+
+  </div>
+  <div class="goods-content">
+
+    <% if @product.description %>
+        <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+    <% end %>
+
+  </div>
+
+  <div class="goods-footer">
+    <hr class="with-margin">
+    <p>
+      <!--<a href="#" target="_blank">店铺主页</a>-->
+      <!--<a href="#" target="_blank">会员中心</a>-->
+      <a href="javascript:;" class="js-open-follow">关注我们</a>
+    </p>
+
+    <p>
+      <a href="#" target="_blank">凡益信息科技(上海)有限公司技术支持</a>
+    </p>
+
+  </div>
+  <div class="goods-bottom">
+    <p id="showActionBuy" class="js-showActionBuy">
+      <a href="javascript:;">立即购买</a>
+    </p>
+
+
+    <p id="showActionBuyBox" class="js-showActionBuy" style="background-color: white;">
+      <a href="javascript:;" style="color: #0c0c0c">加入购物车</a>
+    </p>
+  </div>
+  <div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask"></div>
+    <div class="weui_actionsheet" id="weui_actionsheet">
+      <div style="background-color: white;">
+        <div class="orders">
+          <div class="orders_ico">
+
+            <% if (photos&&photos.length>0) %>
+                <%= cl_image_tag photos.first.public_id, width: 100, height: 100, crop: :fill %>
+            <% end %>
+          </div>
+
+          <div class="orders_des">
+            <p class="" style="    padding-left: 5px;"><%= @product.name %></p>
+
+            <div class="" style="    padding-left: 5px;">
+              <div class="current-price pull-left c-black">
+                <span>￥</span>
+                <i>
+                  <span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+                </i>
+              </div>
+            </div>
+          </div>
+          <div id="actionsheet_cancel" class="cancel-img"></div>
+
+        </div>
+        <% if option_group %>
+        <hr class="with-margin">
+        <div class="orders-type">
+
+          <p>
+            <%= option_group.name.capitalize %>：
+          </p>
+
+          <ul class="">
+            <% if @option_group_properties
+                 @option_group_properties.each do |property| %>
+                    <li class="tag"><%= property.value %></li>
+                <% end
+                   end %>
+          </ul>
+
+        </div>
+            <% end %>
+        <hr class="with-margin">
+        <div class="orders-count">
+          <p>
+            <span style="float: left;margin-top: 5px;margin-left: 10px;">数量：</span>
+            <span style="float: right;">
+               <button class="minus" type="button" disabled="true"><span>-</span></button>
+              <input type="text" class="txt" value="1">
+              <button class="plus" type="button"><span>+</span></button>
+            </span>
+          </p>
+        </div>
+        <hr>
+        <div id="btn_buy_next" style="padding: 10px;">
+          <a href="<%= shop_mall_product_pay_path %>" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">下一步</a>
+        </div>
+        <div id="btn_buy_box" style="padding: 10px;">
+          <a href="<%= shop_mall_product_pay_path %>" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">加入购物车</a>
+        </div>
+      </div>
+      <!--<div class="weui_actionsheet_menu">-->
+      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+      <!--</div>-->
+      <!--<div class="weui_actionsheet_action">-->
+      <!--<div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>-->
+      <!--</div>-->
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+  });
+</script>

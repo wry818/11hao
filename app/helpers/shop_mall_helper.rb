@@ -1,0 +1,2 @@
+module ShopMallHelper
+end

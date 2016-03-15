@@ -1,0 +1,17 @@
+<style>
+
+
+</style>
+<div class="container product_cart">
+  <div class="bd js-panel">
+        <%= render "cart_modal_weixin" %>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    window.shopmall.loadCart();
+    window.shopmall.updateQuantity();
+    window.shopmall.orderItemDelete();
+  });
+</script>
