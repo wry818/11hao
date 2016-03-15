@@ -143,7 +143,13 @@ window.shopmall = {
     },
 
     optionSelect: function () {
+        if($(".js-options-select").html()==null)
+        {
+            return;
+        }
+
         $ui = $(".js-options-select").find("li");
+
         $ui.click(function () {
             $ui.css("border", "1px solid rgb(229, 229, 229)");
             $(this).css("border", "1px solid rgb(255, 102, 0)");
