@@ -280,11 +280,13 @@
           jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         },
         success: function (data) {
+          alert(0);
           <% if @campaign.used_as_default? %>
           window.location.href = "/" + "<%= @campaign.slug %>" + "/checkout_support";
           <% else %>
           window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
           <% end %>
+          alert(1);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
           alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
