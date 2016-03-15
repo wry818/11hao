@@ -268,7 +268,7 @@
   }
   .orders .orders_des
   {
-    width: 89%;
+    width: 80%;
     float: left;
   }
   .orders .cancel-img
@@ -361,4 +361,61 @@
 .product_pay
 {
     background-color: rgb(238, 238, 238);
+}
+
+.product_cart
+{
+  .bottom_count {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: left;
+    height: 50px;
+  }
+
+  .bottom_count p {
+    height: 100%;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .bottom_count p i {
+    padding-top: 10px;
+    float: left;
+  }
+
+  .bottom_count p a {
+    width: 80%;
+  }
+  .orders-count
+  {
+    height: 30px;
+  }
+  .orders-count p
+  {
+    height: 30px;
+    vertical-align: top;
+  }
+  .orders-count button{
+    width: 37px;
+    height: 29px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+  .orders-count input
+  {
+    width: 33px;
+    height: 25px;
+    padding: 1px;
+    border: 1px solid #999;
+    border-width: 1px 0;
+    vertical-align: top;
+    text-align: center;
+    margin-left: -3px;
+    margin-right: -3px;
+    background-color: white;
+  }
+
 }

@@ -49,7 +49,7 @@
       <% option_group=@option_group %>
       <% if option_group %>
           <div class="sku-group">
-            <dl class="js-select-sku sku-item">
+            <dl class="js-select-sku sku-item js-showActionBuy">
 
               <dt> <%= option_group.name.capitalize %>：</dt>
               <dd>
@@ -210,6 +210,13 @@
 </div>
 
 <script>
-  $(function () {
+  $(document).ready(function () {
+    window.shopmall.StarRun();
+    window.shopmall.showbug();
+    window.shopmall.optionSelect();
+    window.shopmall.quantitySelect();
+    window.shopmall.addOrderItem();
+    $("#playBox").css("width", $(window).outerWidth());
+    $('#playBox').find(".oUlplay").find("li").css("width", $(window).outerWidth());
   });
 </script>

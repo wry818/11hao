@@ -195,7 +195,9 @@ class ShopController < ApplicationController
       
       if @order
         @campaign = @order.campaign
-        
+        if params[:cart_weixin]&&params[:cart_weixin]=="true"
+          render partial: "cart_modal_weixin" and return
+        end
         render partial: "order_summary"
       else
         render text: 'fail'
@@ -626,6 +628,9 @@ class ShopController < ApplicationController
 
       end
 
+      if params[:cart]&&params[:cart]=="true"
+          render template: "shop/cart_weixin" and return;
+      end
     end
     
     def weixin_native_pay
