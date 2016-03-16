@@ -6,9 +6,9 @@ class ShopController < ApplicationController
     before_filter :log_ip, only: [:show, :supporters, :shop, :category, :product,:product_weixin, :checkout,:checkout_weixin, :checkout_confirmation]
     skip_before_filter :verify_authenticity_token, :only => [:weixin_notify]
     
-    layout "shop",except: [:product_weixin,:checkout_weixin]
+    layout "shop",except: [:product_weixin,:checkout_weixin,:show_confirmation_weixin]
 
-    layout "shop_weixin",:only=>[:product_weixin,:checkout_weixin]
+    layout "shop_weixin",:only=>[:product_weixin,:checkout_weixin,:show_confirmation_weixin]
     def show
       
         @help_text = "Help" + (@seller ? " " + @seller.user_profile.first_name : "") + " fundraise for " + @campaign.title
@@ -1237,7 +1237,25 @@ class ShopController < ApplicationController
       
       render "checkout_confirmation" and return
     end
+    def show_confirmation_weixin
+      session[:confirm_order_id]=642
+      if session[:confirm_order_id]
+        @order = Order.find_by_id(session[:confirm_order_id])
 
+        if @order.campaign.used_as_default?
+          @order.campaign_id = @campaign.id
+          @order.save
+        end
+
+        # unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
+        #   redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        # end
+      else
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+      end
+
+      render "checkout_confirmation_weixin" and return
+    end
     def checkout_confirmation
 
         @order = Order.find_by_id(params[:order_id])

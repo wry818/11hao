@@ -285,7 +285,7 @@
           <% if @campaign.used_as_default? %>
           window.location.href = "/" + "<%= @campaign.slug %>" + "/checkout_support";
           <% else %>
-          window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation";
+          window.location.href = "/" + "<%= @campaign.slug %>" + "/confirmation_weixin";
           <% end %>
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

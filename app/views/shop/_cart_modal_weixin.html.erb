@@ -1,7 +1,7 @@
 <% if @order.items&&@order.items.length>0%>
     <div class="weui_panel weui_panel_access">
       <div class="weui_panel_hd"><span><%= @campaign.title %></span>
-        <span  id="js-btn-edit" style="float: right;color: #1ab7ea;">编辑</span></div>
+        <span  id="js-btn-edit" style="float: right;color: #1ab7ea;">清除</span></div>
       <% @order.items.order(:id).each do |item| %>
           <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
             <i class="weui_icon_cancel js-edit delete-item" style="margin-right: 5px;"></i>

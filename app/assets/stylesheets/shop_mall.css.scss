@@ -4,7 +4,7 @@
 
 .shop_mall {
 
-  padding-bottom: 100px;
+  padding-bottom: 60px;
   * {
     margin: 0;
     padding: 0;
@@ -235,19 +235,14 @@
   {
     display: inline-block;
     text-align: center;
-    color: #fff;
-    border-color: #f15a0c;
-    background-color: #f15a0c;
-    border: 1px solid #e5e5e5;
-    border-radius: 3px;
-    padding: 10px 15px 10px 15px;
-    width: 30%;
+    width: 45%;
     margin-left: 5px;
 
   }
   .goods-bottom p a{
-     color: white;
-    text-decoration: none;
+
+    background-color: #f15a0c;
+    color: white;
   }
 
   .weui_mask_transition
@@ -353,13 +348,17 @@
     color:#f15a0c;
     position: fixed;
     font-size: 16px;
-    bottom: 50px;
+    bottom: 60px;
     right: 12px;
     font-weight: bold;
     text-align: right;
     width: 38px;
     z-index: 1;
     zoom: 1;
+  }
+  #footer_cart span
+  {
+    font-size: smaller;
   }
 }
 

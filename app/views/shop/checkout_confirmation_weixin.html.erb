@@ -1,0 +1,74 @@
+<div class="container js_container">
+  <div class="weui_msg">
+    <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+    <div class="weui_text_area">
+      <h2 class="weui_msg_title">支付完成</h2>
+
+      <p class="weui_msg_desc">感谢您的支持，您本次购买的商品将为组织1助力</p>
+
+      <p class="weui_msg_desc">
+
+      <h2>简单公益，只因有你</h2></p>
+
+      <p class="weui_msg_desc"> 如果您有任何疑问, 请联系11号公益圈</p>
+    </div>
+    <div class="weui_extra_area">
+
+    </div>
+  </div>
+  <div class="weui_panel weui_panel_access">
+    <div class="weui_panel_hd">订单明细</div>
+    <% @order.items.each do |item| %>
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
+      <div class="weui_media_hd">
+        <p>
+          <% photos=item.product.all_photo.all %>
+          <% if (photos&&photos.length>0) %>
+              <%= cl_image_tag photos.first.public_id, width: 50, height: 50, crop: :fill,:class=>"weui_media_appmsg_thumb"%>
+          <% end %>
+        </p>
+      </div>
+      <div class="weui_media_bd">
+        <h4 class="weui_media_title"><%= item.product.name %></h4>
+        <% item.options.each do |option| %>
+            <% if option.value.present? %>
+                <p class="weui_media_desc"><%= "#{option.option_group.name}: #{option.value}" %></p>
+            <% end %>
+        <% end %>
+      </div>
+      <div class="weui_media_lf" style="text-align: right;">
+        <h4 class="weui_media_title" style="color:rgb(255, 102, 0);">￥<span><%= long_price(item.total_price/100.0) %></span></h4>
+
+        <p class="weui_media_desc">×<%= item.quantity %></p>
+
+      </div>
+    </a>
+    <% end %>
+
+
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
+      <div class="weui_media_bd">
+        <p class="weui_media_desc">支付金额：</p>
+      </div>
+      <div class="weui_media_lf">
+        <p class="weui_media_desc"><span>￥<%= long_price(@order.grandtotal/100.0) %></span></p>
+      </div>
+    </a>
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
+      <div class="weui_media_bd">
+        <p class="weui_media_desc">订单编号：</p>
+      </div>
+      <div class="weui_media_lf">
+        <p class="weui_media_desc"><span><%= @order.id.to_s.rjust(8,'0') %></span></p>
+      </div>
+    </a>
+  </div>
+  <div class="weui_msg">
+    <div class="weui_opr_area">
+      <p class="weui_btn_area">
+        <a href="<%= short_campaign_path(@campaign) %>" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+      </p>
+    </div>
+
+  </div>
+</div>

@@ -326,6 +326,7 @@ Raisy::Application.routes.draw do
     get ':id/shop/product_weixin/:product_id', to: 'shop#product_weixin', as: :shop_product_weixin
   get ':id/shop/product/:product_id', to: 'shop#product', as: :shop_product
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
+   get ':id/confirmation_weixin', to: 'shop#show_confirmation_weixin', as: :show_confirmation_weixin
     post ':id/confirmation', to: 'shop#checkout_confirmation', as: :checkout_confirmation
     get ':id/checkout_support', to: 'shop#checkout_support', as: :checkout_support
     get ':id/checkout_support_page', to: 'shop#checkout_support_page', as: :checkout_support_page

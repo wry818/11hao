@@ -77,9 +77,8 @@
         <dd>免运费</dd>
       </dl>
       <hr>
-      <dl>
-        <dt>捐款：</dt>
-        <dd style="color: #99CC33;"> <%= @min_donation_price==@max_donation_price ? long_price(@max_donation_price) : long_price(@min_donation_price) + " - " + long_price(@max_donation_price) %></dd>
+      <dl style="text-align: center;">
+        <dd style="color: #999">您每购买一件产品将捐助：￥<%= @min_donation_price==@max_donation_price ? long_price(@max_donation_price) : long_price(@min_donation_price) + " - " + long_price(@max_donation_price) %></dd>
       </dl>
     </div>
   </div>
@@ -111,22 +110,16 @@
       <!--&lt;!&ndash;<a href="#" target="_blank">会员中心</a>&ndash;&gt;-->
       <!--<a href="javascript:;" class="js-open-follow">关注我们</a>-->
     <!--</p>-->
-
     <p>
-      <a href="javascript:void(0);" target="_blank">11号公益圈技术支持</a>
-    </p>
-    <p>
-      <a href="javascript:void(0);" target="_blank">© 2015 11号公益圈 沪ICP备14036178号-1 </a>
+      <a href="javascript:void(0);" target="_blank">11号公益圈提供技术支持</a>
     </p>
   </div>
   <div class="goods-bottom">
     <p id="showActionBuy" class="js-showActionBuy">
-      <a href="javascript:;">立即购买</a>
+      <a href="javascript:;" class="weui_btn weui_btn_primary">立即购买</a>
     </p>
-
-
     <p id="showActionBuyBox" class="js-showActionBuy" style="background-color: white;">
-      <a href="javascript:;" style="color: #0c0c0c">加入购物车</a>
+      <a href="javascript:;" class="weui_btn weui_btn_primary">加入购物车</a>
     </p>
   </div>
   <form class="product-form">

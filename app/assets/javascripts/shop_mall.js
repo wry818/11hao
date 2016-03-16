@@ -232,7 +232,7 @@ window.shopmall = {
                                 $('#actionsheet_cancel').click();
                             }
                             else {
-                                window.location.href = "/checkout/checkout_weixin?id=" + $("#campaign_slug").val() + "&showwxpaytitle=1&agent_type=weixin";
+                                window.location.href = "/checkout/checkout_weixin?id=" + $("#campaign_slug").val() + "&showwxpaytitle=1&agent_type=weixin&cart=true";
                             }
                         }
                     },
@@ -248,14 +248,12 @@ window.shopmall = {
         $edit = $("#js-btn-edit");
         var isEdit = false;
         $edit.bind('click', function () {
-            if (isEdit) {
-                hidEdit();
-                $edit.text("编辑");
-            } else {
-                showEdit();
-                $edit.text("完成");
-            }
-            isEdit = !isEdit;
+            //if (isEdit) {
+            //    hidEdit();
+            //} else {
+            //    showEdit();
+            //}
+            //isEdit = !isEdit;
 
         });
         function showEdit() {
@@ -268,7 +266,7 @@ window.shopmall = {
             $(".js-edit").hide();
         }
 
-        hidEdit();
+        showEdit();
     },
     updateQuantity: function () {
         $btn_minus = $(".btn-count-minus");
