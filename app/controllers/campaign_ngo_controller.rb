@@ -168,8 +168,9 @@ class CampaignNgoController < ApplicationController
   end
 
   def confirmation
+    logger.debug "1001"+params[:direct_donation].to_s
     @order = @campaign.orders.new
-    @order.direct_donation=params[:direct_donation].present? ? params[:direct_donation].to_i : 500
+    @order.direct_donation=params[:direct_donation].present? ? params[:direct_donation].to_f*100 : 500
     @order.save
 
     if !@order.valid?
@@ -200,7 +201,7 @@ class CampaignNgoController < ApplicationController
       @order.seller_id=@seller.id if @seller
     end
 
-    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_i : 500
+    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_f*100 : 500
     @order.save
 
     if !@order.valid?
