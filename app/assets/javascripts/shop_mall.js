@@ -189,14 +189,15 @@ window.shopmall = {
     addOrderItem: function () {
         $cart = $("#footer_cart");
         var cart_count = parseInt($cart.data("count"));
-        if (cart_count < 1) {
-            $cart.hide();
-        }
+        //if (cart_count < 1) {
+        //    $cart.hide();
+        //}
         $cart.one("click", function () {
             window.location.href = "/checkout/checkout_weixin?id=" + $("#campaign_slug").val() + "&showwxpaytitle=1&agent_type=weixin&cart=true";
         });
         var is_add_to_cart = false;
         $("#btn_buy_next").click(function () {
+            is_add_to_cart = false;
             addOrderItem();
         });
         $("#btn_buy_box").click(function () {

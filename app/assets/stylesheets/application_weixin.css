@@ -11,4 +11,5 @@
  *= require_self
  *= require shop_mall
   *= require weui.min
+  *= require main_weixin
  */
