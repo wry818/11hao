@@ -1,0 +1,468 @@
+<style>
+  h3{
+    color: #FF9933;
+  }
+</style>
+<div style="padding-bottom: 100px;" id="pageContainer">
+  <div class="detail">
+    <div class="top">
+      <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
+      <div class="hd">
+        <img src="/images/shgs/p_01.jpg">
+      </div>
+    </div>
+    <div class="named">
+      <div class="tt">给古树系一条红丝带</div>
+      <div class="dd" >
+        <% if @isback  %>
+
+        <%else%>
+            5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害。
+        <% end%>
+      </div>
+      <% if @isback  %>
+          <div class="dd" style="text-align: center;" >
+            <h3>感谢您的支持</h3>
+            <p style="margin-top:2px;">
+              特送您一份大众点评现金红包！
+            </p>
+            <!--<p style="margin-top:20px;">简单公益，只因有你！</p>-->
+
+            <p style="margin-top:5px; margin-bottom:15px;">
+
+              <a class="btn btn-success" href="http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">领取红包</a>
+
+            </p>
+            <p style="margin-top:15px; margin-bottom:15px;">
+
+              <a id="btn_share" class="btn btn-success" href="javascript:void(0);" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">邀请好友参与</a>
+
+            </p>
+            <p style="margin-top:15px; margin-bottom:15px;">
+              <%= link_to "返回捐款页面", campagin_ngo_shgs_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
+            </p>
+          </div>
+      <% end%>
+    </div>
+    <% if !@isback  %>
+        <div id="campaign_detail" class="campagin_detail" style="position:relative; padding: 15px 5px 0px 5px">
+          <div class="project well" style="background-color:white; border-color:#e3e3e3; margin:0px; padding:0px;">
+            <table style=" width:100%;">
+              <tr>
+                <!-- <td style="padding: 5px 0px 5px 0px; text-align:left;">
+                  <span style="color: white; display:inline-block; margin-left:5px;">
+                    支持项目
+                  </span>
+                </td> -->
+                <td style="text-align:right;">
+                  <div class="ttbg">
+                    <div class="tt">捐助的项目</div>
+                    <div class="nmoney">已筹款:<%= short_price(@campaign.raised) %>元</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div class="row" style="margin-left: -5px; margin-right: -5px;">
+              <div class="col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                <div style="position:relative">
+                  <% if @campaign.campaign_logo %>
+                      <div style="text-align:center;">
+                        <%= cl_image_tag @campaign.campaign_logo.image_id,
+                                         transformation: [
+                                             {
+                                                 width: @campaign.campaign_logo.crop_width,
+                                                 height: @campaign.campaign_logo.crop_height,
+                                                 x: @campaign.campaign_logo.crop_x,
+                                                 y: @campaign.campaign_logo.crop_y,
+                                                 crop: :crop
+                                             }
+                                         ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
+                      </div>
+                  <% else %>
+                      <div class="campaign-default-logo-box">
+                        <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+                      </div>
+                  <% end %>
+                  <div class="campaign-header-title-box">
+                    <div class="campaign-header-logo-title">
+                      <span style="color: white"><%= @campaign.title %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ctx">
+              <span class="bt" style="padding-left:0px"> <b>善款接收：</b>北京市昌平区多元智能环境研究所</span>
+              <br/>
+              <!--<span class="bt" style="padding-left:0px"> <b>重要荣誉：</b>2015上海十佳爱心单位</span>-->
+              <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri ,:style=>"right:10px;" %></div>
+
+              <div class="summary none">
+                <div class="st">项目详情</div>
+                <div class="desc">
+                  <div id="proj_content">
+                    <p>5元，可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害</p>
+
+                    <p>
+                      古树名木是大自然和前人留给我们的无价珍宝。由于长期以来我们对古树名木的价值认识不够，
+                      保护不够，再加上城市建设的日新月异，使得古树的生存环境日趋恶劣，数量也逐年减少。
+                    </p>
+                    <p>
+                      古树保护是森林保护、文化保护的重要切入口。为此，民间环保行动者团队“森林保护局”决定从2016年3月份起，
+                      联合全国所有的愿意参与的环保组织、公益组织、车友组织、驴友组织、相关企业等，共同发起“给古树系一条红丝带”活动。
+                    </p>
+                    <p>
+                      给古树系上一条红丝带，用一颗尊重历史的心，用一颗敬畏自然的心。
+                    </p>
+                    <p>
+                    <h3> 古树存在的价值</h3>
+                    </p>
+                    <p>
+                      古树最大的特点就是活得久，经历得多。它的叶片一点一滴吸收的阳光，可能晃了撞树的蒙古人的眼睛、
+                      可能让东方珠宝的珠宝闪闪发光，晃了马可波罗的心；它的根系一口一口啜饮的溪流，可能救过第一个学会用火结果烧了屁股的原始人、
+                      也可能洗涤过一位征战沙场结果惨遭同僚算计的将军的袍巾。
+                      一棵棵古树也是城市的一段段记忆，是城市历史文化的沉淀符号。
+                    </p>
+
+                    <p>
+                      <img src="/images/shgs/p_01.jpg">
+                    </p>
+                    <p style="text-align: center;">江西千年红豆杉（郑乃员供图）</p>
+
+                    <p>
+                      用现代科学的眼光，经过光合作用和新陈代谢，古树的物质组成越来越多，空气中的二氧化碳被固定下来，组成了叶片、枝干、树根的每一处实体。
+                      它是一个耐力、包容力超强的生命，站着一动不动，用漫长的时间堆积出了庞大的身躯。
+                    </p>
+
+                    <p>如果我们钻探古树的年轮，测量那深深浅浅的弧线，我们可以知道这千百年来的温湿变化、
+                      结合史料可以进一步证实出这一地区的人事变迁。所以，古树不仅是活得久，而且活出了时间的存在感。它把看见的岁月，也让你看见。
+                    </p>
+                    <p>
+                      <h3>是不是每棵古树都面临危机？</h3>
+                    </p>
+                    <p>
+                      是的，但也分轻重缓急。有些古树面临被砍伐的命运，有些古树面临被遗弃的命运，有些古树面临被挪移的命运，
+                      有些古树生病了，有些古树找不到同伴必须加快繁殖它们的子孙。
+                    </p>
+
+                    <p>
+                      对于生活还相对安全的古树，我们可以多组织“古树生态假期”，一起听它的故事，分享它的智慧。
+                      对于命悬一线的古树，我们则需要马上组织保护倡导，开展调研、呼吁、传播、现场救护等措施。
+                    </p>
+
+
+                    <p>
+                      <img src="/images/shgs/p_02.jpg">
+                    </p>
+                    <p style="text-align: center;">北京遭到破坏的古枣树（童盈供图）</p>
+
+                    <p><h3>给古树系红丝带</h3></p>
+                    <p>
+                      给它系一条红丝带，让它在拆迁、修路、土地重新规划时被醒目的认出。让它所承载的独一无二的历史能被后人看见
+                    </p>
+                    <p>
+                      我们都知道，交新朋友很重要，维系好老朋友更重要。可是，我们为了新，一直在丢失老。在3月植树节、植树周将来之际，
+                      我们呼吁“要植树更要护树”。你肯定希望自己植下的小树被好好保护、
+                      将来长成参天大树。可如果连现在已经存在的大树、老树都不能好好保护，你的小树将来也没有光明的前途。
+                    </p>
+                    <p>
+                      我们呼吁给古树系一条红丝带（一个护身符）让看见它的人礼让三分。让拆迁、路改等不可抗力纵容的无视、恶意、肆意都少一分。
+                      事实证明，我们在北京市东城区鸭子嘴拆迁工地上发现的古树，系上了绳子的，最后才被施工方保护起来。足以见得一根红丝带它多么有用。
+                    </p>
+                    <p>
+                      <img src="/images/shgs/p_03.jpg">
+                    </p>
+                    <p style="text-align: center;">北京挂上红布条的古枣树被保护起来</p>
+                    <p><h3>获取古树承载的故事</h3></p>
+                    <p>
+                      每一棵饱经风雨的树，都有他们奇妙的故事。如果大树自身无法告诉你我，我们可以通过访问当地人，尤其是当地的老人去探求。当然，有些古树颇有名气，当地的县志啊、传说啊，可能都有其踪迹，也可从这些文献中调取和引用。
+                    </p>
+                    <p>访得之后，当然就要分享，及时让更多的人知晓，方便后来者更精心的保护。</p>
+                    <p>
+                      <img src="/images/shgs/p_04.jpg">
+                    </p>
+                    <p style="text-align: center;">郑州志愿者对工地上的古树进行抢救性保护（董云岚供图）</p>
+                    <p><h3>制作古树保护电子地图</h3></p>
+                    <p>
+                      我们考虑制作一个全国古树保护行动地图。每系上一棵古树，最好都能够定位和做相应的描述。拍摄它们的风姿，记录它们的传说与神奇；追踪它们的命运。一旦危急，及时响应。
+                    </p>
+                    <p>这样也方便全景展示给更多的人看见，形成全国的古树保护行动联盟。</p>
+                    <p>当然，在这个地图的基础上，我们考虑每个季节出一份全国古树保护行动季报。每年出一份全国古树保护行动年报。</p>
+                    <p>
+                      <img src="/images/shgs/p_05.jpg">
+                    </p>
+                    <p style="text-align: center;">九江志愿者对伤痕累累的古樟登记（桑海建供图）</p>
+
+                    <p>做这件事需要多少资金？</p>
+                    <p>保护古树是需要一些费用的，当然，很多费用会由参与的行动志愿者志愿分摊，但即使如此，也有一些硬成本，需要给予古树保护行动团队以坚实的支持。
+                    </p>
+
+                    <p>
+                      比如全国协调人的工资、实习生的津贴、调研的差旅、专家的补贴、季报年报的费用、网站和媒体平台运营成本等。万一涉及诉讼，还需要律师和诉讼方面的费用。
+                    </p>
+                    <p>
+                      <img src="/images/shgs/p_06.jpg">
+                    </p>
+                    <p>
+                      <h3>如何参与？</h3>
+                    </p>
+                    <!--<p>-->
+                      <!--所有愿意参与的人，都可成为古树保护行动者，进入“给古树系根红丝带”活动微信群。-->
+                    <!--</p>-->
+                    <p>
+                      所有愿意参与的机构，都可与“森林保护局”微信公众号联系，成为联合发起机构，共同推进。
+                    </p>
+                    <p>
+                      参与就要行动，参与就要奉献。各地可在活动组织、红丝带设计上，自由创意，但活动过程和结果，应当积极共享。
+                      活动中遭遇的困难，应当及时说出，大家联合攻克。
+                    </p>
+                    <p>
+                     <h3>我们是谁？</h3>
+                    </p>
+                    <p>
+                      森林保护局”成立于2009年，目前是国内唯一一支面向全国的民间森林保护团队。经过多年的努力取得过丰硕的成绩：
+                      倡导社会共同出力保护国家自然保护区，推动以南岭为代表的多个待开发林地建设为自然教育基地；倡导生态园林，
+                      调查揭露“大树进城”的危害并出版相关的报告文学书籍，有力地推动了问题的解决；倡导科学种树，
+                      推动树立“以营建动物栖息地为造林目标”的理念，数次发起 “将植树节改为护树节”的呼吁，直指我国轰轰烈烈的植树造林运动的误区•••
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="direct_influence" class="well" style="background-color: white; border-color:#e3e3e3; margin:15px 5px 0px 5px;  padding: 15px 5px 0px 5px;">
+          <div style="text-align: right">
+            <!-- <span id="btn_view_content" class="glyphicon glyphicon-chevron-left" style="color:#888; font-size:18px; display: none"></span> -->
+            <%= image_tag "arr_right.png", :id => 'btn_view_content', :width => 18, :height => 18, :style => "display: none" %>
+          </div>
+
+          <div id="supporters_content" style="display:none;">
+            <%= render "supporters" %>
+          </div>
+          <div class="avatar-container" style="overflow: hidden; height: 48px; position: relative">
+            <% if @supporters.count>0 %>
+                <% @supporters.each_with_index do |s, index| %>
+                    <% if s.avatar_url && s.avatar_url.to_s.gsub(' ', '').length>0 %>
+                        <img id="supporter_avatar_<%= index %>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;"/>
+                    <% else %>
+                        <%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <% end %>
+
+                    <% if index == 4 %>
+                        <% break %>
+                    <% end %>
+
+                <% end %>
+
+                <% if @supporters.count == 1 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 2 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 3 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 4 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <div id="btn_view_supporters">
+                  <%= image_tag "arr_left.png", :width => 18, :height => 18 %>
+                  <!-- <span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span> -->
+                </div>
+            <% else %>
+
+                <div style="text-align: center">
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_0", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                </div>
+
+            <% end %>
+          </div>
+          <div style="font-size: 14px; text-align:center; margin-top: 10px">
+            <% if @supporters.count>0 %>
+				<span>
+					您有
+				</span>
+                &nbsp;
+				<span style="color:#fa0000;">
+					<%= @supporters_count %>
+				</span>
+                &nbsp;
+				<span>
+					位小伙伴一起参与
+				</span>
+            <% else %>
+                暂无小伙伴参与
+            <% end %>
+          </div>
+
+        </div>
+
+
+        <%=render 'dialog_pay_input' %>
+
+        <!--Footer-->
+        <div class="footer">
+          <div id="btn_agreement" style="display: block;">
+            <span>服务协议</span>
+          </div>
+        </div>
+        <div style="background:rgba(0,0,0,0.7);position:absolute;width:100%;top:0;z-index:900;display:none" id="tips">
+
+        </div>
+    <% end%>
+  </div>
+</div>
+<% if !@isback  %>
+    <%= render "campaign_footer" %>
+<% end%>
+<%= render "share" %>
+
+<script>
+  var local_url='<%=campagin_ngo_shgs_url%>';
+  $(function(){
+    $("#btn_share").bind('click', function () {
+      $("#yqj_result_shareModal").modal('show');
+
+      $(".yqj_result_share").click(function() {
+        $("#yqj_result_shareModal").modal('hide');
+      });
+    });
+  });
+</script>
+<% if @sign_package %>
+    <script>
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: local_url,
+        img_url: "<%= cl_image_path @campaign.campaign_logo.image_id,
+                        transformation: [
+                            {
+                                width: @campaign.campaign_logo.crop_width,
+                                height: @campaign.campaign_logo.crop_height,
+                                x: @campaign.campaign_logo.crop_x,
+                                y: @campaign.campaign_logo.crop_y,
+                                crop: :crop
+                            }
+                        ] %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "让天下古树永葆青春",
+        title: "守护绿色，@我"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>

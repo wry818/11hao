@@ -68,6 +68,19 @@ window._11hao={
     loadingHid:function(){
         var $loadingToast = $('#loadingToast');
         $loadingToast.hide();
+    },
+    shareDialogShow:function(){
+        var $Toast = $('.share-dialog-show');
+        $Toast.show();
+
+        $Toast.click(function(){
+            $Toast.hide();
+        });
+    },
+    shareDialogHid:function(){
+        var $Toast = $('.share-dialog-show');
+        $Toast.hide();
+
     }
 }
 

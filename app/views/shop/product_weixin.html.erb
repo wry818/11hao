@@ -135,7 +135,7 @@
               <div class="current-price pull-left c-black">
                 <span>￥</span>
                 <i>
-                  <span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+                  <span style="font-style: normal;" id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
                 </i>
               </div>
             </div>
@@ -168,7 +168,7 @@
             <span style="float: left;margin-top: 5px;margin-left: 10px;">数量：</span>
             <span style="float: right;">
                <button id="btn-count-minus" class="minus" type="button" ><span>-</span></button>
-              <input id="btn-count-value" type="text" class="txt" disabled="disabled" value="1">
+              <input id="btn-count-value" style="color: black;" type="text" class="txt" disabled="disabled" value="1">
               <button id="btn-count-plus" class="plus" type="button"><span>+</span></button>
             </span>
           </p>
@@ -209,6 +209,7 @@
   </div>
 </div>
 
+
 <script>
   $(document).ready(function () {
     window.shopmall.StarRun();
@@ -218,6 +219,10 @@
     window.shopmall.addOrderItem();
     $("#playBox").css("width", $(window).outerWidth());
     $('#playBox').find(".oUlplay").find("li").css("width", $(window).outerWidth());
+
+    $(".js-open-follow").click(function(){
+      window._11hao.shareDialogShow();
+    });
   });
 </script>
 

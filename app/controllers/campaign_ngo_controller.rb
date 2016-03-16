@@ -79,6 +79,33 @@ class CampaignNgoController < ApplicationController
 
   end
 
+  def shgs
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "gs1001"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_shgs_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def shgs_supporters
+
+    campaign_slug = "gs1001"
+    path = campagin_ngo_shgs_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+
+
   def load_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find_by_slug(campaign_slug)
