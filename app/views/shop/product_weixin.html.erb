@@ -1,3 +1,10 @@
+<style>
+  .weui_icon_success_circle:before
+  {
+    font-size: 16px;
+    vertical-align: top;
+  }
+</style>
 <input type="hidden" id="campaign_slug"  value="<%= @campaign.slug %>"/>
 <div class="shop_mall">
   <div id="playBox" class="playbox">
@@ -67,16 +74,21 @@
         <dt>运费：</dt>
         <dd>免运费</dd>
       </dl>
+      <hr>
+      <dl>
+        <dt>捐款：</dt>
+        <dd><%= @product.default_donation_amount %></dd>
+      </dl>
     </div>
   </div>
 
   <div class="custom-store">
 
-                        <span class="weui_icon_success_no_circle">
+                        <span class="weui_icon_success_circle">
 
             </span>
     <span class="rz-name font-size-12 c-gray-darker">企业认证</span>
-                        <span class="weui_icon_success_no_circle">
+                        <span class="weui_icon_success_circle">
 
             </span>
     <span class="rz-name font-size-12 c-gray-darker">担保交易</span>
@@ -92,16 +104,18 @@
 
   <div class="goods-footer">
     <hr class="with-margin">
-    <p>
-      <!--<a href="#" target="_blank">店铺主页</a>-->
-      <!--<a href="#" target="_blank">会员中心</a>-->
-      <a href="javascript:;" class="js-open-follow">关注我们</a>
-    </p>
+    <!--<p>-->
+      <!--&lt;!&ndash;<a href="#" target="_blank">店铺主页</a>&ndash;&gt;-->
+      <!--&lt;!&ndash;<a href="#" target="_blank">会员中心</a>&ndash;&gt;-->
+      <!--<a href="javascript:;" class="js-open-follow">关注我们</a>-->
+    <!--</p>-->
 
     <p>
-      <a href="#" target="_blank">凡益信息科技(上海)有限公司技术支持</a>
+      <a href="javascript:void(0);" target="_blank">11号公益圈技术支持</a>
     </p>
-
+    <p>
+      <a href="javascript:void(0);" target="_blank">© 2015 11号公益圈 沪ICP备14036178号-1 </a>
+    </p>
   </div>
   <div class="goods-bottom">
     <p id="showActionBuy" class="js-showActionBuy">
@@ -120,7 +134,7 @@
     <div class="weui_mask_transition" id="mask"></div>
     <div class="weui_actionsheet" id="weui_actionsheet">
       <div style="background-color: white;">
-        <div class="orders">
+        <div class="orders" id="actionsheet_cancel">
           <div class="orders_ico">
 
             <% if (photos&&photos.length>0) %>
@@ -140,7 +154,7 @@
               </div>
             </div>
           </div>
-          <div id="actionsheet_cancel" class="cancel-img"></div>
+          <div  class="cancel-img"></div>
 
         </div>
         <% if option_group %>
