@@ -79,6 +79,33 @@ class CampaignNgoController < ApplicationController
 
   end
 
+  def shgs
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "gs1001"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_shgs_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def shgs_supporters
+
+    campaign_slug = "gs1001"
+    path = campagin_ngo_shgs_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+
+
   def load_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find_by_slug(campaign_slug)
@@ -141,8 +168,12 @@ class CampaignNgoController < ApplicationController
   end
 
   def confirmation
+    logger.debug "1001"+params[:direct_donation].to_s
     @order = @campaign.orders.new
-    @order.direct_donation=params[:direct_donation].present? ? params[:direct_donation].to_i : 500
+    @order.direct_donation=params[:direct_donation].present? ? params[:direct_donation].to_f*100 : 500
+    if @order.direct_donation==0
+      @order.direct_donation=500;
+    end
     @order.save
 
     if !@order.valid?
@@ -173,7 +204,10 @@ class CampaignNgoController < ApplicationController
       @order.seller_id=@seller.id if @seller
     end
 
-    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_i : 500
+    @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_f*100 : 500
+    if @order.direct_donation==0
+      @order.direct_donation=500;
+    end
     @order.save
 
     if !@order.valid?

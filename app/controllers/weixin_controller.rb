@@ -9,24 +9,26 @@ class WeixinController < ApplicationController
     menu = {
       button: [
         {
-            name: "守护绿色",
-            sub_button: [
-                {
-                    type: "view",
-                    name: "昕耕工坊",
-                    url: "http://www.11haoonline.com/checkout/xgst"
-                },
-                {
-                    type: "view",
-                    name: "爱芬环保",
-                    url: "http://www.11haoonline.com/checkout/lovehb"
-                },
-                {
-                    type: "view",
-                    name: "绿洲读书会",
-                    url: "http://www.11haoonline.com/checkout/lzds"
-                }
-            ]
+            name: "守护古树",
+            type: "view",
+            url: "http://www.11haoonline.com/checkout/shgs"
+            # sub_button: [
+            #     {
+            #         type: "view",
+            #         name: "昕耕工坊",
+            #         url: "http://www.11haoonline.com/checkout/xgst"
+            #     },
+            #     {
+            #         type: "view",
+            #         name: "爱芬环保",
+            #         url: "http://www.11haoonline.com/checkout/lovehb"
+            #     },
+            #     {
+            #         type: "view",
+            #         name: "绿洲读书会",
+            #         url: "http://www.11haoonline.com/checkout/lzds"
+            #     }
+            # ]
           # name: "筹款活动",
           # sub_button: [
           #   {

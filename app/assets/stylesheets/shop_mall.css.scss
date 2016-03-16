@@ -1,0 +1,425 @@
+// Place all the styles related to the shop_mall controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "main_weixin";
+.shop_mall {
+
+  padding-bottom: 100px;
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+  }
+  a{
+    color: #333;
+  }
+
+  hr {
+    margin: 0;
+    border: 0px none;
+    border-top: 1px solid #eee;
+  }
+  #divSmallBox {
+    overflow: hidden;
+    *display: inline;
+    *zoom: 1;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+  .playbox {
+    width: 500px;
+    min-height: 300px;
+    max-height: 600px;
+    //margin: 20px auto;
+    background: #333;
+    position: relative;
+    overflow: hidden;
+  }
+  .playbox .oUlplay {
+    width: 99999px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .playbox .oUlplay li {
+    float: left;
+    height: 100%;
+  }
+  .playbox .oUlplay li img{
+    width: 100%;
+    height: 100%;
+  }
+  .playbox .pre {
+    background: image-url("l.png");
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 190px;
+    left: 10px;
+    z-index: 1;
+  }
+  .playbox .next {
+    background: image-url("r.png");
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top: 190px;
+    right: 10px;
+    z-index: 1;
+  }
+  .playbox .smalltitle {
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    bottom: 15px;
+    z-index: 1;
+  }
+  .playbox .smalltitle ul {
+    width: 120px;
+    margin: 0 auto;
+  }
+  .playbox .smalltitle ul li {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 10px;
+    background: #CCCCCC;
+    float: left;
+    overflow: hidden;
+    *display: inline;
+    *zoom: 1;
+    cursor: pointer;
+  }
+  .playbox .smalltitle .thistitle {
+    background: #69aaec;
+  }
+
+  .goods-header {
+    height: auto;
+    padding: 8px 0 6px;
+    overflow: hidden;
+    border-top: 1px solid #f2f2f2;
+    background-color: #fff;
+  }
+  .goods-header .title {
+    font-weight: 400;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: left;
+  }
+  .goods-price {
+    padding: 5px 10px 2px;
+    text-align: left;
+  }
+  .current-price {
+    color: #f60;
+    display: inline-block;
+    font-size: 14px;
+  }
+  .current-price>span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: small;
+  }
+  .current-price .price {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+  }
+  .goods-price i {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 20px;
+    vertical-align: baseline;
+  }
+  .original-price {
+    text-decoration: line-through;
+    vertical-align: middle;
+    color: #999;
+    font-size: 14px;
+    display: inline-block;
+  }
+  .sku-detail {
+    position: relative;
+    margin-bottom: 5px;
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #fff;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .sku-detail .sku-detail-inner {
+    padding: 1px 10px;
+  }
+  .sku-detail .sku-group {
+    position: relative;
+    padding-top: 1px;
+    margin-top: -1px;
+  }
+  .sku-detail dt {
+    float: left;
+    color: #999;
+  }
+  .sku-detail dl {
+    margin: 8px 0;
+    zoom: 1;
+  }
+  .sku-detail .sku-group .sku-item {
+    padding-right: 15px;
+  }
+  .sku-detail .sku-group:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    width: 6px;
+    height: 11px;
+    background: image-url('mallico.png');
+    background-position: -40px -18px;
+    background-size: 58px 48px;
+  }
+  .custom-store
+  {
+    font-size: small;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .goods-content
+  {
+    background-color:white;
+    padding: 15px 5px 15px 5px;
+  }
+  .goods-content img
+  {
+     width: 100%;
+  }
+  .goods-footer
+  {
+
+  }
+  .goods-footer a
+  {
+    text-decoration: none;
+  }
+  .goods-footer p
+  {
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    padding-left: 5px;
+  }
+  .goods-bottom
+  {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 1;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+    padding: 5px 0px 5px 0px;
+    background-color: white;
+  }
+  .goods-bottom p
+  {
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    border-color: #f15a0c;
+    background-color: #f15a0c;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    padding: 10px 15px 10px 15px;
+    width: 40%;
+
+  }
+  .goods-bottom p a{
+     color: white;
+    text-decoration: none;
+  }
+
+  .weui_mask_transition
+  {
+
+  }
+  .orders
+  {
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    padding: 5px 10px 0px 10px;
+  }
+  .orders .orders_ico
+  {
+    height: 90%;
+    float: left;
+  }
+  .orders .orders_ico img
+  {
+    width: 100%;
+    height: 100%;
+  }
+  .orders .orders_des
+  {
+    width: 80%;
+    float: left;
+  }
+  .orders .cancel-img
+  {
+
+    width: 27px;
+    height: 27px;
+    position: absolute;
+    top:10px;
+    right: 5px;
+    background: image-url('buyicon.png');
+    background-position: 0 -108px;
+    background-size: 40px auto;
+  }
+  .orders-type
+  {
+    height: 80px;
+    padding: 5px 0px 10px 10px;
+  }
+  .orders-type p
+  {
+    padding-left: 10px;
+  }
+  .orders-type ul
+  {
+    margin-top: 10px;
+
+  }
+  .orders-type li
+  {
+
+  }
+  .orders-type .tag
+  {
+    background-color: transparent;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 12px;
+  
+    float: left;
+    padding: 5px;
+    margin-left: 5px;
+  }
+
+  .orders-count
+  {
+    height: 30px;
+    padding: 10px;
+
+  }
+  .orders-count p
+  {
+    height: 30px;
+    vertical-align: top;
+  }
+  .orders-count button{
+    width: 37px;
+    height: 29px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+  .orders-count input
+  {
+    width: 33px;
+    height: 25px;
+    padding: 1px;
+    border: 1px solid #999;
+    border-width: 1px 0;
+    vertical-align: top;
+    text-align: center;
+    margin-left: -3px;
+    margin-right: -3px;
+    background-color: white;
+  }
+  #footer_cart{
+
+    color:#f15a0c;
+    position: fixed;
+    font-size: 16px;
+    bottom: 50px;
+    right: 12px;
+    font-weight: bold;
+    text-align: right;
+    width: 38px;
+    z-index: 1;
+    zoom: 1;
+  }
+}
+
+.product_pay
+{
+    background-color: rgb(238, 238, 238);
+}
+
+.product_cart
+{
+  .bottom_count {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: left;
+    height: 50px;
+  }
+
+  .bottom_count p {
+    height: 100%;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .bottom_count p i {
+    padding-top: 10px;
+    float: left;
+  }
+
+  .bottom_count p a {
+    width: 80%;
+  }
+  .orders-count
+  {
+    height: 30px;
+  }
+  .orders-count p
+  {
+    height: 30px;
+    vertical-align: top;
+  }
+  .orders-count button{
+    width: 37px;
+    height: 29px;
+    background-color: #fff;
+    border: 1px solid #999;
+  }
+  .orders-count input
+  {
+    width: 33px;
+    height: 25px;
+    padding: 1px;
+    border: 1px solid #999;
+    border-width: 1px 0;
+    vertical-align: top;
+    text-align: center;
+    margin-left: -3px;
+    margin-right: -3px;
+    background-color: white;
+  }
+
+}

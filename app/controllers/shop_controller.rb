@@ -1,13 +1,14 @@
 class ShopController < ApplicationController
     before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
-    before_filter :check_campaign_expired, only: [:shop, :category, :product, :checkout, :checkout_confirmation]
-    before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product]
-    before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
-    before_filter :log_ip, only: [:show, :supporters, :shop, :category, :product, :checkout, :checkout_confirmation]
+    before_filter :check_campaign_expired, only: [:shop, :category, :product,:product_weixin,:checkout,:checkout_weixin, :checkout_confirmation]
+    before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product,:product_weixin]
+    before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product,:product_weixin, :checkout,:checkout_weixin, :checkout_confirmation]
+    before_filter :log_ip, only: [:show, :supporters, :shop, :category, :product,:product_weixin, :checkout,:checkout_weixin, :checkout_confirmation]
     skip_before_filter :verify_authenticity_token, :only => [:weixin_notify]
     
-    layout "shop"
-    
+    layout "shop",except: [:product_weixin,:checkout_weixin]
+
+    layout "shop_weixin",:only=>[:product_weixin,:checkout_weixin]
     def show
       
         @help_text = "Help" + (@seller ? " " + @seller.user_profile.first_name : "") + " fundraise for " + @campaign.title
@@ -118,13 +119,86 @@ class ShopController < ApplicationController
           @max_origin_price = (@product.original_price * 100).ceil/100.0
         end
     end
-    
+    def product_weixin
+      weixin_jssdk_init()
+      @product = Product.friendly.find(params[:product_id])
+      redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
+
+      @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
+      @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
+
+      @option_group = @product.option_groups.active.first
+      @option_group_properties = []
+      @option_group_is_dropdown = false
+      @discount = 1
+      @min_price = (@discount * @product.total_price * 100).ceil/100.0
+      @max_price = (@discount * @product.total_price * 100).ceil/100.0
+      @min_origin_price = (@product.original_price * 100).ceil/100.0
+      @max_origin_price = (@product.original_price * 100).ceil/100.0
+
+      # if @campaign.is_discount?
+      #     @discount = (100 - @campaign.discount)/100.0
+      # end
+
+      if @option_group
+        @min_price = 99999
+        @max_price = 0
+        @min_origin_price = 99999
+        @max_origin_price = 0
+
+        has_properties = false
+
+        @option_group.option_group_properties.active.each do |property|
+          @option_group_is_dropdown = true
+
+          if property.can_be_ordered?(1)
+            has_properties = true
+
+            prop_price = (property.total_price * @discount * 100).ceil/100.0
+            prop_origin_price = (@product.original_price * 100).ceil/100.0
+
+            @option_group_properties << property
+
+            if prop_price<=@min_price
+              @min_price=prop_price
+            end
+
+            if prop_price>=@max_price
+              @max_price=prop_price
+            end
+
+            if prop_origin_price<=@min_origin_price
+              @min_origin_price=prop_origin_price
+            end
+
+            if prop_origin_price>=@max_origin_price
+              @max_origin_price=prop_origin_price
+            end
+          end
+        end
+
+        if !has_properties
+          @min_price = (@discount * @product.total_price * 100).ceil/100.0
+          @max_price = (@discount * @product.total_price * 100).ceil/100.0
+          @min_origin_price = (@product.original_price * 100).ceil/100.0
+          @max_origin_price = (@product.original_price * 100).ceil/100.0
+        end
+      else
+        @min_price = (@discount * @product.total_price * 100).ceil/100.0
+        @max_price = (@discount * @product.total_price * 100).ceil/100.0
+        @min_origin_price = (@product.original_price * 100).ceil/100.0
+        @max_origin_price = (@product.original_price * 100).ceil/100.0
+      end
+    end
+
     def ajax_order_summary
       @order = Order.find_by_id(params[:order_id].to_i)
       
       if @order
         @campaign = @order.campaign
-        
+        if params[:cart_weixin]&&params[:cart_weixin]=="true"
+          render partial: "cart_modal_weixin" and return
+        end
         render partial: "order_summary"
       else
         render text: 'fail'
@@ -453,6 +527,8 @@ class ShopController < ApplicationController
         
         if params[:parent_page]=="checkout"
           render partial: "cart_modal", locals: {parent_page: :checkout}
+        elsif params[:agent_type]=="weixin"
+          render text: "success"
         else
           render partial: "cart_modal", locals: {parent_page: :other}
         end
@@ -490,6 +566,7 @@ class ShopController < ApplicationController
       else
         @is_personal=false
       end
+      logger.debug "1001"+ session[:order_id].to_s
       if params[:direct_donation]
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
@@ -517,6 +594,44 @@ class ShopController < ApplicationController
         
       end
       
+    end
+    def checkout_weixin
+      if session[:is_personal]
+        @is_personal=session[:is_personal]
+      else
+        @is_personal=false
+      end
+      logger.debug "1001"+ session[:order_id].to_s
+      if params[:direct_donation]
+        seller_id = session[:seller_id] ? session[:seller_id] : nil
+        @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, direct_donation: (params[:direct_donation].to_f * 100)
+      elsif session[:order_id]
+        @order = Order.find_by_id(session[:order_id])
+        unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
+          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        end
+      else
+        redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+      end
+
+      #This is the first place the fees are calculated
+      @order.calculate_fees!
+
+      session[:confirmation_order_id] = nil
+
+      @is_wechat_browser = is_wechat_browser?
+      if is_wechat_browser?
+
+        weixin_get_user_info()
+        @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+        # weixin_payment_init(@order)
+        weixin_address_init()
+
+      end
+
+      if params[:cart]&&params[:cart]=="true"
+          render template: "shop/cart_weixin" and return;
+      end
     end
     
     def weixin_native_pay

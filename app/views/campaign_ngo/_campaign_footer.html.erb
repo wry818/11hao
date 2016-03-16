@@ -2,7 +2,7 @@
   <div style="text-align: right">
     <%= image_tag "arr_right.png", :id => 'btn_view_agreement', :width => 18, :height => 18, :style => "" %>
   </div>
-  <%= render "agreement" %>
+  <%= render "agreement_shgs" %>
 </div>
 
 
@@ -303,7 +303,7 @@
       $(this).css('border', "solid 2px red");
     });
 
-    $("#personal_modalbody a")[1].click();
+    $("#personal_modalbody a")[0].click();
   });
 
 </script>

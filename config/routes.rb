@@ -122,6 +122,9 @@ Raisy::Application.routes.draw do
     resources :organizations
     resources :campaigns, except: [:show]
 
+  get 'shopmall/product/:product_id', to: 'shop_mall#product', as: :shop_mall_product
+  get 'shopmall/pay', to: 'shop_mall#pay', as: :shop_mall_product_pay
+  # get 'shopmall/product_id', to: 'shop_mall#product', as: :shop_mall_product_view
     #personal_story
   get 'checkout/lzds', to: 'campaign_ngo#lzds', as: :campagin_ngo_lzds
   get 'campaginngo/lzds_supporters', to: 'campaign_ngo#lzds_supporters', as: :campagin_ngo_lzds_supporters
@@ -131,6 +134,9 @@ Raisy::Application.routes.draw do
 
   get 'checkout/xgst', to: 'campaign_ngo#xgst', as: :campagin_ngo_xgst
   get 'campaginngo/xgst_supporters', to: 'campaign_ngo#xgst_supporters', as: :campagin_ngo_xgst_supporters
+
+  get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
+  get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 
   post 'campaginngo/confirmation', to: 'campaign_ngo#confirmation', as: :campaign_ngo_checkout_confirmation
   post 'campaginngo/confirmation_weixin', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin
@@ -309,14 +315,16 @@ Raisy::Application.routes.draw do
     # match "checkout/weixin_notify" => "shop#weixin_notify", via: [:get, :post]
     # post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get 'weixin_payment_get_req/:id', to: 'shop#weixin_payment_get_req', as: :weixin_payment_get_req
+  get 'checkout/checkout_weixin', to: 'shop#checkout_weixin', as: :checkout_weixin
     get 'checkout/:id', to: 'shop#checkout', as: :checkout
+
     get 'checkout/:id/weixin_native_pay', to: 'shop#weixin_native_pay', as: :checkout_weixin_native_pay
     post 'checkout/weixin_notify', to: 'shop#weixin_notify', as: :checkout_weixin_notify
     get ':id/shop', to: 'shop#shop', as: :shop
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category
     get ':id/shop/category/:category_id/product/:product_id', to: 'shop#product', as: :shop_category_product
-    get ':id/shop/product/:product_id', to: 'shop#product', as: :shop_product
-    
+    get ':id/shop/product_weixin/:product_id', to: 'shop#product_weixin', as: :shop_product_weixin
+  get ':id/shop/product/:product_id', to: 'shop#product', as: :shop_product
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
     post ':id/confirmation', to: 'shop#checkout_confirmation', as: :checkout_confirmation
     get ':id/checkout_support', to: 'shop#checkout_support', as: :checkout_support

@@ -1,0 +1,30 @@
+html {
+    line-height: 1;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    font-family:'Helvetica Neue',Helvetica,"STHeiti STXihei","Microsoft JhengHei","Microsoft YaHei",Tohoma,Arial;
+    font-size: 12px;
+}
+body
+{
+    margin: 0px;
+    padding: 0px;
+    color: #333;
+}
+.share-dialog-show {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
+  background-color: rgba(51,51,51,0.8);
+
+  div
+  {
+    width: 100%;
+    height: 371px;
+    background: image_url("yqj_result_share.png");
+    background-size: 100% 100%;
+  }
+}
