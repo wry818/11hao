@@ -192,7 +192,12 @@ window.shopmall = {
         //if (cart_count < 1) {
         //    $cart.hide();
         //}
-        $cart.one("click", function () {
+        $cart.on("click", function () {
+            cart_count = parseInt($cart.attr("data-count"));
+            if (cart_count < 1) {
+
+                return;
+            }
             window.location.href = "/checkout/checkout_weixin?id=" + $("#campaign_slug").val() + "&showwxpaytitle=1&agent_type=weixin&cart=true";
         });
         var is_add_to_cart = false;

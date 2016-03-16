@@ -136,6 +136,8 @@ class ShopController < ApplicationController
       @min_origin_price = (@product.original_price * 100).ceil/100.0
       @max_origin_price = (@product.original_price * 100).ceil/100.0
 
+      @min_donation_price=(@product.default_donation_amount * 100).ceil/100.0
+      @max_donation_price=(@product.default_donation_amount * 100).ceil/100.0
       # if @campaign.is_discount?
       #     @discount = (100 - @campaign.discount)/100.0
       # end
@@ -146,6 +148,8 @@ class ShopController < ApplicationController
         @min_origin_price = 99999
         @max_origin_price = 0
 
+        @min_donation_price=9999
+        @max_donation_price=0
         has_properties = false
 
         @option_group.option_group_properties.active.each do |property|
@@ -156,6 +160,7 @@ class ShopController < ApplicationController
 
             prop_price = (property.total_price * @discount * 100).ceil/100.0
             prop_origin_price = (@product.original_price * 100).ceil/100.0
+            prop_donation_price=(property.donation_amount * 100).ceil/100.0
 
             @option_group_properties << property
 
@@ -174,6 +179,14 @@ class ShopController < ApplicationController
             if prop_origin_price>=@max_origin_price
               @max_origin_price=prop_origin_price
             end
+
+            if prop_donation_price<=@min_donation_price
+              @min_donation_price=prop_donation_price
+            end
+
+            if prop_donation_price>=@max_donation_price
+              @max_donation_price=prop_donation_price
+            end
           end
         end
 
@@ -182,6 +195,9 @@ class ShopController < ApplicationController
           @max_price = (@discount * @product.total_price * 100).ceil/100.0
           @min_origin_price = (@product.original_price * 100).ceil/100.0
           @max_origin_price = (@product.original_price * 100).ceil/100.0
+
+          @min_donation_price=(@product.default_donation_amount * 100).ceil/100.0
+          @max_donation_price=(@product.default_donation_amount * 100).ceil/100.0
         end
       else
         @min_price = (@discount * @product.total_price * 100).ceil/100.0

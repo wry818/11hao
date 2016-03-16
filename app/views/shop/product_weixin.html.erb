@@ -42,7 +42,9 @@
     <div class="goods-price ">
       <div class="current-price">
         <span>￥&nbsp;</span><i class="js-goods-price price">
-        <span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+        <span id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>">
+          <%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %>
+        </span>
       </i>
       </div>
       <div class="original-price">
@@ -77,7 +79,7 @@
       <hr>
       <dl>
         <dt>捐款：</dt>
-        <dd><%= @product.default_donation_amount %></dd>
+        <dd style="color: #99CC33;"> <%= @min_donation_price==@max_donation_price ? long_price(@max_donation_price) : long_price(@min_donation_price) + " - " + long_price(@max_donation_price) %></dd>
       </dl>
     </div>
   </div>

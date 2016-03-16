@@ -67,7 +67,9 @@ window._11hao={
     },
     loadingHid:function(){
         var $loadingToast = $('#loadingToast');
-        $loadingToast.hide();
+        setTimeout(function () {
+            $loadingToast.hide();
+        }, 1000);
     },
     shareDialogShow:function(){
         var $Toast = $('.share-dialog-show');

@@ -12,6 +12,14 @@ body
     color: #333;
    font-family:'Helvetica',Helvetica,"STHeiti STXihei","Microsoft JhengHei","Microsoft YaHei",Tohoma,Arial;
 }
+.weui_loading_toast
+{
+  .weui_mask_transparent
+  {
+    z-index: 999;
+  }
+}
+
 .share-dialog-show {
   position: fixed;
   width: 100%;
