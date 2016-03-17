@@ -1,6 +1,6 @@
 <% if @order.items&&@order.items.length>0%>
     <div class="weui_panel weui_panel_access">
-      <div class="weui_panel_hd"><span><%= @campaign.title %></span>
+      <div class="weui_panel_hd"><span>购物车</span>
         <span  id="js-btn-edit" style="float: right;color: #1ab7ea;">清除</span></div>
       <% @order.items.order(:id).each do |item| %>
           <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
@@ -71,12 +71,23 @@
     </div>
 <% else %>
 
-    <h1 style="color: orange;
-        text-align: center;
-        margin-top: 100px;">对不起！您的购物车里什么都没有！</h1>
 
-
-    <a href="/<%=@order.campaign.slug %>" style="width: 80%;
-       margin-top: 50px;" class="weui_btn weui_btn_plain_primary">去逛逛</a>
+    <div class="page">
+      <div class="weui_msg">
+        <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
+        <div class="weui_text_area">
+          <h2 class="weui_msg_title">对不起！</h2>
+          <p class="weui_msg_desc">您的购物车里什么都没有！</p>
+        </div>
+        <div class="weui_opr_area">
+          <p class="weui_btn_area">
+            <a href="/<%=@order.campaign.slug %>" class="weui_btn weui_btn_primary">去逛逛</a>
+          </p>
+        </div>
+        <div class="weui_extra_area">
+          <!--<a href="">查看详情</a>-->
+        </div>
+      </div>
+    </div>
 <% end %>
 

@@ -15,7 +15,7 @@
       </a>
     </div>
     <div class="weui_panel weui_panel_access">
-      <div class="weui_panel_hd"><%=@campaign.title%></div>
+      <div class="weui_panel_hd">订单详情</div>
       <% @order.items.order(:id).each do |item| %>
           <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
             <div class="weui_media_hd">
@@ -64,13 +64,25 @@
           </strong>
         </div>
       </div>
+      <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
+        <div class="weui_media_bd">
+          <p class="weui_media_desc" style="text-align: center;">您的本次购买将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></span></p>
+        </div>
+      </a>
     </div>
     <div class="weui_panel">
       <div class="weui_panel_hd">
         <a href="javascript:;" id="wechat_weixin" class="weui_btn weui_btn_primary">微信支付</a>
       </div>
     </div>
+
+    <div class="goods-footer">
+      <p style="text-align: center">
+        11<%= image_tag "minilogo .png" %>公益圈提供技术支持
+      </p>
+    </div>
   </div>
+
 </div>
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>

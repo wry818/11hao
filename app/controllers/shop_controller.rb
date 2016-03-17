@@ -630,6 +630,13 @@ class ShopController < ApplicationController
         redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
       end
 
+      @order_donation=0;
+      if @order.items&&@order.items.length>0
+          @order.items.each do |item|
+            @order_donation+=item.donation_amount*item.quantity
+          end
+      end
+      @order_donation=@order_donation/100.0;
       #This is the first place the fees are calculated
       @order.calculate_fees!
 

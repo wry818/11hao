@@ -69,7 +69,7 @@ window._11hao={
         var $loadingToast = $('#loadingToast');
         setTimeout(function () {
             $loadingToast.hide();
-        }, 1000);
+        }, 500);
     },
     shareDialogShow:function(){
         var $Toast = $('.share-dialog-show');

@@ -1,11 +1,10 @@
 <style>
-  .weui_icon_success_circle:before
-  {
+  .weui_icon_success_circle:before {
     font-size: 16px;
     vertical-align: top;
   }
 </style>
-<input type="hidden" id="campaign_slug"  value="<%= @campaign.slug %>"/>
+<input type="hidden" id="campaign_slug" value="<%= @campaign.slug %>"/>
 <div class="shop_mall">
   <div id="playBox" class="playbox">
     <div class="pre"></div>
@@ -102,116 +101,111 @@
     <% end %>
 
   </div>
-
+  <hr class="with-margin">
   <div class="goods-footer">
-    <hr class="with-margin">
-    <!--<p>-->
-      <!--&lt;!&ndash;<a href="#" target="_blank">店铺主页</a>&ndash;&gt;-->
-      <!--&lt;!&ndash;<a href="#" target="_blank">会员中心</a>&ndash;&gt;-->
-      <!--<a href="javascript:;" class="js-open-follow">关注我们</a>-->
-    <!--</p>-->
-    <p>
-      <a href="javascript:void(0);" target="_blank">11号公益圈提供技术支持</a>
+    <p style="text-align: center">
+      11<%= image_tag "minilogo .png" %>公益圈提供技术支持
     </p>
   </div>
   <div class="goods-bottom">
     <p id="showActionBuy" class="js-showActionBuy">
-      <a href="javascript:;" class="weui_btn weui_btn_primary">立即购买</a>
+      <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">立即购买</a>
     </p>
+
     <p id="showActionBuyBox" class="js-showActionBuy" style="background-color: white;">
-      <a href="javascript:;" class="weui_btn weui_btn_primary">加入购物车</a>
+      <a href="javascript:void(0);" style="  background-color: rgb(255, 255, 255);color: rgb(51,51,51);" class="weui_btn weui_btn_warn">加入购物车</a>
     </p>
   </div>
   <form class="product-form">
     <input id="add_discount" type="hidden" name="add_discount" value="<%= @campaign.is_discount? ? 1 : 0 %>"/>
 
-  <div id="actionSheet_wrap">
-    <div class="weui_mask_transition" id="mask"></div>
-    <div class="weui_actionsheet" id="weui_actionsheet">
-      <div style="background-color: white;">
-        <div class="orders" id="actionsheet_cancel">
-          <div class="orders_ico">
+    <div id="actionSheet_wrap">
+      <div class="weui_mask_transition" id="mask"></div>
+      <div class="weui_actionsheet" id="weui_actionsheet">
+        <div style="background-color: white;">
+          <div class="orders" id="actionsheet_cancel">
+            <div class="orders_ico">
 
-            <% if (photos&&photos.length>0) %>
-                <%= cl_image_tag photos.first.public_id, width: 50, height: 50, crop: :fill %>
-            <% end %>
-          </div>
+              <% if (photos&&photos.length>0) %>
+                  <%= cl_image_tag photos.first.public_id, width: 50, height: 50, crop: :fill %>
+              <% end %>
+            </div>
 
-          <div class="orders_des">
-            <p class="" style="    padding-left: 5px;"><%= @product.name %></p>
+            <div class="orders_des">
+              <p class="" style="    padding-left: 5px;"><%= @product.name %></p>
 
-            <div class="" style="    padding-left: 5px;">
-              <div class="current-price pull-left c-black">
-                <span>￥</span>
-                <i>
-                  <span style="font-style: normal;" id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
-                </i>
+              <div class="" style="    padding-left: 5px;">
+                <div class="current-price pull-left c-black">
+                  <span>￥</span>
+                  <i>
+                    <span style="font-style: normal;" id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+                  </i>
+                </div>
               </div>
             </div>
+            <div class="cancel-img"></div>
+
           </div>
-          <div  class="cancel-img"></div>
+          <% if option_group %>
+              <hr class="with-margin">
+              <div class="orders-type">
 
-        </div>
-        <% if option_group %>
-        <hr class="with-margin">
-        <div class="orders-type">
+                <p>
+                  <%= option_group.name.capitalize %>：
+                </p>
 
-          <p>
-            <%= option_group.name.capitalize %>：
-          </p>
-
-          <ul class="js-options-select">
-            <% if @option_group_properties
-                 @option_group_properties.each do |property| %>
-                    <li class="tag" data-id="<%= property.id %>"><%= property.value %></li>
-                <% end
-                   end %>
-          </ul>
-          <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
-          <input type="hidden" name="item[options][][value]" />
-        </div>
-            <% end %>
-        <hr class="with-margin">
-        <div class="orders-count">
-          <p>
-            <span style="float: left;margin-top: 5px;margin-left: 10px;">数量：</span>
+                <ul class="js-options-select">
+                  <% if @option_group_properties
+                       @option_group_properties.each do |property| %>
+                          <li class="tag" data-id="<%= property.id %>"><%= property.value %></li>
+                      <% end
+                         end %>
+                </ul>
+                <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
+                <input type="hidden" name="item[options][][value]"/>
+              </div>
+          <% end %>
+          <hr class="with-margin">
+          <div class="orders-count">
+            <p>
+              <span style="float: left;margin-top: 5px;margin-left: 10px;">数量：</span>
             <span style="float: right;">
-               <button id="btn-count-minus" class="minus" type="button" ><span>-</span></button>
+               <button id="btn-count-minus" class="minus" type="button"><span>-</span></button>
               <input id="btn-count-value" style="color: black;" type="text" class="txt" disabled="disabled" value="1">
               <button id="btn-count-plus" class="plus" type="button"><span>+</span></button>
             </span>
-          </p>
-          <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
-        </div>
-        <hr>
+            </p>
+            <input type="hidden" id="item_quantity" name="item[quantity]" value="1"/>
+          </div>
+          <hr>
 
-        <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
-        <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
-        <input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
+          <input type="hidden" id="item_order_id" name="item[order_id]" value="<%= @order.id %>"/>
+          <input type="hidden" id="item_product_id" name="item[product_id]" value="<%= @product.id %>"/>
+          <input type="hidden" id="item_campaign_id" name="item[campaign_id]" value="<%= @campaign.id %>"/>
 
-        <div id="btn_buy_next" style="padding: 10px;">
-          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">下一步</a>
+          <div id="btn_buy_next" style="padding: 10px;">
+            <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">下一步</a>
+          </div>
+          <div id="btn_buy_box" style="padding: 10px;">
+            <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white; " class="weui_btn weui_btn_warn">加入购物车</a>
+          </div>
         </div>
-        <div id="btn_buy_box" style="padding: 10px;">
-          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">加入购物车</a>
-        </div>
+        <!--<div class="weui_actionsheet_menu">-->
+        <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+        <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+        <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+        <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
+        <!--</div>-->
+        <!--<div class="weui_actionsheet_action">-->
+        <!--<div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>-->
+        <!--</div>-->
       </div>
-      <!--<div class="weui_actionsheet_menu">-->
-      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
-      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
-      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
-      <!--<div class="weui_actionsheet_cell">示例菜单</div>-->
-      <!--</div>-->
-      <!--<div class="weui_actionsheet_action">-->
-      <!--<div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>-->
-      <!--</div>-->
     </div>
-  </div>
   </form>
 
-  <div id="footer_cart" data-count="<%=  @order.num_items if @order.items %>" style="display: block;">
+  <div id="footer_cart" data-count="<%= @order.num_items if @order.items %>" style="display: block;">
     <div style="position:relative; text-align:right;">
-      <%= image_tag "float-cart.png",:style => "height:40px;" %>
+      <%= image_tag "float-cart.png", :style => "height:40px;" %>
       <div style="position:absolute; top:-10px; right:0px; width:60px; text-align:center;">
         <span class="badge cart-count"><%= @order.num_items if @order.items %></span></div>
     </div>
@@ -229,7 +223,7 @@
     $("#playBox").css("width", $(window).outerWidth());
     $('#playBox').find(".oUlplay").find("li").css("width", $(window).outerWidth());
 
-    $(".js-open-follow").click(function(){
+    $(".js-open-follow").click(function () {
       window._11hao.shareDialogShow();
     });
   });

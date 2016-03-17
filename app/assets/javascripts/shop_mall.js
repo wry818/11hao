@@ -254,7 +254,14 @@ window.shopmall = {
             //    showEdit();
             //}
             //isEdit = !isEdit;
-
+            var $dialog = $('#dialog1');
+            $dialog.show();
+            $dialog.find('.weui_btn_dialog').one('click', function () {
+                $dialog.hide();
+            });
+            $dialog.find(".js-btn-ok").click(function(){
+                $('.delete-item').click();
+            });
         });
         function showEdit() {
             $(".js-view").hide();
