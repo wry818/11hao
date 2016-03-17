@@ -1245,7 +1245,6 @@ class ShopController < ApplicationController
       render "checkout_confirmation" and return
     end
     def show_confirmation_weixin
-      session[:confirm_order_id]=642
       if session[:confirm_order_id]
         @order = Order.find_by_id(session[:confirm_order_id])
 
