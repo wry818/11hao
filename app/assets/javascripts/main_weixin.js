@@ -71,6 +71,10 @@ window._11hao={
             $loadingToast.hide();
         }, 500);
     },
+    loadingHidNNow:function(){
+        var $loadingToast = $('#loadingToast');
+        $loadingToast.hide();
+    },
     shareDialogShow:function(){
         var $Toast = $('.share-dialog-show');
         $Toast.show();
