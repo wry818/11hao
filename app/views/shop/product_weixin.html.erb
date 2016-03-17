@@ -49,6 +49,9 @@
       <div class="original-price">
       </div>
     </div>
+    <dl style="text-align: left; margin-left: 10px;">
+      <dd style="color: #999">您每购买一件产品将捐助：￥<%= @min_donation_price==@max_donation_price ? long_price(@max_donation_price) : long_price(@min_donation_price) + " - " + long_price(@max_donation_price) %></dd>
+    </dl>
   </div>
   <hr class="with-margin">
 
@@ -76,9 +79,7 @@
         <dd>免运费</dd>
       </dl>
       <hr>
-      <dl style="text-align: center;">
-        <dd style="color: #999">您每购买一件产品将捐助：￥<%= @min_donation_price==@max_donation_price ? long_price(@max_donation_price) : long_price(@min_donation_price) + " - " + long_price(@max_donation_price) %></dd>
-      </dl>
+
     </div>
   </div>
 
@@ -102,11 +103,7 @@
 
   </div>
   <hr class="with-margin">
-  <div class="goods-footer">
-    <p style="text-align: center">
-      11<%= image_tag "minilogo .png" %>公益圈提供技术支持
-    </p>
-  </div>
+  <%= render "goods_footer"%>
   <div class="goods-bottom">
     <p id="showActionBuy" class="js-showActionBuy">
       <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">立即购买</a>

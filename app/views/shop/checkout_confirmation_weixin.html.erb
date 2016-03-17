@@ -4,7 +4,7 @@
     <div class="weui_text_area">
       <h2 class="weui_msg_title">支付完成</h2>
 
-      <p class="weui_msg_desc">感谢您的支持，您本次购买的商品将为组织1助力</p>
+      <p class="weui_msg_desc">感谢您的支持，您本次购买的商品将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></p>
 
       <p class="weui_msg_desc">
 
@@ -71,9 +71,5 @@
     </div>
 
   </div>
-  <div class="goods-footer">
-    <p style="text-align: center">
-      11<%= image_tag "minilogo .png" %>公益圈提供技术支持
-    </p>
-  </div>
+  <%= render "goods_footer"%>
 </div>

@@ -1252,7 +1252,13 @@ class ShopController < ApplicationController
           @order.campaign_id = @campaign.id
           @order.save
         end
-
+        @order_donation=0;
+        if @order.items&&@order.items.length>0
+          @order.items.each do |item|
+            @order_donation+=item.donation_amount*item.quantity
+          end
+        end
+        @order_donation=@order_donation/100.0;
         # unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
         #   redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
         # end
