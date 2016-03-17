@@ -379,7 +379,6 @@ window.shopmall = {
                     _this.loadCart();
                     _this.orderItemDelete();
                     _this.updateQuantity();
-                    $("#js-btn-edit").click();
                 }
             }
         });
