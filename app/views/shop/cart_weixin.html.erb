@@ -1,13 +1,14 @@
-<div class="container product_cart">
-  <div class="bd js-panel">
+<div class="container product_cart" style="padding-bottom: 50px">
+  <div class="bd js-panel" style="min-height: 500px">
         <%= render "cart_modal_weixin" %>
   </div>
+  <div class="goods-footer">
+    <p style="text-align: center">
+      11<%= image_tag "minilogo .png" %>公益圈提供技术支持
+    </p>
+  </div>
 </div>
-<div class="goods-footer">
-  <p style="text-align: center">
-    11<%= image_tag "minilogo .png" %>公益圈提供技术支持
-  </p>
-</div>
+
 <!--BEGIN dialog1-->
 <div class="weui_dialog_confirm" id="dialog1" style="display: none;">
   <div class="weui_mask"></div>
