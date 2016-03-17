@@ -142,7 +142,7 @@
             }
           }
 
-          window._11hao.loadingHidNNow();
+
           var $button=$(this);
           $button.prop('disabled', true);
           $.ajax({
@@ -151,6 +151,7 @@
               dataType: "json",
               cache: false,
               success: function (d) {
+                window._11hao.loadingHidNNow();
                 if (d && d.paySign!="") {
                   WeixinJSBridge.invoke('getBrandWCPayRequest', {
                     "appId" : d.appId,     //公众号名称，由商户传入
