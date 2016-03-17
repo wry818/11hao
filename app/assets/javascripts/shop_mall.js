@@ -153,6 +153,8 @@ window.shopmall = {
         $ui.click(function () {
             $ui.css("border", "1px solid rgb(229, 229, 229)");
             $(this).css("border", "1px solid rgb(255, 102, 0)");
+            var value=$(this).data("price");
+            $("#product_price_span_show").html(value);
             $("input[name='item[options][][value]']").val($(this).data("id"));
         });
 

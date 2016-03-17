@@ -138,7 +138,7 @@
                 <div class="current-price pull-left c-black">
                   <span>￥</span>
                   <i>
-                    <span style="font-style: normal;" id="product_price_span" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
+                    <span style="font-style: normal;" id="product_price_span_show" data-price="<%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + ' - ' + long_price(@max_price) %>" data-origin-price="<%= @min_origin_price==@max_origin_price ? long_price(@max_origin_price) : long_price(@min_origin_price) + ' - ' + long_price(@max_origin_price) %>"><%= @min_price==@max_price ? long_price(@max_price) : long_price(@min_price) + " - " + long_price(@max_price) %></span>
                   </i>
                 </div>
               </div>
@@ -157,7 +157,7 @@
                 <ul class="js-options-select">
                   <% if @option_group_properties
                        @option_group_properties.each do |property| %>
-                          <li class="tag" data-id="<%= property.id %>"><%= property.value %></li>
+                          <li class="tag" data-id="<%= property.id %>" data-price="<%= property.price %>"><%= property.value %></li>
                       <% end
                          end %>
                 </ul>
