@@ -141,11 +141,11 @@ class CampaignNgoController < ApplicationController
 
   def load_campaign_page(campaign_slug, path)
 
-    @campaign = Campaign.find_by_slug(campaign_slug)
+    @campaign = Campaign.find(campaign_slug)
     @campaign_total_count = @campaign.orders.completed.count
 
     @is_wechat_browser = is_wechat_browser?
-    @share_url=request.protocol + request.host_with_port + "/checkout/campaignview?id=" + @campaign.id
+    @share_url=request.protocol + request.host_with_port + "/checkout/campaignview?id=" + @campaign.id.to_s
     if is_wechat_browser?
 
       weixin_get_user_info()

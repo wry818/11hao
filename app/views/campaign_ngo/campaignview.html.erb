@@ -8,7 +8,7 @@
     <div class="top">
       <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
       <div class="hd">
-        <% if @seller.user_profile.picture %>
+        <% if @campaign.minilogo %>
             <%= cl_image_tag @campaign.minilogo, width: 280, height: 280, crop: :limit %>
         <% else %>
            <%= image_tag "logo.png" %>
@@ -96,8 +96,8 @@
                 <div class="st">项目详情</div>
                 <div class="desc">
                   <div id="proj_content">
-                    <% if @product.description %>
-                        <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+                    <% if @campaign.description %>
+                        <%= sanitize @campaign.description, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
                     <% end %>
                   </div>
                 </div>
