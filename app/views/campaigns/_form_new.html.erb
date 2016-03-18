@@ -1,3 +1,4 @@
+<%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
 <%= form_for(@campaign, html: {id: "campaign_form", class: 'campaign-form form-horizontal'}) do |f| %>
     <%= hidden_field_tag :campaign_mode, @campaign_mode %>
     <%= hidden_field_tag :campaign_logo %>
@@ -50,10 +51,10 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_title" class="col-sm-2 control-label">筹款页面标题<span class='req'>*</span></label>
+            <label for="campaign_title" class="col-sm-2 control-label">筹款标题<span class='req'>*</span></label>
 
             <div class="col-sm-10">
-              <%= f.text_field :title, class: 'form-control', placeholder: '比如：园留守儿童图书馆梦' %>
+              <%= f.text_field :title, class: 'form-control', placeholder: '比如：给古树系一条红丝带' %>
             </div>
           </div>
 
@@ -61,7 +62,7 @@
             <label for="campaign_title" class="col-sm-2 control-label">宣传标语</label>
 
             <div class="col-sm-10">
-              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：图书义卖帮云南一所乡村中学的孩子筹集一座乡村图书馆' %>
+              <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害' %>
             </div>
           </div>
 
@@ -78,10 +79,16 @@
               </div>
             </div>
           </div>
+          <div class="form-group">
+            <label for="campaign_goal" class="col-sm-2 control-label">善款接收方</label>
 
+            <div class="col-sm-10">
+              <%= f.text_field :receiver, class: 'form-control', placeholder: "比如：北京市昌平区多元智能环境研究所" %>
+            </div>
+          </div>
           <% if @campaign_mode == Campaign::Fundraising %>
 
-              <div class="form-group">
+              <div class="form-group" style="display: none;">
                 <label for="campaign_seller_goal" class="col-sm-2 control-label">个人目标</label>
 
                 <div class="col-sm-8">
@@ -97,7 +104,7 @@
 
           <% else %>
 
-              <div id="seller_compassion_goal" class="form-group">
+              <div id="seller_compassion_goal" class="form-group" style="display: none;">
                 <label for="campaign_seller_compassion_goal" class="col-sm-2 control-label">个人爱心目标</label>
 
                 <div class="col-sm-8">
@@ -113,7 +120,7 @@
 
           <% end %>
 
-          <div class="form-group" style="margin-bottom: 10px">
+          <div class="form-group" style="margin-bottom: 10px; display: none;">
             <label for="display_seller_goal" class="col-sm-2 control-label" style="padding-top: 0px">显示个人筹款目标</label>
 
             <div class="col-sm-8">
@@ -124,7 +131,7 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_end_date" class="col-sm-2 control-label">销售截止日期</label>
+            <label for="campaign_end_date" class="col-sm-2 control-label">筹款截止日期</label>
 
             <div class="col-sm-8">
               <div style="width:200px;">
@@ -184,7 +191,8 @@
           </div>
           <div class="form-group descrption-box">
             <div>
-              <%= f.text_area :description, class: "tinymce", style: 'width: 200px;height:200px;' %>
+
+              <%= f.kindeditor :description,:editor_id => 'my_editor' %>
               <div calss="row" style="margin-top:5px;margin-left: -10px;margin-right: -10px;">
                 <div class="col-sm-5ths">
                   <div class="example-story example-story-selected" data-story="example_story_1">
@@ -232,14 +240,14 @@
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="2">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
@@ -267,7 +275,7 @@
       <div id="step_container_3_1" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>上传更多的图片&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">4</span>上传Logo&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
               （最好的图片尺寸: 280px * 280px）
@@ -279,17 +287,27 @@
           <div class="row">
             <div class="col-md-12 more-photo-file">
               <div style="width:0px; height:0px;">
-                <input id="more_photo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/campaign_photo" style="width:0px; height:0px; visibility:hidden;"/>
+                <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/campaign_photo" style="width:0px; height:0px; visibility:hidden;"/>
               </div>
-              <div id="more_photo_result" style="display:none;"></div>
-              <label for="more_photo_upload" class="well add-campaign-photo" style="border-width:2px; border-style:dotted; width:210px; height:262px; text-align:center; margin: auto; cursor:pointer; display:block;">
-                <span class="fa fa-plus fa-2x" style="color: #aaa; margin-top:75px;"></span>
-                <br/>
-                <span style="color: #888;">新增一张照片</span>
-                <br/>
-                <br/>
-                <span class="fa fa-spinner fa-spin fa-2x" style="color:#aaa; display:none;"></span>
-              </label>
+              <div id="minilogo_upload_view">
+                <p style="text-align: center;">
+                <%=image_tag "logo.png",:style => "width:280px;height:280px;
+    border: 15px solid rgba(51,51,51,0.1);
+    border-radius: 180px;" %>
+                </p>
+                <%= f.hidden_field :minilogo %>
+              </div>
+              <div class="uploader-box" style="margin-top: 3px">
+                <div class="row">
+                  <div class="col-sm-6 col-sm-offset-3">
+                    <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											上传</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">Logo</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -303,24 +321,24 @@
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none">
+                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-5 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
               <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none">
+                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
@@ -492,8 +510,61 @@
           </div>
         </fieldset>
       </div>
+      <div id="step_container_5" class="camp-step-container" style="display:none;">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header">
+            <span class="number">5</span>您是否要参加筹款义卖&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+        </div>
+        <fieldset>
+          <div class="form-group" style="margin-bottom: -4px">
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10" style="padding: 15px; text-align: center; margin-left: 20px;">
+                <label>
+                  <%= f.check_box :is_featured%>&nbsp;&nbsp;是否参加义卖
+                </label>
 
-      <% if !@collection %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2"></div>
+              <div class="col-sm-4">
+                <div class="clearfix">
+                  <label class="error no-collection-label" style="display:none;"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
+                <span class="text">后退</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="5">
+                <span class="text">后退</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <!--//this is likely to be used in the future-->
+      <% if !@collection&&false %>
           <div id="step_container_5" class="camp-step-container" style="display:none;">
             <div style="text-align:center;">
               <h3 class="fieldset-header">
@@ -539,14 +610,14 @@
                 </div>
                 <div class="col-sm-6 continuebutton-box">
                   <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
-                    <span class="text">继续</span> <span class="loader" style="display:none">
+                    <span class="text">继续</span> <span class="loader" style="display:none"></span>
                   </button>
                 </div>
               </div>
               <div class="row mobile-box">
                 <div class="col-sm-6 backbutton-box">
                   <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="5">
-                    <span class="text">继续</span> <span class="loader" style="display:none">
+                    <span class="text">继续</span> <span class="loader" style="display:none"></span>
                   </button>
                 </div>
                 <div class="col-sm-6 continuebutton-box">

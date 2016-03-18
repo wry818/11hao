@@ -52,9 +52,9 @@
 	                    <li><%= link_to current_user.profile.try(:first_name) + "的仪表", seller_dashboard_path %></li>
 	               <% end %>
 				   
-				   <% if !current_user.is_sales? && !current_user.is_crs? %>
-						<li><%= link_to "发起筹款", new_campaign_path %></li>
-				   <% end %>
+				   <!--<% if !current_user.is_sales? && !current_user.is_crs? %>-->
+						<!--<li><%= link_to "发起筹款", new_campaign_path %></li>-->
+				   <!--<% end %>-->
 				   
 				   <% if is_chairperson %>
 	                    <!-- <li><%= link_to "修改筹款页面摘要", dashboard_campaigns_path %></li> -->
@@ -82,7 +82,12 @@
 			    </ul>
 	        </li>
         </ul>
-		<p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
+            <% if !current_user.is_sales? && !current_user.is_crs? %>
+                <p class="navbar-right navbar-text hidden-xs hidden-sm"><%= link_to "发起筹款", new_campaign_path ,:style => "    color: rgb(119, 119, 119);
+    text-decoration: none;"%></p>
+            <% end %>
+            <p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
+
 		
 		<% if current_user.is_sales? || current_user.is_crs? %>
 			<p class="navbar-right navbar-text hidden-xs"><%= link_to "报表", sales_report_path %></p>

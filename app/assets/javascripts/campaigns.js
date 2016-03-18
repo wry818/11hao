@@ -88,40 +88,44 @@ Raisy.campaigns = {
         }).on("mouseleave", function () {
             $(this).toggleClass("example-story-hover");
         }).on("click", function () {
+
+            var $div = $("#" + $(this).data("story"));
+            my_editor.html($.trim($div.html()));
+            //alert(1);
             $(".example-story").removeClass("example-story-selected");
             $(this).addClass("example-story-selected");
-
-            var content = "";
-            var $div = $("#" + $(this).data("story"));
-
-            if (!$(this).hasClass("custom-story")) {
-                content = $.trim($div.text());
-            }
-
-            var ed = tinymce.get("campaign_description");
-            var $container = $(ed.getContainer());
-            var maxLength = parseInt(ed.getParam("maxlength"));
-
-            if (!$container.hasClass("mce-tinymce")) {
-                $container = $container.parents(".mce-tinymce").first();
-            }
-
-            var count = maxLength - content.length;
-
-            content = "";
-
-            if (!$(this).hasClass("custom-story")) {
-                content = $.trim($div.html());
-            }
-
-            if (count < 0) {
-                $container.find(".tinymce-charcount span").css("color", "#b94a48").text("0");
-            }
-            else {
-                $container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
-            }
-
-            ed.setContent(content);
+            //
+            //var content = "";
+            //var $div = $("#" + $(this).data("story"));
+            //
+            //if (!$(this).hasClass("custom-story")) {
+            //    content = $.trim($div.text());
+            //}
+            //
+            //var ed = tinymce.get("campaign_description");
+            //var $container = $(ed.getContainer());
+            //var maxLength = parseInt(ed.getParam("maxlength"));
+            //
+            //if (!$container.hasClass("mce-tinymce")) {
+            //    $container = $container.parents(".mce-tinymce").first();
+            //}
+            //
+            //var count = maxLength - content.length;
+            //
+            //content = "";
+            //
+            //if (!$(this).hasClass("custom-story")) {
+            //    content = $.trim($div.html());
+            //}
+            //
+            //if (count < 0) {
+            //    $container.find(".tinymce-charcount span").css("color", "#b94a48").text("0");
+            //}
+            //else {
+            //    $container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
+            //}
+            //
+            //ed.setContent(content);
         });
 
         $("#campaign-edit .cloudinary-fileupload").off("cloudinarydone").on("cloudinarydone", function (e, data) {
@@ -354,7 +358,7 @@ Raisy.campaigns = {
             }
         });
 
-        $('#more_photo_upload').fileupload({
+        $('#minilogo_upload').fileupload({
             forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
             add: function (e, data) {
                 $('.add-campaign-photo .fa-spin').show();
@@ -369,64 +373,71 @@ Raisy.campaigns = {
 
                 // Upload#save action returns filename+'upload.done' to indicate a successful uploading
                 if (txt.indexOf("upload.done") > 0) {
+
                     var txt = txt.replace("upload.done", "");
                     var json = JSON.parse(txt);
-
-                    $("<div/>").text(txt).appendTo("#more_photo_result");
-
-                    var photo = $(".more-photo-template").clone();
-                    photo.removeClass("more-photo-template").addClass("more-photo-instance");
-                    photo.data("public_id", json.public_id);
-
-                    $(".more-photo-file").removeClass("col-md-offset-4");
-
-                    photo.insertBefore(".more-photo-file").fadeIn(200, function () {
-
                         var params = {
                             angle: "exif"
                         };
+                    var url = $.cloudinary.url(json.public_id, params);
+                    $("#minilogo_upload_view").find("img").attr("src",url);
+                    $("#minilogo_upload_view").find("input").val(json.public_id);
 
-                        var url = $.cloudinary.url(json.public_id, params);
-
-                        photo.find("img").first().attr("src", url);
-
-                        Raisy.campaigns.cropboxPhoto(photo);
-
-                        if ($(".more-photo-instance").length >= 9) $(".more-photo-file").fadeOut(200);
-
-                        $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
-                        $(".camp-skip-btn-31").parent().hide();
-
-                        if ($(".more-photo-file").hasClass("col-md-12")) {
-                            $(".more-photo-file").removeClass("col-md-12").addClass("col-md-4");
-                        }
-
-                    });
-
-                    photo.find("button").click(function (e) {
-                        $(this).parents(".more-photo-instance").first()
-                            .removeClass("more-photo-instance").fadeOut(200, function () {
-                                $(this).remove();
-
-                                if ($(".more-photo-instance").length == 0)
-                                    $(".more-photo-file").addClass("col-md-offset-4");
-
-                                $(".more-photo-file").fadeIn(200);
-
-                                if ($(".more-photo-instance").length > 0) {
-                                    $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
-                                    $(".camp-skip-btn-31").parent().hide();
-                                }
-                                else {
-                                    $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-6").addClass("col-sm-5");
-                                    $(".camp-skip-btn-31").parent().show();
-                                }
-                            });
-                    });
+                    //$("<div/>").text(txt).appendTo("#more_photo_result");
+                    //
+                    //var photo = $(".more-photo-template").clone();
+                    //photo.removeClass("more-photo-template").addClass("more-photo-instance");
+                    //photo.data("public_id", json.public_id);
+                    //
+                    //$(".more-photo-file").removeClass("col-md-offset-4");
+                    //
+                    //photo.insertBefore(".more-photo-file").fadeIn(200, function () {
+                    //
+                    //    var params = {
+                    //        angle: "exif"
+                    //    };
+                    //
+                    //    var url = $.cloudinary.url(json.public_id, params);
+                    //
+                    //    photo.find("img").first().attr("src", url);
+                    //
+                    //    Raisy.campaigns.cropboxPhoto(photo);
+                    //
+                    //    if ($(".more-photo-instance").length >= 9) $(".more-photo-file").fadeOut(200);
+                    //
+                    //    $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
+                    //    $(".camp-skip-btn-31").parent().hide();
+                    //
+                    //    if ($(".more-photo-file").hasClass("col-md-12")) {
+                    //        $(".more-photo-file").removeClass("col-md-12").addClass("col-md-4");
+                    //    }
+                    //
+                    //});
+                    //
+                    //photo.find("button").click(function (e) {
+                    //    $(this).parents(".more-photo-instance").first()
+                    //        .removeClass("more-photo-instance").fadeOut(200, function () {
+                    //            $(this).remove();
+                    //
+                    //            if ($(".more-photo-instance").length == 0)
+                    //                $(".more-photo-file").addClass("col-md-offset-4");
+                    //
+                    //            $(".more-photo-file").fadeIn(200);
+                    //
+                    //            if ($(".more-photo-instance").length > 0) {
+                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
+                    //                $(".camp-skip-btn-31").parent().hide();
+                    //            }
+                    //            else {
+                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-6").addClass("col-sm-5");
+                    //                $(".camp-skip-btn-31").parent().show();
+                    //            }
+                    //        });
+                    //});
                 }
                 else {
                     // txt="Internal Server Error";
-                    $("<div/>").text(txt).appendTo("#more_photo_result");
+                    //$("<div/>").text(txt).appendTo("#more_photo_result");
                 }
             },
             fail: function (e, data) {
@@ -837,48 +848,48 @@ Raisy.campaigns = {
         // But it may affect the display of step icon and navigation.
 				
         if (step == 2) {
-            var ed = tinymce.get("campaign_description");
-            var $container = $(ed.getContainer());
-
-            if (!$container.hasClass("mce-tinymce")) {
-                $container = $container.parents(".mce-tinymce").first();
-            }
-
-            var content = $.trim(ed.getContent({format: "text"}));
-            var maxLength = parseInt(ed.getParam("maxlength"));
-            var count = maxLength - content.length;
-
-            if (count < 0) {
-                story_too_long = true;
-
-                $container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to " + maxLength + " characters");
-            }
-            else {
-                $container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
-								
-								content=$.trim(ed.getContent());
-								
-								$("#campaign_description").val(content);
-            }
+            //var ed = tinymce.get("campaign_description");
+            //var $container = $(ed.getContainer());
+            //
+            //if (!$container.hasClass("mce-tinymce")) {
+            //    $container = $container.parents(".mce-tinymce").first();
+            //}
+            //
+            //var content = $.trim(ed.getContent({format: "text"}));
+            //var maxLength = parseInt(ed.getParam("maxlength"));
+            //var count = maxLength - content.length;
+            //
+            //if (count < 0) {
+            //    story_too_long = true;
+            //
+            //    $container.find(".tinymce-charcount span").css("color", "#b94a48").text("Up to " + maxLength + " characters");
+            //}
+            //else {
+            //    $container.find(".tinymce-charcount span").css("color", "#00aaff").text(count);
+				//
+				//				content=$.trim(ed.getContent());
+				//
+				//				$("#campaign_description").val(content);
+            //}
         }
 
         if (story_too_long) {
             return;
         }
 
-        var noCollection = false;
-
-        if (step == 5 && $("#campaign_collection_id").val() == "") {
-            noCollection = true;
-        }
-
-        if (!$("#campaign_form").valid() || noCollection) {
-            if (noCollection) {
-                $(".no-collection-label").show();
-            }
-
-            return;
-        }
+        //var noCollection = false;
+        //
+        //if (step == 5 && $("#campaign_collection_id").val() == "") {
+        //    noCollection = true;
+        //}
+        //
+        //if (!$("#campaign_form").valid() || noCollection) {
+        //    if (noCollection) {
+        //        $(".no-collection-label").show();
+        //    }
+        //
+        //    return;
+        //}
 
         switch (step) {
             case 1:

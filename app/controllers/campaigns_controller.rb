@@ -201,7 +201,8 @@ class CampaignsController < ApplicationController
       end
       
       @campaign.campaign_mode = params[:campaign_mode].to_i
-      @campaign.active = !@campaign.collection_id.nil?
+      # @campaign.active = !@campaign.collection_id.nil?
+      @campaign.active =true
       @campaign.save
       
       if preloaded
@@ -712,7 +713,7 @@ class CampaignsController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def campaign_params
-        params.require(:campaign).permit :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
+        params.require(:campaign).permit :minilogo,:is_featured,:receiver, :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
     end
 
     def campaign_delivery_params
