@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
 
     has_many :product_tagses,class_name: "ProductTags",foreign_key: "product_id"
     has_many :tags,through: :product_tagses
-
+    has_many_kindeditor_assets :attachments, :dependent => :destroy
     validates :base_price, :default_donation_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
     
     # fulfillment_method

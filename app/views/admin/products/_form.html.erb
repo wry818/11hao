@@ -89,7 +89,11 @@
             <div class="row">
               <div class="col-md-12">
                 <label>商品描述</label>
-                <%= f.kindeditor :description, :simple_mode => false  %>
+                <% if @product%>
+                <%= f.kindeditor :description, :simple_mode => false,:owner_id => @product.id %>
+                <% else %>
+                    <%= f.kindeditor :description, :simple_mode => true%>
+                <% end %>
               </div>
             </div>
           </div>
