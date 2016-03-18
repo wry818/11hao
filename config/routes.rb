@@ -135,6 +135,9 @@ Raisy::Application.routes.draw do
   get 'checkout/xgst', to: 'campaign_ngo#xgst', as: :campagin_ngo_xgst
   get 'campaginngo/xgst_supporters', to: 'campaign_ngo#xgst_supporters', as: :campagin_ngo_xgst_supporters
 
+  get 'checkout/campaignview', to: 'campaign_ngo#campaignview', as: :campagin_ngo_campaignview
+  get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
+
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 

@@ -1274,6 +1274,13 @@ Raisy.campaigns = {
                 return;
         }
 
+        var campaign_id = parseInt($("#campaign_id").val());
+
+        if (!isNaN(campaign_id)) {
+            $("#camp_preview_border").find("img").hide();
+            $ifra=$("#camp_preview_border").find("iframe");
+            $ifra.attr("src",'/checkout/campaignview?id='+campaign_id);
+        }
         $("#camp_preview_border").css({
             "left": border_left,
             "top": border_top,

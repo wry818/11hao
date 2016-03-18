@@ -1,6 +1,39 @@
 class CampaignNgoController < ApplicationController
   layout "story_personal"
   before_filter :manage_session_order, only: [ :confirmation, :confirmation_weixin]
+
+  def campaignview
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+    campaign_slug = "gs1001"
+    if params[:id]
+      campaign_slug = params[:id]
+
+
+    end
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_campaignview_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def campaignview_supporters
+
+    campaign_slug = "gs1001"
+    if params[:id]
+      campaign_slug = params[:id]
+    end
+    path = campagin_ngo_campaignview_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+
   def lzds
 
     if(params[:order_id])
@@ -112,7 +145,7 @@ class CampaignNgoController < ApplicationController
     @campaign_total_count = @campaign.orders.completed.count
 
     @is_wechat_browser = is_wechat_browser?
-
+    @share_url=request.protocol + request.host_with_port + "/checkout/campaignview?id=" + @campaign.id
     if is_wechat_browser?
 
       weixin_get_user_info()
