@@ -279,6 +279,98 @@ window.Raisy_admin_campaigns = {
 	    }).bind('fileuploadprogress', function (e, data) {
 		    
 		});
+        $('#minilogo_upload').fileupload({
+
+            forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
+            add: function (e, data) {
+                $('.add-campaign-photo .fa-spin').show();
+                $("#minilogo_upload_view").parent().find(".loader").show();
+                data.submit();
+            },
+            done: function (e, data) {
+
+                $('.add-campaign-photo .fa-spin').hide();
+
+                var txt = $(data.result[0].body).text();	// Thanks to IE, work became so ugly
+
+                // Upload#save action returns filename+'upload.done' to indicate a successful uploading
+                if (txt.indexOf("upload.done") > 0) {
+
+                    var txt = txt.replace("upload.done", "");
+                    var json = JSON.parse(txt);
+                    var params = {
+                        angle: "exif"
+                    };
+                    var url = $.cloudinary.url(json.public_id, params);
+                    $("#minilogo_upload_view").find("img").attr("src",url);
+                    $("#minilogo_upload_view").find("input").val(json.public_id);
+                    $("#minilogo_upload_view").parent().find(".loader").hide();
+                    //$("<div/>").text(txt).appendTo("#more_photo_result");
+                    //
+                    //var photo = $(".more-photo-template").clone();
+                    //photo.removeClass("more-photo-template").addClass("more-photo-instance");
+                    //photo.data("public_id", json.public_id);
+                    //
+                    //$(".more-photo-file").removeClass("col-md-offset-4");
+                    //
+                    //photo.insertBefore(".more-photo-file").fadeIn(200, function () {
+                    //
+                    //    var params = {
+                    //        angle: "exif"
+                    //    };
+                    //
+                    //    var url = $.cloudinary.url(json.public_id, params);
+                    //
+                    //    photo.find("img").first().attr("src", url);
+                    //
+                    //    Raisy.campaigns.cropboxPhoto(photo);
+                    //
+                    //    if ($(".more-photo-instance").length >= 9) $(".more-photo-file").fadeOut(200);
+                    //
+                    //    $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
+                    //    $(".camp-skip-btn-31").parent().hide();
+                    //
+                    //    if ($(".more-photo-file").hasClass("col-md-12")) {
+                    //        $(".more-photo-file").removeClass("col-md-12").addClass("col-md-4");
+                    //    }
+                    //
+                    //});
+                    //
+                    //photo.find("button").click(function (e) {
+                    //    $(this).parents(".more-photo-instance").first()
+                    //        .removeClass("more-photo-instance").fadeOut(200, function () {
+                    //            $(this).remove();
+                    //
+                    //            if ($(".more-photo-instance").length == 0)
+                    //                $(".more-photo-file").addClass("col-md-offset-4");
+                    //
+                    //            $(".more-photo-file").fadeIn(200);
+                    //
+                    //            if ($(".more-photo-instance").length > 0) {
+                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
+                    //                $(".camp-skip-btn-31").parent().hide();
+                    //            }
+                    //            else {
+                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-6").addClass("col-sm-5");
+                    //                $(".camp-skip-btn-31").parent().show();
+                    //            }
+                    //        });
+                    //});
+                }
+                else {
+                    // txt="Internal Server Error";
+                    //$("<div/>").text(txt).appendTo("#more_photo_result");
+                }
+            },
+            fail: function (e, data) {
+                // No longer triggered when using iframe as it always get back the response, even if 404 or 500
+                // which will be considered as errors when using XHR
+
+                $("<div/>").text("Internal Server Error").appendTo("#more_photo_result");
+            }
+        }).bind('fileuploadprogress', function (e, data) {
+
+        });
 		
 		$("#campaign_images .delete-campaign-image").click(function(){
 			if (confirm("Are you sure that you want to delete this image?"))

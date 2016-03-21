@@ -14,17 +14,70 @@
     <div class="form-group">
         <label for="campaign_title" class="col-sm-2 control-label">筹款标题<span class='req'>*</span></label>
         <div class="col-sm-10">
-            <%= f.text_field :title, class: 'form-control', placeholder: "比如：园留守儿童图书馆梦" %>
+          <%= f.text_field :title, class: 'form-control', placeholder: '比如：给古树系一条红丝带' %>
         </div>
     </div>
 
     <div class="form-group">
         <label for="campaign_title" class="col-sm-2 control-label">宣传口号</label>
         <div class="col-sm-10">
-            <%= f.text_field :organizer_quote, class: 'form-control', placeholder: "比如：图书义卖帮云南一所乡村中学的孩子筹集一座乡村图书馆" %>
+          <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害' %>
         </div>
     </div>
+  <div class="form-group">
+    <label for="campaign_goal" class="col-sm-2 control-label">善款接收方</label>
 
+    <div class="col-sm-10">
+      <%= f.text_field :receiver, class: 'form-control', placeholder: "比如：北京市昌平区多元智能环境研究所" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="campaign_active" class="col-sm-2 control-label">是否参加义卖？</label>
+    <div class="col-sm-3">
+      <div style="margin-top: 5px;">
+        <%= f.check_box :is_featured %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">
+      Logo
+      <br />
+			<span class="upload-tooltip">
+				（最好的图片尺寸: 280px * 280px）
+			</span>
+    </label>
+
+    <fieldset>
+      <div class="row">
+        <div class="col-md-12">
+          <div style="width:0px; height:0px;">
+            <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/campaign_photo" style="width:0px; height:0px; visibility:hidden;"/>
+          </div>
+          <div id="minilogo_upload_view">
+            <p >
+              <%=image_tag "logo.png",:style => "width:280px;height:280px;
+    border: 15px solid rgba(51,51,51,0.1);
+    border-radius: 180px;" %>
+            </p>
+            <%= f.hidden_field :minilogo %>
+          </div>
+          <div class="uploader-box" style="margin-top: 3px">
+            <div class="row" style="padding-left: 50px;">
+              <div class="col-sm-3">
+                <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											上传</span>
+                  <span style="font-size:0.9em;display:block;font-style:italic;">Logo</span>
+                  <span class="loader" style="display:none"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
     <div class="form-group">
         <label for="organization_picture" class="col-sm-2 control-label">筹款页面封面
 			<br />
