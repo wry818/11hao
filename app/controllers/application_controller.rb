@@ -124,8 +124,8 @@ class ApplicationController < ActionController::Base
               param_url += "&" + "#{key}=" + "#{value}"
             end
 
-            # logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            # logger.info param_url
+            logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            logger.info param_url
             redirect_uri = redirect_uri + param_url
       
           else
