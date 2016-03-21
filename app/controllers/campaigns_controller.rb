@@ -597,7 +597,9 @@ class CampaignsController < ApplicationController
       if Rails.env.test?||Rails.env.development?
         url=campagin_ngo_campaignview_url+"?id=#{@campaign.id.to_s}"
       end
+      # url= ERB::Util.url_encode(url)
       logger.debug "1001:"+url
+
       qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
 
       @qr_url = qr.to_img.resize(200, 200).to_data_url

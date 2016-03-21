@@ -469,8 +469,11 @@ class ChairpersonDashboardController < ApplicationController
         @campaign = Campaign.friendly.find(params[:id])
         
         redirect_to root_url and return unless @campaign && (current_user.id == @campaign.organizer_id || admin_user? || sales_user? || crs_user?)
-        
-        qr = RQRCode::QRCode.new(Rails.configuration.url_host + short_campaign_path(@campaign), :size => 10, :level => :h)
+        url=Rails.configuration.url_host+campagin_ngo_campaignview_path+"?id=#{@campaign.id.to_s}"
+        if Rails.env.test?||Rails.env.development?
+          url=campagin_ngo_campaignview_url+"?id=#{@campaign.id.to_s}"
+        end
+        qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
 
         @qr_url = qr.to_img.resize(150, 150).to_data_url
       rescue
