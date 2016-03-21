@@ -145,11 +145,11 @@ class ApplicationController < ActionController::Base
             param_url += "&" + "#{key}=" + "#{value}"
           end
     
-          # logger.info "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
-          # logger.info param_url
+          logger.info "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          logger.info param_url
     
           url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token] + param_url
-
+          logger.info url
           redirect_to url and return
         end
       end
