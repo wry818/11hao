@@ -592,8 +592,10 @@ class CampaignsController < ApplicationController
       session[:is_campaign_preview] = "yes"
       
       @step_popup = session[:camp_step_popup] || "yes"
-      
-      qr = RQRCode::QRCode.new(Rails.configuration.url_host + short_campaign_path(@campaign), :size => 10, :level => :h)
+
+      url=Rails.configuration.url_host+campagin_ngo_campaignview_path+"?id=#{@campaign.id.to_s}"
+      logger.debug "1001:"+url
+      qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
 
       @qr_url = qr.to_img.resize(200, 200).to_data_url
     end

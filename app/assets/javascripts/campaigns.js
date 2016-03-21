@@ -359,10 +359,11 @@ Raisy.campaigns = {
         });
 
         $('#minilogo_upload').fileupload({
+
             forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
             add: function (e, data) {
                 $('.add-campaign-photo .fa-spin').show();
-
+                $("#minilogo_upload_view").parent().find(".loader").show();
                 data.submit();
             },
             done: function (e, data) {
@@ -382,7 +383,7 @@ Raisy.campaigns = {
                     var url = $.cloudinary.url(json.public_id, params);
                     $("#minilogo_upload_view").find("img").attr("src",url);
                     $("#minilogo_upload_view").find("input").val(json.public_id);
-
+                    $("#minilogo_upload_view").parent().find(".loader").hide();
                     //$("<div/>").text(txt).appendTo("#more_photo_result");
                     //
                     //var photo = $(".more-photo-template").clone();
@@ -975,6 +976,7 @@ Raisy.campaigns = {
         }
     },
     campaign_ajax_create: function (btn, nextStep) {
+
         var ids = ",";
 
         $(".more-photo-instance").each(function () {

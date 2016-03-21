@@ -416,7 +416,7 @@ $( document ).ready(function() {
         // validation rules
         rules: {
             "organization_name": { required: true },
-			"campaign[collection_id]": { required: true },
+			"campaign[collection_id]": { required: false },
             "campaign[title]": { required: true, maxlength: 100 },
             "campaign[organizer_quote]": { maxlength: 100 },
             "campaign[goal]": { number: true, min: 1 },
