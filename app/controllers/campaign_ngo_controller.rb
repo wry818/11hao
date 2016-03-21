@@ -10,16 +10,15 @@ class CampaignNgoController < ApplicationController
         @isback=order.direct_donation
       end
     end
-    campaign_slug = "gs1001"
+    id=0;
     if params[:id]
       campaign_slug = params[:id]
-
-
+     id=campaign_slug.split("_")[1]
     end
-    session[:personal_campaign_slug]=campaign_slug
+    session[:personal_campaign_slug]=id
     path = campagin_ngo_campaignview_supporters_path
 
-    load_campaign_page(campaign_slug, path)
+    load_campaign_page(id, path)
 
   end
   def campaignview_supporters

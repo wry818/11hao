@@ -124,10 +124,10 @@ class ApplicationController < ActionController::Base
               param_url += "&" + "#{key}=" + "#{value}"
             end
 
-            logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            logger.info param_url
+            # logger.info "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            # logger.info param_url
             redirect_uri = redirect_uri + param_url
-            logger.info redirect_uri
+            # logger.info redirect_uri
           else
             # In case callback url contains code which will trigger re-auth
             redirect_uri = ERB::Util.url_encode(request.original_url.gsub(/code=/, "_code="))

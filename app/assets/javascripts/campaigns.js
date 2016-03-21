@@ -916,6 +916,7 @@ Raisy.campaigns = {
 
                 break;
             case 3.1:
+
                 var ids = ",";
 
                 $(".more-photo-instance").each(function () {
@@ -933,16 +934,16 @@ Raisy.campaigns = {
                     $("#campaign_call_to_action").val("立刻购买");
                 }
 
-                var nextStep = $(this).data("nextstep");
-
-                if (nextStep == 5) {
-                    Raisy.campaigns.campaign_current_step = 5;
-										Raisy.campaigns.campaign_ajax_create(this, 5);
-                }
-                else {
-                    Raisy.campaigns.campaign_ajax_create(this, 6);
-                }
-
+                //var nextStep = $(this).data("nextstep");
+                //
+                //if (nextStep == 5) {
+                //    Raisy.campaigns.campaign_current_step = 5;
+					//					Raisy.campaigns.campaign_ajax_create(this, 5);
+                //}
+                //else {
+                //    Raisy.campaigns.campaign_ajax_create(this, 6);
+                //}
+                Raisy.campaigns.campaign_ajax_create(this, 6);
                 break;
             case 4:
                 // Who Are You Raising Funds For is combined into Fundraiser Details,
@@ -957,16 +958,17 @@ Raisy.campaigns = {
                     $("#campaign_call_to_action").val("立刻购买");
                 }
 
-                var nextStep = $(this).data("nextstep");
-
-                if (nextStep == 5) {
-                    Raisy.campaigns.campaign_current_step = 5;
-										Raisy.campaigns.campaign_ajax_create(this, 5);
-                }
-                else {
-                    Raisy.campaigns.campaign_ajax_create(this, 6);
-                }
-
+                //var nextStep = $(this).data("nextstep");
+                //
+                //if (nextStep == 5) {
+                //    Raisy.campaigns.campaign_current_step = 5;
+					//					Raisy.campaigns.campaign_ajax_create(this, 5);
+                //}
+                //else {
+                //    Raisy.campaigns.campaign_ajax_create(this, 6);
+                //}
+                alert(4);
+                Raisy.campaigns.campaign_ajax_create(this, 6);
                 break;
             case 5:
                 Raisy.campaigns.campaign_ajax_create(this, 6);
@@ -1000,6 +1002,7 @@ Raisy.campaigns = {
 				var $button=$(btn);
 				
         $button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
+            $("#campaign_description").val(my_editor.html());
 	        $.ajax({
 	            method: "POST",
 	            url: "/campaigns/ajax_create",
