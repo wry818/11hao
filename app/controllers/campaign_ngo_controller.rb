@@ -145,7 +145,7 @@ class CampaignNgoController < ApplicationController
     @campaign_total_count = @campaign.orders.completed.count
 
     @is_wechat_browser = is_wechat_browser?
-    @share_url=request.protocol + request.host_with_port + "/checkout/campaignview?id=" + @campaign.id.to_s
+    @share_url=request.protocol + request.host_with_port + "/checkout/campaign_" + @campaign.id.to_s
     if is_wechat_browser?
 
       weixin_get_user_info()
