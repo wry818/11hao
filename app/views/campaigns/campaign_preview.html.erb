@@ -27,7 +27,7 @@
 			</div>
 			
 			<div style="text-align:center; margin-top:30px;">
-				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('/checkout/campaignview?id=<%=@campaign.id%>');">
+				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%>');">
 					<span class="text">预览筹款页面</span>
 				</button>
 			</div>

@@ -90,7 +90,12 @@ Raisy.campaigns = {
         }).on("click", function () {
 
             var $div = $("#" + $(this).data("story"));
-            my_editor.html($.trim($div.html()));
+
+            if(confirm('如果应用模板您目前的修改会丢失！'))
+            {
+                my_editor.html($.trim($div.html()));
+            }
+
             //alert(1);
             $(".example-story").removeClass("example-story-selected");
             $(this).addClass("example-story-selected");

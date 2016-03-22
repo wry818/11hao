@@ -17,6 +17,8 @@
     <nav class="collapse navbar-collapse navbar-responsive-collapse" role="navigation">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
+            <li><%= link_to "欢迎回来,#{current_user.profile.try(:first_name)}" %></li>
+
 			<% if @campaign && !@campaign.id.nil? && @campaign.organizer_id!=current_user.id && !current_user.is_sales? && !current_user.is_crs? && !current_user.is_seller?(@campaign) && !current_user.admin? && !@campaign.expired? && @campaign.active %>
 				<li>
 					<!-- <%= link_to "加入筹款团队", signup_seller_path(@campaign), class: "join-fundraising-link" %> -->
@@ -26,9 +28,9 @@
 		   <% is_chairperson = current_user.is_chairperson? %>
 		   
 		   <% if is_chairperson %>
-		   		<li><%= link_to "管理我的团队", dashboard_campaigns_path %></li>
+		   		<li><%= link_to "管理我的筹款", dashboard_campaigns_path %></li>
 		   <% end %>
-		   
+
 		   <% if current_user.is_crs? %>
 		   		<li><%= link_to "筹款团队", dashboard_campaigns_path + "?cp=no" %></li>
 		   <% end %>
@@ -38,13 +40,15 @@
 		   <% end %>
 		   
 		   <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id==current_user.id %>
-                <li><%= link_to "编辑这个筹款团队", dashboard_campaign_details_path(@campaign) %></li>
+                <li><%= link_to "编辑这个筹款", dashboard_campaign_details_path(@campaign) %></li>
 		   <% end %>
 		   
 		   <% if current_user.is_sales? || current_user.is_crs? %>
 		   	    <li class="visible-xs"><%= link_to "报表", sales_report_path %></li>
 		   <% end %>
-		   
+            <% if !current_user.is_sales? && !current_user.is_crs? %>
+                <li><%= link_to "发起筹款", new_campaign_path %></li>
+            <% end %>
 		   <li class="dropdown">
 			   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">我的帐户<b class="caret"></b></a>
 			   <ul class="dropdown-menu">
@@ -52,9 +56,7 @@
 	                    <li><%= link_to current_user.profile.try(:first_name) + "的仪表", seller_dashboard_path %></li>
 	               <% end %>
 				   
-				   <!--<% if !current_user.is_sales? && !current_user.is_crs? %>-->
-						<!--<li><%= link_to "发起筹款", new_campaign_path %></li>-->
-				   <!--<% end %>-->
+
 				   
 				   <% if is_chairperson %>
 	                    <!-- <li><%= link_to "修改筹款页面摘要", dashboard_campaigns_path %></li> -->
@@ -82,11 +84,8 @@
 			    </ul>
 	        </li>
         </ul>
-            <% if !current_user.is_sales? && !current_user.is_crs? %>
-                <p class="navbar-right navbar-text hidden-xs hidden-sm"><%= link_to "发起筹款", new_campaign_path ,:style => "    color: rgb(119, 119, 119);
-    text-decoration: none;"%></p>
-            <% end %>
-            <p class="navbar-right navbar-text hidden-xs hidden-sm">欢迎回来, <%= current_user.profile.try(:first_name) %></p>
+
+
 
 		
 		<% if current_user.is_sales? || current_user.is_crs? %>

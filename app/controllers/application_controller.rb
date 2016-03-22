@@ -132,7 +132,7 @@ class ApplicationController < ActionController::Base
             # In case callback url contains code which will trigger re-auth
             redirect_uri = ERB::Util.url_encode(request.original_url.gsub(/code=/, "_code="))
           end
-          logger.info redirect_uri
+          # logger.info redirect_uri
           url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WEIXIN_APPID"] + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=weixin#wechat_redirect"
 
           redirect_to url and return
@@ -145,11 +145,11 @@ class ApplicationController < ActionController::Base
             param_url += "&" + "#{key}=" + "#{value}"
           end
     
-          logger.info "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
-          logger.info param_url
+          # logger.info "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          # logger.info param_url
     
           url = "http://test.11haoonline.com" + request.path + "?openid=" + session[:openid] + "&access_token=" + session[:access_token] + param_url
-          logger.info url
+          # logger.info url
           redirect_to url and return
         end
       end

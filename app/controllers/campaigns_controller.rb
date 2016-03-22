@@ -593,9 +593,9 @@ class CampaignsController < ApplicationController
       
       @step_popup = session[:camp_step_popup] || "yes"
 
-      url=Rails.configuration.url_host+campagin_ngo_campaignview_path+"?id=#{@campaign.id.to_s}"
+      url=Rails.configuration.url_host+campagin_ngo_campaignview_path("campaign_#{@campaign.id}")
       if Rails.env.test?||Rails.env.development?
-        url=campagin_ngo_campaignview_url+"?id=#{@campaign.id.to_s}"
+        url=campagin_ngo_campaignview_url("campaign_#{@campaign.id}")
       end
       # url= ERB::Util.url_encode(url)
       logger.debug "1001:"+url

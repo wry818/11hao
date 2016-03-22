@@ -12,9 +12,10 @@ class CampaignNgoController < ApplicationController
     end
     id=0;
     if params[:id]
-      campaign_slug = params[:id]
-     id=campaign_slug.split("_")[1]
+      campaign_id = params[:id]
+      id=campaign_id.split("_")[1]
     end
+
     session[:personal_campaign_slug]=id
     path = campagin_ngo_campaignview_supporters_path
 
@@ -23,13 +24,13 @@ class CampaignNgoController < ApplicationController
   end
   def campaignview_supporters
 
-    campaign_slug = "gs1001"
-    if params[:id]
-      campaign_slug = params[:id]
+    campaign_id = 0
+    if params[:campaign_id]
+      campaign_id = params[:campaign_id]
     end
     path = campagin_ngo_campaignview_supporters_path
 
-    load_campaign_supporter(campaign_slug, path)
+    load_campaign_supporter(campaign_id, path)
 
   end
 
@@ -158,7 +159,7 @@ class CampaignNgoController < ApplicationController
   end
   def load_campaign_supporter(campaign_slug, path)
 
-    @campaign = Campaign.find_by_slug(campaign_slug)
+    @campaign = Campaign.find(campaign_slug)
 
     load_supporters(path)
 
@@ -329,7 +330,7 @@ class CampaignNgoController < ApplicationController
 
         @show_pager = true
 
-        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
+        query = "?campaign_id=#{@campaign.id}&seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
 
         @page_url = path + query
 
@@ -344,7 +345,7 @@ class CampaignNgoController < ApplicationController
 
         @show_pager = true
 
-        query = "?seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
+        query = "?campaign_id=#{@campaign.id}&seller_id=" + params[:seller_id].to_s + "&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
 
         @page_url = path + query
 
@@ -357,7 +358,7 @@ class CampaignNgoController < ApplicationController
   def manage_session_order
     logger.debug "1001"
     logger.debug session[:personal_campaign_slug]
-    @campaign = Campaign.find_by_slug(session[:personal_campaign_slug])
+    @campaign = Campaign.find(session[:personal_campaign_slug])
     @campaign_total_count = 0
   end
 end
