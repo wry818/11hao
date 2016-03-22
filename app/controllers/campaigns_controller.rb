@@ -124,7 +124,7 @@ class CampaignsController < ApplicationController
       @example_story_4 = CampaignStory.find_by_id(4)
       @campaign_images = CampaignImage.default_images.order(:id).all
       @campaign = Campaign.new
-      @campaign.description = @example_story_1.story
+      # @campaign.description = @example_story_1.story
       @step_popup = session[:camp_step_popup] || "yes"
       
     end

@@ -14,6 +14,6 @@ RailsKindeditor.setup do |config|
   # eg: 1600x1600 => 800x800
   #     1600x800  => 800x400
   #     400x400   => 400x400  # No Change
-  # config.image_resize_to_limit = [800, 800]
+   config.image_resize_to_limit = [600, 800]
 
 end

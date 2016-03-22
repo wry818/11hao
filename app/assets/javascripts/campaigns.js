@@ -91,6 +91,8 @@ Raisy.campaigns = {
 
             var $div = $("#" + $(this).data("story"));
 
+            //alert(my_editor.html());
+            //alert($.trim($div.html()))
             if(confirm('如果应用模板您目前的修改会丢失！'))
             {
                 my_editor.html($.trim($div.html()));
@@ -899,11 +901,13 @@ Raisy.campaigns = {
 
         switch (step) {
             case 1:
+
                 Raisy.campaigns.campaign_current_step = 2;
 								Raisy.campaigns.campaign_ajax_create(this, 2);
 
                 break;
             case 2:
+
                 Raisy.campaigns.campaign_current_step = 3;
 								Raisy.campaigns.campaign_ajax_create(this, 3);
 								
@@ -1022,7 +1026,15 @@ Raisy.campaigns = {
 												window.Raisy.alert("抱歉，创建这个筹款团队时出了问题，请稍后再试。");
 	                    }
 	                    else {
-												$("#campaign_id").val(d.id);
+							$("#campaign_id").val(d.id);
+                            var campaign_id = parseInt($("#campaign_id").val());
+                            //alert(campaign_id);
+                            if (!isNaN(campaign_id)) {
+                                $("#camp_preview_modal").find("img").hide();
+                                $ifra=$("#camp_preview_modal").find("iframe");
+                                $ifra.attr("src",'/checkout/campaign_'+campaign_id);
+                                $ifra.show();
+                            }
 											
 	                        switch (nextStep) {
 	                            case 1:
@@ -1284,13 +1296,8 @@ Raisy.campaigns = {
                 return;
         }
 
-        var campaign_id = parseInt($("#campaign_id").val());
 
-        if (!isNaN(campaign_id)) {
-            $("#camp_preview_border").find("img").hide();
-            $ifra=$("#camp_preview_border").find("iframe");
-            $ifra.attr("src",'/checkout/campaignview?id='+campaign_id);
-        }
+
         $("#camp_preview_border").css({
             "left": border_left,
             "top": border_top,

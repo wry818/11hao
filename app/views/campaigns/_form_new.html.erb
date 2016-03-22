@@ -150,14 +150,14 @@
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
           </div>
           <div class="row mobile-box">
             <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1">
-                <span class="text">继续</span> <span class="loader" style="display:none">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
@@ -192,8 +192,25 @@
           <div class="form-group descrption-box">
             <div>
 
-              <%= f.kindeditor :description,:editor_id => 'my_editor'%>
+              <%= f.kindeditor :description,:themeType=>'simple',:editor_id => 'my_editor',:allowFileManager=>false,:items=>['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull','|','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','link', 'fullscreen']%>
+              <script>
+                //<![CDATA[
+//                my_editor=KindEditor.create('#campaign_description', {"width":"100%","height":300
+//                  ,"allowFileManager":false,
+//                  "uploadJson":"/kindeditor/upload",
+//                  "fileManagerJson":"/kindeditor/filemanager",
+//                  "items":[
+//                    'source', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste',
+//                    'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+//                    'justifyfull',  '|',
+//                    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+//                    'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+//                    'link', 'fullscreen'
+//                  ]
+//                });
+                //]]>
 
+              </script>
               <div calss="row" style="margin-top:5px;margin-left: -15px;margin-right: -15px;">
                 <div class="col-sm-6">
                   <div class="example-story example-story-selected" data-story="example_story_1">
@@ -292,9 +309,12 @@
               </div>
               <div id="minilogo_upload_view">
                 <p style="text-align: center;">
-                <%=image_tag "logo.png",:style => "width:280px;height:280px;
-    border: 15px solid rgba(51,51,51,0.1);
-    border-radius: 180px;" %>
+                <%=image_tag "logo.png",:style => "
+    width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;
+    " %>
                 </p>
                 <%= f.hidden_field :minilogo %>
               </div>
@@ -322,7 +342,7 @@
               </button>
             </div>
             <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
+              <button class="btn btn-primary btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
                 <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
@@ -518,7 +538,7 @@
             <span class="number">5</span>您是否要参加筹款义卖&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
-          <div class="form-group" style="margin-bottom: -4px">
+          <div class="form-group" style="margin-bottom: -4px;display: none;">
             <div class="row">
               <div class="col-md-2"></div>
               <div class="col-md-10" style="padding: 15px; text-align: center; margin-left: 20px;">
@@ -890,7 +910,7 @@
     </div>
 
     <div id="camp_step_tips_2" style="display:none;">
-      <p>讲述您团队的故事， 您可以从我们提供的4个模板中选择一个并修改，或者告诉大家团队自己的故事。</p>
+      <p>讲述您团队的故事， 您可以从我们提供的模板中选择一个并修改，或者告诉大家团队自己的故事。</p>
       <span>建议：</span>
       <ul>
         <li><span>反复重申您为什么要筹款。</span></li>

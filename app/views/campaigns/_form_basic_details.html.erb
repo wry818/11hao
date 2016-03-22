@@ -110,8 +110,9 @@
           </div>
           <div id="minilogo_upload_view">
             <p >
-              <%=image_tag "logo.png",:style => "width:280px;height:280px;
-    border: 15px solid rgba(51,51,51,0.1);
+              <%=image_tag "logo.png",:style => " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
     border-radius: 180px;" %>
             </p>
             <%= f.hidden_field :minilogo %>
@@ -256,24 +257,23 @@
     <div class="form-group">
         <label for="campaign_description" class="col-sm-2 control-label">告诉大家您的筹款故事</label>
         <div class="col-sm-9">
-            <%= f.kindeditor :description %>
+            <%= f.kindeditor :description,:themeType=>'simple',:allowFileManager=>false,:items=>['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull','|','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','link', 'fullscreen'] %>
         </div>
       <script>
           //<![CDATA[
-            KindEditor.create('#campaign_description', {"width":"100%","height":300
-              ,"allowFileManager":false,
-              "uploadJson":"/kindeditor/upload",
-              "fileManagerJson":"/kindeditor/filemanager",
-                "items":[
-                'source', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste',
-                    'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
-                    'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-                    'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen',
-                    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-                    'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',  'baidumap',
-                     'link', 'unlink'
-                ]
-            });
+//            KindEditor.create('#campaign_description', {"width":"100%","height":300
+//              ,"allowFileManager":false,
+//              "uploadJson":"/kindeditor/upload",
+//              "fileManagerJson":"/kindeditor/filemanager",
+//                "items":[
+//                'source', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste',
+//                    'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+//                    'justifyfull',  '|',
+//                    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+//                    'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+//                     'link', 'fullscreen'
+//                ]
+//            });
           //]]>
 
       </script>
@@ -307,7 +307,7 @@
     </div>
     <% end %> -->
 
-  <div class="form-group">
+  <div class="form-group" style="display: none;">
     <label for="campaign_active" class="col-sm-2 control-label">是否参加义卖？</label>
     <div class="col-sm-3">
       <div style="margin-top: 5px;">
@@ -315,7 +315,7 @@
       </div>
     </div>
   </div>
-	    <div class="form-group">
+	    <div class="form-group" style="display: none;">
 	        <label for="campaign_goal1" class="col-sm-2 control-label">选择您将要义卖的产品</label>
 	        <div class="col-sm-8">
 	            <select class="form-control input-small" name="campaign[collection_id]">
