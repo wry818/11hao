@@ -44,3 +44,4 @@
 //= require jquery.jscroll.min
 //= require jquery.lazyload.min
 //= require countUp.min
+//= require cropper.min

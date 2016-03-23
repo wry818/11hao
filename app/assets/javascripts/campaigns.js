@@ -1,5 +1,6 @@
 Raisy.campaigns = {
     skip_add_camp_photo: false,
+    minilogo_data_cropper:{ischage:false,x:0,y:0,height:0,width:0, scaleX:0,scaleY:0,filename:""},
     init: function () {
         var _this = this;
 
@@ -365,98 +366,7 @@ Raisy.campaigns = {
             }
         });
 
-        $('#minilogo_upload').fileupload({
 
-            forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
-            add: function (e, data) {
-                $('.add-campaign-photo .fa-spin').show();
-                $("#minilogo_upload_view").parent().find(".loader").show();
-                data.submit();
-            },
-            done: function (e, data) {
-
-                $('.add-campaign-photo .fa-spin').hide();
-
-                var txt = $(data.result[0].body).text();	// Thanks to IE, work became so ugly
-
-                // Upload#save action returns filename+'upload.done' to indicate a successful uploading
-                if (txt.indexOf("upload.done") > 0) {
-
-                    var txt = txt.replace("upload.done", "");
-                    var json = JSON.parse(txt);
-                        var params = {
-                            angle: "exif"
-                        };
-                    var url = $.cloudinary.url(json.public_id, params);
-                    $("#minilogo_upload_view").find("img").attr("src",url);
-                    $("#minilogo_upload_view").find("input").val(json.public_id);
-                    $("#minilogo_upload_view").parent().find(".loader").hide();
-                    //$("<div/>").text(txt).appendTo("#more_photo_result");
-                    //
-                    //var photo = $(".more-photo-template").clone();
-                    //photo.removeClass("more-photo-template").addClass("more-photo-instance");
-                    //photo.data("public_id", json.public_id);
-                    //
-                    //$(".more-photo-file").removeClass("col-md-offset-4");
-                    //
-                    //photo.insertBefore(".more-photo-file").fadeIn(200, function () {
-                    //
-                    //    var params = {
-                    //        angle: "exif"
-                    //    };
-                    //
-                    //    var url = $.cloudinary.url(json.public_id, params);
-                    //
-                    //    photo.find("img").first().attr("src", url);
-                    //
-                    //    Raisy.campaigns.cropboxPhoto(photo);
-                    //
-                    //    if ($(".more-photo-instance").length >= 9) $(".more-photo-file").fadeOut(200);
-                    //
-                    //    $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
-                    //    $(".camp-skip-btn-31").parent().hide();
-                    //
-                    //    if ($(".more-photo-file").hasClass("col-md-12")) {
-                    //        $(".more-photo-file").removeClass("col-md-12").addClass("col-md-4");
-                    //    }
-                    //
-                    //});
-                    //
-                    //photo.find("button").click(function (e) {
-                    //    $(this).parents(".more-photo-instance").first()
-                    //        .removeClass("more-photo-instance").fadeOut(200, function () {
-                    //            $(this).remove();
-                    //
-                    //            if ($(".more-photo-instance").length == 0)
-                    //                $(".more-photo-file").addClass("col-md-offset-4");
-                    //
-                    //            $(".more-photo-file").fadeIn(200);
-                    //
-                    //            if ($(".more-photo-instance").length > 0) {
-                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-5").addClass("col-sm-6");
-                    //                $(".camp-skip-btn-31").parent().hide();
-                    //            }
-                    //            else {
-                    //                $(".web-box").find(".camp-back-btn-31").parent().removeClass("col-sm-6").addClass("col-sm-5");
-                    //                $(".camp-skip-btn-31").parent().show();
-                    //            }
-                    //        });
-                    //});
-                }
-                else {
-                    // txt="Internal Server Error";
-                    //$("<div/>").text(txt).appendTo("#more_photo_result");
-                }
-            },
-            fail: function (e, data) {
-                // No longer triggered when using iframe as it always get back the response, even if 404 or 500
-                // which will be considered as errors when using XHR
-
-                $("<div/>").text("Internal Server Error").appendTo("#more_photo_result");
-            }
-        }).bind('fileuploadprogress', function (e, data) {
-
-        });
 
         $(".camp-step-qa-icon").click(function () {
             $("#camp_step_tips_modal").modal("show");
@@ -476,6 +386,124 @@ Raisy.campaigns = {
                 $("#default_images_modal").data("img-loaded", "yes");
             }
         });
+
+        function upload_minilogo() {
+            function getRoundedCanvas(sourceCanvas) {
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                var width = sourceCanvas.width;
+                var height =sourceCanvas.height;
+                canvas.width = width;
+                canvas.height = height;
+                context.beginPath();
+                context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+                context.strokeStyle = 'rgba(0,0,0,0)';
+                context.stroke();
+                context.clip();
+                //context.scale(0.3,0.3);
+                context.drawImage(sourceCanvas, 0, 0, width, height);
+
+                return canvas;
+            }
+
+            var $img_cropper = $("#minilogo_cropper");
+            var $button = $('#btn-crop-minilogo');
+            var $minilogoview = $(".js-minilogo-view");
+            var $result = $('#result');
+
+            var croppable = false;
+            function initcropper()
+            {
+                $img_cropper.cropper({
+                    aspectRatio: 1,
+                    viewMode: 1,
+                    built: function () {
+                        croppable = true;
+                    },
+                    crop: function (e) {
+                        // Output the result data for cropping image.
+                        //console.log(e.x);
+                        //console.log(e.y);
+                        //console.log(e.width);
+                        //console.log(e.height);
+                        //console.log(e.rotate);
+                        //console.log(e.scaleX);
+                        //console.log(e.scaleY);
+                        _this.minilogo_data_cropper.x= e.x;
+                        _this.minilogo_data_cropper.y= e.y;
+                        _this.minilogo_data_cropper.width= e.width;
+                        _this.minilogo_data_cropper.height= e.height;
+                        _this.minilogo_data_cropper.scaleX= e.scaleX;
+                        _this.minilogo_data_cropper.scaleY= e.scaleY;
+
+                        _this.minilogo_data_cropper.filename=$img_cropper.attr("src");
+                    }
+                });
+            }
+
+            $button.on('click', function () {
+                var croppedCanvas;
+                var roundedCanvas;
+
+                if (!croppable) {
+                    return;
+                }
+                // Crop
+                croppedCanvas = $img_cropper.cropper('getCroppedCanvas');
+                //croppedCanvas.width=150;
+                //croppedCanvas.height=150;
+                // Round
+                roundedCanvas = getRoundedCanvas(croppedCanvas);
+
+                // Show
+                $minilogoview.attr("src", roundedCanvas.toDataURL());
+                $("#minilogo_upload_view").find("input").val(_this.minilogo_data_cropper.filename);
+                _this.minilogo_data_cropper.ischage=true;
+                //$result.html('<img src="' + roundedCanvas.toDataURL() + '">');
+            });
+
+            $('#minilogo_upload').fileupload({
+                forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
+                autoUpload: true,
+                add: function (e, data) {
+                    //$('.add-campaign-photo .fa-spin').show();
+                    //$("#minilogo_upload_view").parent().find(".loader").show();
+                    data.submit();
+                },
+                done: function (e, data) {
+                    //$('.add-campaign-photo .fa-spin').hide();
+                    var txt = $(data.result[0].body).text();	// Thanks to IE, work became so ugly
+                    // Upload#save action returns filename+'upload.done' to indicate a successful uploading
+                    //alert(txt);
+                    if (txt.indexOf("upload.done") > 0) {
+                        var txt = txt.replace("upload.done", "");
+                        var json = JSON.parse(txt);
+                        $img_cropper.attr("src", json.fullname);
+                        initcropper();
+                        $img_cropper.cropper('reset').cropper('replace', json.fullname);
+                        $(".minilogo_cropper_box").show();
+                    }
+                    else {
+                        // txt="Internal Server Error";
+                        //$("<div/>").text(txt).appendTo("#more_photo_result");
+                    }
+                },
+                progressall: function (e, data) {//设置上传进度事件的回调函数
+                    var progress = parseInt(data.loaded / data.total * 5, 10);
+                    $('#progress .bar').css(
+                        'width',
+                        progress + '%'
+                    );
+                },
+                fail: function (e, data) {
+                    // No longer triggered when using iframe as it always get back the response, even if 404 or 500
+                    // which will be considered as errors when using XHR
+
+                    alert("数据上传失败请刷新后重试");
+                }
+            })
+        }
+        upload_minilogo();
     },
     cropboxPhoto: function (photo) {
         var public_id = photo.data("public_id") || photo.data("public-id");
@@ -559,6 +587,7 @@ Raisy.campaigns = {
         }).fadeIn(200);
     },
     submitCampaignForm: function (form) {
+        _this=this;
         if ($("#campaign_collection_id").val() == "") {
             $(".no-collection-label").show();
             return false;
@@ -628,9 +657,22 @@ Raisy.campaigns = {
         $("#campaign_goal").val($("#campaign_goal").val().replace(/,/g, ""));
 
         $('#campaign_form_submit').prop('disabled', true).find('span.text').text('保存中...').siblings('span.loader').show('fast', function () {
-            window.setTimeout(function () {
-                form.submit();
-            }, 50)
+
+            if(Raisy.campaigns.minilogo_data_cropper!=null&&Raisy.campaigns.minilogo_data_cropper.ischage==true)
+            {
+                $.post("/upload/photo_croper", _this.minilogo_data_cropper).complete(function(){
+                    window.setTimeout(function () {
+                        form.submit();
+                    }, 50);
+                });
+            }
+            else
+            {
+                window.setTimeout(function () {
+                    form.submit();
+                }, 50);
+            }
+
         });
     },
     skipMorePhoto: function (btn) {

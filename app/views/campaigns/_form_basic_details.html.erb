@@ -1,4 +1,11 @@
 <%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
+<style>
+  .cropper-view-box,
+  .cropper-face {
+    border-radius: 50%;
+  }
+</style>
+
 <%= hidden_field_tag :campaign_logo %>
 <%= hidden_field_tag :logo_crop_x, "0" %>
 <%= hidden_field_tag :logo_crop_y, "0" %>
@@ -101,29 +108,50 @@
 				（最好的图片尺寸: 280px * 280px）
 			</span>
     </label>
-
+<div class="col-sm-10">
     <fieldset>
       <div class="row">
-        <div class="col-md-12">
-          <div style="width:0px; height:0px;">
-            <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/campaign_photo" style="width:0px; height:0px; visibility:hidden;"/>
-          </div>
-          <div id="minilogo_upload_view">
-            <p >
+        <div class="col-md-6 minilogo_cropper_box" style="display: none;" >
+          <img id="minilogo_cropper" class="img-responsive"  alt="" src="">
+        </div>
+        <div class="col-md-6">
+          <% if f.object.minilogo&&f.object.minilogo.length>0 %>
+                <%=image_tag f.object.minilogo,:style=> " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+          <%else%>
               <%=image_tag "logo.png",:style => " width: 140px;
     height: 140px;
     border: 6px solid rgba(51,51,51,0.1);
-    border-radius: 180px;" %>
-            </p>
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+          <% end %>
+
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-12">
+          <div style="width:0px; height:0px;">
+            <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/photo" style="width:0px; height:0px; visibility:hidden;"/>
+          </div>
+
+          <div id="minilogo_upload_view">
             <%= f.hidden_field :minilogo %>
           </div>
           <div class="uploader-box" style="margin-top: 3px">
-            <div class="row" style="padding-left: 50px;">
+            <div class="row">
               <div class="col-sm-3">
                 <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
 											上传</span>
-                  <span style="font-size:0.9em;display:block;font-style:italic;">Logo</span>
+                  <span class="loader" style="display:none"></span>
+                </label>
+              </div>
+              <div class="col-sm-3">
+                <label id="btn-crop-minilogo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											截取Logo</span>
                   <span class="loader" style="display:none"></span>
                 </label>
               </div>
@@ -132,6 +160,7 @@
         </div>
       </div>
     </fieldset>
+</div>
   </div>
 	<!--<div class="form-group">-->
 		<!--<label class="col-sm-2 control-label">-->

@@ -346,7 +346,9 @@ Raisy::Application.routes.draw do
     
     match 'upload/campaign_photo' => 'upload#campaign_photo', via: [:post, :patch]
     match 'upload/product_photo' => 'upload#product_photo', via: [:post, :patch]
-    
+    match 'upload/photo' => 'upload#photo', via: [:post, :patch]
+
+    post 'upload/photo_croper' => 'upload#photo_croper'
     # WEIXIN
     scope 'weixin_custom' do
         get 'menu' => 'weixin#menu'
