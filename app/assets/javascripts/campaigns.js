@@ -1149,8 +1149,9 @@ Raisy.campaigns = {
                 //var btncontaion=$(".camp-continue-btn");
                 function  campaignformsubmit()
                 {
-                    Raisy.campaigns.minilogo_data_cropper.ischage==false;
-                    Raisy.campaigns.logo_data_cropper.ischage==false;
+                    Raisy.campaigns.minilogo_data_cropper.ischage=false;
+                    Raisy.campaigns.logo_data_cropper.ischage=false;
+                    //alert(Raisy.campaigns.logo_data_cropper.ischage);
                     Raisy.campaigns.campaign_ajax_create(_this, 3.1);
                 }
 
@@ -1207,8 +1208,8 @@ Raisy.campaigns = {
                 }
                 function  campaignminilogoformsubmit()
                 {
-                    Raisy.campaigns.minilogo_data_cropper.ischage==false;
-                    Raisy.campaigns.logo_data_cropper.ischage==false;
+                    Raisy.campaigns.minilogo_data_cropper.ischage=false;
+                    Raisy.campaigns.logo_data_cropper.ischage=false;
                     Raisy.campaigns.campaign_ajax_create(_this, 6);
                 }
 
