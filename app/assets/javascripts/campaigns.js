@@ -493,9 +493,14 @@ Raisy.campaigns = {
 
 
                     }
-                    else {
+                    else if(txt=="max") {
+                        alert("不能上传过大的图片");
                         // txt="Internal Server Error";
                         //$("<div/>").text(txt).appendTo("#more_photo_result");
+                    }
+                    else
+                    {
+                        alert("上传图片失败请确定你的图片格式是否正确！或刷新后重试");
                     }
                 },
                 progress: function (e, data) {//设置上传进度事件的回调函数
@@ -623,9 +628,14 @@ Raisy.campaigns = {
 
 
                     }
-                    else {
+                    else if(txt=="max") {
+                        alert("不能上传过大的图片");
                         // txt="Internal Server Error";
                         //$("<div/>").text(txt).appendTo("#more_photo_result");
+                    }
+                    else
+                    {
+                        alert("上传图片失败请确定你的图片格式是否正确！或刷新后重试");
                     }
                 },
                 progress: function (e, data) {//设置上传进度事件的回调函数
