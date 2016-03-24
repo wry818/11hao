@@ -127,7 +127,7 @@
         </div>
         <div class="col-md-6">
           <% if f.object.minilogo&&f.object.minilogo.length>0 %>
-                <%=image_tag f.object.minilogo,:style=> " width: 140px;
+                <%=image_tag f.object.minilogo+"?id=#{rand(11)}",:style=> " width: 140px;
     height: 140px;
     border: 6px solid rgba(51,51,51,0.1);
     border-radius: 180px;",:class => "js-minilogo-view" %>

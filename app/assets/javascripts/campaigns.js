@@ -209,7 +209,7 @@ Raisy.campaigns = {
 
         // $("#direct_donation_collection").appendTo($("#collections_row")).show();
 
-        $(".campaign-photo-remove").click(function () {
+        $(".campaign-photo-remove1111").click(function () {
             $(this).parents(".campaign-photo-instance").first().fadeOut(200, function () {
                 $(this).remove();
 
@@ -225,16 +225,16 @@ Raisy.campaigns = {
             });
         });
 
-        $(".add-campaign-photo").mouseenter(function () {
+        $(".add-campaign-photo1111").mouseenter(function () {
             $(this).css("background-color", "rgb(235,235,235)");
         }).mouseleave(function () {
             $(this).css("background-color", "rgb(245,245,245)");
         });
 
-        $("#upload_camp_photo_container").find("img").first().data("default-src",
-            $("#upload_camp_photo_container").find("img").first().attr("src"));
+        $("#upload_camp_photo_container111").find("img").first().data("default-src",
+            $("#upload_camp_photo_container111").find("img").first().attr("src"));
 
-        $("#upload_camp_photo_button").click(function () {
+        $("#upload_camp_photo_button1111").click(function () {
             var $button = $(this);
 
             if ($button.data("uploaded") == "yes") {
@@ -304,7 +304,7 @@ Raisy.campaigns = {
             }
         });
 
-        $('#add_camp_photo_upload').fileupload({
+        $('#add_camp_photo_upload1111').fileupload({
             forceIframeTransport: true,	// To work with IE under 10, use iframe always and do some tricks
             add: function (e, data) {
                 $('.add-campaign-photo .fa-spin').show();
@@ -827,6 +827,8 @@ Raisy.campaigns = {
 
             function formsubmit()
             {
+                Raisy.campaigns.minilogo_data_cropper.ischage==false;
+                Raisy.campaigns.logo_data_cropper.ischage==false;
                 window.setTimeout(function () {
                     form.submit();
                 }, 50);
@@ -1147,6 +1149,8 @@ Raisy.campaigns = {
                 //var btncontaion=$(".camp-continue-btn");
                 function  campaignformsubmit()
                 {
+                    Raisy.campaigns.minilogo_data_cropper.ischage==false;
+                    Raisy.campaigns.logo_data_cropper.ischage==false;
                     Raisy.campaigns.campaign_ajax_create(_this, 3.1);
                 }
 
@@ -1203,6 +1207,8 @@ Raisy.campaigns = {
                 }
                 function  campaignminilogoformsubmit()
                 {
+                    Raisy.campaigns.minilogo_data_cropper.ischage==false;
+                    Raisy.campaigns.logo_data_cropper.ischage==false;
                     Raisy.campaigns.campaign_ajax_create(_this, 6);
                 }
 

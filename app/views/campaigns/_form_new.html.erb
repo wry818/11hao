@@ -1,4 +1,12 @@
 <%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
+<style>
+  .minilogo_cropper_box .cropper-view-box {
+    border-radius: 50%;
+  }
+  .minilogo_cropper_box .cropper-face {
+    border-radius: 50%;
+  }
+</style>
 <%= form_for(@campaign, html: {id: "campaign_form", class: 'campaign-form form-horizontal'}) do |f| %>
     <%= hidden_field_tag :campaign_mode, @campaign_mode %>
     <%= hidden_field_tag :campaign_logo %>
