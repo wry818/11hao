@@ -138,6 +138,9 @@ Raisy::Application.routes.draw do
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 
+  get 'checkout/xyetjk', to: 'campaign_ngo#xyetjk', as: :campagin_ngo_xyetjk
+  get 'campaginngo/xyetjk_supporters', to: 'campaign_ngo#xyetjk_supporters', as: :campagin_ngo_xyetjk_supporters
+
   post 'campaginngo/confirmation', to: 'campaign_ngo#confirmation', as: :campaign_ngo_checkout_confirmation
   post 'campaginngo/confirmation_weixin', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin
 
