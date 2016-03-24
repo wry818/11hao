@@ -129,7 +129,56 @@ class CampaignNgoController < ApplicationController
     load_campaign_supporter(campaign_slug, path)
 
   end
+  def lbxgy
 
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "lb1002"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_lbxgy_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def lbxgy_supporters
+
+    campaign_slug = "lb1002"
+    path = campagin_ngo_lbxgy_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+  def lbflower
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "lb1003"
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_lbflower_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def lbflower_supporters
+
+    campaign_slug = "lb1003"
+    path = campagin_ngo_lbflower_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
   def load_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find_by_slug(campaign_slug)

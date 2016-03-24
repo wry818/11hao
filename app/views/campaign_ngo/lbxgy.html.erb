@@ -1,0 +1,406 @@
+<div style="padding-bottom: 100px;" id="pageContainer">
+  <div class="detail">
+    <div class="top">
+      <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
+      <div class="hd">
+        <img src="/images/lbxgy/p_logo.jpg">
+      </div>
+    </div>
+    <div class="named">
+      <div class="tt">上海心公艺志愿服务中心</div>
+      <div class="dd" >
+        <% if @isback  %>
+
+        <%else%>
+            每买一份蜡笔，将资助心公艺课程10元，就有机会支持更多心智障碍学员的教学经费，
+            鼓励他们创造更美丽的色彩。你的参与和帮助将保护更多本真，留下更多美好，创造更多希望
+        <% end%>
+      </div>
+      <% if @isback  %>
+          <div class="dd" style="text-align: center;" >
+            <h3>感谢您的支持</h3>
+            <!--<p style="margin-top:2px;">-->
+            <!--特送您一份大众点评现金红包！-->
+            <!--</p>-->
+            <p style="margin-top:20px;">简单公益，只因有你！</p>
+            <!--<p style="margin-top:5px; margin-bottom:15px;">-->
+
+            <!--<a class="btn btn-success" href="http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">领取红包</a>-->
+
+            <!--</p>-->
+            <p style="margin-top:15px; margin-bottom:15px;">
+
+              <a id="btn_share" class="btn btn-success" href="javascript:void(0);" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">邀请好友参与</a>
+
+            </p>
+            <p style="margin-top:15px; margin-bottom:15px;">
+
+              <%= link_to "返回捐款页面", campagin_ngo_lbxgy_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
+
+            </p>
+          </div>
+      <% end%>
+    </div>
+    <% if !@isback  %>
+        <div id="campaign_detail" class="campagin_detail" style="position:relative; padding: 15px 5px 0px 5px">
+          <div class="project well" style="background-color:white; border-color:#e3e3e3; margin:0px; padding:0px;">
+            <table style=" width:100%;">
+              <tr>
+                <!-- <td style="padding: 5px 0px 5px 0px; text-align:left;">
+                  <span style="color: white; display:inline-block; margin-left:5px;">
+                    支持项目
+                  </span>
+                </td> -->
+                <td style="text-align:right;">
+                  <div class="ttbg">
+                    <div class="tt">捐助的项目</div>
+                    <div class="nmoney">已筹款:<%= short_price(@campaign.raised) %>元</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div class="row" style="margin-left: -5px; margin-right: -5px;">
+              <div class="col-md-12" style="padding-left: 5px;padding-right: 5px;">
+                <div style="position:relative">
+                  <% if @campaign.campaign_logo %>
+                      <div style="text-align:center;">
+                        <%= cl_image_tag @campaign.campaign_logo.image_id,
+                                         transformation: [
+                                             {
+                                                 width: @campaign.campaign_logo.crop_width,
+                                                 height: @campaign.campaign_logo.crop_height,
+                                                 x: @campaign.campaign_logo.crop_x,
+                                                 y: @campaign.campaign_logo.crop_y,
+                                                 crop: :crop
+                                             }
+                                         ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
+                      </div>
+                  <% else %>
+                      <div class="campaign-default-logo-box">
+                        <%= image_tag 'default_upload_logo.gif', class: 'img-responsive', style: "margin: auto;" %>
+                      </div>
+                  <% end %>
+                  <div class="campaign-header-title-box">
+                    <div class="campaign-header-logo-title">
+                      <span style="color: white"><%= @campaign.title %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ctx">
+              <span class="bt" style="padding-left:0px"> <b>善款接收：</b>上海心公艺志愿服务中心</span>
+              <br/>
+              <!--<span class="bt" style="padding-left:0px"> <b>重要荣誉：</b>2015上海十佳爱心单位</span>-->
+              <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri ,:style=>"right:10px;" %></div>
+
+              <div class="summary none">
+                <div class="st">项目详情</div>
+                <div class="desc">
+                  <div id="proj_content">
+                    <p>每买一份蜡笔，将资助心公艺课程10元，就有机会支持更多心智障碍学员的教学经费，
+                      鼓励他们创造更美丽的色彩。你的参与和帮助将保护更多本真，留下更多美好，创造更多希望</p>
+
+                    <p>
+                      “守护彩虹”是一个浪漫的名字。每一个人都有各自的精彩，心智障碍人士（包括智力障碍、精神障碍、孤独症（旧称自闭症）、唐氏综合症、脑性瘫痪等）也一样，
+                      只是他们大多数不曾勇敢敞开心门。心公艺，正在慢慢推开这扇窗，发现这道不被注目的彩虹，默默守护，努力让它照亮更多地方。
+                    </p>
+                    <p>
+                      窗的另一边，值得你驻足。
+                    </p>
+                    <p>
+                      <img src="/images/lbxgy/p_01.jpg">
+                    </p>
+                    <p>
+                      《守护彩虹》年度画集（13-15年）收录了来自北京、上海、杭州、深圳的接受心公艺公益艺术课程且授予版权的503位心
+                      智障碍学员的作品集，共833幅画作。它是心公艺成立以来教学工作成果的回顾与总结，承载了全体学员的努力以及家庭与社区的配合支持，
+                      凝聚了大批心公艺一线教学志愿者及工作人员的付出与汗水，也是回馈给捐赠人及全体合作伙伴的心意与祝福。
+                    </p>
+                    <p>heArtS • 使命</p>
+                    <p>
+                      致力于通过为心智障碍人士提供公益艺术类课程，并关注其家庭和社会大众在特殊群体艺术潜能开发、
+                      心理与精神康复、社会融入三个领域中的综合发展，恢复并提升学员的自信，
+                      增强学员家庭的幸福感，最终实现消除社会对心智障碍人士的漠视和偏见，促进社会平等与和谐。
+                    </p>
+                    <p>
+                      <img src="/images/lbxgy/p_02.jpg">
+                    </p>
+                    <p>heArtS • 愿景</p>
+                    <p>
+                      直至2016年底，为10个以上城市，累计100个社区，3000名学员提供艺术类公益服务，为80%的学员创造增收机会，
+                      其中25%的学员实现实际增收，为15%的学员创造艺术类专业培养及深造的机会，帮助80%的学员创造融入社会的机会，
+                      扩大社会接触；不少于60%的学员家庭参与我们的服务活动；为不少于80%的学员提供社会公众展示平台，展现其独特艺术；
+                      发展和培养不少于300人的教员志愿者团队，其中50%来自本土社区居民，并承诺服务时间数一年不少于10000小时。
+                    </p>
+                    <p>
+                      <img src="/images/lbxgy/p_03.jpg">
+                    </p>
+                    <p>
+                      截止至2015年12月，心公艺累计已在5个城市的41个社区开课，已累计服务636名学员，
+                      通过认证30名教员，通过认证星月银河志愿者43名，产出作品14,153幅，人时数达4,801时。
+                    </p>
+                    <p>
+                      <img src="/images/lbxgy/p_04.jpg">
+                    </p>
+                    <p>
+                      heArtS历年荣誉：<br>
+                      2014年上海市“讲文明树新风-申通德高杯”公益广告创意大赛专业组优秀奖<br>
+                      2014年北京市朝阳区“阳光伙伴”公益组织联盟成员单位<br>
+                      2015年环保公益嘉年华感谢单位<br>
+                      2015年杭州市江干区弯湾托管中心感谢单位<br>
+                      2015年上海市浦东新区南码头街道“优秀志愿者组织”<br>
+                      2015年上海市静安南京西路残联感谢单位<br>
+                      2015年金杨新村街道残联颁发“最佳品质奖”<br>
+                      2015年“上海夏至音乐日”感谢单位<br>
+                      2015年中国国际慈善项目交流展示会机构参展单位<br>
+                      2016年公益筹款人机构会员<br>
+
+                    </p>
+                    <p>
+                      欢迎扫描下方二维码成为心公艺之友，留下祝福语，定制专属于你的《守护彩虹》画集。
+
+                    </p>
+                    <p>
+                      <img src="/images/lbxgy/p_logo.jpg" style="width: 45%;">
+                      <img src="/images/lbxgy/p_qrcode.jpg" style="width: 45%;">
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="direct_influence" class="well" style="background-color: white; border-color:#e3e3e3; margin:15px 5px 0px 5px;  padding: 15px 5px 0px 5px;">
+          <div style="text-align: right">
+            <!-- <span id="btn_view_content" class="glyphicon glyphicon-chevron-left" style="color:#888; font-size:18px; display: none"></span> -->
+            <%= image_tag "arr_right.png", :id => 'btn_view_content', :width => 18, :height => 18, :style => "display: none" %>
+          </div>
+
+          <div id="supporters_content" style="display:none;">
+            <%= render "supporters" %>
+          </div>
+          <div class="avatar-container" style="overflow: hidden; height: 48px; position: relative">
+            <% if @supporters.count>0 %>
+                <% @supporters.each_with_index do |s, index| %>
+                    <% if s.avatar_url && s.avatar_url.to_s.gsub(' ', '').length>0 %>
+                        <img id="supporter_avatar_<%= index %>" src="<%= s.avatar_url %>" class="img-rounded support_avatar" style="border-radius:24px; width:48px; height:48px;"/>
+                    <% else %>
+                        <%= image_tag 'weixin_default.jpg', :id => "supporter_avatar_" + index.to_s, :class => "img-rounded support_avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <% end %>
+
+                    <% if index == 4 %>
+                        <% break %>
+                    <% end %>
+
+                <% end %>
+
+                <% if @supporters.count == 1 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 2 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 3 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <% if @supporters.count == 4 %>
+                    <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                <% end %>
+
+                <div id="btn_view_supporters">
+                  <%= image_tag "arr_left.png", :width => 18, :height => 18 %>
+                  <!-- <span class="glyphicon glyphicon-chevron-right" style="color:#888; font-size:18px;"></span> -->
+                </div>
+            <% else %>
+
+                <div style="text-align: center">
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_0", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_1", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_2", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_3", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                  <%= image_tag 'empty_user.png', :id => "supporter_avatar_4", :class => "img-rounded support_avatar img-friend-avatar", :style => "border-radius:24px; width:48px; height:48px;" %>
+                </div>
+
+            <% end %>
+          </div>
+          <div style="font-size: 14px; text-align:center; margin-top: 10px">
+            <% if @supporters.count>0 %>
+				<span>
+					您有
+				</span>
+                &nbsp;
+				<span style="color:#fa0000;">
+					<%= @supporters_count %>
+				</span>
+                &nbsp;
+				<span>
+					位小伙伴一起参与
+				</span>
+            <% else %>
+                暂无小伙伴参与
+            <% end %>
+          </div>
+
+        </div>
+
+
+        <%=render 'dialog_pay_input' %>
+        <!--Footer-->
+        <div class="footer">
+          <div id="btn_agreement" style="display: block;">
+            <span>服务协议</span>
+          </div>
+        </div>
+        <div style="background:rgba(0,0,0,0.7);position:absolute;width:100%;top:0;z-index:900;display:none" id="tips">
+
+        </div>
+    <% end%>
+  </div>
+</div>
+<% if !@isback  %>
+    <%= render "campaign_footer" %>
+<% end%>
+<%= render "share" %>
+
+<script>
+  var local_url='<%=campagin_ngo_lbxgy_url%>';
+  $(function(){
+    $("#btn_share").bind('click', function () {
+      $("#yqj_result_shareModal").modal('show');
+
+      $(".yqj_result_share").click(function() {
+        $("#yqj_result_shareModal").modal('hide');
+      });
+    });
+  });
+</script>
+<% if @sign_package %>
+    <script>
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link: local_url,
+        img_url: "<%= cl_image_path @campaign.campaign_logo.image_id,
+                        transformation: [
+                            {
+                                width: @campaign.campaign_logo.crop_width,
+                                height: @campaign.campaign_logo.crop_height,
+                                x: @campaign.campaign_logo.crop_x,
+                                y: @campaign.campaign_logo.crop_y,
+                                crop: :crop
+                            }
+                        ] %>",
+        img_width: "415",
+        img_height: "399",
+        desc: "你的参与和帮助将保护更多本真，留下更多美好，创造更多希望",
+        title: "守护彩虹——珍藏色彩，守护希望"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>
