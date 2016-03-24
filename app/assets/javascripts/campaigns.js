@@ -1146,7 +1146,7 @@ Raisy.campaigns = {
                 }
                 //var btncontaion=$(".camp-continue-btn");
                 function  campaignformsubmit()
-                { 
+                {
                     Raisy.campaigns.campaign_ajax_create(_this, 3.1);
                 }
 
