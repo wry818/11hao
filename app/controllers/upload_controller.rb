@@ -28,15 +28,34 @@ class UploadController < ApplicationController
     render text: {fullname:@fullname}.to_json+ "upload.done"
   end
   def photo_croper
-    if params[:filename]
-      filepath="#{Rails.root}/public#{params[:filename]}";
-      img = MiniMagick::Image.open filepath
-      if params[:x]&&params[:x].to_i&&params[:y]&&params[:y].to_i&&params[:height]&&params[:height].to_i&&params[:width]&&params[:width].to_i
-        img.crop "#{params[:width]}x#{params[:height]}+#{params[:x]}+#{params[:y]}"
-        img.write filepath
-      end
-
+    if params[:cropperdata1]
+      logger.debug "1001"
+      logger.debug params[:cropperdata1]
+      item=params[:cropperdata1]
+        filepath="#{Rails.root}/public#{item[:filename]}";
+        img = MiniMagick::Image.open filepath
+        if item[:x]&&item[:x].to_i&&item[:y]&&item[:y].to_i&&item[:height]&&item[:height].to_i&&item[:width]&&item[:width].to_i
+          img.crop "#{item[:width]}x#{item[:height]}+#{item[:x]}+#{item[:y]}"
+          img.write filepath
+        end
     end
+
+    if params[:cropperdata2]
+      logger.debug "1002"
+      logger.debug params[:cropperdata2]
+      item=params[:cropperdata2]
+      filepath="#{Rails.root}/public#{item[:filename]}";
+      img2 = MiniMagick::Image.open filepath
+      if item[:x]&&item[:x].to_i&&item[:y]&&item[:y].to_i&&item[:height]&&item[:height].to_i&&item[:width]&&item[:width].to_i
+        logger.debug "2222222"
+        img2.crop "#{item[:width]}x#{item[:height]}+#{item[:x]}+#{item[:y]}"
+        img2.write filepath
+      end
+    end
+
+
+      # render text: "error" and return
+
 
     render text: "isok"
   end
