@@ -54,6 +54,9 @@
 				<div class="row">
 		            <div class="col-md-6" style="padding-left:3px; padding-right:3px;">
 		                <div style="padding:3px; width:100%;">
+                            <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+                            <%= image_tag @campaign.logo,:style=>"width:100%;max-height:626px" %>
+                            <% elsif @campaign.campaign_logo %>
 		                    <%= cl_image_tag @campaign.campaign_logo.image_id,
 								transformation: [{ 
 										width: @campaign.campaign_logo.crop_width,
@@ -63,8 +66,9 @@
 										crop: :crop
 									}],
 								style: 'width: 100%' if @campaign.campaign_logo %>
-						
-		                    <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px" if !@campaign.campaign_logo %>
+						    <% else%>
+		                    <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px"  %>
+                            <% end%>
 		                </div>
 		            </div>
 					<div class="col-md-5 col-md-offset-1 campaign-info-box">

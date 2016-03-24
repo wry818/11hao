@@ -1048,9 +1048,9 @@ Raisy.campaigns = {
         }
     },
     continueBtnClick: function () {
+        _this=this;
         var step = $(this).data("currentstep");
         var story_too_long = false;
-
         // Sign In/Up now acts as the first step and
         // Who Are You Raising Funds For is combined into Fundraiser Details.
         // Number of steps is not changed and currentstep still starts from 1 (Fundraiser Details).
@@ -1122,7 +1122,34 @@ Raisy.campaigns = {
                 }
 
                 Raisy.campaigns.campaign_current_step = 3.1;
-								Raisy.campaigns.campaign_ajax_create(this, 3.1);
+
+                var data=new Array();
+
+                if(Raisy.campaigns.minilogo_data_cropper!=null&&Raisy.campaigns.minilogo_data_cropper.ischage==true)
+                {
+                    data[0]=Raisy.campaigns.minilogo_data_cropper;
+
+                }
+                if(Raisy.campaigns.logo_data_cropper!=null&&Raisy.campaigns.logo_data_cropper.ischage==true)
+                {
+                    data[1]=Raisy.campaigns.logo_data_cropper;
+                }
+
+                //alert(data.length);
+                if(data.length>0)
+                {
+                    $.post("/upload/photo_croper", {cropperdata1:data[0],cropperdata2:data[1]}).complete(campaignformsubmit());
+                }
+                else
+                {
+                    campaignformsubmit();
+                }
+                //var btncontaion=$(".camp-continue-btn");
+                function  campaignformsubmit()
+                { alert(step);
+                    Raisy.campaigns.campaign_ajax_create(_this, 3.1);
+                }
+
 
                 break;
             case 3.1:
@@ -1153,7 +1180,32 @@ Raisy.campaigns = {
                 //else {
                 //    Raisy.campaigns.campaign_ajax_create(this, 6);
                 //}
-                Raisy.campaigns.campaign_ajax_create(this, 6);
+                var data=new Array();
+
+                if(Raisy.campaigns.minilogo_data_cropper!=null&&Raisy.campaigns.minilogo_data_cropper.ischage==true)
+                {
+                    data[0]=Raisy.campaigns.minilogo_data_cropper;
+
+                }
+                if(Raisy.campaigns.logo_data_cropper!=null&&Raisy.campaigns.logo_data_cropper.ischage==true)
+                {
+                    data[1]=Raisy.campaigns.logo_data_cropper;
+                }
+
+                //alert(data.length);
+                if(data.length>0)
+                {
+                    $.post("/upload/photo_croper", {cropperdata1:data[0],cropperdata2:data[1]}).complete(campaignminilogoformsubmit());
+                }
+                else
+                {
+                    campaignminilogoformsubmit();
+                }
+                function  campaignminilogoformsubmit()
+                {
+                    Raisy.campaigns.campaign_ajax_create(_this, 6);
+                }
+
                 break;
             case 4:
                 // Who Are You Raising Funds For is combined into Fundraiser Details,
@@ -1177,7 +1229,7 @@ Raisy.campaigns = {
                 //else {
                 //    Raisy.campaigns.campaign_ajax_create(this, 6);
                 //}
-                alert(4);
+
                 Raisy.campaigns.campaign_ajax_create(this, 6);
                 break;
             case 5:
@@ -1236,7 +1288,7 @@ Raisy.campaigns = {
                                 $ifra.attr("src",'/checkout/campaign_'+campaign_id);
                                 $ifra.show();
                             }
-											
+
 	                        switch (nextStep) {
 	                            case 1:
 																// Next step could not be 1

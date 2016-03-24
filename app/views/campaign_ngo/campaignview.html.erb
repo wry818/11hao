@@ -10,7 +10,7 @@
       <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
       <div class="hd">
         <% if @campaign.minilogo&&@campaign.minilogo.length>0%>
-            <%= cl_image_tag @campaign.minilogo, width: 280, height: 280, crop: :limit %>
+            <%= cl_image_tag @campaign.minilogo+"?id=#{rand(100)}", width: 280, height: 280, crop: :limit %>
         <% else %>
            <%= image_tag "logo.png" %>
         <% end %>
@@ -60,7 +60,9 @@
             <div class="row" style="margin-left: -5px; margin-right: -5px;">
               <div class="col-md-12" style="padding-left: 5px;padding-right: 5px;">
                 <div style="position:relative">
-                  <% if @campaign.campaign_logo %>
+                  <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+                      <%= image_tag @campaign.logo+"?id=#{rand(100)}",:style=>"width:100%;max-height:626px" %>
+                  <% elsif @campaign.campaign_logo %>
                       <div style="text-align:center;">
                         <%= cl_image_tag @campaign.campaign_logo.image_id,
                                          transformation: [
