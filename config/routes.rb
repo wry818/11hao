@@ -138,6 +138,8 @@ Raisy::Application.routes.draw do
   get 'checkout/:id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
 
+  # get 'checkout/:id', to: 'shop#product_weixin',constraints: { id: /product_[0-9]*_[0-9]*/ }, as: :shop_product_weixin
+
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 
@@ -152,7 +154,7 @@ Raisy::Application.routes.draw do
 
   post 'campaginngo/confirmation', to: 'campaign_ngo#confirmation', as: :campaign_ngo_checkout_confirmation
   post 'campaginngo/confirmation_weixin', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin
-
+  post 'campaginngo/confirmation_weixin/:campaign_id', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin_bycampaign
     get 'personal_story_campagin/my_influence', to: 'personal_story_campagin#my_influence', as: :personal_story_campagin_my_influence
     get 'personal_story_campagin/get_red_pack', to: 'personal_story_campagin#get_red_pack', as: :personal_story_campagin_get_red_pack
     get 'checkout/supportcampagin', to: 'personal_story_campagin#index', as: :personal_story_campagin_index
@@ -336,6 +338,8 @@ Raisy::Application.routes.draw do
     get ':id/shop/category/:category_id', to: 'shop#category', as: :shop_category
     get ':id/shop/category/:category_id/product/:product_id', to: 'shop#product', as: :shop_category_product
     get ':id/shop/product_weixin/:product_id', to: 'shop#product_weixin', as: :shop_product_weixin
+
+
   get ':id/shop/product/:product_id', to: 'shop#product', as: :shop_product
     get ':id/confirmation', to: 'shop#show_confirmation', as: :show_confirmation
    get ':id/confirmation_weixin', to: 'shop#show_confirmation_weixin', as: :show_confirmation_weixin

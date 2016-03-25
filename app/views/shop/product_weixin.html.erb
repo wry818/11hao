@@ -5,6 +5,10 @@
   }
 </style>
 <input type="hidden" id="campaign_slug" value="<%= @campaign.slug %>"/>
+<div class="product_weixin_header">
+  <p><%= image_tag "minilogo .png"%> <span>购买即捐赠</span> </p>
+
+</div>
 <div class="shop_mall">
   <div id="playBox" class="playbox">
     <div class="pre"></div>
@@ -78,7 +82,6 @@
         <dt>运费：</dt>
         <dd>免运费</dd>
       </dl>
-      <hr>
 
     </div>
   </div>
@@ -102,7 +105,28 @@
     <% end %>
 
   </div>
+
+  <div style="height: 30px;position: relative;">
+    <hr class="hr-custom-line" style="border-top: 1px dashed #bbb;">
+  </div>
+  <div class="goods-bottom-head">
+
+    <p>
+      <span>不购买直接捐赠</span>
+      <a href="javascript:;" class="weui_btn weui_btn_plain_default js-showActionDonation" style="
+      width: 93px;
+          height: 35px;
+          color: #999;
+          display: inline;
+          padding: 0px 10px 0px 10px;
+          border-color: #999;
+      ">捐赠</a>
+    </p>
+  </div>
+
   <hr class="with-margin">
+
+
   <%= render "goods_footer"%>
   <div class="goods-bottom">
     <p id="showActionBuy" class="js-showActionBuy">
@@ -200,6 +224,59 @@
     </div>
   </form>
 
+  <div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask_input" style="display: none;"></div>
+    <div class="weui_actionsheet" id="weui_actionsheet_input">
+      <div style="background-color: white;">
+        <div class="orders"  style="height: 40px;">
+          <div class="weui_cell_bd weui_cell_primary" style="
+          margin-top: 6px;
+          ">
+            <p style="
+            font-size: 16px;
+            ">捐款金额</p>
+          </div>
+
+          <div class="orders_des">
+            <p class="" style="    padding-left: 5px;"></p>
+
+          </div>
+          <div class="cancel-img" id="actionsheet_cancel_input"></div>
+
+        </div>
+        <hr class="with-margin">
+        <div id="personal_modalbody">
+          <table style="width:100%;margin-top: 15px;margin-bottom: 10px;">
+            <tr>
+              <td style="padding:0px 5px; text-align:center; width:33%;  ">
+                <a href="javascript:void(0);" data-value="5" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">5<span>元</span></a>
+              </td>
+              <td style="padding:0px 5px; text-align:center; width:33%; ">
+                <a href="javascript:void(0);" data-value="10" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">10<span>元</span></a>
+              </td>
+              <td style="padding:0px 5px; text-align:center; width:34%; ">
+                <a href="javascript:void(0);" data-value="20" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">20<span>元</span></a>
+              </td>
+            </tr>
+          </table>
+          <div class="weui_cell" style="padding-top: 0px;
+              padding-bottom: 0px;
+
+              margin-top: 5px;">
+            <div class="weui_cell_hd" style="padding-right: 5px;"><label class="weui_label">金额</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="direct_donation_input" type="input"  placeholder="输入捐款金额">
+              <%= hidden_field_tag :direct_donation, "" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui_actionsheet_action" style="    padding:5px 10px;">
+        <a href="javascript:void(0);" id="btn_submit1" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">确 定</a>
+      </div>
+    </div>
+  </div>
+
   <div id="footer_cart" data-count="<%= @order.num_items if @order.items %>" style="display: block;">
     <div style="position:relative; text-align:right;">
       <%= image_tag "float-cart.png", :style => "height:40px;" %>
@@ -217,6 +294,7 @@
     window.shopmall.optionSelect();
     window.shopmall.quantitySelect();
     window.shopmall.addOrderItem();
+    window.shopmall.donation_input_show();
     $("#playBox").css("width", $(window).outerWidth());
     $('#playBox').find(".oUlplay").find("li").css("width", $(window).outerWidth());
 
@@ -224,6 +302,138 @@
       window._11hao.shareDialogShow();
     });
   });
+
+  if (typeof WeixinJSBridge == "undefined") {
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  } else {
+    onBridgeReady();
+  }
+
+  function onBridgeReady() {
+    if ("<%= @weixin_init_success %>" == "true") {
+      $('#btn_submit1').off("click").on("click", function () {
+        var url = "<%=campaign_ngo_confirmation_weixin_path%>";
+        var direct_donation = $("#direct_donation_input").val();
+        if(direct_donation.length<1)
+        {
+          direct_donation = $("#direct_donation").val();
+        }
+        if (direct_donation.length <= 0) {
+          alert("请输入捐款金额。");
+          return;
+        }
+
+        $('#btn_submit1').prop('disabled', true);
+        $.post(url, {direct_donation:direct_donation,campaign_id:<%=@campaign.id%>}).done(function (data, textStatus, jqXHR) {
+//            alert(data);
+          if (data.error_msg != "") {
+            alert(data.error_msg);
+          } else {
+//              alert(data.order_id);
+            weixin_load(data.order_id);
+          }
+        }).fail(function () {
+          alert("请求已经结束但是可能发生了错误！");
+
+          $('#btn_submit1').prop('disabled', false);
+        }).always(function () {
+
+        });
+      });
+    } else {
+      alert("系统忙，请刷新页面再试。");
+    }
+  }
+
+  function weixin_load(order_id) {
+//      alert(order_id);
+
+    $.ajax({
+      method: "get",
+      url: "/weixin_payment_get_req/" + order_id,
+      dataType: "json",
+      cache: false,
+      success: function (d) {
+//            alert(33333);
+//            alert(d);
+        if (d) {
+//              alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
+          WeixinJSBridge.invoke('getBrandWCPayRequest', {
+            "appId": d.appId,     //公众号名称，由商户传入
+            "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+            "nonceStr": d.nonceStr, //随机串
+            "package": d.package,
+            "signType": "MD5",         //微信签名方式:
+            "paySign": d.paySign //微信签名
+          }, function (res) {
+//                alert(res.err_msg);
+            if (res.err_msg == "get_brand_wcpay_request:ok") {
+              ComfirmOrder(order_id);
+            } else {
+              $('#wechat').prop('disabled', false);
+            }
+          });
+        }
+        else {
+          $('#wechat').prop('disabled', false);
+        }
+      },
+      error:function(XMLHttpRequest, textStatus, errorThrown) {
+//            alert(XMLHttpRequest.status);
+//            alert(XMLHttpRequest.readyState);
+//            alert(textStatus);
+        $('#wechat').prop('disabled', false);
+      },
+      complete: function () {
+//            alert(1111);
+      }
+    });
+
+  }
+
+  function ComfirmOrder(order_id) {
+
+    var order_make_anonymous = false;
+    var fullName = $("#fullname").val();
+
+    if (fullName == "") {
+      fullName = "匿名";
+      order_make_anonymous = true;
+    }
+
+    var avatar_url = $("#avatar_url").val();
+    var order_time = new Date();
+    var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
+    var data = {
+      order_id: order_id,
+      order_make_anonymous: order_make_anonymous,
+      format_order_time: format_order_time,
+      fullName: fullName,
+      avatar_url: avatar_url
+    };
+
+    $.ajax('/ajax/update-order', {
+      type: 'POST',
+      data: data,
+      beforeSend: function (jqXHR, settings) {
+        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function (data) {
+
+        window.location.href = local_url+"?order_id="+order_id;
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+      }
+    });
+
+  }
 </script>
 
 <% if @sign_package %>

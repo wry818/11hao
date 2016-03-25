@@ -2,6 +2,53 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.hr-custom-line {
+  border: 0;
+  border-top: 1px dashed #bbb;
+  margin: auto;
+  padding: 0;
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.product_weixin_header {
+  position: relative;
+  height: 30px;
+  background: #1e1d22;
+  color: #999;
+  font-size: 0;
+  line-height: 0;
+  padding: 1px 160px 1px 1px;
+  p {
+    padding-top:3px;
+    img
+    {
+      vertical-align: middle;
+      margin-left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 100%;
+      -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+      box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+    }
+    span
+    {
+      margin-left: 10px;
+      vertical-align: middle;
+      font-size: 14px;
+      color: #999;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+}
+
 .shop_mall {
 
   padding-bottom: 60px;
@@ -355,6 +402,97 @@
   {
     font-size: smaller;
   }
+  .goods-bottom-head
+  {
+    p{
+
+      text-align: center;
+      padding: 5px 0 10px 0px;
+      color: #999;
+
+    }
+  }
+  #personal_story_header
+  {
+    /*background-image: url("/images/personals/p_11.jpg");*/
+    background-color: white;
+    /*background-size: cover;*/
+    /*height: 400px;*/
+  }
+  #personal_story_header .title
+  {
+    position:absolute;
+    z-index: 1000;
+    background-color: silver;
+
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
+  }
+  #personal_story_header h4
+  {
+    color: white;
+    text-align: left;
+    padding-left: 5px;
+  }
+  #personal_story_content
+  {
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    line-height: 1.5;
+
+  }
+  #personal_story_content span {
+    text-align:left;
+    margin-left:20px;
+    color: #333333;
+  }
+  #personal_story_content img {
+    margin: 5px auto;
+  }
+
+  #personal_story_footer
+  {
+    /*position: fixed;*/
+    /*top: 100%;*/
+    /*left: 0px;*/
+    /*background:black;*/
+    width: 100%;
+    background:transparent none repeat scroll 0 0 !important;/*实现FF背景透明，文字不透明*/
+    filter:Alpha(opacity=80); background:#fff;/*实现IE背景透明*/
+
+  }
+  #personal_story_footer button
+  {
+    width: 40%;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  #personal_modalbody
+  {
+    font-weight: bold;
+    .weui_cell:before
+    {
+      left: 0px;
+    }
+  }
+  #personal_modalbody a
+  {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    background-color: white;
+  }
+  #personal_modalbody a span
+  {
+    font-weight:normal;
+    color: black;
+    padding-left: 2px;
+  }
+  #personal_modalbody input
+  {
+    height: 45px;
+  }
 }
 
 .product_pay
@@ -424,6 +562,51 @@
     visibility: visible;
     -webkit-writing-mode: horizontal-tb;
 
+  }
+  #personal_modalbody
+  {
+    font-weight: bold;
+    .weui_cell:before
+    {
+      left: 0px;
+    }
+  }
+  #personal_modalbody a
+  {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    background-color: white;
+  }
+  #personal_modalbody a span
+  {
+    font-weight:normal;
+    color: black;
+    padding-left: 2px;
+  }
+  #personal_modalbody input
+  {
+    height: 45px;
+  }
+  #actionSheet_wrap
+  {
+    .title
+    {
+      background-color: white;
+      height: 40px;
+      width: 100%;
+      padding: 5px 10px 0px 10px;
+      .cancel-img {
+        width: 27px;
+        height: 27px;
+        position: absolute;
+        top: 10px;
+        right: 5px;
+        background: image-url('buyicon.png');
+        background-position: 0 -108px;
+        background-size: 40px auto;
+      }
+    }
   }
 
 }

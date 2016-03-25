@@ -307,6 +307,10 @@ class CampaignNgoController < ApplicationController
     # if @order_count >= 2
     #   render json: {order_id:"", error_msg:"您发的红包已超最大数量，请支持其他机构的小伙伴！"}.to_json and return
     # end
+    if params[:campaign_id]
+      @campaign=Campaign.find(params[:campaign_id]);
+    end
+
 
     @order = @campaign.orders.new
 
@@ -330,8 +334,8 @@ class CampaignNgoController < ApplicationController
       redirect_to campagin_ngo_lzds_path, flash: {danger: message[0...-2]} and return
     end
 
-    session[:order_id]=@order.id
-    session[:confirm_order_id]
+    # session[:order_id]=@order.id
+    # session[:confirm_order_id]
 
     render json: {order_id:@order.id, error_msg:""}.to_json and return
 

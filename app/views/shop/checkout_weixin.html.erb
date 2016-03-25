@@ -66,7 +66,7 @@
       </div>
       <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
         <div class="weui_media_bd">
-          <p class="weui_media_desc" style="text-align: center;">您的本次购买我们将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></span></p>
+          <p class="weui_media_desc " style="text-align: center;">您的本次购买我们将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></span></p>
         </div>
       </a>
     </div>
@@ -321,4 +321,6 @@
         return true;
       }
     }
+
+
 </script>

@@ -121,6 +121,15 @@ class ShopController < ApplicationController
     end
     def product_weixin
       weixin_jssdk_init()
+      @is_wechat_browser = is_wechat_browser?
+      if is_wechat_browser?
+
+        weixin_get_user_info()
+        @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+        # weixin_payment_init(@order)
+        weixin_address_init()
+
+      end
       @product = Product.friendly.find(params[:product_id])
       redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
 

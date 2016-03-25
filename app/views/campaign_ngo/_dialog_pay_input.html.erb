@@ -6,9 +6,14 @@
           <span class="text" style="letter-spacing:1px;">筹款已结束, 感谢您的支持!</span>
         </button>
     <% else %>
+        <!--<div style="margin:10px; text-align: center;">-->
+          <!--<button  class="btn btn-sm btn-block" data-toggle="modal" data-target="#personal-modal" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">-->
+            <!--<span class="text" style="letter-spacing:1px;">我要捐款</span>-->
+          <!--</button>-->
+        <!--</div>-->
         <div style="margin:10px; text-align: center;">
-          <button  class="btn btn-sm btn-block" data-toggle="modal" data-target="#personal-modal" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
-            <span class="text" style="letter-spacing:1px;">我要捐款</span>
+          <button  class="btn btn-sm btn-block"  type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
+            <span class="text" style="letter-spacing:1px;">我要支持</span>
           </button>
         </div>
     <% end %>
@@ -69,5 +74,72 @@
   </div><!-- /.modal -->
 </div>
 <script>
+  //限定输入框为数字
+  $(function () {
+    $.fn.numeral = function (bl) {//限制金额输入、兼容浏览器、屏蔽粘贴拖拽等
+      $(this).keypress(function (e) {
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+        if (bl) {//浮点数
+          if ((this.value.length == 0 || this.value.indexOf(".") != -1) && keyCode == 46) return false;
+          return keyCode >= 48 && keyCode <= 57 || keyCode == 46 || keyCode == 8;
+        } else {//整数
+          return keyCode >= 48 && keyCode <= 57 || keyCode == 8;
+        }
+      });
+      $(this).bind("copy cut paste", function (e) { // 通过空格连续添加复制、剪切、粘贴事件
+        if (window.clipboardData)//clipboardData.setData('text', clipboardData.getData('text').replace(/\D/g, ''));
+          return !clipboardData.getData('text').match(/\D/);
+        else
+          event.preventDefault();
+      });
+      $(this).bind("dragenter", function () {
+        return false;
+      });
+      $(this).css("ime-mode", "disabled");
+      $(this).bind("focus", function () {
+        if (this.value.lastIndexOf(".") == (this.value.length - 1)) {
+          this.value = this.value.substr(0, this.value.length - 1);
+        } else if (isNaN(this.value)) {
+          this.value = "";
+        }
+      });
+    }
+    //调用文本框的id
+    $("#direct_donation_input").numeral(true);
+  });
+  $(function () {
 
+    $("#payment-form-submit").bind("click", function () {
+      if($("#direct_donation_input").val().length>0) {
+        $("#direct_donation").val($("#direct_donation_input").val());
+      }
+
+      if ($("#direct_donation").val().length<=0) {
+        alert("请输入捐款金额。");
+        return;
+      }
+
+      $("#payment_form").submit();
+    });
+    $("#direct_donation_input").bind("blur", function () {
+      if ($(this).val().length > 0) {
+        $("#direct_donation").val("");
+
+        $("#personal_modalbody a").each(function () {
+          $(this).css('border', "1px solid #dddddd");
+        });
+      }
+    });
+    $("#personal_modalbody a").bind('click', function () {
+      $("#direct_donation_input").val("");
+      $("#direct_donation").val($(this).data("value"));
+      $("#personal_modalbody a").each(function () {
+        $(this).css('border', "1px solid #dddddd");
+      });
+
+      $(this).css('border', "solid 2px red");
+    });
+
+    $("#personal_modalbody a")[0].click();
+  });
 </script>
