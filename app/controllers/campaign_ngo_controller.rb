@@ -148,6 +148,7 @@ class CampaignNgoController < ApplicationController
 
 
     campaign_slug = "lb1001"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_xyetjk_supporters_path
 
@@ -157,6 +158,7 @@ class CampaignNgoController < ApplicationController
   def xyetjk_supporters
 
     campaign_slug = "lb1001"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     path = campagin_ngo_xyetjk_supporters_path
 
     load_campaign_supporter(campaign_slug, path)
@@ -173,6 +175,7 @@ class CampaignNgoController < ApplicationController
 
 
     campaign_slug = "lb1002"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_lbxgy_supporters_path
 
@@ -182,6 +185,7 @@ class CampaignNgoController < ApplicationController
   def lbxgy_supporters
 
     campaign_slug = "lb1002"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     path = campagin_ngo_lbxgy_supporters_path
 
     load_campaign_supporter(campaign_slug, path)
@@ -198,6 +202,7 @@ class CampaignNgoController < ApplicationController
 
 
     campaign_slug = "lb1003"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_lbflower_supporters_path
 
@@ -207,6 +212,7 @@ class CampaignNgoController < ApplicationController
   def lbflower_supporters
 
     campaign_slug = "lb1003"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     path = campagin_ngo_lbflower_supporters_path
 
     load_campaign_supporter(campaign_slug, path)
