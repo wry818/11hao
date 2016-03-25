@@ -332,6 +332,27 @@
 			<label for="campaign_purchase_limit" class="error" style="display: none;"></label>
         </div>
     </div>
+  <!--<div class="form-group">-->
+    <!--<label for="campaign_purchase_limit" class="col-sm-2 control-label">筹款协议</label>-->
+    <!--&lt;!&ndash;<div class="row" style="margin-bottom: 20px;">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+        <!--&lt;!&ndash;<select class="form-control input-small" name="campaign[agreement]">&ndash;&gt;-->
+          <!--&lt;!&ndash;<option value="">&#45;&#45; 请选择 &#45;&#45;</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;<% @collections.each do |collection| %>&ndash;&gt;-->
+              <!--&lt;!&ndash;<option value="<%= collection.id %>" <%= f.object.collection_id == collection.id ? 'selected' : '' %> >&ndash;&gt;-->
+                <!--&lt;!&ndash;<%= collection.name %>&ndash;&gt;-->
+              <!--&lt;!&ndash;</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;<% end %>&ndash;&gt;-->
+        <!--&lt;!&ndash;</select>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+      <!--<div class="col-md-10">-->
+        <!--<%= kindeditor_tag :agreement_content, '' %>-->
+      <!--</div>-->
+   <!---->
+
+  <!--</div>-->
 </fieldset>
 
 	<% if f.object.ent_campaign? && f.object.organization %>

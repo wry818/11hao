@@ -26,6 +26,7 @@ class Campaign < ActiveRecord::Base
     belongs_to :collection,->{where is_destroy: false}
     belongs_to :organizer, class_name: "User"
     belongs_to :organization
+    belongs_to :agreement,foreign_key: "agreement_id"
 
     has_many :orders
     has_many :ent_orders 

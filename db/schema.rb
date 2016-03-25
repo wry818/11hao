@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318023332) do
+ActiveRecord::Schema.define(version: 20160325031956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20160318023332) do
     t.text      "default_email_message_two"
     t.text      "default_cp_email_message"
     t.text      "default_cp_email_message_two"
+  end
+
+  create_table "agreements", force: true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "campaign_bulkshippinginfos", force: true do |t|
@@ -150,6 +157,7 @@ ActiveRecord::Schema.define(version: 20160318023332) do
     t.text      "receiver"
     t.text      "minilogo"
     t.boolean   "is_featured"
+    t.integer   "agreement_id"
   end
 
   add_index "campaigns", ["entertainment_group_id"], name: "index_campaigns_on_entertainment_group_id", unique: true, using: :btree

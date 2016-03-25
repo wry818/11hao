@@ -106,7 +106,11 @@ class Admin::CampaignsController < Admin::ApplicationController
                 @campaign.update_attribute(:logo, preloaded.identifier)
             end
         end
-        
+
+        if params[:agreement_content]
+            # //to do  add agreement
+        end
+
         if org
           # Change title back to origin
           @campaign.title = campaign_title
@@ -483,7 +487,7 @@ class Admin::CampaignsController < Admin::ApplicationController
     def campaign_params
         params.require(:campaign).permit :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, 
             :description, :collection_id, :call_to_action, :organizer_id, :allow_direct_donation,
-            :discount, :purchase_limit, :active,:minilogo,:is_featured,:receiver
+            :discount, :purchase_limit, :active,:minilogo,:is_featured,:receiver,:agreement_id
     end
 
     def campaign_delivery_params
