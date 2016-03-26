@@ -435,7 +435,7 @@
         jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
       },
       success: function (data) {
-
+        var local_url="/checkout/<%= @campaign.slug%>";
         window.location.href = local_url+"?order_id="+order_id;
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
