@@ -440,8 +440,9 @@ class CampaignNgoController < ApplicationController
 
   def manage_session_order
     logger.debug "1001"
-    logger.debug session[:personal_campaign_slug]
-    @campaign = Campaign.find(session[:personal_campaign_slug])
+    if session[:personal_campaign_slug]
+      @campaign = Campaign.find(session[:personal_campaign_slug])
+    end
     @campaign_total_count = 0
   end
 end
