@@ -165,13 +165,13 @@ window.shopmall = {
             }
 
             var $direct_donation_input=$("#direct_donation_input");
-            var $direct_donation_hid_input=$direct_donation_input.parent().find("#direct_donation");
+            var $direct_donation_hid_input=$("#donation_add");
             //调用文本框的id
             $direct_donation_input.numeral(true);
 
             $direct_donation_input.bind("blur", function () {
                 if ($(this).val().length > 0) {
-                    $("#direct_donation").val("");
+                    $direct_donation_hid_input.val("");
 
                     $("#personal_modalbody a").each(function () {
                         $(this).css('border', "1px solid #dddddd");
@@ -418,6 +418,36 @@ window.shopmall = {
             _this.cart_modal_weixin_refresh(order_id,panel);
         }
     },
+    orderUpdateAddDonation:function(){
+      $("#btn_submit1").click(function(){
+          var $form = $('form.js-form-direct_donation_add');
+          var order_id=$(".js-order-id").val();
+              $.ajax('/ajax/update-order-add', {
+                  type: 'POST',
+                  data: $form.serialize(),
+                  beforeSend: function (jqXHR, settings) {
+                      jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                  },
+                  success: function (data) {
+                      if (data != 'fail') {
+
+                          refresh(order_id,$(".js-panel"));
+                          $('#actionsheet_cancel_input').click();
+                      }
+                      else {
+
+                      }
+                  },
+                  complete: function () {
+
+                  }
+              });
+      });
+        _this=this;
+        function refresh(order_id,panel) {
+            _this.cart_modal_weixin_refresh(order_id,panel);
+        }
+    },
     cart_modal_weixin_refresh: function (order_id,panel) {
         _this=this;
         $.ajax('/ajax/order-summary', {
@@ -432,8 +462,14 @@ window.shopmall = {
                     _this.loadCart();
                     _this.orderItemDelete();
                     _this.updateQuantity();
+                    _this.donation_input_show();
+                    _this.orderUpdateAddDonation();
                 }
+            },
+            complete: function () {
+
             }
+
         });
     }
 }

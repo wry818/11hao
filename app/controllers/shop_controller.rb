@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
+    before_filter :load_campaign, except: [:ajax_update_order_donation,:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
     before_filter :check_campaign_expired, only: [:shop, :category, :product,:product_weixin,:checkout,:checkout_weixin, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product,:product_weixin]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product,:product_weixin, :checkout,:checkout_weixin, :checkout_confirmation]
@@ -131,7 +131,10 @@ class ShopController < ApplicationController
 
       end
       @product = Product.friendly.find(params[:product_id])
-      redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
+
+
+
+      redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && !@campaign.used_as_default?
 
       @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
       @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
@@ -222,6 +225,14 @@ class ShopController < ApplicationController
       if @order
         @campaign = @order.campaign
         if params[:cart_weixin]&&params[:cart_weixin]=="true"
+          @order_donation=0;
+          if @order.items&&@order.items.length>0
+            @order.items.each do |item|
+              @order_donation+=item.donation_amount*item.quantity
+            end
+            @order_donation+=@order.direct_donation
+          end
+          @order_donation=@order_donation/100.0;
           render partial: "cart_modal_weixin" and return
         end
         render partial: "order_summary"
@@ -368,7 +379,7 @@ class ShopController < ApplicationController
             # adding a new item from the product page
             render text: 'fail' and return unless params[:item][:product_id]
             @product = Product.find_by_id(params[:item][:product_id].to_i)
-            render text: 'fail' and return unless @product && (@product.collections.include?(@campaign.collection) || @campaign.used_as_default?)
+            render text: 'fail' and return unless @product && ! @campaign.used_as_default?
             
             if params[:item][:options]
                 params[:item][:options].each do |option|
@@ -644,6 +655,7 @@ class ShopController < ApplicationController
           @order.items.each do |item|
             @order_donation+=item.donation_amount*item.quantity
           end
+          @order_donation+=@order.direct_donation
       end
       @order_donation=@order_donation/100.0;
       #This is the first place the fees are calculated
@@ -1046,7 +1058,26 @@ class ShopController < ApplicationController
       render text: "success"
       
     end
-    
+
+    def ajax_update_order_donation
+
+      donationadd = params[:donation_add]
+
+      order = Order.find_by_id(params[:order_id])
+
+      if !order
+        render text: "fail" and return
+      end
+
+      if donationadd
+        order.direct_donation = donationadd.present? ? donationadd.to_f*100 : 500
+      end
+
+      order.save
+
+      render text: "success"
+    end
+
     def ajax_update_order_address
       
       order_make_anonymous = params[:order_make_anonymous]
@@ -1599,6 +1630,11 @@ class ShopController < ApplicationController
 
     def load_campaign
       begin
+        if params[:procamp]
+          items=params[:procamp].split("_")
+          params[:id]=items[1]
+          params[:product_id]=items[2]
+        end
         @campaign = Campaign.friendly.find(params[:id])
         
         if !@campaign.active?

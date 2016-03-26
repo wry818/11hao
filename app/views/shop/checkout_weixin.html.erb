@@ -1,3 +1,15 @@
+<div class="product_weixin_header">
+  <p>
+    <% if @campaign.minilogo %>
+        <%= image_tag @campaign.minilogo%>
+    <% else %>
+        <%= image_tag "minilogo .png"%>
+    <% end %>
+
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;    font-size: small;">购买即捐赠</span>
+  </p>
+
+</div>
 <div class="container product_pay">
   <div class="bd">
     <div id="btn-edit-address" class="weui_panel weui_panel_access ">
@@ -57,16 +69,17 @@
 
       <div class="weui_media_box">
         <div class="weui_media_bd" style="text-align: center;">
-          <p class="weui_media_title">￥<%= long_price(@order.grandtotal/100.0) %> + ￥0.00运费
+          <p class="weui_media_title">
+            <!--￥<%= long_price(@order.grandtotal/100.0) %> + ￥0.00运费-->
           </p>
-          <strong style="color:rgb(255, 102, 0);">
+          <strong style="color:rgb(255, 102, 0);font-size:larger;">
             需付：￥<%= long_price(@order.grandtotal/100.0) %>
           </strong>
         </div>
       </div>
       <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg ">
         <div class="weui_media_bd">
-          <p class="weui_media_desc " style="text-align: center;">您的本次购买我们将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></span></p>
+          <p class="weui_media_desc " style="text-align: center;">您的本次购买将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></span></p>
         </div>
       </a>
     </div>

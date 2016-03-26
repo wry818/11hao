@@ -138,7 +138,7 @@ Raisy::Application.routes.draw do
   get 'checkout/:id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
 
-  # get 'checkout/:id', to: 'shop#product_weixin',constraints: { id: /product_[0-9]*_[0-9]*/ }, as: :shop_product_weixin
+  get 'checkout/:procamp', to: 'shop#product_weixin',constraints: { procamp: /procamp_\S+_[0-9]+/ }, as: :shop_product_weixin_pay
 
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
@@ -323,6 +323,7 @@ Raisy::Application.routes.draw do
     post 'ajax/addofflineorder', to: 'shop#ajax_add_offline_order', as: :ajax_add_offline_order
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
     post 'ajax/update-order', to: 'shop#ajax_update_order', as: :ajax_update_order
+    post 'ajax/update-order-add', to: 'shop#ajax_update_order_donation', as: :ajax_update_order_don_add
     post 'ajax/query-weixin-order', to: 'shop#ajax_query_weixin_order', as: :ajax_query_weixin_order
     post 'ajax/update-order-address', to: 'shop#ajax_update_order_address', as: :ajax_update_order_address
     

@@ -1,3 +1,15 @@
+<div class="product_weixin_header">
+  <p>
+    <% if @campaign.minilogo %>
+        <%= image_tag @campaign.minilogo%>
+    <% else %>
+        <%= image_tag "minilogo .png"%>
+    <% end %>
+
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;    font-size: small;">购买即捐赠</span>
+  </p>
+
+</div>
 <div class="container product_cart" style="padding-bottom: 50px">
   <div class="bd js-panel" style="min-height: 500px">
         <%= render "cart_modal_weixin" %>
@@ -48,7 +60,10 @@
             <div class="weui_cell_hd" style="padding-right: 5px;"><label class="weui_label">金额</label></div>
             <div class="weui_cell_bd weui_cell_primary">
               <input class="weui_input" id="direct_donation_input" type="input"  placeholder="输入捐款金额">
-              <%= hidden_field_tag :direct_donation, "" %>
+              <form class="js-form-direct_donation_add">
+              <%= hidden_field_tag :donation_add, "" %>
+                <%= hidden_field_tag :order_id,@order.id,:class=>"js-order-id"%>
+              </form>
             </div>
           </div>
         </div>
@@ -80,5 +95,6 @@
     window.shopmall.orderItemDelete();
     window.shopmall.cart_modal_weixin_refresh(<%=@order.id%>,$("#js-panel"));
     window.shopmall.donation_input_show();
+    window.shopmall.orderUpdateAddDonation();
   });
 </script>

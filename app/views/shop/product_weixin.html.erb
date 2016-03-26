@@ -6,7 +6,15 @@
 </style>
 <input type="hidden" id="campaign_slug" value="<%= @campaign.slug %>"/>
 <div class="product_weixin_header">
-  <p><%= image_tag "minilogo .png"%> <span>购买即捐赠</span> </p>
+  <p>
+    <% if @campaign.minilogo %>
+        <%= image_tag @campaign.minilogo%>
+        <% else %>
+        <%= image_tag "minilogo .png"%>
+    <% end %>
+
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;    font-size: small;">购买即捐赠</span>
+  </p>
 
 </div>
 <div class="shop_mall">
@@ -112,7 +120,7 @@
   <div class="goods-bottom-head">
 
     <p>
-      <span>不购买直接捐赠</span>
+      <span>不购买直接</span>
       <a href="javascript:;" class="weui_btn weui_btn_plain_default js-showActionDonation" style="
       width: 93px;
           height: 35px;
@@ -120,6 +128,7 @@
           display: inline;
           padding: 0px 10px 0px 10px;
           border-color: #999;
+          border-radius: 3px;
       ">捐赠</a>
     </p>
   </div>
