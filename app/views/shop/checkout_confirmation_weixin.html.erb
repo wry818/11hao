@@ -66,7 +66,15 @@
   <div class="weui_msg">
     <div class="weui_opr_area">
       <p class="weui_btn_area">
-        <a href="<%= short_campaign_path(@campaign) %>" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+
+        <% if @campaign.slug=="lb1001"%>
+            <a href="/checkout/xyetjk" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+        <% elsif @campaign.slug=="lb1002"%>
+            <a href="/checkout/lbxgy" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+        <% elsif @campaign.slug=="lb1003"%>
+            <a href="/checkout/lbflower" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+        <%end%>
+
       </p>
     </div>
 

@@ -420,6 +420,8 @@ window.shopmall = {
     },
     orderUpdateAddDonation:function(){
       $("#btn_submit1").click(function(){
+          var $this=$(this);
+          $this.prop('disabled', true);
           var $form = $('form.js-form-direct_donation_add');
           var order_id=$(".js-order-id").val();
               $.ajax('/ajax/update-order-add', {
@@ -439,7 +441,7 @@ window.shopmall = {
                       }
                   },
                   complete: function () {
-
+                      $this.prop('disabled', false);
                   }
               });
       });

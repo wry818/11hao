@@ -1297,6 +1297,7 @@ class ShopController < ApplicationController
           @order.items.each do |item|
             @order_donation+=item.donation_amount*item.quantity
           end
+          @order_donation+=@order.direct_donation
         end
         @order_donation=@order_donation/100.0;
         # unless @order && @order.campaign_id == @campaign.id && @order.completed? && @order.valid_order?
