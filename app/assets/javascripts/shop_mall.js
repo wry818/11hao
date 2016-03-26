@@ -171,7 +171,7 @@ window.shopmall = {
 
             $direct_donation_input.bind("blur", function () {
                 if ($(this).val().length > 0) {
-                    $direct_donation_hid_input.val("");
+                    $direct_donation_hid_input.val($(this).val());
 
                     $("#personal_modalbody a").each(function () {
                         $(this).css('border', "1px solid #dddddd");
