@@ -280,19 +280,25 @@
 </script>
 <% if @sign_package %>
     <script>
+      var imgurl="";
+      <% if @campaign.campaign_logo %>
+      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
+                       transformation: [
+                           {
+                               width: @campaign.campaign_logo.crop_width,
+                               height: @campaign.campaign_logo.crop_height,
+                               x: @campaign.campaign_logo.crop_x,
+                               y: @campaign.campaign_logo.crop_y,
+                               crop: :crop
+                           }
+                       ] %>"
+      <%else%>
+      imgurl="";
+      <%end%>
       window.shareData = {
         appid: "<%= ENV['WEIXIN_APPID'] %>",
         link: local_url,
-        img_url: "<%= cl_image_path @campaign.campaign_logo.image_id,
-                        transformation: [
-                            {
-                                width: @campaign.campaign_logo.crop_width,
-                                height: @campaign.campaign_logo.crop_height,
-                                x: @campaign.campaign_logo.crop_x,
-                                y: @campaign.campaign_logo.crop_y,
-                                crop: :crop
-                            }
-                        ] %>",
+        img_url: imgurl,
         img_width: "415",
         img_height: "399",
         desc: "让自闭症儿童在森林中自由的奔跑，释放心灵，感受快乐。",
