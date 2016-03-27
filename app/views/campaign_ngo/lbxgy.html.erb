@@ -290,7 +290,7 @@
     <script>
       var imgurl="";
       <% if @campaign.campaign_logo %>
-      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
+      imgurl="<%= cl_image_path @campaign.campaign_logo.image_id,
                        transformation: [
                            {
                                width: @campaign.campaign_logo.crop_width,
