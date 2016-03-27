@@ -324,6 +324,7 @@ Raisy::Application.routes.draw do
     post "ajax/resendaccesscode", to: 'shop#ajax_resend_access_code', as: :ajax_resend_access_code
     post 'ajax/update-order', to: 'shop#ajax_update_order', as: :ajax_update_order
     post 'ajax/update-order-add', to: 'shop#ajax_update_order_donation', as: :ajax_update_order_don_add
+  post 'ajax/update-order-valid', to: 'shop#ajax_validate_order', as: :ajax_update_order_valid
     post 'ajax/query-weixin-order', to: 'shop#ajax_query_weixin_order', as: :ajax_query_weixin_order
     post 'ajax/update-order-address', to: 'shop#ajax_update_order_address', as: :ajax_update_order_address
     

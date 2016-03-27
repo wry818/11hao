@@ -337,3 +337,33 @@
 
 
 </script>
+<script>
+  $(function(){
+    $.ajax('/ajax/update-order-valid', {
+      type: 'POST',
+      data: {
+        order_id: <%= @order.id %>
+      },
+      beforeSend: function (jqXHR, settings) {
+        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function (data) {
+        if(data!="success")
+        {
+            var local_url;
+                  <% if @campaign.slug=="lb1001"%>
+            local_url="/checkout/xyetjk";
+                  <% elsif @campaign.slug=="lb1002"%>
+            local_url="/checkout/lbxgy";
+                  <% elsif @campaign.slug=="lb1003"%>
+            local_url="/checkout/lbflower";
+                  <%end%>
+           window.location.href=local_url;
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+      }
+    });
+  })
+</script>

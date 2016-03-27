@@ -1,5 +1,5 @@
 class ShopController < ApplicationController
-    before_filter :load_campaign, except: [:ajax_update_order_donation,:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
+    before_filter :load_campaign, except: [:ajax_validate_order,:ajax_update_order_donation,:ajax_update_cart, :ajax_update_delivery, :ajax_order_summary, :ajax_add_offline_order, :ajax_resend_access_code, :ajax_update_order, :ajax_update_order_address, :ajax_query_weixin_order, :weixin_notify, :weixin_payment_get_req]
     before_filter :check_campaign_expired, only: [:shop, :category, :product,:product_weixin,:checkout,:checkout_weixin, :checkout_confirmation]
     before_filter :manage_session_order, only: [:show, :supporters, :shop, :category, :product,:product_weixin]
     before_filter :load_seller, only: [:show, :supporters, :shop, :category, :product,:product_weixin, :checkout,:checkout_weixin, :checkout_confirmation]
@@ -1137,6 +1137,19 @@ class ShopController < ApplicationController
       
       render text: "success"
       
+    end
+
+    def ajax_validate_order
+      order = Order.find_by_id(params[:order_id])
+
+      if !order
+        render text: "fail" and return
+      end
+      if order.status!=0
+        render text: "fail" and return
+      end
+
+      render text: "success"
     end
     
     def send_template_message(openid, order, format_order_time)
