@@ -99,6 +99,9 @@
 
     if (<%= Rails.env.test?||Rails.env.development? %>) {
       window._11hao.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
+    }else
+    {
+      window._11hao.clearCurrentShippingAddress();
     }
     var currentShippingAddress = window._11hao.GetCurrentShippingAddress();
     if (currentShippingAddress != null) {
@@ -151,6 +154,7 @@
 
             if (addr==null) {
               alert("请选择收货地址。");
+//              alert(addr);
               return;
             }
           }
