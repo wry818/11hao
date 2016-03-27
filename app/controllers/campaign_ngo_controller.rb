@@ -123,6 +123,7 @@ class CampaignNgoController < ApplicationController
 
 
     campaign_slug = "gs1001"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     session[:personal_campaign_slug]=campaign_slug
     path = campagin_ngo_shgs_supporters_path
 
@@ -132,6 +133,7 @@ class CampaignNgoController < ApplicationController
   def shgs_supporters
 
     campaign_slug = "gs1001"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
     path = campagin_ngo_shgs_supporters_path
 
     load_campaign_supporter(campaign_slug, path)
