@@ -82,16 +82,16 @@
   <%= render "goods_footer"%>
 </div>
 <script>
-  window.onbeforeunload = function(){
-    var local_url;
-    <% if @campaign.slug=="lb1001"%>
-    local_url="/checkout/xyetjk";
-    <% elsif @campaign.slug=="lb1002"%>
-    local_url="/checkout/lbxgy";
-    <% elsif @campaign.slug=="lb1003"%>
-    local_url="/checkout/lbflower";
-    <%end%>
-    window.location.href=local_url;
-    return false;
-  }
+//  window.onbeforeunload = function(){
+//    var local_url;
+    <!--<% if @campaign.slug=="lb1001"%>-->
+//    local_url="/checkout/xyetjk";
+    <!--<% elsif @campaign.slug=="lb1002"%>-->
+//    local_url="/checkout/lbxgy";
+    <!--<% elsif @campaign.slug=="lb1003"%>-->
+//    local_url="/checkout/lbflower";
+    <!--<%end%>-->
+//    window.location.href=local_url;
+//    return false;
+//  }
 </script>
