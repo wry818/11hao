@@ -3,7 +3,7 @@
  */
 
 var sessionStorageManager = {
-    CurrentShippingAddress: "CurrentShippingAddress"
+    CurrentShippingAddress: "CurrentShippingAddress11hao"
 };
 window._11hao={
     SetCurrentShippingAddress: function (receiveName, addressLine, provinceName, cityName, cityAreaName, phoneNumber, zipCode) {
@@ -25,7 +25,7 @@ window._11hao={
 
     },
     clearCurrentShippingAddress:function(){
-        sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress,null);
+        sessionStorage.removeItem(sessionStorageManager.CurrentShippingAddress);
     },
     formatAddress: function (province, city, cityArea, addressLine, receiveName, cellPhone) {
         var address = "";
