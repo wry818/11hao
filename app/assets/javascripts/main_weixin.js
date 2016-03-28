@@ -3,7 +3,7 @@
  */
 
 var sessionStorageManager = {
-    CurrentShippingAddress: "CurrentShippingAddress11hao"
+    CurrentShippingAddress11hao: "CurrentShippingAddress11hao"
 };
 window._11hao={
     SetCurrentShippingAddress: function (receiveName, addressLine, provinceName, cityName, cityAreaName, phoneNumber, zipCode) {
@@ -17,15 +17,16 @@ window._11hao={
         currentShippingAddress.PhoneNumber = phoneNumber;
         currentShippingAddress.ZipCode = zipCode;
 
-        sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress, JSON.stringify(currentShippingAddress));
+        sessionStorage.setItem(sessionStorageManager.CurrentShippingAddress11hao, JSON.stringify(currentShippingAddress));
     },
     GetCurrentShippingAddress: function () {
-        var currentShippingAddress = $.parseJSON(sessionStorage.getItem(sessionStorageManager.CurrentShippingAddress));
+        var currentShippingAddress = $.parseJSON(sessionStorage.getItem(sessionStorageManager.CurrentShippingAddress11hao));
         return currentShippingAddress;
 
     },
     clearCurrentShippingAddress:function(){
-        sessionStorage.removeItem(sessionStorageManager.CurrentShippingAddress);
+        alert("clear");
+        sessionStorage.removeItem(sessionStorageManager.CurrentShippingAddress11hao);
     },
     formatAddress: function (province, city, cityArea, addressLine, receiveName, cellPhone) {
         var address = "";
@@ -34,6 +35,7 @@ window._11hao={
     },
     formatAddressNew:function()
     {
+        alert(ca);
         var ca=this.GetCurrentShippingAddress();
         if(ca!=null) {
             var address = "<h4 class=\"weui_media_title\">收货人：" + ca.ReceiveName + " <span>" + ca.PhoneNumber + "</span></h4>";
