@@ -25,7 +25,7 @@ window._11hao={
 
     },
     clearCurrentShippingAddress:function(){
-        alert("clear");
+        //alert("clear");
         sessionStorage.removeItem(sessionStorageManager.CurrentShippingAddress11hao);
     },
     formatAddress: function (province, city, cityArea, addressLine, receiveName, cellPhone) {
@@ -35,7 +35,7 @@ window._11hao={
     },
     formatAddressNew:function()
     {
-        alert(ca);
+        //alert(ca);
         var ca=this.GetCurrentShippingAddress();
         if(ca!=null) {
             var address = "<h4 class=\"weui_media_title\">收货人：" + ca.ReceiveName + " <span>" + ca.PhoneNumber + "</span></h4>";
