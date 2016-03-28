@@ -1,5 +1,6 @@
 class CampaignNgoController < ApplicationController
-  layout "story_personal"
+  layout "story_personal",:except => [:xyetjk, :lbflower,:lbxgy,:campaignview]
+  layout "app_web",:only => [:xyetjk, :lbflower,:lbxgy,:campaignview]
   before_filter :manage_session_order, only: [ :confirmation, :confirmation_weixin]
 
   def campaignview

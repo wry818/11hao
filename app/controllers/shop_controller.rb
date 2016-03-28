@@ -1209,7 +1209,7 @@ class ShopController < ApplicationController
       "1453430970","1454046097","1454297408","1454047162","1454297766","1454309232","1450162303","1454310248","1454304921",
       "1450162262","1437020617","1454383538","zs1001","zs1002","zs1003","lb1001","lb1002","lb1003"]
         
-      if story_campaign_ids.include?(order.campaign.slug)
+      if story_campaign_ids.include?(order.campaign.slug)||order.num_items>0
         send_dianping = false
         
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"

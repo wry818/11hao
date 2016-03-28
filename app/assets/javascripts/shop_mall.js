@@ -141,14 +141,14 @@ window.shopmall = {
                 if (x - startX >10) {
                     text ="right";
                     clearInterval(timer)
-                    __click();
+                    _click();
                     timer = setInterval(__click, 3000)
                     return false;
                 }
                 if (x - startX <-10) {
                     text ="left";
                     clearInterval(timer)
-                    _click();
+                    __click();
                     timer = setInterval(__click, 3000)
                     return false;
                 }
