@@ -18,7 +18,7 @@
         <%= image_tag "minilogo .png"%>
     <% end %>
 
-    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;    font-size: small;">购买即捐赠</span>
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
   </p>
 
 </div>
@@ -119,13 +119,13 @@
 
   </div>
 
-  <div style="height: 30px;position: relative;">
+  <div style="position: relative;">
     <hr class="hr-custom-line" style="border-top: 1px dashed #bbb;">
   </div>
   <div class="goods-bottom-head">
 
     <p>
-      <span>不购买直接</span>
+      <span>不想购买直接捐赠</span>
       <a href="javascript:;" class="weui_btn weui_btn_plain_default js-showActionDonation" style="
       width: 93px;
           height: 35px;
@@ -134,7 +134,7 @@
           padding: 0px 10px 0px 10px;
           border-color: #999;
           border-radius: 3px;
-      ">捐赠</a>
+      ">直接捐赠</a>
     </p>
   </div>
 

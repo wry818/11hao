@@ -115,7 +115,7 @@
     position: absolute;
     top: 45%;
     left: 10px;
-    z-index: 1;
+    z-index: -100;//1
   }
   .playbox .next {
     background: image-url("r.png");
@@ -125,7 +125,7 @@
     position: absolute;
     top: 45%;
     right: 10px;
-    z-index: 1;
+    z-index: -100;//1
   }
   .playbox .smalltitle {
     width: 100%;
@@ -294,7 +294,7 @@
     background-color: white;
     height: 50px;
     width: 100%;
-    padding: 5px 10px 0px 10px;
+    padding: 15px 10px 0px 10px;
   }
   .orders .orders_ico
   {
@@ -317,7 +317,7 @@
     width: 27px;
     height: 27px;
     position: absolute;
-    top:10px;
+    top:20px;
     right: 5px;
     background: image-url('buyicon.png');
     background-position: 0 -108px;
@@ -413,7 +413,7 @@
     p{
 
       text-align: center;
-      padding: 5px 0 10px 0px;
+      padding: 10px 0 10px 0px;
       color: #999;
 
     }

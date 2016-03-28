@@ -6,7 +6,7 @@
         <%= image_tag "minilogo .png"%>
     <% end %>
 
-    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;    font-size: small;">购买即捐赠</span>
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
   </p>
 
 </div>
@@ -14,7 +14,7 @@
   <div class="bd">
     <div id="btn-edit-address" class="weui_panel weui_panel_access ">
       <a href="javascript:void(0);" style="padding-right: 25px;" class="weui_media_box weui_media_appmsg weui_panel_ft">
-        <div class="weui_media_hd" style="width: 30px; vertical-align: top;">
+        <div class="weui_media_hd" style="width: 20px; vertical-align: top;">
           <p>
             <img class="weui_media_appmsg_thumb" src="data:image/png;base64,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" alt="">
           </p>
@@ -70,9 +70,9 @@
       <div class="weui_media_box">
         <div class="weui_media_bd" style="text-align: center;">
           <p class="weui_media_title">
-            <!--￥<%= long_price(@order.grandtotal/100.0) %> + ￥0.00运费-->
+            ￥<%= long_price((@order.grandtotal-@order.direct_donation)/100.0) %> + ￥<%= long_price(@order.direct_donation/100.0) %>额外捐赠
           </p>
-          <strong style="color:rgb(255, 102, 0);font-size:larger;">
+          <strong style="color:rgb(255, 102, 0);    font-size: 17px;font-weight: normal;">
             需付：￥<%= long_price(@order.grandtotal/100.0) %>
           </strong>
         </div>
