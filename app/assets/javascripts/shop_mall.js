@@ -138,14 +138,14 @@ window.shopmall = {
                 var text = 'TouchMove事件触发：（' + x + ', ' + y + '）';
 
                 //判断滑动方向
-                if (x - startX >10) {
+                if (x - startX >5) {
                     text ="right";
                     //clearInterval(timer)
                     _click();
                     //timer = setInterval(__click, 3000)
                     return false;
                 }
-                if (x - startX <-10) {
+                if (x - startX <-5) {
                     text ="left";
                     //clearInterval(timer)
                     __click();

@@ -31,7 +31,7 @@
       <% if (photos&&photos.length>0)
            photos.each do |photo| %>
               <li>
-                <a href="javascript:void(0);" target="_blank">  <%= cl_image_tag photo.public_id, width: 400, height: 280, crop: :fill %></a>
+                <a href="javascript:void(0);" target="_blank">  <%= cl_image_tag photo.public_id, width: 400, height: 400, crop: :fill %></a>
               </li>
           <% end
              else %>
