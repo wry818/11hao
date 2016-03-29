@@ -146,10 +146,16 @@
         else {
           window._11hao.clearCurrentShippingAddress();
         }
+
         function wechat_bind_click()
         {
+          var is_pay=false;
           $('#wechat_weixin').one("click",function(){
-            wechar_click();
+            if(!is_pay)
+            {
+              is_pay=true;
+              wechar_click();
+            }
           });
         }
         wechat_bind_click();
