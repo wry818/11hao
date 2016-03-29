@@ -183,18 +183,18 @@
                       ComfirmOrder();
                     } else {
                       $button.prop('disabled', false);
-                      $('#wechat_weixin').click(wechar_click());
+                      $('#wechat_weixin').bind("click",wechar_click());
                     }
                   });
                 }
                 else {
                   $button.prop('disabled', false);
-                  $('#wechat_weixin').click(wechar_click());
+                  $('#wechat_weixin').bind("click",wechar_click());
                 }
               },
               error: function() {
                 $button.prop('disabled', false);
-                $('#wechat_weixin').click(wechar_click());
+                $('#wechat_weixin').bind("click",wechar_click());
               },
               complete: function() {
 
