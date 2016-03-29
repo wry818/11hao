@@ -60,11 +60,11 @@ window.shopmall = {
         var aLiSmall = $(oDivSmall).find('li');
         var _this = this;
 
-        var li_arry=[];
-        for(var i=0;i<aBigLi.length;i++)
-        {
-            arr.push(li_arry[i]);
-        }
+        //var li_arry=[];
+        //for(var i=0;i<aBigLi.length;i++)
+        //{
+        //    arr.push(li_arry[i]);
+        //}
         function tab() {
             for (var i = 0; i < aLiSmall.length; i++) {
                 $(aLiSmall[i]).removeClass();
