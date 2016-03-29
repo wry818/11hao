@@ -1223,7 +1223,7 @@ class ShopController < ApplicationController
             color:"#000000"
           },
           keyword1: {
-            value:"守护绿色，有我!",
+            value:"购买即公益",
             color:"#000000"
           },
           keyword2: {

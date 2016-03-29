@@ -60,6 +60,11 @@ window.shopmall = {
         var aLiSmall = $(oDivSmall).find('li');
         var _this = this;
 
+        var li_arry=[];
+        for(var i=0;i<aBigLi.length;i++)
+        {
+            arr.push(li_arry[i]);
+        }
         function tab() {
             for (var i = 0; i < aLiSmall.length; i++) {
                 $(aLiSmall[i]).removeClass();
@@ -68,6 +73,7 @@ window.shopmall = {
             _this.startMove(oUlBig, 'left', -(now * aBigLi[0].offsetWidth));
         }
 
+        var ismove=false;
         var now = 0;
         for (var i = 0; i < aLiSmall.length; i++) {
             aLiSmall[i].index = i;
@@ -78,22 +84,36 @@ window.shopmall = {
             });
         }
         function _click() {
+            if(ismove)
+            {
+                return;
+            }
+            ismove=true;
             now--;
             if (now == -1) {
                 now = aBigLi.length - 1;
             }
             tab();
+            ismove=false;
         }
 
         oPre.click(function () {
             _click();
         });
         function __click() {
+            if(ismove)
+            {
+                return;
+            }
+            ismove=true;
             now++;
             if (now == aBigLi.length) {
+                //var lifirst=  aBigLi.first();
+                //aBigLi.remove(lifirst)
                 now = 0;
             }
             tab();
+            ismove=false;
         }
 
         oNext.click(function () {
@@ -130,6 +150,7 @@ window.shopmall = {
         function touchMoveFunc(evt) {
             try
             {
+
                 //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
                 var touch = evt.touches[0]; //获取第一个触点
                 var x = Number(touch.pageX); //页面触点X坐标
@@ -139,18 +160,18 @@ window.shopmall = {
 
                 //判断滑动方向
                 if (x - startX >5) {
+                    evt.preventDefault();
                     text ="right";
                     //clearInterval(timer)
-                    _click();
+                    //_click();
                     //timer = setInterval(__click, 3000)
-                    return false;
                 }
                 if (x - startX <-5) {
+                    evt.preventDefault();
                     text ="left";
                     //clearInterval(timer)
-                    __click();
+                    //__click();
                     //timer = setInterval(__click, 3000)
-                    return false;
                 }
                 swipflag=text;
                 //if (y - startY != 0) {
@@ -166,17 +187,17 @@ window.shopmall = {
         //touchend事件
         function touchEndFunc(evt) {
             try {
-               // alert(swipflag);
+                //alert(swipflag);
                // //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
                //
-               //if(swipflag=="left")
-               //{
-               //    _click();
-               //}
-               // if(swipflag=="right")
-               // {
-               //     __click();
-               // }
+               if(swipflag=="left")
+               {
+                   __click();
+               }
+                if(swipflag=="right")
+                {
+                    _click();
+                }
                // alert(swipflag);
             }
             catch (e) {
