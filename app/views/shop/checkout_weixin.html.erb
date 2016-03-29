@@ -168,7 +168,7 @@
 
 
           var $button=$(this);
-          $button.prop('disabled', true);
+          $button.attr('disabled', true);
 
           $.ajax({
               method: "get",
@@ -191,19 +191,19 @@
                       ComfirmOrder();
                     } else {
 //                      alert(1);
-                      $button.prop('disabled', false);
-//                      wechat_bind_click();
+                      $button.attr('disabled', false);
+                      wechat_bind_click();
                     }
                   });
                 }
                 else {
 //                  alert(2);
-                  $button.prop('disabled', false);
+                  $button.attr('disabled', false);
                   wechat_bind_click();
                 }
               },
               error: function() {
-                $button.prop('disabled', false);
+                $button.attr('disabled', false);
                 wechat_bind_click();
               },
               complete: function() {
