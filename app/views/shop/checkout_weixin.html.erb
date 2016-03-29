@@ -96,7 +96,6 @@
 <%= hidden_field_tag :fullname, @nickname %>
 <%= hidden_field_tag :avatar_url, @avatar_url %>
 <script>
-
     if (<%= Rails.env.test?||Rails.env.development? %>) {
       window._11hao.SetCurrentShippingAddress("闻人扬", "虹桥路12345号", "上海市", "上海市", "长宁区", "123456789", "200051");
     }else
@@ -147,8 +146,8 @@
         else {
           window._11hao.clearCurrentShippingAddress();
         }
-
-        $('#wechat_weixin').click(function(){
+        $('#wechat_weixin').click(wechar_click());
+       function wechar_click(){
           if ("<%= @order.needs_shipping %>" == "true") {
             var addr = window._11hao.GetCurrentShippingAddress();
 
@@ -162,6 +161,7 @@
 
           var $button=$(this);
           $button.prop('disabled', true);
+         $button.unbind("click");
           $.ajax({
               method: "get",
               url: "<%= weixin_payment_get_req_path @order %>",
@@ -183,22 +183,25 @@
                       ComfirmOrder();
                     } else {
                       $button.prop('disabled', false);
+                      $('#wechat_weixin').click(wechar_click());
                     }
                   });
                 }
                 else {
                   $button.prop('disabled', false);
+                  $('#wechat_weixin').click(wechar_click());
                 }
               },
               error: function() {
                 $button.prop('disabled', false);
+                $('#wechat_weixin').click(wechar_click());
               },
               complete: function() {
 
               }
             });
 
-        });
+        }
 
       } else {
 

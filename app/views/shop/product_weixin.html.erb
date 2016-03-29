@@ -42,8 +42,14 @@
       <ul>
         <% photos=@product.all_photo.all %>
         <% if (photos&&photos.length>0)
-             photos.each do |photo| %>
-                <li></li>
+             photos.each_with_index do |photo,i| %>
+                <%   if(i==0)%>
+                    <li class="thistitle"></li>
+                <%else%>
+                    <li></li>
+                <%end%>
+
+
             <% end
                end %>
         <!--<li class="thistitle"></li>-->
@@ -125,8 +131,9 @@
   <div class="goods-bottom-head">
 
     <p>
-      <span>不想购买直接捐赠</span>
+      <span>不想购买</span>
       <a href="javascript:;" class="weui_btn weui_btn_plain_default js-showActionDonation" style="
+          margin-left: 5px;
       width: 93px;
           height: 35px;
           color: #999;

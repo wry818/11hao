@@ -439,6 +439,8 @@ class CampaignNgoController < ApplicationController
       end
     end
 
+
+
   end
   private
 

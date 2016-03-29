@@ -140,16 +140,16 @@ window.shopmall = {
                 //判断滑动方向
                 if (x - startX >10) {
                     text ="right";
-                    clearInterval(timer)
+                    //clearInterval(timer)
                     _click();
-                    timer = setInterval(__click, 3000)
+                    //timer = setInterval(__click, 3000)
                     return false;
                 }
                 if (x - startX <-10) {
                     text ="left";
-                    clearInterval(timer)
+                    //clearInterval(timer)
                     __click();
-                    timer = setInterval(__click, 3000)
+                    //timer = setInterval(__click, 3000)
                     return false;
                 }
                 swipflag=text;
@@ -201,6 +201,7 @@ window.shopmall = {
             }
             catch (e) {
                 //alert("不支持TouchEvent事件！" + e.message);
+                var timer = setInterval(_click, 3000) //滚动间隔时间设置
                 $oDiv.mouseover(function () {
                     clearInterval(timer)
                 });
@@ -211,7 +212,7 @@ window.shopmall = {
         }
         isTouchDevice();
 
-        var timer = setInterval(_click, 3000) //滚动间隔时间设置
+        //var timer = setInterval(_click, 3000) //滚动间隔时间设置
 
     },
 
