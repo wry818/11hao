@@ -190,18 +190,19 @@
 //                      alert(res.err_msg);
                       ComfirmOrder();
                     } else {
+                      alert(1);
                       $button.prop('disabled', false);
                       wechat_bind_click();
                     }
                   });
                 }
                 else {
+                  alert(2);
                   $button.prop('disabled', false);
                   wechat_bind_click();
                 }
               },
               error: function() {
-                alert("error");
                 $button.prop('disabled', false);
                 wechat_bind_click();
               },
