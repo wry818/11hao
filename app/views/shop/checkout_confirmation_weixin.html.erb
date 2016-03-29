@@ -6,11 +6,11 @@
 
       <p class="weui_msg_desc">感谢您的支持，您本次购买的商品将为“<%=@campaign.organization.name%>”捐赠：<span>￥<%= long_price(@order_donation)%></p>
 
-      <p class="weui_msg_desc">
+      <p class="weui_msg_desc" style="padding-top: 10px; padding-bottom: 10px;">
 
       <h2>简单公益，只因有你</h2></p>
 
-      <p class="weui_msg_desc"> 如果您有任何疑问, 请联系11号公益圈</p>
+      <p class="weui_msg_desc"> 如果您有任何疑问, 请通过公众号“11号公益圈”联系我们</p>
     </div>
     <div class="weui_extra_area">
 
@@ -68,11 +68,11 @@
       <p class="weui_btn_area">
 
         <% if @campaign.slug=="lb1001"%>
-            <a href="/checkout/xyetjk" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+            <a href="/checkout/xyetjk" class="weui_btn weui_btn weui_btn_primary">返回筹款首页</a>
         <% elsif @campaign.slug=="lb1002"%>
-            <a href="/checkout/lbxgy" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+            <a href="/checkout/lbxgy" class="weui_btn weui_btn weui_btn_primary">返回筹款首页</a>
         <% elsif @campaign.slug=="lb1003"%>
-            <a href="/checkout/lbflower" class="weui_btn weui_btn weui_btn_primary">返回筹款团队首页</a>
+            <a href="/checkout/lbflower" class="weui_btn weui_btn weui_btn_primary">返回筹款首页</a>
         <%end%>
 
       </p>
