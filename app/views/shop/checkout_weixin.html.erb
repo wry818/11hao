@@ -146,7 +146,7 @@
         else {
           window._11hao.clearCurrentShippingAddress();
         }
-        $('#wechat_weixin').click(wechar_click());
+        $('#wechat_weixin').bind("click",wechar_click());
        function wechar_click(){
           if ("<%= @order.needs_shipping %>" == "true") {
             var addr = window._11hao.GetCurrentShippingAddress();
