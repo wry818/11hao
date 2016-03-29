@@ -60,16 +60,25 @@ window.shopmall = {
         var aLiSmall = $(oDivSmall).find('li');
         var _this = this;
 
-        //var li_arry=[];
-        //for(var i=0;i<aBigLi.length;i++)
-        //{
-        //    arr.push(li_arry[i]);
-        //}
+        var li_width=$(window).outerWidth();
+        var li_arry=[];
+        for(var i=0;i<aBigLi.length;i++)
+        {
+            li_arry.push(aBigLi[i]);
+            $(aBigLi[i]).css("left",i*li_width);
+        }
         function tab() {
             for (var i = 0; i < aLiSmall.length; i++) {
                 $(aLiSmall[i]).removeClass();
             }
-            $(aLiSmall[now]).addClass('thistitle');
+            var aLiSmall_index=now%aBigLi.length;
+            if(aLiSmall_index<0)
+            {
+                aLiSmall_index=-aLiSmall_index;
+                //aLiSmall_index-=1;
+                aLiSmall_index= aLiSmall.length-aLiSmall_index;
+            }
+            $(aLiSmall[aLiSmall_index]).addClass('thistitle');
             _this.startMove(oUlBig, 'left', -(now * aBigLi[0].offsetWidth));
         }
 
@@ -83,6 +92,8 @@ window.shopmall = {
                 tab();
             });
         }
+
+
         function _click() {
             if(ismove)
             {
@@ -90,8 +101,16 @@ window.shopmall = {
             }
             ismove=true;
             now--;
-            if (now == -1) {
-                now = aBigLi.length - 1;
+            //if (now == -1) {
+            //    now = aBigLi.length - 1;
+            //}
+            if (now% aBigLi.length==-1) {
+                //var lifirst=  aBigLi.first();
+                $(li_arry[3]).nextAll().remove();
+                for(var i=0;i<=aBigLi.length-1;i++)
+                {
+                    $(oUlBig).prepend($(li_arry[i]).clone(true).css("left",(now-((aBigLi.length-1)-i))*li_width));
+                }
             }
             tab();
             ismove=false;
@@ -107,11 +126,30 @@ window.shopmall = {
             }
             ismove=true;
             now++;
-            if (now == aBigLi.length) {
+            if (now% aBigLi.length==0) {
                 //var lifirst=  aBigLi.first();
-                //aBigLi.remove(lifirst)
-                now = 0;
+                $(li_arry[0]).prevAll().remove();
+                for(var i=0;i<aBigLi.length;i++)
+                {
+                    $(oUlBig).append($(li_arry[i]).clone(true).css("left",(now+i)*li_width));
+                }
             }
+            $(oUlBig).find('li')
+            //if ( now==aBigLi.length*2) {
+            //    //var lifirst=  aBigLi.first();
+            //
+            //    $(oUlBig).html();
+            //
+            //    for(var i=0;i<aBigLi.length;i++)
+            //    {
+            //        $(oUlBig).append($(li_arry[i]).clone(true))
+            //    }
+            //    for(var i=0;i<aBigLi.length;i++)
+            //    {
+            //        $(oUlBig).append($(li_arry[i]).clone(true))
+            //    }
+            //}
+
             tab();
             ismove=false;
         }
@@ -222,13 +260,15 @@ window.shopmall = {
             }
             catch (e) {
                 //alert("不支持TouchEvent事件！" + e.message);
-                var timer = setInterval(_click, 3000) //滚动间隔时间设置
-                $oDiv.mouseover(function () {
-                    clearInterval(timer)
-                });
-                $oDiv.mouseout(function () {
-                    timer = setInterval(__click, 3000) //滚动间隔时间设置
-                });
+                //var timer = setInterval(_click, 3000) //滚动间隔时间设置
+                //$oDiv.mouseover(function () {
+                //    clearInterval(timer)
+                //});
+                //$oDiv.mouseout(function () {
+                //    timer = setInterval(__click, 3000) //滚动间隔时间设置
+                //});
+                oPre.css("z-index",100);
+                oNext.css("z-index",100);
             }
         }
         isTouchDevice();

@@ -100,7 +100,8 @@
     top: 0;
   }
   .playbox .oUlplay li {
-    float: left;
+    position: absolute;
+    //float: left;
     height: 100%;
   }
   .playbox .oUlplay li img{
