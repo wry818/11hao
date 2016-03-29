@@ -17,7 +17,7 @@
 			</div>
 		</td>
     <td style="border:0px solid white; vertical-align:middle;text-align: right;padding-right: 10px;color: rgb(177, 168, 163);">
-      ￥<%= s.donation_total %>
+      ￥<%=long_price( s.donation_total/100.0) %>
     </td>
 	</tr>
 <% end %>
