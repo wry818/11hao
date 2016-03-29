@@ -148,7 +148,7 @@
         }
         function wechat_bind_click()
         {
-          alert(0);
+//          alert(0);
           $('#wechat_weixin').one("click",function(){
              $(this).removeAttr("onclick");
               wechar_click();
@@ -190,14 +190,14 @@
 //                      alert(res.err_msg);
                       ComfirmOrder();
                     } else {
-                      alert(1);
+//                      alert(1);
                       $button.prop('disabled', false);
-                      wechat_bind_click();
+//                      wechat_bind_click();
                     }
                   });
                 }
                 else {
-                  alert(2);
+//                  alert(2);
                   $button.prop('disabled', false);
                   wechat_bind_click();
                 }
