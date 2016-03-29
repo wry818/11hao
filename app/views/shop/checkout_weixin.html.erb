@@ -148,7 +148,7 @@
         }
         function wechat_bind_click()
         {
-          $('#wechat_weixin').bind("click",function(){
+          $('#wechat_weixin').one("click",function(){
             wechar_click();
           });
         }
@@ -167,7 +167,7 @@
 
           var $button=$(this);
           $button.prop('disabled', true);
-         $button.unbind("click");
+
           $.ajax({
               method: "get",
               url: "<%= weixin_payment_get_req_path @order %>",
