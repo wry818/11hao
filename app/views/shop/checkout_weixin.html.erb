@@ -146,7 +146,13 @@
         else {
           window._11hao.clearCurrentShippingAddress();
         }
-        $('#wechat_weixin').bind("click",wechar_click());
+        function wechat_bind_click()
+        {
+          $('#wechat_weixin').bind("click",function(){
+            wechar_click();
+          });
+        }
+        wechat_bind_click();
        function wechar_click(){
           if ("<%= @order.needs_shipping %>" == "true") {
             var addr = window._11hao.GetCurrentShippingAddress();
@@ -183,18 +189,18 @@
                       ComfirmOrder();
                     } else {
                       $button.prop('disabled', false);
-                      $('#wechat_weixin').bind("click",wechar_click());
+                      wechat_bind_click();
                     }
                   });
                 }
                 else {
                   $button.prop('disabled', false);
-                  $('#wechat_weixin').bind("click",wechar_click());
+                  wechat_bind_click();
                 }
               },
               error: function() {
                 $button.prop('disabled', false);
-                $('#wechat_weixin').bind("click",wechar_click());
+                wechat_bind_click();
               },
               complete: function() {
 
