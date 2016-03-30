@@ -1156,15 +1156,23 @@ class ShopController < ApplicationController
 
     def ajax_validate_order
       order = Order.find_by_id(params[:order_id])
-
+      text="success"
       if !order
-        render text: "fail" and return
+         text="fail"
       end
       if order.status!=0
-        render text: "fail" and return
+         text="fail"
       end
-
-      render text: "success"
+      if text=="fail"
+        if @campaign.slug=="lb1001"
+          redirect_to "/checkout/xyetjk"
+        elsif  @campaign.slug=="lb1002"
+          redirect_to "/checkout/lbxgy"
+        elsif  @campaign.slug=="lb1003"
+          redirect_to "/checkout/lbflower"
+        end
+      end
+      render text: text
     end
     
     def send_template_message(openid, order, format_order_time)
