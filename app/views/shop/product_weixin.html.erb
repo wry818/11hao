@@ -426,11 +426,13 @@
             if (res.err_msg == "get_brand_wcpay_request:ok") {
               ComfirmOrder(order_id);
             } else {
+              bing_submit_click();
               $('#wechat').prop('disabled', false);
             }
           });
         }
         else {
+          bing_submit_click();
           $('#wechat').prop('disabled', false);
         }
       },
