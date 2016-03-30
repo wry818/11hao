@@ -156,7 +156,7 @@
         function wechat_bind_click()
         {
 //          alert(0);
-          $('#wechat_weixin').one("click",function(){
+          $('#wechat_weixin').off("click").one("click",function(){
              $(this).removeAttr("onclick");
               wechar_click();
           });
