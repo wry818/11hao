@@ -868,13 +868,13 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
       if session[:nickname] && session[:avatarurl]
         @nickname = session[:nickname]
         @avatar_url = session[:avatarurl]
-        logger.info  @nickname
-        logger.info  @avatar_url
-        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+        # logger.info  @nickname
+        # logger.info  @avatar_url
+        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
       else
         if session[:openid] && session[:access_token]
 
@@ -890,14 +890,14 @@ class ShopController < ApplicationController
           end
           logger.info  @nickname
           logger.info  @avatar_url
-          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
       end
       @nickname
 
-      logger.info  @nickname
-      logger.info  @avatar_url
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info  @nickname
+      # logger.info  @avatar_url
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
     end
     
     def weixin_address_init()

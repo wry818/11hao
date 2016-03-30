@@ -349,15 +349,15 @@ class CampaignNgoController < ApplicationController
 
     @nickname = ""
     @avatar_url = ""
-    logger.info "aaaaaaaaaaaaaaaaaaaaaaaaango"
-    logger.info  session[:openid]
-    logger.info  session[:access_token]
+    # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaango"
+    # logger.info  session[:openid]
+    # logger.info  session[:access_token]
     if session[:nickname] && session[:avatarurl]
       @nickname = session[:nickname]
       @avatar_url = session[:avatarurl]
-      logger.info  @nickname
-      logger.info  @avatar_url
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaasession"
+      # logger.info  @nickname
+      # logger.info  @avatar_url
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaasession"
     else
       if session[:openid] && session[:access_token]
 
