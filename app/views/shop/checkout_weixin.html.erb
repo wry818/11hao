@@ -130,17 +130,19 @@
           if (res && res.userName) {
             SaveAddress(res);
             // Raisy.alert("success");
+            wechat_bind_click();
             window._11hao.loadingHidNNow();
           }
           else {
             if (res.err_msg != "edit_address:fail") {
               alert("系统忙，请稍候再试...");
+              wechat_bind_click();
               window._11hao.loadingHidNNow();
             }
           }
         });
       });
-      window._11hao.loadingShowTimeOut();
+      window._11hao.loadingShow();
       $("#btn-edit-address").click();
       if ("<%= @weixin_init_success %>" == "true") {
 
@@ -159,7 +161,7 @@
               wechar_click();
           });
         }
-        wechat_bind_click();
+
        function wechar_click(){
           if ("<%= @order.needs_shipping %>" == "true") {
             var addr = window._11hao.GetCurrentShippingAddress();
