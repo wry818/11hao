@@ -142,8 +142,11 @@
           }
         });
       });
-      window._11hao.loadingShow();
+      window._11hao.loadingShowTimeOut();
       $("#btn-edit-address").click();
+      if (<%= Rails.env.test?||Rails.env.development? %>) {
+        wechat_bind_click();
+      }
       if ("<%= @weixin_init_success %>" == "true") {
 
         $('#wechat_weixin').prop('disabled', false);
