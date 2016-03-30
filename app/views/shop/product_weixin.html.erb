@@ -339,18 +339,19 @@
   function onBridgeReady() {
     if ("<%= @weixin_init_success %>" == "true") {
 
-      function bing_submit_click()
-      {
-        $('#btn_submit1').one("click",function(){
-          $("#actionsheet_cancel_input").click();
-          submit_click();
-        });
-      }
+
       bing_submit_click();
 
     } else {
       alert("系统忙，请刷新页面再试。");
     }
+  }
+  function bing_submit_click()
+  {
+    $('#btn_submit1').one("click",function(){
+      $("#actionsheet_cancel_input").click();
+      submit_click();
+    });
   }
   function submit_click() {
     var url = "<%=campaign_ngo_confirmation_weixin_path%>";
