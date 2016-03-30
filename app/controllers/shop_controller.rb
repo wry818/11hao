@@ -879,6 +879,7 @@ class ShopController < ApplicationController
             @avatar_url = user_info.result["headimgurl"]
         end
         logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+        logger.info  user_info.result["errcode"]
         logger.info  session[:openid]
         logger.info  session[:access_token]
       end
