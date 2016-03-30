@@ -347,39 +347,44 @@
         });
       }
       bing_submit_click();
-      function submit_click() {
-        var url = "<%=campaign_ngo_confirmation_weixin_path%>";
-        var direct_donation = $("#direct_donation_input").val();
-        if(direct_donation.length<1)
-        {
-          direct_donation = $("#donation_add").val();
-        }
-        if (direct_donation.length <= 0) {
-          alert("请输入捐款金额。");
-          return;
-        }
 
-        $('#btn_submit1').prop('disabled', true);
-        $.ajax(url, {
-          type: 'POST',
-          data: {direct_donation:direct_donation,campaign_id:<%=@campaign.id%>},
-          beforeSend: function (jqXHR, settings) {
-            jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-          },
-          success: function (data, textStatus, jqXHR) {
-            if (data.error_msg != "") {
-              alert(data.error_msg);
-            } else {
+    } else {
+      alert("系统忙，请刷新页面再试。");
+    }
+  }
+  function submit_click() {
+    var url = "<%=campaign_ngo_confirmation_weixin_path%>";
+    var direct_donation = $("#direct_donation_input").val();
+    if(direct_donation.length<1)
+    {
+      direct_donation = $("#donation_add").val();
+    }
+    if (direct_donation.length <= 0) {
+      alert("请输入捐款金额。");
+      return;
+    }
+
+    $('#btn_submit1').prop('disabled', true);
+    $.ajax(url, {
+      type: 'POST',
+      data: {direct_donation:direct_donation,campaign_id:<%=@campaign.id%>},
+      beforeSend: function (jqXHR, settings) {
+        jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function (data, textStatus, jqXHR) {
+        if (data.error_msg != "") {
+          alert(data.error_msg);
+        } else {
 //              alert(data.order_id);
-              weixin_load(data.order_id);
-            }
-          },
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("请求已经结束但是可能发生了错误！");
-            bing_submit_click();
-            $('#btn_submit1').prop('disabled', false);
-          }
-        });
+          weixin_load(data.order_id);
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("请求已经结束但是可能发生了错误！");
+        bing_submit_click();
+        $('#btn_submit1').prop('disabled', false);
+      }
+    });
 //        $.post(url, {direct_donation:direct_donation,campaign_id:<%=@campaign.id%>})
 //            .done(function (data, textStatus, jqXHR) {
 ////            alert(data);
@@ -396,12 +401,7 @@
 //        }).always(function () {
 //
 //        });
-      }
-    } else {
-      alert("系统忙，请刷新页面再试。");
-    }
   }
-
   function weixin_load(order_id) {
 //      alert(order_id);
 
