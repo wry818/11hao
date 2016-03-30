@@ -869,21 +869,30 @@ class ShopController < ApplicationController
       @nickname = ""
       @avatar_url = ""
       logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
-      if session[:openid] && session[:access_token]
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+      if session[:nickname] && session[:avatarurl]
+        @nickname = session[:nickname]
+        @avatar_url = session[:avatarurl]
+        logger.info  @nickname
+        logger.info  @avatar_url
+        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      else
+        if session[:openid] && session[:access_token]
 
-        if user_info.result["errcode"] != "40003"
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+
+          if user_info.result["errcode"] != "40003"
             @nickname = user_info.result["nickname"]
             @avatar_url = user_info.result["headimgurl"]
+
+            session[:nickname] = @nickname
+            session[:avatarurl] = @avatar_url
+          end
+          logger.info  @nickname
+          logger.info  @avatar_url
+          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
         end
-        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
-        logger.info  user_info.result["errcode"]
-        logger.info  session[:openid]
-        logger.info  session[:access_token]
       end
-      
       @nickname
 
       logger.info  @nickname

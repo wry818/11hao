@@ -342,11 +342,12 @@
       function bing_submit_click()
       {
         $('#btn_submit1').one("click",function(){
+          $("#actionsheet_cancel_input").click();
           submit_click();
         });
       }
       bing_submit_click();
-       function submit_click() {
+      function submit_click() {
         var url = "<%=campaign_ngo_confirmation_weixin_path%>";
         var direct_donation = $("#direct_donation_input").val();
         if(direct_donation.length<1)
