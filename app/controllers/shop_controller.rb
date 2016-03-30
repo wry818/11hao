@@ -1165,11 +1165,11 @@ class ShopController < ApplicationController
       end
       if text=="fail"
         if @campaign.slug=="lb1001"
-          redirect_to  "/checkout/xyetjk" and return
+          redirect_to(campagin_ngo_xyetjk_path) and return
         elsif  @campaign.slug=="lb1002"
-          redirect_to  "/checkout/lbxgy" and return
+          redirect_to(campagin_ngo_lbxgy_path) and return
         elsif  @campaign.slug=="lb1003"
-          redirect_to  "/checkout/lbflower" and return
+          redirect_to(campagin_ngo_lbflower_path) and return
         end
       end
       render text: text
