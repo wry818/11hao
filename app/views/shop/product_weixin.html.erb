@@ -341,7 +341,9 @@
 
       function bing_submit_click()
       {
-        $('#btn_submit1').off("click").one("click",submit_click());
+        $('#btn_submit1').one("click",function(){
+          submit_click();
+        });
       }
       bing_submit_click();
        function submit_click() {
