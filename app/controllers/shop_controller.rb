@@ -644,10 +644,24 @@ class ShopController < ApplicationController
       elsif session[:order_id]
         @order = Order.find_by_id(session[:order_id])
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
-          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+          # redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+          if @campaign.slug=="lb1001"
+            redirect_to(campagin_ngo_xyetjk_path) and return
+          elsif  @campaign.slug=="lb1002"
+            redirect_to(campagin_ngo_lbxgy_path) and return
+          elsif  @campaign.slug=="lb1003"
+            redirect_to(campagin_ngo_lbflower_path) and return
+          end
         end
       else
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        # redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        if @campaign.slug=="lb1001"
+          redirect_to(campagin_ngo_xyetjk_path) and return
+        elsif  @campaign.slug=="lb1002"
+          redirect_to(campagin_ngo_lbxgy_path) and return
+        elsif  @campaign.slug=="lb1003"
+          redirect_to(campagin_ngo_lbflower_path) and return
+        end
       end
 
       @order_donation=0;
@@ -1164,13 +1178,13 @@ class ShopController < ApplicationController
          text="fail"
       end
       if text=="fail"
-        if @campaign.slug=="lb1001"
-          redirect_to(campagin_ngo_xyetjk_path) and return
-        elsif  @campaign.slug=="lb1002"
-          redirect_to(campagin_ngo_lbxgy_path) and return
-        elsif  @campaign.slug=="lb1003"
-          redirect_to(campagin_ngo_lbflower_path) and return
-        end
+        # if @campaign.slug=="lb1001"
+        #   redirect_to(campagin_ngo_xyetjk_path) and return
+        # elsif  @campaign.slug=="lb1002"
+        #   redirect_to(campagin_ngo_lbxgy_path) and return
+        # elsif  @campaign.slug=="lb1003"
+        #   redirect_to(campagin_ngo_lbflower_path) and return
+        # end
       end
       render text: text
     end
