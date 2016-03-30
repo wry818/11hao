@@ -868,7 +868,7 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-        
+      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
       if session[:openid] && session[:access_token]
         
         $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
@@ -878,11 +878,16 @@ class ShopController < ApplicationController
             @nickname = user_info.result["nickname"]
             @avatar_url = user_info.result["headimgurl"]
         end
-        
+        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+        logger.info  session[:openid]
+        logger.info  session[:access_token]
       end
       
       @nickname
-      
+
+      logger.info  @nickname
+      logger.info  @avatar_url
+      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
     end
     
     def weixin_address_init()
@@ -1223,7 +1228,7 @@ class ShopController < ApplicationController
             color:"#000000"
           },
           keyword1: {
-            value:"购买即公益",
+            value:"为流动儿童插上翅膀",
             color:"#000000"
           },
           keyword2: {

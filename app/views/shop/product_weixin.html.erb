@@ -338,12 +338,18 @@
 
   function onBridgeReady() {
     if ("<%= @weixin_init_success %>" == "true") {
-      $('#btn_submit1').off("click").on("click", function () {
+
+      function bing_submit_click()
+      {
+        $('#btn_submit1').off("click").one("click",submit_click());
+      }
+      bing_submit_click();
+       function submit_click() {
         var url = "<%=campaign_ngo_confirmation_weixin_path%>";
         var direct_donation = $("#direct_donation_input").val();
         if(direct_donation.length<1)
         {
-          direct_donation = $("#direct_donation").val();
+          direct_donation = $("#donation_add").val();
         }
         if (direct_donation.length <= 0) {
           alert("请输入捐款金额。");
@@ -367,7 +373,7 @@
           },
           error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert("请求已经结束但是可能发生了错误！");
-
+            bing_submit_click();
             $('#btn_submit1').prop('disabled', false);
           }
         });
@@ -387,7 +393,7 @@
 //        }).always(function () {
 //
 //        });
-      });
+      }
     } else {
       alert("系统忙，请刷新页面再试。");
     }
