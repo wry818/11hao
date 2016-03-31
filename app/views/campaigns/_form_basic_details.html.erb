@@ -355,6 +355,20 @@
       </div>
     </div>
   </div>
+  <div class="form-group" style="">
+    <label for="campaign_product" class="col-sm-2 control-label">选择您将要义卖的产品</label>
+    <div class="col-sm-8">
+      <select class="form-control input-small" name="campaign[product_id]">
+        <option value="">-- 请选择 --</option>
+        <% Product.isnot_destroy.each do |pro| %>
+            <option value="<%= pro.id %>" <%= f.object.product_id == pro.id ? 'selected' : '' %> >
+              <%= pro.name %>
+            </option>
+        <% end %>
+      </select>
+      <label for="campaign_product" class="error" style="display: none"></label>
+    </div>
+  </div>
 	    <div class="form-group" style="display: none;">
 	        <label for="campaign_goal1" class="col-sm-2 control-label">选择您将要义卖的产品</label>
 	        <div class="col-sm-8">

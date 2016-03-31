@@ -1,0 +1,31 @@
+<div class="btns">
+  <div style="margin:10px; text-align: center;">
+    <% if @campaign.end_date.to_date<= DateTime.now.to_date %>
+        <button  class="btn btn-sm btn-block" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
+          <span class="text" style="letter-spacing:1px;">筹款已结束, 感谢您的支持!</span>
+        </button>
+    <% else %>
+        <!--<div style="margin:10px; text-align: center;">-->
+        <!--<button  class="btn btn-sm btn-block" data-toggle="modal" data-target="#personal-modal" type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">-->
+        <!--<span class="text" style="letter-spacing:1px;">我要捐款</span>-->
+        <!--</button>-->
+        <!--</div>-->
+        <div style="margin:10px; text-align: center;">
+          <button  class="btn btn-sm btn-block js-btn-support"  type="button" style="border-radius:4px; box-shadow: 1px 1px 1px #888;width: 60%; margin: 0px auto; padding-top: 0px;">
+            <span class="text" style="letter-spacing:1px;">我要支持</span>
+          </button>
+        </div>
+    <% end %>
+  </div>
+</div>
+<script>
+  $(function(){
+    $(".js-btn-support").click(function(){
+      <% if @campaign.product_id %>
+           window.location.href="/checkout/procamp_<%= @campaign.slug%>_<%= @campaign.product_id%>";
+      <% else %>
+           alert("没有义卖的产品！");
+      <% end %>
+    });
+  });
+</script>

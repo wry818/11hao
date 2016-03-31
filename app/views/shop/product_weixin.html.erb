@@ -475,6 +475,8 @@
         local_url="/checkout/lbxgy";
         <% elsif @campaign.slug=="lb1003"%>
         local_url="/checkout/lbflower";
+        <% else %>
+        local_url= "/checkout/campaign_<%=@campaign.id%>";
         <%end%>
         window.location.href = local_url+"?order_id="+order_id;
       },
