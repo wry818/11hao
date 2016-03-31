@@ -159,8 +159,9 @@
         function wechat_bind_click()
         {
 //          alert(0);
-          $('#wechat_weixin').off("click").one("click",function(){
-             $(this).removeAttr("onclick");
+          $('#wechat_weixin').off("click").one("click",function(event){
+            event.preventDefault();
+//             $(this).removeAttr("onclick");
               wechar_click();
           });
         }
