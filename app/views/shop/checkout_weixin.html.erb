@@ -130,15 +130,23 @@
           if (res && res.userName) {
             SaveAddress(res);
             // Raisy.alert("success");
+            wechat_bind_click();
+            window._11hao.loadingHidNNow();
           }
           else {
             if (res.err_msg != "edit_address:fail") {
               alert("系统忙，请稍候再试...");
+              wechat_bind_click();
+              window._11hao.loadingHidNNow();
             }
           }
         });
       });
+      window._11hao.loadingShowTimeOut();
       $("#btn-edit-address").click();
+      if (<%= Rails.env.test?||Rails.env.development? %>) {
+        wechat_bind_click();
+      }
       if ("<%= @weixin_init_success %>" == "true") {
 
         $('#wechat_weixin').prop('disabled', false);
@@ -151,18 +159,19 @@
         function wechat_bind_click()
         {
 //          alert(0);
-          $('#wechat_weixin').one("click",function(){
+          $('#wechat_weixin').off("click").one("click",function(){
              $(this).removeAttr("onclick");
               wechar_click();
           });
         }
-        wechat_bind_click();
+
        function wechar_click(){
           if ("<%= @order.needs_shipping %>" == "true") {
             var addr = window._11hao.GetCurrentShippingAddress();
 
             if (addr==null) {
               alert("请选择收货地址。");
+              wechat_bind_click();
 //              alert(addr);
               return;
             }

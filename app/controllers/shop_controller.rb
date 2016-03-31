@@ -644,10 +644,24 @@ class ShopController < ApplicationController
       elsif session[:order_id]
         @order = Order.find_by_id(session[:order_id])
         unless @order && @order.campaign_id == @campaign.id && @order.status == 0 && @order.valid_order?
-          redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+          # redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+          if @campaign.slug=="lb1001"
+            redirect_to(campagin_ngo_xyetjk_path) and return
+          elsif  @campaign.slug=="lb1002"
+            redirect_to(campagin_ngo_lbxgy_path) and return
+          elsif  @campaign.slug=="lb1003"
+            redirect_to(campagin_ngo_lbflower_path) and return
+          end
         end
       else
-        redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        # redirect_to(short_campaign_url(@campaign), flash: { warning: "无效订单" }) and return
+        if @campaign.slug=="lb1001"
+          redirect_to(campagin_ngo_xyetjk_path) and return
+        elsif  @campaign.slug=="lb1002"
+          redirect_to(campagin_ngo_lbxgy_path) and return
+        elsif  @campaign.slug=="lb1003"
+          redirect_to(campagin_ngo_lbflower_path) and return
+        end
       end
 
       @order_donation=0;
@@ -868,21 +882,36 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-        
-      if session[:openid] && session[:access_token]
-        
-        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
-        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      if session[:nickname] && session[:avatarurl]
+        @nickname = session[:nickname]
+        @avatar_url = session[:avatarurl]
+        # logger.info  @nickname
+        # logger.info  @avatar_url
+        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      else
+        if session[:openid] && session[:access_token]
 
-        if user_info.result["errcode"] != "40003"
+          $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+          user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+
+          if user_info.result["errcode"] != "40003"
             @nickname = user_info.result["nickname"]
             @avatar_url = user_info.result["headimgurl"]
+
+            session[:nickname] = @nickname
+            session[:avatarurl] = @avatar_url
+          end
+          logger.info  @nickname
+          logger.info  @avatar_url
+          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
-        
       end
-      
       @nickname
-      
+
+      # logger.info  @nickname
+      # logger.info  @avatar_url
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
     end
     
     def weixin_address_init()
@@ -1141,15 +1170,23 @@ class ShopController < ApplicationController
 
     def ajax_validate_order
       order = Order.find_by_id(params[:order_id])
-
+      text="success"
       if !order
-        render text: "fail" and return
+         text="fail"
       end
       if order.status!=0
-        render text: "fail" and return
+         text="fail"
       end
-
-      render text: "success"
+      if text=="fail"
+        # if @campaign.slug=="lb1001"
+        #   redirect_to(campagin_ngo_xyetjk_path) and return
+        # elsif  @campaign.slug=="lb1002"
+        #   redirect_to(campagin_ngo_lbxgy_path) and return
+        # elsif  @campaign.slug=="lb1003"
+        #   redirect_to(campagin_ngo_lbflower_path) and return
+        # end
+      end
+      render text: text
     end
     
     def send_template_message(openid, order, format_order_time)
@@ -1223,7 +1260,7 @@ class ShopController < ApplicationController
             color:"#000000"
           },
           keyword1: {
-            value:"购买即公益",
+            value:"为流动儿童插上翅膀",
             color:"#000000"
           },
           keyword2: {
