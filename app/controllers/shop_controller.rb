@@ -651,6 +651,8 @@ class ShopController < ApplicationController
             redirect_to(campagin_ngo_lbxgy_path) and return
           elsif  @campaign.slug=="lb1003"
             redirect_to(campagin_ngo_lbflower_path) and return
+          elsif  @campaign.slug=="gs1001"
+            redirect_to(campagin_ngo_shgs_path) and return
           end
         end
       else
@@ -661,6 +663,8 @@ class ShopController < ApplicationController
           redirect_to(campagin_ngo_lbxgy_path) and return
         elsif  @campaign.slug=="lb1003"
           redirect_to(campagin_ngo_lbflower_path) and return
+        elsif  @campaign.slug=="gs1001"
+          redirect_to(campagin_ngo_shgs_path) and return
         end
       end
 
