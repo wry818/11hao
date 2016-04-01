@@ -30,7 +30,7 @@ class WeixinController < ApplicationController
                 },
                 {
                     type: "view",
-                    name: "守护古树",
+                    name: "森林保护局",
                     url: "http://www.11haoonline.com/checkout/shgs"
                 }
             ]
