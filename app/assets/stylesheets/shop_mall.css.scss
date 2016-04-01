@@ -23,6 +23,9 @@
   font-size: 0;
   line-height: 0;
   padding: 1px 1px 1px 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   p {
     padding-top:3px;
     img
