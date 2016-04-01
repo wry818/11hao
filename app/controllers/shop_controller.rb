@@ -1261,14 +1261,14 @@ class ShopController < ApplicationController
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
         msg="感谢您的支持，您的捐赠将会资助#{group_name}。\n\n简单公益，只因有你。\n";
-        
+        title_msg=order.campaign.title
         data = {
           first: {
             value:msg,
             color:"#000000"
           },
           keyword1: {
-            value:"为流动儿童插上翅膀",
+            value:title_msg,
             color:"#000000"
           },
           keyword2: {
