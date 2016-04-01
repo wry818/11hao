@@ -101,7 +101,7 @@ function _onComplete(event, xhr, settings) {
     //.....
     window._11hao.loadingHid();
 }
-$(document).ajaxStart(_onStart).ajaxSuccess(_onComplete).ajaxError(function(event,xhr,options,exc){
+$(document).ajaxStart(_onStart).ajaxComplete(_onComplete).ajaxError(function(event,xhr,options,exc){
     alert("数据执行发生了异常请刷新后重试！");
 });
 

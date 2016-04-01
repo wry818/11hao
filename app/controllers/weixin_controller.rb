@@ -27,6 +27,11 @@ class WeixinController < ApplicationController
                     type: "view",
                     name: "上海星雨",
                     url: "http://www.11haoonline.com/checkout/xyetjk"
+                },
+                {
+                    type: "view",
+                    name: "守护古树",
+                    url: "http://www.11haoonline.com/checkout/shgs"
                 }
             ]
           # name: "筹款活动",
