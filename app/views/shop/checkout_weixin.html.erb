@@ -159,10 +159,14 @@
         function wechat_bind_click()
         {
 //          alert(0);
+          wechat_weixin_timer=null;
           $('#wechat_weixin').off("click").one("click",function(event){
             event.preventDefault();
+            window.clearTimeout(wechat_weixin_timer);
 //             $(this).removeAttr("onclick");
+            wechat_weixin_timer=window.setTimeout(function(){
               wechar_click();
+            },1000);
           });
         }
 

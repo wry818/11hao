@@ -457,7 +457,11 @@ window.shopmall = {
                             else {
                                 window.location.href = "/checkout/checkout_weixin?id=" + $("#campaign_slug").val() + "&showwxpaytitle=1&agent_type=weixin&cart=true";
                             }
+                        }else
+                        {
+                            alert("订单更新异常请刷新后重试");
                         }
+
                     },
                     complete: function () {
 

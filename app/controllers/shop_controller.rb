@@ -134,7 +134,7 @@ class ShopController < ApplicationController
 
 
 
-      redirect_to(short_campaign_url(@campaign), flash: { warning: "抱歉，我们没有找到这个商品" }) and return unless @product && !@campaign.used_as_default?
+      redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return unless @product ||@campaign.used_as_default?
 
       @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
       @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
@@ -379,7 +379,7 @@ class ShopController < ApplicationController
             # adding a new item from the product page
             render text: 'fail' and return unless params[:item][:product_id]
             @product = Product.find_by_id(params[:item][:product_id].to_i)
-            render text: 'fail' and return unless @product && ! @campaign.used_as_default?
+            render text: 'fail' and return unless @product || @campaign.used_as_default?
             
             if params[:item][:options]
                 params[:item][:options].each do |option|
