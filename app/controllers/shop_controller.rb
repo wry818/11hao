@@ -865,7 +865,7 @@ class ShopController < ApplicationController
           if open_id.present?
             order.open_id = open_id
           end
-          weixin_get_user_info
+          weixin_get_user_info()
           order.fullname=@nickname
           order.avatar_url=@avatar_url
           order.status = 3
