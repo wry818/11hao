@@ -865,9 +865,6 @@ class ShopController < ApplicationController
           if open_id.present?
             order.open_id = open_id
           end
-          weixin_get_user_info()
-          order.fullname=@nickname
-          order.avatar_url=@avatar_url
           order.status = 3
           order.save
           
@@ -888,13 +885,13 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa1"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa1"
       if session[:nickname] && session[:avatarurl]
         @nickname = session[:nickname]
         @avatar_url = session[:avatarurl]
-        logger.info  @nickname
-        logger.info  @avatar_url
-        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa2"
+        # logger.info  @nickname
+        # logger.info  @avatar_url
+        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa2"
       else
         if session[:openid] && session[:access_token]
 
@@ -908,16 +905,16 @@ class ShopController < ApplicationController
             session[:nickname] = @nickname
             session[:avatarurl] = @avatar_url
           end
-          logger.info  @nickname
-          logger.info  @avatar_url
-          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
+          # logger.info  @nickname
+          # logger.info  @avatar_url
+          # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
       end
-      @nickname
+      # @nickname
 
-      logger.info  @nickname
-      logger.info  @avatar_url
-      logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa3"
+      # logger.info  @nickname
+      # logger.info  @avatar_url
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa3"
     end
     
     def weixin_address_init()
