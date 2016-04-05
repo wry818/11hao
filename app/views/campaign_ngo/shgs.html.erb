@@ -17,29 +17,29 @@
         <% if @isback  %>
 
         <%else%>
-            5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害。
+            每购买一份蜡笔，就支持守护古树行动10元，能让更多的古树免遭挖掘机的迫害。
         <% end%>
       </div>
       <% if @isback  %>
           <div class="dd" style="text-align: center;" >
             <h3>感谢您的支持</h3>
-            <p style="margin-top:2px;">
-              特送您一份大众点评现金红包！
-            </p>
-            <!--<p style="margin-top:20px;">简单公益，只因有你！</p>-->
+            <!--<p style="margin-top:2px;">-->
+              <!--特送您一份大众点评现金红包！-->
+            <!--</p>-->
+            <p style="margin-top:20px;">简单公益，只因有你！</p>
 
-            <p style="margin-top:5px; margin-bottom:15px;">
+            <!--<p style="margin-top:5px; margin-bottom:15px;">-->
 
-              <a class="btn btn-success" href="http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">领取红包</a>
+              <!--<a class="btn btn-success" href="http://evt.dianping.com/event/mmbonus/new/newlanding.html?source=gongyi" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">领取红包</a>-->
 
-            </p>
+            <!--</p>-->
             <p style="margin-top:15px; margin-bottom:15px;">
 
               <a id="btn_share" class="btn btn-success" href="javascript:void(0);" style="background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;">邀请好友参与</a>
 
             </p>
             <p style="margin-top:15px; margin-bottom:15px;">
-              <%= link_to "返回捐款页面", campagin_ngo_shgs_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
+              <%= link_to "返回筹款首页", campagin_ngo_shgs_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
             </p>
           </div>
       <% end%>
@@ -102,7 +102,7 @@
                 <div class="st">项目详情</div>
                 <div class="desc">
                   <div id="proj_content">
-                    <p>5元，可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害</p>
+                    <p> 每购买一份蜡笔，就支持守护古树行动10元，能让更多的古树免遭挖掘机的迫害。</p>
 
                     <p>
                       古树名木是大自然和前人留给我们的无价珍宝。由于长期以来我们对古树名木的价值认识不够，
@@ -317,7 +317,7 @@
         </div>
 
 
-        <%=render 'dialog_pay_input' %>
+        <%=render 'dialog_pay_default' %>
 
         <!--Footer-->
         <div class="footer">
@@ -332,7 +332,7 @@
   </div>
 </div>
 <% if !@isback  %>
-    <%= render "campaign_footer_shgs" %>
+    <%= render "campaign_footer" %>
 <% end%>
 <%= render "share" %>
 

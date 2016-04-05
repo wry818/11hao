@@ -260,7 +260,10 @@ class ShopController < ApplicationController
         
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
-      
+        weixin_get_user_info
+        @order.fullname=@nickname
+        @order.avatar_url=@avatar_url
+        @order.save
       end
       
       @no_more_discount = false
@@ -651,6 +654,9 @@ class ShopController < ApplicationController
             redirect_to(campagin_ngo_lbxgy_path) and return
           elsif  @campaign.slug=="lb1003"
             redirect_to(campagin_ngo_lbflower_path) and return
+
+          elsif  @campaign.slug=="gs1001"
+            redirect_to(campagin_ngo_shgs_path) and return
           else
             redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return
           end
@@ -663,6 +669,8 @@ class ShopController < ApplicationController
           redirect_to(campagin_ngo_lbxgy_path) and return
         elsif  @campaign.slug=="lb1003"
           redirect_to(campagin_ngo_lbflower_path) and return
+        elsif  @campaign.slug=="gs1001"
+          redirect_to(campagin_ngo_shgs_path) and return
         else
           redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return
         end
@@ -865,7 +873,6 @@ class ShopController < ApplicationController
           if open_id.present?
             order.open_id = open_id
           end
-          
           order.status = 3
           order.save
           
@@ -886,13 +893,13 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa1"
       if session[:nickname] && session[:avatarurl]
         @nickname = session[:nickname]
         @avatar_url = session[:avatarurl]
         # logger.info  @nickname
         # logger.info  @avatar_url
-        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa2"
       else
         if session[:openid] && session[:access_token]
 
@@ -906,16 +913,16 @@ class ShopController < ApplicationController
             session[:nickname] = @nickname
             session[:avatarurl] = @avatar_url
           end
-          logger.info  @nickname
-          logger.info  @avatar_url
-          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
+          # logger.info  @nickname
+          # logger.info  @avatar_url
+          # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
       end
-      @nickname
+      # @nickname
 
       # logger.info  @nickname
       # logger.info  @avatar_url
-      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa3"
     end
     
     def weixin_address_init()
@@ -1257,14 +1264,14 @@ class ShopController < ApplicationController
         template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
         
         msg="感谢您的支持，您的捐赠将会资助#{group_name}。\n\n简单公益，只因有你。\n";
-        
+        title_msg=order.campaign.title
         data = {
           first: {
             value:msg,
             color:"#000000"
           },
           keyword1: {
-            value:"为流动儿童插上翅膀",
+            value:title_msg,
             color:"#000000"
           },
           keyword2: {
