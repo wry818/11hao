@@ -1,0 +1,70 @@
+<div id="all_report_container" style="padding-bottom:80px;">
+  <div style="width:90%; max-width:1280px; margin:auto;">
+    <div class="container">
+      <h3>分享总计报表</h3>
+    </div>
+
+    <div style="margin-top:30px;">
+      <%= render "visit_share_donation_criteria" %>
+    </div>
+
+    <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+      <h4>正在加载 ...</h4><span class="loader loader-black"></span>
+    </div>
+
+    <div id="activity_report_download" style="display:none; text-align:right; margin-top:10px;">
+      <a id="activity_report_download_link" href="">Request download</a>&nbsp;
+      <span class="loader loader-black add-report-download-loader" style="display:none;"></span>
+    </div>
+    <div id="activity_report_content" style="margin-top:5px;">
+
+    </div>
+  </div>
+</div>
+
+
+<script language="javascript" type="text/javascript">
+
+  $(function () {
+    bind_pager_click();
+//    替换默认的分页是分页变成异步发送
+    function bind_pager_click()
+    {
+      var pagers=$("div#page_pager .pagination span a");
+      pagers.each(function(){
+        var url=this.href;
+        this.href="javascript:void(0);";
+        $(this).off("click").on("click", function(){
+          $("div.all_report_loader").show();
+          $("#activity_report_content").html("");
+          load_download_pagedata(url);
+        });
+      });
+    }
+//   绑定查询的执行方法
+    $("#run_report").bind('click', function () {
+
+      $("div.all_report_loader").show();
+      $("#activity_report_content").html("");
+      var url='<%=admin_reports_ajax_campvisit_log_report_visit_share_donation_path %>';
+      load_download_pagedata(url);
+    });
+    $("#run_report").click();
+//    异步加载分页数据
+    function  load_download_pagedata(url)
+    {
+      var campagin_id= $("#all_report_product_selector").val();
+      var from_date=$("#from_date").val();
+      var to_date=$("#to_date").val();
+      var event_id=$("#all_report_event_selector").val();
+      $.post(url,{ campagin_id:campagin_id, from_date:from_date, to_date:to_date,event_id:event_id }).success(function (data, textStatus, jqXHR) {
+        $("#activity_report_content").html(data);
+        bind_pager_click();
+      }).error(function() {
+        alert("请求已经结束但是可能发生了错误！");
+      }).complete(function() {
+        $("div.all_report_loader").hide();
+      });
+    }
+  });
+</script>

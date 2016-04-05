@@ -63,83 +63,88 @@ left join organizations on campaigns.organization_id=organizations.id
 "
   end
 
-  def self.get_seller_ladder_campaign(campagin_ids)
-    query="select rank() over (order by sum desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
-    (
-						SELECT
-						w. ID,
-						w.user_profile_id,
-						SUM (
-							COALESCE (o.direct_donation, 0)
-						) ,
-						COUNT (o. ID)
-					FROM
-						 sellers w
-					LEFT JOIN (
-						SELECT o1.id id,o1.direct_donation,o1.seller_id FROM orders o1
-		where o1.status=3
-						UNION ALL
-						(
-							SELECT o2.id id,o2.direct_donation,w.id as seller_id FROM orders o2
-							INNER JOIN
-							(
-							SELECT DISTINCT t1.id,t3.seller_id as seller_id from sellers t1
-							INNER JOIN seller_referrals t2 on t1.id=t2.seller_id
-							INNER join seller_referrals t3 on t2.id=t3.sellerreferral_id
-							WHERE t1.campaign_id in("+campagin_ids+") and t1.id!=t3.seller_id
-							)w on o2.seller_id=w.seller_id and o2.status=3
-						)
-					) o ON w.ID = o.seller_id
-					WHERE
-						w.campaign_id IN ("+campagin_ids+")
-					GROUP BY
-						w.ID,
-						w.user_profile_id
-         limit 1000
-    ) a
-    inner join user_profiles on a.user_profile_id = user_profiles.id
-    inner join users on user_profiles.user_id = users.id
-    inner join sellers on a.id = sellers.id"
+  def self.get_page_orders_countmax(campagin_id)
+    query="SELECT MAX(count) from
+          (
+            SELECT  count(o.seller_id) FROM
+            (
+                  SELECT * from orders where orders.campaign_id = "+campagin_id.to_s+"
+                  AND orders.status IN (1, 3)
+                  and COALESCE(orders.seller_id,-1)>0
+
+            ) o
+            GROUP BY o.seller_id
+          ) w
+          "
   end
 
-  def self.get_seller_ladder_campaign_today(campagin_ids)
-    query="select rank() over (order by sum desc) as rank, a.*, sellers.referral_code, users.uid, user_profiles.first_name, user_profiles.picture from
-    (
-						SELECT
-						w. ID,
-						w.user_profile_id,
-						SUM (
-							COALESCE (o.direct_donation, 0)
-						) ,
-						COUNT (o. ID)
-					FROM
-					 sellers w
-					LEFT JOIN (
-						SELECT o1.id id,o1.direct_donation,o1.seller_id FROM orders o1
-          where o1.updated_at >'"+Time.now.to_date.to_s+"' and o1.status=3
-						UNION ALL
-						(
-							SELECT o2.id id,o2.direct_donation,w.id as seller_id FROM orders o2
-							INNER JOIN
-							(
-							SELECT DISTINCT t1.id,t3.seller_id as seller_id from sellers t1
-							INNER JOIN seller_referrals t2 on t1.id=t2.seller_id
-							INNER join seller_referrals t3 on t2.id=t3.sellerreferral_id
-							WHERE t1.campaign_id in("+campagin_ids+") and t1.id!=t3.seller_id
+  def self.get_page_orders_countavg(campagin_id)
+    query="SELECT avg(count) from
+          (
+            SELECT  count(o.seller_id) FROM
+            (
+                  SELECT * from orders where orders.campaign_id = "+campagin_id.to_s+"
+                  AND orders.status IN (1, 3)
+                  and COALESCE(orders.seller_id,-1)>0
 
-							)w on o2.seller_id=w.seller_id and o2.status=3
-            where o2.updated_at >'"+Time.now.to_date.to_s+"'
-						)
-					) o ON w.ID = o.seller_id
-					WHERE
-						w.campaign_id IN ("+campagin_ids+")
-					GROUP BY
-						w.ID,
-						w.user_profile_id
-          limit 100
-    ) a
-    inner join user_profiles on a.user_profile_id = user_profiles.id
-    inner join users on user_profiles.user_id = users.id
-    inner join sellers on a.id = sellers.id"
+            ) o
+            GROUP BY o.seller_id
+          ) w
+          "
+  end
+
+  def self.get_visit_log_reort(campaign_id,time_start,time_end,group_type)
+    where_temp=""
+    where_temp_order=""
+    if campaign_id&&campaign_id.length>0&&campaign_id!="-1"
+      where_temp+=" and campaign_visit_logs.campaign_id="+campaign_id
+      where_temp_order+=" and orders.campaign_id="+campaign_id
+    end
+    if time_start&&time_start.length>0
+      where_temp+=" and campaign_visit_logs.visited_time+'8 H'>='"+time_start+"'"
+      where_temp_order+=" and orders.updated_at +'8 H'>='"+time_start+"'"
+    end
+    if time_end&&time_end.length>0
+      where_temp+=" and campaign_visit_logs.visited_time +'8 H'<'"+time_end+"'"
+      where_temp_order+=" and orders.updated_at +'8 H'<'"+time_end+"'"
+    end
+     query="SELECT
+           CASE when v.d is NULL then w.d ELSE v.d end as d,
+           COALESCE(v.log_count,0) log_count,
+           COALESCE(w.order_count,0) order_count
+           FROM
+          (
+            SELECT
+             to_char(
+             campaign_visit_logs.visited_time+'8 H',
+             '"+group_type+"'
+             ) AS d,
+             COUNT(1) as log_count
+             FROM
+             campaign_visit_logs
+             WHERE 1=1 "+where_temp+"
+             GROUP BY
+             d
+             ORDER BY
+             d desc
+          ) v
+          FULL JOIN
+          (
+            SELECT
+             to_char(
+             orders.updated_at +'8 H',
+             '"+group_type+"'
+             ) AS d,
+             COUNT(1) as order_count
+             FROM
+             orders
+             WHERE 1=1 "+where_temp_order+"
+             GROUP BY
+             d
+             ORDER BY
+             d desc
+          ) w  on  v.d=w.d
+
+"
   end
 end
