@@ -371,8 +371,7 @@ class CampaignNgoController < ApplicationController
           session[:nickname] = @nickname
           session[:avatarurl] = @avatar_url
         end
-        logger.info  @nickname
-        logger.info  @avatar_url
+        logger.info  user_info
         logger.info "aaaaaaaaaaaaaaaaaaaaaaaaasession"
       end
     end
