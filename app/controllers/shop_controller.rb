@@ -260,7 +260,10 @@ class ShopController < ApplicationController
         
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
-      
+        weixin_get_user_info
+        @order.fullname=@nickname
+        @order.avatar_url=@avatar_url
+        @order.save
       end
       
       @no_more_discount = false

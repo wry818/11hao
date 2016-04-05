@@ -325,6 +325,9 @@ class CampaignNgoController < ApplicationController
     end
 
     @order.direct_donation = params[:direct_donation].present? ? params[:direct_donation].to_f*100 : 500
+    weixin_get_user_info
+    @order.fullname=@nickname
+    @order.avatar_url=@avatar_url
     if @order.direct_donation==0
       @order.direct_donation=500;
     end
