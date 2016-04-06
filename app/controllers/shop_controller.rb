@@ -260,7 +260,10 @@ class ShopController < ApplicationController
         
         seller_id = session[:seller_id] ? session[:seller_id] : nil
         @order = Order.create campaign_id: @campaign.id, seller_id: seller_id, delivery_method: (@campaign.delivery_type == 3 ? 1 : @campaign.delivery_type)
-      
+        weixin_get_user_info
+        @order.fullname=@nickname
+        @order.avatar_url=@avatar_url
+        @order.save
       end
       
       @no_more_discount = false
@@ -865,7 +868,6 @@ class ShopController < ApplicationController
           if open_id.present?
             order.open_id = open_id
           end
-          
           order.status = 3
           order.save
           
@@ -886,13 +888,13 @@ class ShopController < ApplicationController
       
       @nickname = ""
       @avatar_url = ""
-      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa1"
       if session[:nickname] && session[:avatarurl]
         @nickname = session[:nickname]
         @avatar_url = session[:avatarurl]
         # logger.info  @nickname
         # logger.info  @avatar_url
-        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+        # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa2"
       else
         if session[:openid] && session[:access_token]
 
@@ -906,20 +908,20 @@ class ShopController < ApplicationController
             session[:nickname] = @nickname
             session[:avatarurl] = @avatar_url
           end
-          logger.info  @nickname
-          logger.info  @avatar_url
-          logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
+          # logger.info  @nickname
+          # logger.info  @avatar_url
+          # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
         logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         logger.info  user_info.inspect
         logger.info  session[:openid]
         logger.info  session[:access_token]
       end
-      @nickname
+      # @nickname
 
       # logger.info  @nickname
       # logger.info  @avatar_url
-      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa"
+      # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaa3"
     end
     
     def weixin_address_init()
