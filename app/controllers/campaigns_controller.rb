@@ -183,7 +183,7 @@ class CampaignsController < ApplicationController
         @campaign.assign_attributes campaign_params
       else
         @campaign = Campaign.new campaign_params
-        
+
         @campaign.organizer = current_user
       end
       

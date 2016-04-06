@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330021941) do
+ActiveRecord::Schema.define(version: 20160406035312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160330021941) do
     t.boolean   "is_featured"
     t.integer   "agreement_id"
     t.integer   "product_id"
+    t.boolean   "is_personal"
   end
 
   add_index "campaigns", ["entertainment_group_id"], name: "index_campaigns_on_entertainment_group_id", unique: true, using: :btree

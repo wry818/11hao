@@ -42,12 +42,56 @@
       <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
     </div>
     <div class="clearfix" style="margin-top:20px;">
-      <div id="step_container_1" class="camp-step-container">
+      <div id="step_container_1_1" class="camp-step-container">
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">2</span>选择筹款方式&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        </h3></div>
+        <fieldset>
+      <div class="row" style="height: 380px;">
+        <div class="col-sm-6">
+      <p style="text-align: center;"><img src="" style="width:280px; height:300px;"></p>
+          <p style="text-align: center;">个人筹款</p>
+        </div>
+        <div lass="col-sm-6">
+          <p style="text-align: center;"><img src="" style="width:280px; height:300px;"></p>
+          <p style="text-align: center;">组织筹款</p>
+        </div>
+      </div>
+
+          <br/>
+        <%= f.hidden_field :is_personal,:id=>"is_personal",:value=>'0'%>
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1.1">
+                <span class="text">取消</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1.1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1.1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1.1">
+                <span class="text">取消</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div id="step_container_1" class="camp-step-container" style="display: none;">
         <div style="text-align:center;"><h3 class="fieldset-header">
           <span class="number">2</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
         </h3></div>
         <fieldset>
-          <div class="form-group">
+          <div class="form-group js-organization-name">
             <label for="organization_name" class="col-sm-2 control-label">组织<span class='req'>*</span></label>
 
             <div class="col-sm-10">
@@ -219,7 +263,7 @@
                 //]]>
 
               </script>
-              <div calss="row" style="margin-top:5px;margin-left: -15px;margin-right: -15px;">
+              <div calss="row" style="margin-top:5px;margin-left: -15px;margin-right: -15px; display: none;">
                 <div class="col-sm-6">
                   <div class="example-story example-story-selected" data-story="example_story_1">
                     <span><%= @example_story_1.title %></span>
@@ -379,34 +423,34 @@
           <br/>
 
           <div class="row web-box">
-            <div class="col-sm-5 backbutton-box">
+            <div class="col-sm-6 backbutton-box">
               <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
                 <span class="text">后退</span>
               </button>
             </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-primary btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
+            <!--<div class="col-sm-3 continuebutton-box" style="display: none;">-->
+              <!--<button class="btn btn-primary btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">-->
+                <!--<span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>-->
+              <!--</button>-->
+            <!--</div>-->
+            <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
                 <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
           </div>
           <div class="row mobile-box">
-            <div class="col-sm-5 backbutton-box">
+            <div class="col-sm-6 backbutton-box">
               <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
                 <span class="text">继续</span> <span class="loader" style="display:none"></span>
               </button>
             </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
+            <!--<div class="col-sm-3 continuebutton-box" style="display: none;">-->
+              <!--<button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">-->
+                <!--<span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>-->
+              <!--</button>-->
+            <!--</div>-->
+            <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
                 <span class="text">后退</span>
               </button>
@@ -463,14 +507,14 @@
               </div>
               <div class="uploader-box" style="margin-top: 3px">
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                     <label for="logo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
 											上传</span>
-                      <span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
+                      <!--<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>-->
                     </label>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-6" style="display: none;">
                     <div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
 											使用</span>
@@ -939,7 +983,26 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-
+    <div id="camp_step_tips_1_1" style="display:none;">
+      <div style="text-align:center;">
+        <p>
+          <label style="font-size:16px;">
+            <% if current_user %>
+                欢迎 <%= current_user.profile.try(:first_name) %>, 让我们一起开始发起您的筹款吧
+            <% else %>
+                欢迎让我们一起开始发起您的筹款吧
+            <% end %>
+          </label>
+        </p>
+      </div>
+      <p>请选择你是为个人还是为组织筹款</p>
+      <span>小贴士：</span>
+      <ul>
+        <li><span>如果找不到您的组织，请联系我们（微信公众号：11号公益圈）</span></li>
+        <li><span>请尽可能的说明您为什么要筹款， 以便人们能够更好的支持您的团队。</span>
+        </li>
+      </ul>
+    </div>
     <div id="camp_step_tips_1" style="display:none;">
       <div style="text-align:center;">
         <p>
@@ -1052,11 +1115,12 @@
                 Raisy.campaigns.donot_show_step_tips();
             });
 
-            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
+            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1_1").html());
 
             <% if @step_popup=="yes" %>
             $("#camp_step_tips_modal").modal("show");
             <% else %>
+          Raisy.campaigns.step_tips_show_status.step1_1 = false;
             Raisy.campaigns.step_tips_show_status.step1 = false;
             Raisy.campaigns.step_tips_show_status.step2 = false;
             Raisy.campaigns.step_tips_show_status.step3_1 = false;

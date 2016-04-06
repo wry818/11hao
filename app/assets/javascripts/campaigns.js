@@ -1053,6 +1053,14 @@ Raisy.campaigns = {
 
                 break;
             case 1:
+                Raisy.campaigns.campaign_current_step = 1.1;
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
+
+                $("#step_container_1_1").show();
+                $("#step_nav_icon_2").addClass("step-nav-icon-gray");
+                break;
+            case 1.1:
                 history.back();
                 break;
             default:
@@ -1111,8 +1119,34 @@ Raisy.campaigns = {
         //
         //    return;
         //}
-
+        alert(step);
         switch (step) {
+            case 1.1:
+
+                Raisy.campaigns.campaign_current_step = 1;
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
+
+                $("#step_container_1").show();
+               var is_personal= $("#is_personal").val();
+                if(is_personal=="0")
+                {
+                    $(".js-organization-name").hide();
+                }else{
+                    $(".js-organization-name").show();
+                }
+                $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+
+                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
+                $("#hide_camp_step_tips").off("click").on("click", function () {
+                    Raisy.campaigns.step_tips_show_status.step1 = false;
+                    Raisy.campaigns.donot_show_step_tips();
+                });
+
+                if (Raisy.campaigns.step_tips_show_status.step1) {
+                    $("#camp_step_tips_modal").modal("show");
+                }
+                break;
             case 1:
 
                 Raisy.campaigns.campaign_current_step = 2;
@@ -1289,6 +1323,7 @@ Raisy.campaigns = {
 	            dataType: "json",
 	            cache: false,
 	            success: function (d) {
+                    alert(d);
 	                if (d && d.id && d.slug) {
 	                    var campaign_id = parseInt(d.id);
 
@@ -1307,8 +1342,13 @@ Raisy.campaigns = {
                             }
 
 	                        switch (nextStep) {
+                                case 1.1:
+                                    // Next step could not be 1
+
+                                    break;
 	                            case 1:
-																// Next step could not be 1
+
+                               		// Next step could not be 1
 	                                break;
 
 	                            case 2:
@@ -1439,7 +1479,8 @@ Raisy.campaigns = {
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
             $(".campaign_form_submit span.text").text("继续");
-
+            $(".js-account-login").hide();
+            $(".js-account-register").show();
             $("#campaign_signup_user").fadeIn(200);
         });
     },
@@ -1466,12 +1507,14 @@ Raisy.campaigns = {
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
             $(".campaign_form_submit span.text").text("继续");
-
+            $(".js-account-login").show();
+            $(".js-account-register").hide();
             $("#campaign_signup_user").fadeIn(200);
         });
     },
-    step_tips_show_status: {step1: true, step2: true, step3_1: true, step3_2: true, step4: true, step5: true},
+    step_tips_show_status: {step1_1:true,step1:true,step1: true, step2: true, step3_1: true, step3_2: true, step4: true, step5: true},
     donot_show_step_tips: function () {
+        Raisy.campaigns.step_tips_show_status.step1_1 = false;
         Raisy.campaigns.step_tips_show_status.step1 = false;
         Raisy.campaigns.step_tips_show_status.step2 = false;
         Raisy.campaigns.step_tips_show_status.step3_1 = false;

@@ -26,7 +26,7 @@ class ChairpersonDashboardController < ApplicationController
       @cp_param = params[:cp] || ""
       
       if @cp_param == ""
-        @campaigns = current_user.campaigns.normal.select("id,title,slug,campaign_type,goal,end_date,logo").order(:id)
+        @campaigns = current_user.campaigns.normal.select("id,title,slug,campaign_type,goal,end_date,logo").order(id: :desc)
       else
         if sales_user? || crs_user? || admin_user?
           if sales_user?

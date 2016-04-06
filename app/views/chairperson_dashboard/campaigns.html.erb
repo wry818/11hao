@@ -1,5 +1,5 @@
 <div id="chairperson_dashboard" class="dashboard-index" style="padding-top:10px;">
-    <div class="container" style="background:#fff;">
+    <div class="container" style="background:#fff; padding-top: 20px;">
 			<% if @cp_param=="" %>
 				<h3>您的筹款团队</h3>
 			<% else %>
@@ -51,9 +51,9 @@
                         </div>
                         <div class="col-md-4 campaign-manage-box">
                             <h4 style="word-wrap:break-word;"><%= campaign.title %></h4>
-                            <a href="<%= dashboard_campaign_details_path(campaign) %>" class="btn btn-info">
+                            <a href="<%= dashboard_campaign_orders_path(campaign) %>" class="btn btn-info">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                编辑
+                                查看
                             </a>
                             <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-primary" style="border-radius:4px;">
                                 <span class="glyphicon glyphicon-cog"></span>
@@ -100,12 +100,13 @@
 											<td class="campaign-people-col first-col">
 												支持者&nbsp;<span class="badge"><%= campaign.supporters %></span>
 											</td>
-											<td class="campaign-people-col middle-col">
-												团队成员&nbsp;<span class="badge"><%= campaign.sellers.count %></span>
-											</td>
+
 											<td class="campaign-people-col">
 												订单&nbsp;<span class="badge"><%= campaign.completed %></span>
 											</td>
+                      <td class="campaign-people-col middle-col">
+                      <!--团队成员&nbsp;<span class="badge"><%= campaign.sellers.count %></span>-->
+                      </td>
 										</tr>
 									</table>
 								</div>

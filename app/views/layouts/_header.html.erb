@@ -25,6 +25,9 @@
 					<%= link_to "不是您的筹款团队？点击这里", "/search", class: "join-other-fundraising-link", style: "display:none;" %>
 				</li>
 		   <% end %>
+            <% if !current_user.is_sales? && !current_user.is_crs? %>
+                <li><%= link_to "发起筹款", new_campaign_path %></li>
+            <% end %>
 		   <% is_chairperson = current_user.is_chairperson? %>
 		   
 		   <% if is_chairperson %>
@@ -39,16 +42,14 @@
                 <li><%= link_to "组织店面", dashboard_storefronts_path %></li>
 		   <% end %>
 		   
-		   <% if @campaign && !@campaign.id.nil? && @campaign.organizer_id==current_user.id %>
-                <li><%= link_to "编辑这个筹款", dashboard_campaign_details_path(@campaign) %></li>
-		   <% end %>
+		   <!--<% if @campaign && !@campaign.id.nil? && @campaign.organizer_id==current_user.id %>-->
+                <!--<li><%= link_to "编辑这个筹款", dashboard_campaign_details_path(@campaign) %></li>-->
+		   <!--<% end %>-->
 		   
 		   <% if current_user.is_sales? || current_user.is_crs? %>
 		   	    <li class="visible-xs"><%= link_to "报表", sales_report_path %></li>
 		   <% end %>
-            <% if !current_user.is_sales? && !current_user.is_crs? %>
-                <li><%= link_to "发起筹款", new_campaign_path %></li>
-            <% end %>
+
 		   <li class="dropdown">
 			   <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">我的帐户<b class="caret"></b></a>
 			   <ul class="dropdown-menu">

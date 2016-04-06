@@ -18,8 +18,9 @@
       </div>
 
       <div style="text-align:center; margin-top:20px;">
-        <h3 class="fieldset-header"><span class="number">1</span>登录我的帐户</h3></div>
-
+        <h3 class="fieldset-header js-account-login"><span class="number">1</span>登录我的帐户</h3>
+        <h3 class="fieldset-header js-account-register"><span class="number">1</span>创建我的帐户</h3>
+      </div>
       <form accept-charset="UTF-8" action="/campaigns/create_account" class="campaign-form form-horizontal" id="campaign_form" method="post">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <%= hidden_field_tag :auth_provider, "raisy" %>
@@ -69,7 +70,7 @@
                 <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-1">
                     <input id="campaign_terms_conditions" type="checkbox" name="user[terms_conditions]"/>
-                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意11号公益圈<%= link_to "服务协议", "/reg_tos" ,{:target=>"_blank"} %></label>
+                    <label for="campaign_terms_conditions" style="font-weight:normal; display:inline;">阅读并同意<%= link_to "服务协议", "/reg_tos" ,{:target=>"_blank"} %></label>
                   </div>
                 </div>
 
