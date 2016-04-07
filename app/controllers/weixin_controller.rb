@@ -9,31 +9,31 @@ class WeixinController < ApplicationController
     menu = {
       button: [
         {
-            name: "蜡笔特卖",
-            # type: "view",
-            # url: "http://www.11haoonline.com/checkout/shgs"
-            sub_button: [
-                {
-                    type: "view",
-                    name: "心公艺",
-                    url: "http://www.11haoonline.com/checkout/lbxgy"
-                },
-                {
-                    type: "view",
-                    name: "太阳花",
-                    url: "http://www.11haoonline.com/checkout/lbflower"
-                },
-                {
-                    type: "view",
-                    name: "上海星雨",
-                    url: "http://www.11haoonline.com/checkout/xyetjk"
-                },
-                {
-                    type: "view",
-                    name: "森林保护局",
-                    url: "http://www.11haoonline.com/checkout/shgs"
-                }
-            ]
+            name: "公益讲堂",
+            type: "view",
+            url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=2649417359&idx=1&sn=6b1315216077da1876e69647f7750ac2&scene=0#wechat_redirect"
+            # sub_button: [
+            #     {
+            #         type: "view",
+            #         name: "心公艺",
+            #         url: "http://www.11haoonline.com/checkout/lbxgy"
+            #     },
+            #     {
+            #         type: "view",
+            #         name: "太阳花",
+            #         url: "http://www.11haoonline.com/checkout/lbflower"
+            #     },
+            #     {
+            #         type: "view",
+            #         name: "上海星雨",
+            #         url: "http://www.11haoonline.com/checkout/xyetjk"
+            #     },
+            #     {
+            #         type: "view",
+            #         name: "森林保护局",
+            #         url: "http://www.11haoonline.com/checkout/shgs"
+            #     }
+            # ]
           # name: "筹款活动",
           # sub_button: [
           #   {
