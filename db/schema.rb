@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20160406035312) do
   end
 
   create_table "agreements", force: true do |t|
-    t.string   "name"
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.string    "content"
+    t.timestamp "created_at", precision: 6
+    t.timestamp "updated_at", precision: 6
   end
 
   create_table "campaign_bulkshippinginfos", force: true do |t|
@@ -334,13 +334,13 @@ ActiveRecord::Schema.define(version: 20160406035312) do
   end
 
   create_table "kindeditor_assets", force: true do |t|
-    t.string   "asset"
-    t.integer  "file_size"
-    t.string   "file_type"
-    t.integer  "owner_id"
-    t.string   "asset_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "asset"
+    t.integer   "file_size"
+    t.string    "file_type"
+    t.integer   "owner_id"
+    t.string    "asset_type"
+    t.timestamp "created_at", precision: 6
+    t.timestamp "updated_at", precision: 6
   end
 
   create_table "mall_hot_products", force: true do |t|

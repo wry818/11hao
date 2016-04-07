@@ -51,11 +51,11 @@
                         </div>
                         <div class="col-md-4 campaign-manage-box">
                             <h4 style="word-wrap:break-word;"><%= campaign.title %></h4>
-                            <a href="<%= dashboard_campaign_orders_path(campaign) %>" class="btn btn-info">
+                            <a href="/campaigns/<%=campaign.id%>/edit" class="btn btn-info">
                                 <span class="glyphicon glyphicon-cog"></span>
-                                查看
+                                编辑
                             </a>
-                            <a href="<%= dashboard_campaign_path(campaign) %>" class="btn btn-primary" style="border-radius:4px;">
+                            <a href="<%= dashboard_campaign_orders_path(campaign) %>" class="btn btn-primary" style="border-radius:4px;">
                                 <span class="glyphicon glyphicon-cog"></span>
                                 筹款追踪
                             </a>

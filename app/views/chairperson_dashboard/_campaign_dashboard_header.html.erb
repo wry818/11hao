@@ -121,8 +121,15 @@
 									</tr>
 								</table>
 							</div>
-							<div style="margin-top:30px;">
+							<div class="row" style="margin-top:30px;">
+                <div class="col-sm-6">
 								<%= image_tag @qr_url %>
+                </div>
+                <div class="col-sm-6" style=" height: 150px;">
+                  <p style="text-align: center;vertical-align: middle;    padding-top: 50px;">
+                  <a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>
+                  </p>
+                </div>
 							</div>
 						</div>
 					</div>
