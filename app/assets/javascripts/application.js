@@ -45,4 +45,3 @@
 //= require jquery.lazyload.min
 //= require countUp.min
 //= require cropper.min
-//= require My97DatePicker/WdatePicker
