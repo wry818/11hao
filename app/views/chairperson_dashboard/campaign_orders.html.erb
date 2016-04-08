@@ -8,7 +8,7 @@
                 <div class="col-md-12">
 					<div style="padding:0 20px;">
 					<% if @campaign.orders.completed.count > 0 %>
-						<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
+						<!--<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>-->
 					
 						<div style="text-align:right;">
 							<a href="<%= dashboard_campaign_orders_download_path(@campaign) %>" target="_blank">导出为Excel</a>
@@ -22,7 +22,7 @@
 							您还没有任何订单！当您的支持者有购买之后 － 您就会看到它们显示在这里。
 						</div>
 						
-						<div style="text-align: center; margin-top:20px;">
+						<div style="text-align: center; margin-top:20px; display: none;">
 							<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
 						</div>
 					<% end %>

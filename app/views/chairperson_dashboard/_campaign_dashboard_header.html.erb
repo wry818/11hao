@@ -1,11 +1,11 @@
 <div class="dashboard-header">
-    <div class="container">
+    <div class="container" style="padding-top: 30px;">
         <div class="dashboard-header-box">
 			<% if current_user.id == @campaign.organizer_id %>
-				<h2 style="font-weight: bold; margin-top:10px;">管理我的筹款</h2>
+				<h2 style="font-weight: bold; margin-top:10px; text-align: center;">管理我的筹款</h2>
 			<% end %>
 			
-			<div class="row" style="margin-top:15px;">
+			<div class="row" style="margin-top:15px; display: none;">
 				<div class="col-sm-4" style="margin-top:5px;">
 					<div style="width:100px;">
 				    <% if current_user.profile.picture.present? %>
@@ -19,29 +19,29 @@
 				</div>
 			
 				<div class="col-sm-7 col-sm-offset-1">
-					<% if current_user.id == @campaign.organizer_id %>
-						<p>我的团队：</p>
-					<% else %>
-						<% if @campaign.ent_campaign? %>
-						<p>Group Storefronts:</p>
-						<% else %>
-						<p>Fundraisers:</p>
-						<% end %>
-					<% end %>
+					<!--<% if current_user.id == @campaign.organizer_id %>-->
+						<!--<p>我的团队：</p>-->
+					<!--<% else %>-->
+						<!--<% if @campaign.ent_campaign? %>-->
+						<!--<p>Group Storefronts:</p>-->
+						<!--<% else %>-->
+						<!--<p>Fundraisers:</p>-->
+						<!--<% end %>-->
+					<!--<% end %>-->
 					
-					<div class="campaign-callout clearfix" style="margin-bottom: 8px; padding: 10px 10px 10px 10px; border: 1px solid gray; cursor: pointer">
-					    <h4 class="pull-left" style="margin: 0"><%= @campaign.title %></strong></h4>
-					    <div class="pull-right"><span class="glyphicon glyphicon-chevron-down"></span></div>
-					</div>
-					<div class="campaign-dropdown-container" style="position: relative">
-					    <div class="campaign-dropdown" style="display: none; position: absolute; top:0; left: 0; background: white; width: 100%; z-index: 9999">
-					        <% @campaigns.each do |campaign| %>
-					            <a href="<%= dashboard_campaign_path(campaign)%>" class="campaign-callout" style="display: block; margin-bottom: 3px; padding: 20px 10px; border: 1px solid gray;">
-					                <h4 style="margin: 0"><%= campaign.title %></strong></h4>
-					            </a>
-					        <% end %>
-					    </div>
-					</div>
+					<!--<div class="campaign-callout clearfix" style="margin-bottom: 8px; padding: 10px 10px 10px 10px; border: 1px solid gray; cursor: pointer">-->
+					    <!--<h4 class="pull-left" style="margin: 0"><%= @campaign.title %></strong></h4>-->
+					    <!--<div class="pull-right"><span class="glyphicon glyphicon-chevron-down"></span></div>-->
+					<!--</div>-->
+					<!--<div class="campaign-dropdown-container" style="position: relative">-->
+					    <!--<div class="campaign-dropdown" style="display: none; position: absolute; top:0; left: 0; background: white; width: 100%; z-index: 9999">-->
+					        <!--<% @campaigns.each do |campaign| %>-->
+					            <!--<a href="<%= dashboard_campaign_path(campaign)%>" class="campaign-callout" style="display: block; margin-bottom: 3px; padding: 20px 10px; border: 1px solid gray;">-->
+					                <!--<h4 style="margin: 0"><%= campaign.title %></strong></h4>-->
+					            <!--</a>-->
+					        <!--<% end %>-->
+					    <!--</div>-->
+					<!--</div>-->
 					<div style="margin-top:15px; text-align:right;">
 						<a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>
 					</div>
@@ -111,17 +111,25 @@
 										<td class="campaign-people-col first-col">
 											支持者&nbsp;<span class="badge"><%= @campaign.supporters %></span>
 										</td>
-										<td class="campaign-people-col middle-col">
-											团队成员&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>
-										</td>
+
 										<td class="campaign-people-col">
 											订单&nbsp;<span class="badge"><%= @campaign.completed %></span>
 										</td>
+                    <td class="campaign-people-col middle-col">
+                      <!--团队成员&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>-->
+                    </td>
 									</tr>
 								</table>
 							</div>
-							<div style="margin-top:30px;">
+							<div class="row" style="margin-top:30px;">
+                <div class="col-sm-6">
 								<%= image_tag @qr_url %>
+                </div>
+                <div class="col-sm-6" style=" height: 150px;">
+                  <p style="text-align: center;vertical-align: middle;    padding-top: 50px;">
+                  <a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>
+                  </p>
+                </div>
 							</div>
 						</div>
 					</div>
@@ -141,21 +149,21 @@
             <li class="<%= 'active' if active == :sendmails %>">
                 <a href="<%= dashboard_campaign_sendmails_path(@campaign) %>">跟联系人发邮件</a>
             </li> -->
-            <li class="<%= 'active' if active == :sellers %>">
-                <a href="<%= dashboard_campaign_sellers_path(@campaign) %>">
-                    团队成员
-                    <span class="badge"><%= @campaign.sellers.count %></span>
-                </a>
-            </li>
+            <!--<li class="<%= 'active' if active == :sellers %>">-->
+                <!--<a href="<%= dashboard_campaign_sellers_path(@campaign) %>">-->
+                    <!--团队成员-->
+                    <!--<span class="badge"><%= @campaign.sellers.count %></span>-->
+                <!--</a>-->
+            <!--</li>-->
             <li class="<%= 'active' if active == :orders %>">
                 <a href="<%= dashboard_campaign_orders_path(@campaign) %>">
                     浏览订单
                     <span class="badge"><%= @campaign.completed %></span>
                 </a>
             </li>
-            <li class="<%= 'active' if active == :details %>">
-                <a href="<%= dashboard_campaign_details_path(@campaign) %>">编辑筹款页面</a>
-            </li>
+            <!--<li class="<%= 'active' if active == :details %>">-->
+                <!--<a href="<%= dashboard_campaign_details_path(@campaign) %>">编辑筹款页面</a>-->
+            <!--</li>-->
 			<% if (current_user.is_crs? || current_user.admin?) && @campaign.any_bulkshipping_product? %>
 	            <li class="<%= 'active' if active == :bulkshippinginfo %>">
 	                <a href="<%= dashboard_campaign_bulkshippinginfo_path(@campaign) %>">编辑大量运送信息</a>

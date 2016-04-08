@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330021941) do
+ActiveRecord::Schema.define(version: 20160406035312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20160330021941) do
   end
 
   create_table "agreements", force: true do |t|
-    t.string   "name"
-    t.string   "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "name"
+    t.string    "content"
+    t.timestamp "created_at", precision: 6
+    t.timestamp "updated_at", precision: 6
   end
 
   create_table "campaign_bulkshippinginfos", force: true do |t|
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160330021941) do
     t.boolean   "is_featured"
     t.integer   "agreement_id"
     t.integer   "product_id"
+    t.boolean   "is_personal"
   end
 
   add_index "campaigns", ["entertainment_group_id"], name: "index_campaigns_on_entertainment_group_id", unique: true, using: :btree
@@ -333,13 +334,13 @@ ActiveRecord::Schema.define(version: 20160330021941) do
   end
 
   create_table "kindeditor_assets", force: true do |t|
-    t.string   "asset"
-    t.integer  "file_size"
-    t.string   "file_type"
-    t.integer  "owner_id"
-    t.string   "asset_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "asset"
+    t.integer   "file_size"
+    t.string    "file_type"
+    t.integer   "owner_id"
+    t.string    "asset_type"
+    t.timestamp "created_at", precision: 6
+    t.timestamp "updated_at", precision: 6
   end
 
   create_table "mall_hot_products", force: true do |t|

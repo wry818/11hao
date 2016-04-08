@@ -3,13 +3,13 @@
 		<table class="table table-hover table-bordered">
 		    <thead>
 		        <tr>
-					<th>Order ID</th>
-		            <th>Order Date</th>
-		            <th>Name</th>
-		            <th>Email</th>
-		            <th>Quantity-Products</th>
-		            <th>Total Paid</th>
-		            <th>Member</th>
+					<th>订单编号</th>
+		            <th>订单时间</th>
+		            <th>用户昵称</th>
+		            <th>购买数量-产品名称</th>
+		            <!--<th>购买数量</th>-->
+		            <th>支付金额</th>
+		            <th>物流状态</th>
 		        </tr>
 		    </thead>
 		    <tbody>
@@ -22,12 +22,13 @@
 							<a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(@campaign,order.id) %>" style="cursor:pointer;">
 								<%= order.id %></a>
 						<% end %>
+
 					</td>
 		            <td style="white-space:nowrap;">
-						<%= order.created_at.strftime('%b %-d, %Y') %>
+						<%= order.created_at.localtime.strftime('%Y-%m-%d %H:%M:%S') %>
 					</td>
 		            <td><%= order.fullname %></td>
-		            <td><%= order.email %></td>
+
 		            <td>
 		                <ul style="list-style-type:none;padding:0px;margin:0px;">
 		                <% order.items.each do |item| %>
@@ -42,8 +43,10 @@
 		                <% end %>
 		                </ul>
 		            </td>
-		            <td>$<%= long_price(order.grandtotal.to_f/100) %></td>
-		            <td><%= order.seller.user_profile.fullname if order.seller %></td>
+                <!--<td><%= order.email %></td>-->
+		            <td>￥<%= long_price(order.grandtotal.to_f/100) %></td>
+		            <!--<td><%= order.seller.user_profile.fullname if order.seller %></td>-->
+              <td><%=  %></td>
 		        </tr>
 		        <% end %>
 		    </tbody>

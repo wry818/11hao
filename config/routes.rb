@@ -124,7 +124,7 @@ Raisy::Application.routes.draw do
 
     resources :collections
     resources :organizations
-    resources :campaigns, except: [:show]
+
 
   get 'shopmall/product/:product_id', to: 'shop_mall#product', as: :shop_mall_product
   get 'shopmall/pay', to: 'shop_mall#pay', as: :shop_mall_product_pay
@@ -219,9 +219,10 @@ Raisy::Application.routes.draw do
       get ':id/share', to: 'campaigns#campaign_share', as: :campaign_share
       get 'account', to: 'campaigns#campaign_account', as: :campaign_account
       post 'create_account', to: 'campaigns#campaign_create_account', as: :campaign_create_account
-      post 'ajax_create', to: 'campaigns#ajax_create', as: :campaign_ajax_create
-    end
+      match 'ajax_create', to: 'campaigns#ajax_create', as: :campaign_ajax_create,via: [:patch, :post]
 
+    end
+    resources :campaigns, except: [:show]
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 
