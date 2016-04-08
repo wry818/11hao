@@ -304,6 +304,7 @@ Raisy::Application.routes.draw do
           get ':id/sellers', to: 'chairperson_dashboard#campaign_sellers', as: :dashboard_campaign_sellers
           get ':id/order/:order_id', to: 'chairperson_dashboard#campaign_order', as: :dashboard_campaign_order
           get ':id/orders', to: 'chairperson_dashboard#campaign_orders', as: :dashboard_campaign_orders
+          post ':id/orders_ajax', to: 'chairperson_dashboard#campaign_orders_ajax', as: :ajax_dashboard_campaign_orders
           get ':id/orders/download', to: 'chairperson_dashboard#campaign_orders_download', as: :dashboard_campaign_orders_download
           get ':id/delivery', to: 'chairperson_dashboard#campaign_delivery', as: :dashboard_campaign_delivery
           patch ':id/delivery', to: 'campaigns#update_delivery', as: :campaign_update_delivery

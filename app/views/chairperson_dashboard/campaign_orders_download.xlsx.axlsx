@@ -7,19 +7,21 @@ wb.add_worksheet(name: "订单") do |sheet|
 										:vertical => :top, 
 										:wrap_text => true }
 										
-	sheet.add_row ["Raisy Online Sales Details"], :style => header_text
+	sheet.add_row ["订单统计表"], :style => header_text
 	
 	if @campaign
-		sheet.add_row [@campaign.title], :style => header_text
 		sheet.add_row ["销售总计: " + "￥" + long_price(@campaign.saled)], :style => header_text
 	end
-	
-	sheet.add_row ["销售统计日期: " + Time.now.strftime('%-m/%d/%y')], :style => header_text
+	if @fromtime&&@fromtime.length>0||@totime&&@totime.length>0
+	sheet.add_row ["#起始日期：#{@fromtime}  终止日期：#{@totime}"], :style => header_text
+	end
+	sheet.add_row ["#支付金额合计：#{@total}笔，共#{short_price(@saled_count)}元"], :style => header_text
+	sheet.add_row ["订单统计日期: " + Time.now.localtime.strftime('%Y-%m-%d %H:%M:%S')], :style => header_text
 	sheet.add_row [""]	# blank row
-	sheet.add_row ["订单编号", "订单日期", "购买人姓名", "Email", "数量-商品", "支付金额", "志愿者"], :style => header_text
+	sheet.add_row ["订单编号", "订单时间", "下单用户", "购买数量-产品名称-物流状态", "支付金额"], :style => header_text
 	
-	if @campaign
-		@campaign.orders.completed.order(:id=>:desc).each do |order|
+	if @results
+		@results.each do |order|
 			rt = Axlsx::RichText.new
 			items = order.items.all
 			item_index = 0
@@ -30,33 +32,42 @@ wb.add_worksheet(name: "订单") do |sheet|
 		
 				item.options.each do |option|
 					if option.value.present?
-						opts += option.option_group.name + ": " + option.value + " "
+						opts +=  " " + option.value + " "
 					end
 				end
 			
 				rt.add_run(item.quantity.to_s + "-" + (item.product ? item.product.name : ""))
 		
 				if opts != ""
-					rt.add_run(" ")
+					rt.add_run("(")
 					rt.add_run(opts[0..-2], :i=>true)
+					rt.add_run(")")
 				end
-			
+			    if opts != ""
+            	    rt.add_run("-")
+                    rt.add_run(item.delivery_status_text_cn)
+                end
 				if item_index != items.count
-					rt.add_run(", ")
+					rt.add_run("\r\n")
 				end
 	    	end
 	
 			sheet.add_row [
 				order.id,
-				order.created_at.strftime('%b %-d, %Y'),
+				order.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S'),
 				order.fullname,
-				order.email,
 				rt,
-				"￥" + long_price(order.grandtotal.to_f/100),
-				order.seller ? order.seller.user_profile.fullname : ""
+				"￥" + long_price(order.grandtotal.to_f/100)
 			], :style => wrap_text
 		end
+			sheet.add_row [
+        				"",
+        				"",
+        				"订单总数：#{@total}",
+        				"",
+        				"支付总额：￥#{short_price(@saled_count)}"
+        			], :style => wrap_text
 	end
-	
-	sheet.column_widths 10, 15, 25, 25, 45, 15, 25
+
+	sheet.column_widths 10, 30, 25, 25, 45, 15, 25
 end
