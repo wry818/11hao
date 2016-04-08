@@ -4,7 +4,7 @@
 			<% if current_user.id == @campaign.organizer_id %>
 				<h2 style="font-weight: bold; margin-top:10px; text-align: center;">管理我的筹款</h2>
 			<% end %>
-			
+			<p style="text-align: right;padding-right: 20%;">---<%=	@campaign.title %></p>
 			<div class="row" style="margin-top:15px; display: none;">
 				<div class="col-sm-4" style="margin-top:5px;">
 					<div style="width:100px;">

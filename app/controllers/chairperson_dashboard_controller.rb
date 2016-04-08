@@ -4,7 +4,7 @@ class ChairpersonDashboardController < ApplicationController
   
     before_filter :authenticate_user!
     before_filter :load_organization, only: [:organization_details, :organization_deposit]
-    before_filter :load_campaign, only: [:campaign, :campaign_details, :campaign_bulkshippinginfo, :campaign_sellers, :campaign_orders, :campaign_delivery, :campaign_orders_download, :campaign_contacts, :campaign_sendmails]
+    before_filter :load_campaign, only: [:campaign_orders_ajax,:campaign, :campaign_details, :campaign_bulkshippinginfo, :campaign_sellers, :campaign_orders, :campaign_delivery, :campaign_orders_download, :campaign_contacts, :campaign_sendmails]
     before_filter :load_campaigns, only: [:campaign, :campaign_details, :campaign_sellers, :campaign_orders, :campaign_bulkshippinginfo, :campaign_contacts, :campaign_sendmails]
     
     def index
@@ -162,6 +162,45 @@ class ChairpersonDashboardController < ApplicationController
 
     def campaign
     end
+    def campaign_orders_ajax
+      order_type_flag=params[:order_type_flag];
+      from_date=params[:from_date];
+      to_date=params[:to_date];
+
+
+      if from_date.length>0
+        from_date=Time.parse(from_date).strftime("%Y-%m-%d")
+      end
+      if to_date.length>0
+        to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
+      end
+
+      logger.debug "1001:"
+
+      @results=@campaign.orders.completed.order(:id=>:desc)
+
+      if order_type_flag.to_i>0
+        if order_type_flag.to_i==1
+          @results=@results.where("address_fullname is null")
+        else
+          @results=@results.where("address_fullname is not null")
+        end
+
+      end
+      if from_date.length>0
+        @results=@results.where("orders.updated_at +'8 H' >= ?",from_date)
+      end
+      if to_date.length>0
+        @results=@results.where("orders.updated_at +'8 H' <= ?",to_date)
+      end
+
+      logger.debug 1002
+      @total=@results.count
+      @saled_count=(@results.joins(:items).sum('items.quantity * (items.base_amount + items.donation_amount)') + @results.sum('direct_donation') ) / 100.0
+      @results=@results.page(params[:page])
+
+      render :partial=>"orders_list"
+    end
 
     def campaign_details
       @campaign_images = CampaignImage.default_images.order(:id).all
@@ -183,6 +222,7 @@ class ChairpersonDashboardController < ApplicationController
     end
 
     def campaign_orders
+
     end
     
     def campaign_order
@@ -199,6 +239,40 @@ class ChairpersonDashboardController < ApplicationController
     
     def campaign_orders_download
       # see views/chairperson_dashboard/campaign_orders_download.xlsx.axlsx
+      order_type_flag=params[:order_type_flag];
+      from_date=params[:from_date];
+      to_date=params[:to_date];
+
+
+      if from_date.length>0
+        from_date=Time.parse(from_date).strftime("%Y-%m-%d")
+      end
+      if to_date.length>0
+        to_date=Time.parse(to_date).strftime("%Y-%m-%d")+" 23:59:59"
+      end
+
+      logger.debug "1001:"
+
+      @results=@campaign.orders.completed.order(:id=>:desc)
+
+      if order_type_flag.to_i>0
+        if order_type_flag.to_i==1
+          @results=@results.where("address_fullname is null")
+        else
+          @results=@results.where("address_fullname is not null")
+        end
+
+      end
+      if from_date.length>0
+        @results=@results.where("orders.updated_at +'8 H' >= ?",from_date)
+      end
+      if to_date.length>0
+        @results=@results.where("orders.updated_at +'8 H' <= ?",to_date)
+      end
+      @fromtime=from_date
+      @totime=to_date
+      @total=@results.count
+      @saled_count=(@results.joins(:items).sum('items.quantity * (items.base_amount + items.donation_amount)') + @results.sum('direct_donation') ) / 100.0
       render xlsx: "campaign_orders_download", filename: "orders.xlsx"
     end
 

@@ -323,5 +323,60 @@ Raisy.chairperson_dashboard = {
                 Raisy.chairperson_dashboard.load_sales_report_content(report, org, url);
             });
         });
+    },
+    orders_list_pager_url_ajax:"",
+    orders_list_pager_init:function(){
+
+        $(function () {
+            bind_pager_click();
+//    替换默认的分页是分页变成异步发送
+            function bind_pager_click()
+            {
+                var pagers=$("div#page_pager .pagination span a");
+                pagers.each(function(){
+                    var url=this.href;
+                    this.href="javascript:void(0);";
+                    $(this).off("click").on("click", function(){
+                        $("div.all_report_loader").show();
+                        $("#activity_report_content").html("");
+                        load_download_pagedata(url);
+                    });
+                });
+            }
+//   绑定查询的执行方法
+            $("#run_report").bind('click', function () {
+
+                $("div.all_report_loader").show();
+                $("#activity_report_content").html("");
+                var url=Raisy.chairperson_dashboard.orders_list_pager_url_ajax;
+                load_download_pagedata(url);
+            });
+            $("#run_report").click();
+//    异步加载分页数据
+            function  load_download_pagedata(url)
+            {
+                var order_type_flag= $("#all_report_order_type_flag_selector").val();
+                var from_date=$("#from_date").val();
+                var to_date=$("#to_date").val();
+                var event_id=$("#all_report_event_selector").val();
+                $.post(url,{ order_type_flag:order_type_flag, from_date:from_date, to_date:to_date,event_id:event_id }).success(function (data, textStatus, jqXHR) {
+                    $("#activity_report_content").html(data);
+                    bind_pager_click();
+                }).error(function() {
+                    alert("请求已经结束但是可能发生了错误！");
+                }).complete(function() {
+                    $("div.all_report_loader").hide();
+                });
+            }
+            $("#load_data_to_xls").bind("click",function(){
+                var order_type_flag= $("#all_report_order_type_flag_selector").val();
+                var from_date=$("#from_date").val();
+                var to_date=$("#to_date").val();
+                var url= $(this).attr("href");
+                url+="?order_type_flag="+order_type_flag+"&from_date="+from_date+"&to_date="+to_date;
+                $(this).attr("href",url);
+            });
+        });
+
     }
 }
