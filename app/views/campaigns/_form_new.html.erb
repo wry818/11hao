@@ -153,13 +153,13 @@
       <div class="row" style="">
         <div class="col-sm-6">
       <p class="img_personal" style="text-align: center;">
-        <%= image_tag "noPhoto.jpg",:dataflag=>"1"%>
+        <%= image_tag "pinfo_b.jpg",:dataflag=>"1"%>
       </p>
           <p style="text-align: center;">个人筹款</p>
         </div>
         <div lass="col-sm-6">
           <p class="img_personal" style="text-align: center;">
-            <%= image_tag "peoples.jpg",:dataflag=>"0" %>
+            <%= image_tag "pinfos_b.jpg",:dataflag=>"0" %>
           </p>
           <p style="text-align: center;">社团/NGO筹款</p>
         </div>
@@ -968,7 +968,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
 
-          <div class="modal-body">
+          <div class="modal-body" style="padding-left: 30px;">
           </div>
           <!-- end of modal body -->
 
@@ -1143,9 +1143,9 @@
 
 //            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
 //
-            <!--<% if @step_popup=="yes"&&!@userprofile.picture %>-->
+            <% if @step_popup=="yes"%>
 //            $("#camp_step_tips_modal").modal("show");
-            <!--<% else %>-->
+            <% else %>
             Raisy.campaigns.step_tips_show_status.step1_1 = false;
             Raisy.campaigns.step_tips_show_status.step1 = false;
             Raisy.campaigns.step_tips_show_status.step2 = false;
@@ -1168,9 +1168,9 @@
                 Raisy.campaigns.donot_show_step_tips();
            });
 
-            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+        $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
 
-        <<% if @step_popup=="yes"&&!@userprofile.picture %>
+        <% if @step_popup=="yes"&&!@userprofile.picture %>
            $("#camp_step_tips_modal").modal("show");
         <% end %>
           Raisy.campaigns.loadflag=0;
