@@ -329,7 +329,7 @@
   }
   .orders-type
   {
-    height: 80px;
+    //height: 80px;
     padding: 5px 0px 10px 10px;
   }
   .orders-type p
@@ -339,11 +339,11 @@
   .orders-type ul
   {
     margin-top: 10px;
-
+    padding-bottom: 10px;
   }
   .orders-type li
   {
-
+    margin-top: 5px;
   }
   .orders-type .tag
   {

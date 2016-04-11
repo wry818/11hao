@@ -27,16 +27,22 @@
     <div class="pre"></div>
     <div class="next"></div>
     <ul class="oUlplay">
-      <% photos=@product.all_photo.all %>
-      <% if (photos&&photos.length>0)
+      <% if (@product.picture&&@product.picture.length>0)%>
+           <li>
+           <a href="javascript:void(0);" target="_blank">  <%= cl_image_tag @product.picture, width: 400, height: 400, crop: :fill %></a>
+          </li>
+      <% end %>
+        <% photos=@product.all_photo.all %>
+
+          <% if (photos&&photos.length>0)
            photos.each do |photo| %>
               <li>
                 <a href="javascript:void(0);" target="_blank">  <%= cl_image_tag photo.public_id, width: 400, height: 400, crop: :fill %></a>
               </li>
           <% end
              else %>
-          <li><a href="#" target="_blank"><img src="/images/test/sp01.jpg"/></a></li>
-      <% end %>
+          <!--<li><a href="#" target="_blank"><img src="#"/></a></li>-->
+          <% end %>
     </ul>
     <div class="smalltitle">
       <ul>
@@ -199,9 +205,11 @@
                 <ul class="js-options-select">
                   <% if @option_group_properties
                        @option_group_properties.each do |property| %>
-                          <li class="tag" data-id="<%= property.id %>" data-price="<%= property.price %>"><%= property.value %></li>
-                      <% end
-                         end %>
+                          <li class="tag" style="height: 19px;" data-id="<%= property.id %>" data-price="<%= property.price %>"><%= property.value %></li>
+                      <% end%>
+                      <div style="clear:both; "></div>
+                        <% end %>
+
                 </ul>
                 <input type="hidden" name="item[options][][option_group_id]" value="<%= option_group.id %>"/>
                 <input type="hidden" name="item[options][][value]"/>
