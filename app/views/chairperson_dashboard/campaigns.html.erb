@@ -1,9 +1,9 @@
 <div id="chairperson_dashboard" class="dashboard-index" style="padding-top:10px;">
-    <div class="container" style="background:#fff; padding-top: 20px;">
+    <div class="container" style="background:#fff; padding-top:30px;">
 			<% if @cp_param=="" %>
-				<h3>您的筹款团队</h3>
+				<h2 style="font-weight: bold;  text-align: center;">您的筹款</h2>
 			<% else %>
-				<h3>筹款团队</h3>
+				<h2 style="font-weight: bold;  text-align: center;">筹款</h2>
 			<% end %>
 		
 		<% if @cp_param!="" && (current_user.is_sales? || current_user.is_crs? || current_user.admin?) %>
@@ -70,7 +70,7 @@
 										</div>
 										
 										<% if campaign.goal.nil? %>
-											<div class="empty-goal-box">&nbsp;</div>
+											<!--<div class="empty-goal-box">&nbsp;</div>-->
 										<% else %>
 					                    <div class="progress">
 					                        <div class="progress-bar" style="width: <%= campaign.progress_percent > 100 ? 100 : campaign.progress_percent  %>%;">

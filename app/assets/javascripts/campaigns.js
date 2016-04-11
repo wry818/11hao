@@ -2,6 +2,7 @@ Raisy.campaigns = {
     skip_add_camp_photo: false,
     minilogo_data_cropper:{ischage:false,x:0,y:0,height:0,width:0, scaleX:0,scaleY:0,filename:""},
     logo_data_cropper:{ischage:false,x:0,y:0,height:0,width:0, scaleX:0,scaleY:0,filename:""},
+    loadflag:0,
     init: function () {
         var _this = this;
 
@@ -375,11 +376,15 @@ Raisy.campaigns = {
         $(".camp-step-qa-icon").click(function () {
             $("#camp_step_tips_modal").modal("show");
         });
+        //preview tips
         $(".js-campaign_title").click(function(){
             Raisy.campaigns.draw_preview_border("campaign_title");
         });
         $(".js-organizer_quote").click(function(){
             Raisy.campaigns.draw_preview_border("organizer_quote");
+        });
+        $(".js-campaign-cover-logo").off("click").bind("click",function(){
+            Raisy.campaigns.draw_preview_border("cover_logo");
         });
         $("#camp_preview_modal").on("shown.bs.modal", function () {
             //alert($(this).html());
@@ -908,12 +913,13 @@ Raisy.campaigns = {
         // Number of steps is not changed and currentstep still starts from 1 (Fundraiser Details).
         // But it may affect the display of step icon and navigation.
 
-        if (step != 1) {
+        if (step != 1&&step!=1.1) {
 
             $(".camp-step-container").hide();
             $(".step-nav-icon").removeClass("step-nav-icon-gray");
 
         }
+        alert(Raisy.campaigns.loadflag);
 
         switch (step) {
             case 5:
@@ -1089,6 +1095,11 @@ Raisy.campaigns = {
 
                 break;
             case 1:
+                if(Raisy.campaigns.loadflag==1)
+                {
+                    history.back();
+                    return;
+                }
                 Raisy.campaigns.campaign_current_step = 1.1;
                 $(".camp-step-container").hide();
                 $(".step-nav-icon").removeClass("step-nav-icon-gray");
@@ -1097,6 +1108,11 @@ Raisy.campaigns = {
                 $("#step_nav_icon_3").addClass("step-nav-icon-gray");
                 break;
             case 1.1:
+                if(Raisy.campaigns.loadflag==2)
+                {
+                    history.back();
+                    return;
+                }
                 Raisy.campaigns.campaign_current_step = 1.1;
                 $(".camp-step-container").hide();
                 $("#step_container_3_1").show();
@@ -1117,9 +1133,13 @@ Raisy.campaigns = {
                 break;
         }
     },
-    continueBtnClick: function () {
+    continueBtnClick: function (stepindex) {
         _this=this;
         var step = $(this).data("currentstep");
+        if(stepindex!=null&&stepindex>0)
+        {
+            step=stepindex;
+        }
         var story_too_long = false;
         // Sign In/Up now acts as the first step and
         // Who Are You Raising Funds For is combined into Fundraiser Details.
@@ -1156,6 +1176,7 @@ Raisy.campaigns = {
             return;
         }
 
+
         //var noCollection = false;
         //
         //if (step == 5 && $("#campaign_collection_id").val() == "") {
@@ -1170,6 +1191,14 @@ Raisy.campaigns = {
         //    return;
         //}
         //alert(step);
+        if(step==1.1||step==3.1)
+        {
+            $("#camp_preview_link").hide();
+        }
+        else
+        {
+            $("#camp_preview_link").show();
+        }
         switch (step) {
             case 1.1:
 
@@ -1184,14 +1213,16 @@ Raisy.campaigns = {
                     $(".js-organization-name").hide();
                     $(".js-campaign_goal-name").hide();
                     $(".js-receiver_persoanl-name").show();
+
+                    $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1_11").html());
                 }else{
                     $(".js-organization-name").show();
                     $(".js-campaign_goal-name").show();
                     $(".js-receiver_persoanl-name").hide();
+                    $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
                 }
                 $("#step_nav_icon_4").addClass("step-nav-icon-gray");
 
-                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
                 $("#hide_camp_step_tips").off("click").on("click", function () {
                     Raisy.campaigns.step_tips_show_status.step1 = false;
                     Raisy.campaigns.donot_show_step_tips();
@@ -1307,6 +1338,7 @@ Raisy.campaigns = {
                 }
                 function  campaignminilogoformsubmit()
                 {
+                    //alert(0);
                     Raisy.campaigns.minilogo_data_cropper.ischage=false;
                     Raisy.campaigns.logo_data_cropper.ischage=false;
                     Raisy.campaigns.campaign_ajax_create(_this, 1.1);
@@ -1630,7 +1662,7 @@ Raisy.campaigns = {
     preview_border_showed: false,
     draw_preview_border: function (type_flag) {
         if (!Raisy.campaigns.preview_border_showed) false;
-
+       //alert(type_flag);
         $("#camp_preview_border").hide();
 
         var img = $("#camp_preview_img");
@@ -1708,6 +1740,13 @@ Raisy.campaigns = {
             border_top=260;
             border_width=530;
             border_height=60;
+        }
+        else if(type_flag=="cover_logo")
+        {
+            border_left=2;
+            border_top=360;
+            border_width=563;
+            border_height=390;
         }
         else
         {

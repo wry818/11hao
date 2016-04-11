@@ -25,7 +25,9 @@
 			<div style="text-align:center; margin-top:10px;">
 				<label>微信扫描上方的二维码，<br/>并分享您的筹款页面</label>
 			</div>
-			
+			<div style="text-align: center;margin-top: 10px;">
+       筹款页面链接:<%=campagin_ngo_campaignview_url("campaign_#{@campaign.id}")%>
+      </div>
 			<div style="text-align:center; margin-top:30px;">
 				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%>');">
 					<span class="text">预览筹款页面</span>
@@ -47,8 +49,8 @@
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-body">
-					<p>恭喜！您已经成功创建了您组织的筹款页。你可以通过点击“预览筹款页面”按钮来浏览您的页面。请记住，在您完成了这些步骤后，您就可以在任何时间通过点击”编辑这个筹款团队“编辑您的筹款页面。</p>
-					<p>下面的这些步骤会帮助您邀请您的组织成员加入您的线上筹款团队。当他们创建了他们自己的页面后他们就能开始联系支持者们并开始线上销售商品！</p>
+					<p>恭喜！您已经成功创建了筹款页面。你可以通过点击“预览筹款页面”按钮来浏览您的页面。请记住，在您完成了这些步骤后，您就可以在任何时间通过点击”编辑“编辑您的筹款页面内容。</p>
+					<!--<p>下面的这些步骤会帮助您邀请您的组织成员加入您的线上筹款团队。当他们创建了他们自己的页面后他们就能开始联系支持者们并开始线上销售商品！</p>-->
 				</div>	<!-- end of modal body -->
 			
 		        <div class="modal-footer">
