@@ -1,4 +1,6 @@
 <%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
+<%= javascript_include_tag "My97DatePicker/WdatePicker.js",charset:"utf-8" %>
+
 <style>
   .minilogo_cropper_box .cropper-view-box {
     border-radius: 50%;
@@ -19,7 +21,7 @@
     <%= hidden_field_tag :campaign_new_user, "1" %>
     <%= hidden_field_tag :campaign_photo_ids, "" %>
     <%= hidden_field_tag :campaign_id, @campaign.id.nil? ? -1 : @campaign.id %>
-
+    <%= hidden_field_tag :minilogoaddflag,"0" %>
     <div id="social_result" style="display:none;"></div>
 
     <% if @collection %>
@@ -42,36 +44,208 @@
       <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
     </div>
     <div class="clearfix" style="margin-top:20px;">
-      <div id="step_container_1" class="camp-step-container">
+      <div id="step_container_3_1" class="camp-step-container">
+        <div style="text-align:center;">
+          <h3 class="fieldset-header">
+            <span class="number">2</span>上传头像&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+
+            <div class="upload-tooltip">
+              （最好的图片尺寸: 280px * 280px）
+            </div>
+          </h3>
+        </div>
+
+        <fieldset>
+          <div class="row">
+            <div class="col-sm-12">
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-6 col-md-offset-3 minilogo_cropper_box" style="display: none;" >
+                    <p style="text-align: center;">
+                      <img id="minilogo_cropper" class="img-responsive"  alt="" src="">
+                    <div class="progress progress-striped active minilogo-progress" style="display: none; height:18px;">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                        <span>0%</span>
+                      </div>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-md-offset-3">
+                    <p style="text-align: center;">
+                      <% if @userprofile&&@userprofile.picture&&@userprofile.picture.length>0 %>
+                          <%=image_tag @userprofile.picture,:style=> " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+                      <%else%>
+                          <%=image_tag "logo.png",:style => " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12">
+                    <div style="width:0px; height:0px;">
+                      <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/photo" style="width:0px; height:0px; visibility:hidden;"/>
+                    </div>
+
+                    <div id="minilogo_upload_view">
+                      <%= hidden_field_tag :minilogo %>
+
+                    </div>
+                    <div class="uploader-box" style="margin-top: 3px">
+                      <div class="row">
+                        <div class="col-sm-3 col-sm-offset-3">
+                          <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											上传</span>
+                            <span class="loader" style="display:none"></span>
+                          </label>
+                        </div>
+                        <div class="col-sm-3">
+                          <label id="btn-crop-minilogo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											截取Logo</span>
+                            <span class="loader" style="display:none"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+
+            <br/>
+
+            <div class="row web-box">
+              <div class="col-sm-6 backbutton-box">
+                <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
+                  <span class="text">后退</span>
+                </button>
+              </div>
+              <!--<div class="col-sm-3 continuebutton-box" style="display: none;">-->
+              <!--<button class="btn btn-primary btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">-->
+              <!--<span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>-->
+              <!--</button>-->
+              <!--</div>-->
+              <div class="col-sm-6 continuebutton-box">
+                <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
+                  <span class="text">继续</span> <span class="loader" style="display:none"></span>
+                </button>
+              </div>
+            </div>
+            <div class="row mobile-box">
+              <div class="col-sm-6 backbutton-box">
+                <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
+                  <span class="text">继续</span> <span class="loader" style="display:none"></span>
+                </button>
+              </div>
+              <!--<div class="col-sm-3 continuebutton-box" style="display: none;">-->
+              <!--<button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">-->
+              <!--<span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>-->
+              <!--</button>-->
+              <!--</div>-->
+              <div class="col-sm-6 continuebutton-box">
+                <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
+                  <span class="text">后退</span>
+                </button>
+              </div>
+            </div>
+        </fieldset>
+      </div>
+
+      <div id="step_container_1_1" class="camp-step-container" style="display:none;">
         <div style="text-align:center;"><h3 class="fieldset-header">
-          <span class="number">2</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+          <span class="number">3</span>选择筹款方式&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
         </h3></div>
         <fieldset>
-          <div class="form-group">
+      <div class="row" style="">
+        <div class="col-sm-6">
+      <p class="img_personal" style="text-align: center;">
+        <%= image_tag "noPhoto.jpg",:dataflag=>"1"%>
+      </p>
+          <p style="text-align: center;">个人筹款</p>
+        </div>
+        <div lass="col-sm-6">
+          <p class="img_personal" style="text-align: center;">
+            <%= image_tag "peoples.jpg",:dataflag=>"0" %>
+          </p>
+          <p style="text-align: center;">组织筹款</p>
+        </div>
+      </div>
+
+          <br/>
+          <%	 if f.object&&f.object.is_personal&&f.object.is_personal==true %>
+              <%= f.hidden_field :is_personal,:id=>"is_personal", :value=>"1"%>
+              <%else%>
+          <%= f.hidden_field :is_personal,:id=>"is_personal", :value=>"0"%>
+              <%end%>
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1.1">
+                <span class="text">取消</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1.1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="1.1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1.1">
+                <span class="text">取消</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div id="step_container_1" class="camp-step-container" style="display: none;">
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">4</span>筹款页面摘要&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+        </h3></div>
+        <fieldset>
+          <div class="form-group js-organization-name">
             <label for="organization_name" class="col-sm-2 control-label">组织<span class='req'>*</span></label>
 
             <div class="col-sm-10">
               <!-- organization_name actually saves organization id -->
-              <input class="form-control" id="organization_name" name="organization_name" type="text">
+              <input class="form-control" id="organization_name" name="organization_name" type="text" value="<%=	f.object.organization_id if f.object&&f.object.organization_id %>">
               <!-- organization-name is the real field that stores organization name -->
-              <input id="organization-name" name="organization[name]" style="display:none;">
+              <input id="organization-name" name="organization[name]" style="display:none;" value="<%=	f.object.organization.name if f.object&&f.object.organization&&f.object.organization.name%>">
             </div>
           </div>
 
           <div class="form-group">
             <label for="campaign_title" class="col-sm-2 control-label">筹款标题<span class='req'>*</span></label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <%= f.text_field :title, class: 'form-control', placeholder: '比如：给古树系一条红丝带' %>
             </div>
+            <label data-toggle="modal" data-target="#camp_preview_modal" class="col-sm-1 control-label" style="text-align: left;margin-left: -15px;"><span class="js-campaign_title">?</span></label>
           </div>
 
           <div class="form-group">
             <label for="campaign_title" class="col-sm-2 control-label">宣传标语</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-9">
               <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害' %>
             </div>
+            <label data-toggle="modal" data-target="#camp_preview_modal" class="col-sm-1 control-label" style="text-align: left;margin-left: -15px;"><span class="js-organizer_quote">?</span></label>
           </div>
 
           <div class="form-group">
@@ -87,11 +261,18 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group js-campaign_goal-name">
             <label for="campaign_goal" class="col-sm-2 control-label">善款接收方</label>
 
             <div class="col-sm-10">
               <%= f.text_field :receiver, class: 'form-control', placeholder: "比如：北京市昌平区多元智能环境研究所" %>
+            </div>
+          </div>
+          <div class="form-group js-receiver_persoanl-name">
+            <label for="receiver_persoanl" class="col-sm-2 control-label">善款接收人</label>
+
+            <div class="col-sm-10">
+              <%= text_field_tag :receiver_persoanl,@user_name, class: 'form-control',disabled: "true" %>
             </div>
           </div>
           <% if @campaign_mode == Campaign::Fundraising %>
@@ -143,7 +324,7 @@
 
             <div class="col-sm-8">
               <div style="width:200px;">
-                <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? '' : @campaign.end_date.strftime('%m/%d/%Y %H:%M %Z')), class: 'datepicker form-control' %>
+                <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? (Time.now+14.days).to_date : @campaign.end_date.localtime.strftime('%Y-%m-%d')), class:  'form-control',onClick: "WdatePicker()" %>
                 <label for="campaign_end_date" class="error" style="display: none"></label>
               </div>
             </div>
@@ -180,7 +361,7 @@
       <div id="step_container_2" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">3</span>告诉大家您的筹款故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
+            <span class="number">5</span>告诉大家您的筹款故事&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3>
         </div>
         <fieldset>
           <div style="display:none;">
@@ -219,7 +400,7 @@
                 //]]>
 
               </script>
-              <div calss="row" style="margin-top:5px;margin-left: -15px;margin-right: -15px;">
+              <div calss="row" style="margin-top:5px;margin-left: -15px;margin-right: -15px; display: none;">
                 <div class="col-sm-6">
                   <div class="example-story example-story-selected" data-story="example_story_1">
                     <span><%= @example_story_1.title %></span>
@@ -298,127 +479,12 @@
         </div>
       </div>
 
-      <div id="step_container_3_1" class="camp-step-container" style="display:none;">
-        <div style="text-align:center;">
-          <h3 class="fieldset-header">
-            <span class="number">4</span>上传Logo&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
-            <div class="upload-tooltip">
-              （最好的图片尺寸: 280px * 280px）
-            </div>
-          </h3>
-        </div>
-
-        <fieldset>
-          <div class="row">
-            <div class="col-sm-12">
-                <fieldset>
-                  <div class="row">
-                    <div class="col-md-6 col-md-offset-3 minilogo_cropper_box" style="display: none;" >
-                      <p style="text-align: center;">
-                      <img id="minilogo_cropper" class="img-responsive"  alt="" src="">
-                      <div class="progress progress-striped active minilogo-progress" style="display: none; height:18px;">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
-                          <span>0%</span>
-                        </div>
-                      </div>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 col-md-offset-3">
-                      <p style="text-align: center;">
-                      <% if f.object.minilogo&&f.object.minilogo.length>0 %>
-                          <%=image_tag f.object.minilogo,:style=> " width: 140px;
-    height: 140px;
-    border: 6px solid rgba(51,51,51,0.1);
-    border-radius: 180px;",:class => "js-minilogo-view" %>
-                      <%else%>
-                          <%=image_tag "logo.png",:style => " width: 140px;
-    height: 140px;
-    border: 6px solid rgba(51,51,51,0.1);
-    border-radius: 180px;",:class => "js-minilogo-view" %>
-                      <% end %>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row">
-
-                    <div class="col-md-12">
-                      <div style="width:0px; height:0px;">
-                        <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/photo" style="width:0px; height:0px; visibility:hidden;"/>
-                      </div>
-
-                      <div id="minilogo_upload_view">
-                        <%= f.hidden_field :minilogo %>
-                      </div>
-                      <div class="uploader-box" style="margin-top: 3px">
-                        <div class="row">
-                          <div class="col-sm-3 col-sm-offset-3">
-                            <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
-										<span style="color:#428bca;font-size:1.1em;display:block;">
-											上传</span>
-                              <span class="loader" style="display:none"></span>
-                            </label>
-                          </div>
-                          <div class="col-sm-3">
-                            <label id="btn-crop-minilogo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
-										<span style="color:#428bca;font-size:1.1em;display:block;">
-											截取Logo</span>
-                              <span class="loader" style="display:none"></span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </fieldset>
-              </div>
-
-
-          <br/>
-
-          <div class="row web-box">
-            <div class="col-sm-5 backbutton-box">
-              <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
-                <span class="text">后退</span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-primary btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">继续</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-          </div>
-          <div class="row mobile-box">
-            <div class="col-sm-5 backbutton-box">
-              <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                <span class="text">继续</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">
-                <span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>
-              </button>
-            </div>
-            <div class="col-sm-3 continuebutton-box">
-              <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
-                <span class="text">后退</span>
-              </button>
-            </div>
-          </div>
-        </fieldset>
-      </div>
 
       <div id="step_container_3" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">4</span>上传筹款页面封面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">6</span>上传筹款页面封面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
 
             <div class="upload-tooltip">
               （最好的图片尺寸: 940px * 626px）
@@ -442,7 +508,7 @@
                                                             crop: :crop
                                                         }], class: "uploader-preview-box" %>
                   <% else %>
-                      <%= image_tag 'default_upload_logo.gif', class: "default-upload-logo" %>
+                      <%= image_tag 'default_upload_logo.gif', class: "default-upload-logo",:style=>"width:97px;" %>
                   <% end %>
                   <%= f.hidden_field :logo %>
                 </div>
@@ -463,14 +529,14 @@
               </div>
               <div class="uploader-box" style="margin-top: 3px">
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                     <label for="logo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
 											上传</span>
-                      <span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>
+                      <!--<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>-->
                     </label>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-6" style="display: none;">
                     <div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px;">
 										<span style="color:#428bca;font-size:1.1em;display:block;">
 											使用</span>
@@ -939,7 +1005,26 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-
+    <div id="camp_step_tips_1_1" style="display:none;">
+      <div style="text-align:center;">
+        <p>
+          <label style="font-size:16px;">
+            <% if current_user %>
+                欢迎 <%= current_user.profile.try(:first_name) %>, 让我们一起开始发起您的筹款吧
+            <% else %>
+                欢迎让我们一起开始发起您的筹款吧
+            <% end %>
+          </label>
+        </p>
+      </div>
+      <p>请选择你是为个人还是为组织筹款</p>
+      <span>小贴士：</span>
+      <ul>
+        <li><span>如果您有任何问题，请联系我们（微信公众号：11号公益圈）</span></li>
+        <!--<li><span>请尽可能的说明您为什么要筹款， 以便人们能够更好的支持您的团队。</span>-->
+        </li>
+      </ul>
+    </div>
     <div id="camp_step_tips_1" style="display:none;">
       <div style="text-align:center;">
         <p>
@@ -985,20 +1070,20 @@
     </div>
 
     <div id="camp_step_tips_3_1" style="display:none;">
-      <p>我们建议您上传社团或者NGO的活动照片。</p>
+      <p>我们建议您上传自己的头像</p>
       <span>小贴士：</span>
       <ul>
-        <li><span>创建筹款页面后，您可以随时修改封面照片。</span></li>
+        <li><span>创建筹款页面后，您可以在个人资料里修改自己的头像</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_3_2" style="display:none;">
-      <p>如果您有自己的Logo，可以在这里上传。我们建议您上传一张Logo</p>
+      <p>我们建议您上传一张宣传图片，这张图片将用于筹款页面的封面图片</p>
 
-      <p>您可以跳过这个步骤。</p>
+
       <span>小贴士：</span>
       <ul>
-        <li><span>筹款页面创建后，您可以随时撤销已上传图片或者上传新的Logo。</span></li>
+        <li><span>筹款页面创建后，您可以上传新的图片。</span></li>
       </ul>
     </div>
 
@@ -1052,11 +1137,12 @@
                 Raisy.campaigns.donot_show_step_tips();
             });
 
-            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
+            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
 
             <% if @step_popup=="yes" %>
             $("#camp_step_tips_modal").modal("show");
             <% else %>
+            Raisy.campaigns.step_tips_show_status.step1_1 = false;
             Raisy.campaigns.step_tips_show_status.step1 = false;
             Raisy.campaigns.step_tips_show_status.step2 = false;
             Raisy.campaigns.step_tips_show_status.step3_1 = false;
@@ -1065,6 +1151,9 @@
             Raisy.campaigns.step_tips_show_status.step5 = false;
             <% end %>
         }, 200);
+
+        //debug
+//     $(".camp-step-container").show();
     });
 
     window.onload = function () {
@@ -1154,39 +1243,39 @@
 
     }
 
-    function reCropCampaingImage() {
-
-        if (isuploadCampaignPhoto) {
-
-            var documentWidth = $(document.body).width();
-            var cropWidth;
-            var cropHeight;
-
-            if (documentWidth > 768) {
-
-                cropWidth = 622;
-                cropHeight = 414;
-
-            } else if (documentWidth > 468) {
-
-                cropWidth = 400;
-                cropHeight = 266;
-
-            } else {
-
-                cropWidth = 280;
-                cropHeight = 186;
-
-            }
-
-            $('#campaign-edit .preview img').cropbox({
-                width: cropWidth,
-                height: cropHeight
-            });
-
-        }
-
-    }
+//    function reCropCampaingImage() {
+//
+//        if (isuploadCampaignPhoto) {
+//
+//            var documentWidth = $(document.body).width();
+//            var cropWidth;
+//            var cropHeight;
+//
+//            if (documentWidth > 768) {
+//
+//                cropWidth = 622;
+//                cropHeight = 414;
+//
+//            } else if (documentWidth > 468) {
+//
+//                cropWidth = 400;
+//                cropHeight = 266;
+//
+//            } else {
+//
+//                cropWidth = 280;
+//                cropHeight = 186;
+//
+//            }
+//
+//            $('#campaign-edit .preview img').cropbox({
+//                width: cropWidth,
+//                height: cropHeight
+//            });
+//
+//        }
+//
+//    }
 
 </script>
 

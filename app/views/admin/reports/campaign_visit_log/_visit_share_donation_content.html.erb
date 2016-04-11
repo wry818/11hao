@@ -1,0 +1,48 @@
+<style>
+  .table
+  {
+    text-align: center;
+  }
+  .table thead th
+  {
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
+<div style="display:none;">报表内容</div>
+<table class="table" style="min-width: 1024px;">
+  <thead>
+  <th>编号</th>
+  <th style="width: 200px;">筹款团队</th>
+  <th>总访问数</th>
+  <th>总分享数</th>
+  <th>总订单数</th>
+  <th>最多捐款页面的捐款数</th>
+  <th>捐款页面平均捐款数</th>
+  <th>第100次访问</th>
+  <th>第1000次访问</th>
+  <th>第10000次访问</th>
+  <th>第100次订单</th>
+  <th>第1000次订单</th>
+  <th>第10000次订单</th>
+  </thead>
+  <tbody>
+  <%@results.each do |r| %>
+      <tr>
+        <td><%=	 r["id"] %></td>
+        <td><%=	 r["title"] %></td>
+        <td><%=	 r["log_count"] %></td>
+        <td><%=	 r["share_count"] %></td>
+        <td><%=	 r["order_count"] %></td>
+        <td><%=	 r["page_orders_max"] %></td>
+        <td><%=	 r["page_orders_avg"] %></td>
+        <td><%=	 r["log_time_offset100"] %></td>
+        <td><%=	 r["log_time_offset1000"] %></td>
+        <td><%=	 r["log_time_offset10000"] %></td>
+        <td><%=	 r["log_orders_offset100"] %></td>
+        <td><%=	 r["log_orders_offset1000"] %></td>
+        <td><%=	 r["log_orders_offset10000"] %></td>
+      </tr>
+  <%	 end %>
+  </tbody>
+</table>

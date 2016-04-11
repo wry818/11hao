@@ -14,7 +14,7 @@
     <td><%=	 r.id %></td>
       <td><%=	 r.campaign.title %></td>
       <td><%=	 r.remote_ip %></td>
-      <td><%=	 r.visited_time %></td>
+      <td><%=	 r.visited_time.localtime.strftime("%Y-%m-%d %H:%M:%S") %></td>
       <td><%=	 r.nickname %></td>
     <td><%=	 r.open_id %></td>
   </tr>

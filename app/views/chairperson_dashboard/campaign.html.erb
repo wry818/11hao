@@ -8,7 +8,7 @@
             <div class="row compaign-box">
 				<div class="col-sm-8 col-sm-offset-2">
                     <p>分享这个链接给您的成员和支持者们！</p>
-                    <input class="form-control" value="<%= campagin_ngo_campaignview_url+"?id=#{@campaign.id}"%>" readonly>
+                    <input class="form-control" value="<%=campagin_ngo_campaignview_url("campaign_#{@campaign.id}")%>" readonly>
                     <!-- <div class="share-links" style="margin-top: 20px;">
                         <a href="#" class="btn btn-info fb-share" data-link="<%= short_campaign_url(@campaign) %>"><%= image_tag 'fb.png' %> Share</a>
                         <a href="https://twitter.com/intent/tweet?url=<%= signup_seller_url(@campaign) %>&text=<%= url_encode("Help fundraise for #{@campaign.title}") %>" target="_blank" class="btn btn-info"><%= image_tag 'twitter.png' %> Tweet</a>

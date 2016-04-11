@@ -2,7 +2,7 @@ class CampaignsController < ApplicationController
   include ApplicationHelper
   include ActionView::Helpers::NumberHelper
   
-    before_filter :authenticate_user!, except: [:new, :campaign_account, :campaign_create_account, :get_organizations, :get_organization, :get_collections, :ajax_camp_step_popup]
+    before_filter :authenticate_user!, except: [:edit,:new, :campaign_account, :campaign_create_account, :get_organizations, :get_organization, :get_collections, :ajax_camp_step_popup]
     before_filter :load_campaign, only: [:campaign_preview, :campaign_contacts, :campaign_sendmails, :campaign_share]
     
     def campaign_account
@@ -123,11 +123,74 @@ class CampaignsController < ApplicationController
       @example_story_3 = CampaignStory.find_by_id(3)
       @example_story_4 = CampaignStory.find_by_id(4)
       @campaign_images = CampaignImage.default_images.order(:id).all
-      @campaign = Campaign.new
+
+      if params[:campaign_id]
+        @campaign=Campaign.find(params[:campaign_id]);
+      end
+      if !@campaign
+        @campaign = Campaign.new
+      end
+
       # @campaign.description = @example_story_1.story
       @step_popup = session[:camp_step_popup] || "yes"
-      
+
+
+      @user_name=current_user.profile.first_name
+      @userprofile=User.find(current_user.id).profile
     end
+
+     def edit
+    @campaign_mode = 1
+    if params[:is_compassion].present?
+
+      if params[:is_compassion].to_i > 0
+        @campaign_mode = 2
+      else
+        @campaign_mode = 1
+      end
+
+    end
+
+    if !current_user
+      redirect_to campaign_account_path and return
+    end
+
+    @previous_url = request.referrer
+
+    req_path = request.fullpath || ""
+
+    if req_path.start_with?("/campaigns/account") || req_path.start_with?("/campaigns/create_account") || req_path.start_with?("/campaigns/new")
+      @previous_url = root_path
+    end
+
+    if params[:collection]
+      @collection = Collection.isnot_destroy.find_by_slug(params[:collection])
+    end
+
+    if !@collection
+      @collections = Collection.isnot_destroy.active.order(:id)
+    end
+
+    @example_story_1 = CampaignStory.find_by_id(1)
+    @example_story_2 = CampaignStory.find_by_id(2)
+    @example_story_3 = CampaignStory.find_by_id(3)
+    @example_story_4 = CampaignStory.find_by_id(4)
+    @campaign_images = CampaignImage.default_images.order(:id).all
+
+    if params[:id]
+      @campaign=Campaign.find(params[:id]);
+    end
+    if !@campaign
+      @campaign = Campaign.new
+    end
+
+    # @campaign.description = @example_story_1.story
+    @step_popup = session[:camp_step_popup] || "yes"
+
+    @user_name=current_user.profile.first_name
+    @userprofile=User.find(current_user.id).profile
+    render "new" and return
+  end
     
     def get_organizations
       name = params[:name] || ""
@@ -167,6 +230,16 @@ class CampaignsController < ApplicationController
     end
     
     def ajax_create
+      if params[:minilogoaddflag]&&params[:minilogoaddflag]=="1"
+        if params[:minilogo]&&params[:minilogo].to_s.length>0
+          userprofile=User.find(current_user.id).profile
+          userprofile.picture=params[:minilogo]
+          userprofile.save
+        end
+        logger.debug "1001"
+        render json: {isok:true}.to_json and return
+      end
+
       org = Organization.find_by_id(params[:organization_name])
     
       if !org
@@ -183,7 +256,7 @@ class CampaignsController < ApplicationController
         @campaign.assign_attributes campaign_params
       else
         @campaign = Campaign.new campaign_params
-        
+
         @campaign.organizer = current_user
       end
       
@@ -720,7 +793,7 @@ class CampaignsController < ApplicationController
     # list between create and update. Also, you can specialize this method
     # with per-user checking of permissible attributes.
     def campaign_params
-        params.require(:campaign).permit :logo,:minilogo,:is_featured,:receiver, :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
+        params.require(:campaign).permit :is_personal,:product_id,:logo,:is_featured,:receiver, :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, :description, :collection_id, :call_to_action, :allow_direct_donation, :active
     end
 
     def campaign_delivery_params

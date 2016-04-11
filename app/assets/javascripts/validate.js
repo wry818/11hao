@@ -470,7 +470,7 @@ $( document ).ready(function() {
             required: "请输入您的名"
           },
           "user[terms_conditions]": {
-            required: "在创建您的帐户前请先同意我们的服务协议"
+            required: "请先同意我们的服务协议"
           }
         }
     });

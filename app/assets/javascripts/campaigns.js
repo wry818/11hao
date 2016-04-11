@@ -30,16 +30,16 @@ Raisy.campaigns = {
         });
 
         // Set up pickadate
-        var min = new Date();
-        $('.datepicker').not(".bulk-delivery-date").pickadate({
-            min: min,
-            format: 'ddd, mmm d, yyyy',
-            onClose: function (event) {
-                if ($('#campaign_end_date').length > 0) {
-                    $('#campaign_end_date').valid();
-                }
-            }
-        });
+        //var min = new Date();
+        //$('.datepicker').not(".bulk-delivery-date").pickadate({
+        //    min: min,
+        //    format: 'ddd, mmm d, yyyy',
+        //    onClose: function (event) {
+        //        if ($('#campaign_end_date').length > 0) {
+        //            $('#campaign_end_date').valid();
+        //        }
+        //    }
+        //});
 
         $('.bulkshippinginfo-timepicker').pickatime({
             min: [9, 0],
@@ -184,7 +184,10 @@ Raisy.campaigns = {
             // Trigger validation on this field only
             // $("form").validate().element("#organization_name");
         });
-
+        if($("#organization-name")&&$("#organization-name").val()!=null&&$("#organization-name").val().length>0)
+        {
+            $("#select2-chosen-1").text($("#organization-name").val());
+        }
         $(".collection-container").click(function () {
             $("#campaign_collection_id").val($(this).data("collection-id"));
 
@@ -372,21 +375,27 @@ Raisy.campaigns = {
         $(".camp-step-qa-icon").click(function () {
             $("#camp_step_tips_modal").modal("show");
         });
-
+        $(".js-campaign_title").click(function(){
+            Raisy.campaigns.draw_preview_border("campaign_title");
+        });
+        $(".js-organizer_quote").click(function(){
+            Raisy.campaigns.draw_preview_border("organizer_quote");
+        });
         $("#camp_preview_modal").on("shown.bs.modal", function () {
-            Raisy.campaigns.preview_border_showed = true;
-            Raisy.campaigns.draw_preview_border();
+            //alert($(this).html());
+            //Raisy.campaigns.preview_border_showed = true;
+            //Raisy.campaigns.draw_preview_border();
         }).on("hidden.bs.modal", function () {
-            Raisy.campaigns.preview_border_showed = false;
+            //Raisy.campaigns.preview_border_showed = false;
             $("#camp_preview_border").hide();
         });
-
-        $("#default_images_modal").on("show.bs.modal", function () {
-            if ($("#default_images_modal").data("img-loaded") == "no") {
-                $("#default_images_modal .dynamic-image").cloudinary().removeAttr("width").removeAttr("height");
-                $("#default_images_modal").data("img-loaded", "yes");
-            }
-        });
+        //
+        //$("#default_images_modal").on("show.bs.modal", function () {
+        //    if ($("#default_images_modal").data("img-loaded") == "no") {
+        //        $("#default_images_modal .dynamic-image").cloudinary().removeAttr("width").removeAttr("height");
+        //        $("#default_images_modal").data("img-loaded", "yes");
+        //    }
+        //});
         function upload_logo() {
             function getRoundedCanvas(sourceCanvas) {
                 var canvas = document.createElement('canvas');
@@ -659,6 +668,29 @@ Raisy.campaigns = {
             })
         }
         upload_minilogo();
+
+        function ispersoanl()
+        {
+            var $imgs=$("#campaign-edit").find(".img_personal").find("img");
+            $imgs.bind("click",function(){
+                for(var i=0;i<$imgs.length;i++)
+                {
+                    //alert($imgs[i]);
+                   $($imgs[i]).css("border","1px solid #cccccc");
+                }
+                $(this).css("border","1px solid #a8c133");
+                $("#is_personal").val($(this).attr("dataflag"));
+            });
+            var is_personal= $("#is_personal").val();
+            if(is_personal=="1") {
+                $imgs.first().css("border","1px solid #a8c133");
+            }
+            else {
+                $imgs.last().css("border","1px solid #a8c133");
+            }
+
+        }
+        ispersoanl();
     },
     cropboxPhoto: function (photo) {
         var public_id = photo.data("public_id") || photo.data("public-id");
@@ -799,15 +831,15 @@ Raisy.campaigns = {
         $("#campaign_social_message").text("登录中，请稍候...");
 
         //set the date to midnight in the user's time zone
-        var $dateinput = $('#campaign_end_date');
-
-        if ($dateinput.val() != "") {
-            var date = new Date($dateinput.val());
-            date.setHours(23);
-            date.setMinutes(59);
-            date.setSeconds(59);
-            $dateinput.val(date);
-        }
+        //var $dateinput = $('#campaign_end_date');
+        //
+        //if ($dateinput.val() != "") {
+        //    var date = new Date($dateinput.val());
+        //    date.setHours(23);
+        //    date.setMinutes(59);
+        //    date.setSeconds(59);
+        //    $dateinput.val(date);
+        //}
 
         $("#campaign_goal").val($("#campaign_goal").val().replace(/,/g, ""));
 
@@ -1002,27 +1034,29 @@ Raisy.campaigns = {
 
                 break;
             case 3.1:
-                Raisy.campaigns.campaign_current_step = 3;
-
-                $("#step_container_3").show();
-                $("#step_nav_icon_4").addClass("step-nav-icon-gray");
-
-                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
-                $("#hide_camp_step_tips").off("click").on("click", function () {
-                    Raisy.campaigns.step_tips_show_status.step3_1 = false;
-                    Raisy.campaigns.donot_show_step_tips();
-                });
-
-                if (Raisy.campaigns.step_tips_show_status.step3_1) {
-                    $("#camp_step_tips_modal").modal("show");
-                }
-
+                //Raisy.campaigns.campaign_current_step = 3;
+                //
+                //$("#step_container_3").show();
+                //$("#step_nav_icon_4").addClass("step-nav-icon-gray");
+                //
+                //$("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+                //$("#hide_camp_step_tips").off("click").on("click", function () {
+                //    Raisy.campaigns.step_tips_show_status.step3_1 = false;
+                //    Raisy.campaigns.donot_show_step_tips();
+                //});
+                //
+                //if (Raisy.campaigns.step_tips_show_status.step3_1) {
+                //    $("#camp_step_tips_modal").modal("show");
+                //}
+                history.back();
                 break;
             case 3:
-                Raisy.campaigns.campaign_current_step = 2;
 
+                Raisy.campaigns.campaign_current_step = 2;
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
                 $("#step_container_2").show();
-                $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+                $("#step_nav_icon_5").addClass("step-nav-icon-gray");
 
                 $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_2").html());
                 $("#hide_camp_step_tips").off("click").on("click", function () {
@@ -1037,9 +1071,11 @@ Raisy.campaigns = {
                 break;
             case 2:
                 Raisy.campaigns.campaign_current_step = 1;
-
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
                 $("#step_container_1").show();
-                $("#step_nav_icon_2").addClass("step-nav-icon-gray");
+                $("#step_nav_icon_4").addClass("step-nav-icon-gray");
+
 
                 $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
                 $("#hide_camp_step_tips").off("click").on("click", function () {
@@ -1053,7 +1089,29 @@ Raisy.campaigns = {
 
                 break;
             case 1:
-                history.back();
+                Raisy.campaigns.campaign_current_step = 1.1;
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
+
+                $("#step_container_1_1").show();
+                $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+                break;
+            case 1.1:
+                Raisy.campaigns.campaign_current_step = 1.1;
+                $(".camp-step-container").hide();
+                $("#step_container_3_1").show();
+
+                $("#step_nav_icon_2").addClass("step-nav-icon-gray");
+
+                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+                $("#hide_camp_step_tips").off("click").on("click", function () {
+                    Raisy.campaigns.step_tips_show_status.step3_1 = false;
+                    Raisy.campaigns.donot_show_step_tips();
+                });
+
+                if (Raisy.campaigns.step_tips_show_status.step3_1) {
+                    $("#camp_step_tips_modal").modal("show");
+                }
                 break;
             default:
                 break;
@@ -1111,8 +1169,38 @@ Raisy.campaigns = {
         //
         //    return;
         //}
-
+        //alert(step);
         switch (step) {
+            case 1.1:
+
+                Raisy.campaigns.campaign_current_step = 1;
+                $(".camp-step-container").hide();
+                $(".step-nav-icon").removeClass("step-nav-icon-gray");
+
+                $("#step_container_1").show();
+               var is_personal= $("#is_personal").val();
+                if(is_personal=="1")
+                {
+                    $(".js-organization-name").hide();
+                    $(".js-campaign_goal-name").hide();
+                    $(".js-receiver_persoanl-name").show();
+                }else{
+                    $(".js-organization-name").show();
+                    $(".js-campaign_goal-name").show();
+                    $(".js-receiver_persoanl-name").hide();
+                }
+                $("#step_nav_icon_4").addClass("step-nav-icon-gray");
+
+                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1").html());
+                $("#hide_camp_step_tips").off("click").on("click", function () {
+                    Raisy.campaigns.step_tips_show_status.step1 = false;
+                    Raisy.campaigns.donot_show_step_tips();
+                });
+
+                if (Raisy.campaigns.step_tips_show_status.step1) {
+                    $("#camp_step_tips_modal").modal("show");
+                }
+                break;
             case 1:
 
                 Raisy.campaigns.campaign_current_step = 2;
@@ -1162,13 +1250,13 @@ Raisy.campaigns = {
                     Raisy.campaigns.minilogo_data_cropper.ischage=false;
                     Raisy.campaigns.logo_data_cropper.ischage=false;
                     //alert(Raisy.campaigns.logo_data_cropper.ischage);
-                    Raisy.campaigns.campaign_ajax_create(_this, 3.1);
+                    Raisy.campaigns.campaign_ajax_create(_this,6);
                 }
 
 
                 break;
             case 3.1:
-
+                Raisy.campaigns.campaign_current_step =3.1;
                 var ids = ",";
 
                 $(".more-photo-instance").each(function () {
@@ -1195,6 +1283,7 @@ Raisy.campaigns = {
                 //else {
                 //    Raisy.campaigns.campaign_ajax_create(this, 6);
                 //}
+                $("#minilogoaddflag").val(1);
                 var data=new Array();
 
                 if(Raisy.campaigns.minilogo_data_cropper!=null&&Raisy.campaigns.minilogo_data_cropper.ischage==true)
@@ -1220,7 +1309,7 @@ Raisy.campaigns = {
                 {
                     Raisy.campaigns.minilogo_data_cropper.ischage=false;
                     Raisy.campaigns.logo_data_cropper.ischage=false;
-                    Raisy.campaigns.campaign_ajax_create(_this, 6);
+                    Raisy.campaigns.campaign_ajax_create(_this, 1.1);
                 }
 
                 break;
@@ -1266,20 +1355,21 @@ Raisy.campaigns = {
 
         $("#campaign_photo_ids").val(ids);
 
-        var $dateinput = $('#campaign_end_date');
-
-        if ($dateinput.val() != "") {
-            var date = new Date($dateinput.val());
-            date.setHours(23);
-            date.setMinutes(59);
-            date.setSeconds(59);
-            $dateinput.val(date);
-        }
+        //var $dateinput = $('#campaign_end_date');
+        //
+        //if ($dateinput.val() != "") {
+        //    var date = new Date($dateinput.val());
+        //    date.setHours(23);
+        //    date.setMinutes(59);
+        //    date.setSeconds(59);
+        //    $dateinput.val(date);
+        //}
 
         $("#campaign_goal").val($("#campaign_goal").val().replace(/,/g, ""));
 				
 				var $button=$(btn);
-				
+
+
         $button.prop('disabled', true).find('span.text').siblings('span.loader').show(200, function() {
             $("#campaign_description").val(my_editor.html());
 	        $.ajax({
@@ -1289,10 +1379,36 @@ Raisy.campaigns = {
 	            dataType: "json",
 	            cache: false,
 	            success: function (d) {
-	                if (d && d.id && d.slug) {
+                    //alert(d);
+	                if (d.isok||d && d.id && d.slug) {
 	                    var campaign_id = parseInt(d.id);
 
-	                    if (isNaN(campaign_id)) {
+                        if( $("#minilogoaddflag").val()=="1")
+                        {
+                            switch (nextStep) {
+                                case 1.1:
+                                    // Next step could not be 1
+                                    $("#minilogoaddflag").val(0);
+                                    $(".camp-step-container").hide();
+
+                                    $("#step_container_1_1").show();
+
+                                    $(".step-nav-icon").removeClass("step-nav-icon-gray");
+                                    $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+
+                                    $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1_1").html());
+                                    $("#hide_camp_step_tips").off("click").on("click", function () {
+                                        Raisy.campaigns.step_tips_show_status.step1_1 = false;
+                                        Raisy.campaigns.donot_show_step_tips();
+                                    });
+
+                                    if (Raisy.campaigns.step_tips_show_status.step1_1) {
+                                        $("#camp_step_tips_modal").modal("show");
+                                    }
+                                    break;
+                            }
+                        }
+	                    else if (isNaN(campaign_id)) {
 												window.Raisy.alert("抱歉，创建这个筹款团队时出了问题，请稍后再试。");
 	                    }
 	                    else {
@@ -1307,8 +1423,20 @@ Raisy.campaigns = {
                             }
 
 	                        switch (nextStep) {
+                                case 1.1111:
+                                    // Next step could not be 1
+                                    $("#minilogoaddflag").val(0);
+                                    $(".camp-step-container").hide();
+
+
+                                    $("#step_container_1").show();
+                                    $(".step-nav-icon").removeClass("step-nav-icon-gray");
+                                    $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+                                    break;
 	                            case 1:
-																// Next step could not be 1
+                                    $(".step-nav-icon").removeClass("step-nav-icon-gray");
+                                    $("#step_nav_icon_4").addClass("step-nav-icon-gray");
+                               		// Next step could not be 1
 	                                break;
 
 	                            case 2:
@@ -1316,7 +1444,7 @@ Raisy.campaigns = {
 								                $(".step-nav-icon").removeClass("step-nav-icon-gray");
 
 								                $("#step_container_2").show();
-								                $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+								                $("#step_nav_icon_5").addClass("step-nav-icon-gray");
 
 								                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_2").html());
 								                $("#hide_camp_step_tips").off("click").on("click", function () {
@@ -1335,9 +1463,9 @@ Raisy.campaigns = {
 								                $(".step-nav-icon").removeClass("step-nav-icon-gray");
 
 								                $("#step_container_3").show();
-								                $("#step_nav_icon_4").addClass("step-nav-icon-gray");
+								                $("#step_nav_icon_6").addClass("step-nav-icon-gray");
 
-								                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+								                $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_2").html());
 								                $("#hide_camp_step_tips").off("click").on("click", function () {
 								                    Raisy.campaigns.step_tips_show_status.step3_1 = false;
 								                    Raisy.campaigns.donot_show_step_tips();
@@ -1354,7 +1482,7 @@ Raisy.campaigns = {
 								                $(".step-nav-icon").removeClass("step-nav-icon-gray");
 
 								                $("#step_container_3_1").show();
-								                $("#step_nav_icon_4").addClass("step-nav-icon-gray");
+								                $("#step_nav_icon_3").addClass("step-nav-icon-gray");
 
 								                Raisy.campaigns.skip_add_camp_photo = false;
 
@@ -1439,7 +1567,8 @@ Raisy.campaigns = {
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
             $(".campaign_form_submit span.text").text("继续");
-
+            $(".js-account-login").hide();
+            $(".js-account-register").show();
             $("#campaign_signup_user").fadeIn(200);
         });
     },
@@ -1466,12 +1595,14 @@ Raisy.campaigns = {
             $("#campaign_social_error").hide();
             $("#campaign_social_message").text("");
             $(".campaign_form_submit span.text").text("继续");
-
+            $(".js-account-login").show();
+            $(".js-account-register").hide();
             $("#campaign_signup_user").fadeIn(200);
         });
     },
-    step_tips_show_status: {step1: true, step2: true, step3_1: true, step3_2: true, step4: true, step5: true},
+    step_tips_show_status: {step1_1:true,step1:true,step1: true, step2: true, step3_1: true, step3_2: true, step4: true, step5: true},
     donot_show_step_tips: function () {
+        Raisy.campaigns.step_tips_show_status.step1_1 = false;
         Raisy.campaigns.step_tips_show_status.step1 = false;
         Raisy.campaigns.step_tips_show_status.step2 = false;
         Raisy.campaigns.step_tips_show_status.step3_1 = false;
@@ -1497,7 +1628,7 @@ Raisy.campaigns = {
     },
     campaign_current_step: 1,
     preview_border_showed: false,
-    draw_preview_border: function () {
+    draw_preview_border: function (type_flag) {
         if (!Raisy.campaigns.preview_border_showed) false;
 
         $("#camp_preview_border").hide();
@@ -1513,59 +1644,79 @@ Raisy.campaigns = {
         var x_ratio = img_width / img_natural_width;
         var border_top, border_left, border_width, border_height;
 
-        switch (Raisy.campaigns.campaign_current_step) {
-            case 1:
-                border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(256 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(389 * x_ratio).toString() + "px";
-                border_height = Math.ceil(45 * y_ratio).toString() + "px";
-
-                break;
-
-            case 2:
-                border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(340 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(690 * x_ratio).toString() + "px";
-                border_height = Math.ceil(121 * y_ratio).toString() + "px";
-
-                break;
-
-            case 3:
-                border_left = img_left.toString() + "px";
-                border_top = img_top.toString() + "px";
-                border_width = img_width.toString() + "px";
-                border_height = Math.ceil(257 * y_ratio).toString() + "px";
-
-                break;
-
-            case 3.1:
-                border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(337 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(226 * x_ratio).toString() + "px";
-                border_height = Math.ceil(55 * y_ratio).toString() + "px";
-
-                break;
-
-            case 4:
-                border_left = (img_left + Math.floor(467 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(445 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(213 * x_ratio).toString() + "px";
-                border_height = Math.ceil(49 * y_ratio).toString() + "px";
-
-                break;
-
-            case 5:
-                border_left = (img_left + Math.floor(259 * x_ratio)).toString() + "px";
-                border_top = (img_top + Math.floor(526 * y_ratio)).toString() + "px";
-                border_width = Math.ceil(412 * x_ratio).toString() + "px";
-                border_height = Math.ceil(166 * y_ratio).toString() + "px";
-
-                break;
-
-            default:
-                return;
+        //switch (Raisy.campaigns.campaign_current_step) {
+        //    case 1:
+        //        border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
+        //        border_top = (img_top + Math.floor(256 * y_ratio)).toString() + "px";
+        //        border_width = Math.ceil(389 * x_ratio).toString() + "px";
+        //        border_height = Math.ceil(45 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    case 2:
+        //        border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
+        //        border_top = (img_top + Math.floor(340 * y_ratio)).toString() + "px";
+        //        border_width = Math.ceil(690 * x_ratio).toString() + "px";
+        //        border_height = Math.ceil(121 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    case 3:
+        //        border_left = img_left.toString() + "px";
+        //        border_top = img_top.toString() + "px";
+        //        border_width = img_width.toString() + "px";
+        //        border_height = Math.ceil(257 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    case 3.1:
+        //        border_left = (img_left + Math.floor(8 * x_ratio)).toString() + "px";
+        //        border_top = (img_top + Math.floor(337 * y_ratio)).toString() + "px";
+        //        border_width = Math.ceil(226 * x_ratio).toString() + "px";
+        //        border_height = Math.ceil(55 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    case 4:
+        //        border_left = (img_left + Math.floor(467 * x_ratio)).toString() + "px";
+        //        border_top = (img_top + Math.floor(445 * y_ratio)).toString() + "px";
+        //        border_width = Math.ceil(213 * x_ratio).toString() + "px";
+        //        border_height = Math.ceil(49 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    case 5:
+        //        border_left = (img_left + Math.floor(259 * x_ratio)).toString() + "px";
+        //        border_top = (img_top + Math.floor(526 * y_ratio)).toString() + "px";
+        //        border_width = Math.ceil(412 * x_ratio).toString() + "px";
+        //        border_height = Math.ceil(166 * y_ratio).toString() + "px";
+        //
+        //        break;
+        //
+        //    default:
+        //        return;
+        //}
+        if(type_flag=="campaign_title")
+        {
+            border_left=134;
+            border_top=200;
+            border_width=300;
+            border_height=70;
+        }else if(type_flag=="organizer_quote")
+        {
+            border_left=10;
+            border_top=260;
+            border_width=530;
+            border_height=60;
         }
-
+        else
+        {
+            border_left=0;
+            border_top=0;
+            border_width=0;
+            border_height=0;
+            $("#camp_preview_border").hide();
+        }
 
 
         $("#camp_preview_border").css({

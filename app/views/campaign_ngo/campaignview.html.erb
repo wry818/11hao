@@ -9,8 +9,8 @@
     <div class="top">
       <%= image_tag "yqj_top_bg_3.jpg" ,:width => '100%'%>
       <div class="hd">
-        <% if @campaign.minilogo&&@campaign.minilogo.length>0%>
-            <%= cl_image_tag @campaign.minilogo+"?id=#{rand(100)}", width: 280, height: 280, crop: :limit %>
+        <% if @campaign.organizer.profile.picture&&@campaign.organizer.profile.picture.length>0%>
+            <%= image_tag @campaign.organizer.profile.picture+"?id=#{rand(100)}", width: 280, height: 280 %>
         <% else %>
            <%= image_tag "logo.png" %>
         <% end %>
@@ -34,7 +34,7 @@
 
             </p>
             <p style="margin-top:15px; margin-bottom:15px;">
-              <%= link_to "返回捐款页面", campagin_ngo_campaignview_path, class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
+              <%= link_to "返回筹款首页", campagin_ngo_campaignview_path("campaign_#{@campaign.id}"), class: 'btn btn-success',:style=>"background-color: #99CC33;border-color: #99CC33;padding: 10px 25px;" %>
             </p>
           </div>
       <% end%>
@@ -90,7 +90,11 @@
             </div>
 
             <div class="ctx">
+              <% if @campaign.is_personal&&@campaign.is_personal==true %>
+                  <span class="bt" style="padding-left:0px"> <b>善款接收人：</b><%= @campaign.organizer.profile.first_name %></span>
+              <% else %>
               <span class="bt" style="padding-left:0px"> <b>善款接收：</b><%= @campaign.receiver %></span>
+              <% end %>
               <br/>
               <!--<span class="bt" style="padding-left:0px"> <b>重要荣誉：</b>2015上海十佳爱心单位</span>-->
               <div class="arri arria"><span>收起</span> <%= image_tag "d.png", :class => :arri ,:style=>"right:10px;" %></div>
@@ -193,7 +197,7 @@
         </div>
 
 
-        <%=render 'dialog_pay_input' %>
+        <%=render 'dialog_pay_campaignview' %>
 
         <!--Footer-->
         <div class="footer">
@@ -208,7 +212,7 @@
   </div>
 </div>
 <% if !@isback  %>
-    <%= render "campaign_footer" %>
+    <%= render "campaignview_footer" %>
 <% end%>
 <%= render "share" %>
 

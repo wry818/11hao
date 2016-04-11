@@ -18,6 +18,18 @@ class Item < ActiveRecord::Base
             ''
       end
     end
+    def delivery_status_text_cn
+      case self.delivery_status
+        when 1
+          '待发货'
+        when 2
+          '已收货'
+        when 3
+          '运输中'
+        else
+          ''
+      end
+    end
 
     def courier_numbers
       if self.courier_number

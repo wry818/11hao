@@ -1,3 +1,4 @@
+<%= javascript_include_tag "My97DatePicker/WdatePicker.js",charset:"utf-8" %>
 <div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
 
     <%= render 'chairperson_dashboard/campaign_dashboard_header', active: :orders %>
@@ -8,13 +9,57 @@
                 <div class="col-md-12">
 					<div style="padding:0 20px;">
 					<% if @campaign.orders.completed.count > 0 %>
-						<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
-					
+						<!--<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>-->
+                <!--<div class="container">-->
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-xs-2" style="text-align:right;">
+                        <label class="control-label">订单类型</label>
+                      </div>
+                      <div class="col-xs-4">
+                        <select id="all_report_order_type_flag_selector" class="form-control input-small" style="width:100%;">
+                          <option value="-1">-所有订单-</option>
+                          <option value="1">直接捐赠</option>
+                          <option value="2">义卖捐赠</option>
+                        </select>
+                      </div>
+                      <div class="col-xs-2" style="text-align:right;">
+
+                      </div>
+                      <div class="col-xs-4">
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-xs-2" style="text-align:right;">
+                        <label class="control-label">开始时间</label>
+                      </div>
+                      <div class="col-xs-4">
+                        <input id="from_date" name="from_date" onClick="WdatePicker()"  placeholder="选择开始时间" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+                      </div>
+                      <div class="col-xs-2" style="text-align:right;">
+                        <label class="control-label">结束时间</label>
+                      </div>
+                      <div class="col-xs-4">
+                        <input id="to_date" name="to_date" onClick="WdatePicker()" placeholder="选择结束时间" value=""  class=" form-control" style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" style="position:relative;">
+                    <div style="text-align:center; margin-top:30px;">
+                      <button id="run_report" class="btn btn-primary" style="width:100px;"><span>查 询</span></button>
+                    </div>
+
+                  </div>
+                <!--</div>-->
 						<div style="text-align:right;">
-							<a href="<%= dashboard_campaign_orders_download_path(@campaign) %>" target="_blank">导出为Excel</a>
+							<a href="<%= dashboard_campaign_orders_download_path(@campaign) %>" id="load_data_to_xls" target="_blank">导出为Excel</a>
+              <!--<a href="javascript:void(0);" id="load_data_to_xls" target="_blank">导出为Excel</a>-->
 						</div>
-	                    <div style="width:100%; max-height:560px; overflow:auto;">
-	                        <%= render 'chairperson_dashboard/orders_list' %>
+	                    <div id="activity_report_content" style="width:100%;">
+
 	                    </div>
 					
 					<% else %>
@@ -22,10 +67,13 @@
 							您还没有任何订单！当您的支持者有购买之后 － 您就会看到它们显示在这里。
 						</div>
 						
-						<div style="text-align: center; margin-top:20px;">
+						<div style="text-align: center; margin-top:20px; display: none;">
 							<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>
 						</div>
 					<% end %>
+            <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+              <h4>正在加载 ...</h4><span class="loader loader-black"></span>
+            </div>
 					</div>
                 </div>
             </div>
@@ -299,6 +347,8 @@ function calcOfflineGrandTotal() {
 }
 
 $(document).ready(function(){
+  Raisy.chairperson_dashboard.orders_list_pager_url_ajax="<%=ajax_dashboard_campaign_orders_path %>";
+  Raisy.chairperson_dashboard.orders_list_pager_init();
 	$("#send_accesscode").click(function(){
 		var email=$("#resend_email").val().trim();
 		var item_id=$("#send_accesscode").data("item-id") || "";

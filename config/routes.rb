@@ -88,6 +88,10 @@ Raisy::Application.routes.draw do
           root 'reportsboard#index'
           get 'campvisit_log/report',to: 'campaign_visit_log#reportindex', as: :campvisit_log_report
           post 'campvisit_log/report',to: 'campaign_visit_log#reportsearch', as: :campvisit_log_report_search
+          get 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation', as: :campvisit_log_report_visit_share_donation
+          post 'campvisit_log/report_visit_share_donation',to: 'campaign_visit_log#visit_share_donation_ajax', as: :ajax_campvisit_log_report_visit_share_donation
+          get 'campvisit_log/report_visit_log',to: 'campaign_visit_log#report_visit_log', as: :campvisit_log_report_visit_log
+          post 'campvisit_log/report_visit_log',to: 'campaign_visit_log#report_visit_log_ajax', as: :ajax_campvisit_log_report_visit_log
         end
         
         resources :questionnaires
@@ -120,7 +124,7 @@ Raisy::Application.routes.draw do
 
     resources :collections
     resources :organizations
-    resources :campaigns, except: [:show]
+
 
   get 'shopmall/product/:product_id', to: 'shop_mall#product', as: :shop_mall_product
   get 'shopmall/pay', to: 'shop_mall#pay', as: :shop_mall_product_pay
@@ -215,9 +219,10 @@ Raisy::Application.routes.draw do
       get ':id/share', to: 'campaigns#campaign_share', as: :campaign_share
       get 'account', to: 'campaigns#campaign_account', as: :campaign_account
       post 'create_account', to: 'campaigns#campaign_create_account', as: :campaign_create_account
-      post 'ajax_create', to: 'campaigns#ajax_create', as: :campaign_ajax_create
-    end
+      match 'ajax_create', to: 'campaigns#ajax_create', as: :campaign_ajax_create,via: [:patch, :post]
 
+    end
+    resources :campaigns, except: [:show]
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 
@@ -299,6 +304,7 @@ Raisy::Application.routes.draw do
           get ':id/sellers', to: 'chairperson_dashboard#campaign_sellers', as: :dashboard_campaign_sellers
           get ':id/order/:order_id', to: 'chairperson_dashboard#campaign_order', as: :dashboard_campaign_order
           get ':id/orders', to: 'chairperson_dashboard#campaign_orders', as: :dashboard_campaign_orders
+          post ':id/orders_ajax', to: 'chairperson_dashboard#campaign_orders_ajax', as: :ajax_dashboard_campaign_orders
           get ':id/orders/download', to: 'chairperson_dashboard#campaign_orders_download', as: :dashboard_campaign_orders_download
           get ':id/delivery', to: 'chairperson_dashboard#campaign_delivery', as: :dashboard_campaign_delivery
           patch ':id/delivery', to: 'campaigns#update_delivery', as: :campaign_update_delivery

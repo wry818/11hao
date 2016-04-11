@@ -1,0 +1,35 @@
+<style>
+  .table
+  {
+    text-align: center;
+  }
+  .table thead th
+  {
+    text-align: center;
+    vertical-align: middle;
+  }
+</style>
+<div style="display:none;">报表内容</div>
+<table class="table" style="min-width: 600px;">
+  <thead>
+  <th>时间</th>
+  <th style="width: 200px;">访问次数</th>
+  <th style="width: 200px;">订单数</th>
+  </thead>
+  <tbody>
+  <%@results.each do |r| %>
+      <tr>
+        <td><%=	 r["d"] %></td>
+        <td><%=	 r["log_count"] %></td>
+        <td><%=	 r["order_count"] %></td>
+      </tr>
+  <%	 @total_log+=r["log_count"].to_i
+       @total_order+=r["order_count"].to_i
+       end %>
+  <tr>
+    <td>总计:</td>
+    <td><%=	 @total_log %></td>
+    <td><%=	 @total_order %></td>
+  </tr>
+  </tbody>
+</table>

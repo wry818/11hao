@@ -1,0 +1,244 @@
+<div id="service_agreement" class="well" style="border-color: rgb(197, 169, 77); margin:-80px 15px 100px; padding: 15px 5px; opacity: 1; background-color: white; display: none;">
+  <div style="text-align: right">
+    <%= image_tag "arr_right.png", :id => 'btn_view_agreement', :width => 18, :height => 18, :style => "" %>
+  </div>
+  <%= render "agreement_common" %>
+</div>
+
+
+<%= hidden_field_tag :fullname, @nickname %>
+<%= hidden_field_tag :avatar_url, @avatar_url %>
+
+<script language="javascript" type="text/javascript">
+  $(function () {
+    //展开详情
+    var body_scrollTop = 0;
+    var indirect_influence_quote_nubmer = 0;
+    function showContent() {
+
+      $("#direct_influence").show();
+      $("#btn_agreement").show();
+      $(".avatar-container").show();
+      $("#indirect_influence").show();
+      $(".campagin_detail").show();
+      // $("#payment_form").show();
+
+      $("#supporters_content").hide();
+      $("#btn_view_content").hide();
+      $("#service_agreement").hide();
+      $("body").scrollTop(body_scrollTop);
+    }
+
+    function showSupporters() {
+      body_scrollTop = $("body").scrollTop();
+
+      $(".avatar-container").hide();
+      $("#indirect_influence").hide();
+      $(".campagin_detail").hide();
+      // $("#payment_form").hide();
+
+      $("#supporters_content").show();
+      $("#btn_view_content").show();
+      $("body").scrollTop($("#banner").height());
+    }
+
+    function  showAgreement() {
+      body_scrollTop = $("body").scrollTop();
+      $("#direct_influence").hide();
+      $("#btn_agreement").hide();
+      $("#indirect_influence").hide();
+      $(".campagin_detail").hide();
+
+      $("#service_agreement").show();
+//      $("#btn_view_agreement").show();
+      $("body").scrollTop($("#banner").height());
+    }
+    $("#btn_view_supporters").click(function () {
+      showSupporters();
+    });
+    $("#btn_agreement").click(function () {
+      showAgreement();
+    });
+    $("#btn_view_agreement").click(function () {
+      showContent();
+    });
+    $("#btn_view_content").click(function () {
+      showContent();
+    });
+
+
+    $("img.arri").bind('click', function () {
+      var $arri = $("div.arri");
+      var $summary = $("div.summary");
+      if ($arri.hasClass("arriup")) {
+        $arri.removeClass("arriup");
+        $summary.addClass("none");
+      }
+      else {
+        $arri.addClass("arriup");
+        $summary.removeClass("none");
+      }
+
+      // $summary.slideToggle("slow");
+
+    });
+    $("img.arri").click();
+    $("#supporters_content").jscroll({
+      autoTrigger: false,
+      nextSelector: "a.a-pager:last",
+      callback: function () {
+      },
+      loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+    });
+
+    if (<%= @is_wechat_browser %> == false
+    )
+    {
+      $("#payment-form-submit").show();
+      $('#btn_submit1').hide();
+    }
+    else
+    {
+      $("#payment-form-submit").hide();
+      $('#btn_submit1').show();
+    }
+
+    if (typeof WeixinJSBridge == "undefined") {
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+      }
+    } else {
+      onBridgeReady();
+    }
+
+    function onBridgeReady() {
+      if ("<%= @weixin_init_success %>" == "true") {
+        $('#btn_submit1').off("click").on("click", function () {
+          var url = "<%=campaign_ngo_confirmation_weixin_path%>";
+          var direct_donation = $("#direct_donation_input").val();
+          if(direct_donation.length<1)
+          {
+            direct_donation = $("#direct_donation").val();
+          }
+          if (direct_donation.length <= 0) {
+            alert("请输入捐款金额。");
+            return;
+          }
+
+          $('#btn_submit1').prop('disabled', true);
+          $.post(url, {direct_donation:direct_donation}).done(function (data, textStatus, jqXHR) {
+//            alert(data);
+            if (data.error_msg != "") {
+              alert(data.error_msg);
+            } else {
+//              alert(data.order_id);
+              weixin_load(data.order_id);
+            }
+          }).fail(function () {
+            alert("请求已经结束但是可能发生了错误！");
+
+            $('#btn_submit1').prop('disabled', false);
+          }).always(function () {
+
+          });
+        });
+      } else {
+        alert("系统忙，请刷新页面再试。");
+      }
+    }
+
+    function weixin_load(order_id) {
+//      alert(order_id);
+
+      $.ajax({
+        method: "get",
+        url: "/weixin_payment_get_req/" + order_id,
+        dataType: "json",
+        cache: false,
+        success: function (d) {
+//            alert(33333);
+//            alert(d);
+          if (d) {
+//              alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
+            WeixinJSBridge.invoke('getBrandWCPayRequest', {
+              "appId": d.appId,     //公众号名称，由商户传入
+              "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+              "nonceStr": d.nonceStr, //随机串
+              "package": d.package,
+              "signType": "MD5",         //微信签名方式:
+              "paySign": d.paySign //微信签名
+            }, function (res) {
+//                alert(res.err_msg);
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                ComfirmOrder(order_id);
+              } else {
+                $('#wechat').prop('disabled', false);
+              }
+            });
+          }
+          else {
+            $('#wechat').prop('disabled', false);
+          }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown) {
+//            alert(XMLHttpRequest.status);
+//            alert(XMLHttpRequest.readyState);
+//            alert(textStatus);
+          $('#wechat').prop('disabled', false);
+        },
+        complete: function () {
+//            alert(1111);
+        }
+      });
+
+    }
+
+    function ComfirmOrder(order_id) {
+
+      var order_make_anonymous = false;
+      var fullName = $("#fullname").val();
+
+      if (fullName == "") {
+        fullName = "匿名";
+        order_make_anonymous = true;
+      }
+
+      var avatar_url = $("#avatar_url").val();
+      var order_time = new Date();
+      var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
+      var data = {
+        order_id: order_id,
+        order_make_anonymous: order_make_anonymous,
+        format_order_time: format_order_time,
+        fullName: fullName,
+        avatar_url: avatar_url
+      };
+
+      $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: data,
+        beforeSend: function (jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+
+          window.location.href = local_url+"?order_id="+order_id;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+        }
+      });
+
+    }
+
+  });
+
+
+
+
+
+</script>

@@ -15,7 +15,7 @@
         <%= render "cart_modal_weixin" %>
   </div>
   <%= render "goods_footer"%>
-
+  <!--<a href="javascript:;" id="btn_test" class="weui_btn weui_btn_primary">按钮</a>-->
   <div id="actionSheet_wrap">
     <div class="weui_mask_transition" id="mask_input" style="display: none;"></div>
     <div class="weui_actionsheet" id="weui_actionsheet_input">
@@ -97,4 +97,14 @@
     window.shopmall.donation_input_show();
     window.shopmall.orderUpdateAddDonation();
   });
+//    $(function(){
+//      var time_out_test;
+//      $("#btn_test").click(function(){
+//          console.log("111");
+//          window.clearTimeout(time_out_test);
+//          time_out_test= window.setTimeout(function(){
+//            console.log(9999);
+//          },1000);
+//      });
+//    });
 </script>

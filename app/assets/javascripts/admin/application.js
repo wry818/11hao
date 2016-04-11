@@ -37,3 +37,4 @@
 //= require bxslider
 //= require jquery.jscroll.min
 //= require jquery.lazyload.min
+//= require cropper.min
