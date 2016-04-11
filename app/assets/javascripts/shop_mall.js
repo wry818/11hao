@@ -228,6 +228,10 @@ window.shopmall = {
                 //alert(swipflag);
                // //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
                //
+                if(aBigLi.length<=1)
+                {
+                    return;
+                }
                if(swipflag=="left")
                {
                    __click();
@@ -267,6 +271,10 @@ window.shopmall = {
                 //$oDiv.mouseout(function () {
                 //    timer = setInterval(__click, 3000) //滚动间隔时间设置
                 //});
+                if(aBigLi.length<=1)
+                {
+                    return;
+                }
                 oPre.css("z-index",100);
                 oNext.css("z-index",100);
             }
