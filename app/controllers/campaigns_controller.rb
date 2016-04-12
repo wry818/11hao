@@ -676,6 +676,7 @@ class CampaignsController < ApplicationController
       qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
 
       @qr_url = qr.to_img.resize(200, 200).to_data_url
+      @http_url=url
     end
     
     def campaign_contacts

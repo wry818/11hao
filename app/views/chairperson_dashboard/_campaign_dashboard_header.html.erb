@@ -2,11 +2,10 @@
     <div class="container" style="padding-top: 30px;">
         <div class="dashboard-header-box">
 			<% if current_user.id == @campaign.organizer_id %>
-				<h2 style="font-weight: bold; margin-top:10px; text-align: center;">管理我的筹款</h2>
+				<h2 style="font-weight: bold; margin-top:10px; text-align: center;"><%=	@campaign.title %></h2>
 			<% end %>
-			<p style="text-align: right;padding-right: 20%;">---<%=	@campaign.title %></p>
-			<div class="row" style="margin-top:15px; display: none;">
-				<div class="col-sm-4" style="margin-top:5px;">
+			<div class="row" style="margin-top:15px;">
+				<div class="col-sm-4" style="margin-top:5px; display: none;">
 					<div style="width:100px;">
 				    <% if current_user.profile.picture.present? %>
 				        <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto;" %>
@@ -18,7 +17,7 @@
 					<h4 style="margin-top:10px; width:100px; text-align:center;"><%= @campaign.organizer.profile.fullname %></h4>
 				</div>
 			
-				<div class="col-sm-7 col-sm-offset-1">
+				<div class="col-sm-7 col-sm-offset-5">
 					<!--<% if current_user.id == @campaign.organizer_id %>-->
 						<!--<p>我的团队：</p>-->
 					<!--<% else %>-->
@@ -42,8 +41,8 @@
 					        <!--<% end %>-->
 					    <!--</div>-->
 					<!--</div>-->
-					<div style="margin-top:15px; text-align:right;">
-						<a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>
+					<div style="margin-top:5px; text-align:right;">
+						<a href='<%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> ' target="_blank">浏览您的筹款页面</a>
 					</div>
 				</div>
 			</div>
@@ -71,8 +70,9 @@
                             <% end%>
 		                </div>
 		            </div>
-					<div class="col-md-5 col-md-offset-1 campaign-info-box">
-						<div style="border:0px solid #999;">
+					<div class="col-md-6 campaign-info-box">
+						<div style="border:0px solid #999; padding: 3px;">
+
 							<div class="row">
 			                    <div class="col-md-8 raised-count-box">
 									<div class="raised-count">
@@ -81,7 +81,7 @@
 									</div>
 						
 									<% if @campaign.goal.nil? %>
-										<div class="empty-goal-box">&nbsp;</div>
+										<!--<div class="empty-goal-box">&nbsp;</div>-->
 									<% else %>
 				                    <div class="progress">
 				                        <div class="progress-bar" style="width: <%= @campaign.progress_percent > 100 ? 100 : @campaign.progress_percent  %>%;">
@@ -105,39 +105,44 @@
 									<% end %>
 								</div>
 							</div>
-							<div class="row">
-								<table class="campaign-people-box">
-									<tr>
-										<td class="campaign-people-col first-col">
-											支持者&nbsp;<span class="badge"><%= @campaign.supporters %></span>
-										</td>
+              <div class="row">
+                <table class="campaign-people-box">
+                  <tr>
+                    <td class="campaign-people-col first-col">
+                      支持者&nbsp;<span class="badge"><%= @campaign.supporters %></span>
+                    </td>
 
-										<td class="campaign-people-col">
-											订单&nbsp;<span class="badge"><%= @campaign.completed %></span>
-										</td>
+                    <td class="campaign-people-col">
+                      订单&nbsp;<span class="badge"><%= @campaign.completed %></span>
+                    </td>
                     <td class="campaign-people-col middle-col">
                       <!--团队成员&nbsp;<span class="badge"><%= @campaign.sellers.count %></span>-->
                     </td>
-									</tr>
-								</table>
-							</div>
-							<div class="row" style="margin-top:30px;">
+                  </tr>
+                </table>
+              </div>
+							<div class="row" style="margin-top:15px;">
                 <div class="col-sm-6">
 								<%= image_tag @qr_url %>
                 </div>
-                <div class="col-sm-6" style=" height: 150px;">
-                  <p style="text-align: center;vertical-align: middle;    padding-top: 50px;">
-                  <a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>
-                  </p>
-                </div>
+                <!--<div class="col-sm-6" style=" height: 150px;">-->
+                  <!--<p style="text-align: center;vertical-align: middle;    padding-top: 50px;">-->
+                  <!--<a href=' <%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%> '>浏览您的筹款页面</a>-->
+                  <!--</p>-->
+                <!--</div>-->
 							</div>
+              <div class="row" style="margin-top: 5px;">
+<div class="col-sm-12">
+ 筹款链接:<%=@http_url%>
+</div>
+              </div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs"  style="display: none;">
             <li class="<%= 'active' if active == :home %>">
                 <a href="<%= dashboard_campaign_path(@campaign) %>">
                     <span class="glyphicon glyphicon-th"></span> 分享

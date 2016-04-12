@@ -551,6 +551,7 @@ class ChairpersonDashboardController < ApplicationController
         qr = RQRCode::QRCode.new(url, :size => 10, :level => :h)
 
         @qr_url = qr.to_img.resize(150, 150).to_data_url
+        @http_url=url
       rescue
         redirect_to(root_url, flash: { warning: "抱歉，我们没有找到这个筹款团队！" }) and return
       end
