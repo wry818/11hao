@@ -291,11 +291,17 @@ window.shopmall = {
             var mask = $('#mask');
             var weuiActionsheet = $('#weui_actionsheet');
             weuiActionsheet.addClass('weui_actionsheet_toggle');
+            $("body").css("overflow","hidden");
+            //alert(1);
             mask.show().addClass('weui_fade_toggle').one('click', function () {
                 hideActionSheet(weuiActionsheet, mask);
+                $("body").css("overflow","auto");
+                //alert(2);
             });
             $('#actionsheet_cancel').one('click', function () {
                 hideActionSheet(weuiActionsheet, mask);
+                $("body").css("overflow","auto");
+                //alert(2);
             });
             weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
             function hideActionSheet(weuiActionsheet, mask) {
