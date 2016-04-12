@@ -53,7 +53,7 @@ wb.add_worksheet(name: "订单") do |sheet|
 	    	end
 	
 			sheet.add_row [
-				order.id,
+				"'"+order.out_trade_no,
 				order.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S'),
 				order.fullname,
 				rt,

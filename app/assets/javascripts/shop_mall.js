@@ -292,15 +292,18 @@ window.shopmall = {
             var weuiActionsheet = $('#weui_actionsheet');
             weuiActionsheet.addClass('weui_actionsheet_toggle');
             $("body").css("overflow","hidden");
+            $("body").bind("touchmove",function(event){event.preventDefault;//code});
             //alert(1);
             mask.show().addClass('weui_fade_toggle').one('click', function () {
                 hideActionSheet(weuiActionsheet, mask);
                 $("body").css("overflow","auto");
+                $("body").unbind("touchmove");
                 //alert(2);
             });
             $('#actionsheet_cancel').one('click', function () {
                 hideActionSheet(weuiActionsheet, mask);
                 $("body").css("overflow","auto");
+                $("body").unbind("touchmove");
                 //alert(2);
             });
             weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
