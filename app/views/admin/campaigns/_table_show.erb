@@ -2,7 +2,8 @@
   <thead>
   <tr>
     <th>日期</th>
-    <th>筹款标题</th>
+    <th>筹款产品</th>
+    <th>筹款链接</th>
     <th>组合</th>
     <th>组织</th>
     <th></th>
@@ -10,9 +11,16 @@
   </thead>
   <tbody>
   <% @campaigns.order(:id).each do |campaign| %>
+  <%
+          url=Rails.configuration.url_host+campagin_ngo_campaignview_path("campaign_#{campaign.id}")
+         if Rails.env.test?||Rails.env.development?
+           url=campagin_ngo_campaignview_url("campaign_#{campaign.id}")
+         end
+  %>
       <tr>
         <td><%= campaign.created_at.strftime('%b %-d, %Y') %></td>
         <td><%= link_to campaign.title, short_campaign_path(campaign) %></td>
+        <td><%= link_to campaign.title, url,:target => "_blank"%></td>
         <td><%= campaign.collection.name if campaign.collection %></td>
         <td><%= campaign.organizer.profile.fullname if campaign.organizer %></td>
         <td>

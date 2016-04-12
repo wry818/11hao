@@ -13,7 +13,7 @@
   <tbody>
   <% @products.each do |product| %>
       <tr>
-        <td style="width:200px;"><%= link_to product.name, edit_admin_product_path(product) %></td>
+        <td style="width:200px;"><%= link_to product.name, "javascript:void(0);",:onclick=>"campaign_preview('#{shop_product_weixin_pay_path("procamp_default_#{product.id}")}')" %></td>
         <td><%=product.product_category==nil ? '':product.product_category.name  %></td>
         <td><%=product.pro_cat_subclass==nil ? '':product.pro_cat_subclass.name %></td>
         <td>
@@ -30,6 +30,7 @@
           <%= cl_image_tag product.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if product.picture.present? %>
         </td>
         <td>
+          <%= link_to "编辑", edit_admin_product_path(product) %>
           <%= link_to '删除', admin_product_path(product), method: :delete, data: {confirm: '您确定要删除该商品吗?'} %>
         </td>
       </tr>
