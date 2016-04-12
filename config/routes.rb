@@ -139,7 +139,8 @@ Raisy::Application.routes.draw do
   get 'checkout/xgst', to: 'campaign_ngo#xgst', as: :campagin_ngo_xgst
   get 'campaginngo/xgst_supporters', to: 'campaign_ngo#xgst_supporters', as: :campagin_ngo_xgst_supporters
 
-  get 'checkout/:id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview
+  get 'checkout/:id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview_checkout
+  get ':id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
 
   get 'checkout/:procamp', to: 'shop#product_weixin',constraints: { procamp: /procamp_\S+_[0-9]+/ }, as: :shop_product_weixin_pay

@@ -1469,7 +1469,7 @@ Raisy.campaigns = {
                             if (!isNaN(campaign_id)) {
                                 $("#camp_preview_modal").find("img").hide();
                                 $ifra=$("#camp_preview_modal").find("iframe");
-                                $ifra.attr("src",'/checkout/campaign_'+campaign_id);
+                                $ifra.attr("src",'/campaign_'+campaign_id);
                                 $ifra.show();
                             }
 

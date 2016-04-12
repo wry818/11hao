@@ -500,7 +500,7 @@
         <% elsif @campaign.slug=="gs1001"%>
         local_url="/checkout/shgs";
         <% else %>
-        local_url= "/checkout/campaign_<%=@campaign.id%>";
+        local_url= "/campaign_<%=@campaign.id%>";
         <%end%>
         window.location.href = local_url+"?order_id="+order_id;
       },
