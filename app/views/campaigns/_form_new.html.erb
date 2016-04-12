@@ -1166,7 +1166,7 @@
            $(".js-step_container_1_back").find("span").text("取消");
            Raisy.campaigns.continueBtnClick(1.1);
            Raisy.campaigns.loadflag=1;
-      <%elsif !@userprofile.picture&&@userprofile.picture.length<1%>
+      <%elsif !@userprofile.picture||@userprofile.picture.length<1%>
            $("#hide_camp_step_tips").off("click").on("click", function () {
                 Raisy.campaigns.step_tips_show_status.step1 = false;
                 Raisy.campaigns.donot_show_step_tips();
