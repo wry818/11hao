@@ -202,7 +202,7 @@
                   <%= option_group.name.capitalize %>：
                 </p>
 
-                <ul class="js-options-select">
+                <ul class="js-options-select" style="max-height: 250px;overflow: scroll;">
                   <% if @option_group_properties
                        @option_group_properties.each do |property| %>
                           <li class="tag" style="height: 19px;" data-id="<%= property.id %>" data-price="<%= property.price %>"><%= property.value %></li>
