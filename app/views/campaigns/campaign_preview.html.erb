@@ -26,7 +26,7 @@
 				<label>微信扫描上方的二维码，<br/>并分享您的筹款页面</label>
 			</div>
 			<div style="text-align: center;margin-top: 10px;">
-       筹款页面链接:<%=campagin_ngo_campaignview_url("campaign_#{@campaign.id}")%>
+       筹款页面链接:<%=@http_url%>
       </div>
 			<div style="text-align:center; margin-top:30px;">
 				<button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=campagin_ngo_campaignview_path("campaign_#{@campaign.id}")%>');">
