@@ -102,7 +102,7 @@
             <%	if ["lb1001","lb1002","lb1003"].include? @campaign.slug %>
                 <a href="/checkout/procamp_<%= @campaign.slug%>_<%=Rails.env.test?||Rails.env.development? ? 3 : 118%>" class="weui_btn weui_btn_primary">去逛逛</a>
             <%else%>
-                <a href="/checkout/procamp_<%= @campaign.slug%>_<%=@campaign.product_id%>" class="weui_btn weui_btn_primary">去逛逛</a>
+                <a href="procamp_<%= @campaign.slug%>_<%=@product.id%>" class="weui_btn weui_btn_primary">去逛逛</a>
             <%end %>
           </p>
         </div>
