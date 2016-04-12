@@ -258,7 +258,11 @@
 
             <div class="col-sm-8">
               <div style="width:300px;">
-                <%= f.text_field :receiver, class: 'form-control',:value=>@user_name%>
+                <%if @campaign.id%>
+                    <%= f.text_field :receiver, class: 'form-control'%>
+                <%else%>
+                    <%= f.text_field :receiver, class: 'form-control',:value=>@user_name%>
+                <%end%>
               </div>
             </div>
           </div>

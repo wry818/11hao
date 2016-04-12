@@ -30,7 +30,7 @@
       <tr>
         <td>
           <% if order.donation_only?||true %>
-              <%= order.id %>
+              <%= order.out_trade_no %>
           <% else %>
               <a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(@campaign, order.id) %>" style="cursor:pointer;">
                 <%= order.id %></a>

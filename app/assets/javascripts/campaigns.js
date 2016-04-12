@@ -1208,7 +1208,7 @@ Raisy.campaigns = {
         //
         //    return;
         //}
-        alert(step);
+        //alert(step);
         if(step==1.1||step==3.1)
         {
             $("#camp_preview_link").hide();
@@ -1754,12 +1754,16 @@ Raisy.campaigns = {
             border_top=200;
             border_width=300;
             border_height=70;
+            $img.show();
+            $ifra.hide();
         }else if(type_flag=="organizer_quote")
         {
             border_left=10;
             border_top=260;
             border_width=530;
             border_height=60;
+            $img.show();
+            $ifra.hide();
         }
         else if(type_flag=="cover_logo")
         {
