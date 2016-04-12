@@ -134,7 +134,7 @@ class ShopController < ApplicationController
 
 
 
-      redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return unless @product ||@campaign.used_as_default?
+      redirect_to(campagin_ngo_campaignview_path("campaign_#{@campaign.id}")) and return unless @product ||@campaign.used_as_default?
 
       @category = params[:category_id] ? Category.friendly.find(params[:category_id]) : false
       @qty_avail = @product.need_check_inventory ? @product.qty_available-@product.qty_counter : 99999
@@ -658,7 +658,7 @@ class ShopController < ApplicationController
           elsif  @campaign.slug=="gs1001"
             redirect_to(campagin_ngo_shgs_path) and return
           else
-            redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return
+            redirect_to(campagin_ngo_campaignview_path("campaign_#{@campaign.id}")) and return
           end
         end
       else
@@ -672,7 +672,7 @@ class ShopController < ApplicationController
         elsif  @campaign.slug=="gs1001"
           redirect_to(campagin_ngo_shgs_path) and return
         else
-          redirect_to(campagin_ngo_campaignview("campaign_#{@campaign.id}")) and return
+          redirect_to(campagin_ngo_campaignview_path("campaign_#{@campaign.id}")) and return
         end
       end
 
