@@ -86,7 +86,7 @@
             <dl class="js-select-sku sku-item js-showActionBuy">
 
               <dt> <%= option_group.name.capitalize %>：</dt>
-              <dd>
+              <dd style="overflow: hidden;display: block;text-overflow: ellipsis;white-space: nowrap;">
                 <% if @option_group_properties
                      @option_group_properties.each do |property| %>
                         <%= property.value %>
