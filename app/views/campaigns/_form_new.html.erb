@@ -44,7 +44,7 @@
       <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
     </div>
     <div class="clearfix" style="margin-top:20px;">
-      <div id="step_container_3_1" class="camp-step-container">
+      <div id="step_container_3_1" class="camp-step-container" style="display: none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
             <span class="number">2</span>上传头像&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
@@ -137,25 +137,8 @@
               <!--</button>-->
               <!--</div>-->
               <div class="col-sm-6 continuebutton-box">
-                <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
+                <button  class="btn btn-primary btn-lg camp-continue-btn js-btn-nextstep-logo" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
                   <span class="text">继续</span> <span class="loader" style="display:none"></span>
-                </button>
-              </div>
-            </div>
-            <div class="row mobile-box">
-              <div class="col-sm-6 backbutton-box">
-                <button class="btn btn-primary btn-lg camp-continue-btn" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>">
-                  <span class="text">继续</span> <span class="loader" style="display:none"></span>
-                </button>
-              </div>
-              <!--<div class="col-sm-3 continuebutton-box" style="display: none;">-->
-              <!--<button class="btn btn-success btn-lg camp-skip-btn camp-skip-btn-31" type="button" data-currentstep="3.1" data-nextstep="<%= @collection ? "6" : "5" %>" onclick="Raisy.campaigns.skipMorePhoto(this);">-->
-              <!--<span class="text">跳过这一步</span> <span class="loader" style="display:none"></span>-->
-              <!--</button>-->
-              <!--</div>-->
-              <div class="col-sm-6 continuebutton-box">
-                <button class="btn btn-success btn-lg camp-back-btn camp-back-btn-31" type="button" data-currentstep="3.1">
-                  <span class="text">后退</span>
                 </button>
               </div>
             </div>
@@ -170,15 +153,15 @@
       <div class="row" style="">
         <div class="col-sm-6">
       <p class="img_personal" style="text-align: center;">
-        <%= image_tag "noPhoto.jpg",:dataflag=>"1"%>
+        <%= image_tag "pinfo_b.jpg",:dataflag=>"1"%>
       </p>
           <p style="text-align: center;">个人筹款</p>
         </div>
         <div lass="col-sm-6">
           <p class="img_personal" style="text-align: center;">
-            <%= image_tag "peoples.jpg",:dataflag=>"0" %>
+            <%= image_tag "pinfos_b.jpg",:dataflag=>"0" %>
           </p>
-          <p style="text-align: center;">组织筹款</p>
+          <p style="text-align: center;">社团/NGO筹款</p>
         </div>
       </div>
 
@@ -240,7 +223,7 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_title" class="col-sm-2 control-label">宣传标语</label>
+            <label for="campaign_title" class="col-sm-2 control-label">宣传标语<span class='req'>*</span></label>
 
             <div class="col-sm-9">
               <%= f.text_field :organizer_quote, class: 'form-control', placeholder: '比如：5元,可以买到六条红丝带，可能让六棵古树免遭挖掘机的迫害' %>
@@ -249,10 +232,10 @@
           </div>
 
           <div class="form-group">
-            <label for="campaign_goal" class="col-sm-2 control-label">目标</label>
+            <label for="campaign_goal" class="col-sm-2 control-label">筹款目标</label>
 
             <div class="col-sm-8">
-              <div style="width:200px;">
+              <div style="width:300px;">
                 <div class="input-group">
                   <span class="input-group-addon">￥</span>
                   <%= f.text_field :goal, class: 'form-control', placeholder: "比如：1000" %>
@@ -264,15 +247,23 @@
           <div class="form-group js-campaign_goal-name">
             <label for="campaign_goal" class="col-sm-2 control-label">善款接收方</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-8">
+              <div style="width:300px;">
               <%= f.text_field :receiver, class: 'form-control', placeholder: "比如：北京市昌平区多元智能环境研究所" %>
+              </div>
             </div>
           </div>
           <div class="form-group js-receiver_persoanl-name">
             <label for="receiver_persoanl" class="col-sm-2 control-label">善款接收人</label>
 
-            <div class="col-sm-10">
-              <%= text_field_tag :receiver_persoanl,@user_name, class: 'form-control',disabled: "true" %>
+            <div class="col-sm-8">
+              <div style="width:300px;">
+                <%if @campaign.id%>
+                    <%= f.text_field :receiver, class: 'form-control'%>
+                <%else%>
+                    <%= f.text_field :receiver, class: 'form-control',:value=>@user_name%>
+                <%end%>
+              </div>
             </div>
           </div>
           <% if @campaign_mode == Campaign::Fundraising %>
@@ -323,7 +314,7 @@
             <label for="campaign_end_date" class="col-sm-2 control-label">筹款截止日期</label>
 
             <div class="col-sm-8">
-              <div style="width:200px;">
+              <div style="width:300px;">
                 <%= f.text_field :end_date, placeholder: "选择日期", value: (@campaign.end_date.blank? ? (Time.now+14.days).to_date : @campaign.end_date.localtime.strftime('%Y-%m-%d')), class:  'form-control',onClick: "WdatePicker()" %>
                 <label for="campaign_end_date" class="error" style="display: none"></label>
               </div>
@@ -333,8 +324,8 @@
 
           <div class="row web-box">
             <div class="col-sm-6 backbutton-box">
-              <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
-                <span class="text">取消</span>
+              <button class="btn btn-success btn-lg camp-back-btn js-step_container_1_back" type="button" data-currentstep="1">
+                <span class="text">后退</span>
               </button>
             </div>
             <div class="col-sm-6 continuebutton-box">
@@ -351,7 +342,7 @@
             </div>
             <div class="col-sm-6 continuebutton-box">
               <button class="btn btn-success btn-lg camp-back-btn" type="button" data-currentstep="1">
-                <span class="text">取消</span>
+                <span class="text">后退</span>
               </button>
             </div>
           </div>
@@ -430,7 +421,7 @@
                 <!--</div>-->
                 <!--<div class="example-story-blank">&nbsp;</div>-->
                 <div class="col-sm-6">
-                  <div class=" example-story custom-story">讲述团队的故事</div>
+                  <div class=" example-story custom-story">讲述筹款故事</div>
                   <div style="clear:both;"></div>
                 </div>
                 <div style="clear: both;"></div>
@@ -484,7 +475,7 @@
       <div id="step_container_3" class="camp-step-container" style="display:none;">
         <div style="text-align:center;">
           <h3 class="fieldset-header">
-            <span class="number">6</span>上传筹款页面封面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span>
+            <span class="number">6</span>上传筹款页面封面&nbsp;&nbsp;<span data-toggle="modal"  data-target="#camp_preview_modal" class=" camp-step-qa-icon js-campaign-cover-logo">?</span>
 
             <div class="upload-tooltip">
               （最好的图片尺寸: 940px * 626px）
@@ -981,7 +972,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
 
-          <div class="modal-body">
+          <div class="modal-body" style="padding-left: 30px;">
           </div>
           <!-- end of modal body -->
 
@@ -1041,17 +1032,34 @@
 
       <p>注意：本次筹款所得将捐赠给您所选的社团或NGO，所以请确保您的选择正确无误。</p>
 
-      <p>输入筹款团队的基本信息, 这些信息将显示在您的筹款页面。</p>
+      <p>输入筹款的基本信息, 这些信息将显示在您的筹款页面。</p>
       <span>小贴士：</span>
       <ul>
         <li><span>如果找不到您的组织，请联系我们（微信公众号：11号公益圈）</span></li>
-        <li><span>请尽可能的说明您为什么要筹款， 以便人们能够更好的支持您的团队。</span>
         </li>
+      </ul>
+    </div>
+    <div id="camp_step_tips_1_11" style="display:none;">
+      <div style="text-align:center;">
+        <p>
+          <label style="font-size:16px;">
+            <% if current_user %>
+                欢迎 <%= current_user.profile.try(:first_name) %>, 让我们一起开始发起您的筹款吧
+            <% else %>
+                欢迎让我们一起开始发起您的筹款吧
+            <% end %>
+          </label>
+        </p>
+      </div>
+      <p>输入筹款的基本信息, 这些信息将显示在您的筹款页面。</p>
+      <span>小贴士：</span>
+      <ul>
+        <li><span>如果您有任何问题，请联系我们（微信公众号：11号公益圈）</span></li>
       </ul>
     </div>
 
     <div id="camp_step_tips_2" style="display:none;">
-      <p>讲述您团队的故事， 您可以从我们提供的模板中选择一个并修改，或者告诉大家团队自己的故事。</p>
+      <p>讲述您的筹款故事。</p>
       <span>建议：</span>
       <ul>
         <li><span>反复重申您为什么要筹款。</span></li>
@@ -1060,7 +1068,7 @@
         <li><span>最终的成果将是什么？(比如，并不只是一座图书馆，而且是一次改变乡村教育环境的深度尝试)。</span></li>
         <li><span>其他您的支持者需要知道的信息。</span>
         </li>
-        <li><span>如何其他您想要您的支持者知道的信息。</span></li>
+        <li><span>其他您想要您的支持者知道的信息。</span></li>
       </ul>
       <span>小贴士：</span>
       <ul>
@@ -1132,15 +1140,15 @@
         $(".user-modal-launch").hide();
 
         window.setTimeout(function () {
-            $("#hide_camp_step_tips").off("click").on("click", function () {
-                Raisy.campaigns.step_tips_show_status.step1 = false;
-                Raisy.campaigns.donot_show_step_tips();
-            });
+//            $("#hide_camp_step_tips").off("click").on("click", function () {
+//                Raisy.campaigns.step_tips_show_status.step1 = false;
+//                Raisy.campaigns.donot_show_step_tips();
+//            });
 
-            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
-
-            <% if @step_popup=="yes" %>
-            $("#camp_step_tips_modal").modal("show");
+//            $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+//
+            <% if @step_popup=="yes"%>
+//            $("#camp_step_tips_modal").modal("show");
             <% else %>
             Raisy.campaigns.step_tips_show_status.step1_1 = false;
             Raisy.campaigns.step_tips_show_status.step1 = false;
@@ -1153,7 +1161,46 @@
         }, 200);
 
         //debug
-//     $(".camp-step-container").show();
+      <% if @campaign&&@campaign.id&&@campaign.id>=0 %>
+//          $("#step_container_1").show();
+           $(".js-step_container_1_back").find("span").text("取消");
+           Raisy.campaigns.continueBtnClick(1.1);
+           Raisy.campaigns.loadflag=1;
+      <%elsif !@userprofile.picture%>
+           $("#hide_camp_step_tips").off("click").on("click", function () {
+                Raisy.campaigns.step_tips_show_status.step1 = false;
+                Raisy.campaigns.donot_show_step_tips();
+           });
+
+        $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+
+        <% if @step_popup=="yes"&&!@userprofile.picture %>
+           $("#camp_step_tips_modal").modal("show");
+        <% end %>
+          Raisy.campaigns.loadflag=0;
+      <% else %>
+//         $("#step_container_1_1").show();
+//      Raisy.campaigns.continueBtnClick(3.1);
+//      $(".js-btn-nextstep-logo").click();
+      $("#minilogoaddflag").val(0);
+      $(".camp-step-container").hide();
+
+      $("#step_container_1_1").show();
+
+      $(".step-nav-icon").removeClass("step-nav-icon-gray");
+      $("#step_nav_icon_3").addClass("step-nav-icon-gray");
+
+      $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_1_1").html());
+      $("#hide_camp_step_tips").off("click").on("click", function () {
+        Raisy.campaigns.step_tips_show_status.step1_1 = false;
+        Raisy.campaigns.donot_show_step_tips();
+      });
+
+      if (Raisy.campaigns.step_tips_show_status.step1_1) {
+        $("#camp_step_tips_modal").modal("show");
+      }
+      Raisy.campaigns.loadflag=2;
+      <% end %>
     });
 
     window.onload = function () {

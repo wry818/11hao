@@ -30,7 +30,7 @@
       <tr>
         <td>
           <% if order.donation_only?||true %>
-              <%= order.id %>
+              <%= order.out_trade_no %>
           <% else %>
               <a onclick="Raisy.chairperson_dashboard.show_order_detail(this);" data-url="<%= dashboard_campaign_order_path(@campaign, order.id) %>" style="cursor:pointer;">
                 <%= order.id %></a>
@@ -71,7 +71,7 @@
                 <% end %>
               </table>
           <% else %>
-              <p style="text-align: center;height: 100%;vertical-align:middle;margin-bottom: 0px;"> 此订单为直接捐赠</p>
+              <p style="text-align: center;height: 100%;vertical-align:middle;margin-bottom: 0px;"> 直接捐赠</p>
           <% end %>
         </td>
         <!--<td><%= order.email %></td>-->

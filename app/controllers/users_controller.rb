@@ -1107,6 +1107,9 @@ class UsersController < ApplicationController
     @user_profile = current_user.profile
     @user_profile.assign_attributes user_profile_params
 
+    if params[:minilogo]&&params[:minilogo].to_s.length>0
+      @user_profile.picture=params[:minilogo]
+    end
     unless @user_profile.save
       message = ''
       @user_profile.errors.each do |key, error|

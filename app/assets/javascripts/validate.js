@@ -418,7 +418,7 @@ $( document ).ready(function() {
             "organization_name": { required: true },
 			"campaign[collection_id]": { required: false },
             "campaign[title]": { required: true, maxlength: 100 },
-            "campaign[organizer_quote]": { maxlength: 100 },
+            "campaign[organizer_quote]": {required: true, maxlength: 100 },
             "campaign[goal]": { number: true, min: 1 },
 			"campaign[seller_goal]": { number: true, min: 1 },
             "campaign[call_to_action]": { required: true },
@@ -437,10 +437,11 @@ $( document ).ready(function() {
             required: "请选择一件商品"
           },
           "campaign[title]": {
-            required: "请输入筹款页面标题",
+            required: "请输入筹款标题",
             maxlength: "筹款页面标题至少要100个字符"
           },
           "campaign[organizer_quote]": {
+              required: "请输入筹款宣传标语",
             maxlength: "副筹款页面标题至少要100个字符"
           },
           "campaign[goal]": {
