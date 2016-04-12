@@ -320,7 +320,7 @@ window.shopmall = {
                     var scrolltoptemp=0;
                     if (y - startY != 0) {
                         var scrolltoptemp=(y - startY)/8;
-                        $(".js-options-select").scrollTop($(".js-options-select").scrollTop()+scrolltoptemp);
+                        $(".js-options-select").scrollTop($(".js-options-select").scrollTop()-scrolltoptemp);
                     }
                     //console.log(y);
                     console.log(scrolltoptemp);
