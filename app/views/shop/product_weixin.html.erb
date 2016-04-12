@@ -205,7 +205,7 @@
                 <ul class="js-options-select" style="max-height: 250px;overflow: scroll;">
                   <% if @option_group_properties
                        @option_group_properties.each do |property| %>
-                          <li class="tag" style="height: 19px;" data-id="<%= property.id %>" data-price="<%= property.price %>"><%= property.value %></li>
+                          <li class="tag" style="height: 19px;" data-id="<%= property.id %>" data-price="<%= property.price+property.donation_amount %>"><%= property.value %></li>
                       <% end%>
                       <div style="clear:both; "></div>
                         <% end %>
@@ -500,7 +500,7 @@
         <% elsif @campaign.slug=="gs1001"%>
         local_url="/checkout/shgs";
         <% else %>
-        local_url= "/checkout/campaign_<%=@campaign.id%>";
+        local_url= "/campaign_<%=@campaign.id%>";
         <%end%>
         window.location.href = local_url+"?order_id="+order_id;
       },

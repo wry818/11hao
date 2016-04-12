@@ -28,6 +28,18 @@
     </div>
   </div>
 </div>
+<script>
+  function campaign_preview(path) {
+    var width =500;
+    var height = 600;
+    var left = ($(window).width()  - width)  / 2;
+    var top  = ($(window).height() - height) / 2;
+
+    var option = 'scrollbars=1,width=' + width + ',height=' + height + ',left=' + left + 'top=' + top;
+
+    window.open(path, "Preview", option);
+  }
+</script>
 <script language="javascript" type="text/javascript">
   $(function () {
 
