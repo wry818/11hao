@@ -147,4 +147,7 @@ class Product < ActiveRecord::Base
     def all_photo
       self.product_images.order(:is_cover=>:desc).order(:id)
     end
+  def orders_count
+    self.items.select(:order_id).distinct.count
+  end
 end

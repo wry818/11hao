@@ -29,8 +29,7 @@
       }
 
     }
-    .donation_btn
-    {
+    .donation_btn {
       position: absolute;
       width: 40%;
       right: 0px;
@@ -44,7 +43,7 @@
     }
   }
   .content_header {
-    p{
+    p {
       font-size: 30px;
       font-weight: bold;
       padding: 3px 0px 3px 10px;
@@ -79,8 +78,7 @@
               line-height: 30px;
             }
           }
-          .pin_flag
-          {
+          .pin_flag {
             padding: 0 4px 0 2px;
             font-size: 16px;
             font-weight: 100;
@@ -126,10 +124,8 @@
       }
     }
   }
-  #actionSheet_wrap
-  {
-    .title
-    {
+  #actionSheet_wrap {
+    .title {
       background-color: white;
       height: 40px;
       width: 100%;
@@ -145,66 +141,55 @@
         background-size: 40px auto;
       }
     }
-      .orders
-      {
-        background-color: white;
-        height: 50px;
-        width: 100%;
-        padding: 15px 10px 0px 10px;
-      }
-      .orders .orders_ico
-      {
-        height: 90%;
-        float: left;
-      }
-      .orders .orders_ico img
-      {
-        width: 100%;
-        height: 100%;
-      }
-      .orders .orders_des
-      {
-        width: 80%;
-        float: left;
-      }
-      .orders .cancel-img
-      {
-
-        width: 27px;
-        height: 27px;
-        position: absolute;
-        top:20px;
-        right: 5px;
-        background: image-url('buyicon.png');
-        background-position: 0 -108px;
-        background-size: 40px auto;
-      }
-
-
-  }
-  #personal_modalbody
-  {
-    font-weight: bold;
-    .weui_cell:before
-    {
-      left: 0px;
+    .orders {
+      background-color: white;
+      height: 50px;
+      width: 100%;
+      padding: 15px 10px 0px 10px;
     }
-  }
-  #personal_modalbody a
-  {
-    color: red;
-    font-weight: bold;
-    text-align: center;
-    background-color: white;
-  }
-  #personal_modalbody a span
-  {
-    font-weight:normal;
-    color: black;
-    padding-left: 2px;
-  }
-  #personal_modalbody input
-  {
-    height: 45px;
+    .orders .orders_ico {
+      height: 90%;
+      float: left;
+    }
+    .orders .orders_ico img {
+      width: 100%;
+      height: 100%;
+    }
+    .orders .orders_des {
+      width: 80%;
+      float: left;
+    }
+    .orders .cancel-img {
+
+      width: 27px;
+      height: 27px;
+      position: absolute;
+      top: 20px;
+      right: 5px;
+      background: image-url('buyicon.png');
+      background-position: 0 -108px;
+      background-size: 40px auto;
+    }
+
+    #personal_modalbody {
+      font-weight: bold;
+      .weui_cell:before {
+        left: 0px;
+      }
+      a {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+        background-color: white;
+        span {
+          font-weight: normal;
+          color: black;
+          padding-left: 2px;
+        }
+      }
+      input {
+        height: 45px;
+      }
+    }
   }
 }

@@ -231,7 +231,9 @@
 <% if @sign_package %>
     <script>
       var imgurl="";
-    <% if @campaign.campaign_logo %>
+      <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+      imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
+      <% elsif @campaign.campaign_logo %>
       imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
                        transformation: [
                            {

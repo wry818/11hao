@@ -51,46 +51,62 @@
        <p>天下良品</p>
     </div>
     <div class="content">
-       <div class="product">
-            <div class="product_img">
-                <img src="https://res-3.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1459217495/fxh2r3pkg3yttjshktic.jpg">
-                <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
-                  <!--<p class="pin_flag">拼团省￥7</p>-->
-                </div>
-                <i class="supporters">累计390人支持</i>
-            </div>
-             <div class="product_des">
-                 <h2><a href="#">[麦淘微课堂]注意力不集中等学业问题的应对</a></h2>
-                 <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
+      <%	if @products&& @products.count>0%>
+          <% @products.each do |pro|%>
+             <div class="product">
+                  <div class="product_img">
+                      <%	if pro.picture  %>
+                        <%= cl_image_tag pro.picture, width: 380, height: 380, crop: :fill %>
+                        <%else %>
+                            <img src="#" style="width: 380px; height: 380px;">
+                        <%end%>
+                      <div class="price"><p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
+                        <!--<p class="pin_flag">拼团省￥7</p>-->
+                      </div>
+                      <i class="supporters">累计<%=pro.orders_count %>人支持</i>
+                  </div>
+                   <div class="product_des">
+                       <h2><a href="#"><%=pro.name%></a></h2>
+                     <%	if pro.tags%>
+                       <p class="f24 c9">
+                         <% pro.tags.each_with_index do |tag,index|%>
+                             <%= tag.name if index==0 %>
+                             <%=  " | #{tag.name}" if index>0 %>
+                         <%end%>
+                       </p>
+                       <p class="ptag f24"></p>
+                     <%end%>
+                   </div>
              </div>
-       </div>
-      <div class="product">
-        <div class="product_img">
-          <img src="https://res-2.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365367/u2ypuvoy5ise9w1sguls.jpg">
-          <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
-            <!--<p class="pin_flag">拼团省￥7</p>-->
-          </div>
-          <i class="supporters">累计90人支持</i>
-        </div>
-        <div class="product_des">
-          <h2><a href="#">［麦淘微课堂］让孩子轻松上小学！|幼小衔接微课堂</a></h2>
-          <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
-        </div>
-      </div>
-      <div class="product">
-        <div class="product_img">
-          <img src="https://res-3.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365333/w2egkycdvgenfyqrx94w.jpg">
-          <div class="price">
-            <!--<p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>-->
-            <p class="pin_flag">已结束</p>
-          </div>
-          <i class="supporters">累计390人支持</i>
-        </div>
-        <div class="product_des">
-          <h2><a href="#">［麦淘微课堂］让相机听你的！爸妈摄影师系列公开课</a></h2>
-          <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
-        </div>
-      </div>
+          <%	end %>
+          <%	end %>
+      <!--<div class="product">-->
+        <!--<div class="product_img">-->
+          <!--<img src="https://res-2.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365367/u2ypuvoy5ise9w1sguls.jpg">-->
+          <!--<div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>-->
+            <!--&lt;!&ndash;<p class="pin_flag">拼团省￥7</p>&ndash;&gt;-->
+          <!--</div>-->
+          <!--<i class="supporters">累计90人支持</i>-->
+        <!--</div>-->
+        <!--<div class="product_des">-->
+          <!--<h2><a href="#">［麦淘微课堂］让孩子轻松上小学！|幼小衔接微课堂</a></h2>-->
+          <!--<p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="product">-->
+        <!--<div class="product_img">-->
+          <!--<img src="https://res-3.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365333/w2egkycdvgenfyqrx94w.jpg">-->
+          <!--<div class="price">-->
+            <!--&lt;!&ndash;<p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>&ndash;&gt;-->
+            <!--<p class="pin_flag">已结束</p>-->
+          <!--</div>-->
+          <!--<i class="supporters">累计390人支持</i>-->
+        <!--</div>-->
+        <!--<div class="product_des">-->
+          <!--<h2><a href="#">［麦淘微课堂］让相机听你的！爸妈摄影师系列公开课</a></h2>-->
+          <!--<p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   <%= render "shop/goods_footer"%>
   <div id="actionSheet_wrap">
@@ -152,4 +168,133 @@
   $(function(){
      window.product.donation_input_show();
   });
+
 </script>
+<% if @sign_package %>
+    <script>
+      var imgurl="";
+      <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+      imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
+      <% elsif @campaign.campaign_logo %>
+      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
+                       transformation: [
+                           {
+                               width: @campaign.campaign_logo.crop_width,
+                               height: @campaign.campaign_logo.crop_height,
+                               x: @campaign.campaign_logo.crop_x,
+                               y: @campaign.campaign_logo.crop_y,
+                               crop: :crop
+                           }
+                       ] %>"
+      <%else%>
+      imgurl="";
+      <%end%>
+
+
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link:  '<%= request.original_url %>',
+        img_url: imgurl,
+        img_width: "415",
+        img_height: "399",
+        desc: "<%= @campaign.organizer_quote%>",
+        title: "<%= @campaign.title%>"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>
