@@ -1,0 +1,129 @@
+// Place all the styles related to the Product controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.container_campaign_products {
+  .header {
+    position: relative;
+    .campaign-default-logo {
+      min-height: 300px;
+      max-height: 626px;
+      text-align: center;
+      img {
+        margin: 0px auto;
+        margin-top: 100px;
+      }
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .campaign-header-logo-title {
+      position: absolute;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      left: 0px;
+      bottom: 5px;
+      p {
+        text-align: left;
+        color: white;
+        font-size: 17px;
+        padding: 5px 0px 5px 5px;
+        font-weight: bold;
+      }
+
+    }
+    .donation_btn
+    {
+      position: absolute;
+      width: 40%;
+      right: 0px;
+      /* bottom: 50px; */
+      top: 20%;
+      left: 0%;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      border-color: white;
+    }
+  }
+  .content_header {
+    p{
+      font-size: 30px;
+      font-weight: bold;
+      padding: 3px 0px 3px 10px;
+      color: #FF9900;
+      text-align: center;
+    }
+  }
+  .content {
+    .product {
+      .product_img {
+        position: relative;
+        img {
+          width: 100%;
+        }
+        .price {
+          position: absolute;
+          left: 0;
+          bottom: 60px;
+          width: 100px;
+          color: #fff;
+          text-align: center;
+          background-color: rgba(247, 89, 52, 1);
+          p {
+            padding: 0px;
+            .price_icon {
+              font-size: smaller;
+            }
+            .money {
+              padding: 0 4px 0 2px;
+              font-size: 20px;
+              font-weight: 100;
+              line-height: 30px;
+            }
+          }
+          .pin_flag
+          {
+            padding: 0 4px 0 2px;
+            font-size: 16px;
+            font-weight: 100;
+            line-height: 30px;
+            color: white;
+            background-color: #5e5e5e;
+          }
+        }
+
+        .supporters {
+          position: absolute;
+          right: 0;
+          top: 30px;
+          width: 110px;
+          text-align: center;
+          line-height: 20px;
+          border-bottom-left-radius: 20px;
+          border-top-left-radius: 20px;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+      }
+      .product_des {
+        padding: 10px 10px 10px 15px;
+        a {
+          text-decoration: none;
+          color: #333;
+        }
+        h2 {
+          //padding-top: 20px;
+          word-break: keep-all;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        p {
+          padding-top: 5px;
+          word-break: keep-all;
+          white-space: nowrap;
+          overflow: hidden;
+          color: #999;
+        }
+      }
+    }
+  }
+}
