@@ -12,7 +12,15 @@
 </div>
 <div class="container_campaign_products">
     <div class="header">
-        <% if @campaign.campaign_logo %>
+        <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+            <div style="text-align:center;">
+                <%= image_tag @campaign.logo+"?id=#{rand(100)}",:style=>"width:100%;max-height:626px" %>
+            <div class="campaign-header-logo-title">
+              <p><%= @campaign.title %></p>
+            </div>
+            <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
+            </div>
+        <% elsif @campaign.campaign_logo %>
             <div style="text-align:center;">
               <%= cl_image_tag @campaign.campaign_logo.image_id,
                                transformation: [
@@ -27,7 +35,7 @@
               <div class="campaign-header-logo-title">
                 <p><%= @campaign.title %></p>
               </div>
-              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled">直接捐赠</a>
+              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
             </div>
         <% else %>
             <div class="campaign-default-logo">
@@ -35,7 +43,7 @@
               <div class="campaign-header-logo-title">
                 <p><%= @campaign.title %></p>
               </div>
-              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled">直接捐赠</a>
+              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
             </div>
         <% end %>
     </div>
@@ -45,7 +53,7 @@
     <div class="content">
        <div class="product">
             <div class="product_img">
-                <img src="/images/test/p_01.jpg">
+                <img src="https://res-3.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1459217495/fxh2r3pkg3yttjshktic.jpg">
                 <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
                   <!--<p class="pin_flag">拼团省￥7</p>-->
                 </div>
@@ -58,7 +66,7 @@
        </div>
       <div class="product">
         <div class="product_img">
-          <img src="/images/test/p_02.jpg">
+          <img src="https://res-2.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365367/u2ypuvoy5ise9w1sguls.jpg">
           <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
             <!--<p class="pin_flag">拼团省￥7</p>-->
           </div>
@@ -71,7 +79,7 @@
       </div>
       <div class="product">
         <div class="product_img">
-          <img src="/images/test/p_03.jpg">
+          <img src="https://res-3.cloudinary.com/jli/image/upload/c_fill,h_400,w_400/v1460365333/w2egkycdvgenfyqrx94w.jpg">
           <div class="price">
             <!--<p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>-->
             <p class="pin_flag">已结束</p>
@@ -85,4 +93,63 @@
       </div>
     </div>
   <%= render "shop/goods_footer"%>
+  <div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask_input" style="display: none;"></div>
+    <div class="weui_actionsheet" id="weui_actionsheet_input">
+      <div style="background-color: white;">
+        <div class="orders"  style="height: 40px;">
+          <div class="weui_cell_bd weui_cell_primary" style="
+          margin-top: 6px;
+          ">
+            <p style="
+            font-size: 16px;
+            ">捐款金额</p>
+          </div>
+
+          <div class="orders_des">
+            <p class="" style="    padding-left: 5px;"></p>
+
+          </div>
+          <div class="cancel-img" id="actionsheet_cancel_input"></div>
+
+        </div>
+        <hr class="with-margin">
+        <div id="personal_modalbody">
+          <table style="width:100%;margin-top: 15px;margin-bottom: 10px;">
+            <tr>
+              <td style="padding:0px 5px; text-align:center; width:33%;  ">
+                <a href="javascript:void(0);" data-value="5" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">5<span>元</span></a>
+              </td>
+              <td style="padding:0px 5px; text-align:center; width:33%; ">
+                <a href="javascript:void(0);" data-value="10" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">10<span>元</span></a>
+              </td>
+              <td style="padding:0px 5px; text-align:center; width:34%; ">
+                <a href="javascript:void(0);" data-value="20" style="   border-color: #999;" class="weui_btn weui_btn_plain_primary">20<span>元</span></a>
+              </td>
+            </tr>
+          </table>
+          <div class="weui_cell" style="padding-top: 0px;
+              padding-bottom: 0px;
+
+              margin-top: 5px;">
+            <div class="weui_cell_hd" style="padding-right: 5px;"><label class="weui_label">金额</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+              <input class="weui_input" id="direct_donation_input" type="input"  placeholder="输入捐款金额">
+              <%= hidden_field_tag :donation_add, "" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui_actionsheet_action" style="    padding:5px 10px;">
+        <a href="javascript:void(0);" id="btn_submit1" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">确 定</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+<script>
+  $(function(){
+     window.product.donation_input_show();
+  });
+</script>

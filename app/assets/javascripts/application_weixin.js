@@ -5,3 +5,4 @@
 //= require jweixin-1.0.0
 //= require main_weixin
 //= require shop_mall
+//= require product
