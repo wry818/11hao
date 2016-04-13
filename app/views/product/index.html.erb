@@ -1,0 +1,88 @@
+<div class="product_weixin_header">
+  <p>
+    <% if @campaign.minilogo %>
+        <%= image_tag @campaign.minilogo%>
+    <% else %>
+        <%= image_tag "minilogo .png"%>
+    <% end %>
+
+    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
+  </p>
+
+</div>
+<div class="container_campaign_products">
+    <div class="header">
+        <% if @campaign.campaign_logo %>
+            <div style="text-align:center;">
+              <%= cl_image_tag @campaign.campaign_logo.image_id,
+                               transformation: [
+                                   {
+                                       width: @campaign.campaign_logo.crop_width,
+                                       height: @campaign.campaign_logo.crop_height,
+                                       x: @campaign.campaign_logo.crop_x,
+                                       y: @campaign.campaign_logo.crop_y,
+                                       crop: :crop
+                                   }
+                               ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
+              <div class="campaign-header-logo-title">
+                <p><%= @campaign.title %></p>
+              </div>
+              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled">直接捐赠</a>
+            </div>
+        <% else %>
+            <div class="campaign-default-logo">
+              <%= image_tag 'default_upload_logo.gif' %>
+              <div class="campaign-header-logo-title">
+                <p><%= @campaign.title %></p>
+              </div>
+              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled">直接捐赠</a>
+            </div>
+        <% end %>
+    </div>
+    <div class="content_header">
+       <p>天下良品</p>
+    </div>
+    <div class="content">
+       <div class="product">
+            <div class="product_img">
+                <img src="/images/test/p_01.jpg">
+                <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
+                  <!--<p class="pin_flag">拼团省￥7</p>-->
+                </div>
+                <i class="supporters">累计390人支持</i>
+            </div>
+             <div class="product_des">
+                 <h2><a href="#">[麦淘微课堂]注意力不集中等学业问题的应对</a></h2>
+                 <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
+             </div>
+       </div>
+      <div class="product">
+        <div class="product_img">
+          <img src="/images/test/p_02.jpg">
+          <div class="price"><p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>
+            <!--<p class="pin_flag">拼团省￥7</p>-->
+          </div>
+          <i class="supporters">累计90人支持</i>
+        </div>
+        <div class="product_des">
+          <h2><a href="#">［麦淘微课堂］让孩子轻松上小学！|幼小衔接微课堂</a></h2>
+          <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product_img">
+          <img src="/images/test/p_03.jpg">
+          <div class="price">
+            <!--<p><i class="price_icon">￥</i><i class="money">9.9</i><i class="dw"></i></p>-->
+            <p class="pin_flag">已结束</p>
+          </div>
+          <i class="supporters">累计390人支持</i>
+        </div>
+        <div class="product_des">
+          <h2><a href="#">［麦淘微课堂］让相机听你的！爸妈摄影师系列公开课</a></h2>
+          <p class="f24 c9">中国 | 3月23日 可选 | 0-12岁</p><p class="ptag f24"></p>
+        </div>
+      </div>
+    </div>
+  <%= render "shop/goods_footer"%>
+</div>

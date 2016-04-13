@@ -358,7 +358,7 @@ Raisy::Application.routes.draw do
 
     get ':id/supporters', to: 'shop#supporters', as: :supporters
     get ':id', to: 'shop#show', as: :short_campaign
-    
+    get "products/:id", to:"product#index",as: :products_index
     get 'campaigns/organizations.json', to: 'campaigns#get_organizations'
     get 'campaigns/organization.json/:id', to: 'campaigns#get_organization'
     get 'campaigns/collections.json', to: 'campaigns#get_collections'
