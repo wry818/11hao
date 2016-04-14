@@ -60,8 +60,12 @@
                         <%else %>
                             <img src="#" style="width: 380px; height: 380px;">
                         <%end%>
-                      <div class="price"><p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
-                        <!--<p class="pin_flag">拼团省￥7</p>-->
+                      <div class="price">
+                        <%if pro.is_featured %>
+                        <p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
+                        <%else %>
+                            <p class="pin_flag">已结束</p>
+                        <%end%>
                       </div>
                       <i class="supporters">累计<%=pro.orders_count %>人支持</i>
                   </div>
