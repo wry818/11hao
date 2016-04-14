@@ -70,7 +70,13 @@
                       <i class="supporters">累计<%=pro.orders_count %>人支持</i>
                   </div>
                    <div class="product_des">
-                       <h2><a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a></h2>
+                       <h2>
+                         <%if pro.is_featured %>
+                             <a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a>
+                         <%else %>
+                             <a href="javascript:void(0);"><%=pro.name%></a>
+                         <%end%>
+                       </h2>
                      <%	if pro.tags%>
                        <p class="f24 c9">
                          <% pro.tags.each_with_index do |tag,index|%>
@@ -349,15 +355,13 @@
       imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
       <% elsif @campaign.campaign_logo %>
       imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
-                       transformation: [
-                           {
-                               width: @campaign.campaign_logo.crop_width,
-                               height: @campaign.campaign_logo.crop_height,
-                               x: @campaign.campaign_logo.crop_x,
-                               y: @campaign.campaign_logo.crop_y,
-                               crop: :crop
-                           }
-                       ] %>"
+                                              transformation: [
+                                                  {
+                                                      width: 192,
+                                                      height: 124,
+                                                      crop: :fill
+                                                  }
+                                              ]%>";
       <%else%>
       imgurl="";
       <%end%>
