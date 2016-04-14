@@ -2,10 +2,16 @@ class ProductController < ApplicationController
   layout "shop_weixin"
   def index
     if params[:id]
+
+    elsif params[:ids]&&params[:ids].to_s.length>0
+      params[:id]=params[:ids].split("_")[1]
     else
       params[:id]="default"
     end
     @campaign=Campaign.find_by_slug(params[:id]);
+    if !@campaign
+      @campaign=Campaign.find_by_slug("default");
+    end
 
 
     @products=Product.where(:is_hot_sale => :true).isnot_destroy.order(:updated_at=>:desc)

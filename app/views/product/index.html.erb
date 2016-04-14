@@ -66,7 +66,7 @@
                       <i class="supporters">累计<%=pro.orders_count %>人支持</i>
                   </div>
                    <div class="product_des">
-                       <h2><a href="#"><%=pro.name%></a></h2>
+                       <h2><a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a></h2>
                      <%	if pro.tags%>
                        <p class="f24 c9">
                          <% pro.tags.each_with_index do |tag,index|%>
@@ -167,6 +167,174 @@
 <script>
   $(function(){
      window.product.donation_input_show();
+    ///
+    $(".product").bind('click',function(){
+        window.location.href=$(this).find(".product_des").find("a").prop("href");
+    });
+    ///
+    if (typeof WeixinJSBridge == "undefined") {
+      if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+      }
+    } else {
+      onBridgeReady();
+    }
+
+    function onBridgeReady() {
+      if ("<%= @weixin_init_success %>" == "true") {
+
+
+        bing_submit_click();
+
+      } else {
+        alert("系统忙，请刷新页面再试。");
+      }
+    }
+    function bing_submit_click()
+    {
+      $('#btn_submit1').one("click",function(){
+        $("#actionsheet_cancel_input").click();
+
+        submit_click();
+      });
+    }
+    function submit_click() {
+      var url = "<%=campaign_ngo_confirmation_weixin_path%>";
+      var direct_donation = $("#direct_donation_input").val();
+      if(direct_donation.length<1)
+      {
+        direct_donation = $("#donation_add").val();
+      }
+      if (direct_donation.length <= 0) {
+        alert("请输入捐款金额。");
+        return;
+      }
+
+      $('#btn_submit1').prop('disabled', true);
+      $.ajax(url, {
+        type: 'POST',
+        data: {direct_donation:direct_donation,campaign_id:<%=@campaign.id%>},
+        beforeSend: function (jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data, textStatus, jqXHR) {
+          if (data.error_msg != "") {
+            alert(data.error_msg);
+          } else {
+//              alert(data.order_id);
+            weixin_load(data.order_id);
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("请求已经结束但是可能发生了错误！");
+          bing_submit_click();
+          $('#btn_submit1').prop('disabled', false);
+        }
+      });
+
+    }
+    function weixin_load(order_id) {
+//      alert(order_id);
+
+      $.ajax({
+        method: "get",
+        url: "/weixin_payment_get_req/" + order_id,
+        dataType: "json",
+        cache: false,
+        success: function (d) {
+//            alert(33333);
+//            alert(d);
+          if (d) {
+//              alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
+            WeixinJSBridge.invoke('getBrandWCPayRequest', {
+              "appId": d.appId,     //公众号名称，由商户传入
+              "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+              "nonceStr": d.nonceStr, //随机串
+              "package": d.package,
+              "signType": "MD5",         //微信签名方式:
+              "paySign": d.paySign //微信签名
+            }, function (res) {
+//                alert(res.err_msg);
+//            alert(res.err_code + res.err_desc + res.err_msg);
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                ComfirmOrder(order_id);
+              } else {
+                bing_submit_click();
+                $('#wechat').prop('disabled', false);
+              }
+            });
+          }
+          else {
+            bing_submit_click();
+            $('#wechat').prop('disabled', false);
+          }
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown) {
+//            alert(XMLHttpRequest.status);
+//            alert(XMLHttpRequest.readyState);
+//            alert(textStatus);
+          bing_submit_click();
+          $('#wechat').prop('disabled', false);
+        },
+        complete: function () {
+//            alert(1111);
+        }
+      });
+
+    }
+
+    function ComfirmOrder(order_id) {
+
+      var order_make_anonymous = false;
+      var fullName = $("#fullname").val();
+
+      if (fullName == "") {
+        fullName = "匿名";
+        order_make_anonymous = true;
+      }
+
+      var avatar_url = $("#avatar_url").val();
+      var order_time = new Date();
+      var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+
+      var data = {
+        order_id: order_id,
+        order_make_anonymous: order_make_anonymous,
+        format_order_time: format_order_time,
+        fullName: fullName,
+        avatar_url: avatar_url
+      };
+
+      $.ajax('/ajax/update-order', {
+        type: 'POST',
+        data: data,
+        beforeSend: function (jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function (data) {
+          var local_url;
+          <% if @campaign.slug=="lb1001"%>
+          local_url="/checkout/xyetjk";
+          <% elsif @campaign.slug=="lb1002"%>
+          local_url="/checkout/lbxgy";
+          <% elsif @campaign.slug=="lb1003"%>
+          local_url="/checkout/lbflower";
+          <% elsif @campaign.slug=="gs1001"%>
+          local_url="/checkout/shgs";
+          <% else %>
+          local_url= "/campaign_<%=@campaign.id%>";
+          <%end%>
+          window.location.href = local_url+"?order_id="+order_id;
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+        }
+      });
+
+    }
   });
 
 </script>

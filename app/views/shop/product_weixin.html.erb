@@ -46,10 +46,14 @@
     </ul>
     <div class="smalltitle">
       <ul>
+        <% if (@product.picture&&@product.picture.length>0)%>
+            <li class="thistitle"></li>
+        <% is_has_title_img=true%>
+        <%end%>
         <% photos=@product.all_photo.all %>
         <% if (photos&&photos.length>0)
              photos.each_with_index do |photo,i| %>
-                <%   if(i==0)%>
+                <%   if(i==0&&!is_has_title_img)%>
                     <li class="thistitle"></li>
                 <%else%>
                     <li></li>
