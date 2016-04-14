@@ -5,7 +5,12 @@
     <% else %>
         <%= image_tag "logo.png" %>
     <% end %>
+    <% if @campaign.is_personal%>
+        <span class="org_name"><%= @campaign.organizer.profile.first_name.length>14?@campaign.organizer.profile.first_name[0,13]+"..." :@campaign.organizer.profile.first_name%></span>
+  <% else %>
+        <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>
+  <% end %>
 
-    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
+    <span style="padding-left: 10px;">购买即捐赠</span>
   </p>
 </div>
