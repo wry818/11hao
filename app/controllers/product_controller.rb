@@ -8,6 +8,20 @@ class ProductController < ApplicationController
     else
       params[:id]="default"
     end
+    # session[:openid]="oaR9as9LCc7KFlh1dih3uXEy_5-w"
+    # logger.debug session[:openid] +params[:id]
+    if session[:openid]&&params[:id]=="list"
+      # logger.debug session[:openid]
+      order= Order.completed.where(:open_id =>session[:openid] ).order(:id=>:desc).first
+      logger.debug order.campaign.end_date
+      logger.debug DateTime.now
+      if order&&((!order.campaign.end_date)||(order.campaign.end_date&&order.campaign.end_date>=DateTime.now))
+
+        redirect_to(hotsale_index_path("hotsale_#{order.campaign.slug}")) and return
+      else
+        redirect_to(hotsale_index_path("hotsale_default")) and return
+      end
+    end
     @campaign=Campaign.find_by_slug(params[:id]);
     if !@campaign
       @campaign=Campaign.find_by_slug("default");

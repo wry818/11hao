@@ -1,16 +1,17 @@
 <%= render "shop/product_weixin_header"%>
 <div class="container_campaign_products">
     <div class="header">
+      <div style="text-align:center;">
         <% if @campaign.logo&&@campaign.logo.include?("upload") %>
-            <div style="text-align:center;">
+
                 <%= image_tag @campaign.logo+"?id=#{rand(100)}",:style=>"width:100%;max-height:626px" %>
-            <div class="campaign-header-logo-title">
-              <p><%= @campaign.title %></p>
-            </div>
-            <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
-            </div>
+            <!--<div class="campaign-header-logo-title">-->
+              <!--<p><%= @campaign.title %></p>-->
+            <!--</div>-->
+            <!--<a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>-->
+            <!--</div>-->
         <% elsif @campaign.campaign_logo %>
-            <div style="text-align:center;">
+
               <%= cl_image_tag @campaign.campaign_logo.image_id,
                                transformation: [
                                    {
@@ -23,7 +24,7 @@
                                ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
 
         <% else %>
-            <div class="campaign-default-logo">
+
               <%= image_tag 'default_upload_logo.gif' %>
 
         <% end %>
@@ -34,6 +35,7 @@
       <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
       </div>
     </div>
+
     <div class="content_header">
        <p>天下良品</p>
     </div>
