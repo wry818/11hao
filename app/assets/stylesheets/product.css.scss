@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .container_campaign_products {
+  font-style: normal;
   .header {
     position: relative;
     .campaign-default-logo {
@@ -22,10 +23,13 @@
       bottom: 5px;
       p {
         text-align: left;
-        color: white;
-        font-size: 17px;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        font-family: 'Microsoft YaHei', 微软雅黑, arial, sans-serif;
         padding: 5px 0px 5px 5px;
-        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
 
     }
@@ -36,10 +40,10 @@
       /* bottom: 50px; */
       top: 20%;
       left: 0%;
-      color: white;
+      color: #33CC33;
       font-size: 20px;
       font-weight: bold;
-      border-color: white;
+      border-color:#33CC33;
     }
   }
   .content_header {
@@ -76,6 +80,8 @@
               font-size: 20px;
               font-weight: 100;
               line-height: 30px;
+              font-style: normal;
+
             }
           }
           .pin_flag {
@@ -99,6 +105,7 @@
           border-top-left-radius: 20px;
           color: #fff;
           background-color: rgba(0, 0, 0, 0.6);
+          font-style: normal;
         }
       }
       .product_des {

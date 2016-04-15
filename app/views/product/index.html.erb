@@ -32,20 +32,18 @@
                                        crop: :crop
                                    }
                                ], style: "width:100%; max-height:626px", class: 'campaign-logo' %>
-              <div class="campaign-header-logo-title">
-                <p><%= @campaign.title %></p>
-              </div>
-              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
-            </div>
+
         <% else %>
             <div class="campaign-default-logo">
               <%= image_tag 'default_upload_logo.gif' %>
-              <div class="campaign-header-logo-title">
-                <p><%= @campaign.title %></p>
-              </div>
-              <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
-            </div>
+
         <% end %>
+      <div class="campaign-header-logo-title">
+        <p style="width: 70%;float: left;"><%= @campaign.title %></p>
+        <p style="text-align: right;padding-right: 5px;">已筹款￥33333</p>
+      </div>
+      <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
+      </div>
     </div>
     <div class="content_header">
        <p>天下良品</p>
