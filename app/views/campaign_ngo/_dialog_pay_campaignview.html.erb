@@ -21,11 +21,7 @@
 <script>
   $(function(){
     $(".js-btn-support").click(function(){
-      <% if @campaign.product_id %>
-           window.location.href="/checkout/procamp_<%= @campaign.slug%>_<%= @campaign.product_id%>";
-      <% else %>
-           alert("没有义卖的产品！");
-      <% end %>
+           window.location.href="<%= hotsale_index_path("hotsale_#{@campaign.slug}")%>";
     });
   });
 </script>

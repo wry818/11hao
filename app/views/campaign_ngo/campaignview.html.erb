@@ -82,7 +82,7 @@
                   <% end %>
                   <div class="campaign-header-title-box">
                     <div class="campaign-header-logo-title">
-                      <span style="color: white"><%= @campaign.title %></span>
+                      <p style="color: white"><%= @campaign.title %></p>
                     </div>
                   </div>
                 </div>
@@ -231,17 +231,18 @@
 <% if @sign_package %>
     <script>
       var imgurl="";
-    <% if @campaign.campaign_logo %>
-      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
-                       transformation: [
-                           {
-                               width: @campaign.campaign_logo.crop_width,
-                               height: @campaign.campaign_logo.crop_height,
-                               x: @campaign.campaign_logo.crop_x,
-                               y: @campaign.campaign_logo.crop_y,
-                               crop: :crop
-                           }
-                       ] %>"
+      <% if @campaign.logo&&@campaign.logo.include?("upload") %>
+      imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
+      <% elsif @campaign.campaign_logo %>
+      imgurl="<%= cl_image_path @campaign.campaign_logo.image_id,
+                                              transformation: [
+                                                  {
+                                                      width: 192,
+                                                      height: 124,
+                                                      crop: :fill
+                                                  }
+                                              ]%>";
+
       <%else%>
       imgurl="";
       <%end%>

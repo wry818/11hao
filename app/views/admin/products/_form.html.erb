@@ -349,7 +349,15 @@
               </div>
             </div>
           </div>
-
+          <div class="well">
+            <div class="row">
+              <div class="col-md-12">
+                <label for="product_is_hot_sale">
+                  <%= f.check_box :is_hot_sale %>&nbsp;&nbsp;是否热卖
+                </label>
+              </div>
+            </div>
+          </div>
           <% if !@product.id.nil? %>
               <div class="well">
                 <div class="row">

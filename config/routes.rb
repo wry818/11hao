@@ -142,7 +142,7 @@ Raisy::Application.routes.draw do
   get 'checkout/:id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview_checkout
   get ':id', to: 'campaign_ngo#campaignview',constraints: { id: /campaign_[0-9]*/ }, as: :campagin_ngo_campaignview
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
-
+  get "checkout/:ids", to:"product#index",constraints: { ids: /hotsale_\S+/ },as: :hotsale_index
   get 'checkout/:procamp', to: 'shop#product_weixin',constraints: { procamp: /procamp_\S+_[0-9]+/ }, as: :shop_product_weixin_pay
 
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
@@ -358,7 +358,7 @@ Raisy::Application.routes.draw do
 
     get ':id/supporters', to: 'shop#supporters', as: :supporters
     get ':id', to: 'shop#show', as: :short_campaign
-    
+    get "products/:id", to:"product#index",as: :products_index
     get 'campaigns/organizations.json', to: 'campaigns#get_organizations'
     get 'campaigns/organization.json/:id', to: 'campaigns#get_organization'
     get 'campaigns/collections.json', to: 'campaigns#get_collections'

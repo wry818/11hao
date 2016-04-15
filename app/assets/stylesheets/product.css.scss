@@ -1,0 +1,205 @@
+// Place all the styles related to the Product controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.container_campaign_products {
+  font-style: normal;
+  .header {
+    position: relative;
+    .campaign-default-logo {
+      min-height: 300px;
+      max-height: 626px;
+      text-align: center;
+      img {
+        margin: 0px auto;
+        margin-top: 100px;
+      }
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .campaign-header-logo-title {
+      position: absolute;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      left: 0px;
+      bottom: 5px;
+      p {
+        text-align: left;
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        font-family: 'Microsoft YaHei', 微软雅黑, arial, sans-serif;
+        padding: 5px 0px 5px 5px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+    }
+    .donation_btn {
+      position: absolute;
+      width: 40%;
+      right: 0px;
+      /* bottom: 50px; */
+      top: 20%;
+      left: 0%;
+      color: #33CC33;
+      font-size: 20px;
+      font-weight: bold;
+      border-color:#33CC33;
+    }
+  }
+  .content_header {
+    p {
+      font-size: 30px;
+      font-weight: bold;
+      padding: 3px 0px 3px 10px;
+      color: #FF9900;
+      text-align: center;
+    }
+  }
+  .content {
+    .product {
+      .product_img {
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        .price {
+          position: absolute;
+          left: 0;
+          bottom: 60px;
+          width: 100px;
+          color: #fff;
+          text-align: center;
+          background-color: rgba(247, 89, 52, 1);
+          p {
+            padding: 0px;
+            .price_icon {
+              font-size: smaller;
+            }
+            .money {
+              padding: 0 4px 0 2px;
+              font-size: 20px;
+              font-weight: 100;
+              line-height: 30px;
+              font-style: normal;
+
+            }
+          }
+          .pin_flag {
+            padding: 0 4px 0 2px;
+            font-size: 16px;
+            font-weight: 100;
+            line-height: 30px;
+            color: white;
+            background-color: #5e5e5e;
+          }
+        }
+
+        .supporters {
+          position: absolute;
+          right: 0;
+          top: 30px;
+          width: 110px;
+          text-align: center;
+          line-height: 20px;
+          border-bottom-left-radius: 20px;
+          border-top-left-radius: 20px;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.6);
+          font-style: normal;
+        }
+      }
+      .product_des {
+        padding: 10px 10px 10px 15px;
+        a {
+          text-decoration: none;
+          color: #333;
+          font-size: 16px;
+          font-weight: normal;
+        }
+        h2 {
+          //padding-top: 20px;
+          word-break: keep-all;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        p {
+          padding-top: 5px;
+          word-break: keep-all;
+          white-space: nowrap;
+          overflow: hidden;
+          color: #999;
+        }
+      }
+    }
+  }
+  #actionSheet_wrap {
+    .title {
+      background-color: white;
+      height: 40px;
+      width: 100%;
+      padding: 5px 10px 0px 10px;
+      .cancel-img {
+        width: 27px;
+        height: 27px;
+        position: absolute;
+        top: 10px;
+        right: 5px;
+        background: image-url('buyicon.png');
+        background-position: 0 -108px;
+        background-size: 40px auto;
+      }
+    }
+    .orders {
+      background-color: white;
+      height: 50px;
+      width: 100%;
+      padding: 15px 10px 0px 10px;
+    }
+    .orders .orders_ico {
+      height: 90%;
+      float: left;
+    }
+    .orders .orders_ico img {
+      width: 100%;
+      height: 100%;
+    }
+    .orders .orders_des {
+      width: 80%;
+      float: left;
+    }
+    .orders .cancel-img {
+
+      width: 27px;
+      height: 27px;
+      position: absolute;
+      top: 20px;
+      right: 5px;
+      background: image-url('buyicon.png');
+      background-position: 0 -108px;
+      background-size: 40px auto;
+    }
+
+    #personal_modalbody {
+      font-weight: bold;
+      .weui_cell:before {
+        left: 0px;
+      }
+      a {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+        background-color: white;
+        span {
+          font-weight: normal;
+          color: black;
+          padding-left: 2px;
+        }
+      }
+      input {
+        height: 45px;
+      }
+    }
+  }
+}

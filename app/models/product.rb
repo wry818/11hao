@@ -147,4 +147,10 @@ class Product < ActiveRecord::Base
     def all_photo
       self.product_images.order(:is_cover=>:desc).order(:id)
     end
+  def orders_count
+    self.items.select(:order_id).distinct.count
+  end
+    def quantity_count
+      self.items.joins(:order).where(orders:{:status=>[1,3]}).select(:quantity).count
+    end
 end

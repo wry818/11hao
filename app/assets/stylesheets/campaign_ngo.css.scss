@@ -219,6 +219,14 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
+
+    p{
+      text-overflow: ellipsis;/*超出部分省略*/
+      white-space: nowrap;/*强制不换行*/
+      overflow:hidden; /*超出部分隐藏*/
+      margin: 0px;
+    }
+
   }
 
   #btn_view_supporters {
