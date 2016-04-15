@@ -29,7 +29,7 @@
         <% end %>
       <div class="campaign-header-logo-title">
         <p style="width: 70%;float: left;"><%= @campaign.title %></p>
-        <p style="text-align: right;padding-right: 5px;">已筹款￥33333</p>
+        <p style="text-align: right;padding-right: 5px;">已筹款<%= short_price(@campaign.raised) %>元</p>
       </div>
       <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
       </div>
@@ -48,17 +48,17 @@
                             <img src="#" style="width: 380px; height: 380px;">
                         <%end%>
                       <div class="price">
-                        <%if pro.is_featured %>
+                        <%if pro.is_featured||true %>
                         <p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
                         <%else %>
                             <p class="pin_flag">已结束</p>
                         <%end%>
                       </div>
-                      <i class="supporters">累计<%=pro.orders_count %>人支持</i>
+                      <i class="supporters">累计义卖<%=pro.quantity_count %></i>
                   </div>
                    <div class="product_des">
                        <h2>
-                         <%if pro.is_featured %>
+                         <%if pro.is_featured||true %>
                              <a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a>
                          <%else %>
                              <a href="javascript:void(0);"><%=pro.name%></a>

@@ -1,16 +1,19 @@
 <div class="product_weixin_header">
-  <p>
+  <p style="width: 70%;float: left;">
     <% if @campaign.organizer.profile.picture&&@campaign.organizer.profile.picture.length>0%>
         <%= image_tag @campaign.organizer.profile.picture+"?id=#{rand(100)}", width: 280, height: 280 %>
     <% else %>
         <%= image_tag "logo.png" %>
     <% end %>
     <% if @campaign.is_personal%>
-        <span class="org_name"><%= @campaign.organizer.profile.first_name.length>14?@campaign.organizer.profile.first_name[0,13]+"..." :@campaign.organizer.profile.first_name%></span>
+        <span class="org_name"><%= @campaign.organizer.profile.first_name%></span>
   <% else %>
-        <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>
+        <span class="org_name"><%= @campaign.organization.name%></span>
   <% end %>
 
-    <span style="padding-left: 10px;">购买即捐赠</span>
+
+  </p>
+  <p style="text-align: right;padding-right: 5px;">
+    购买即捐赠
   </p>
 </div>

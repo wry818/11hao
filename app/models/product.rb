@@ -150,4 +150,7 @@ class Product < ActiveRecord::Base
   def orders_count
     self.items.select(:order_id).distinct.count
   end
+    def quantity_count
+      self.items.joins(:order).where(orders:{:status=>[1,3]}).select(:quantity).count
+    end
 end
