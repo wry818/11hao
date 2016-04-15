@@ -1,15 +1,4 @@
-<div class="product_weixin_header">
-  <p>
-    <% if @campaign.minilogo %>
-        <%= image_tag @campaign.minilogo%>
-    <% else %>
-        <%= image_tag "minilogo .png"%>
-    <% end %>
-
-    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
-  </p>
-
-</div>
+<%= render "shop/product_weixin_header"%>
 <div class="container_campaign_products">
     <div class="header">
         <% if @campaign.logo&&@campaign.logo.include?("upload") %>
@@ -58,13 +47,23 @@
                         <%else %>
                             <img src="#" style="width: 380px; height: 380px;">
                         <%end%>
-                      <div class="price"><p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
-                        <!--<p class="pin_flag">拼团省￥7</p>-->
+                      <div class="price">
+                        <%if pro.is_featured %>
+                        <p><i class="price_icon">￥</i><i class="money"><%= long_price(pro.total_price) %></i><i class="dw"></i></p>
+                        <%else %>
+                            <p class="pin_flag">已结束</p>
+                        <%end%>
                       </div>
                       <i class="supporters">累计<%=pro.orders_count %>人支持</i>
                   </div>
                    <div class="product_des">
-                       <h2><a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a></h2>
+                       <h2>
+                         <%if pro.is_featured %>
+                             <a href="<%=shop_product_weixin_pay_path("procamp_#{@campaign.slug}_#{pro.id}")%>"><%=pro.name%></a>
+                         <%else %>
+                             <a href="javascript:void(0);"><%=pro.name%></a>
+                         <%end%>
+                       </h2>
                      <%	if pro.tags%>
                        <p class="f24 c9">
                          <% pro.tags.each_with_index do |tag,index|%>
@@ -342,16 +341,14 @@
       <% if @campaign.logo&&@campaign.logo.include?("upload") %>
       imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
       <% elsif @campaign.campaign_logo %>
-      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
-                       transformation: [
-                           {
-                               width: @campaign.campaign_logo.crop_width,
-                               height: @campaign.campaign_logo.crop_height,
-                               x: @campaign.campaign_logo.crop_x,
-                               y: @campaign.campaign_logo.crop_y,
-                               crop: :crop
-                           }
-                       ] %>"
+      imgurl="<%= cl_image_path @campaign.campaign_logo.image_id,
+                                              transformation: [
+                                                  {
+                                                      width: 192,
+                                                      height: 124,
+                                                      crop: :fill
+                                                  }
+                                              ]%>";
       <%else%>
       imgurl="";
       <%end%>

@@ -10,18 +10,7 @@
   }
 </style>
 <input type="hidden" id="campaign_slug" value="<%= @campaign.slug %>"/>
-<div class="product_weixin_header">
-  <p>
-    <% if @campaign.minilogo %>
-        <%= image_tag @campaign.minilogo%>
-        <% else %>
-        <%= image_tag "minilogo .png"%>
-    <% end %>
-
-    <span class="org_name"><%= @campaign.organization.name.length>14?@campaign.organization.name[0,13]+"..." :@campaign.organization.name%></span>  <span style="padding-left: 10px;">购买即捐赠</span>
-  </p>
-
-</div>
+<%= render "shop/product_weixin_header"%>
 <div class="shop_mall">
   <div id="playBox" class="playbox">
     <div class="pre"></div>

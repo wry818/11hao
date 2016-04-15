@@ -234,16 +234,15 @@
       <% if @campaign.logo&&@campaign.logo.include?("upload") %>
       imgurl='<%=request.original_url+@campaign.logo+"?id=#{rand(100)}"%>';
       <% elsif @campaign.campaign_logo %>
-      imgurl=" <%= cl_image_path @campaign.campaign_logo.image_id,
-                       transformation: [
-                           {
-                               width: @campaign.campaign_logo.crop_width,
-                               height: @campaign.campaign_logo.crop_height,
-                               x: @campaign.campaign_logo.crop_x,
-                               y: @campaign.campaign_logo.crop_y,
-                               crop: :crop
-                           }
-                       ] %>"
+      imgurl="<%= cl_image_path @campaign.campaign_logo.image_id,
+                                              transformation: [
+                                                  {
+                                                      width: 192,
+                                                      height: 124,
+                                                      crop: :fill
+                                                  }
+                                              ]%>";
+
       <%else%>
       imgurl="";
       <%end%>
