@@ -1,0 +1,92 @@
+<%= form_for(@party, html: { id: "party_form",  class: 'form-horizontal' }) do |f| %>
+    <fieldset>
+    <div class="form-group">
+      <label for="party_title" class="col-sm-2 control-label">活动主题<span class='req'>*</span></label>
+
+      <div class="col-sm-10">
+        <%= f.text_field :name, class: 'form-control', placeholder: '输入活动主题' %>
+      </div>
+
+    </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">活动时间<span class='req'>*</span></label>
+
+        <div class="col-sm-5">
+          <%= f.text_field :begin_time, class: 'form-control', placeholder: '输入开时间',onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" %>
+      </div>
+        <div class="col-sm-5">
+          <%= f.text_field :end_time, class: 'form-control', placeholder: '输入结束时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">报名截止时间<span class='req'>*</span></label>
+
+        <div class="col-sm-5">
+          <%= f.text_field :register_end, class: 'form-control', placeholder: '输入报名截止时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <div class="row" style="margin: 10px 0px 0px 0px;">
+          <label class="col-sm-2 control-label">活动地点<span class='req'>*</span></label>
+          <div class="col-sm-6">
+            <input id="city-picker3" name="address" class="form-control"  readonly type="text" value="上海市/上海市/闵行区" data-toggle="city-picker">
+
+          </div>
+        </div>
+
+        <div class="row" style="margin: 10px 0px 0px 0px;">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-10">
+            <%= f.text_field :address, class: 'form-control', placeholder: '请输入详细地址' %>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">活动详情</label>
+
+        <div class="col-sm-10">
+          <%= f.kindeditor :content,:themeType=>'simple',:editor_id => 'my_editor', placeholder: '请输入活动详情' ,:allowFileManager=>false,:items=>['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull','|','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','link', 'fullscreen']%>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">报名填写信息<span class='req'>*</span></label>
+
+        <div class="col-sm-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked" disabled="disabled"> 姓名
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" checked="checked" disabled="disabled"> 手机号
+            </label>
+          </div>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">活动费用<span class='req'>*</span></label>
+
+        <div class="col-sm-10">
+         免费收费
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">人数上限</label>
+
+        <div class="col-sm-10">
+          <%= f.text_field :max_count, class: 'form-control', placeholder: '输入活动人数上限' %>
+        </div>
+
+      </div>
+      </fieldset>
+
+<%end%>

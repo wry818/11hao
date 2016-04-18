@@ -224,6 +224,7 @@ Raisy::Application.routes.draw do
 
     end
     resources :campaigns, except: [:show]
+    resources :parties
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 

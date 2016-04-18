@@ -1,0 +1,35 @@
+<%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
+<%= javascript_include_tag "My97DatePicker/WdatePicker.js",charset:"utf-8" %>
+<div class="party-container">
+  <div class="container">
+    <div>
+      <h2 style="font-weight: bold;  text-align: center;">筹款活动</h2>
+    </div>
+    <div class="container-box top-section">
+      <div style="position:absolute; right:5px; top:5px;">
+
+      </div>
+
+      <%= render 'form' %>
+      <div style=" right:5px; top:5px;">
+        协议
+      </div>
+      <div style=" right:5px; top:5px;">
+        <div class="row">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-5">
+            <button class="btn btn-success btn-lg " type="button"  style="width: 100%">
+              <span class="text">发布</span>
+            </button>
+          </div>
+          <div class="col-sm-5">
+            <button class="btn btn-default btn-lg " type="button"  style="width: 100%">
+              <span class="text">预览</span> <span class="loader" style="display:none"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

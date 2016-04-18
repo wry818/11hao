@@ -27,6 +27,7 @@
 		   <% end %>
             <% if !current_user.is_sales? && !current_user.is_crs? %>
                 <li><%= link_to "发起筹款", new_campaign_path %></li>
+                <li><%= link_to "发起活动", new_party_path %></li>
             <% end %>
 		   <% is_chairperson = current_user.is_chairperson? %>
 		   
