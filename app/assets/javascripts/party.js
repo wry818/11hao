@@ -97,6 +97,7 @@ window.party= {
         $(".party-continue-btn").bind("click",function(e){
             var stepindex=$(this).data("currentstep");
             $(".party-step-container").hide();
+            $("#party_content").val(my_editor.html());
             switch(stepindex)
             {
                 case 1:

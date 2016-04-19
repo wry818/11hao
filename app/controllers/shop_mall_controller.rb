@@ -78,6 +78,13 @@ class ShopMallController < ApplicationController
   end
 
   def party_index
-
+    params[:id]=""
+    if params[:partyid]&&params[:partyid].to_s.length>0
+        params[:id]=params[:partyid].split("_")[1]
+    end
+    @party=Party.find(params[:id]);
+    if !@party
+      redirect_to root_url
+    end
   end
 end

@@ -1,0 +1,7 @@
+<div class="party-view">
+  <div class="goods-content">
+    <% if @party.content %>
+        <%= sanitize @party.content, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+    <% end %>
+  </div>
+</div>

@@ -566,3 +566,32 @@
   }
 
 }
+
+.party-view
+{
+  padding-bottom: 60px;
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+  }
+  a{
+    color: #333;
+  }
+
+  hr {
+    margin: 0;
+    border: 0px none;
+    border-top: 1px solid #eee;
+  }
+  .goods-content
+  {
+    background-color:white;
+    padding: 15px 5px 15px 5px;
+  }
+  .goods-content img
+  {
+    width: 100%;
+  }
+}
