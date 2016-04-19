@@ -14,7 +14,8 @@ class CreateParties < ActiveRecord::Migration
         t.string :content
         t.boolean :has_fee
         t.boolean :allow_spread
-         t.integer :max_count
+        t.integer :max_count
+        t.integer :fee_count
         t.timestamps
         t.boolean :is_destroy, default: false
     end

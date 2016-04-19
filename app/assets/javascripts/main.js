@@ -1168,3 +1168,31 @@ $(document).ready(function() {
     Raisy.chairperson_dashboard.init();
 	Raisy.users.init();
 });
+$.fn.numeral = function (bl) {//限制金额输入、兼容浏览器、屏蔽粘贴拖拽等
+    $(this).keypress(function (e) {
+        var keyCode = e.keyCode ? e.keyCode : e.which;
+        if (bl) {//浮点数
+            if ((this.value.length == 0 || this.value.indexOf(".") != -1) && keyCode == 46) return false;
+            return keyCode >= 48 && keyCode <= 57 || keyCode == 46 || keyCode == 8;
+        } else {//整数
+            return keyCode >= 48 && keyCode <= 57 || keyCode == 8;
+        }
+    });
+    $(this).bind("copy cut paste", function (e) { // 通过空格连续添加复制、剪切、粘贴事件
+        if (window.clipboardData)//clipboardData.setData('text', clipboardData.getData('text').replace(/\D/g, ''));
+            return !clipboardData.getData('text').match(/\D/);
+        else
+            event.preventDefault();
+    });
+    $(this).bind("dragenter", function () {
+        return false;
+    });
+    $(this).css("ime-mode", "disabled");
+    $(this).bind("focus", function () {
+        if (this.value.lastIndexOf(".") == (this.value.length - 1)) {
+            this.value = this.value.substr(0, this.value.length - 1);
+        } else if (isNaN(this.value)) {
+            this.value = "";
+        }
+    });
+}

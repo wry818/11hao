@@ -76,4 +76,8 @@ class ShopMallController < ApplicationController
       @max_origin_price = (@product.original_price * 100).ceil/100.0
     end
   end
+
+  def party_index
+
+  end
 end

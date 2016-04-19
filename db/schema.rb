@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418032939) do
+ActiveRecord::Schema.define(version: 20160419033701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -520,9 +520,19 @@ ActiveRecord::Schema.define(version: 20160418032939) do
     t.boolean  "has_fee"
     t.boolean  "allow_spread"
     t.integer  "max_count"
+    t.integer  "fee_count"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_destroy",   default: false
+  end
+
+  create_table "party_tickets", force: true do |t|
+    t.integer  "parties_id"
+    t.string   "name"
+    t.integer  "fee"
+    t.integer  "max_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "product_categories", force: true do |t|

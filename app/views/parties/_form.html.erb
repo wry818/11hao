@@ -1,106 +1,257 @@
 <%= form_for(@party, html: { id: "party_form",  class: 'form-horizontal' }) do |f| %>
-    <fieldset>
-    <div class="form-group">
-      <label for="party_title" class="col-sm-2 control-label">活动主题<span class='req'>*</span></label>
-
-      <div class="col-sm-10">
-        <%= f.text_field :name, class: 'form-control', placeholder: '输入活动主题' %>
-      </div>
-
+    <div class="step-nav-bar">
+      <div id="step_nav_icon_1" class="step-nav-icon"></div>
+      <div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+      <div id="step_nav_icon_3" class="step-nav-icon"></div>
+      <div id="step_nav_icon_4" class="step-nav-icon"></div>
+      <div id="step_nav_icon_5" class="step-nav-icon"></div>
+      <div id="step_nav_icon_6" class="step-nav-icon"></div>
+      <!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
+      <div id="step_nav_icon_8" class="step-nav-icon"></div>
+      <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
     </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">活动时间<span class='req'>*</span></label>
+    <div class="clearfix" style="margin-top:20px;">
+      <div id="step_container_1" class="party-step-container"  >
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">2</span>活动基本信息&nbsp;&nbsp;
+        </h3></div>
+        <fieldset>
+          <div class="form-group">
+            <label for="party_title" class="col-sm-2 control-label">活动主题<span class='req'>*</span></label>
 
-        <div class="col-sm-5">
-          <%= f.text_field :begin_time, class: 'form-control', placeholder: '输入开时间',onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" %>
-      </div>
-        <div class="col-sm-5">
-          <%= f.text_field :end_time, class: 'form-control', placeholder: '输入结束时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">报名截止时间<span class='req'>*</span></label>
-
-        <div class="col-sm-5">
-          <%= f.text_field :register_end, class: 'form-control', placeholder: '输入报名截止时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
-        </div>
-
-      </div>
-      <div class="form-group">
-        <div class="row" style="margin: 10px 0px 0px 0px;">
-          <label class="col-sm-2 control-label">活动地点<span class='req'>*</span></label>
-          <div class="col-sm-6">
-            <input id="city-picker3" name="address" class="form-control"  readonly type="text" value="上海市/上海市/闵行区" data-toggle="city-picker">
+            <div class="col-sm-10">
+              <%= f.text_field :name, class: 'form-control', placeholder: '输入活动主题',:required=>"true" %>
+            </div>
 
           </div>
-        </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">活动时间<span class='req'>*</span></label>
 
-        <div class="row" style="margin: 10px 0px 0px 0px;">
-          <label class="col-sm-2 control-label"></label>
-          <div class="col-sm-10">
-            <%= f.text_field :address, class: 'form-control', placeholder: '请输入详细地址' %>
+            <div class="col-sm-5">
+              <%= f.text_field :begin_time, class: 'form-control', placeholder: '输入开始时间',onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" %>
+            </div>
+            <div class="col-sm-5">
+              <%= f.text_field :end_time, class: 'form-control', placeholder: '输入结束时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">报名截止时间<span class='req'>*</span></label>
+
+            <div class="col-sm-5">
+              <%= f.text_field :register_end, class: 'form-control', placeholder: '输入报名截止时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+            </div>
 
           </div>
-        </div>
+          <div class="form-group">
+            <div class="row" style="margin: 10px 0px 0px 0px;">
+              <label class="col-sm-2 control-label">活动地点<span class='req'>*</span></label>
+              <div class="col-sm-6">
+                <input id="city-picker3" name="address" class="form-control"  readonly type="text" value="<%=((f.object.id&&f.object.id>0) ? f.object.format_location : "上海市/上海市/闵行区")%>" data-toggle="city-picker">
 
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">活动详情</label>
+              </div>
+            </div>
 
-        <div class="col-sm-10">
-          <%= f.kindeditor :content,:themeType=>'simple',:editor_id => 'my_editor', placeholder: '请输入活动详情' ,:allowFileManager=>false,:items=>['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull','|','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','link', 'fullscreen']%>
-        </div>
+            <div class="row" style="margin: 10px 0px 0px 0px;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                <%= f.text_field :address, class: 'form-control', placeholder: '请输入详细地址' %>
 
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">报名填写信息<span class='req'>*</span></label>
+              </div>
+            </div>
 
-        <div class="col-sm-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked" disabled="disabled"> 姓名
-            </label>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" checked="checked" disabled="disabled"> 手机号
-            </label>
           </div>
 
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">活动费用<span class='req'>*</span></label>
+          <br/>
 
-        <div class="col-sm-2">
-
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios1"
-                     value="option1" checked>免费
-            </label>
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg party-back-btn js-step_container_1_back" type="button" data-currentstep="1">
+                <span class="text">取消</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="col-sm-2">
-
-          <div class="radio">
-            <label>
-              <input type="radio" name="optionsRadios" id="optionsRadios2"
-                     value="option1" checked>收费
-            </label>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="1">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg party-back-btn" type="button" data-currentstep="1">
+                <span class="text">取消</span>
+              </button>
+            </div>
           </div>
-        </div>
+        </fieldset>
       </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label">人数上限</label>
+      <div id="step_container_2" class="party-step-container" style="display: none;" >
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">3</span>活动详情&nbsp;&nbsp;
+        </h3></div>
+        <fieldset>
+          <div class="form-group">
+            <!--<label class="col-sm-2 control-label">活动详情</label>-->
 
-        <div class="col-sm-10">
-          <%= f.text_field :max_count, class: 'form-control', placeholder: '输入活动人数上限' %>
-        </div>
+            <div class="col-sm-12">
+              <%= f.kindeditor :content,:themeType=>'simple',:editor_id => 'my_editor', placeholder: '请输入活动详情' ,:allowFileManager=>false,:items=>['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull','|','formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','link', 'fullscreen']%>
+            </div>
 
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg party-back-btn js-step_container_1_back" type="button" data-currentstep="2">
+                <span class="text">后退</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="2">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="2">
+                <span class="text">后退</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg party-back-btn" type="button" data-currentstep="2">
+                <span class="text">取消</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
       </div>
-      </fieldset>
+      <div id="step_container_3" class="party-step-container" style="display: none;" >
+        <div style="text-align:center;"><h3 class="fieldset-header">
+          <span class="number">4</span>活动附加信息&nbsp;&nbsp;
+        </h3></div>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">报名填写信息</label>
+
+            <div class="col-sm-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled"> 姓名
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled"> 手机号
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row" style="margin: 10px 0px 0px 0px;">
+              <label class="col-sm-2 control-label">活动费用<span class='req'>*</span></label>
+
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadiosfee" id="optionsRadios1"
+                           value="option1" checked>免费
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadiosfee" id="optionsRadios2"
+                           value="option2" >收费
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row js-tickets-table" style="margin: 10px 0px 0px 0px; display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                <table class="table table-tickets">
+                  <thead>
+                  <tr style="background-color:rgb(252, 252, 252);;">
+                    <th>编号</th>
+                    <th>电子收费类型</th>
+                    <th>金额</th>
+                    <th>人数上限</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!--<tr>-->
+                  <!--<td><label class="control-label">1</label></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="收费类型" name="tickets[item[type[1]]]"/></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="金额免费请写0" name="tickets[item[fee[1]]]"/></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="人数限制" name="tickets[item[count[1]]]"/></td>-->
+                  <!--<td><button type="button" class="btn btn-default">清空</button></td>-->
+                  <!--</tr>-->
+                  <tr>
+                    <td colspan="5" style="text-align: center;    border: none;">
+                      <input class="js-hid-ticket-count" type="hidden" value="1"/>
+                      <button type="button" class="btn btn-success js-btn-ticket-add">增加电子收费类型</button>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-group js-fee-count">
+            <label class="col-sm-2 control-label">收费金额</label>
+
+            <div class="col-sm-10">
+              <%= text_field_tag :fee_count,((f.object.id&&f.object.id>0) ? f.object.fee_count : ""), class: 'form-control', placeholder: '输入收费金额' %>
+            </div>
+
+          </div>
+          <div class="form-group js-max-count">
+            <label class="col-sm-2 control-label">人数上限</label>
+
+            <div class="col-sm-10">
+              <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动人数' %>
+            </div>
+
+          </div>
+          <br/>
+
+          <div class="row web-box">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg party-back-btn js-step_container_1_back" type="button" data-currentstep="3">
+                <span class="text">后退</span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button id="btn-submit" class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="3">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mobile-box">
+            <div class="col-sm-6 backbutton-box">
+              <button id="btn-submit" class="btn btn-primary btn-lg party-continue-btn" type="button" data-currentstep="3">
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+            <div class="col-sm-6 continuebutton-box">
+              <button class="btn btn-success btn-lg party-back-btn" type="button" data-currentstep="3">
+                <span class="text">后退</span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
 
 <%end%>

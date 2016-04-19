@@ -144,7 +144,7 @@ Raisy::Application.routes.draw do
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
   get "checkout/:ids", to:"product#index",constraints: { ids: /hotsale_\S+/ },as: :hotsale_index
   get 'checkout/:procamp', to: 'shop#product_weixin',constraints: { procamp: /procamp_\S+_[0-9]+/ }, as: :shop_product_weixin_pay
-
+  get "checkout/:partyid", to:"shop_mall#party_index",constraints: { partyid: /party_\S+/ },as: :party_index_weixin
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 
@@ -224,6 +224,9 @@ Raisy::Application.routes.draw do
 
     end
     resources :campaigns, except: [:show]
+
+    get 'party/:id', to: "parties#party_preview", as: :party_preview
+    get 'party/:id/orders', to: 'parties#party_orders', as: :party_orders
     resources :parties
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup

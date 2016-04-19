@@ -33,6 +33,7 @@
 		   
 		   <% if is_chairperson %>
 		   		<li><%= link_to "管理我的筹款", dashboard_campaigns_path %></li>
+                <li><%= link_to "管理我的活动", parties_path %></li>
 		   <% end %>
 
 		   <% if current_user.is_crs? %>
@@ -97,6 +98,7 @@
 	 	<li class="home-menu">
 			<%= link_to "发起筹款", current_user ? '/campaigns/new' : '/campaigns/account', class: 'homemenu' %>
         </li>
+            <li class="home-menu"><%= link_to "发起活动",current_user ? new_party_path : '/campaigns/account?is_party=true'  %></li>
 		<!-- <li class="home-menu">
             <%= link_to "加入筹款团队", '/search' %>
         </li> -->

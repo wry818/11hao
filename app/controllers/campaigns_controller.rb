@@ -12,7 +12,12 @@ class CampaignsController < ApplicationController
     end
     
     def campaign_create_account
+      logger.debug "1001"
       if current_user
+        logger.debug "1002"
+        if params[:is_party]
+          redirect_to new_party_path and return
+        end
         redirect_to new_campaign_path and return
       end
       
@@ -81,7 +86,11 @@ class CampaignsController < ApplicationController
         
         profile = oldUser.profile
       end
-      
+
+      logger.debug "1002"
+      if params[:is_party]
+        redirect_to new_party_path and return
+      end
       redirect_to new_campaign_path and return
     end
     
