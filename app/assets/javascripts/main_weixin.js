@@ -67,6 +67,13 @@ window._11hao={
             $loadingToast.hide();
         }, 2000);
     },
+    loadingIsShow:function(){
+        var $loadingToast = $('#loadingToast');
+        if ($loadingToast.css('display') != 'none') {
+            return true;
+        }
+        return false;
+    },
     loadingHid:function(){
         var $loadingToast = $('#loadingToast');
         setTimeout(function () {

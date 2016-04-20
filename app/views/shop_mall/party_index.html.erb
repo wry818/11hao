@@ -1,7 +1,195 @@
 <div class="party-view">
-  <div class="goods-content">
+  <div class="detail_title">
+    <h1 class="detail_title_h1" id="dt_title"><%= @party.name %></h1>
+  </div>
+  <div class="detail_user hdMan">
+    <div class="userPicA">
+      <a href="javascript:void(0);" ontouchstart="">
+        <% if @party.user.profile.picture&&@party.user.profile.picture.length>0 %>
+            <%= image_tag @party.user.profile.picture+"?id=#{rand(100)}" %>
+        <% else %>
+            <%= image_tag "logo.png" %>
+        <% end %>
+      </a>
+    </div>
+    <div class="hdman_r">
+      <div class="yhName">
+        <a href="javascript:void(0);" class="subinfo_name" id="subinfo_name" ontouchstart="" style="max-width: 200px;"><%= @party.user.profile.first_name %></a>
+
+        <p class="fbTime"><%= @party.updated_at.month %>月<%= @party.updated_at.day %>日</p>
+      </div>
+      <div class="dt_review_item_count">
+        <a class="info_share" id="info_share" style="color: rgb(153, 153, 153);">分享 360+</a><span id="info_hits">阅读 32675</span>
+      </div>
+    </div>
+    <input type="hidden" id="postUserId36" value="27who">
+
+    <div id="maUrlcanvas" style="display:none;">
+      <div id="canvasimage"></div>
+    </div>
+  </div>
+  <div class="detail_time_attr_join">
+    <div class="detail_time_attr_join_gray">
+
+
+      <div class="detail_Time">
+        <img src="http://cdn.hudongba.com/static_v4/images/detail/icon_time2.png" alt="" class="icon_T">
+
+        <div class="detail_Time_n">
+          <p>
+            <%= @party.begin_time.month %>/<%= @party.begin_time.day %>
+            (周五) <%= @party.begin_time.strftime('%H:%M').to_s %>
+            至 <%= @party.end_time.month %>/<%= @party.end_time.day %> <%= @party.end_time.strftime('%H:%M').to_s %> <br>
+            <span><%= @party.register_end.month %>月<%= @party.register_end.day %>
+              日 <%= @party.register_end.strftime('%H:%M').to_s %> 报名截止</span>
+          </p>
+        </div>
+      </div>
+
+
+      <div class="detail_Attr">
+        <a href="javascript:void(0);" class="dt_address_item" ontouchstart="">
+          <div class="detail_Attr_K">
+            <p class="addressP"><%= @party.format_location %> <%= @party.address %></p></div>
+        </a>
+      </div>
+      <div class="detail_Joinnum" id="detail_Joinnum">
+        <div class="detail_Joinnum_t"><p>已有<span><%= @party.participants_count %></span>人报名</p></div>
+        <div class="detail_Joinnum_b">
+          <p>
+
+            <% if @party.max_count&&@party.max_count>0 %>
+                限<span><%= @party.max_count %></span>人报名
+            <% else %>
+                不限名额
+            <% end %>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dt_content">
     <% if @party.content %>
         <%= sanitize @party.content, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
     <% end %>
   </div>
+
+  <div class="detail_pay_list">
+    <div class="detail_pay_list_top">本活动包含收费项目</div>
+    <ul class="detail_pay_list_ul">
+      <li class="detail_pay_list_li" id="detail_pay_list_li_436242" payitemid="436242" payitemprice="0">
+        <div class="detail_pay_list_div">
+          <!--<p class="detail_pay_list_t">参与活动</p>-->
+          <p class="detail_pay_list_b">
+            <% if @party.participants_count_surplus==-1 %>
+                不限名额
+            <% else %>
+                剩余<%= @party.participants_count_surplus %>个名额
+            <% end %>
+          </p>
+        </div>
+        <span class="detail_pay_list_s">
+               <% if @party.has_fee&&@party.has_fee %>
+                <span>￥<%= long_price(@party.fee_count/100) %></span>
+            <% else %>
+                 免费
+            <% end %>
+
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="dt_join_menu_bg" id="dt_join_menu_bg">
+    <div ontouchstart="" class="dt_join_top">
+      <p id="dt_join_count" class="dt_join_topL"><span id="join_total"><%= @party.participants_count %></span>人已完成报名</p>
+    </div>
+    <%=	 render "participants" %>
+  </div>
+  <hr class="with-margin" style="margin-top: 10px;">
+
+
+  <%= render "shop/goods_footer" %>
+  <% if @is_participant==3 %>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
+        </p>
+      </div>
+  <% elsif @is_participant==2 %>
+      <div class="goods-bottom">
+        <p id="showActionPary" class="js-showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
+        </p>
+      </div>
+  <% else %>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">您已报名</a>
+        </p>
+      </div>
+  <% end %>
+
+
+  <div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask_input" style="display: none;"></div>
+    <div class="weui_actionsheet" id="weui_actionsheet_input">
+      <div style="background-color: white;">
+        <div class="orders" style="height: 40px;">
+          <div class="weui_cell_bd weui_cell_primary" style="
+          margin-top: 6px;
+          ">
+            <p style="
+            font-size: 16px;
+            ">填写报名信息</p>
+          </div>
+
+          <div class="orders_des">
+            <p class="" style="    padding-left: 5px;"></p>
+
+          </div>
+          <div class="cancel-img" id="actionsheet_cancel_input"></div>
+
+        </div>
+
+        <div id="personal_modalbody" class="party-input">
+          <form id="participant">
+            <%= hidden_field_tag "partyid", @party.id %>
+            <div class="weui_cells weui_cells_form" style="margin-top:0px;">
+              <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" id="participant_name" name="partycipent[name]" type="text" placeholder="请输入姓名">
+                </div>
+              </div>
+              <div class="weui_cell ">
+                <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" id="participant_tel" name="partycipent[tel]" type="number" placeholder="请输入手机号">
+                </div>
+              </div>
+              <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" name="partycipent[remark]" type="text" placeholder="请输入备注信息">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="weui_actionsheet_action" style="    padding:5px 10px;">
+
+        <a href="javascript:void(0);" id="btn_submit1" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">确
+          定</a>
+
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    window.shopmall.party_input_show();
+  });
+</script>

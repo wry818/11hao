@@ -703,6 +703,82 @@ window.shopmall = {
             }
 
         });
+    },
+    party_input_show: function () {
+        $(".js-showActionPary").click(function () {
+            $this = $(this);
+            var mask = $('#mask_input');
+            var weuiActionsheet = $('#weui_actionsheet_input');
+            weuiActionsheet.addClass('weui_actionsheet_toggle');
+            mask.show().addClass('weui_fade_toggle').one('click', function () {
+                hideActionSheet(weuiActionsheet, mask);
+            });
+            $('#actionsheet_cancel_input').one('click', function () {
+                hideActionSheet(weuiActionsheet, mask);
+            });
+            weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
+            function hideActionSheet(weuiActionsheet, mask) {
+                weuiActionsheet.removeClass('weui_actionsheet_toggle');
+                mask.removeClass('weui_fade_toggle');
+                weuiActionsheet.on('transitionend', function () {
+                    mask.hide();
+                }).on('webkitTransitionEnd', function () {
+                    mask.hide();
+                })
+            }
+
+        });
+        var $participent_form=$("#participant");
+
+        $("#btn_submit1").bind("click",function(){
+            if(window._11hao.loadingIsShow())
+            {
+                return;
+            }
+            if($("#participant_name").val().length==0)
+            {
+                alert("名字不能为空");
+                return;
+            }
+            if($("#participant_tel").val().length==0)
+            {
+                alert("电话不能为空");
+                return;
+            }
+            //alert($participent_form.serialize());
+            $.ajax('/ajax/ajax_create_participant', {
+                type: 'POST',
+                data: $participent_form.serialize(),
+                beforeSend: function (jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function (data) {
+                    if(data!=null)
+                    {
+                        if(data=="error")
+                        {
+
+                        }else
+                        {
+                            if(data.order_id>0)
+                            {
+                                alert(data.order_id);
+                            }
+                            else
+                            {
+                                $('#actionsheet_cancel_input').click();
+                                $(".js-showActionPary").unbind("click");
+                                $(".js-showActionPary").find("a").text("您已成功报名");
+                            }
+
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+                }
+            });
+        });
     }
 }
 $(document).ready(function () {

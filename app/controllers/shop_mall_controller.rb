@@ -78,13 +78,117 @@ class ShopMallController < ApplicationController
   end
 
   def party_index
+    logger.debug session[:openid]
     params[:id]=""
     if params[:partyid]&&params[:partyid].to_s.length>0
-        params[:id]=params[:partyid].split("_")[1]
+      params[:id]=params[:partyid].split("_")[1]
     end
     @party=Party.find(params[:id]);
     if !@party
       redirect_to root_url
     end
+    @is_participant=1
+    if session[:openid]
+      count= @party.participants.where(:open_id => session[:openid], :status => 1).count
+      if count==0
+        @is_participant=2
+      end
+    else
+      @is_participant=3
+    end
+    @is_participant=2
+  end
+
+  def party_ticket_view
+
+  end
+
+  def ajax_create_participant
+
+    if params[:partyid]
+      @party=Party.find(params[:partyid]);
+    end
+    if !@party||!session[:openid]
+      render :text => "error" and return
+    end
+
+    # session[:openid]="oaR9as9LCc7KFlh1dih3uXEy_5-w"
+    @participent= @party.participants.where(:open_id => session[:openid]).first
+    if @participent
+      @participent.assign_attributes partycipent_params
+    else
+      @participent=Participant.new partycipent_params
+    end
+
+    @participent.parties_id= @party.id
+    r = Random.new
+    num = r.rand(1000...9999)
+    @participent.code=DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s
+
+    weixin_get_user_info();
+    @participent.fullname=@nickname
+    @participent.avatar_url=@avatar_url
+    @participent.open_id=session[:openid]
+
+    if @party.has_fee&&@party.has_fee?
+      @order = Order.new
+      @order.direct_donation = @party.fee_count
+      weixin_get_user_info
+      @order.fullname=@nickname
+      @order.avatar_url=@avatar_url
+      if @order.direct_donation==0
+        @order.direct_donation=500;
+      end
+      @order.save
+      @participent.status=2
+      @participent.orders_id=@order.id
+    else
+      @participent.status=1
+
+    end
+
+    @participent.save
+    if @order
+      logger.debug "1111"
+      render :json => {success: true, order_id: @order.id} and return
+    end
+
+
+    render :json => {success: true} and return
+  end
+
+  def weixin_get_user_info()
+
+    @nickname = ""
+    @avatar_url = ""
+    if session[:nickname] && session[:avatarurl]
+      @nickname = session[:nickname]
+      @avatar_url = session[:avatarurl]
+    else
+      if session[:openid] && session[:access_token]
+
+        $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+        user_info = $wechat_client.get_oauth_userinfo(session[:openid], session[:access_token])
+
+        if user_info.result["errcode"] != "40003"
+          @nickname = user_info.result["nickname"]
+          @avatar_url = user_info.result["headimgurl"]
+
+          session[:nickname] = @nickname
+          session[:avatarurl] = @avatar_url
+        end
+      end
+    end
+
+    if session[:openid] && session[:access_token]
+      $wechat_client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+
+      @sign_package = $wechat_client.get_jssign_package(request.original_url)
+    end
+  end
+
+  private
+  def partycipent_params
+    params.require(:partycipent).permit :name, :tel, :remark
   end
 end
