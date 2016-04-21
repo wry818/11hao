@@ -80,7 +80,7 @@
     <ul class="detail_pay_list_ul">
       <li class="detail_pay_list_li" id="detail_pay_list_li_436242" payitemid="436242" payitemprice="0">
         <div class="detail_pay_list_div">
-          <!--<p class="detail_pay_list_t">参与活动</p>-->
+          <!--<p class="detail_pay_list_t"></p>-->
           <p class="detail_pay_list_b">
             <% if @party.participants_count_surplus==-1 %>
                 不限名额
@@ -91,7 +91,7 @@
         </div>
         <span class="detail_pay_list_s">
                <% if @party.has_fee&&@party.has_fee %>
-                <span>￥<%= long_price(@party.fee_count/100) %></span>
+                <span>￥<%= long_price(@party.fee_count/100) %>/人</span>
             <% else %>
                  免费
             <% end %>
@@ -192,4 +192,8 @@
   $(function () {
     window.shopmall.party_input_show();
   });
+</script>
+
+<script type="text/javascript" charset="utf-8">
+
 </script>

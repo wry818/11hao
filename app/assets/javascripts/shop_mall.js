@@ -762,7 +762,17 @@ window.shopmall = {
                         {
                             if(data.order_id>0)
                             {
-                                alert(data.order_id);
+                                if (typeof WeixinJSBridge == "undefined") {
+                                    if (document.addEventListener) {
+                                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                                    } else if (document.attachEvent) {
+                                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                                    }
+                                } else {
+                                    weixin_load(data.order_id);
+                                }
+
                             }
                             else
                             {
@@ -779,6 +789,75 @@ window.shopmall = {
                 }
             });
         });
+
+        function weixin_load(order_id) {
+//      alert(order_id);
+            $.ajax({
+                method: "get",
+                url: "/weixin_payment_get_req/" + order_id,
+                dataType: "json",
+                cache: false,
+                success: function (d) {
+//            alert(33333);
+//            alert(d);
+                    if (d) {
+//              alert("  "+ d.appId+"  "+ d.timeStamp+"  "+ d.nonceStr+"  "+ d.package+"  "+ d.paySign);
+                        WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                            "appId": d.appId,     //公众号名称，由商户传入
+                            "timeStamp": d.timeStamp,         //时间戳，自1970年以来的秒数
+                            "nonceStr": d.nonceStr, //随机串
+                            "package": d.package,
+                            "signType": "MD5",         //微信签名方式:
+                            "paySign": d.paySign //微信签名
+                        }, function (res) {
+//                alert(res.err_msg);
+                            if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                ComfirmOrder(order_id);
+                            } else {
+//              $('#wechat').prop('disabled', false);
+                            }
+                        });
+                    }
+                    else {
+//          $('#wechat').prop('disabled', false);
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown) {
+//            alert(XMLHttpRequest.status);
+//            alert(XMLHttpRequest.readyState);
+//            alert(textStatus);
+//                    $('#wechat').prop('disabled', false);
+                },
+                complete: function () {
+//            alert(1111);
+                }
+            });
+
+        }
+
+        function ComfirmOrder(order_id) {
+            var order_time = new Date();
+            var format_order_time = order_time.getFullYear() + "年" + (order_time.getMonth() + 1) + "月" + order_time.getDate() + "日 " + order_time.getHours() + ":" + order_time.getMinutes() + ":" + order_time.getSeconds();
+            var data = {
+                order_id: order_id,
+                format_order_time: format_order_time,
+            };
+            $.ajax('/ajax/ajax_update_participant', {
+                type: 'POST',
+                data: data,
+                beforeSend: function (jqXHR, settings) {
+                    jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function (data) {
+
+                    alert(1);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+                }
+            });
+
+        }
     }
 }
 $(document).ready(function () {

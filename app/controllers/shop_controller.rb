@@ -874,12 +874,12 @@ class ShopController < ApplicationController
         num = r.rand(1000...9999)
         out_trade_no = DateTime.now.strftime("%Y%m%d%H%M%S") + num.to_s #生产随机订单号，这里用当前时间加随机数，保证唯一
         bodytxt="11号公益圈订单"
-        if order.campaign.slug=="support-lanlan"
-          bodytxt="为幼儿瘫母撑起希望"
-        end
-        if order.campaign.slug=="hbzjsj"
-          bodytxt="红包拯救世界"
-        end
+        # if order.campaign.slug=="support-lanlan"
+        #   bodytxt="为幼儿瘫母撑起希望"
+        # end
+        # if order.campaign.slug=="hbzjsj"
+        #   bodytxt="红包拯救世界"
+        # end
         params = {
           body: bodytxt,
           out_trade_no: out_trade_no,
@@ -945,6 +945,11 @@ class ShopController < ApplicationController
           end
           order.status = 3
           order.save
+          participant=Participant.find_by(:orders_id=>order.id)
+          if participant
+            participant.status=1
+            participant.save
+          end
           
         end
         

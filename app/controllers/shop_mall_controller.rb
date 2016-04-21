@@ -1,4 +1,5 @@
 class ShopMallController < ApplicationController
+
   layout "shop_weixin"
 
   def pay
@@ -78,6 +79,11 @@ class ShopMallController < ApplicationController
   end
 
   def party_index
+    if is_wechat_browser?
+
+      weixin_get_user_info()
+      @weixin_init_success = true # Do weixin_payment_init at the time user clicks to pay, see weixin_payment_get_req
+    end
     logger.debug session[:openid]
     params[:id]=""
     if params[:partyid]&&params[:partyid].to_s.length>0
@@ -96,7 +102,50 @@ class ShopMallController < ApplicationController
     else
       @is_participant=3
     end
-    @is_participant=2
+    # @is_participant=2
+    path = partyview_participants_path
+    load_participants(path)
+
+    ajax_update_participant
+  end
+
+  def partyview_participants
+    party_id = 0
+    if params[:party_id]
+      party_id = params[:party_id]
+    end
+    path = partyview_participants_path
+
+    load_party_paticipants(party_id, path)
+  end
+  def load_party_paticipants(partyid, path)
+
+    @party = Party.find(partyid)
+
+    load_participants(path)
+
+    render partial: "participants" and return
+
+  end
+  def load_participants(path)
+
+    @page = params[:page].to_i
+    @page = 1 if @page == 0
+    @show_pager = false
+
+      @participants_count = @party.participants.completed.count
+      @participants = @party.participants.completed.order(:id => :desc).page(@page).per(10)
+
+      if @participants.total_pages > 0 && @participants.total_pages > @page
+
+        @show_pager = true
+
+        query = "?party_id=#{@party.id}&" + {:page => @page + 1}.map { |k, v| "#{k}=#{CGI::escape(v.to_s)}" }.join("&")
+
+        @page_url = path + query
+
+      end
+
   end
 
   def party_ticket_view
@@ -157,6 +206,22 @@ class ShopMallController < ApplicationController
     render :json => {success: true} and return
   end
 
+  def ajax_update_participant
+    # params[:order_id]=1043
+    # session[:openid]="oaR9as9LCc7KFlh1dih3uXEy_5-w"
+    order = Order.find_by_id(params[:order_id])
+    if order
+        participant=Participant.find_by(:orders_id=>order.id)
+        if participant&&session[:openid]
+           msg="\n\n点击查看报名凭证";
+          logger.debug party_ticket_view_preview_url(participant.id)
+          send_template_message(session[:openid],participant.party.name,
+                                participant.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s,
+                                msg,party_ticket_view_preview_url(participant.id))
+        end
+    end
+    render text: "success"
+  end
   def weixin_get_user_info()
 
     @nickname = ""
@@ -190,5 +255,37 @@ class ShopMallController < ApplicationController
   private
   def partycipent_params
     params.require(:partycipent).permit :name, :tel, :remark
+  end
+  # 活动报名成功
+  def send_template_message(openid,title_msg,format_order_time,remark,url)
+
+    # touser = "oaR9aswmRKvGhMdb6kJCgIFKBpeg"
+    touser = openid
+    template_id = "C5g0aPRaXIDoCqtoZz2sBSGrD4EJqpxsDydYnLJ7Z9E"
+    url =url
+    topcolor = "#FF0000"
+
+    msg="恭喜您，您报名活动已成功，并已生成电子凭证\n\n简单公益，只因有你。\n";
+    data = {
+        first: {
+            value:msg,
+            color:"#000000"
+        },
+        keyword1: {
+            value:title_msg,
+            color:"#000000"
+        },
+        keyword2: {
+            value:format_order_time,
+            color:"#000000"
+        },
+        remark: {
+            value:remark,
+            color:"#000000"
+        }
+    }
+    $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
+    response = $client.send_template_msg(touser, template_id, url, topcolor, data)
+
   end
 end

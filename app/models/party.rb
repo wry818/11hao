@@ -2,13 +2,16 @@ class Party< ActiveRecord::Base
   belongs_to :user, class_name: "User"
   has_many :participants,foreign_key: "parties_id"
 
+
+
+
   def participants_count
     self.participants.where(:status => 1).count
   end
   def participants_count_surplus
     counttemp=0;
     if self.max_count&&self.max_count!=0
-      self.max_count - self.participants.where(:status => 1).count
+      counttemp=self.max_count - self.participants.where(:status => 1).count
     else
       counttemp=-1
     end

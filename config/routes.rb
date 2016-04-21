@@ -225,8 +225,10 @@ Raisy::Application.routes.draw do
     end
     resources :campaigns, except: [:show]
 
-    get 'party/participants', to: 'shop_mall#partyview_participants', as: :partyview_participants
+    get 'party/partyview_participants', to: 'shop_mall#partyview_participants', as: :partyview_participants
     match 'ajax/ajax_create_participant', to: 'shop_mall#ajax_create_participant', as: :ajax_create_participant,via: [:patch, :post]
+  match 'ajax/ajax_update_participant', to: 'shop_mall#ajax_update_participant', as: :ajax_update_participant,via: [:patch, :post]
+
     get 'party_ticket_view/:id', to: "shop_mall#party_ticket_view", as: :party_ticket_view_preview
     get 'party/:id', to: "parties#party_preview", as: :party_preview
     get 'party/:id/orders', to: 'parties#party_orders', as: :party_orders
