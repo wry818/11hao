@@ -835,6 +835,7 @@ window.shopmall = {
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //                    $('#wechat').prop('disabled', false);
+                    alert(42);
                     $btn_submit1.removeClass("js-is-show-pay");
                 },
                 complete: function () {
