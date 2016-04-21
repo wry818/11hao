@@ -102,6 +102,7 @@ class ShopMallController < ApplicationController
     else
       @is_participant=3
     end
+
     # @is_participant=2
     path = partyview_participants_path
     load_participants(path)
@@ -197,6 +198,15 @@ class ShopMallController < ApplicationController
     end
 
     @participent.save
+    if @participent.satus=1
+      if session[:openid]
+        msg="\n\n点击查看报名凭证";
+        logger.debug party_ticket_view_preview_url(@participent.id)
+        send_template_message(session[:openid],@participent.party.name,
+                              @participent.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s,
+                              msg,party_ticket_view_preview_url(participant.id))
+      end
+    end
     if @order
       logger.debug "1111"
       render :json => {success: true, order_id: @order.id} and return
@@ -281,7 +291,7 @@ class ShopMallController < ApplicationController
         },
         remark: {
             value:remark,
-            color:"#000000"
+            color:"#bf111a"
         }
     }
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])

@@ -849,8 +849,9 @@ window.shopmall = {
                     jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },
                 success: function (data) {
-
-                    alert(1);
+                    $('#actionsheet_cancel_input').click();
+                    $(".js-showActionPary").unbind("click");
+                    $(".js-showActionPary").find("a").text("您已成功报名");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");

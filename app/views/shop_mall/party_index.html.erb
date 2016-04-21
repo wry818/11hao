@@ -122,6 +122,13 @@
           <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
         </p>
       </div>
+
+  <% elsif  @party.participants_count_surplus==0%>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动名额已满</a>
+        </p>
+      </div>
   <% else %>
       <div class="goods-bottom">
         <p id="showActionPary">
