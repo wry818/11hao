@@ -91,7 +91,7 @@
         </div>
         <span class="detail_pay_list_s">
                <% if @party.has_fee&&@party.has_fee %>
-                <span>￥<%= long_price(@party.fee_count/100) %>/人</span>
+                <span>￥<%= long_price(@party.fee_count.ceil/100.0) %>/人</span>
             <% else %>
                  免费
             <% end %>
