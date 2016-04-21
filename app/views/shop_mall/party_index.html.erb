@@ -40,8 +40,7 @@
             <%= @party.begin_time.month %>/<%= @party.begin_time.day %>
             (周五) <%= @party.begin_time.strftime('%H:%M').to_s %>
             至 <%= @party.end_time.month %>/<%= @party.end_time.day %> <%= @party.end_time.strftime('%H:%M').to_s %> <br>
-            <span><%= @party.register_end.month %>月<%= @party.register_end.day %>
-              日 <%= @party.register_end.strftime('%H:%M').to_s %> 报名截止</span>
+            <span><%= @party.register_end.month %>月<%= @party.register_end.day %>日 <%= @party.register_end.strftime('%H:%M').to_s %> 报名截止</span>
           </p>
         </div>
       </div>
@@ -127,6 +126,12 @@
       <div class="goods-bottom">
         <p id="showActionPary">
           <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动名额已满</a>
+        </p>
+      </div>
+  <% elsif  @party.register_end>DateTime.now%>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动报名已结束</a>
         </p>
       </div>
   <% else %>

@@ -60,7 +60,95 @@
             </div>
 
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">报名填写信息</label>
 
+            <div class="col-sm-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled"> 姓名
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled"> 手机号
+                </label>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row" style="margin: 10px 0px 0px 0px;">
+              <label class="col-sm-2 control-label">活动费用<span class='req'>*</span></label>
+
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadiosfee" id="optionsRadios1"
+                           value="option1" <%= "checked" unless (f.object.has_fee&&f.object.has_fee?)%>>免费
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadiosfee" id="optionsRadios2"
+                           value="option2" <%= "checked" if (f.object.has_fee&&f.object.has_fee?)%> >收费
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row js-tickets-table" style="margin: 10px 0px 0px 0px; display: none;">
+              <label class="col-sm-2 control-label"></label>
+              <div class="col-sm-10">
+                <table class="table table-tickets">
+                  <thead>
+                  <tr style="background-color:rgb(252, 252, 252);;">
+                    <th>编号</th>
+                    <th>电子收费类型</th>
+                    <th>金额</th>
+                    <th>人数上限</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!--<tr>-->
+                  <!--<td><label class="control-label">1</label></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="收费类型" name="tickets[item[type[1]]]"/></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="金额免费请写0" name="tickets[item[fee[1]]]"/></td>-->
+                  <!--<td><input type="text" class="form-control" placeholder="人数限制" name="tickets[item[count[1]]]"/></td>-->
+                  <!--<td><button type="button" class="btn btn-default">清空</button></td>-->
+                  <!--</tr>-->
+                  <tr>
+                    <td colspan="5" style="text-align: center;    border: none;">
+                      <input class="js-hid-ticket-count" type="hidden" value="1"/>
+                      <button type="button" class="btn btn-success js-btn-ticket-add">增加电子收费类型</button>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="form-group js-fee-count">
+            <label class="col-sm-2 control-label">收费金额</label>
+
+            <div class="col-sm-10">
+              <%= text_field_tag :fee_count,((f.object.id&&f.object.id>0) ? f.object.fee_count.fee_count.ceil/100.0 : ""), class: 'form-control', placeholder: '输入收费金额' %>
+            </div>
+
+          </div>
+          <div class="form-group js-max-count">
+            <label class="col-sm-2 control-label">人数上限</label>
+
+            <div class="col-sm-10">
+              <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动人数' %>
+            </div>
+
+          </div>
           <br/>
 
           <div class="row web-box">
@@ -135,95 +223,7 @@
           <span class="number">4</span>活动附加信息&nbsp;&nbsp;
         </h3></div>
         <fieldset>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">报名填写信息</label>
 
-            <div class="col-sm-2">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" checked="checked" disabled="disabled"> 姓名
-                </label>
-              </div>
-            </div>
-            <div class="col-sm-2">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" checked="checked" disabled="disabled"> 手机号
-                </label>
-              </div>
-
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row" style="margin: 10px 0px 0px 0px;">
-              <label class="col-sm-2 control-label">活动费用<span class='req'>*</span></label>
-
-              <div class="col-sm-2">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadiosfee" id="optionsRadios1"
-                           value="option1" checked>免费
-                  </label>
-                </div>
-              </div>
-              <div class="col-sm-2">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadiosfee" id="optionsRadios2"
-                           value="option2" >收费
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="row js-tickets-table" style="margin: 10px 0px 0px 0px; display: none;">
-              <label class="col-sm-2 control-label"></label>
-              <div class="col-sm-10">
-                <table class="table table-tickets">
-                  <thead>
-                  <tr style="background-color:rgb(252, 252, 252);;">
-                    <th>编号</th>
-                    <th>电子收费类型</th>
-                    <th>金额</th>
-                    <th>人数上限</th>
-                    <th></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <!--<tr>-->
-                  <!--<td><label class="control-label">1</label></td>-->
-                  <!--<td><input type="text" class="form-control" placeholder="收费类型" name="tickets[item[type[1]]]"/></td>-->
-                  <!--<td><input type="text" class="form-control" placeholder="金额免费请写0" name="tickets[item[fee[1]]]"/></td>-->
-                  <!--<td><input type="text" class="form-control" placeholder="人数限制" name="tickets[item[count[1]]]"/></td>-->
-                  <!--<td><button type="button" class="btn btn-default">清空</button></td>-->
-                  <!--</tr>-->
-                  <tr>
-                    <td colspan="5" style="text-align: center;    border: none;">
-                      <input class="js-hid-ticket-count" type="hidden" value="1"/>
-                      <button type="button" class="btn btn-success js-btn-ticket-add">增加电子收费类型</button>
-                    </td>
-
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="form-group js-fee-count">
-            <label class="col-sm-2 control-label">收费金额</label>
-
-            <div class="col-sm-10">
-              <%= text_field_tag :fee_count,((f.object.id&&f.object.id>0) ? f.object.fee_count : ""), class: 'form-control', placeholder: '输入收费金额' %>
-            </div>
-
-          </div>
-          <div class="form-group js-max-count">
-            <label class="col-sm-2 control-label">人数上限</label>
-
-            <div class="col-sm-10">
-              <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动人数' %>
-            </div>
-
-          </div>
           <br/>
 
           <div class="row web-box">
