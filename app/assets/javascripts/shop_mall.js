@@ -729,7 +729,7 @@ window.shopmall = {
 
         });
         var $participent_form=$("#participant");
-
+        var $btn_submit1=  $("#btn_submit1");
         $("#btn_submit1").bind("click",function(){
             if($(this).hasClass("js-is-show-pay"))
             {
@@ -781,7 +781,7 @@ window.shopmall = {
                                 $('#actionsheet_cancel_input').click();
                                 $(".js-showActionPary").unbind("click");
                                 $(".js-showActionPary").find("a").text("您已成功报名");
-                                $(this).removeClass("js-is-show-pay");
+                                $btn_submit1.removeClass("js-is-show-pay");
                             }
 
                         }
@@ -789,6 +789,7 @@ window.shopmall = {
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+                    $btn_submit1.removeClass("js-is-show-pay");
                 }
             });
         });
@@ -818,13 +819,13 @@ window.shopmall = {
                                 ComfirmOrder(order_id);
                             } else {
 //              $('#wechat').prop('disabled', false);
-                                $(this).removeClass("js-is-show-pay");
+                                $btn_submit1.removeClass("js-is-show-pay");
                             }
                         });
                     }
                     else {
 //          $('#wechat').prop('disabled', false);
-                        $(this).removeClass("js-is-show-pay");
+                        $btn_submit1.removeClass("js-is-show-pay");
                     }
                 },
                 error:function(XMLHttpRequest, textStatus, errorThrown) {
@@ -832,7 +833,7 @@ window.shopmall = {
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //                    $('#wechat').prop('disabled', false);
-                    $(this).removeClass("js-is-show-pay");
+                    $btn_submit1.removeClass("js-is-show-pay");
                 },
                 complete: function () {
 //            alert(1111);
@@ -858,11 +859,11 @@ window.shopmall = {
                     $('#actionsheet_cancel_input').click();
                     $(".js-showActionPary").unbind("click");
                     $(".js-showActionPary").find("a").text("您已成功报名");
-                    $(this).removeClass("js-is-show-pay");
+                    $btn_submit1.removeClass("js-is-show-pay");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     //alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
-                    $(this).removeClass("js-is-show-pay");
+                    $btn_submit1.removeClass("js-is-show-pay");
                 }
             });
 
