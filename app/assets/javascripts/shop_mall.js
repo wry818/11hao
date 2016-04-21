@@ -814,19 +814,19 @@ window.shopmall = {
                             "signType": "MD5",         //微信签名方式:
                             "paySign": d.paySign //微信签名
                         }, function (res) {
-                alert(res.err_msg);
+                //alert(res.err_msg);
                             if (res.err_msg == "get_brand_wcpay_request:ok") {
                                 ComfirmOrder(order_id);
                             } else {
 //              $('#wechat').prop('disabled', false);
-                                alert(22);
+//                                alert(22);
                                 $btn_submit1.removeClass("js-is-show-pay");
                             }
                         });
                     }
                     else {
 //          $('#wechat').prop('disabled', false);
-                        alert(32);
+//                        alert(32);
                         $btn_submit1.removeClass("js-is-show-pay");
                     }
                 },
@@ -835,7 +835,7 @@ window.shopmall = {
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //                    $('#wechat').prop('disabled', false);
-                    alert(42);
+//                    alert(42);
                     $btn_submit1.removeClass("js-is-show-pay");
                 },
                 complete: function () {
