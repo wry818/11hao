@@ -106,7 +106,7 @@ class ShopMallController < ApplicationController
     path = partyview_participants_path
     load_participants(path)
 
-    ajax_update_participant
+    # ajax_update_participant
   end
 
   def partyview_participants
