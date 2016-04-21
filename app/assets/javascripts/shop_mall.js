@@ -731,9 +731,11 @@ window.shopmall = {
         var $participent_form=$("#participant");
 
         $("#btn_submit1").bind("click",function(){
-            if(window._11hao.loadingIsShow())
+            if($(this).hasClass("js-is-show-pay"))
             {
                 return;
+            }else {
+                $(this).addClass("js-is-show-pay");
             }
             if($("#participant_name").val().length==0)
             {
@@ -779,6 +781,7 @@ window.shopmall = {
                                 $('#actionsheet_cancel_input').click();
                                 $(".js-showActionPary").unbind("click");
                                 $(".js-showActionPary").find("a").text("您已成功报名");
+                                $(this).removeClass("js-is-show-pay");
                             }
 
                         }
@@ -815,6 +818,7 @@ window.shopmall = {
                                 ComfirmOrder(order_id);
                             } else {
 //              $('#wechat').prop('disabled', false);
+                                $(this).removeClass("js-is-show-pay");
                             }
                         });
                     }
@@ -827,6 +831,7 @@ window.shopmall = {
 //            alert(XMLHttpRequest.readyState);
 //            alert(textStatus);
 //                    $('#wechat').prop('disabled', false);
+                    $(this).removeClass("js-is-show-pay");
                 },
                 complete: function () {
 //            alert(1111);
@@ -852,9 +857,11 @@ window.shopmall = {
                     $('#actionsheet_cancel_input').click();
                     $(".js-showActionPary").unbind("click");
                     $(".js-showActionPary").find("a").text("您已成功报名");
+                    $(this).removeClass("js-is-show-pay");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+                    //alert("抱歉，更新订单时出了问题，请联系我们帮您解决。");
+                    $(this).removeClass("js-is-show-pay");
                 }
             });
 
