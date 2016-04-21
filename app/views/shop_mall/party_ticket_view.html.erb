@@ -11,24 +11,33 @@
       <p class="txt_ts">
 
       </p>
-      <i><img src="http://cdn.hudongba.com/static_v4/images/other/xf_bian_03_n2.png">
+      <i>
+        <%= image_tag "xf_bian_03_n2.png" %>
       </i>
 
-      <div class="hdb_lg_out"><span><img src="http://cdn.hudongba.com/static_v4/images/detail/icon_hdbpingz.png"></span></div>
+      <div class="hdb_lg_out"><p style="color: rgb(245, 245, 245);">电子凭证</p></div>
       <div id="pzJuan" class="pay_n">
         <p class="ticket_tittle"><a href="/party/wjh7u" ontouchstart=""><span>dhhdhdhs</span></a><b></b></p>
-        <p class="ticket_numMa" style="margin-top:-1px;">数字码：<span>4164 1413 0999</span></p>
-        <p class="ticket_img" style="margin-top:-1px;"><span><img id="ticket_img_src" src="/qrcode_sign_up?user_id=dj0jc&amp;info_id=wjh7u&amp;info_type=party" alt="报名凭证二维码"><span></span></span></p>
-        <p class="ticket_tit"><span class="fee_num">免费</span></p>
+        <p class="ticket_numMa" style="margin-top:-1px;">数字码：<span><%=@participant.code %></span></p>
+        <p class="ticket_img" style="margin-top:-1px;"><span><img id="ticket_img_src" src="" alt="报名凭证二维码"><span></span></span></p>
+        <p class="ticket_tit">
+          <span class="fee_num">
+              <% if @party.has_fee&&@party.has_fee %>
+              <span>￥<%= long_price(@party.fee_count.ceil/100.0) %>/人</span>
+               <% else %>
+              免费
+              <% end %>
+          </span>
+        </p>
         <ul class="ticket_xq">
 
-          <li>活动时间：<span>2016-04-20 09:24 开始</span></li>
+          <li>活动时间：<span><%= @participant.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s %> 开始</span></li>
 
-          <li>活动地点：<span>河南郑州中原区dhhshs</span></li>
-          <li>主办方：<span>雪夜</span></li>
-          <li>报名人：<span>孟星星</span> (<span>15083373031</span>)</li>
+          <li>活动地点：<span><%= @participant.party.format_location %> <%= @participant.party.address %></span></li>
+          <li>主办方：<span><%= @participant.party.user.profile.firstname %></span></li>
+          <li>报名人：<span><%= @participant.name %></span> (<span><%= @participant.tel %></span>)</li>
         </ul>
-        <div class="hdb_lg"><span>电子凭证已自动保存至互动吧APP</span></div>
+        <div class="hdb_lg"><p style="color: rgb(245, 245, 245);">电子凭证</p></div>
       </div>
     </div>
 

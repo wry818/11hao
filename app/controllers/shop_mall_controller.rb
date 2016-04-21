@@ -150,7 +150,7 @@ class ShopMallController < ApplicationController
   end
 
   def party_ticket_view
-
+    @participant=Party.find(params[:id])
   end
 
   def ajax_create_participant
