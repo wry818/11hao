@@ -719,7 +719,7 @@
               text-align: left;
               color: #000;
               font-size: 14px;
-              background: url(http://cdn.hudongba.com/static_v4/images/detail/xd_icon_5.png) no-repeat 0 12px;
+              background: image-url('xd_icon_5.png') no-repeat 0 12px;
               background-size: 13px 16px;
             }
           }
@@ -732,7 +732,7 @@
         .detail_Joinnum_t {
           display: inline-block;
           padding-left: 20px;
-          background: url(http://cdn.hudongba.com/static_v4/images/detail/icon_man.png) no-repeat 0 2px;
+          background: image-url('icon_man.png') no-repeat 0 2px;
           background-size: 14px 14px;
           font-size: 14px;
           color: #000;
@@ -879,7 +879,7 @@
         font-size: 14px;
         span {
           display: inline-block;
-          background: url(http://cdn.hudongba.com/static_v4/images/detail/form_more2x2.png) no-repeat right center;
+          background: image-url('form_more2x2.png') no-repeat right center;
           padding-right: 20px;
           background-size: 12px 12px;
           margin: 12px auto;
