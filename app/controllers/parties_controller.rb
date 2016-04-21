@@ -30,13 +30,19 @@ class PartiesController < ApplicationController
     end
     if params[:optionsRadiosfee]
       if params[:optionsRadiosfee]=="option1"
+        @party.has_fee=false;
+        @party.fee_count=0
         if params[:max_count]
-          @party.has_fee=false;
           @party.max_count=params[:max_count].to_i
         end
       elsif params[:optionsRadiosfee]=="option2"
+        @party.has_fee=true;
+        if params[:max_count]
+          @party.max_count=params[:max_count].to_i
+        end
         if params[:fee_count]
           @party.fee_count=params[:fee_count].to_f*100
+
         end
         # if params[:tickets][:item]
         #   titem=params[:tickets][:item]
@@ -83,6 +89,9 @@ class PartiesController < ApplicationController
 
   def edit
     @party=Party.find(params[:id])
+    @party.begin_time=@party.begin_time.strftime('%Y-%m-%d %H:%M')
+    @party.end_time=@party.end_time.strftime('%Y-%m-%d %H:%M')
+    @party.register_end=@party.begin_time.strftime('%Y-%m-%d %H:%M')
   end
   def update
     @party=Party.find(params[:id])
@@ -106,14 +115,19 @@ class PartiesController < ApplicationController
     end
     if params[:optionsRadiosfee]
       if params[:optionsRadiosfee]=="option1"
+        @party.has_fee=false;
+        @party.fee_count=0
         if params[:max_count]
-          @party.has_fee=false
           @party.max_count=params[:max_count].to_i
         end
       elsif params[:optionsRadiosfee]=="option2"
+        @party.has_fee=true;
+        if params[:max_count]
+          @party.max_count=params[:max_count].to_i
+        end
         if params[:fee_count]
-          @party.has_fee=true
           @party.fee_count=params[:fee_count].to_f*100
+
         end
         # if params[:tickets][:item]
         #   titem=params[:tickets][:item]
@@ -130,6 +144,6 @@ class PartiesController < ApplicationController
   end
   private
   def party_params
-    params.require(:party).permit :name,:begin_time,:end_time,:register_end,:address,:content
+    params.require(:party).permit :name,:begin_time,:end_time,:register_end,:address,:content,:logo
   end
 end

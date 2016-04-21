@@ -4,8 +4,8 @@
       <div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
       <div id="step_nav_icon_3" class="step-nav-icon"></div>
       <div id="step_nav_icon_4" class="step-nav-icon"></div>
-      <div id="step_nav_icon_5" class="step-nav-icon"></div>
-      <div id="step_nav_icon_6" class="step-nav-icon"></div>
+      <!--<div id="step_nav_icon_5" class="step-nav-icon"></div>-->
+      <!--<div id="step_nav_icon_6" class="step-nav-icon"></div>-->
       <!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
       <div id="step_nav_icon_8" class="step-nav-icon"></div>
       <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
@@ -19,7 +19,7 @@
           <div class="form-group">
             <label for="party_title" class="col-sm-2 control-label">活动主题<span class='req'>*</span></label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <%= f.text_field :name, class: 'form-control', placeholder: '输入活动主题',:required=>"true" %>
             </div>
 
@@ -28,17 +28,17 @@
             <label class="col-sm-2 control-label">活动时间<span class='req'>*</span></label>
 
             <div class="col-sm-5">
-              <%= f.text_field :begin_time, class: 'form-control', placeholder: '输入开始时间',onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" %>
+              <%= f.text_field :begin_time, class: 'form-control', placeholder: '输入开始时间',onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" %>
             </div>
             <div class="col-sm-5">
-              <%= f.text_field :end_time, class: 'form-control', placeholder: '输入结束时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+              <%= f.text_field :end_time, class: 'form-control', placeholder: '输入结束时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"%>
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">报名截止时间<span class='req'>*</span></label>
 
             <div class="col-sm-5">
-              <%= f.text_field :register_end, class: 'form-control', placeholder: '输入报名截止时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"%>
+              <%= f.text_field :register_end, class: 'form-control', placeholder: '输入报名截止时间' ,onFocus: "WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"%>
             </div>
 
           </div>
@@ -136,15 +136,15 @@
           <div class="form-group js-fee-count">
             <label class="col-sm-2 control-label">收费金额</label>
 
-            <div class="col-sm-10">
-              <%= text_field_tag :fee_count,((f.object.id&&f.object.id>0) ? f.object.fee_count.fee_count.ceil/100.0 : ""), class: 'form-control', placeholder: '输入收费金额' %>
+            <div class="col-sm-5">
+              <%= text_field_tag :fee_count,((f.object.id&&f.object.id>0) ? f.object.fee_count.ceil/100.0 : ""), class: 'form-control', placeholder: '输入收费金额' %>
             </div>
 
           </div>
           <div class="form-group js-max-count">
             <label class="col-sm-2 control-label">人数上限</label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动人数' %>
             </div>
 
@@ -219,11 +219,64 @@
         </fieldset>
       </div>
       <div id="step_container_3" class="party-step-container" style="display: none;" >
-        <div style="text-align:center;"><h3 class="fieldset-header">
-          <span class="number">4</span>活动附加信息&nbsp;&nbsp;
-        </h3></div>
-        <fieldset>
+        <div style="text-align:center;">
+          <h3 class="fieldset-header">
+            <span class="number">4</span>上传活动封面&nbsp;&nbsp;<span data-toggle="modal"  data-target="#camp_preview_modal" class=" camp-step-qa-icon js-campaign-cover-logo">?</span>
 
+            <div class="upload-tooltip">
+              （最好的图片尺寸: 940px * 626px）
+            </div>
+          </h3>
+        </div>
+        <fieldset>
+          <div class="form-group">
+            <div class="campaign-image-uploader clearfix">
+              <div id="drop-zone" class="drop-zone uploader-box" style="border:1px solid #ccc; background: #eee">
+                <div id="logo_upload_cropper" class="preview uploader-preview-box" style="text-align:center; vertical-align: middle">
+                  <% if f.object.logo&&f.object.logo.include?("upload") %>
+                      <%= image_tag f.object.logo+"?id=#{rand(11)}",:style=>"width:100%;height:100%;" %>
+                  <% else %>
+                      <%= image_tag 'default_upload_logo.gif', class: "default-upload-logo",:style=>"width:97px;" %>
+                  <% end %>
+                  <%= f.hidden_field :logo %>
+                </div>
+              </div>
+              <div class="uploader-box">
+                <div class="progress progress-striped active js-logo-progress" style="display: none; height:18px;">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                    <span>0%</span>
+                  </div>
+                </div>
+                <div style="text-align:center;">
+                  <span class="status"></span>
+                </div>
+              </div>
+              <div id='crop_result' style="display:none;"></div>
+              <div style="width:0px; height:0px;">
+                <input id="logo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/photo" style="width:0px; height:0px; visibility:hidden;"/>
+              </div>
+              <div class="uploader-box" style="margin-top: 3px">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="logo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											上传</span>
+                      <!--<span style="font-size:0.9em;display:block;font-style:italic;">你自己的照片</span>-->
+                    </label>
+                  </div>
+                  <div class="col-sm-6" style="display: none;">
+                    <div class="use-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											使用</span>
+                      <span style="font-size:0.9em;display:block;font-style:italic;">我们提供的</span>
+                    </div>
+                    <a id="use_ours_link" data-toggle="modal" data-target="#default_images_modal" style="display:none;">使用
+                      我们提供的</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <br/>
 
           <div class="row web-box">
