@@ -198,7 +198,7 @@ class ShopMallController < ApplicationController
     end
 
     @participent.save
-    if @participent.satus=1
+    if @participent.satus==1
       if session[:openid]
         msg="\n\n点击查看报名凭证";
         logger.debug party_ticket_view_preview_url(@participent.id)
