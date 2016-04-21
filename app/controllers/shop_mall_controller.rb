@@ -204,7 +204,7 @@ class ShopMallController < ApplicationController
         logger.debug party_ticket_view_preview_url(@participent.id)
         send_template_message(session[:openid],@participent.party.name,
                               @participent.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s,
-                              msg,party_ticket_view_preview_url(participant.id))
+                              msg,party_ticket_view_preview_url(@participent.id))
       end
     end
     if @order
