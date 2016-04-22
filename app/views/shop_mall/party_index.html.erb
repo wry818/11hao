@@ -108,15 +108,16 @@
 
 
   <%= render "shop/goods_footer" %>
+  <!--%=  @party.register_end.to_s+Time.now.localtime.to_s%>-->
   <!--屏蔽pc浏览器打开的操作-->
-  <% if @is_participant==3 %>
+  <% if @is_participant==33 %>
       <div class="goods-bottom">
         <p id="showActionPary">
           <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
         </p>
       </div>
 
-  <% elsif  @party.register_end>DateTime.now%>
+  <% elsif  @party.register_end.localtime>Time.now.localtime%>
       <div class="goods-bottom">
         <p id="showActionPary">
           <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动报名已结束</a>
