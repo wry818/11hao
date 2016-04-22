@@ -20,8 +20,14 @@
         <p class="ticket_tittle"><a href="javascript:void(0);" ontouchstart=""><span>dhhdhdhs</span></a><b></b></p>
         <p class="ticket_numMa" style="margin-top:-1px;">数字码：<span><%=@participant.code %></span></p>
         <p class="ticket_img" style="margin-top:-1px;"><span>
-
-          <img id="ticket_img_src" src="" alt="报名凭证二维码">
+          <a href="<%=@url%>">
+          <% if @participant.party.logo%>
+                        <%= image_tag @participant.party.logo+"?id=#{rand(100)}" %>
+                    <% else%>
+                        <%= image_tag 'crown.png' %>
+          <% end%>
+          </a>
+          <img id="ticket_img_src" src="" alt="点击查看活动信息">
 
           <span></span></span></p>
         <p class="ticket_tit">

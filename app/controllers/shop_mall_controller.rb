@@ -151,6 +151,12 @@ class ShopMallController < ApplicationController
 
   def party_ticket_view
     @participant=Participant.find(params[:id])
+    @party=@participant.party
+    url=Rails.configuration.url_host+party_index_weixin_path("party_#{@party.id}")
+    if Rails.env.test?||Rails.env.development?
+      url=party_index_weixin_url("party_#{@party.id}")
+    end
+    @url=url
   end
 
   def ajax_create_participant
@@ -167,7 +173,7 @@ class ShopMallController < ApplicationController
     if @participent
       @participent.assign_attributes partycipent_params
       if @participent.status==1
-
+        render :text => "error" and return
       end
     else
       @participent=Participant.new partycipent_params
@@ -302,7 +308,7 @@ class ShopMallController < ApplicationController
         },
         remark: {
             value:remark,
-            color:"#bf111a"
+            color:"#99CC33"
         }
     }
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
