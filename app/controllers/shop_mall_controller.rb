@@ -308,7 +308,7 @@ class ShopMallController < ApplicationController
         },
         remark: {
             value:remark,
-            color:"#99CC33"
+            color:"#72ACE3"
         }
     }
     $client ||= WeixinAuthorize::Client.new(ENV["WEIXIN_APPID"], ENV["WEIXIN_APP_SECRET"])
