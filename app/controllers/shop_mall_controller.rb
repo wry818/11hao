@@ -166,6 +166,9 @@ class ShopMallController < ApplicationController
     @participent= @party.participants.where(:open_id => session[:openid]).first
     if @participent
       @participent.assign_attributes partycipent_params
+      if @participent.status==1
+
+      end
     else
       @participent=Participant.new partycipent_params
     end
@@ -202,9 +205,13 @@ class ShopMallController < ApplicationController
       if session[:openid]
         msg="\n\n点击查看报名凭证";
         logger.debug party_ticket_view_preview_url(@participent.id)
+        url=Rails.configuration.url_host+party_ticket_view_preview_path(@participent.id)
+        if Rails.env.test?||Rails.env.development?
+          url=party_ticket_view_preview_url(@participent.id)
+        end
         send_template_message(session[:openid],@participent.party.name,
                               @participent.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s,
-                              msg,party_ticket_view_preview_url(@participent.id))
+                              msg,url)
       end
     end
     if @order
@@ -222,12 +229,16 @@ class ShopMallController < ApplicationController
     order = Order.find_by_id(params[:order_id])
     if order
         participant=Participant.find_by(:orders_id=>order.id)
+        url=Rails.configuration.url_host+party_ticket_view_preview_path(participant.id)
+        if Rails.env.test?||Rails.env.development?
+          url=party_ticket_view_preview_url(participant.id)
+        end
         if participant&&session[:openid]
            msg="\n\n点击查看报名凭证";
           logger.debug party_ticket_view_preview_url(participant.id)
           send_template_message(session[:openid],participant.party.name,
                                 participant.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s,
-                                msg,party_ticket_view_preview_url(participant.id))
+                                msg,url)
         end
     end
     render text: "success"

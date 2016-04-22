@@ -6,20 +6,17 @@
       <div class="row" style="margin-top:10px;">
         <div class="col-md-12">
           <div style="padding:0 20px;">
-            <% if 0 > 0 %>
+            <% if @party.participants.completed.count > 0 %>
                 <!--<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>-->
                 <!--<div class="container">-->
                 <div class="form-group">
                   <div class="row">
                     <div class="col-xs-2" style="text-align:right;">
-                      <label class="control-label">订单类型</label>
+                      <label class="control-label">用户名</label>
                     </div>
                     <div class="col-xs-4">
-                      <select id="all_report_order_type_flag_selector" class="form-control input-small" style="width:100%;">
-                        <option value="-1">-所有订单-</option>
-                        <option value="1">直接捐赠</option>
-                        <option value="2">义卖捐赠</option>
-                      </select>
+                      <input id="all_report_order_type_flag_selector" name="from_name"   placeholder="输入要查询的用户名" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+
                     </div>
                     <div class="col-xs-2" style="text-align:right;">
 
@@ -80,5 +77,8 @@
 </div>
 
 <script>
-
+$(function(){
+  Raisy.chairperson_dashboard.orders_list_pager_url_ajax="<%=ajax_party_orders_path %>";
+  Raisy.chairperson_dashboard.orders_list_pager_init();
+});
 </script>

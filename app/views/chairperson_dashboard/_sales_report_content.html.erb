@@ -48,7 +48,7 @@
               </ul>
             </td>
             <td>￥<%= long_price(paid/100) %></td>
-            <td><%= order.seller.user_profile.fullname if order.seller %></td>
+            <td><%= order.seller.user_profile.fullname if order.seller&&order.seller.user_profile %></td>
           </tr>
       <% end %>
       <tr>

@@ -232,6 +232,7 @@ Raisy::Application.routes.draw do
     get 'party_ticket_view/:id', to: "shop_mall#party_ticket_view", as: :party_ticket_view_preview
     get 'party/:id', to: "parties#party_preview", as: :party_preview
     get 'party/:id/orders', to: 'parties#party_orders', as: :party_orders
+    post 'party/:id/orders_ajax', to: 'parties#party_orders_ajax', as: :ajax_party_orders
     resources :parties
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup

@@ -37,8 +37,7 @@
 
         <div class="detail_Time_n">
           <p>
-            <%= @party.begin_time.month %>/<%= @party.begin_time.day %>
-            (周五) <%= @party.begin_time.strftime('%H:%M').to_s %>
+            <%= @party.begin_time.month %>/<%= @party.begin_time.day %> <%= @party.begin_time.strftime('%H:%M').to_s %>
             至 <%= @party.end_time.month %>/<%= @party.end_time.day %> <%= @party.end_time.strftime('%H:%M').to_s %> <br>
             <span><%= @party.register_end.month %>月<%= @party.register_end.day %>日 <%= @party.register_end.strftime('%H:%M').to_s %> 报名截止</span>
           </p>

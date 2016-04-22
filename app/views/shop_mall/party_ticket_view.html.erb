@@ -17,9 +17,13 @@
 
       <div class="hdb_lg_out"><p style="color: rgb(245, 245, 245);">电子凭证</p></div>
       <div id="pzJuan" class="pay_n">
-        <p class="ticket_tittle"><a href="/party/wjh7u" ontouchstart=""><span>dhhdhdhs</span></a><b></b></p>
+        <p class="ticket_tittle"><a href="javascript:void(0);" ontouchstart=""><span>dhhdhdhs</span></a><b></b></p>
         <p class="ticket_numMa" style="margin-top:-1px;">数字码：<span><%=@participant.code %></span></p>
-        <p class="ticket_img" style="margin-top:-1px;"><span><img id="ticket_img_src" src="" alt="报名凭证二维码"><span></span></span></p>
+        <p class="ticket_img" style="margin-top:-1px;"><span>
+
+          <img id="ticket_img_src" src="" alt="报名凭证二维码">
+
+          <span></span></span></p>
         <p class="ticket_tit">
           <span class="fee_num">
               <% if @participant.party.has_fee&&@participant.party.has_fee %>
@@ -44,39 +48,39 @@
 
   </div>
 
-  <!--已取消报名-->
-  <div id="dzj_out_join_out" style="display:none;">
-    <p class="img"><img src="http://cdn.hudongba.com/static_v4/images/other/pingzheng_full.png"></p>
-    <p class="txt">您已取消报名</p>
-    <p class="btn"><a href="/party/wjh7u" ontouchstart="">查看活动</a></p>
-  </div>
-  <!--报名未通过审核-->
-  <div id="dzj_out_join_check" style="display:none;">
-    <p class="img" style="padding-top: 175.6px;"><img src="http://cdn.hudongba.com/static_v4/images/other/error.png"></p>
-    <p class="txt">您的报名未通过主办方审核,<br>请及时联系主办方！</p>
-    <p class="btn"><a href="/party/wjh7u" ontouchstart="">查看活动</a></p>
-  </div>
-  <div id="dzj_out_ts" style="display:none;">
-    <p class="dzj_ts_img"><img src="http://cdn.hudongba.com/static_v4/images/other/error.png"></p>
-    <h3>账号不一致</h3>
-    <p class="dzj_ts_tit">您当前登录的互动吧账号，和报名活动使用的账号不一致。出于安全考虑，请重新登录到正确账号，否则无法查看该电子票。</p>
-    <div class="dzj_ts_btn"><a href="javascript:void(0)" onclick="_user._toLogout()" class="l">重新登录</a><a href="/find/" class="r">更多活动</a></div>
-  </div>
-  <div id="login" style="display:none;">
-    <div class="tc_c_close"></div>
-    <div class="login_title">离成功只差登录</div>
-    <div id="login_button"></div>
-    <div class="login_more"><a href="javascript:_g(_link._login)" class="gray">使用其它方式登录</a></div>
-  </div>
-  <div id="tc_pz" style="display:none;">
-    <div class="close"><a href="javascript:void(0)" onclick="_tc._hide('tc_pz');"></a></div>
-    <p class="title">保存报名凭证</p>
-    <p class="pic_pz"><img src="http://cdn.hudongba.com/static_v4/images/other/yin_414.gif"></p>
-    <p class="ts_pz" style="color:#666;padding:2px 20px 10px">长按图片或手机截屏保存，或直接下载互动吧APP随时查询报名凭证</p>
-  </div>
-  <div class="loadingDiv" id="loadingDiv" style="display:none;"><p class="pImg"><img src="http://cdn.hudongba.com/static_v4/images/other/loading2.gif"></p><p class="pTxt"></p></div>
-  <div id="cover"></div>
-  <div id="cover2"></div>
-  <div id="toast" class="toast">
-  </div>
-</div>
+  <!--&lt;!&ndash;已取消报名&ndash;&gt;-->
+  <!--<div id="dzj_out_join_out" style="display:none;">-->
+    <!--<p class="img"><img src="http://cdn.hudongba.com/static_v4/images/other/pingzheng_full.png"></p>-->
+    <!--<p class="txt">您已取消报名</p>-->
+    <!--<p class="btn"><a href="/party/wjh7u" ontouchstart="">查看活动</a></p>-->
+  <!--</div>-->
+  <!--&lt;!&ndash;报名未通过审核&ndash;&gt;-->
+  <!--<div id="dzj_out_join_check" style="display:none;">-->
+    <!--<p class="img" style="padding-top: 175.6px;"><img src="http://cdn.hudongba.com/static_v4/images/other/error.png"></p>-->
+    <!--<p class="txt">您的报名未通过主办方审核,<br>请及时联系主办方！</p>-->
+    <!--<p class="btn"><a href="/party/wjh7u" ontouchstart="">查看活动</a></p>-->
+  <!--</div>-->
+  <!--<div id="dzj_out_ts" style="display:none;">-->
+    <!--<p class="dzj_ts_img"><img src="http://cdn.hudongba.com/static_v4/images/other/error.png"></p>-->
+    <!--<h3>账号不一致</h3>-->
+    <!--<p class="dzj_ts_tit">您当前登录的互动吧账号，和报名活动使用的账号不一致。出于安全考虑，请重新登录到正确账号，否则无法查看该电子票。</p>-->
+    <!--<div class="dzj_ts_btn"><a href="javascript:void(0)" onclick="_user._toLogout()" class="l">重新登录</a><a href="/find/" class="r">更多活动</a></div>-->
+  <!--</div>-->
+  <!--<div id="login" style="display:none;">-->
+    <!--<div class="tc_c_close"></div>-->
+    <!--<div class="login_title">离成功只差登录</div>-->
+    <!--<div id="login_button"></div>-->
+    <!--<div class="login_more"><a href="javascript:_g(_link._login)" class="gray">使用其它方式登录</a></div>-->
+  <!--</div>-->
+  <!--<div id="tc_pz" style="display:none;">-->
+    <!--<div class="close"><a href="javascript:void(0)" onclick="_tc._hide('tc_pz');"></a></div>-->
+    <!--<p class="title">保存报名凭证</p>-->
+    <!--<p class="pic_pz"><img src="http://cdn.hudongba.com/static_v4/images/other/yin_414.gif"></p>-->
+    <!--<p class="ts_pz" style="color:#666;padding:2px 20px 10px">长按图片或手机截屏保存，或直接下载互动吧APP随时查询报名凭证</p>-->
+  <!--</div>-->
+  <!--<div class="loadingDiv" id="loadingDiv" style="display:none;"><p class="pImg"><img src="http://cdn.hudongba.com/static_v4/images/other/loading2.gif"></p><p class="pTxt"></p></div>-->
+  <!--<div id="cover"></div>-->
+  <!--<div id="cover2"></div>-->
+  <!--<div id="toast" class="toast">-->
+  <!--</div>-->
+<!--</div>-->

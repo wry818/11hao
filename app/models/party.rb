@@ -25,9 +25,9 @@ class Party< ActiveRecord::Base
   end
   def progress_percent
     if self.max_count.nil? || self.max_count == 0
-      0
+
     else
-      p = (0 / self.max_count) * 100
+      p = (self.participants.completed.count/ self.max_count) * 100
 
       if p == 0
         0

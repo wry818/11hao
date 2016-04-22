@@ -26,7 +26,7 @@
                 </a>
                 <a href="<%= party_orders_path(party) %>" class="btn btn-primary" style="border-radius:4px;">
                   <span class="glyphicon glyphicon-cog"></span>
-                  活动信息查看
+                  活动信息追踪
                 </a>
               </div>
               <div class="col-md-5 campaign-info-box">
@@ -34,48 +34,53 @@
                   <div class="row">
                     <div class="col-md-8 raised-count-box">
                       <div class="raised-count">
-                        <strong>已筹得</strong><label>￥0.00
-                      </label>
+                        <% if party.has_fee&&party.has_fee %>
+                            <strong></strong><label>￥<%= long_price(party.fee_count.ceil/100.0) %>/人</label>
+                        <% else %>
+                            <strong></strong><label>免费</label>
+                        <% end %>
                       </div>
 
                       <% if party.max_count.nil? %>
                           <!--<div class="empty-goal-box">&nbsp;</div>-->
                       <% else %>
-                          <div class="progress">
-                            <div class="progress-bar" style="width: <%= party.progress_percent > 100 ? 100 : party.progress_percent  %>%;">
-                            </div>
-                          </div>
+                          <!--<div class="progress">-->
+                            <!--<div class="progress-bar" style="width: %= party.progress_percent > 100 ? 100 : party.progress_percent  %>%;">-->
+                            <!--</div>-->
+                          <!--</div>-->
                           <p class="goal">
-                            活动人数上限： <%= party.max_count %>
+                            <% if party.max_count&&party.max_count>0 %>
+                                限<span><%= party.max_count %></span>人报名
+                            <% else %>
+                                不限名额
+                            <% end %>
                           </p>
                       <% end %>
                     </div>
-                    <div class="col-md-4">
-                      <% if party.register_end.present? %>
-                          <div class="days-left">
-                            <p class="days-value">
-                              <%= party.days_remaining %>
-                            </p>
-                            <p class="days-title">
-                              活动到期天数
-                            </p>
-                          </div>
-                      <% end %>
-                    </div>
+
                   </div>
                   <div class="row">
                     <table class="campaign-people-box">
                       <tr>
                         <td class="campaign-people-col first-col">
-                          参与者&nbsp;<span class="badge">0</span>
+                          参与者&nbsp;<span class="badge"><%= party.participants_count %></span>
                         </td>
-
+                     
                         <td class="campaign-people-col">
-                          发出的电子票&nbsp;<span class="badge">0</span>
-                        </td>
-                        <td class="campaign-people-col middle-col">
+                          <% if  party.end_time>DateTime.now%>
+                              活动状态&nbsp;<span class="badge">活动已结束</span>
+                          <% elsif  party.begin_time>DateTime.now%>
+                              活动状态&nbsp;<span class="badge">活动已开始</span>
+                          <% elsif  party.register_end>DateTime.now%>
+                              活动状态&nbsp;<span class="badge">活动报名已结束</span>
+                          <% elsif  party.participants_count_surplus==0%>
+                              活动状态&nbsp;<span class="badge">活动名额已满</span>
+                          <% else %>
+                              活动状态&nbsp;<span class="badge">正在报名</span>
+                          <% end %>
 
                         </td>
+                
                       </tr>
                     </table>
                   </div>
