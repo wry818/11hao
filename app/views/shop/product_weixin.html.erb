@@ -129,7 +129,7 @@
   </div>
   <div class="goods-bottom-head">
 
-    <p>
+    <p style="<%= 'display: none;' if !@campaign.allow_direct_donation||!@campaign.allow_direct_donation?%>">
       <span>不想购买</span>
       <a href="javascript:;" class="weui_btn weui_btn_plain_default js-showActionDonation" style="
           margin-left: 5px;
@@ -140,6 +140,7 @@
           padding: 0px 10px 0px 10px;
           border-color: #999;
           border-radius: 3px;
+
       ">直接捐赠</a>
     </p>
   </div>

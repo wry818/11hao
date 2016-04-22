@@ -21,7 +21,12 @@
 <script>
   $(function(){
     $(".js-btn-support").click(function(){
-           window.location.href="<%= hotsale_index_path("hotsale_#{@campaign.slug}")%>";
+      <% if @campaign.product_id&&@campaign.product_id>0%>
+      window.location.href="/checkout/procamp_<%= @campaign.slug%>_<%= @campaign.product_id%>";
+      <% else %>
+      window.location.href="<%= hotsale_index_path("hotsale_#{@campaign.slug}")%>";
+      <% end %>
+
     });
   });
 </script>
