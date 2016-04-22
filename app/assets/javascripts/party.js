@@ -375,7 +375,7 @@ window.party= {
             }
 
         });
-    }
+    },
     orders_list_pager_url_ajax:"",
     orders_list_pager_init:function(){
 
