@@ -67,11 +67,11 @@
                         </td>
                      
                         <td class="campaign-people-col">
-                          <% if  party.end_time>Time.now.localtime%>
+                          <% if  party.end_time<Time.now.localtime%>
                               活动状态&nbsp;<span class="badge">活动已结束</span>
-                          <% elsif  party.begin_time>Time.now.localtime%>
+                          <% elsif  party.begin_time<Time.now.localtime%>
                               活动状态&nbsp;<span class="badge">活动已开始</span>
-                          <% elsif  party.register_end>Time.now.localtime%>
+                          <% elsif  party.register_end<Time.now.localtime%>
                               活动状态&nbsp;<span class="badge">活动报名已结束</span>
                           <% elsif  party.participants_count_surplus==0%>
                               活动状态&nbsp;<span class="badge">活动名额已满</span>
