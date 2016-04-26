@@ -99,7 +99,7 @@ class CampaignsController < ApplicationController
         end
         redirect_to url and return
       end
-      campaign_uploadlogo
+      # campaign_uploadlogo
 
       logger.debug "1002"
       if params[:is_party]
