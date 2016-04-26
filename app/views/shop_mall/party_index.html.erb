@@ -226,7 +226,7 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  alert("<%=ajax_party_share_log_url(@paty.id)%>");
+  var url="<%=ajax_party_share_log_url(@party.id) %>";
 </script>
 <% if @sign_package %>
     <script>
@@ -262,7 +262,7 @@
 
       function  share()
       {
-        $.get("<%=ajax_party_share_log_url(@paty.id)%>");
+        $.get("<%=ajax_party_share_log_url(@party.id)%>");
       }
       wx.ready(function () {
 
