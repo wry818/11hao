@@ -102,7 +102,7 @@ class CampaignsController < ApplicationController
       # campaign_uploadlogo
 
       logger.debug "1002"
-      if params[:is_party]
+      if params[:is_party]&&params[:is_party]=="true"
         redirect_to new_party_path and return
       end
       redirect_to new_campaign_path and return
