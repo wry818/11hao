@@ -298,7 +298,10 @@ class ShopMallController < ApplicationController
         logger.info "1001"
         weixin_get_user_info
         logger.info "1002"
-        @visit_log = ShareLog.new refid: @party.id, share_time: Time.now,type: 1
+        @visit_log = ShareLog.new
+        @visit_log.refid=@party.id
+        @visit_log.share_time=Time.now
+        @visit_log.type=1
         logger.info "1003"
         @visit_log.open_id = session[:openid]
         @visit_log.remote_ip = request.remote_ip
