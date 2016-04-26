@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420062313) do
+ActiveRecord::Schema.define(version: 20160425082755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -550,6 +550,14 @@ ActiveRecord::Schema.define(version: 20160420062313) do
     t.datetime "updated_at"
   end
 
+  create_table "party_visit_logs", force: true do |t|
+    t.integer "parties_id"
+    t.string  "remote_ip"
+    t.string  "visited_time"
+    t.string  "nickname"
+    t.string  "open_id"
+  end
+
   create_table "product_categories", force: true do |t|
     t.string    "name"
     t.integer   "sort_mark"
@@ -663,6 +671,15 @@ ActiveRecord::Schema.define(version: 20160420062313) do
   add_index "sellers", ["campaign_id", "user_profile_id"], name: "index_sellers_on_campaign_id_and_user_profile_id", using: :btree
   add_index "sellers", ["referral_code"], name: "index_sellers_on_referral_code", unique: true, using: :btree
   add_index "sellers", ["user_profile_id", "campaign_id"], name: "index_sellers_on_user_profile_id_and_campaign_id", using: :btree
+
+  create_table "share_logs", force: true do |t|
+    t.integer "refid"
+    t.integer "type"
+    t.string  "remote_ip"
+    t.string  "share_time"
+    t.string  "nickname"
+    t.string  "open_id"
+  end
 
   create_table "social_share_histories", force: true do |t|
     t.integer   "seller_id"

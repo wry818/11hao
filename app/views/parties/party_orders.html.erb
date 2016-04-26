@@ -15,7 +15,7 @@
                       <label class="control-label">用户名</label>
                     </div>
                     <div class="col-xs-4">
-                      <input id="all_report_order_type_flag_selector" name="from_name"   placeholder="输入要查询的用户名" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+                      <input id="all_report_order_type_flag_selector" name="from_name"   placeholder="输入要姓名" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
 
                     </div>
                     <div class="col-xs-2" style="text-align:right;">
@@ -50,7 +50,7 @@
                 </div>
                 <!--</div>-->
                 <div style="text-align:right;">
-                  <!--<a href="<dashboard_campaign_orders_download_path(@party) %>" id="load_data_to_xls" target="_blank">导出为Excel</a>-->
+                  <a href="<%=dashboard_party_orders_download_path(@party) %>" id="load_party_data_to_xls" target="_blank">导出为Excel</a>
                   <!--<a href="javascript:void(0);" id="load_data_to_xls" target="_blank">导出为Excel</a>-->
                 </div>
                 <div id="activity_report_content" style="width:100%;">
@@ -80,5 +80,15 @@
 $(function(){
   Raisy.chairperson_dashboard.orders_list_pager_url_ajax="<%=ajax_party_orders_path %>";
   Raisy.chairperson_dashboard.orders_list_pager_init();
+  var url_download=$("#load_party_data_to_xls").attr("href");
+  $("#load_party_data_to_xls").bind("click",function(){
+    var order_type_flag= $("#all_report_order_type_flag_selector").val();
+    var from_date=$("#from_date").val();
+    var to_date=$("#to_date").val();
+//    var url= $(this).attr("href");
+    var url=url_download+"?order_type_flag="+order_type_flag+"&from_date="+from_date+"&to_date="+to_date;
+    $(this).attr("href",url);
+  });
+
 });
 </script>

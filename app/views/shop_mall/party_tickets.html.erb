@@ -1,0 +1,47 @@
+<div class="party-tickets">
+  <div class="index_re_outSide">
+
+    <% if @result%>
+        <ul class="pz_list_Ul" avalonctrl="join_voucher_list_controller">
+          <!--pay_y收费、pay_n免费、do_f即将开始、do_i正在进行、do_w未使用、do_y已验票、do_a已结束、do_s已失效  -->
+          <% @result.each do |r|%>
+              <%url=party_ticket_view_preview_url(r.id) %>
+          <li data-repeat-rendered="repeatCallback" class="pay_n do_a">
+            <a ontouchstart="" href="<%=url %>">
+              <div class="l" style="height: 87px;">
+                <i style="height: 87px;"></i>
+                <div class="y_k" style="height: 73px;">
+                  <!--ms-if--><!--ms-if-->
+                  <p class="fee_null" style="padding-top: 25.5px;">
+                    <% if r.party.has_fee&&r.party.has_fee %>
+                        <span>￥<%= long_price(r.party.fee_count.ceil/100.0) %></span>
+                    <% else %>
+                        免费
+                    <% end %>
+                  </p>
+                </div>
+                <u style="height: 87px;"></u>
+              </div>
+              <div class="r">
+                <div class="k">
+                  <h3 class="tit"><%= r.party.name %></h3>
+                  <p class="man">主办方：<%= r.party.user.profile.first_name %></p>
+                  <p class="time">活动时间：<%= r.party.begin_time.localtime.strftime('%Y-%m-%d %H:%M').to_s %> 开始</p>
+                  <p class="attr">活动地点：<%= r.party.format_location %> <%= r.party.address %></p>
+                </div>
+              </div>
+            </a>
+            <b><%=	r.party.status_text %></b>
+          </li>
+          <% end%>
+        </ul>
+    <% else%>
+        <div class="pz_full">
+          <img src="">
+          <p>您还没有报名任何活动</p>
+          <a href="javascript:void(0);" ontouchstart="">查看当前热门活动</a>
+        </div>
+    <% end%>
+
+  </div>
+</div>

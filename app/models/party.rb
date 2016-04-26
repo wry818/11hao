@@ -2,7 +2,7 @@ class Party< ActiveRecord::Base
   belongs_to :user, class_name: "User"
   has_many :participants,foreign_key: "parties_id"
 
-
+  has_many :party_visit_logs,foreign_key: "parties_id"
 
 
   def participants_count
@@ -52,5 +52,34 @@ class Party< ActiveRecord::Base
       str+="#{self.country}"
     end
     str
+  end
+
+  def share_logs_count
+    ShareLog.where(:type=>1,:refid=>self.id).count
+  end
+
+  def status_flag
+    statu=""
+    if Time.now.localtime>self.end_time
+      statu="4"
+    elsif Time.now.localtime>self.begin_time
+      statu="3"
+    elsif Time.now.localtime>self.register_end
+      statu="2"
+    else
+      statu="1"
+    end
+  end
+  def status_text
+    statu=""
+    if Time.now.localtime>self.end_time
+      statu="活动已结束"
+    elsif Time.now.localtime>self.begin_time
+      statu="活动已开始"
+    elsif Time.now.localtime>self.register_end
+      statu="报名已结束"
+    else
+      statu="正在报名"
+    end
   end
 end

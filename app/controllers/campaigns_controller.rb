@@ -64,7 +64,7 @@ class CampaignsController < ApplicationController
           end
           
           profile = UserProfile.create user: newUser, first_name: params[:user][:first_name], last_name: params[:user][:last_name], phone_number: params[:user][:phone_number], child_profile: false
-
+         session[:user_is_register_now]=true
           sign_in(newUser)
         end
       else
@@ -86,6 +86,20 @@ class CampaignsController < ApplicationController
         
         profile = oldUser.profile
       end
+      # url=campaign_uploadlogo_path
+      # if params[:is_party]&&params[:is_party]=="true"
+      #   url+="?is_party=true"
+      # end
+      # redirect_to url and return
+      if  !current_user.profile.picture&&session[:user_is_register_now]
+        session[:user_is_register_now]=nil
+        url=campaign_uploadlogo_path
+        if params[:is_party]&&params[:is_party]=="true"
+          url+="?is_party=true"
+        end
+        redirect_to url and return
+      end
+      campaign_uploadlogo
 
       logger.debug "1002"
       if params[:is_party]
@@ -93,7 +107,9 @@ class CampaignsController < ApplicationController
       end
       redirect_to new_campaign_path and return
     end
-    
+    def campaign_uploadlogo
+      @user_profile=User.find(current_user.id).profile
+    end
     def new
       
       @campaign_mode = 1
@@ -285,6 +301,7 @@ class CampaignsController < ApplicationController
       @campaign.campaign_mode = params[:campaign_mode].to_i
       # @campaign.active = !@campaign.collection_id.nil?
       @campaign.active =true
+      @campaign.allow_direct_donation=true
       @campaign.save
       
       if preloaded

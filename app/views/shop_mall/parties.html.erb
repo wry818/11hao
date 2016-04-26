@@ -1,0 +1,53 @@
+<div class="party-parties">
+  <ul class="activity_ul activity_ul_liu">
+
+<%	if @result %>
+        <%	@result.each do |p| %>
+            <%   url=Rails.configuration.url_host+party_index_weixin_path("party_#{p.id}")
+                 if Rails.env.test?||Rails.env.development?
+                   url=party_index_weixin_url("party_#{p.id}")
+                 end
+            %>
+            <li>
+              <a href="<%=url %>">
+                <h3> <%=p.name %></h3>
+                <div class="box_d">
+                  <div class="left">
+                    <% if p.logo%>
+                        <%= image_tag p.logo+"?id=#{rand(100)}" %>
+                    <% else%>
+                        <%= image_tag 'crown.png' %>
+                    <% end%>
+                  </div>
+                  <div class="right">
+                    <p class="text_one"> <%= p.begin_time.month %>月<%= p.begin_time.day %> <%= p.begin_time.strftime('%H:%M').to_s%></p>
+                    <p class="text_two"> <%= p.city %> <%= "/#{p.country}" if p.country %></p>
+                    <p class="text_three">
+                      <% if p.max_count&&p.max_count>0 %>
+                          限<span class="act_b_join_num"><%= p.max_count %></span>名额
+                      <% else %>
+                          不限名额
+                      <% end %>
+                    </p>
+                    <div class="sf">
+                      <% if p.has_fee&&p.has_fee %>
+                          <span>￥<%= long_price(p.fee_count.ceil/100.0) %></span>
+                      <% else %>
+                          免费
+                      <% end %>
+                    </div>
+                    <div class="tx"> <%=p.name%>
+                      <% if p.user.profile.picture&&p.user.profile.picture.length>0 %>
+                          <%= image_tag p.user.profile.picture+"?id=#{rand(100)}" %>
+                      <% else %>
+                          <%= image_tag "logo.png" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+        <%	end %>
+<%	end %>
+  </ul>
+</div>

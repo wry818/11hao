@@ -1,0 +1,50 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "活动参与者") do |sheet|
+	header_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :b=>true
+
+	wrap_text = sheet.styles.add_style :font_name => "Arial", :sz => 12, :alignment => {
+										:horizontal => :left,
+										:vertical => :top,
+										:wrap_text => true }
+
+	sheet.add_row ["活动参与者统计表"], :style => header_text
+
+	if @campaign
+		sheet.add_row ["销售总计: " + "￥" + long_price(@saled_count)], :style => header_text
+	end
+	if @fromtime&&@fromtime.length>0||@totime&&@totime.length>0
+	sheet.add_row ["#起始日期：#{@fromtime}  终止日期：#{@totime}"], :style => header_text
+	end
+	sheet.add_row ["#支付金额合计：#{@total}笔，共#{short_price(@saled_count)}元"], :style => header_text
+	sheet.add_row ["活动参与者统计日期: " + Time.now.localtime.strftime('%Y-%m-%d %H:%M:%S')], :style => header_text
+	sheet.add_row [""]	# blank row
+	sheet.add_row ["电子票号", "姓名", "电话", "报名时间","备注","订单编号", "支付金额"], :style => header_text
+
+	if @results
+		@results.each do |r|
+			rt = Axlsx::RichText.new
+
+
+			sheet.add_row [
+				"'"+r.code,
+				r.name,
+				r.tel,
+				r.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S'),
+                r.remark,
+                r.order==nil ? "无" : r.order.out_trade_no ,
+				r.order==nil ? "无" : "￥" + long_price(r.order.grandtotal.to_f/100)
+			], :style => wrap_text
+		end
+			sheet.add_row [
+        				"",
+        				"",
+        				"参与总数：#{@total}",
+        				"",
+        				"",
+        				"",
+        				"支付总额：￥#{short_price(@saled_count)}"
+        			], :style => wrap_text
+	end
+
+	sheet.column_widths 10, 30, 25, 25, 45, 15, 25
+end

@@ -107,6 +107,7 @@ class ShopMallController < ApplicationController
     path = partyview_participants_path
     load_participants(path)
 
+    log_ip(@party)
     # ajax_update_participant
   end
 
@@ -135,7 +136,7 @@ class ShopMallController < ApplicationController
     @show_pager = false
 
       @participants_count = @party.participants.completed.count
-      @participants = @party.participants.completed.order(:id => :desc).page(@page).per(10)
+      @participants = @party.participants.completed.order(:id => :desc).page(@page).per(5)
 
       if @participants.total_pages > 0 && @participants.total_pages > @page
 
@@ -147,6 +148,17 @@ class ShopMallController < ApplicationController
 
       end
 
+  end
+
+  def party_tickets
+    # session[:openid]="oaR9as9LCc7KFlh1dih3uXEy_5-w"
+    if session[:openid]
+      @result=Participant.where(:open_id => session[:openid]).where("updated_at + interval '3 month' > ?", Time.now).completed.order(:id=>:desc)
+    end
+  end
+
+  def parties
+    @result=Party.where(:allow_spread=>:true).order(:begin_time=>:asc)
   end
 
   def party_ticket_view
@@ -279,6 +291,50 @@ class ShopMallController < ApplicationController
     end
   end
 
+  def ajax_pary_share_log
+    if params[:id]&&session[:openid]
+      @party=Party.find(params[:id])
+      if @party
+        weixin_get_user_info
+        @visit_log = ShareLog.new parties_id: @party.id, visited_time: Time.now,type: 1
+
+        @visit_log.open_id = session[:openid]
+        @visit_log.remote_ip = request.remote_ip
+        @visit_log.nickname = @nickname
+        @visit_log.save
+      end
+    end
+    render text: "ok"
+  end
+
+  def log_ip(party)
+    if party
+      if session[:openid] && session[:access_token]
+        query=PartyVisitLog.where("parties_id=:parties_id and open_id=:open_id
+          and visited_time>=:start_time and visited_time<:end_time",
+                          parties_id: party.id, open_id: session[:openid],
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+        weixin_get_user_info()
+      else
+        query=PartyVisitLog.where("parties_id=:parties_id and remote_ip=:remote_ip
+          and visited_time>=:start_time and visited_time<:end_time",
+                                     parties_id: party.id, remote_ip: request.remote_ip,
+                                     start_time: Time.now.to_date, end_time: Time.now.to_date+1)
+      end
+
+
+      @visit_log = query.first
+
+      if !@visit_log
+        @visit_log = PartyVisitLog.new parties_id: party.id, visited_time: Time.now
+
+        @visit_log.open_id = session[:openid]
+        @visit_log.remote_ip = request.remote_ip
+        @visit_log.nickname = @nickname
+        @visit_log.save
+      end
+    end
+  end
   private
   def partycipent_params
     params.require(:partycipent).permit :name, :tel, :remark
