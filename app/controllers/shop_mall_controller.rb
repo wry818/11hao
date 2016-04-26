@@ -295,9 +295,11 @@ class ShopMallController < ApplicationController
     if params[:id]&&session[:openid]
       @party=Party.find(params[:id])
       if @party
+        loger.debug "1001"
         weixin_get_user_info
-        @visit_log = ShareLog.new parties_id: @party.id, visited_time: Time.now,type: 1
-
+        loger.debug "1002"
+        @visit_log = ShareLog.new refid: @party.id, share_time: Time.now,type: 1
+        loger.debug "1003"
         @visit_log.open_id = session[:openid]
         @visit_log.remote_ip = request.remote_ip
         @visit_log.nickname = @nickname
