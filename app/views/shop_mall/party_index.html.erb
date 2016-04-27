@@ -226,7 +226,7 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  var url="<%=ajax_party_share_log_url(@party.id) %>";
+  window.party.url="<%=request.original_url %>";
 </script>
 <% if @sign_package %>
     <script>
