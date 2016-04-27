@@ -144,6 +144,12 @@ window.party= {
                         alert("活动详细地址不能为空");
                         return;
                     }
+                    if ($("#max_count").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动参与人数不能为空");
+                        return;
+                    }
 
                     $("#step_container_2").show();
                     break;
