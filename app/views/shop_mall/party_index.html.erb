@@ -228,7 +228,12 @@
 </script>
 
 <script type="text/javascript" charset="utf-8">
-  window.party={ url:"<%=request.original_url %>" };
+  <%   url=Rails.configuration.url_host+party_index_weixin_path("party_#{p.id}")
+              if Rails.env.test?||Rails.env.development?
+                url=party_index_weixin_url("party_#{p.id}")
+              end
+         %>
+  window.party={ url:"<%=url%>" };
 </script>
 <% if @sign_package %>
     <script>
