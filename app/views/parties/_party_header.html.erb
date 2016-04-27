@@ -7,11 +7,11 @@
       <div class="row" style="margin-top:15px;">
         <div class="col-sm-4" style="margin-top:5px; display: none;">
           <div style="width:100px;">
-            <% if current_user.profile.picture.present? %>
-                <%= cl_image_tag current_user.profile.picture, width: 100, height: 100, crop: :limit, style: "display:block; margin:0 auto;" %>
-            <% else %>
-                <%= image_tag 'crown.png', width: 72, style: "display:block; margin:0 auto;" %>
-            <% end %>
+            <% if @party.logo&&@party.logo.length>0%>
+                <%= image_tag @party.logo+"?id=#{rand(100)}",:style=>"display:block; margin:0 auto;" %>
+            <% else%>
+                <%= image_tag 'crown.png', style: "display:block; margin:0 auto;"  %>
+            <% end%>
           </div>
 
           <h4 style="margin-top:10px; width:100px; text-align:center;"><%=@party.name %></h4>
