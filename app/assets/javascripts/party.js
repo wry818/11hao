@@ -124,8 +124,8 @@ window.party= {
                         alert("活动开始时间不能为空");
                         return;
                     }
-                    alert($("#party_end_time").val());
-                    alert($("#party_end_time").val().length);
+                    //alert($("#party_end_time").val());
+                    //alert($("#party_end_time").val().length);
                     if ($("#party_end_time").val().length<1)
                     {
                         $("#step_container_1").show();
