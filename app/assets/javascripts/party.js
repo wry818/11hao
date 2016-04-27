@@ -102,7 +102,6 @@ window.party= {
             switch(stepindex)
             {
                 case 1:
-
                     $("#party_form").validate().element("#party_name");
                     $("#party_form").validate().element("#party_begin_time");
                     $("#party_form").validate().element("#party_end_time");
@@ -111,6 +110,36 @@ window.party= {
                     if (!_this.formvalidate.valid())
                     {
                         $("#step_container_1").show();
+                        return;
+                    }
+                    if ($("#party_name").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动主题不能为空");
+                        return;
+                    }
+                    if ($("#party_begin_time").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动开始时间不能为空");
+                        return;
+                    }
+                    if ($("#party_end_time").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动结束时间不能为空");
+                        return;
+                    }
+                    if ($("#party_register_end").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动报名截止时间不能为空");
+                        return;
+                    }
+                    if ($("#party_address").val().length<1)
+                    {
+                        $("#step_container_1").show();
+                        alert("活动详细地址不能为空");
                         return;
                     }
 
