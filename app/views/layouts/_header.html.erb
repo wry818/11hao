@@ -31,10 +31,10 @@
             <% end %>
 		   <% is_chairperson = current_user.is_chairperson? %>
 		   
-		   <% if is_chairperson %>
+		   <!--% if is_chairperson %>-->
 		   		<li><%= link_to "管理我的筹款", dashboard_campaigns_path %></li>
                 <li><%= link_to "管理我的活动", parties_path %></li>
-		   <% end %>
+		   <!--% end %>-->
 
 		   <% if current_user.is_crs? %>
 		   		<li><%= link_to "筹款团队", dashboard_campaigns_path + "?cp=no" %></li>
