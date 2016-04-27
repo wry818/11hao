@@ -21,7 +21,7 @@
         <p class="ticket_numMa" style="margin-top:-1px;">数字码：<span><%=@participant.code %></span></p>
         <p class="ticket_img" style="margin-top:-1px;"><span>
           <a href="<%=@url%>">
-          <% if @participant.party.logo%>
+          <% if @participant.party.logo&&@participant.party.logo.length>0%>
                         <%= image_tag @participant.party.logo+"?id=#{rand(100)}" %>
                     <% else%>
                         <%= image_tag 'crown.png' %>
