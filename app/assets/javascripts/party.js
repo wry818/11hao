@@ -107,6 +107,7 @@ window.party= {
                     $("#party_form").validate().element("#party_end_time");
                     $("#party_form").validate().element("#party_register_end");
                     $("#party_form").validate().element("#party_address");
+                    $("#party_form").validate().element("#max_count");
                     if (!_this.formvalidate.valid())
                     {
                         $("#step_container_1").show();
