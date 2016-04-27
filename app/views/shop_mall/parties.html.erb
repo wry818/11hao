@@ -13,7 +13,7 @@
                 <h3> <%=p.name %></h3>
                 <div class="box_d">
                   <div class="left">
-                    <% if p.logo%>
+                    <% if p.logo&&p.logo.length>0%>
                         <%= image_tag p.logo+"?id=#{rand(100)}" %>
                     <% else%>
                         <%= image_tag 'crown.png' %>
