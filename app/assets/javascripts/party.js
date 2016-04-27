@@ -99,6 +99,7 @@ window.party= {
             var stepindex=$(this).data("currentstep");
             $(".party-step-container").hide();
             $("#party_content").val(my_editor.html());
+            $(".step-nav-icon").removeClass("step-nav-icon-gray");
             switch(stepindex)
             {
                 case 1:
@@ -153,9 +154,12 @@ window.party= {
                     }
 
                     $("#step_container_2").show();
+                    $("#step_nav_icon_2").addClass("step-nav-icon-gray");
+
                     break;
                 case 2:
                     $("#step_container_3").show();
+                    $("#step_nav_icon_3").addClass("step-nav-icon-gray");
                     break;
                 case 3:
                     $("#step_container_3").show();
@@ -166,6 +170,7 @@ window.party= {
         $(".party-back-btn").bind("click",function(){
             var stepindex=$(this).data("currentstep");
             $(".party-step-container").hide();
+            $(".step-nav-icon").removeClass("step-nav-icon-gray");
             switch(stepindex)
             {
                 case 1:
@@ -173,9 +178,11 @@ window.party= {
                     break;
                 case 2:
                     $("#step_container_1").show();
+                    $("#step_nav_icon_1").addClass("step-nav-icon-gray");
                     break;
                 case 3:
                     $("#step_container_2").show();
+                    $("#step_nav_icon_2").addClass("step-nav-icon-gray");
                     break;
             }
         });

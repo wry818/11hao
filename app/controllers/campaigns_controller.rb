@@ -91,7 +91,7 @@ class CampaignsController < ApplicationController
       #   url+="?is_party=true"
       # end
       # redirect_to url and return
-      if  !current_user.profile.picture&&session[:user_is_register_now]
+      if session[:user_is_register_now]
         session[:user_is_register_now]=nil
         url=campaign_uploadlogo_path
         if params[:is_party]&&params[:is_party]=="true"
