@@ -145,7 +145,7 @@
             <label class="col-sm-2 control-label">人数上限</label>
 
             <div class="col-sm-5">
-              <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动人数' %>
+              <%= text_field_tag :max_count,((f.object.id&&f.object.id>0) ? f.object.max_count : ""), class: 'form-control', placeholder: '输入活动上限人数,输入0表示无上限' %>
             </div>
 
           </div>
