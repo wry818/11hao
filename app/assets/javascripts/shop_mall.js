@@ -782,7 +782,7 @@ window.shopmall = {
                                 $(".js-showActionPary").unbind("click");
                                 $(".js-showActionPary").find("a").text("您已成功报名");
                                 $btn_submit1.removeClass("js-is-show-pay");
-                                alert(window.party.url);
+                                //alert(window.party.url);
                                 location.href=window.party.url;
                             }
 
