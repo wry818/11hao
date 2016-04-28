@@ -42,7 +42,8 @@ class PartiesController < ApplicationController
         end
         if params[:fee_count]
           @party.fee_count=params[:fee_count].to_f*100
-
+        else
+          @party.fee_count=1
         end
         # if params[:tickets][:item]
         #   titem=params[:tickets][:item]
@@ -135,7 +136,8 @@ class PartiesController < ApplicationController
         end
         if params[:fee_count]
           @party.fee_count=params[:fee_count].to_f*100
-
+        else
+          @party.fee_count=1
         end
         # if params[:tickets][:item]
         #   titem=params[:tickets][:item]

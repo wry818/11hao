@@ -150,6 +150,22 @@ window.party= {
                         alert("活动详细地址不能为空");
                         return;
                     }
+
+                        val=$('input:radio[name="optionsRadiosfee"]:checked').val();
+                        if(val=="option1")// not fee
+                        {
+
+                        }else if (val=="option2")// fee
+                        {
+                            if ($("#fee_count").val().length<1)
+                            {
+                                $("#step_container_1").show();
+                                alert("收费金额不能为空");
+                                return;
+                            }
+                        }
+
+
                     if ($("#max_count").val().length<1)
                     {
                         $("#step_container_1").show();
@@ -376,6 +392,21 @@ window.party= {
             //$(".js-tickets-table").show();
             $(".js-fee-count").show();
             $("#fee_count").numeral(true);
+            $("#fee_count").bind("focusout",function(){
+
+                var maxcount=0;
+                try
+                {
+                    var valuetemp=$(this).val();
+                    valuetemp=valuetemp.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' :valuetemp.match(/\d{1,}\.{0,1}\d{0,}/);
+                    $(this).val(valuetemp);
+                }
+                catch(ex)
+                {
+                    $(this).val("");
+                }
+            });
+
         }
         if(val=="option1")// not fee
         {
@@ -383,6 +414,7 @@ window.party= {
         }else if (val=="option2")// fee
         {
             fee();
+
         }
         $("input:radio[name='optionsRadiosfee']").bind('change',function(){
             val=$('input:radio[name="optionsRadiosfee"]:checked').val();
