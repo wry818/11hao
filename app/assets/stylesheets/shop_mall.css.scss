@@ -1303,13 +1303,28 @@
           position: absolute;
           right: 0;
           bottom: 0;
-          img {
-            width: 20px;
-            height: 20px;
+          div {
+            width: 23px;
+            height: 23px;
             border: 1px solid #E4E4E4;
             float: right;
-            border-radius: 22px;
+            //border-radius:23px;
+            -webkit-border-radius: 23px;
+            -moz-border-radius: 23px;
+            border-top-left-radius: 999px; /* 左上角 */
+            border-top-right-radius: 999px; /* 右上角 */
+            border-bottom-right-radius: 999px; /* 右下角 */
+            border-bottom-left-radius: 999px; /* 左下角 */
+            border-radius: 999px;
+            background-clip: padding-box;
+            overflow: hidden;
             margin-left: 5px;
+            margin-top: 5px;
+            img
+            {
+              width: 23px;
+              height: 23px;
+            }
           }
         }
         .sf {
