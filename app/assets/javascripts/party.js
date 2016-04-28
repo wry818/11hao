@@ -4,6 +4,10 @@ window.party= {
     init:function(){
         _this=this;
         $("#btn-submit").click(function(){
+            if($(this).prop('disabled')=="true")
+            {
+                return false;
+            }
             $("#party_form").submit();
         });
         _this.formvalidate= $("#party_form").validate({

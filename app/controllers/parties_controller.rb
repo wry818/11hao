@@ -53,7 +53,15 @@ class PartiesController < ApplicationController
 
       end
     end
-
+    if @party.begin_time.nil?
+      @party.begin_time=DateTime.now
+    end
+    if @party.end_time.nil?
+      @party.end_time=DateTime.now
+    end
+    if @party.register_end.nil?
+      @party.register_end=DateTime.now
+    end
     @party.save
     redirect_to party_preview_path(@party) and return
   end
@@ -138,7 +146,15 @@ class PartiesController < ApplicationController
 
       end
     end
-
+    if @party.begin_time.nil?
+      @party.begin_time=DateTime.now
+    end
+    if @party.end_time.nil?
+      @party.end_time=DateTime.now
+    end
+    if @party.register_end.nil?
+      @party.register_end=DateTime.now
+    end
     @party.save
     redirect_to party_preview_path(@party) and return
   end
