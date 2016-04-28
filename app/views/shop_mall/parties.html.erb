@@ -36,12 +36,15 @@
                           免费
                       <% end %>
                     </div>
-                    <div class="tx"> <%=p.user.profile.first_name%>
+                    <div class="tx">
+                      <p style="float: left;"><%=p.user.profile.first_name%></p>
+                      <p style="float: right;">
                       <% if p.user.profile.picture&&p.user.profile.picture.length>0 %>
                           <%= image_tag p.user.profile.picture+"?id=#{rand(100)}" %>
                       <% else %>
                           <%= image_tag "logo.png" %>
                       <% end %>
+                      </p>
                     </div>
                   </div>
                 </div>
