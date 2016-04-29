@@ -1,0 +1,26 @@
+<ul style="display: block;" class="dt_list_main" id="dt_list_main">
+  <% if @participants %>
+      <% @participants.each do |s| %>
+          <li id="div_join_id_hp7ce" class="dt_review_main" ontouchstart="">
+            <div class="dt_review_K">
+              <div class="dt_guess_item_icon">
+                <a ontouchstart="" href="javascript:void(0);">
+                  <% if s.avatar_url && s.avatar_url.to_s.gsub(' ','').length>0 %>
+                      <img src="<%= s.avatar_url %>" />
+                  <%else %>
+                      <%= image_tag 'weixin_default.jpg' %>
+                  <% end %>
+                </a>
+              </div>
+              <div class="dt_guess_item_title dt_loadNew">
+                <a ontouchstart="" href="javascript:void(0);">  <%= s.name %></a></div>
+              <p class="dt_guess_item_time"><%= s.updated_at.localtime.month %>月<%= s.updated_at.localtime.day %>日</p></div>
+          </li>
+      <% end %>
+  <% end %>
+</ul>
+<% if @show_pager %>
+    <div class="dt_join_more" id="join_loading" style="display: block;">
+      <a href="<%= @page_url %>" class="moreBtn a-pager" ontouchstart=""><span>展开更多报名</span></a>
+    </div>
+<% end %>

@@ -1166,18 +1166,18 @@
            $(".js-step_container_1_back").find("span").text("取消");
            Raisy.campaigns.continueBtnClick(1.1);
            Raisy.campaigns.loadflag=1;
-      <%elsif !@userprofile.picture||(@userprofile.created_at+30)>DateTime.now%>
-           $("#hide_camp_step_tips").off("click").on("click", function () {
-                Raisy.campaigns.step_tips_show_status.step1 = false;
-                Raisy.campaigns.donot_show_step_tips();
-           });
-
-        $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
-        $("#step_container_3_1").show();
-        <% if @step_popup=="yes" %>
-           $("#camp_step_tips_modal").modal("show");
-        <% end %>
-          Raisy.campaigns.loadflag=0;
+      <!--%elsif !@userprofile.picture||(@userprofile.created_at+30)>DateTime.now%>-->
+//           $("#hide_camp_step_tips").off("click").on("click", function () {
+//                Raisy.campaigns.step_tips_show_status.step1 = false;
+//                Raisy.campaigns.donot_show_step_tips();
+//           });
+//
+//        $("#camp_step_tips_modal .modal-body").html($("#camp_step_tips_3_1").html());
+//        $("#step_container_3_1").show();
+        <!--% if @step_popup=="yes" %>-->
+//           $("#camp_step_tips_modal").modal("show");
+        <!--% end %>-->
+//          Raisy.campaigns.loadflag=0;
       <% else %>
 //         $("#step_container_1_1").show();
 //      Raisy.campaigns.continueBtnClick(3.1);

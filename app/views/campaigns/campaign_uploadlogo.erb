@@ -1,0 +1,129 @@
+
+<div id="campaign-edit">
+  <div class="container">
+    <div class="campaign-edit-header">
+      <h3 style="margin-top: 10px;">上传自己的Logo</h3>
+    </div>
+    <div class="container-box top-section">
+      <div class="step-nav-bar">
+        <div id="step_nav_icon_1" class="step-nav-icon"></div>
+        <div id="step_nav_icon_2" class="step-nav-icon step-nav-icon-gray"></div>
+        <div id="step_nav_icon_3" class="step-nav-icon"></div>
+        <div id="step_nav_icon_4" class="step-nav-icon"></div>
+        <div id="step_nav_icon_5" class="step-nav-icon"></div>
+        <div id="step_nav_icon_6" class="step-nav-icon"></div>
+        <!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
+        <div id="step_nav_icon_8" class="step-nav-icon"></div>
+        <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
+      </div>
+
+      <div style="text-align:center; margin-top:20px;">
+        <h3 class="fieldset-header"><span class="number">2</span>上传自己的Logo</h3>
+      </div>
+      <%= form_for(@user_profile, url: update_profile_path, method: :patch, html: { id: "profile_form", class: "form-horizontal" }) do |f| %>
+          <input type="hidden" name="user_profile[useruser]" value="">
+          <input type="hidden" name="is_campaign" value="1">
+         <%	 if params[:is_party]%>
+              <input type="hidden" name="is_party" value="true">
+          <% end %>
+          <div class="form-group">
+            <label for="user_picture" style="display: none;" class="col-sm-3 control-label">
+              更新您的头像
+              <br />
+						<span class="upload-tooltip">
+							（最好的图片尺寸: 280px * 280px）
+						</span>
+            </label>
+            <div class="col-sm-12">
+
+              <fieldset>
+                <div class="row">
+                  <div class="col-md-12  minilogo_cropper_box" style="display: none;" >
+                    <p style="text-align: left;">
+                      <img id="minilogo_cropper" class="img-responsive"  alt="" src="">
+                    <div class="progress progress-striped active minilogo-progress" style="display: none; height:18px;">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0%; text-align: right; padding-right: 5px;">
+                        <span>0%</span>
+                      </div>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 ">
+                    <p style="text-align: center;">
+                      <% if @user_profile&&@user_profile.picture&&@user_profile.picture.length>0 %>
+                          <%=image_tag @user_profile.picture,:style=> " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+                      <%else%>
+                          <%=image_tag "logo.png",:style => " width: 140px;
+    height: 140px;
+    border: 6px solid rgba(51,51,51,0.1);
+    border-radius: 180px;",:class => "js-minilogo-view" %>
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-12">
+                    <div style="width:0px; height:0px;">
+                      <input id="minilogo_upload" name="photo_upload" type="file" accept="image/*" data-url="/upload/photo" style="width:0px; height:0px; visibility:hidden;"/>
+                    </div>
+
+                    <div id="minilogo_upload_view">
+                      <%= hidden_field_tag :minilogo %>
+
+                    </div>
+                    <div class="uploader-box" style="margin-top: 3px">
+                      <div class="row">
+                        <div class="col-sm-3 col-sm-offset-3">
+                          <label for="minilogo_upload" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											上传</span>
+                            <span class="loader" style="display:none"></span>
+                          </label>
+                        </div>
+                        <div class="col-sm-3">
+                          <label id="btn-crop-minilogo" class="upload-button" style="border:1px solid #ccc; text-align:center;padding:8px 0px; display:block; font-weight:normal;">
+										<span style="color:#428bca;font-size:1.1em;display:block;">
+											截取Logo</span>
+                            <span class="loader" style="display:none"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-6 backbutton-box">
+              <button class="btn btn-success btn-lg camp-back-btn  js-btn-cancle" type="button" >
+                <span class="text">取消</span>
+              </button>
+            </div>
+
+            <div class="col-sm-6 continuebutton-box">
+              <button  class="btn btn-primary btn-lg camp-continue-btn js-btn-nextstep-logo js-btn-submit" type="button" >
+                <span class="text">继续</span> <span class="loader" style="display:none"></span>
+              </button>
+            </div>
+          </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $(".js-btn-cancle").click(function(){
+       window.location.href="/";
+    });
+  });
+</script>

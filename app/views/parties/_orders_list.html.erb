@@ -1,0 +1,69 @@
+<style>
+  .orders-table-items {
+    border: 0px solid white;
+  }
+
+  .orders-table-items tbody tr td {
+    border: none;
+    border-left: 1px solid #dddddd;
+  }
+  .orders-table-tfoot{
+    border: none;
+    border-bottom: 1px solid #dddddd;
+  }
+</style>
+
+<table class="table table-hover table-bordered">
+  <thead>
+  <tr>
+    <th>电子票号</th>
+    <th>姓名</th>
+    <th>电话</th>
+    <th style="width: 150px;">报名时间</th>
+    <th style="width: 150px;">备注</th>
+    <th style="width: 100px;">订单编号</th>
+    <th>支付金额</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @results.each do |item| %>
+      <tr>
+        <td>
+          <%= item.code %>
+        </td>
+        <td>
+          <%= item.name %>
+        </td>
+        <td>
+          <%= item.tel %>
+        </td>
+        <td style="white-space:nowrap;">
+          <%= item.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S') %>
+        </td>
+        <td><%= item.remark %></td>
+        <% if item.order %>
+        <td><%= item.order.out_trade_no %></td>
+            <td>￥<%= long_price(item.order.grandtotal.to_f/100)%></td>
+        <% else%>
+            <td colspan="2">免费</td>
+        <% end%>
+      </tr>
+
+  <% end %>
+  </tbody>
+  <tfoot >
+  <tr>
+    <td style="border-left: none;border-right: none;"></td>
+    <td style="border-left: none;border-right: none;"></td>
+    <td style="border-left: none;border-right: none;">订单总数：<%=@total%> </td>
+    <td style="border-left: none;border-right: none;"></td>
+    <td style="border-left: none;border-right: none;"></td>
+    <td style="border-left: none;border-right: none;"></td>
+    <td style="border-left: none;border-right: none;">
+      支付总额：￥<%= short_price(@saled_count) %>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+
+<div id="page_pager" style="text-align:center;"><%= paginate @results if @results %></div>

@@ -1,0 +1,356 @@
+<div class="party-view">
+  <div class="detail_title">
+    <h1 class="detail_title_h1" id="dt_title"><%= @party.name %></h1>
+  </div>
+  <div class="detail_user hdMan">
+    <div class="userPicA">
+      <a href="javascript:void(0);" ontouchstart="">
+        <% if @party.user.profile.picture&&@party.user.profile.picture.length>0 %>
+            <%= image_tag @party.user.profile.picture+"?id=#{rand(100)}" %>
+        <% else %>
+            <%= image_tag "logo.png" %>
+        <% end %>
+      </a>
+    </div>
+    <div class="hdman_r">
+      <div class="yhName">
+        <a href="javascript:void(0);" class="subinfo_name" id="subinfo_name" ontouchstart="" style="max-width: 200px;"><%= @party.user.profile.first_name %></a>
+
+        <p class="fbTime"><%= @party.updated_at.month %>月<%= @party.updated_at.day %>日</p>
+      </div>
+      <div class="dt_review_item_count">
+        <a class="info_share" id="info_share" style="color: rgb(153, 153, 153);">分享 <%=@party.share_logs_count%>+</a><span id="info_hits">阅读 <%=@party.party_visit_logs.count%></span>
+      </div>
+    </div>
+    <input type="hidden" id="postUserId36" value="27who">
+
+    <div id="maUrlcanvas" style="display:none;">
+      <div id="canvasimage"></div>
+    </div>
+  </div>
+  <div class="detail_time_attr_join">
+    <div class="detail_time_attr_join_gray">
+
+
+      <div class="detail_Time">
+        <%=image_tag  "icon_time2.png",:class=>"icon_T"%>
+        <div class="detail_Time_n">
+          <p>
+            <%= @party.begin_time.month %>/<%= @party.begin_time.day %> <%= @party.begin_time.strftime('%H:%M').to_s %>
+            至 <%= @party.end_time.month %>/<%= @party.end_time.day %> <%= @party.end_time.strftime('%H:%M').to_s %> <br>
+            <span><%= @party.register_end.month %>月<%= @party.register_end.day %>日 <%= @party.register_end.strftime('%H:%M').to_s %> 报名截止</span>
+          </p>
+        </div>
+      </div>
+
+
+      <div class="detail_Attr">
+        <a href="javascript:void(0);" class="dt_address_item" ontouchstart="">
+          <div class="detail_Attr_K">
+            <p class="addressP"><%= @party.format_location %> <%= @party.address %></p></div>
+        </a>
+      </div>
+      <div class="detail_Joinnum" id="detail_Joinnum">
+        <div class="detail_Joinnum_t"><p>已有<span><%= @party.participants_count %></span>人报名</p></div>
+        <div class="detail_Joinnum_b">
+          <p>
+
+            <% if @party.max_count&&@party.max_count>0 %>
+                限<span><%= @party.max_count %></span>人报名
+            <% else %>
+                不限名额
+            <% end %>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dt_content">
+    <% if @party.content %>
+        <%= sanitize @party.content, tags: %w(p span strong em u ul ol li a img), attributes: %w(id class style src alt href target) %>
+    <% end %>
+  </div>
+
+  <div class="detail_pay_list">
+    <div class="detail_pay_list_top">本活动包含收费项目</div>
+    <ul class="detail_pay_list_ul">
+      <li class="detail_pay_list_li" id="detail_pay_list_li_436242" payitemid="436242" payitemprice="0">
+        <div class="detail_pay_list_div">
+          <!--<p class="detail_pay_list_t"></p>-->
+          <p class="detail_pay_list_b">
+            <% if @party.participants_count_surplus==-1 %>
+                不限名额
+            <% else %>
+                剩余<%= @party.participants_count_surplus %>个名额
+            <% end %>
+          </p>
+        </div>
+        <span class="detail_pay_list_s">
+               <% if @party.has_fee&&@party.has_fee %>
+                <span>￥<%= long_price(@party.fee_count.ceil/100.0) %>/人</span>
+            <% else %>
+                 免费
+            <% end %>
+
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="dt_join_menu_bg" id="dt_join_menu_bg">
+    <div ontouchstart="" class="dt_join_top">
+      <p id="dt_join_count" class="dt_join_topL"><span id="join_total"><%= @party.participants_count %></span>人已完成报名</p>
+    </div>
+    <div id="supporters_content">
+      <%=	 render "participants" %>
+    </div>
+
+  </div>
+
+
+  <hr class="with-margin" style="margin-top: 10px;">
+
+
+  <%= render "shop/goods_footer" %>
+  <!--%=  @party.register_end<Time.now.localtime%>-->
+  <!--屏蔽pc浏览器打开的操作-->
+  <% if @is_participant==3 %>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
+        </p>
+      </div>
+
+  <% elsif @party.register_end<Time.now.localtime%>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动报名已结束</a>
+        </p>
+      </div>
+  <% elsif @is_participant==2 %>
+      <div class="goods-bottom">
+        <p id="showActionPary" class="js-showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">我要参与</a>
+        </p>
+      </div>
+  <% elsif  @party.participants_count_surplus==0%>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">活动名额已满</a>
+        </p>
+      </div>
+  <% else %>
+      <div class="goods-bottom">
+        <p id="showActionPary">
+          <a href="javascript:void(0);" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">您已报名</a>
+        </p>
+      </div>
+  <% end %>
+
+
+  <div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask_input" style="display: none;"></div>
+    <div class="weui_actionsheet" id="weui_actionsheet_input">
+      <div style="background-color: white;">
+        <div class="orders" style="height: 40px;">
+          <div class="weui_cell_bd weui_cell_primary" style="
+          margin-top: 6px;
+          ">
+            <p style="
+            font-size: 16px;
+            ">填写报名信息</p>
+          </div>
+
+          <div class="orders_des">
+            <p class="" style="    padding-left: 5px;"></p>
+
+          </div>
+          <div class="cancel-img" id="actionsheet_cancel_input"></div>
+
+        </div>
+
+        <div id="personal_modalbody" class="party-input">
+          <form id="participant">
+            <%= hidden_field_tag "partyid", @party.id %>
+            <div class="weui_cells weui_cells_form" style="margin-top:0px;">
+              <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">姓名</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" id="participant_name" name="partycipent[name]" type="text" placeholder="请输入姓名">
+                </div>
+              </div>
+              <div class="weui_cell ">
+                <div class="weui_cell_hd"><label class="weui_label">手机号</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" id="participant_tel" name="partycipent[tel]" type="number" placeholder="请输入手机号">
+                </div>
+              </div>
+              <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label">备注</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                  <input class="weui_input" name="partycipent[remark]" type="text" placeholder="请输入备注信息">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="weui_actionsheet_action" style="    padding:5px 10px;">
+
+        <a href="javascript:void(0);" id="btn_submit1" style="background-color: rgb(241, 90, 12); color:white;" class="weui_btn weui_btn_warn">确
+          定</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    window.shopmall.party_input_show();
+
+//    $("#moreBtn").bind("click",function(){
+//      var url=$(this).attr("href");
+//      $.get(url, function(data){
+//        $("#join_loading").remove();
+//         $("#dt_list_main").after(data);
+//      });
+//    });
+
+    $("#supporters_content").jscroll({
+      autoTrigger: false,
+      nextSelector: "a.a-pager:last",
+      callback: function () {
+      },
+      loadingHtml: "<div style='text-align:center; padding:15px 0px 30px 0px;'><img src='<%= image_url "loader-black.gif" %>' /></div>"
+    });
+  });
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  <%   url=Rails.configuration.url_host+party_index_weixin_path("party_#{@party.id}")
+              if Rails.env.test?||Rails.env.development?
+                url=party_index_weixin_url("party_#{@party.id}")
+              end
+         %>
+  window.party={ url:"<%=url%>" };
+</script>
+<% if @sign_package %>
+    <script>
+      var imgurl="";
+      <% if @party.logo %>
+      imgurl="<%=request.protocol + request.host_with_port + @party.logo %>"
+      <%else%>
+      imgurl="";
+      <%end%>
+      window.shareData = {
+        appid: "<%= ENV['WEIXIN_APPID'] %>",
+        link:  "<%= request.original_url %>",
+        img_url: imgurl,
+        img_width: "415",
+        img_height: "399",
+        desc: "<%=@party.name %>",
+        title: "<%=@party.name %>"
+      };
+
+      wx.config({
+        debug: false,
+        appId: "<%= @sign_package['appId'] %>",
+        timestamp: "<%= @sign_package['timestamp'] %>",
+        nonceStr: "<%= @sign_package['nonceStr'] %>",
+        signature: "<%= @sign_package['signature'] %>",
+        jsApiList: [
+          'onMenuShareTimeline',
+          'onMenuShareAppMessage',
+          'onMenuShareQQ',
+          'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      });
+
+      function  share()
+      {
+        $.get("<%=ajax_party_share_log_url(@party.id)%>");
+      }
+      wx.ready(function () {
+
+        var title = shareData.title;
+        var desc = shareData.desc;
+        var link = shareData.link;
+        var imgUrl = shareData.img_url
+
+        wx.onMenuShareTimeline({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareAppMessage({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          // type: 'link', // 分享类型,music、video或link，不填默认为link
+// 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareQQ({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+        wx.onMenuShareWeibo({
+          title: title, // 分享标题
+          desc: desc, // 分享描述
+          link: link, // 分享链接
+          imgUrl: imgUrl, // 分享图标
+          trigger: function () {
+          },
+          success: function () {
+            // 用户确认分享后执行的回调函数
+            share();
+          },
+          cancel: function () {
+            // 用户取消分享后执行的回调函数
+          }
+        });
+
+      });
+
+      wx.error(function (res) {
+
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        alert(res.errMsg);
+      });
+    </script>
+<% end %>

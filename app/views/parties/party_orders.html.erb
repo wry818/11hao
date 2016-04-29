@@ -1,0 +1,94 @@
+<%= javascript_include_tag "My97DatePicker/WdatePicker.js",charset:"utf-8" %>
+<div id="chairperson_dashboard" class="dashboard-campaign dashboard-index">
+  <%= render 'party_header'%>
+  <div class="dashboard-content">
+    <div class="container">
+      <div class="row" style="margin-top:10px;">
+        <div class="col-md-12">
+          <div style="padding:0 20px;">
+            <% if @party.participants.completed.count > 0 %>
+                <!--<button class="btn btn-primary" data-toggle="modal" data-target="#offline_order_modal"><span>添加线下订单</span></button>-->
+                <!--<div class="container">-->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:right;">
+                      <label class="control-label">用户名</label>
+                    </div>
+                    <div class="col-xs-4">
+                      <input id="all_report_order_type_flag_selector" name="from_name"   placeholder="输入要姓名" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+
+                    </div>
+                    <div class="col-xs-2" style="text-align:right;">
+
+                    </div>
+                    <div class="col-xs-4">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-2" style="text-align:right;">
+                      <label class="control-label">开始时间</label>
+                    </div>
+                    <div class="col-xs-4">
+                      <input id="from_date" name="from_date" onClick="WdatePicker()"  placeholder="选择开始时间" value="" class=" form-control " style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+                    </div>
+                    <div class="col-xs-2" style="text-align:right;">
+                      <label class="control-label">结束时间</label>
+                    </div>
+                    <div class="col-xs-4">
+                      <input id="to_date" name="to_date" onClick="WdatePicker()" placeholder="选择结束时间" value=""  class=" form-control" style="width:100%;background-color:white;height:28px;padding:0px 12px;"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" style="position:relative;">
+                  <div style="text-align:center; margin-top:30px;">
+                    <button id="run_report" class="btn btn-primary" style="width:100px;"><span>查 询</span></button>
+                  </div>
+
+                </div>
+                <!--</div>-->
+                <div style="text-align:right;">
+                  <a href="<%=dashboard_party_orders_download_path(@party) %>" id="load_party_data_to_xls" target="_blank">导出为Excel</a>
+                  <!--<a href="javascript:void(0);" id="load_data_to_xls" target="_blank">导出为Excel</a>-->
+                </div>
+                <div id="activity_report_content" style="width:100%;">
+
+                </div>
+
+            <% else %>
+                <div style="text-align: center;">
+                  您还没有任何订单！当您的支持者有购买之后 － 您就会看到它们显示在这里。
+                </div>
+
+            <% end %>
+            <div class="all_report_loader" style="display:none; margin-top:40px; text-align:center;">
+              <h4>正在加载 ...</h4><span class="loader loader-black"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div> <!-- /.campaign-interface -->
+
+</div>
+
+<script>
+$(function(){
+  Raisy.chairperson_dashboard.orders_list_pager_url_ajax="<%=ajax_party_orders_path %>";
+  Raisy.chairperson_dashboard.orders_list_pager_init();
+  var url_download=$("#load_party_data_to_xls").attr("href");
+  $("#load_party_data_to_xls").bind("click",function(){
+    var order_type_flag= $("#all_report_order_type_flag_selector").val();
+    var from_date=$("#from_date").val();
+    var to_date=$("#to_date").val();
+//    var url= $(this).attr("href");
+    var url=url_download+"?order_type_flag="+order_type_flag+"&from_date="+from_date+"&to_date="+to_date;
+    $(this).attr("href",url);
+  });
+
+});
+</script>

@@ -1,0 +1,124 @@
+<div class="dashboard-header">
+  <div class="container" style="padding-top: 30px;">
+    <div class="dashboard-header-box">
+
+          <h2 style="font-weight: bold; margin-top:10px; text-align: center;"><%=@party.name %></h2>
+
+      <div class="row" style="margin-top:15px;">
+        <!--<div class="col-sm-4" style="margin-top:5px; display: none;">-->
+          <!--<div style="width:100px;">-->
+            <!--<% if @party.logo&&@party.logo.length>0%>-->
+                <!--<%= image_tag @party.logo+"?id=#{rand(100)}",:style=>"display:block; margin:0 auto;" %>-->
+            <!--<% else%>-->
+                <!--<%= image_tag 'crown.png', style: "display:block; margin:0 auto;"  %>-->
+            <!--<% end%>-->
+          <!--</div>-->
+
+          <!--<h4 style="margin-top:10px; width:100px; text-align:center;"><%=@party.name %></h4>-->
+        <!--</div>-->
+
+        <div class="col-sm-7 col-sm-offset-5">
+
+          <div style="margin-top:5px; text-align:right;">
+            <a href='<%=party_index_weixin_path("party_#{@party.id}")%> ' target="_blank">浏览您的活动页面</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="campaigns-list">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-6" style="padding-left:3px; padding-right:3px;">
+            <div style="padding:3px; width:100%;">
+              <% if @party.logo&&@party.logo.length>0%>
+                  <%= image_tag @party.logo+"?id=#{rand(100)}",:style=>"width:100%;max-height:626px" %>
+
+              <% else%>
+                  <%= image_tag 'crown.png', style: "display:block; margin: 25px auto; width:72px"  %>
+              <% end%>
+            </div>
+          </div>
+          <div class="col-md-6 campaign-info-box">
+            <div style="border:0px solid #999; padding: 3px;">
+
+              <div class="row">
+                <div class="col-md-8 raised-count-box">
+                  <div class="raised-count">
+                    <% if @party.has_fee&&@party.has_fee %>
+                        <strong></strong><label>￥<%= long_price(@party.fee_count.ceil/100.0) %>/人</label>
+                    <% else %>
+                        <strong></strong><label>免费</label>
+                    <% end %>
+
+                  </div>
+
+                  <% if @party.max_count.nil? %>
+                      <!--<div class="empty-goal-box">&nbsp;</div>-->
+                  <% else %>
+
+                      <p class="goal">
+                        <% if @party.max_count&&@party.max_count>0 %>
+                            限<span><%= @party.max_count %></span>人报名
+                        <% else %>
+                            不限名额
+                        <% end %>
+                      </p>
+                  <% end %>
+                </div>
+                <div class="col-md-4">
+                  <!--<% if @party.register_end.present? %>-->
+                      <!--<div class="days-left">-->
+                        <!--<p class="days-value">-->
+                          <!--<%= @party.days_remaining %>-->
+                        <!--</p>-->
+                        <!--<p class="days-title">-->
+                          <!--活动到期天数-->
+                        <!--</p>-->
+                      <!--</div>-->
+                  <!--<% end %>-->
+                </div>
+              </div>
+              <div class="row">
+                <table class="campaign-people-box">
+                  <tr>
+                    <td class="campaign-people-col first-col">
+                      参与者&nbsp;<span class="badge"><%= @party.participants_count %></span>
+                    </td>
+
+                    <td class="campaign-people-col">
+                      <% if  @party.end_time<Time.now.localtime%>
+                          活动状态&nbsp;<span class="badge">活动已结束</span>
+                      <% elsif  @party.begin_time<Time.now.localtime%>
+                          活动状态&nbsp;<span class="badge">活动已开始</span>
+                      <% elsif  @party.register_end<Time.now.localtime%>
+                          活动状态&nbsp;<span class="badge">活动报名已结束</span>
+                      <% elsif  @party.participants_count_surplus==0%>
+                          活动状态&nbsp;<span class="badge">活动名额已满</span>
+                      <% else %>
+                          活动状态&nbsp;<span class="badge">正在报名</span>
+                      <% end %>
+                    </td>
+
+                  </tr>
+                </table>
+              </div>
+              <div class="row" style="margin-top:15px;">
+                <div class="col-sm-6">
+                  <%= image_tag @qr_url %>
+                </div>
+
+              </div>
+              <div class="row" style="margin-top: 5px;">
+                <div class="col-sm-12">
+                  筹款链接:<%=@http_url%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

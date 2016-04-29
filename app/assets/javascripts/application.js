@@ -45,3 +45,6 @@
 //= require jquery.lazyload.min
 //= require countUp.min
 //= require cropper.min
+//=require  city-picker.data
+//=require  city-picker
+//=require  party

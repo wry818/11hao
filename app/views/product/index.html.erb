@@ -32,7 +32,7 @@
         <p style="width: 70%;float: left;"><%= @campaign.title %></p>
         <p style="text-align: right;padding-right: 5px;">已筹款<%= short_price(@campaign.raised) %>元</p>
       </div>
-      <a href="javascript:;" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
+      <a href="javascript:;" style="<%= 'display: none;' if !@campaign.allow_direct_donation||!@campaign.allow_direct_donation?%>" class="weui_btn weui_btn_plain_default donation_btn weui_btn_disabled js-showActionDonation">直接捐赠</a>
       </div>
     </div>
 

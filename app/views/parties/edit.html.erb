@@ -1,0 +1,25 @@
+<%= javascript_include_tag "kindeditor/kindeditor.js",charset:"utf-8" %>
+<%= javascript_include_tag "My97DatePicker/WdatePicker.js",charset:"utf-8" %>
+<div id="campaign-edit" class="party-container">
+  <div class="container">
+    <div class="campaign-edit-header">
+      <h3>欢迎 <%= current_user.profile.try(:first_name) %>, 编辑你的活动</h3>
+    </div>
+    <div class="container-box top-section" style="position:relative;">
+      <!--<div style="position:absolute; right:5px; top:5px;">-->
+      <!--<a data-toggle="modal" id="camp_preview_link" data-target="#camp_preview_modal" style="text-decoration: none; cursor:pointer; display:none;"><span>预览筹款页面</span></a>-->
+      <!--</div>-->
+
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(function(){
+    window.party.init();
+//    window.party.initTicket();
+    window.party.initFee();
+  });
+</script>

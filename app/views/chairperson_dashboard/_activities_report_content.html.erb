@@ -37,16 +37,16 @@
          total_emails+=emails
          total_fbs+=fbs
          total_tws+=tws
-         users << seller.user_profile.user if !users.include?(seller.user_profile.user) %>
+         users << seller.user_profile.user if  seller.user_profile&&seller.user_profile.user&&!users.include?(seller.user_profile.user) %>
           <tr>
-            <td><%= seller.user_profile.fullname %></td>
-            <td><%= seller.user_profile.user.email %></td>
+            <td><%= seller.user_profile.fullname if seller.user_profile %></td>
+            <td><%= seller.user_profile.user.email if seller.user_profile&&seller.user_profile.user%></td>
             <td><%= seller.campaign.title %></td>
             <td><%= seller.referral_code %></td>
             <td>￥<%= long_price(sales) %></td>
             <td>￥<%= long_price(raised) %></td>
             <td><%= orders %></td>
-            <td><%= seller.user_profile.user.sign_in_count %></td>
+            <td><%= seller.user_profile.user.sign_in_count if seller.user_profile&&seller.user_profile.user%></td>
           </tr>
       <% end %>
       <% users.each do |user|

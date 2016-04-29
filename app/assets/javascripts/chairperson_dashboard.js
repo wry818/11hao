@@ -326,7 +326,7 @@ Raisy.chairperson_dashboard = {
     },
     orders_list_pager_url_ajax:"",
     orders_list_pager_init:function(){
-
+        _this=this;
         $(function () {
             bind_pager_click();
 //    替换默认的分页是分页变成异步发送
@@ -348,7 +348,7 @@ Raisy.chairperson_dashboard = {
 
                 $("div.all_report_loader").show();
                 $("#activity_report_content").html("");
-                var url=Raisy.chairperson_dashboard.orders_list_pager_url_ajax;
+                var url=_this.orders_list_pager_url_ajax;
                 load_download_pagedata(url);
             });
             $("#run_report").click();

@@ -1,0 +1,111 @@
+<div id="campaign-edit">
+  <div class="container">
+    <div class="campaign-edit-header">
+      <h3>您的活动页面 <strong><%= @party.name %></strong></h3>
+    </div>
+    <div class="container-box top-section">
+      <div class="step-nav-bar">
+        <!--<div id="step_nav_icon_1" class="step-nav-icon"></div>-->
+        <!--<div id="step_nav_icon_2" class="step-nav-icon"></div>-->
+        <!--<div id="step_nav_icon_3" class="step-nav-icon"></div>-->
+        <!--<div id="step_nav_icon_4" class="step-nav-icon"></div>-->
+        <!--<div id="step_nav_icon_5" class="step-nav-icon"></div>-->
+        <!--<div id="step_nav_icon_6" class="step-nav-icon step-nav-icon-gray"></div>-->
+        <!-- <div id="step_nav_icon_7" class="step-nav-icon"></div>
+        <div id="step_nav_icon_8" class="step-nav-icon"></div>
+        <div id="step_nav_icon_9" class="step-nav-icon"></div> -->
+      </div>
+
+      <div style="text-align:center; margin-top:20px;"><h3 class="fieldset-header">预览您的活动页面&nbsp;&nbsp;<span class="camp-step-qa-icon">?</span></h3></div>
+
+      <div style="text-align:center; margin-top:30px;">
+        <%= image_tag @qr_url %>
+      </div>
+
+      <div style="text-align:center; margin-top:10px;">
+        <label>微信扫描上方的二维码，<br/>并分享您的活动页面</label>
+      </div>
+      <div style="text-align: center;margin-top: 10px;">
+        活动页面链接:<%=@http_url%>
+      </div>
+      <div style="text-align:center; margin-top:30px;">
+        <button class="btn btn-default btn-lg camp-next-btn" type="button" onclick="campaign_preview('<%=party_index_weixin_path("party_#{@party.id}")%>');">
+          <span class="text">预览活动页面</span>
+        </button>
+      </div>
+
+      <div style="text-align:center; margin-top:30px;">
+
+        <button class="btn btn-primary btn-lg camp-continue-btn" type="button" onclick="window.location.href='<%= party_orders_path(@party) %>';">
+          <span class="text">完成</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="camp_step_tips_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="camp_step_tips_modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>恭喜！您已经成功创建了活动页面。你可以通过点击“预览活动页面”按钮来浏览您的页面。请记住，在您完成了这些步骤后，您就可以在任何时间通过点击”编辑“编辑您的筹款页面内容。</p>
+          <!--<p>下面的这些步骤会帮助您邀请您的组织成员加入您的线上筹款团队。当他们创建了他们自己的页面后他们就能开始联系支持者们并开始线上销售商品！</p>-->
+        </div>	<!-- end of modal body -->
+
+        <div class="modal-footer">
+          <div style="position:relative; text-align:center;">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span>关闭</span></button>
+            <div class="hide_camp_step_tips_container">
+              <a id="hide_camp_step_tips" style="cursor:pointer; text-decoration: none;">
+                <span style="font-size:12px; font-weight:600;">不要再显示这信息</span>
+              </a>
+            </div>
+          </div>
+        </div> <!-- /.modal-footer -->
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+</div>
+
+<script>
+  function campaign_preview(path) {
+    var width =500;
+    var height = 600;
+    var left = ($(window).width()  - width)  / 2;
+    var top  = ($(window).height() - height) / 2;
+
+    var option = 'scrollbars=1,width=' + width + ',height=' + height + ',left=' + left + 'top=' + top;
+
+    window.open(path, "Preview", option);
+  }
+</script>
+
+<script>
+  $(document).ready(function(){
+
+    $(".navbar-brand").addClass("navbar-brand-main");
+
+    window.setTimeout(function(){
+      <% if @step_popup=="yes" %>
+      $("#camp_step_tips_modal").modal("show");
+      <% end %>
+    }, 200);
+
+    $("#hide_camp_step_tips").off("click").on("click", function() {
+      $.ajax('/ajax/campsteppopup', {
+        type: 'GET',
+        cache: false,
+        data: { popup: "disable" },
+        beforeSend: function(jqXHR, settings) {
+          jqXHR.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        success: function(data) {
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        },
+        complete: function () {
+          $("#camp_step_tips_modal").modal("hide");
+        }
+      });
+    });
+  });
+</script>

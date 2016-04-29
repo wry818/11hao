@@ -144,7 +144,7 @@ Raisy::Application.routes.draw do
   get 'campaginngo/campaignview_supporters', to: 'campaign_ngo#campaignview_supporters', as: :campagin_ngo_campaignview_supporters
   get "checkout/:ids", to:"product#index",constraints: { ids: /hotsale_\S+/ },as: :hotsale_index
   get 'checkout/:procamp', to: 'shop#product_weixin',constraints: { procamp: /procamp_\S+_[0-9]+/ }, as: :shop_product_weixin_pay
-
+  get "checkout/:partyid", to:"shop_mall#party_index",constraints: { partyid: /party_\S+/ },as: :party_index_weixin
   get 'checkout/shgs', to: 'campaign_ngo#shgs', as: :campagin_ngo_shgs
   get 'campaginngo/shgs_supporters', to: 'campaign_ngo#shgs_supporters', as: :campagin_ngo_shgs_supporters
 
@@ -219,11 +219,26 @@ Raisy::Application.routes.draw do
       get ':id/sendmails', to: 'campaigns#campaign_sendmails', as: :campaign_sendmails
       get ':id/share', to: 'campaigns#campaign_share', as: :campaign_share
       get 'account', to: 'campaigns#campaign_account', as: :campaign_account
+      get 'logo', to: 'campaigns#campaign_uploadlogo', as: :campaign_uploadlogo
+
       post 'create_account', to: 'campaigns#campaign_create_account', as: :campaign_create_account
       match 'ajax_create', to: 'campaigns#ajax_create', as: :campaign_ajax_create,via: [:patch, :post]
 
     end
     resources :campaigns, except: [:show]
+  get 'party/:id/share', to: 'shop_mall#ajax_pary_share_log', as: :ajax_party_share_log
+  get 'party/:id/orders/download', to: 'parties#party_orders_download', as: :dashboard_party_orders_download
+    get 'party/partyview_participants', to: 'shop_mall#partyview_participants', as: :partyview_participants
+    match 'ajax/ajax_create_participant', to: 'shop_mall#ajax_create_participant', as: :ajax_create_participant,via: [:patch, :post]
+  match 'ajax/ajax_update_participant', to: 'shop_mall#ajax_update_participant', as: :ajax_update_participant,via: [:patch, :post]
+
+  get "party/parties", to: "shop_mall#parties", as: :party_parties
+  get 'party/party_tickets', to: "shop_mall#party_tickets", as: :party_tickets
+    get 'party_ticket_view/:id', to: "shop_mall#party_ticket_view", as: :party_ticket_view_preview
+    get 'party/:id', to: "parties#party_preview", as: :party_preview
+    get 'party/:id/orders', to: 'parties#party_orders', as: :party_orders
+    post 'party/:id/orders_ajax', to: 'parties#party_orders_ajax', as: :ajax_party_orders
+    resources :parties
     get 'search', to: 'pages#search', as: :search
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 

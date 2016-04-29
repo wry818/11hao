@@ -487,7 +487,7 @@ class Admin::CampaignsController < Admin::ApplicationController
     def campaign_params
         params.require(:campaign).permit :title, :organizer_quote, :campaign_mode, :goal, :seller_goal, :seller_compassion_goal, :display_seller_goal, :end_date, :organizer_quote, 
             :description, :collection_id, :call_to_action, :organizer_id, :allow_direct_donation,
-            :discount, :purchase_limit, :active,:minilogo,:is_featured,:receiver,:agreement_id
+            :discount, :purchase_limit, :active,:minilogo,:is_featured,:receiver,:agreement_id ,:product_id
     end
 
     def campaign_delivery_params

@@ -26,11 +26,18 @@
                             <% @users.real.each do |user| %>
                             <tr>
                                 <td><%= user.created_at.strftime('%b %-d, %Y') %></td>
-                                <td><%= link_to user.profile.fullname, edit_admin_user_path(user) %></td>
+                                <td>
+                                  <%= link_to user.profile.fullname, edit_admin_user_path(user) %>
+                                </td>
                                 <td><%= user.profile.display_name %></td>
                                 <td><%= user.profile.title %></td>
                                 <td>
-                                    <%= cl_image_tag user.profile.picture, width: 50, height: 50, crop: :limit, class: 'img-thumbnail' if user.profile.picture.present? %>
+                                  <% if user.profile.picture&&user.profile.picture.length>0%>
+                                      <%= image_tag user.profile.picture+"?id=#{rand(100)}", width: 28, height: 28 %>
+                                  <% else %>
+                                      <%= image_tag "logo.png",width: 28, height: 28 %>
+                                  <% end %>
+
                                 </td>
                                 <td>
                                     <% if user.admin? %>

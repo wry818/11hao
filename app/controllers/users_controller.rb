@@ -1115,6 +1115,7 @@ class UsersController < ApplicationController
       @user_profile.errors.each do |key, error|
         message = message + key.to_s.humanize + ' ' + error.to_s + ', '
       end
+      logger.debug "message"
       redirect_to(settings_profile_url, flash: {danger: message[0...-2]}) and return
     end
 
@@ -1132,6 +1133,13 @@ class UsersController < ApplicationController
 
         @user_profile.update_attribute(:picture, image_hash["public_id"])
       end
+    end
+    logger.debug "message"
+    if params[:is_campaign]&&params[:is_campaign]=="1"
+      if params[:is_party]
+        redirect_to new_party_path and return
+      end
+      redirect_to new_campaign_path and return
     end
 
     redirect_to(settings_profile_url, flash: {success: "个人资料保存成功"}) and return
