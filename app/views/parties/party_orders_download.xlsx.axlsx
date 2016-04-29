@@ -31,7 +31,7 @@ wb.add_worksheet(name: "活动参与者") do |sheet|
 				r.tel,
 				r.updated_at.localtime.strftime('%Y-%m-%d %H:%M:%S'),
                 r.remark,
-                r.order==nil ? "无" : r.order.out_trade_no ,
+                r.order==nil ? "无" : "'"+r.order.out_trade_no ,
 				r.order==nil ? "无" : "￥" + long_price(r.order.grandtotal.to_f/100)
 			], :style => wrap_text
 		end
