@@ -741,11 +741,13 @@ window.shopmall = {
             }
             if($("#participant_name").val().length==0)
             {
+                $btn_submit1.removeClass("js-is-show-pay");
                 alert("名字不能为空");
                 return;
             }
             if($("#participant_tel").val().length==0)
             {
+                $btn_submit1.removeClass("js-is-show-pay");
                 alert("电话不能为空");
                 return;
             }
