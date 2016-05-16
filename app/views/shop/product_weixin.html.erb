@@ -119,7 +119,7 @@
   <div class="goods-content">
 
     <% if @product.description %>
-        <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a img embed), attributes: %w(id class style src alt href target type width height autostart loop) %>
+        <%= sanitize @product.description, tags: %w(p span strong em u ul ol li a img embed video source iframe), attributes: %w(id class style src alt href target type width height autostart loop frameborder) %>
     <% end %>
 
   </div>
