@@ -292,6 +292,7 @@ window.shopmall = {
             var weuiActionsheet = $('#weui_actionsheet');
             weuiActionsheet.addClass('weui_actionsheet_toggle');
             $("body").css("overflow","hidden");
+
             var startY=0;
             $("body").bind("touchstart",function(evt){
                 try
@@ -330,6 +331,7 @@ window.shopmall = {
                     alert('touchMoveFunc：' + e.message);
                 }
             });
+
             //alert(1);
             mask.show().addClass('weui_fade_toggle').one('click', function () {
                 hideActionSheet(weuiActionsheet, mask);

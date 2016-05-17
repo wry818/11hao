@@ -992,6 +992,10 @@ class ShopController < ApplicationController
           # logger.info  @avatar_url
           # logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
         end
+        logger.info "aaaaaaaaaaaaaaaaaaaaaaaaashop"
+        logger.info  user_info.inspect
+        logger.info  session[:openid]
+        logger.info  session[:access_token]
       end
       # @nickname
 
