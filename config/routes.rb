@@ -157,6 +157,9 @@ Raisy::Application.routes.draw do
   get 'checkout/lbflower', to: 'campaign_ngo#lbflower', as: :campagin_ngo_lbflower
   get 'campaginngo/lbflower_supporters', to: 'campaign_ngo#lbflower_supporters', as: :campagin_ngo_lbflower_supporters
 
+  get 'checkout/lbpulushi', to: 'campaign_ngo#lbpulushi', as: :campaign_ngo_lbpulushi
+  get 'campaginngo/lbpulushi_supporters', to: 'campaign_ngo#lbpulushi_supporters', as: :campagin_ngo_lbpulushi_supporters
+  
   post 'campaginngo/confirmation', to: 'campaign_ngo#confirmation', as: :campaign_ngo_checkout_confirmation
   post 'campaginngo/confirmation_weixin', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin
   post 'campaginngo/confirmation_weixin/:campaign_id', to: 'campaign_ngo#confirmation_weixin', as: :campaign_ngo_confirmation_weixin_bycampaign
