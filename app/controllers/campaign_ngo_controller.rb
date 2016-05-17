@@ -222,6 +222,35 @@ class CampaignNgoController < ApplicationController
     load_campaign_supporter(campaign_slug, path)
 
   end
+  
+  def lbpulushi
+
+    if(params[:order_id])
+      order=Order.find(params[:order_id])
+      if order
+        @isback=order.direct_donation
+      end
+    end
+
+
+    campaign_slug = "1429755460"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
+    session[:personal_campaign_slug]=campaign_slug
+    path = campagin_ngo_lbpulushi_supporters_path
+
+    load_campaign_page(campaign_slug, path)
+
+  end
+  def lbpulushi_supporters
+
+    campaign_slug = "1429755460"
+    campaign_slug=Campaign.find_by_slug(campaign_slug).id;
+    path = campagin_ngo_lbpulushi_supporters_path
+
+    load_campaign_supporter(campaign_slug, path)
+
+  end
+  
   def load_campaign_page(campaign_slug, path)
 
     @campaign = Campaign.find(campaign_slug)
