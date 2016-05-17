@@ -11,7 +11,7 @@ class WeixinController < ApplicationController
         {
             name: "公益讲堂",
             type: "view",
-            url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=2649417359&idx=1&sn=6b1315216077da1876e69647f7750ac2&scene=0#wechat_redirect"
+            url: "http://mp.weixin.qq.com/s?__biz=MzAwOTAyNzk0NQ==&mid=2649417406&idx=1&sn=c314121f5cba610b4d779e6a9565b25d&scene=0#rd"
             # sub_button: [
             #     {
             #         type: "view",
