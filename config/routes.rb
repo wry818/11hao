@@ -243,9 +243,12 @@ Raisy::Application.routes.draw do
     post 'party/:id/orders_ajax', to: 'parties#party_orders_ajax', as: :ajax_party_orders
     resources :parties
     get 'search', to: 'pages#search', as: :search
+    
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 
     # STATIC PAGES
+    get 'fancy', to: 'fancy#index', as: :fancy
+    get 'fancy/about_us', to: 'fancy#about_us'
     get 'privacy', to: 'pages#privacy'
     get 'tou', to: 'pages#tou'
     get 'copyright', to: 'pages#copyright'
