@@ -10945,7 +10945,7 @@ button.close {
 
     .car-card .thumbnail .img {
         width: 100%;
-        height: 250px;
+        height: 330px;
         background: no-repeat center;
         background-size: cover;
     }
@@ -10955,7 +10955,7 @@ button.close {
     left: 0;
     top: 0;
     width: 100%;
-    height: 250px;
+    height: 330px;
     font-size: 36px;
     padding: 0;
     overflow: hidden;
