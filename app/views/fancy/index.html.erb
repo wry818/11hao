@@ -9,7 +9,21 @@
             }
             .car-card a.actions:hover:before {
             content: '' !important;
+            background-color:transparent;
+            cursor: default !important;
             }
+            .sprite {
+    background: url("/fancyassets/images/Up.png") no-repeat top center;
+    width: 40px !important;
+    height: 40px !important;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+    .sprite.sprite-car-counter {
+        background-position: 10px 0px;
+    }
 
         </style>
     </head>
@@ -72,7 +86,7 @@
                                 <h3>意想不到的平衡 </h3>
                             </div>
                         </a>
-                        <a class="actions clearfix" href="#">
+                        <div class="actions clearfix">
                             <div class="pull-left profile-avatar small">
                                 <div class="initials">?</div>
                                 <img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
@@ -87,7 +101,7 @@
                                 【科学实验】意想不到的平衡
                                 <div class="location small"></div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 <div class="car-card col-md-6">
@@ -100,7 +114,7 @@
                                 <h3>可乐和牛奶千万不能一起喝</h3>
                             </div>
                         </a>
-                        <a class="actions clearfix" href="#">
+                        <div class="actions clearfix">
                             <div class="pull-left profile-avatar small">
                                 <div class="initials">?</div>
                                 <img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
@@ -115,7 +129,7 @@
                                 【可乐隐身术】可乐和牛奶千万不能一起喝
                                 <div class="location small"></div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
 
