@@ -247,8 +247,7 @@ Raisy::Application.routes.draw do
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 
     # STATIC PAGES
-    get 'fancy', to: 'fancy#index', as: :fancy
-    get 'fancy/about_us', to: 'fancy#about_us'
+    get 'fancylab', to: 'fancy#index', as: :fancy
     get 'privacy', to: 'pages#privacy'
     get 'tou', to: 'pages#tou'
     get 'copyright', to: 'pages#copyright'
