@@ -1,184 +1,205 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Fancy Lab</title>
-        <meta name="description" content="Fancy Lab"/>
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  		<meta name="apple-mobile-web-app-title" content="Fancy Lab">
-  		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>	
-        <link rel="stylesheet" media="all" href="/fancyassets/application.css" />
-        <style type="text/css">
-            .user{
-                line-height: 2.8 !important;
-            }
-            .car-card a.actions:hover:before {
-            content: '' !important;
-            background-color:transparent;
-            cursor: default !important;
-            }
-            .sprite {
-    background: url("/fancyassets/images/Up.png") no-repeat top center;
-    width: 40px !important;
-    height: 40px !important;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-}
+	<head>
+		<title>Fancy Lab</title>
+		<meta name="description" content="Fancy Lab"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-mobile-web-app-title" content="Fancy Lab">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" media="all" href="/fancyassets/application.css" />
+		<style type="text/css">
+			.user {
+				line-height: 2.8 !important;
+			}
+			.car-card a.actions:hover:before {
+				content: '' !important;
+				background-color: transparent;
+				cursor: default !important;
+			}
+			.sprite {
+				background: url("/fancyassets/images/Up.png") no-repeat top center;
+				width: 40px !important;
+				height: 40px !important;
+				display: inline-block;
+				vertical-align: middle;
+				cursor: pointer;
+			}
 
-    .sprite.sprite-car-counter {
-        background-position: 10px 0px;
-    }
-    #aubout_us_text_content>p>span{
-        font-size:18px !important;
-    }
+			.sprite.sprite-car-counter {
+				background-position: 10px 0px;
+			}
+			#aubout_us_text_content > p > span {
+				font-size: 18px !important;
+			}
 
-        </style>
-    </head>
-    <body>
-        <div class="jumbo-header" style="background-image: url(/fancyassets/header-bg.jpg)">
-            <div class="nav navbar-default" id="navmain">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
-                            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="javascript:void(0);" tppabs="http://www.karpage.com/">
-                            <img src="/fancyassets/images/Fancy_Lab_Logo_200_58.png" width="120">
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbar">
-                        <ul class="nav navbar-nav navbar-right">
+		</style>
+	</head>
+	<body>
+		<div class="jumbo-header" style="background-image: url(/fancyassets/header-bg.jpg)">
+			<div class="nav navbar-default" id="navmain">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+							<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="javascript:void(0);" tppabs="http://www.karpage.com/"> <img src="/fancyassets/images/Fancy_Lab_Logo_200_58.png" width="120"> </a>
+					</div>
+					<div class="collapse navbar-collapse" id="navbar">
+						<ul class="nav navbar-nav navbar-right">
 
-                            <!-- <li>
-                            <a href="-m=1.htm" tppabs="http://www.karpage.com/?m=1">Get the App</a>
-                            </li>
-                            <li>
-                            <a href="cars.htm" tppabs="http://www.karpage.com/cars">Explore</a>
-                            </li>
-                            <li>
-                            <a data-remote="true" href="" tppabs="http://www.karpage.com/session/new">Sign In</a>
-                            </li>
-                            -->
-                            <li>
-                                <a href="#about_us_row">About Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="header-content">
-                <h1>
-                    奇妙实验室</small>
-                </h1>
-                <!--
-                <a data-remote="true" class="btn btn-default" href="" tppabs="http://www.karpage.com/user/new">Get Started</a>
-                -->
-            </div>
-        </div>
+							<!-- <li>
+							<a href="-m=1.htm" tppabs="http://www.karpage.com/?m=1">Get the App</a>
+							</li>
+							<li>
+							<a href="cars.htm" tppabs="http://www.karpage.com/cars">Explore</a>
+							</li>
+							<li>
+							<a data-remote="true" href="" tppabs="http://www.karpage.com/session/new">Sign In</a>
+							</li>
+							-->
+							<li>
+								<a href="#about_us_row">About Us</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="header-content">
+				<h1> 奇妙实验室</small> </h1>
+				<!--
+				<a data-remote="true" class="btn btn-default" href="" tppabs="http://www.karpage.com/user/new">Get Started</a>
+				-->
+			</div>
+		</div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-10">
-                    <h1>最新视频</h1>
-                </div>
-            </div>
-            
-            <div class="row car-cards">
-            	<% @videos.each do |v|%>
-            	<div class="car-card col-md-6">
-            		<div class="thumbnail has-photo">
-            			<div class="img">
-            				<iframe class="video_iframe" 
-            				height="100%" 
-            				width="100%" \
-            				frameborder="0" 
-            				allowfullscreen="" 
-            				scrolling="no" 
-            				style="width:100%; height:100%; z-index:1;" 
-            				src="<%= v.video_url %>">
-            				</iframe>
-            			</div>
-            			<div class="caption">
-            				<h3><%= v.video_title %></h3>
-                        </div>
-            			<div class="actions clearfix">
-            				<div class="pull-left profile-avatar small">
-                                <div class="initials">?</div>
-                                <img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
-                            </div>
-                            <div class="pull-right">
-                                <div class="car-count">
-                                    <span class="video-likes-count"><%= v.video_likes %></span>
-                                    <div class="sprite sprite-car-counter video-likes-btn" data-url="<%= fancy_videolike_path v.id %>"></div>
-                                </div>
-                            </div>
-                            <div class="user" style="line-height: 1.42857 !important; overflow: hidden;">
-                            	<%= v.video_name %>
-                            </div>
-            			</div>
-            			<div class="clearfix"></div>
-            		</div>
-            	</div>
-            	<% end %>
-            </div>
-            
-            <div class="row">
-                <div class="col-sm-10">
-                    <h1>About Us</h1>
-                </div>
-            </div>
-            <div class="row" id='about_us_row'>
- 
-  <div class="car-card col-md-6"><div id='aubout_us_text_content' style="padding:14px;">
-<p><span>我们是谁？</span></p>
-<p><span >我们是一群热爱科学、喜欢动手探寻身边科学奥秘的人。在操作科学实验的过程中，我们发现了许多不可思议的惊喜现象。&ldquo;原来科学也可以这么有趣！&rdquo;于是我们成立了奇妙实验室，想要把这份有趣的惊喜分享给更多的人。</span></p>
-<p><span >&nbsp;</span></p>
-<p><span >我们是做什么的？</span></p>
-<p><span >我们每周推出新的实验视频，通过简单的实验操作，带你一起探索身边奇妙有趣的科学现象。视频的拍摄需要小主角的参与，如果你也有兴趣参与到其中，欢迎与我们联系。</span></p>
-<p><span >&nbsp;</span></p>
-<p><span >我们为什么要这么做？</span></p>
-<p><span >传递创造性的学习方法，让孩子带着学习的目的体验实验的乐趣，是我们的追求。我们希望在生动有趣的实验视频以外，带给孩子丰富的科学知识，让孩子们的游戏时光更有意义。</span></p>
-<p><span >&nbsp;</span></p>
-            </div></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>最新视频</h1>
+				</div>
+			</div>
 
-<div class="car-card col-md-6">
-<p style="text-align: center;"><span style="line-height: 1.6; color: rgb(89, 89, 89);">奇妙实验室</span></p>
-     <p style="text-align: center;"><span style="color:#595959"><span style="line-height: 24px; font-size: 16px; background-color: rgb(255, 255, 255);"></span></span><img src="/fancyassets/images/fancylab_weixin_480.jpg" style="width: auto !important; visibility: visible !important; height: auto !important;"></p>
- </div>
+			<div class="row car-cards">
+				<% @videos.each do |v|%>
+				<div class="car-card col-md-6">
+					<div class="thumbnail has-photo">
+						<div class="img">
+							<iframe class="video_iframe"
+							height="100%"
+							width="100%" \
+							frameborder="0"
+							allowfullscreen=""
+							scrolling="no"
+							style="width:100%; height:100%; z-index:1;"
+							src="<%= v.video_url %>"></iframe>
+						</div>
+						<div class="caption">
+							<h3><%= v.video_title %></h3>
+						</div>
+						<div class="actions clearfix">
+							<div class="pull-left profile-avatar small">
+								<div class="initials">
+									?
+								</div>
+								<img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
+							</div>
+							<div class="pull-right">
+								<div class="car-count">
+									<span class="video-likes-count"><%= v.video_likes %></span>
+									<div class="sprite sprite-car-counter video-likes-btn" data-url="<%= fancy_videolike_path v.id %>"></div>
+								</div>
+							</div>
+							<div class="user" style="line-height: 1.42857 !important; overflow: hidden;">
+								<%= v.video_name %>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<% end %>
+			</div>
 
+			<div class="row">
+				<div class="col-sm-10">
+					<h1>About Us</h1>
+				</div>
+			</div>
+			<div class="row" id='about_us_row'>
 
+				<div class="car-card col-md-6">
+					<div id='aubout_us_text_content' style="padding:14px;">
+						<p>
+							<span>我们是谁？</span>
+						</p>
+						<p>
+							<span >我们是一群热爱科学、喜欢动手探寻身边科学奥秘的人。在操作科学实验的过程中，我们发现了许多不可思议的惊喜现象。&ldquo;原来科学也可以这么有趣！&rdquo;于是我们成立了奇妙实验室，想要把这份有趣的惊喜分享给更多的人。</span>
+						</p>
+						<p>
+							<span >&nbsp;</span>
+						</p>
+						<p>
+							<span >我们是做什么的？</span>
+						</p>
+						<p>
+							<span >我们每周推出新的实验视频，通过简单的实验操作，带你一起探索身边奇妙有趣的科学现象。视频的拍摄需要小主角的参与，如果你也有兴趣参与到其中，欢迎与我们联系。</span>
+						</p>
+						<p>
+							<span >&nbsp;</span>
+						</p>
+						<p>
+							<span >我们为什么要这么做？</span>
+						</p>
+						<p>
+							<span >传递创造性的学习方法，让孩子带着学习的目的体验实验的乐趣，是我们的追求。我们希望在生动有趣的实验视频以外，带给孩子丰富的科学知识，让孩子们的游戏时光更有意义。</span>
+						</p>
+						<p>
+							<span >&nbsp;</span>
+						</p>
+					</div>
+				</div>
 
+				<div class="car-card col-md-6">
+					<p style="text-align: center;">
+						<span style="line-height: 1.6; color: rgb(89, 89, 89);">奇妙实验室</span>
+					</p>
+					<p style="text-align: center;">
+						<span style="color:#595959">
+							<span style="line-height: 24px; font-size: 16px; background-color: rgb(255, 255, 255);"></span>
+						</span>
+						<img src="/fancyassets/images/fancylab_weixin_480.jpg" style="max-width:100%;" />
+					</p>
+				</div>
 
+			</div>
+		</div>
 
-            
-            </div>
-        </div>
+		<div class="container-fluid footer">
+			<!--
+			<ul class="footer-nav">
+			<li>
+			<a class="btn btn-link" data-toggle="modal" data-target="#modalContactForm" href="#">Contact</a>
+			</li>
+			<li>
+			<a class="btn btn-link" href="info/terms-and-conditions.htm">Terms of Use</a>
+			</li>
+			<li>
+			<a class="btn btn-link" href="info/privacy-policy.htm">Privacy Policy</a>
+			</li>
+			</ul>
+			-->
+			<p class="copyright small">
+				@ 2015-2016 All Rights Reserved.
+			</p>
+			<script src="/fancyassets/application.js"></script>
+		</div>
 
-        <div class="container-fluid footer">
-            <!--
-            <ul class="footer-nav">
-            <li>
-            <a class="btn btn-link" data-toggle="modal" data-target="#modalContactForm" href="#">Contact</a>
-            </li>
-            <li>
-            <a class="btn btn-link" href="info/terms-and-conditions.htm">Terms of Use</a>
-            </li>
-            <li>
-            <a class="btn btn-link" href="info/privacy-policy.htm">Privacy Policy</a>
-            </li>
-            </ul>
-            -->
-            <p class="copyright small">@ 2015-2016 All Rights Reserved.</p>
-            <script src="/fancyassets/application.js"></script>
-        </div>
-        
-        <script>
-        	$(".video-likes-btn").click(function(e) {
-        		var $this = $(this);
-        		$.get($this.data("url"), function(d) {
-        			$this.parent().find(".video-likes-count").text(d);
-        		});
-        	});
-        </script>
-    </body>
+		<script>
+			$(".video-likes-btn").click(function(e) {
+				var $this = $(this);
+				$.get($this.data("url"), function(d) {
+					$this.parent().find(".video-likes-count").text(d);
+				});
+			});
+		</script>
+	</body>
 </html>
