@@ -38,7 +38,7 @@
                         <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
                             <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.htm" tppabs="http://www.karpage.com/">
+                        <a class="navbar-brand" href="javascript:void(0);" tppabs="http://www.karpage.com/">
                             <img src="/fancyassets/images/Fancy_Lab_Logo_200_58.png" width="120">
                         </a>
                     </div>
@@ -78,66 +78,47 @@
                     <h1>最新视频</h1>
                 </div>
             </div>
+            
             <div class="row car-cards">
-                <div class="car-card col-md-6">
-                    <div class="thumbnail has-photo">
-                        <a href="#">
-                             <div class="img">
-                                <iframe class="video_iframe" height="100%" width="100%" frameborder="0" data-src="https://v.qq.com/iframe/preview.html?vid=u0314u5sl8o&amp;width=100%25&amp;height=100%25&amp;auto=0" allowfullscreen="" style="line-height: 1.6; z-index: 1; width: 100% !important; height: 100% !important; overflow: hidden;" src="http://v.qq.com/iframe/player.html?vid=u0314u5sl8o&amp;width=100%25&amp;height=100%25&amp;auto=0" scrolling="no"></iframe>
-                            </div>
-                            <div class="caption">
-                                <h3>意想不到的平衡 </h3>
-                            </div>
-                        </a>
-                        <div class="actions clearfix">
-                            <div class="pull-left profile-avatar small">
+            	<% @videos.each do |v|%>
+            	<div class="car-card col-md-6">
+            		<div class="thumbnail has-photo">
+            			<div class="img">
+            				<iframe class="video_iframe" 
+            				height="100%" 
+            				width="100%" \
+            				frameborder="0" 
+            				allowfullscreen="" 
+            				scrolling="no" 
+            				style="width:100%; height:100%; z-index:1;" 
+            				src="<%= v.video_url %>">
+            				</iframe>
+            			</div>
+            			<div class="caption">
+            				<h3><%= v.video_title %></h3>
+                        </div>
+            			<div class="actions clearfix">
+            				<div class="pull-left profile-avatar small">
                                 <div class="initials">?</div>
                                 <img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
                             </div>
                             <div class="pull-right">
                                 <div class="car-count">
-                                    <span>1</span>
-                                    <div class="sprite sprite-car-counter"></div>
+                                    <span class="video-likes-count"><%= v.video_likes %></span>
+                                    <div class="sprite sprite-car-counter video-likes-btn" data-url="<%= fancy_videolike_path v.id %>"></div>
                                 </div>
                             </div>
-                            <div class="user">
-                                【科学实验】意想不到的平衡
-                                <div class="location small"></div>
+                            <div class="user" style="line-height: 1.42857 !important; overflow: hidden;">
+                            	<%= v.video_name %>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="car-card col-md-6">
-                    <div class="thumbnail has-photo">
-                        <a href="#">
-                            <div class="img">
-                                <iframe class="video_iframe" height="100%" width="100%" frameborder="0" data-src="https://v.qq.com/iframe/preview.html?vid=d0315nhpyj5&amp;width=100%25&amp;height=100%25&amp;auto=0" allowfullscreen="" style="line-height: 1.6; z-index: 1; width: 100% !important; height: 100% !important; overflow: hidden;" src="http://v.qq.com/iframe/player.html?vid=d0315nhpyj5&amp;width=100%25&amp;height=100%25&amp;auto=0" scrolling="no"></iframe>
-                            </div>
-                            <div class="caption">
-                                <h3>可乐和牛奶千万不能一起喝</h3>
-                            </div>
-                        </a>
-                        <div class="actions clearfix">
-                            <div class="pull-left profile-avatar small">
-                                <div class="initials">?</div>
-                                <img class="media-object avatar" height="45" src="/fancyassets/images/FancyLab_Logo_45_45.jpg" width="45" />
-                            </div>
-                            <div class="pull-right">
-                                <div class="car-count">
-                                    <span>1</span>
-                                    <div class="sprite sprite-car-counter"></div>
-                                </div>
-                            </div>
-                            <div class="user">
-                                【可乐隐身术】可乐和牛奶千万不能一起喝
-                                <div class="location small"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            			</div>
+            			<div class="clearfix"></div>
+            		</div>
+            	</div>
+            	<% end %>
             </div>
-             <div class="row">
+            
+            <div class="row">
                 <div class="col-sm-10">
                     <h1>About Us</h1>
                 </div>
@@ -186,5 +167,14 @@
             <p class="copyright small">@ 2015-2016 All Rights Reserved.</p>
             <script src="/fancyassets/application.js"></script>
         </div>
+        
+        <script>
+        	$(".video-likes-btn").click(function(e) {
+        		var $this = $(this);
+        		$.get($this.data("url"), function(d) {
+        			$this.parent().find(".video-likes-count").text(d);
+        		});
+        	});
+        </script>
     </body>
 </html>
