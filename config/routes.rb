@@ -412,6 +412,8 @@ Raisy::Application.routes.draw do
         get 'download' => 'weixin#download_file'
         
     end
+    
+    get 'fancylab/videolike/:id', to: 'fancy#video_like', as: :fancy_videolike
 
     # if !Rails.env.production?
     # get '404', :to => 'application#page_not_found'
