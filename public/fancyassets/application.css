@@ -12113,4 +12113,7 @@ form.car-search {
       width: 100%;
       height: 250px;
     }
+    .header-content h1 {
+        font-size: 38px !important;
+    }
 }
