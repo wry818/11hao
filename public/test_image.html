@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<META content="IE=11.0000" http-equiv="X-UA-Compatible">
+	<META charset="utf-8">
+	<META http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<META name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<META name="apple-mobile-web-app-capable" content="yes">
+	<META name="apple-mobile-web-app-status-bar-style" content="black">	
+	<STYLE>
+	    html, body {
+	      margin: 0;
+	      padding: 0;
+	      width: 100%;
+	      height: 100%;
+	    }
+	    
+		.button {
+			padding: 10px;
+		  color: #fff;
+		  background-color: rgb(168, 193, 51);
+		  border-color: rgb(168, 193, 51);
+		  border-radius: 0px;
+  
+		  &:hover {
+			  color: #fff;
+			  background-color: rgb(190, 211, 88) !important;
+			  border-color: rgb(190, 211, 88) !important;
+		  }
+  
+		  &:active {
+			  color: #fff;
+		  }
+  
+		  &:focus {
+			  color: #fff;
+		  }
+  
+		}
+		
+	    img {
+	      height: 100%;
+	      width: 100%;
+	    }
+
+	    @media only screen and (min-height: 768px) {
+	    }
+	</STYLE>
+	<script src="https://code.jquery.com/jquery.min.js"></script> 
+	<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script> 	
+</head>
+
+<body>
+  <div style="position: relative">
+	  <img id="img_video" src="/images/video_pics/IMG_0311 001.jpg">
+	  <div id="play_buttons" style="display: none; width: 100%; position: absolute; bottom: 20px; left: 20px">
+		<table style="width: 100%">
+			<tr>
+				<td>
+					<a id="start" class="button" />播放第一段</a>
+				</td>
+				<td>
+					<a id="start2" class="button" />播放第二段</a>
+				</td>
+				<td>
+					<a id="start3" class="button" />播放第三段</a>
+				</td>
+			</tr>
+		</table>
+	  </div>
+  	  <div id="img_cache" style="display: none">
+  	  </div>
+  </div>
+  
+  <script Language="javascript">
+
+  var _interval;
+  var _total_pics = 182;
+  var _end_pic = 0;
+  
+  $(document).ready(function() {
+	  
+  	$("#start").click(function (event) {
+  		$("#img_video").attr('src', "/images/video_pics/IMG_0311 001.jpg");
+		_end_pic = 61;
+  		_interval = setInterval(PlayImages, 30);
+  	});
+	
+  	$("#start2").click(function (event) {
+  		$("#img_video").attr('src', "/images/video_pics/IMG_0311 061.jpg");
+		_end_pic = 121;
+  		_interval = setInterval(PlayImages, 30);
+  	});
+	
+  	$("#start3").click(function (event) {
+  		$("#img_video").attr('src', "/images/video_pics/IMG_0311 121.jpg");
+		_end_pic = 182;
+  		_interval = setInterval(PlayImages, 30);
+  	});
+	
+  	var images_elem = "";
+  	for (var i = 1; i <= _total_pics; i++) {
+		
+  		var next_src = "";
+		
+  		if (i < 10) {
+  			next_src = "/images/video_pics/IMG_0311 00" + i.toString() + ".jpg";
+  		} else if (i < 100) {
+  			next_src = "/images/video_pics/IMG_0311 0" + i.toString() + ".jpg";
+  		} else {
+  			next_src = "/images/video_pics/IMG_0311 " + i.toString() + ".jpg";
+  		}
+		
+  		images_elem += '<img src="' + next_src + '">';
+		
+  	}
+	
+  	$("#img_cache").prepend($(images_elem));
+	
+    	$('#img_cache').imagesLoaded()
+      	.always( function( instance ) {
+  			$("#play_buttons").show();
+      	})
+      	.done( function( instance ) {
+			//$("#play_buttons").show();
+      	})
+      	.fail( function() {
+			//alert("load failed");
+      	})
+      	.progress( function( instance, image ) {
+      });
+	
+  });
+
+  function PlayImages() {
+
+  	var current_src = $("#img_video").attr('src');
+  	var next_src = "";
+
+  	var image_num_url = current_src.replace("/images/video_pics/IMG_0311 ", "").replace(".jpg", "");
+  	var image_num = parseInt(image_num_url);
+	
+  	if (image_num < _end_pic) {
+  		image_num += 1;
+  		if (image_num < 10) {
+  			next_src = "/images/video_pics/IMG_0311 00" + image_num.toString() + ".jpg";
+  		} else if (image_num < 100) {
+  			next_src = "/images/video_pics/IMG_0311 0" + image_num.toString() + ".jpg";
+  		} else {
+  			next_src = "/images/video_pics/IMG_0311 " + image_num.toString() + ".jpg";
+  		}
+  		// alert(next_src);
+  	}
+
+  	if (next_src != "") { 
+  		$("#img_video").attr('src', next_src);
+  	} else {
+  		clearInterval(_interval);
+  	}
+
+  }
+						
+  </script>
+  
+</body>
+</html>
