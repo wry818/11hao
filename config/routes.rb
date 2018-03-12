@@ -1,8 +1,9 @@
 Raisy::Application.routes.draw do
   
   mount WeixinRailsMiddleware::Engine, at: "/"
-    root 'pages#index'
-
+    # root 'pages#index'
+    root 'fancy#index'
+    
     devise_for :users,:controllers => {:registrations => "registrations"}
     
     devise_scope :user do 
@@ -247,7 +248,7 @@ Raisy::Application.routes.draw do
     get 'ajax/searchcamppopup', to: 'pages#ajax_search_camp_popup', as: :ajax_search_camp_popup
 
     # STATIC PAGES
-    get 'fancylab', to: 'fancy#index', as: :fancy
+    # get 'fancylab', to: 'fancy#index', as: :fancy
     get 'privacy', to: 'pages#privacy'
     get 'tou', to: 'pages#tou'
     get 'copyright', to: 'pages#copyright'
