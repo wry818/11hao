@@ -10490,8 +10490,19 @@ button.close {
     padding-bottom: 40px;
     margin-bottom: 30px;
     position: relative;
+	background-repeat:no-repeat;
 }
-
+/*.aa {
+	color: #fff;
+    position: absolute;
+    left: 40%;
+    top: 30%;
+}
+.aa h1 {
+    font-size: 46px;
+    font-weight: normal;
+    text-shadow: 1px 1px 10px #000;
+}*/
     .jumbo-header:before {
         content: '';
         position: absolute;
@@ -10553,13 +10564,14 @@ button.close {
     }
 
     .jumbo-header .header-content {
-        padding: 2em 60px;
+        padding: 120px 60px 300px 60px !important;
         color: #fff;
         text-align: center;
         position: relative;
     }
 
         .jumbo-header .header-content h1 {
+			margin-top: 150px;
             margin-bottom: 2em;
             font-size: 46px;
             font-weight: normal;
