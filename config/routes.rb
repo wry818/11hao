@@ -415,6 +415,7 @@ Raisy::Application.routes.draw do
     end
     
     get 'fancylab/videolike/:id', to: 'fancy#video_like', as: :fancy_videolike
+    get 'fancylab/weishop', to: 'fancy#wei_shop', as: :fancy_weishop
 
     # if !Rails.env.production?
     # get '404', :to => 'application#page_not_found'

@@ -11,6 +11,13 @@ class FancyController < ApplicationController
       render "about_us", :layout=>false
     end
     
+    def wei_shop
+      # render text: "0" and return
+      url = "https://weidian.com/item.html?itemID=2270433038&wfr=c&ifr=itemdetail"
+
+      redirect_to url and return
+    end
+    
     def video_like
       video = FancylabVideo.find_by_id(params[:id])
       
