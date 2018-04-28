@@ -12,8 +12,8 @@ class FancyController < ApplicationController
     end
     
     def wei_shop
-      # render text: "0" and return
-      url = "https://weidian.com/item.html?itemID=2270433038&wfr=c&ifr=itemdetail"
+      @shop_url = ShopUrl.first
+      url = @shop_url.url
 
       redirect_to url and return
     end

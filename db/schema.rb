@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801053020) do
+ActiveRecord::Schema.define(version: 20180428015108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -689,6 +689,12 @@ ActiveRecord::Schema.define(version: 20160801053020) do
     t.string  "open_id"
   end
 
+  create_table "shop_urls", force: true do |t|
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+  
   create_table "social_share_histories", force: true do |t|
     t.integer  "seller_id"
     t.integer  "media_id"

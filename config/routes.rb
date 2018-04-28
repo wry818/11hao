@@ -105,6 +105,10 @@ Raisy::Application.routes.draw do
         get 'express/validate',to: 'express_upload#validate_check',as: :express_validate_ajax
         get 'express/update',to: 'express_upload#update_data',as: :express_update_ajax
         get 'express/donload',to: 'express_upload#donload',as: :express_donload
+        
+        get 'weishop_settings', to: 'weishop#settings', as: :weishop_settings
+        post 'save_weishop_settings', to: 'weishop#save_settings', as: :save_weishop_settings
+        
     end
 
   #Express

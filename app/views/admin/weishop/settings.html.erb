@@ -1,0 +1,30 @@
+<div id="settings" style="padding: 30px 0">
+    <div class="container">
+
+        <div class="row"> 
+        	<h3>微店链接设置</h3>
+			<%= form_tag(admin_save_weishop_settings_path, id: "weishop_settings_form", method: "post") do %>
+
+				<input type="text" style="width:100%" name="weishop_url" value="<%= @url %>" />
+				<br />
+				<br />
+		    	<button id="save_weishop_settings" class="btn btn-primary" type="button">
+		        	<span class="text">保存</span>
+		    	</button>
+					
+			<% end %>
+        </div>
+	</div>
+</div>
+
+<script>
+	
+	$(document).ready(function() {
+		
+		$("#save_weishop_settings").click(function() {
+			$("#weishop_settings_form").submit();		
+		});
+		
+	});
+	
+</script>
