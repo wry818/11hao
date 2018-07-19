@@ -1,10 +1,14 @@
 #encoding: utf-8
-class FancyController < ApplicationController
+class FancyController < ActionController::Base
 
     def index
       @videos = FancylabVideo.order(:id => :desc)
       
       render "index", :layout=>false
+    end
+    
+    def lottery
+      render "lottery", :layout=>false
     end
     
     def about_us
