@@ -44,14 +44,15 @@ class FancyController < ActionController::Base
         upload = params[:data]
         puts upload.original_filename
     
-        origin_path = './public/audios/' + upload.original_filename
+        origin_path = Rails.root.join('public', 'audios', upload.original_filename)
+        # puts origin_path
         File.open(origin_path, 'wb') do |file|
             file.write(upload.read)
         end
     
-        converted_path = './public/audios/' + upload.original_filename.first(upload.original_filename.length - 4) + ".pcm"
-        puts converted_path
-        system "ffmpeg -y  -i '" + origin_path + "'  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '" + converted_path + "'"
+        converted_path = Rails.root.join('public', 'audios', upload.original_filename.first(upload.original_filename.length - 4) + ".pcm")
+        # puts converted_path
+        system "ffmpeg -y  -i '" + origin_path.to_s + "'  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '" + converted_path.to_s + "'"
       
         base64String = Base64.strict_encode64(File.open(converted_path).read)
         size = File.size(converted_path)
