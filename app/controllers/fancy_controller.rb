@@ -42,16 +42,16 @@ class FancyController < ActionController::Base
       begin
     
         upload = params[:data]
-        Rails.logger.info upload.original_filename
+        # Rails.logger.info upload.original_filename
     
         origin_path = Rails.root.join('public', 'uploads', upload.original_filename)
-        puts origin_path
+
         File.open(origin_path, 'wb') do |file|
             file.write(upload.read)
         end
-        Rails.logger.info "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        
         converted_path = Rails.root.join('public', 'uploads', upload.original_filename.first(upload.original_filename.length - 4) + ".pcm")
-        Rails.logger.info converted_path
+        # Rails.logger.info converted_path
         system "ffmpeg -y  -i '" + origin_path.to_s + "'  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '" + converted_path.to_s + "'"
       
         base64String = Base64.strict_encode64(File.open(converted_path).read)
@@ -74,7 +74,7 @@ class FancyController < ActionController::Base
 
           request.add_field('Content-Type', 'application/json')
           request.body = {
-                    # dev_pid: 1537,
+                    # dev_pid: 1737,
                     format: "pcm",
                     rate: 16000,
                     channel: 1,
@@ -91,7 +91,7 @@ class FancyController < ActionController::Base
           @json = JSON.parse(response.body)
           result = @json["result"]
           
-          puts response.body
+          Rails.logger.info response.body
           render json: {code: 200, result: result}.to_json
         
         end
